@@ -1,7 +1,6 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -26,6 +25,28 @@ namespace CodeSmile.Scripts
 			m_PathPoints.Add(Vector3.right * m_GridSettings.TileSize.x);
 			m_PathPoints.Add(Vector3.right * m_GridSettings.TileSize.x + Vector3.forward * m_GridSettings.TileSize.y);
 			m_PathPoints.Add(Vector3.left * m_GridSettings.TileSize.x + Vector3.forward * m_GridSettings.TileSize.y);
+		}
+
+		public void AddPoint(Vector3 point) => m_PathPoints.Add(point);
+
+		public void SetPointsAtIndex(int pointIndex, Vector3 position, Vector3 direction)
+		{
+			if (direction == Vector3.zero)
+				return;
+
+			Debug.Log($"dir: {direction}");
+			for (var i = pointIndex; i < pointIndex + 1; i++)
+			{
+				var pos = position;
+				if (direction.x != 0f)
+					pos = new Vector3(position.x, 0f, 0f);
+				if (direction.y != 0f)
+					pos = new Vector3(0f, position.y, 0f);
+				if (direction.z != 0f)
+					pos = new Vector3(0f, 0f, position.z);
+
+				m_PathPoints[i] = pos;
+			}
 		}
 
 		public struct Grid
