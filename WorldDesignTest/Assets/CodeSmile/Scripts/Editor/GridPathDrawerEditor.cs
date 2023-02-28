@@ -18,19 +18,19 @@ namespace CodeSmile.Scripts
 			//m_DistanceFromCamera = new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y, Camera.main.transform.position.z - m_DistanceZ);
 			//m_Plane = new Plane(Vector3.forward, m_DistanceFromCamera);
 
+			m_ClosestLineIndex = GetClosestLineIndex(30f);
 			DrawPathLineHandles();
+			DrawPathLines();
+			DrawPathPoints();
 
 			var ev = Event.current;
 			switch (ev.type)
 			{
 				case EventType.Layout:
-					HandleUtility.AddDefaultControl(GUIUtility.GetControlID(FocusType.Passive));
-					m_ClosestLineIndex = GetClosestLineIndex(30f);
+					//HandleUtility.AddDefaultControl(GUIUtility.GetControlID(FocusType.Passive));
 
 					break;
 				case EventType.Repaint:
-					DrawPathLines();
-					DrawPathPoints();
 					break;
 
 				case EventType.MouseDown:
@@ -87,21 +87,34 @@ namespace CodeSmile.Scripts
 		private void DrawPathLineHandles()
 		{
 			var pathDrawer = (GridPathDrawer)target;
-			var path = pathDrawer.PathPoints.ToArray();
+			var path = pathDrawer.Path.ToArray();
 			for (var i = 0; i < path.Length - 1; i++)
 			{
 				var line = path[i + 1] - path[i];
 				var left = Vector3.Cross(line, Vector3.up);
 				var lineCenter = path[i] + line / 2f;
-				var size = pathDrawer.GridSettings.TileSize.x / 4f;
-				var newPosLeft = DrawPathLineDragHandle(i, lineCenter, left, size);
-				var newPosRight = DrawPathLineDragHandle(i, lineCenter, left * -1f, size);
+				var size = pathDrawer.GridSettings.TileSize.x ;
+				DrawPathLineDragHandle(i, lineCenter, left, size);
+				//DrawPathLineDragHandle(i, lineCenter, left * -1f, size);
 			}
 		}
 
-		private Vector3 DrawPathLineDragHandle(int pointIndex, Vector3 position, Vector3 direction, float size)
+		private void DrawPathLineDragHandle(int pointIndex, Vector3 position, Vector3 direction, float size)
 		{
 			EditorGUI.BeginChangeCheck();
+			var initialValue = 1f;
+			var snap = 1f;
+			var change = Handles.ScaleValueHandle(initialValue, position, Quaternion.identity, size, 
+				(id, position, rotation, size, type) =>
+			{
+				Handles.ArrowHandleCap(id, position, rotation, size, EventType.Repaint);
+				Handles.ArrowHandleCap(id, position, rotation, size, EventType.Layout);
+			}, snap);
+			
+			if (initialValue - change != 0f)
+				Debug.Log("value change: " + change);
+
+			/*
 			var newTargetPosition = Handles.Slider(position, direction, size,
 				(id, position, rotation, size, type) =>
 				{
@@ -114,11 +127,10 @@ namespace CodeSmile.Scripts
 				var pathDrawer = (GridPathDrawer)target;
 				Undo.RecordObject(pathDrawer, "Move Path Line");
 
-				pathDrawer.SetPointsAtIndex(pointIndex, newTargetPosition, direction);
+				pathDrawer.Path.MoveEdge(pointIndex, newTargetPosition, direction);
 				Debug.Log($"moved to: {newTargetPosition}");
 			}
-
-			return newTargetPosition;
+			*/
 		}
 
 		private void ProcessMouseDownEvent()
@@ -137,7 +149,7 @@ namespace CodeSmile.Scripts
 		private int GetClosestLineIndex(float minDistance)
 		{
 			var pathDrawer = (GridPathDrawer)target;
-			var points = pathDrawer.PathPoints;
+			var points = pathDrawer.Path;
 			var closestDistance = float.MaxValue;
 			var closestIndex = -1;
 			for (var i = 0; i < points.Count - 1; i++)
@@ -156,9 +168,9 @@ namespace CodeSmile.Scripts
 		private void DrawPathPoints()
 		{
 			var pathDrawer = (GridPathDrawer)target;
-			var path = pathDrawer.PathPoints;
+			var path = pathDrawer.Path;
 			Handles.color = Handles.elementPreselectionColor;
-			var size = 2f;
+			var size = 1f;
 			for (var i = 0; i < path.Count; i++)
 				Handles.SphereHandleCap(i, path[i], Quaternion.Euler(new Vector3(90f, 0f, 0f)), size, EventType.Repaint);
 			//Handles.CylinderHandleCap(i, path[i], Quaternion.Euler(new Vector3(90f, 0f, 0f)), size, EventType.Repaint);
@@ -167,7 +179,7 @@ namespace CodeSmile.Scripts
 		private void DrawPathLines()
 		{
 			var pathDrawer = (GridPathDrawer)target;
-			var path = pathDrawer.PathPoints;
+			var path = pathDrawer.Path;
 			for (var i = 0; i < path.Count - 1; i++)
 			{
 				Handles.color = m_ClosestLineIndex == i ? Handles.selectedColor : Handles.elementColor;
