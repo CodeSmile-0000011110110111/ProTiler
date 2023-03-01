@@ -9,6 +9,13 @@ namespace CodeSmile
 	{
 		const float MinDenominator = 0.00001f;
 		
+		/// <summary>
+		/// Test intersection of ray with a virtual XZ plane with given plane height (default: 0). 
+		/// </summary>
+		/// <param name="ray"></param>
+		/// <param name="intersectPoint"></param>
+		/// <param name="planeY"></param>
+		/// <returns></returns>
 		public static bool IntersectsVirtualPlane(UnityEngine.Ray ray, out Vector3 intersectPoint, float planeY = 0f)
 		{
 			intersectPoint = Vector3.negativeInfinity;
