@@ -2,24 +2,40 @@
 // Refer to included LICENSE file for terms and conditions.
 
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 namespace CodeSmile
 {
 	public class TileDrawer : MonoBehaviour
 	{
+		[SerializeField] private bool m_PickRandomTile = true;
+		[SerializeField] private int m_SelectedTileIndex;
 		[SerializeField] private List<GameObject> m_TilePrefabs;
 		public IReadOnlyList<GameObject> TilePrefabs => m_TilePrefabs;
 
 		public void CreateTileAt(Vector3 position)
 		{
-			var tilePrefab = GetRandomTile();
-			var tileInstance = Instantiate(tilePrefab, position, Quaternion.identity, transform);
+			m_SelectedTileIndex = Mathf.Clamp(m_SelectedTileIndex, 0, m_TilePrefabs.Count);
+
+			var tilePrefab = GetTile();
+			if (m_PickRandomTile || tilePrefab == null)
+				tilePrefab = GetRandomTile();
+
+			// make sure instances are linked to their prefab
+			var tileInstance = PrefabUtility.InstantiatePrefab(tilePrefab, transform) as GameObject;
+			tileInstance.transform.position = position;
+			//var tileInstance = Instantiate(tilePrefab, position, Quaternion.identity, transform);
 		}
 
-		private GameObject GetRandomTile()
+		private GameObject GetTile()
 		{
-			return m_TilePrefabs[Random.Range(0, m_TilePrefabs.Count)];
+			if (m_SelectedTileIndex >= 0 && m_SelectedTileIndex < m_TilePrefabs.Count)
+				return m_TilePrefabs[m_SelectedTileIndex];
+
+			return null;
 		}
+
+		private GameObject GetRandomTile() => m_TilePrefabs[Random.Range(0, m_TilePrefabs.Count)];
 	}
 }

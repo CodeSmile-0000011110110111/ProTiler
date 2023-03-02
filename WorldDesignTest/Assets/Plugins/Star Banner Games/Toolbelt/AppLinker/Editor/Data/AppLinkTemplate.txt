@@ -1,0 +1,21 @@
+#region LINKS
+
+		//START: #NAME#
+		[MenuItem("App Links/#DP_NAME#")]
+		public static void Open#NAME#()
+		{
+			Process.Start("#PATH#");
+		}
+		//ASSET_MENU
+		[MenuItem("Assets/Open in App/#DP_NAME#")]
+		public static void OpenIn#NAME#()
+		{
+			string path = AssetDatabase.GetAssetPath(Selection.activeObject);
+
+			if (string.IsNullOrEmpty(path)) return;
+
+            path = $"\"{path}\"";
+
+			Process.Start("#PATH#", @path);
+		}
+		//END: #NAME#
