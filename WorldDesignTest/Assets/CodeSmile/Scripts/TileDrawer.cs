@@ -9,13 +9,16 @@ namespace CodeSmile
 {
 	public class TileDrawer : MonoBehaviour
 	{
+		#pragma warning disable 0414
 		[SerializeField] private bool m_PickRandomTile = true;
 		[SerializeField] private int m_SelectedTileIndex;
 		[SerializeField] private List<GameObject> m_TilePrefabs;
 		public IReadOnlyList<GameObject> TilePrefabs => m_TilePrefabs;
+		#pragma warning restore
 
 		public void CreateTileAt(Vector3 position)
 		{
+#if UNITY_EDITOR
 			m_SelectedTileIndex = Mathf.Clamp(m_SelectedTileIndex, 0, m_TilePrefabs.Count);
 
 			var tilePrefab = GetTile();
@@ -26,6 +29,7 @@ namespace CodeSmile
 			var tileInstance = PrefabUtility.InstantiatePrefab(tilePrefab, transform) as GameObject;
 			tileInstance.transform.position = position;
 			//var tileInstance = Instantiate(tilePrefab, position, Quaternion.identity, transform);
+#endif
 		}
 
 		private GameObject GetTile()

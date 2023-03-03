@@ -18,8 +18,10 @@ namespace CodeSmile
 			ParentWithPrefabName,
 		}
 
+		#pragma warning disable 0414
 		[SerializeField] private string m_ParentObjectPrefix = "_";
 		[SerializeField] private MoveTo m_MoveTo;
+		#pragma warning restore
 
 		private void Start()
 		{
@@ -29,7 +31,7 @@ namespace CodeSmile
 				var prefab = PrefabUtility.GetCorrespondingObjectFromSource(gameObject);
 				if (prefab != null)
 				{
-					Debug.Log($"I'm that prefab: {prefab.name}");
+					//Debug.Log($"I'm that prefab: {prefab.name}");
 
 					var folderName = $"{m_ParentObjectPrefix}{prefab.name}";
 					var parent = GameObject.Find(folderName);

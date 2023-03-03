@@ -31,7 +31,7 @@ namespace CodeSmile.Scripts
 
 		public void ResetPath()
 		{
-			Debug.Log("ResetPath");
+			//Debug.Log("ResetPath");
 			m_Path.Clear();
 			m_Path.Add(Vector3.left * m_GridSettings.TileSize.x);
 			m_Path.Add(Vector3.right * m_GridSettings.TileSize.x);
