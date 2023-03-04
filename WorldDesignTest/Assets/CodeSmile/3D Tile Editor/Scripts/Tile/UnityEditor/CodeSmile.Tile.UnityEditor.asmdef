@@ -1,0 +1,16 @@
+{
+    "name": "CodeSmile.Tile.UnityEditor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:778dc1ae943a97647b34617c263c224d"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

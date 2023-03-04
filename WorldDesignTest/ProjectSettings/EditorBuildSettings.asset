@@ -6,6 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/CodeSmile/Scenes/RaceTrackEditingScene.unity
+    path: Assets/CodeSmile/_Prototype/Scenes/RaceTrackEditingScene.unity
     guid: dcd4357df45e6c141a0a3c8920ce3fc6
   m_configObjects: {}
