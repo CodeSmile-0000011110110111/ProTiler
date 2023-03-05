@@ -10,9 +10,9 @@ namespace CodeSmile.Tile
 	public sealed class TileGrid
 	{
 		[SerializeField] private Vector3Int m_Size;
-		[SerializeField] private Vector3Int m_Gap;
+		//[SerializeField] private Vector3Int m_Gap;
 		
 		public Vector3Int Size { get => m_Size; set => m_Size = value; }
-		public Vector3Int Gap { get => m_Gap; set => m_Gap = value; }
+		//public Vector3Int Gap { get => m_Gap; set => m_Gap = value; }
 	}
 }

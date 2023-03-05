@@ -11,25 +11,36 @@ namespace CodeSmile.Tile
 #if UNITY_EDITOR
 		public void OnValidate()
 		{
-			m_BrushIndex = Mathf.Clamp(m_BrushIndex, 0, m_PrefabTileset.Count);
+			ClampBrushIndex();
+
 			ValidateLayerPrefabs();
 		}
+
 		
+		private void ClampBrushIndex() => m_ActiveTileSetIndex = Mathf.Clamp(m_ActiveTileSetIndex, 0, m_TileSet.Count);
+
+
+
 		public void ValidateLayerPrefabs()
 		{
-			for (int i = 0; i < m_PrefabTileset.Count; i++)
+			Debug.Log($"tileset count: {m_TileSet.Count}");
+
+			for (var i = 0; i < m_TileSet.Count; i++)
 			{
-				var prefabTile = m_PrefabTileset[i];
-				if (prefabTile != null)
+				var tilePrefab = m_TileSet.GetPrefab(i);
+				if (tilePrefab != null)
 				{
-					var source = PrefabUtility.GetCorrespondingObjectFromOriginalSource(prefabTile);
+					var source = PrefabUtility.GetCorrespondingObjectFromOriginalSource(tilePrefab);
 					if (source == null)
 					{
-						Debug.LogWarning($"Tile '{prefabTile.name}' is a scene instance. Tiles must be prefabs!");
-						m_PrefabTileset[i] = null;
+						Debug.LogWarning($"Tile '{tilePrefab.name}' is a scene instance. Tiles must be prefabs!");
+						//m_TileSet[i] = null;
 					}
 				}
 			}
+
+			// FIXME: don't call this on every validate, only when changed...
+			m_TileSet.UpdateTiles();
 		}
 #endif
 	}

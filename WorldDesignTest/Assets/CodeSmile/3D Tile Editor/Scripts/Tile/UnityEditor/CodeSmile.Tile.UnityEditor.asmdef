@@ -2,7 +2,8 @@
     "name": "CodeSmile.Tile.UnityEditor",
     "rootNamespace": "",
     "references": [
-        "GUID:778dc1ae943a97647b34617c263c224d"
+        "GUID:778dc1ae943a97647b34617c263c224d",
+        "GUID:3eae0364be2026648bf74846acb8a731"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

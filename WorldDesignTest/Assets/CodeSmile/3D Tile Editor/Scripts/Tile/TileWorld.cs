@@ -6,31 +6,18 @@ using UnityEngine;
 
 namespace CodeSmile.Tile
 {
-	public enum TilePivot
-	{
-		Center,
-	}
-	
 	[ExecuteInEditMode]
 	public sealed partial class TileWorld : MonoBehaviour
 	{
-		[SerializeField] private TileGrid m_Grid = new();
+		[SerializeField] private int m_ActiveLayerIndex;
 		[SerializeField] private List<TileLayer> m_Layers = new();
-		[SerializeField] private TilePivot m_TilePivot;
-		
-		public TileGrid Grid => m_Grid;
-		public TilePivot TilePivot { get => m_TilePivot; set => m_TilePivot = value; }
-		//[SerializeField] private List<TileChunk> m_Chunks = new();
 
 		private void Start()
 		{
-			if (m_Layers.Count == 0)
-				m_Layers.Add(new TileLayer());
+			m_ActiveLayerIndex = 0;
+			//if (m_Layers.Count == 0) m_Layers.Add(new TileLayer());
 		}
 
-		public void DrawTile(Vector3 gridPosition)
-		{
-			Debug.Log($"draw at {gridPosition}");
-		}
+		public TileLayer ActiveLayer => m_Layers[m_ActiveLayerIndex];
 	}
 }
