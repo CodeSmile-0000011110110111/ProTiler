@@ -2,10 +2,10 @@
 // Refer to included LICENSE file for terms and conditions.
 
 using CodeSmile.UnityEditor;
-using System;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
+using TileGridCoord = UnityEngine.Vector3Int;
 
 namespace CodeSmile.Tile.UnityEditor
 {
@@ -14,7 +14,8 @@ namespace CodeSmile.Tile.UnityEditor
 	{
 		private readonly EditorInputState m_InputState = new();
 		private Vector3 m_CursorWorldPosition;
-		private TileGridCoord m_CursorTileGridCoord;
+		private TileGridCoord m_CursorCurrentCoord;
+		private TileGridCoord m_CursorStartCoord;
 
 		private void OnSceneGUI()
 		{
@@ -24,26 +25,28 @@ namespace CodeSmile.Tile.UnityEditor
 			switch (Event.current.type)
 			{
 				case EventType.MouseMove:
+					SetMouseDownCursorCoord(Event.current.mousePosition);
 					break;
 				case EventType.MouseDown:
 					if (IsLeftMouseButtonDown())
 					{
-						SetTileAt();
+						SetMouseDownCursorCoord(Event.current.mousePosition);
 						SetEventUsed(MouseButton.LeftMouse);
 					}
+					break;
+				case EventType.MouseUp:
+					SetTilesInSelection();
 					break;
 				case EventType.MouseDrag:
 					if (IsLeftMouseButtonDown())
 					{
-						// FIXME: prevent multiple draws on same coord
-						SetTileAt();
 						SetEventUsed(MouseButton.LeftMouse);
 					}
 					break;
 				case EventType.ScrollWheel:
 					break;
 				case EventType.Repaint:
-					UpdateTileCursorPosition(Event.current.mousePosition);
+					UpdateCursorCoord(Event.current.mousePosition);
 					DrawTileCursor();
 					break;
 				case EventType.Layout:
@@ -86,38 +89,61 @@ namespace CodeSmile.Tile.UnityEditor
 
 		private bool IsLeftMouseButtonDown() => m_InputState.IsButtonDown(MouseButton.LeftMouse);
 
-		private void SetTileAt()
+		private void SetTilesInSelection()
 		{
 			var tileWorld = (TileWorld)target;
-			tileWorld.ActiveLayer.SetTileAt(m_CursorTileGridCoord);
+			tileWorld.ActiveLayer.SetTileAt(m_CursorCurrentCoord);
 			EditorUtility.SetDirty(tileWorld);
 		}
 
 		private void SetEventUsed(MouseButton button) => Event.current.Use();
 
-		private void UpdateTileCursorPosition(Vector2 mousePos)
+		private void SetMouseDownCursorCoord(Vector2 mousePos)
+		{
+			m_CursorStartCoord = GetTileCoord(mousePos);
+			m_CursorStartCoord.y = 0;
+			//Debug.Log($"mouse down coord: {m_CursorStartCoord}");
+		}
+
+		private void UpdateCursorCoord(Vector2 mousePos)
+		{
+			m_CursorCurrentCoord = GetTileCoord(mousePos);
+			m_CursorCurrentCoord.y = 0;
+		}
+
+		private TileGridCoord GetTileCoord(Vector2 mousePos)
 		{
 			var ray = HandleUtility.GUIPointToWorldRay(mousePos);
 			if (Ray.IntersectsVirtualPlane(ray, out m_CursorWorldPosition))
 			{
 				var tileWorld = (TileWorld)target;
 				var gridSize = tileWorld.ActiveLayer.Grid.Size;
-				m_CursorTileGridCoord = new TileGridCoord(HandlesExt.SnapPointToGrid(m_CursorWorldPosition, gridSize));
-				m_CursorTileGridCoord.y = 0;
-
-				//Debug.Log($"Cursor: grid pos {m_CursorTileGridCoord}, world pos {m_CursorWorldPosition}");
+				return new TileGridCoord(HandlesExt.SnapPointToGrid(m_CursorWorldPosition, gridSize));
 			}
+
+			return default;
 		}
 
 		private void DrawTileCursor()
 		{
 			var tileWorld = (TileWorld)target;
 			var activeLayer = tileWorld.ActiveLayer;
-			var renderPos = activeLayer.GetTileWorldPosition(m_CursorTileGridCoord) + tileWorld.transform.position;
+
+			var worldPos = tileWorld.transform.position;
+
+			var centerPos = TileGridCoord.Center(m_CursorCurrentCoord, m_CursorStartCoord);
+			//Debug.Log($"center: {centerPos} from current-start: {m_CursorCurrentCoord} - {m_CursorStartCoord}");
+			var renderPos = activeLayer.GetTileWorldPosition(centerPos) + worldPos;
+
 			var gridSize = (Vector3)activeLayer.Grid.Size;
 			gridSize.y = activeLayer.TileCursorHeight;
 			renderPos.y += gridSize.y * .5f;
-			Handles.DrawWireCube(renderPos, gridSize);
+
+			var coordMin = Vector3Int.Min(m_CursorStartCoord.Value, m_CursorCurrentCoord.Value);
+			var coordMax = Vector3Int.Max(m_CursorStartCoord.Value, m_CursorCurrentCoord.Value);
+			var minToMax = coordMax - coordMin;
+			var cubeSize = new Vector3(minToMax.x * gridSize.x, activeLayer.TileCursorHeight, minToMax.z * gridSize.z) + gridSize;
+			Handles.DrawWireCube(renderPos, cubeSize);
 		}
 
 		private void AddDefaultControl()

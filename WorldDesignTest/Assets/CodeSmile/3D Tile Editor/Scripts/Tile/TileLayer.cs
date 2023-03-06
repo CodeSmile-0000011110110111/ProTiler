@@ -18,6 +18,7 @@ namespace CodeSmile.Tile
 		[SerializeField] private TileSet m_TileSet = new();
 		[SerializeField] private TileContainer m_TileContainer = new();
 		[SerializeField] private TilePivot m_TilePivot;
+		[SerializeField] private bool m_ClearTiles;
 		
 		public IEnumerator<KeyValuePair<TileGridCoord, Tile>> GetEnumerator() => m_TileContainer.GetEnumerator();
 		IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
@@ -44,6 +45,17 @@ namespace CodeSmile.Tile
 		{
 			var gridSize = m_Grid.Size;
 			return new Vector3(coord.x * gridSize.x, coord.y * gridSize.y, coord.z * gridSize.z) + GetTileOffset();
+		}
+
+		public Vector3 GetTileWorldPosition(Vector3 position)
+		{
+			var gridSize = m_Grid.Size;
+			return new Vector3(position.x * gridSize.x, position.y * gridSize.y, position.z * gridSize.z) + GetTileOffset();
+		}
+
+		public void ClearTiles()
+		{
+			m_TileContainer.Clear();
 		}
 	}
 }

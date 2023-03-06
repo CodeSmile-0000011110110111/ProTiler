@@ -39,6 +39,9 @@ namespace CodeSmile.Tile
 				var tile = coordTilePair.Value;
 
 				var prefab = tileLayer.TileSet.GetPrefab(tile.TileSetIndex);
+				if (prefab == null)
+					continue;
+				
 				var mesh = prefab.GetComponent<MeshFilter>().sharedMesh;
 				var materials = prefab.GetComponent<MeshRenderer>().sharedMaterials;
 				

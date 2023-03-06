@@ -11,8 +11,12 @@ namespace CodeSmile.Tile
 #if UNITY_EDITOR
 		public void OnValidate()
 		{
+			if (m_ClearTiles)
+			{
+				m_ClearTiles = false;
+				ClearTiles();
+			}
 			ClampBrushIndex();
-
 			ValidateLayerPrefabs();
 		}
 
@@ -23,8 +27,6 @@ namespace CodeSmile.Tile
 
 		public void ValidateLayerPrefabs()
 		{
-			Debug.Log($"tileset count: {m_TileSet.Count}");
-
 			for (var i = 0; i < m_TileSet.Count; i++)
 			{
 				var tilePrefab = m_TileSet.GetPrefab(i);
@@ -34,7 +36,7 @@ namespace CodeSmile.Tile
 					if (source == null)
 					{
 						Debug.LogWarning($"Tile '{tilePrefab.name}' is a scene instance. Tiles must be prefabs!");
-						//m_TileSet[i] = null;
+						m_TileSet.SetPrefab(i, null);
 					}
 				}
 			}

@@ -318,8 +318,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 723885287}
-  - component: {fileID: 723885288}
   - component: {fileID: 723885289}
+  - component: {fileID: 723885288}
   m_Layer: 0
   m_Name: TileWorld
   m_TagString: Untagged
@@ -351,441 +351,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 723885286}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6fc69f16a6954e1d98300ecf5e1e15c6, type: 3}
+  m_Script: {fileID: 11500000, guid: ee6cc9270f29460680a7a60a8ba8bc77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ActiveLayerIndex: 0
-  m_Layers:
-  - m_TileCursorHeight: 12
-    m_Grid:
-      m_Size: {x: 30, y: 0, z: 30}
-    m_ActiveTileSetIndex: 1
-    m_TileSet:
-      m_Prefabs:
-      - {fileID: 1000012903334526, guid: 286d7e0e1b770d64fa75cebd782f0ddf, type: 3}
-      - {fileID: 1000014259533324, guid: 887709bc49175ed4c9c7b4fee93eb6b9, type: 3}
-      - {fileID: 1344572429207624, guid: 55c27a256b2cf3f419daf3747f6901ad, type: 3}
-      m_Tiles:
-      - m_TileSetIndex: 0
-        m_Flags: 0
-      - m_TileSetIndex: 1
-        m_Flags: 0
-      - m_TileSetIndex: 2
-        m_Flags: 0
-    m_TileContainer:
-      m_Tiles:
-        m_Values:
-        - m_TileSetIndex: 2
-          m_Flags: 0
-        - m_TileSetIndex: 2
-          m_Flags: 0
-        - m_TileSetIndex: 2
-          m_Flags: 0
-        - m_TileSetIndex: 2
-          m_Flags: 0
-        - m_TileSetIndex: 2
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 2
-          m_Flags: 0
-        - m_TileSetIndex: 2
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 2
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 2
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 2
-          m_Flags: 0
-        - m_TileSetIndex: 2
-          m_Flags: 0
-        - m_TileSetIndex: 2
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 2
-          m_Flags: 0
-        - m_TileSetIndex: 2
-          m_Flags: 0
-        - m_TileSetIndex: 2
-          m_Flags: 0
-        - m_TileSetIndex: 2
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 2
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 2
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 2
-          m_Flags: 0
-        - m_TileSetIndex: 2
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 2
-          m_Flags: 0
-        - m_TileSetIndex: 2
-          m_Flags: 0
-        - m_TileSetIndex: 2
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 2
-          m_Flags: 0
-        - m_TileSetIndex: 2
-          m_Flags: 0
-        - m_TileSetIndex: 2
-          m_Flags: 0
-        - m_TileSetIndex: 2
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 2
-          m_Flags: 0
-        - m_TileSetIndex: 2
-          m_Flags: 0
-        - m_TileSetIndex: 2
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 2
-          m_Flags: 0
-        - m_TileSetIndex: 2
-          m_Flags: 0
-        - m_TileSetIndex: 2
-          m_Flags: 0
-        - m_TileSetIndex: 2
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 2
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 2
-          m_Flags: 0
-        - m_TileSetIndex: 2
-          m_Flags: 0
-        - m_TileSetIndex: 2
-          m_Flags: 0
-        - m_TileSetIndex: 2
-          m_Flags: 0
-        - m_TileSetIndex: 2
-          m_Flags: 0
-        - m_TileSetIndex: 2
-          m_Flags: 0
-        - m_TileSetIndex: 2
-          m_Flags: 0
-        - m_TileSetIndex: 2
-          m_Flags: 0
-        - m_TileSetIndex: 2
-          m_Flags: 0
-        - m_TileSetIndex: 2
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 2
-          m_Flags: 0
-        - m_TileSetIndex: 2
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 2
-          m_Flags: 0
-        - m_TileSetIndex: 2
-          m_Flags: 0
-        - m_TileSetIndex: 2
-          m_Flags: 0
-        - m_TileSetIndex: 2
-          m_Flags: 0
-        - m_TileSetIndex: 2
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 2
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 2
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 2
-          m_Flags: 0
-        - m_TileSetIndex: 2
-          m_Flags: 0
-        - m_TileSetIndex: 2
-          m_Flags: 0
-        - m_TileSetIndex: 2
-          m_Flags: 0
-        - m_TileSetIndex: 2
-          m_Flags: 0
-        - m_TileSetIndex: 2
-          m_Flags: 0
-        - m_TileSetIndex: 2
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 2
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 2
-          m_Flags: 0
-        - m_TileSetIndex: 2
-          m_Flags: 0
-        - m_TileSetIndex: 2
-          m_Flags: 0
-        - m_TileSetIndex: 2
-          m_Flags: 0
-        - m_TileSetIndex: 2
-          m_Flags: 0
-        - m_TileSetIndex: 2
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 2
-          m_Flags: 0
-        - m_TileSetIndex: 2
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 2
-          m_Flags: 0
-        - m_TileSetIndex: 2
-          m_Flags: 0
-        - m_TileSetIndex: 2
-          m_Flags: 0
-        - m_TileSetIndex: 2
-          m_Flags: 0
-        - m_TileSetIndex: 2
-          m_Flags: 0
-        - m_TileSetIndex: 2
-          m_Flags: 0
-        - m_TileSetIndex: 2
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-        - m_TileSetIndex: 1
-          m_Flags: 0
-    m_TilePivot: 0
+  m_PerformFrustumCulling: 0
+  m_PerformRangeCulling: 0
+  m_MaxRangeToCameraPos: 0
 --- !u!114 &723885289
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -795,12 +366,693 @@ MonoBehaviour:
   m_GameObject: {fileID: 723885286}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ee6cc9270f29460680a7a60a8ba8bc77, type: 3}
+  m_Script: {fileID: 11500000, guid: 6fc69f16a6954e1d98300ecf5e1e15c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_PerformFrustumCulling: 0
-  m_PerformRangeCulling: 0
-  m_MaxRangeToCameraPos: 0
+  m_ActiveLayerIndex: 0
+  m_Layers:
+  - m_TileCursorHeight: 5
+    m_Grid:
+      m_Size: {x: 30, y: 0, z: 30}
+    m_ActiveTileSetIndex: 0
+    m_TileSet:
+      m_Prefabs:
+      - {fileID: 1344572429207624, guid: 55c27a256b2cf3f419daf3747f6901ad, type: 3}
+      - {fileID: 1000014259533324, guid: 887709bc49175ed4c9c7b4fee93eb6b9, type: 3}
+      m_Tiles:
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 1
+        m_Flags: 0
+    m_TileContainer:
+      m_Tiles:
+        m_Keys:
+        - m_Coord: {x: 2, y: 0, z: 2}
+        - m_Coord: {x: 2, y: 0, z: 3}
+        - m_Coord: {x: 3, y: 0, z: 3}
+        - m_Coord: {x: 4, y: 0, z: 3}
+        - m_Coord: {x: 4, y: 0, z: 4}
+        - m_Coord: {x: 5, y: 0, z: 4}
+        - m_Coord: {x: 5, y: 0, z: 5}
+        - m_Coord: {x: 6, y: 0, z: 5}
+        - m_Coord: {x: 6, y: 0, z: 6}
+        - m_Coord: {x: 1, y: 0, z: 1}
+        - m_Coord: {x: 1, y: 0, z: 2}
+        - m_Coord: {x: 3, y: 0, z: 2}
+        - m_Coord: {x: 5, y: 0, z: 6}
+        - m_Coord: {x: 6, y: 0, z: 7}
+        - m_Coord: {x: 7, y: 0, z: 7}
+        - m_Coord: {x: 7, y: 0, z: 8}
+        - m_Coord: {x: 8, y: 0, z: 8}
+        - m_Coord: {x: 8, y: 0, z: 9}
+        - m_Coord: {x: 9, y: 0, z: 9}
+        - m_Coord: {x: 9, y: 0, z: 10}
+        - m_Coord: {x: 10, y: 0, z: 11}
+        - m_Coord: {x: 10, y: 0, z: 12}
+        - m_Coord: {x: 11, y: 0, z: 12}
+        - m_Coord: {x: 11, y: 0, z: 13}
+        - m_Coord: {x: 12, y: 0, z: 13}
+        - m_Coord: {x: 12, y: 0, z: 12}
+        - m_Coord: {x: 11, y: 0, z: 11}
+        - m_Coord: {x: 10, y: 0, z: 10}
+        - m_Coord: {x: 4, y: 0, z: 5}
+        - m_Coord: {x: 2, y: 0, z: 1}
+        - m_Coord: {x: 7, y: 0, z: 4}
+        - m_Coord: {x: 7, y: 0, z: 5}
+        - m_Coord: {x: 8, y: 0, z: 5}
+        - m_Coord: {x: 9, y: 0, z: 5}
+        - m_Coord: {x: 9, y: 0, z: 6}
+        - m_Coord: {x: 10, y: 0, z: 6}
+        - m_Coord: {x: 11, y: 0, z: 6}
+        - m_Coord: {x: 11, y: 0, z: 7}
+        - m_Coord: {x: 12, y: 0, z: 7}
+        - m_Coord: {x: 13, y: 0, z: 8}
+        - m_Coord: {x: 14, y: 0, z: 8}
+        - m_Coord: {x: 14, y: 0, z: 9}
+        - m_Coord: {x: 15, y: 0, z: 9}
+        - m_Coord: {x: 15, y: 0, z: 10}
+        - m_Coord: {x: 16, y: 0, z: 10}
+        - m_Coord: {x: 16, y: 0, z: 11}
+        - m_Coord: {x: 17, y: 0, z: 11}
+        - m_Coord: {x: 17, y: 0, z: 12}
+        - m_Coord: {x: 17, y: 0, z: 13}
+        - m_Coord: {x: 18, y: 0, z: 13}
+        - m_Coord: {x: 18, y: 0, z: 14}
+        - m_Coord: {x: 3, y: 0, z: 15}
+        - m_Coord: {x: 4, y: 0, z: 15}
+        - m_Coord: {x: 5, y: 0, z: 15}
+        - m_Coord: {x: 5, y: 0, z: 14}
+        - m_Coord: {x: 6, y: 0, z: 14}
+        - m_Coord: {x: 7, y: 0, z: 14}
+        - m_Coord: {x: 8, y: 0, z: 14}
+        - m_Coord: {x: 9, y: 0, z: 14}
+        - m_Coord: {x: 9, y: 0, z: 13}
+        - m_Coord: {x: 10, y: 0, z: 13}
+        - m_Coord: {x: 13, y: 0, z: 13}
+        - m_Coord: {x: 14, y: 0, z: 13}
+        - m_Coord: {x: 15, y: 0, z: 14}
+        - m_Coord: {x: 17, y: 0, z: 14}
+        - m_Coord: {x: 17, y: 0, z: 15}
+        - m_Coord: {x: 18, y: 0, z: 15}
+        - m_Coord: {x: 19, y: 0, z: 15}
+        - m_Coord: {x: 19, y: 0, z: 16}
+        - m_Coord: {x: 20, y: 0, z: 16}
+        - m_Coord: {x: 20, y: 0, z: 17}
+        - m_Coord: {x: 21, y: 0, z: 18}
+        - m_Coord: {x: 22, y: 0, z: 18}
+        - m_Coord: {x: 22, y: 0, z: 19}
+        - m_Coord: {x: 23, y: 0, z: 19}
+        - m_Coord: {x: 23, y: 0, z: 20}
+        - m_Coord: {x: 24, y: 0, z: 21}
+        - m_Coord: {x: 24, y: 0, z: 22}
+        - m_Coord: {x: 25, y: 0, z: 23}
+        - m_Coord: {x: 25, y: 0, z: 24}
+        - m_Coord: {x: 25, y: 0, z: 25}
+        - m_Coord: {x: 25, y: 0, z: 26}
+        - m_Coord: {x: 25, y: 0, z: 27}
+        - m_Coord: {x: 24, y: 0, z: 28}
+        - m_Coord: {x: 23, y: 0, z: 28}
+        - m_Coord: {x: 22, y: 0, z: 28}
+        - m_Coord: {x: 21, y: 0, z: 28}
+        - m_Coord: {x: 20, y: 0, z: 28}
+        - m_Coord: {x: 19, y: 0, z: 28}
+        - m_Coord: {x: 18, y: 0, z: 28}
+        - m_Coord: {x: 18, y: 0, z: 27}
+        - m_Coord: {x: 17, y: 0, z: 27}
+        - m_Coord: {x: 13, y: 0, z: 25}
+        - m_Coord: {x: 12, y: 0, z: 24}
+        - m_Coord: {x: 11, y: 0, z: 24}
+        - m_Coord: {x: 10, y: 0, z: 23}
+        - m_Coord: {x: 9, y: 0, z: 22}
+        - m_Coord: {x: 8, y: 0, z: 22}
+        - m_Coord: {x: 8, y: 0, z: 21}
+        - m_Coord: {x: 7, y: 0, z: 21}
+        - m_Coord: {x: 7, y: 0, z: 20}
+        - m_Coord: {x: 6, y: 0, z: 20}
+        - m_Coord: {x: 6, y: 0, z: 19}
+        - m_Coord: {x: 5, y: 0, z: 19}
+        - m_Coord: {x: 5, y: 0, z: 18}
+        - m_Coord: {x: 5, y: 0, z: 17}
+        - m_Coord: {x: 5, y: 0, z: 16}
+        - m_Coord: {x: 10, y: 0, z: 14}
+        - m_Coord: {x: 11, y: 0, z: 14}
+        - m_Coord: {x: 12, y: 0, z: 14}
+        - m_Coord: {x: 13, y: 0, z: 14}
+        - m_Coord: {x: 15, y: 0, z: 15}
+        - m_Coord: {x: 16, y: 0, z: 15}
+        - m_Coord: {x: 18, y: 0, z: 16}
+        - m_Coord: {x: 21, y: 0, z: 17}
+        - m_Coord: {x: 24, y: 0, z: 19}
+        - m_Coord: {x: 25, y: 0, z: 19}
+        - m_Coord: {x: 26, y: 0, z: 20}
+        - m_Coord: {x: 28, y: 0, z: 23}
+        - m_Coord: {x: 28, y: 0, z: 24}
+        - m_Coord: {x: 27, y: 0, z: 25}
+        - m_Coord: {x: 27, y: 0, z: 26}
+        - m_Coord: {x: 26, y: 0, z: 26}
+        - m_Coord: {x: 23, y: 0, z: 27}
+        - m_Coord: {x: 22, y: 0, z: 27}
+        - m_Coord: {x: 20, y: 0, z: 27}
+        - m_Coord: {x: 19, y: 0, z: 27}
+        - m_Coord: {x: 16, y: 0, z: 27}
+        - m_Coord: {x: 14, y: 0, z: 27}
+        - m_Coord: {x: 13, y: 0, z: 27}
+        - m_Coord: {x: 11, y: 0, z: 27}
+        - m_Coord: {x: 10, y: 0, z: 26}
+        - m_Coord: {x: 9, y: 0, z: 26}
+        - m_Coord: {x: 8, y: 0, z: 26}
+        - m_Coord: {x: 6, y: 0, z: 24}
+        - m_Coord: {x: 5, y: 0, z: 23}
+        - m_Coord: {x: 5, y: 0, z: 22}
+        - m_Coord: {x: 5, y: 0, z: 21}
+        - m_Coord: {x: 5, y: 0, z: 20}
+        - m_Coord: {x: 6, y: 0, z: 18}
+        - m_Coord: {x: 7, y: 0, z: 18}
+        - m_Coord: {x: 8, y: 0, z: 18}
+        - m_Coord: {x: 9, y: 0, z: 19}
+        - m_Coord: {x: 18, y: 0, z: 25}
+        - m_Coord: {x: 22, y: 0, z: 30}
+        - m_Coord: {x: 22, y: 0, z: 31}
+        - m_Coord: {x: 23, y: 0, z: 33}
+        - m_Coord: {x: 23, y: 0, z: 34}
+        - m_Coord: {x: 23, y: 0, z: 35}
+        - m_Coord: {x: 22, y: 0, z: 35}
+        - m_Coord: {x: 20, y: 0, z: 35}
+        - m_Coord: {x: 19, y: 0, z: 34}
+        - m_Coord: {x: 17, y: 0, z: 33}
+        - m_Coord: {x: 15, y: 0, z: 32}
+        - m_Coord: {x: 14, y: 0, z: 31}
+        - m_Coord: {x: 11, y: 0, z: 29}
+        - m_Coord: {x: 9, y: 0, z: 28}
+        - m_Coord: {x: 3, y: 0, z: 21}
+        - m_Coord: {x: 3, y: 0, z: 20}
+        - m_Coord: {x: 3, y: 0, z: 19}
+        - m_Coord: {x: 4, y: 0, z: 19}
+        - m_Coord: {x: 4, y: 0, z: 20}
+        - m_Coord: {x: 9, y: 0, z: 23}
+        - m_Coord: {x: 13, y: 0, z: 26}
+        - m_Coord: {x: 16, y: 0, z: 29}
+        - m_Coord: {x: 19, y: 0, z: 33}
+        - m_Coord: {x: 25, y: 0, z: 44}
+        - m_Coord: {x: 24, y: 0, z: 44}
+        - m_Coord: {x: 23, y: 0, z: 43}
+        - m_Coord: {x: 22, y: 0, z: 42}
+        - m_Coord: {x: 21, y: 0, z: 42}
+        - m_Coord: {x: 21, y: 0, z: 41}
+        - m_Coord: {x: 14, y: 0, z: 14}
+        - m_Coord: {x: 14, y: 0, z: 15}
+        - m_Coord: {x: 15, y: 0, z: 16}
+        - m_Coord: {x: 16, y: 0, z: 16}
+        - m_Coord: {x: 16, y: 0, z: 17}
+        - m_Coord: {x: 17, y: 0, z: 17}
+        - m_Coord: {x: 17, y: 0, z: 18}
+        - m_Coord: {x: 18, y: 0, z: 19}
+        - m_Coord: {x: 19, y: 0, z: 20}
+        - m_Coord: {x: 19, y: 0, z: 21}
+        - m_Coord: {x: 20, y: 0, z: 21}
+        - m_Coord: {x: 20, y: 0, z: 22}
+        - m_Coord: {x: 21, y: 0, z: 22}
+        - m_Coord: {x: 21, y: 0, z: 23}
+        - m_Coord: {x: 22, y: 0, z: 23}
+        - m_Coord: {x: 20, y: 0, z: 23}
+        - m_Coord: {x: 19, y: 0, z: 22}
+        - m_Coord: {x: 17, y: 0, z: 21}
+        - m_Coord: {x: 16, y: 0, z: 21}
+        - m_Coord: {x: 16, y: 0, z: 20}
+        - m_Coord: {x: 15, y: 0, z: 20}
+        - m_Coord: {x: 14, y: 0, z: 19}
+        - m_Coord: {x: 13, y: 0, z: 19}
+        - m_Coord: {x: 13, y: 0, z: 18}
+        - m_Coord: {x: 12, y: 0, z: 18}
+        - m_Coord: {x: 12, y: 0, z: 17}
+        - m_Coord: {x: 11, y: 0, z: 17}
+        - m_Coord: {x: 10, y: 0, z: 16}
+        - m_Coord: {x: 10, y: 0, z: 15}
+        - m_Coord: {x: 9, y: 0, z: 15}
+        - m_Coord: {x: 8, y: 0, z: 13}
+        - m_Coord: {x: 8, y: 0, z: 12}
+        - m_Coord: {x: 7, y: 0, z: 12}
+        - m_Coord: {x: 7, y: 0, z: 11}
+        - m_Coord: {x: 7, y: 0, z: 10}
+        - m_Coord: {x: 6, y: 0, z: 10}
+        - m_Coord: {x: 6, y: 0, z: 9}
+        - m_Coord: {x: 5, y: 0, z: 9}
+        - m_Coord: {x: 5, y: 0, z: 8}
+        - m_Coord: {x: 4, y: 0, z: 7}
+        - m_Coord: {x: 4, y: 0, z: 6}
+        - m_Coord: {x: 3, y: 0, z: 6}
+        - m_Coord: {x: 3, y: 0, z: 5}
+        - m_Coord: {x: 2, y: 0, z: 5}
+        - m_Coord: {x: 0, y: 0, z: 0}
+        - m_Coord: {x: 0, y: 0, z: 1}
+        - m_Coord: {x: 0, y: 0, z: 2}
+        - m_Coord: {x: 1, y: 0, z: 0}
+        - m_Coord: {x: 2, y: 0, z: 0}
+        m_Values:
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+        - m_TileSetIndex: 0
+          m_Flags: 0
+    m_TilePivot: 0
+    m_ClearTiles: 0
 --- !u!1001 &1140095829977071060
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -11,7 +11,7 @@ namespace CodeSmile.Tile
 		{
 #if UNITY_EDITOR
 			ClampLayerIndex();
-			ValidateLayerPrefabs();
+			StartCoroutine(new WaitForFramesElapsed(1, () => ValidateLayerPrefabs()));
 #endif
 		}
 

@@ -15,7 +15,8 @@ namespace CodeSmile.Tile
 		private void Start()
 		{
 			m_ActiveLayerIndex = 0;
-			//if (m_Layers.Count == 0) m_Layers.Add(new TileLayer());
+			if (m_Layers.Count == 0)
+				m_Layers.Add(new TileLayer());
 		}
 
 		public TileLayer ActiveLayer => m_Layers[m_ActiveLayerIndex];

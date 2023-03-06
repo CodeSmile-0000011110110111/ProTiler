@@ -26,7 +26,9 @@ namespace CodeSmile.Tile
 		{
 			m_Tiles.Clear();
 			for (var i = 0; i < m_Prefabs.Count; i++)
+			{
 				m_Tiles.Add(new Tile(i));
+			}
 		}
 	}
 }

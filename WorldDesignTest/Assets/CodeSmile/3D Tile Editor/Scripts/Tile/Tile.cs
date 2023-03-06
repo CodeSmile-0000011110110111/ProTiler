@@ -15,5 +15,7 @@ namespace CodeSmile.Tile
 		public Tile(int tileSetIndex, TileFlags flags = 0) => m_TileSetIndex = tileSetIndex;
 
 		public int TileSetIndex { get => m_TileSetIndex; set => m_TileSetIndex = value; }
+
+		public override string ToString() => $"TileSet Index #{m_TileSetIndex}, Flags: {m_Flags}";
 	}
 }
