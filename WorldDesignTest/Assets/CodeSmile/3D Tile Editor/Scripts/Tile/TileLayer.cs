@@ -5,11 +5,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using GridCoord = UnityEngine.Vector3Int;
 
 namespace CodeSmile.Tile
 {
 	[Serializable]
-	public sealed partial class TileLayer : IEnumerable<KeyValuePair<TileGridCoord, Tile>>
+	public sealed partial class TileLayer : IEnumerable<KeyValuePair<GridCoord, Tile>>
 	{
 		//[NonSerialized] private TileWorld m_World;
 		[SerializeField] private float m_TileCursorHeight = 5f;
@@ -20,7 +21,7 @@ namespace CodeSmile.Tile
 		[SerializeField] private TilePivot m_TilePivot;
 		[SerializeField] private bool m_ClearTiles;
 		
-		public IEnumerator<KeyValuePair<TileGridCoord, Tile>> GetEnumerator() => m_TileContainer.GetEnumerator();
+		public IEnumerator<KeyValuePair<GridCoord, Tile>> GetEnumerator() => m_TileContainer.GetEnumerator();
 		IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 		public TilePivot TilePivot { get => m_TilePivot; set => m_TilePivot = value; }
 
@@ -29,7 +30,7 @@ namespace CodeSmile.Tile
 		public TileSet TileSet => m_TileSet;
 		public float TileCursorHeight { get => m_TileCursorHeight; set => m_TileCursorHeight = value; }
 
-		public void SetTileAt(TileGridCoord coord) => m_TileContainer.SetTileAt(coord, m_TileSet.GetTile(m_ActiveTileSetIndex));
+		public void SetTileAt(GridCoord coord) => m_TileContainer.SetTileAt(coord, m_TileSet.GetTile(m_ActiveTileSetIndex));
 
 		public Vector3 GetTileOffset()
 		{
@@ -41,7 +42,7 @@ namespace CodeSmile.Tile
 			};
 		}
 
-		public Vector3 GetTileWorldPosition(TileGridCoord coord)
+		public Vector3 GetTileWorldPosition(GridCoord coord)
 		{
 			var gridSize = m_Grid.Size;
 			return new Vector3(coord.x * gridSize.x, coord.y * gridSize.y, coord.z * gridSize.z) + GetTileOffset();

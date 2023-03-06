@@ -5,7 +5,7 @@ using CodeSmile.UnityEditor;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
-using TileGridCoord = UnityEngine.Vector3Int;
+using GridCoord = UnityEngine.Vector3Int;
 
 namespace CodeSmile.Tile.UnityEditor
 {
@@ -14,8 +14,8 @@ namespace CodeSmile.Tile.UnityEditor
 	{
 		private readonly EditorInputState m_InputState = new();
 		private Vector3 m_CursorWorldPosition;
-		private TileGridCoord m_CursorCurrentCoord;
-		private TileGridCoord m_CursorStartCoord;
+		private GridCoord m_CursorCurrentCoord;
+		private GridCoord m_CursorStartCoord;
 
 		private void OnSceneGUI()
 		{
@@ -26,6 +26,7 @@ namespace CodeSmile.Tile.UnityEditor
 			{
 				case EventType.MouseMove:
 					SetMouseDownCursorCoord(Event.current.mousePosition);
+					UpdateCursorCoord(Event.current.mousePosition);
 					break;
 				case EventType.MouseDown:
 					if (IsLeftMouseButtonDown())
@@ -40,13 +41,13 @@ namespace CodeSmile.Tile.UnityEditor
 				case EventType.MouseDrag:
 					if (IsLeftMouseButtonDown())
 					{
+						UpdateCursorCoord(Event.current.mousePosition);
 						SetEventUsed(MouseButton.LeftMouse);
 					}
 					break;
 				case EventType.ScrollWheel:
 					break;
 				case EventType.Repaint:
-					UpdateCursorCoord(Event.current.mousePosition);
 					DrawTileCursor();
 					break;
 				case EventType.Layout:
@@ -100,25 +101,25 @@ namespace CodeSmile.Tile.UnityEditor
 
 		private void SetMouseDownCursorCoord(Vector2 mousePos)
 		{
-			m_CursorStartCoord = GetTileCoord(mousePos);
+			m_CursorStartCoord = GetGridCoord(mousePos);
 			m_CursorStartCoord.y = 0;
 			//Debug.Log($"mouse down coord: {m_CursorStartCoord}");
 		}
 
 		private void UpdateCursorCoord(Vector2 mousePos)
 		{
-			m_CursorCurrentCoord = GetTileCoord(mousePos);
+			m_CursorCurrentCoord = GetGridCoord(mousePos);
 			m_CursorCurrentCoord.y = 0;
 		}
 
-		private TileGridCoord GetTileCoord(Vector2 mousePos)
+		private GridCoord GetGridCoord(Vector2 mousePos)
 		{
 			var ray = HandleUtility.GUIPointToWorldRay(mousePos);
 			if (Ray.IntersectsVirtualPlane(ray, out m_CursorWorldPosition))
 			{
 				var tileWorld = (TileWorld)target;
 				var gridSize = tileWorld.ActiveLayer.Grid.Size;
-				return new TileGridCoord(HandlesExt.SnapPointToGrid(m_CursorWorldPosition, gridSize));
+				return GridCoord.FloorToInt(HandlesExt.SnapPointToGrid(m_CursorWorldPosition, gridSize));
 			}
 
 			return default;
@@ -131,7 +132,7 @@ namespace CodeSmile.Tile.UnityEditor
 
 			var worldPos = tileWorld.transform.position;
 
-			var centerPos = TileGridCoord.Center(m_CursorCurrentCoord, m_CursorStartCoord);
+			var centerPos = (Vector3)(m_CursorCurrentCoord - m_CursorStartCoord) / 2f + m_CursorStartCoord;
 			//Debug.Log($"center: {centerPos} from current-start: {m_CursorCurrentCoord} - {m_CursorStartCoord}");
 			var renderPos = activeLayer.GetTileWorldPosition(centerPos) + worldPos;
 
@@ -139,11 +140,22 @@ namespace CodeSmile.Tile.UnityEditor
 			gridSize.y = activeLayer.TileCursorHeight;
 			renderPos.y += gridSize.y * .5f;
 
-			var coordMin = Vector3Int.Min(m_CursorStartCoord.Value, m_CursorCurrentCoord.Value);
-			var coordMax = Vector3Int.Max(m_CursorStartCoord.Value, m_CursorCurrentCoord.Value);
-			var minToMax = coordMax - coordMin;
-			var cubeSize = new Vector3(minToMax.x * gridSize.x, activeLayer.TileCursorHeight, minToMax.z * gridSize.z) + gridSize;
+			var cursorHeight = activeLayer.TileCursorHeight;
+			var selection = GetSelectionRect();
+			renderPos = new Vector3(selection.center.x + selection.width * gridSize.x, renderPos.y, selection.center.y+ selection.width * gridSize.z);
+			var cubeSize = new Vector3(selection.width * gridSize.x, cursorHeight, selection.height * gridSize.z);
 			Handles.DrawWireCube(renderPos, cubeSize);
+		}
+
+		private RectInt GetSelectionRect()
+		{
+			var coordMin = GridCoord.Min(m_CursorStartCoord, m_CursorCurrentCoord);
+			var coordMax = GridCoord.Max(m_CursorStartCoord, m_CursorCurrentCoord);
+			var selection = new RectInt(coordMin.x, coordMin.z,
+				coordMin.x + coordMax.x + 1,
+				coordMin.z + coordMax.z + 1);
+			Debug.Log($"rect: {selection} from min/max: {coordMin} / {coordMax}");
+			return selection;
 		}
 
 		private void AddDefaultControl()

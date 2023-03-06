@@ -6,22 +6,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
+using GridCoord = UnityEngine.Vector3Int;
 
 namespace CodeSmile.Tile
 {
 	[Serializable]
-	public sealed class CoordAndTile : SerializedDictionary<TileGridCoord, Tile> {}
+	public sealed class CoordAndTile : SerializedDictionary<GridCoord, Tile> {}
 
 	[Serializable]
-	public sealed class TileContainer : IEnumerable<KeyValuePair<TileGridCoord, Tile>>
+	public sealed class TileContainer : IEnumerable<KeyValuePair<GridCoord, Tile>>
 	{
 		[SerializeField] private CoordAndTile m_Tiles = new();
 
 	
-		public IEnumerator<KeyValuePair<TileGridCoord, Tile>> GetEnumerator() => m_Tiles.GetEnumerator();
+		public IEnumerator<KeyValuePair<GridCoord, Tile>> GetEnumerator() => m_Tiles.GetEnumerator();
 		IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
-		public void SetTileAt(TileGridCoord coord, Tile tile)
+		public void SetTileAt(GridCoord coord, Tile tile)
 		{
 			if (tile != null)
 			{
@@ -32,7 +33,7 @@ namespace CodeSmile.Tile
 			}
 		}
 
-		public void ClearTileAt(TileGridCoord coord)
+		public void ClearTileAt(GridCoord coord)
 		{
 			if (m_Tiles.ContainsKey(coord))
 				m_Tiles.Remove(coord);
