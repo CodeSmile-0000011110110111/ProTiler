@@ -2,7 +2,7 @@ using JetBrains.RiderFlow.Core;
 using JetBrains.RiderFlow.Core.ReEditor.Notifications;
 using UnityEditor;
 
-namespace JetBrains.RiderFlow.Since2021_2
+namespace JetBrains.RiderFlow.Since2022_2
 {
     public class ProgressManager : IProgressManager
     {

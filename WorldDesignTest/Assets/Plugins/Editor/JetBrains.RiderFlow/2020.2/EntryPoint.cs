@@ -1,4 +1,5 @@
 ﻿using JetBrains.RiderFlow.Core.Launchers;
+using JetBrains.RiderFlow.Core.Logging;
 using JetBrains.RiderFlow.Core.ReEditor.Notifications;
 using JetBrains.RiderFlow.Core.Services.Caches.RecentFiles;
 using JetBrains.RiderFlow.Core.UI.SearchEverywhere;
@@ -14,6 +15,8 @@ namespace JetBrains.RiderFlow.Since2020_2
 
         static DelayedEntryPoint()
         {
+            LogManager.Instance.Initialize();
+
             SearchEverywhereWindow.Settings = SearchWindowSettings.instance;
             RecentFilesCacheController.Cache = RecentFilesCache.instance;
             ProgressManagerOwner.ProgressManager = new ProgressManager();

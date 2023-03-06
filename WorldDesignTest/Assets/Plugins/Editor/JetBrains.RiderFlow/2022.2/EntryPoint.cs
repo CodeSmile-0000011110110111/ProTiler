@@ -10,13 +10,13 @@ using JetBrains.RiderFlow.Core.UI.SceneIntegration;
 using JetBrains.RiderFlow.Core.UI.SceneIntegration.Tools.SceneHighlighting;
 using JetBrains.RiderFlow.Core.UI.SearchEverywhere;
 using JetBrains.RiderFlow.Core.Utils;
-using JetBrains.RiderFlow.Since2021_2.EnhancedHierarchyIntegration;
-using JetBrains.RiderFlow.Since2021_2.SceneIntegration;
+using JetBrains.RiderFlow.Since2022_2.EnhancedHierarchyIntegration;
+using JetBrains.RiderFlow.Since2022_2.SceneIntegration;
 using UnityEditor;
 using UnityEditor.Overlays;
 using UnityEngine;
 
-namespace JetBrains.RiderFlow.Since2021_2
+namespace JetBrains.RiderFlow.Since2022_2
 {
     [InitializeOnLoad]
     public class DelayedEntryPoint

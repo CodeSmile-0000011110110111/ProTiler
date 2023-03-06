@@ -1,6 +1,6 @@
 {
-    "name": "JetBrains.Frontend.2021.2",
-    "rootNamespace": "JetBrains.RiderFlow.Since2021_2",
+    "name": "JetBrains.Frontend.2022.2",
+    "rootNamespace": "JetBrains.RiderFlow.Since2022_2",
     "references": [
         "GUID:851cac727340a4b85a384cbad297a1aa"
     ],
@@ -16,7 +16,7 @@
     ],
     "autoReferenced": false,
     "defineConstraints": [
-        "UNITY_2021 || UNITY_2022_1"
+        "UNITY_2022_2_OR_NEWER"
     ],
     "versionDefines": [],
     "noEngineReferences": false

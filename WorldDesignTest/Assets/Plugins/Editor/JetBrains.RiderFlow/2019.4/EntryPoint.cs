@@ -1,4 +1,5 @@
 ﻿using JetBrains.RiderFlow.Core.Launchers;
+using JetBrains.RiderFlow.Core.Logging;
 using JetBrains.RiderFlow.Core.ReEditor.Notifications;
 using JetBrains.RiderFlow.Core.UI.SearchEverywhere;
 using JetBrains.RiderFlow.Core.Utils;
@@ -14,6 +15,8 @@ namespace JetBrains.RiderFlow.Since2019_4
 
         static DelayedEntryPoint()
         {
+            LogManager.Instance.Initialize();
+
             SearchEverywhereWindow.Settings = new SearchWindowSettings();
             ProgressManagerOwner.ProgressManager = new LogProgressManager();
             GameObjectUtils.GlobalObjectIdentifiersToInstanceIDsSlow = GlobalObjectIdsToInstanceIds;

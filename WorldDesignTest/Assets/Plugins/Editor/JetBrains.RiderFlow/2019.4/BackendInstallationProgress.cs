@@ -10,13 +10,19 @@ namespace JetBrains.RiderFlow.Since2019_4
     {
         public static void Initialize()
         {
-            BackendDownloadProgressManager.Create = () => new BackendDownloadProgress();
-            BackendExtractProgressManager.Create = () => new BackendExtractProgress();
+            BackendDownloadProgressManager.Create = (name) => new BackendDownloadProgress(name);
+            BackendExtractProgressManager.Create = (name) => new BackendExtractProgress(name);
         }
 
         private class BackendDownloadProgress : DownloadTools.IDownloadProgress
         {
+            private readonly string myName;
             private readonly IntervalProgress myProgress = new IntervalProgress();
+
+            public BackendDownloadProgress(string name)
+            {
+                myName = name;
+            }
 
             public void Start()
             {
@@ -32,12 +38,12 @@ namespace JetBrains.RiderFlow.Since2019_4
 
             public void Finish()
             {
-                Debug.Log("RiderFlow: Finished downloading backend service archive");
+                Debug.Log($"RiderFlow: Finished downloading for {myName}");
             }
 
-            private static void ShowStartedDownloadingMessage()
+            private void ShowStartedDownloadingMessage()
             {
-                Debug.Log("RiderFlow: Started downloading backend service archive");
+                Debug.Log($"RiderFlow: Started downloading for {myName}");
             }
 
             private void UpdateProgress(int downloadedMegabytes, int totalMegabytes, int downloadSpeedInMegabytes)
@@ -56,7 +62,13 @@ namespace JetBrains.RiderFlow.Since2019_4
 
         private class BackendExtractProgress : ExtractTools.IExtractProgress
         {
+            private readonly string myName;
             private readonly IntervalProgress myProgress = new IntervalProgress();
+
+            public BackendExtractProgress(string name)
+            {
+                myName = name;
+            }
 
             public void Start()
             {
@@ -70,12 +82,12 @@ namespace JetBrains.RiderFlow.Since2019_4
 
             public void Finish()
             {
-                Debug.Log("RiderFlow: Finished extracting backend service archive");
+                Debug.Log($"RiderFlow: Finished installation for {myName}");
             }
 
-            private static void ShowExtractionStartedMessage()
+            private void ShowExtractionStartedMessage()
             {
-                Debug.Log("RiderFlow: Started extracting backend service archive");
+                Debug.Log($"RiderFlow: Started installation for {myName}");
             }
 
             private void UpdateProgress(int extractedFilesCount, int totalExtractedFiles)

@@ -9,18 +9,24 @@ namespace JetBrains.RiderFlow.Since2020_2
     {
         public static void Initialize()
         {
-            BackendDownloadProgressManager.Create = () => new BackendDownloadProgress();
-            BackendExtractProgressManager.Create = () => new BackendExtractProgress();
+            BackendDownloadProgressManager.Create = (name) => new BackendDownloadProgress(name);
+            BackendExtractProgressManager.Create = (name) => new BackendExtractProgress(name);
         }
 
         private class BackendDownloadProgress : DownloadTools.IDownloadProgress
         {
+            private readonly string myName;
             private ProgressCookie myProgressCookie;
+
+            public BackendDownloadProgress(string name)
+            {
+                myName = name;
+            }
 
             public void Start()
             {
                 MainThreadScheduler.Instance.Queue(() =>
-                    myProgressCookie = new ProgressCookie("Downloading backend service archive", ""));
+                    myProgressCookie = new ProgressCookie($"Downloading {myName}", ""));
             }
 
             public void UpdateOnEachDownloadedMegabyte(int downloadedMegabytes, int totalMegabytes,
@@ -45,12 +51,18 @@ namespace JetBrains.RiderFlow.Since2020_2
 
         private class BackendExtractProgress : ExtractTools.IExtractProgress
         {
+            private readonly string myName;
             private ProgressCookie myProgressCookie;
+
+            public BackendExtractProgress(string name)
+            {
+                myName = name;
+            }
 
             public void Start()
             {
                 MainThreadScheduler.Instance.Queue(() =>
-                    myProgressCookie = new ProgressCookie("Extracting backend service archive", ""));
+                    myProgressCookie = new ProgressCookie($"Installing {myName}", ""));
             }
 
             public void OnEachExtractedFile(int extractedFilesCount, int totalExtractedFiles)

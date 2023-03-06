@@ -3,14 +3,11 @@ using System.Reflection;
 using JetBrains.RiderFlow.Core.Services.Caches.GameObjects;
 using JetBrains.RiderFlow.Core.Utils;
 using UnityEditor;
-using UnityEditor.Experimental.SceneManagement;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-// Need to use prefabAssetPath in Unity 2019.4 so warning is disabled
-#pragma warning disable CS0618
 
-namespace JetBrains.RiderFlow.Since2019_4.EnhancedHierarchyIntegration
+namespace JetBrains.RiderFlow.Since2022_2.EnhancedHierarchyIntegration
 {
     public static class OpenedPrefabPreviewTrackerIntegration
     {
@@ -38,15 +35,15 @@ namespace JetBrains.RiderFlow.Since2019_4.EnhancedHierarchyIntegration
             GameObjectUtils.SavePrefabPreview = SavePrefabPreview;
         }
 
-        private static void OnPrefabOpened(PrefabStage stage, OpenedPrefabPreviewTracker tracker)
+        private static void OnPrefabOpened(PreviewSceneStage stage, OpenedPrefabPreviewTracker tracker)
         {
-            var preview = new OpenedPrefabPreviewTracker.Stage(stage.scene, stage.prefabAssetPath);
+            var preview = new OpenedPrefabPreviewTracker.Stage(stage.scene, stage.assetPath);
             tracker.OpenedPrefabPreview.Add(preview);
         }
 
-        private static void OnPrefabClosing(PrefabStage stage, OpenedPrefabPreviewTracker tracker)
+        private static void OnPrefabClosing(PreviewSceneStage stage, OpenedPrefabPreviewTracker tracker)
         {
-            var preview = new OpenedPrefabPreviewTracker.Stage(stage.scene, stage.prefabAssetPath);
+            var preview = new OpenedPrefabPreviewTracker.Stage(stage.scene, stage.assetPath);
             tracker.OpenedPrefabPreview.Remove(preview);
         }
 
@@ -54,23 +51,23 @@ namespace JetBrains.RiderFlow.Since2019_4.EnhancedHierarchyIntegration
         {
             var prefabStage = PrefabStageUtility.GetPrefabStage(g);
             if (prefabStage is null) return null;
-            return new GUID(AssetDatabase.AssetPathToGUID(prefabStage.prefabAssetPath));
+            return new GUID(AssetDatabase.AssetPathToGUID(prefabStage.assetPath));
         }
 
         private static string PreviewPath()
         {
-            return PrefabStageUtility.GetCurrentPrefabStage()?.prefabAssetPath;
+            return PrefabStageUtility.GetCurrentPrefabStage()?.assetPath;
         }
 
         private static Scene? PreviewScene()
         {
             return PrefabStageUtility.GetCurrentPrefabStage()?.scene;
         }
-
+        
         private static bool IsPrefabAutoSaveEnabled()
         {
             var stage = PrefabStageUtility.GetCurrentPrefabStage();
-            if (stage is null || stage.prefabAssetPath == "") return true;
+            if (stage is null || stage.assetPath == "") return true;
             var autoSave = typeof(PrefabStage)
                 .GetProperty("autoSave", BindingFlags.Instance | BindingFlags.NonPublic)?
                 .GetValue(stage);
@@ -80,9 +77,9 @@ namespace JetBrains.RiderFlow.Since2019_4.EnhancedHierarchyIntegration
         private static bool SavePrefabPreview()
         {
             var stage = PrefabStageUtility.GetCurrentPrefabStage();
-            if (stage is null || stage.prefabAssetPath == "") return false;
-            var save = typeof(PrefabStage).GetMethod("SavePrefabWithVersionControlDialogAndRenameDialog", 
-                BindingFlags.Instance | BindingFlags.NonPublic);
+            if (stage is null || stage.assetPath == "") return false;
+            var save = typeof(PrefabStage)
+                .GetMethod("Save", BindingFlags.Instance | BindingFlags.NonPublic);
             if (save is null) return false;
             return (bool)save.Invoke(stage, null);
         }

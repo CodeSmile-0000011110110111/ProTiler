@@ -3,7 +3,7 @@ using JetBrains.RiderFlow.Core.Infrastructure.Tools;
 using JetBrains.RiderFlow.Core.ReEditor.Notifications;
 using JetBrains.RiderFlow.Core.Threading;
 
-namespace JetBrains.RiderFlow.Since2021_2
+namespace JetBrains.RiderFlow.Since2022_2
 {
     public static class BackendInstallationProgress
     {
