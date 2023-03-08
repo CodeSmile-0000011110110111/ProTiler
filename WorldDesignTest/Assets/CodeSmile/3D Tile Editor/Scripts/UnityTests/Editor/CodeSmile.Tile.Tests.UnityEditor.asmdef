@@ -3,7 +3,9 @@
     "rootNamespace": "",
     "references": [
         "UnityEngine.TestRunner",
-        "UnityEditor.TestRunner"
+        "UnityEditor.TestRunner",
+        "Unity.Mathematics",
+        "CodeSmile.Tile"
     ],
     "includePlatforms": [
         "Editor"

@@ -24,25 +24,25 @@ namespace CodeSmile.EditorTests
 
 		private static void ClearHideFlags(GameObject instance)
 		{
-			if (instance.IsNullOrMissing() == false)
+			if (instance.IsMissing() == false)
 				instance.hideFlags = HideFlags.None;
 		}
 
 		private static void SetHideFlags(GameObject instance)
 		{
-			if (instance.IsNullOrMissing() == false)
+			if (instance.IsMissing() == false)
 				instance.hideFlags = HideFlags.HideInHierarchy | HideFlags.HideInInspector;
 		}
 
 		private static void SetInactive(GameObject instance)
 		{
-			if (instance.IsNullOrMissing() == false)
+			if (instance.IsMissing() == false)
 				instance.SetActive(false);
 		}
 
 		private static void SetActive(GameObject instance)
 		{
-			if (instance.IsNullOrMissing() == false)
+			if (instance.IsMissing() == false)
 				instance.SetActive(true);
 		}
 
@@ -65,10 +65,10 @@ namespace CodeSmile.EditorTests
 		private void DestroyAllChildrenAndHumanityAsWeKnowIt()
 		{
 			Profiler.BeginSample("DestroyAllChildren");
-			for (var i = transform.childCount - 1; i >= 0; i--)
-				DestroyImmediate(transform.GetChild(i).gameObject);
+			transform.DestroyAllChildren();
 			Profiler.EndSample();
 		}
+
 
 		private void InstantiateAndDestroy()
 		{

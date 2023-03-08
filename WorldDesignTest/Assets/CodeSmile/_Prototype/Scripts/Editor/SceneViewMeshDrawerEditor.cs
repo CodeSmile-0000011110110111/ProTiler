@@ -2,6 +2,7 @@
 // Refer to included LICENSE file for terms and conditions.
 
 using CodeSmile.EditorTests;
+using System;
 using UnityEditor;
 using UnityEngine;
 
@@ -22,6 +23,8 @@ namespace CodeSmile.UnityEditor
 					window.UpdateTileGridPos(mousePos, (target as SceneViewMeshDrawer).transform.position);
 				else
 				{
+					throw new NotImplementedException("removed due to deprecated SnapPointToGrid method");
+					/*
 					var ray = HandleUtility.GUIPointToWorldRay(mousePos);
 					if (Ray.IntersectsVirtualPlane(ray, out var intersectPoint))
 					{
@@ -29,6 +32,7 @@ namespace CodeSmile.UnityEditor
 						var gridPoint = HandlesExt.SnapPointToGrid(intersectPoint, gridSize);
 						Debug.Log($"hit: {gridPoint} from intersect point {intersectPoint}");
 					}
+				*/
 				}
 			}
 		}

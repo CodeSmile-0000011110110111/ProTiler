@@ -44,9 +44,8 @@ namespace CodeSmile.HandlesTest.UnityEditor
 					Debug.Log($"picked {picked.name}");
 				else
 				{
-					var ray = HandleUtility.GUIPointToWorldRay(mousePos);
-					if (Ray.IntersectsVirtualPlane(ray, out m_IntersectPoint))
-						Debug.Log($"hit virtual plane at {m_IntersectPoint}");
+					//var ray = HandleUtility.GUIPointToWorldRay(mousePos);
+					//if (ray.IntersectsPlane(out m_IntersectPoint)) Debug.Log($"hit virtual plane at {m_IntersectPoint}");
 				}
 			}
 			else if (evType == EventType.Repaint)

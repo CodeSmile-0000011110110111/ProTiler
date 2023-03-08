@@ -12,27 +12,27 @@ namespace CodeSmile
 	/// </summary>
 	public class WaitForFramesElapsed : IEnumerator
 	{
-		private readonly int _callbackFrameCount;
-		private readonly Action _callback;
+		private readonly int m_CallbackFrameCount;
+		private readonly Action m_Action;
 
 		public object Current => null;
 
-		public WaitForFramesElapsed(int numberOfFramesToWait, Action callback)
+		public WaitForFramesElapsed(int numberOfFramesToWait, Action action)
 		{
 			if (numberOfFramesToWait <= 0)
-				throw new ArgumentException("number of frames to wait must be 1 or greater");
-			if (callback == null)
+				throw new ArgumentException($"{nameof(numberOfFramesToWait)} must be 1 or greater");
+			if (action == null)
 				throw new ArgumentNullException("callback Action must not be null");
 
-			_callbackFrameCount = Time.frameCount + numberOfFramesToWait;
-			_callback = callback;
+			m_CallbackFrameCount = Time.frameCount + numberOfFramesToWait;
+			m_Action = action;
 		}
 
 		public bool MoveNext()
 		{
-			if (Time.frameCount >= _callbackFrameCount)
+			if (Time.frameCount >= m_CallbackFrameCount)
 			{
-				_callback.Invoke();
+				m_Action.Invoke();
 				return false;
 			}
 

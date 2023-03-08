@@ -50,18 +50,20 @@ namespace CodeSmile.UnityEditor
 				{
 					//Debug.Log($"picked {picked.name}");
 					m_IntersectPoint[0] = pickedObject.transform.position;
-					HandlesExt.SnapIntersectPointsToGrid(m_IntersectPoint);
+					Handles.SnapToGrid(m_IntersectPoint);
 					canPlaceTile = true;
 				}
 				else
 				{
+					/*
 					var ray = HandleUtility.GUIPointToWorldRay(mousePos);
-					if (Ray.IntersectsVirtualPlane(ray, out m_IntersectPoint[0]))
+					if (ray.IntersectsPlane(out m_IntersectPoint[0]))
 					{
 						HandlesExt.SnapIntersectPointsToGrid(m_IntersectPoint);
 						canPlaceTile = true;
 						//Debug.Log($"hit virtual plane at {m_IntersectPoint[0]}");
 					}
+					*/
 				}
 
 				if (canPlaceTile)
