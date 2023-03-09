@@ -10,25 +10,26 @@ namespace CodeSmile.Tile
 	public sealed partial class TileLayer
 	{
 #if UNITY_EDITOR
-		public Action OnClearLayer;
-			
 		public void OnValidate()
 		{
 			if (m_ClearTiles)
 			{
 				m_ClearTiles = false;
 				ClearTiles();
-				OnClearLayer?.Invoke();
 			}
 
-			m_TileCount = m_TileContainer.Count;
-
-			Grid.ClampGridSize();
-			ClampBrushIndex();
+			UpdateTileCount();
+			ClampGridSize();
+			ClampTileSetIndex();
 			ValidateLayerPrefabs();
 		}
 
-		private void ClampBrushIndex() => m_ActiveTileSetIndex = Mathf.Clamp(m_ActiveTileSetIndex, 0, m_TileSet.Count);
+		private void ClampGridSize()
+		{
+			if (Grid != null)
+				Grid.ClampGridSize();
+		}
+
 
 		public void ValidateLayerPrefabs()
 		{
@@ -47,7 +48,7 @@ namespace CodeSmile.Tile
 			}
 
 			// FIXME: don't call this on every validate, only when changed...
-			m_TileSet.UpdateTiles();
+			//m_TileSet.UpdateTiles();
 		}
 #endif
 	}

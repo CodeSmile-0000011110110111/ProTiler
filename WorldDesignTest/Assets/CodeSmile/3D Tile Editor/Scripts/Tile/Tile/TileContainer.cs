@@ -1,76 +1,139 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
+// TRYADDTILES: SetTile will call TryAdd, otherwise assign, rather than ContainsKey, otherwise add.
+
+#define TRYADDTILES
+
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
-using UnityEngine.Rendering;
 using GridCoord = Unity.Mathematics.int3;
 using GridRect = UnityEngine.RectInt;
 
 namespace CodeSmile.Tile
 {
 	[Serializable]
-	public sealed class CoordAndTile : SerializedDictionary<GridCoord, Tile> {}
+	public sealed class SerializedCoordAndTile : Dictionary<GridCoord, Tile>, ISerializationCallbackReceiver
+	{
+		[SerializeField] private List<GridCoord> m_Keys = new();
+		[SerializeField] private List<Tile> m_Values = new();
+
+		public void OnBeforeSerialize()
+		{
+			m_Keys.Clear();
+			m_Values.Clear();
+
+			foreach (var kvp in this)
+			{
+				m_Keys.Add(kvp.Key);
+				m_Values.Add(kvp.Value);
+			}
+		}
+
+		public void OnAfterDeserialize()
+		{
+			Clear();
+			for (var i = 0; i < m_Keys.Count; i++)
+				Add(m_Keys[i], m_Values[i]);
+
+			m_Keys.Clear();
+			m_Values.Clear();
+		}
+	}
 
 	[Serializable]
-	public sealed class TileContainer : IEnumerable<KeyValuePair<GridCoord, Tile>>
+	public sealed class TileContainer
 	{
-		[SerializeField] private CoordAndTile m_Tiles = new();
+		[SerializeField] private SerializedCoordAndTile m_Tiles = new();
 
-		public IEnumerator<KeyValuePair<GridCoord, Tile>> GetEnumerator() => m_Tiles.GetEnumerator();
-		IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+		public bool Contains(GridCoord coord) => m_Tiles.ContainsKey(coord);
 
-		public int Count => m_Tiles.Count;
-		
-		public void SetTiles(GridRect rect, Tile tile)
-		{
-			var coords = rect.GetTileCoords();
-			for (var i = 0; i < coords.Count(); i++)
-				SetTile(coords[i], tile);
-		}
+		public void ClearTiles() => m_Tiles.Clear();
 
-		public void SetTile(GridCoord coord, Tile tile)
-		{
-			if (m_Tiles.ContainsKey(coord))
-				m_Tiles[coord] = tile;
-			else
-				m_Tiles.Add(coord, tile);
-		}
-
-		public Tile GetTile(GridCoord coord)
-		{
-			m_Tiles.TryGetValue(coord, out var tile);
-			return tile;
-		}
-
-		public IReadOnlyList<Tile> GetTilesInRect(GridRect rect, out IList<GridCoord> tileCoords)
-		{
-			var tiles = new List<Tile>();
-			
-			var allCoordsInRect = rect.GetTileCoords();
-			tileCoords = new List<GridCoord>();
-			foreach (var coord in allCoordsInRect)
-			{
-				var tile = GetTile(coord);
-				if (tile != null)
-				{
-					tiles.Add(tile);
-					tileCoords.Add(coord);
-				}
-			}
-			
-			return tiles;
-		}
-
-		public void ClearTileAt(GridCoord coord)
+		public void ClearTile(GridCoord coord)
 		{
 			if (m_Tiles.ContainsKey(coord))
 				m_Tiles.Remove(coord);
 		}
 
-		public void Clear() => m_Tiles.Clear();
+		public int Count => m_Tiles.Count;
+
+		//public Tile this[GridCoord coord] => GetTile(coord);
+		public Tile GetTile(GridCoord coord) => m_Tiles.TryGetValue(coord, out var tile) ? tile : default;
+
+		public IReadOnlyList<GridCoord> SetTiles(GridRect rect, int tileSetIndex)
+		{
+			var coords = rect.GetTileCoords();
+			for (var i = 0; i < coords.Count; i++)
+				SetTile(coords[i], tileSetIndex);
+			return coords;
+		}
+
+		public void SetTile(GridCoord coord, int tileSetIndex)
+		{
+			if (tileSetIndex < 0)
+				ClearTile(coord);
+			else
+			{
+				var newTile = new Tile(tileSetIndex);
+				SetTile(coord, newTile);
+			}
+		}
+
+		public void SetTile(GridCoord coord, Tile tile)
+		{
+			if (tile == null)
+				ClearTile(coord);
+			else
+			{
+#if TRYADDTILES
+				if (m_Tiles.TryAdd(coord, tile) == false)
+					m_Tiles[coord] = tile;
+#else
+				if (m_Tiles.ContainsKey(coord))
+					m_Tiles[coord] = tile;
+				else
+					m_Tiles.Add(coord, tile);
+#endif
+			}
+		}
+
+		public int GetTilesInRect(GridRect rect, out IList<GridCoord> coords, out IList<Tile> tiles)
+		{
+			coords = new List<GridCoord>();
+			tiles = new List<Tile>();
+
+			foreach (var coord in rect.GetTileCoords())
+			{
+				var tile = GetTile(coord);
+				if (tile != null)
+				{
+					coords.Add(coord);
+					tiles.Add(tile);
+				}
+			}
+
+			return coords.Count;
+		}
+
+		public TileFlags SetTileFlags(GridCoord coord, TileFlags flags)
+		{
+			var tile = GetTile(coord);
+			if (tile != null)
+			{
+				tile.Flags |= flags;
+				//Debug.Log($"Tile {tile.TileSetIndex} at {coord} gets flags: {tile.Flags}");
+			}
+			return tile.Flags;
+		}
+
+		public TileFlags ClearTileFlags(GridCoord coord, TileFlags flags)
+		{
+			var tile = GetTile(coord);
+			if (tile != null)
+				tile.Flags &= ~flags;
+			return tile.Flags;
+		}
 	}
 }

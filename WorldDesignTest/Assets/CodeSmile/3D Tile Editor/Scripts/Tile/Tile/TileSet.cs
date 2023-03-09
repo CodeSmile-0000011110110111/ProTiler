@@ -11,18 +11,22 @@ namespace CodeSmile.Tile
 	public sealed class TileSet
 	{
 		[SerializeField] private List<GameObject> m_Prefabs = new();
-		[HideInInspector] [SerializeField] [ReadOnlyField] private List<Tile> m_Tiles = new();
+		//[HideInInspector] [SerializeField] [ReadOnlyField] private List<Tile> m_Tiles = new();
 
 		//public GameObject this[int index] { get => m_Prefabs[index]; set => m_Prefabs[index] = value; }
-		public GameObject GetPrefab(int index) => m_Prefabs[index];
+		public GameObject GetPrefab(int index)
+		{
+			return (index >= 0 && index < m_Prefabs.Count) ? m_Prefabs[index]:null;
+		}
 
 		public void SetPrefab(int index, GameObject prefab) => m_Prefabs[index] = prefab;
 
-		public Tile GetTile(int index) => m_Tiles[index];
+		//public Tile GetPrefabIndex(int index) => m_Tiles[index];
 
 		public int Count => m_Prefabs.Count;
 		public IReadOnlyList<GameObject> Prefabs => m_Prefabs;
 
+		/*
 		public void UpdateTiles()
 		{
 			m_Tiles.Clear();
@@ -30,6 +34,6 @@ namespace CodeSmile.Tile
 			{
 				m_Tiles.Add(new Tile(i));
 			}
-		}
+		}*/
 	}
 }
