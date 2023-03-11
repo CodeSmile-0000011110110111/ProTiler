@@ -12,7 +12,7 @@ using WorldRect = UnityEngine.Rect;
 namespace CodeSmile.Tile
 {
 	[Serializable]
-	public sealed partial class TileLayer 
+	public sealed partial class TileLayer
 	{
 		private static readonly TileGrid DefaultGrid = new();
 
@@ -26,11 +26,16 @@ namespace CodeSmile.Tile
 		[SerializeField] private bool m_ClearTiles;
 		[ReadOnlyField] [SerializeField] private int m_TileCount;
 
+		[NonSerialized] private TileWorld m_TileWorld;
+		public TileWorld TileWorld { get => m_TileWorld; internal set => m_TileWorld = value; }
+
 		public Action OnClearTiles;
 		public Action<GridRect> OnSetTiles;
 		public Action<GridCoord, TileFlags> OnSetTileFlags;
 
-		public TileContainer TileContainer => m_TileContainer;
+		public TileLayer(TileWorld world) => m_TileWorld = world;
+
+		public TileContainer TileContainer { get => m_TileContainer; set => m_TileContainer = value; }
 		//public TileSet TileSet => m_TileSet;
 		public TileSet TileSet
 		{
@@ -40,6 +45,7 @@ namespace CodeSmile.Tile
 					m_TileSet = ScriptableObject.CreateInstance(typeof(TileSet)) as TileSet;
 				return m_TileSet;
 			}
+			set => throw new NotImplementedException();
 		}
 		public TileGrid Grid
 		{
@@ -50,6 +56,7 @@ namespace CodeSmile.Tile
 
 				return DefaultGrid;
 			}
+			set => throw new NotImplementedException();
 		}
 
 		public float TileCursorHeight { get => TileSet.TileCursorHeight; set => TileSet.TileCursorHeight = value; }
@@ -63,13 +70,13 @@ namespace CodeSmile.Tile
 			}
 		}
 		public GridCoord CursorCoord { get => m_CursorCoord; set => m_CursorCoord = value; }
+		public TileWorld World { get => m_TileWorld; set => m_TileWorld = value; }
 		private void ClampTileSetIndex() => m_SelectedTileSetIndex = Mathf.Clamp(m_SelectedTileSetIndex, 0, TileSet.Count - 1);
 
 		private void UpdateTileCount() => m_TileCount = m_TileContainer.Count;
 
-		public float3 GetTileOffset() => TileSet.GetTileOffset();
-
-		public float3 GetTileWorldPosition(GridCoord coord) => Grid.ToWorldPosition(coord) + GetTileOffset();
+		public float3 GetTilePosition(GridCoord coord) =>
+			Grid.ToWorldPosition(coord) + TileSet.GetTileOffset() + (float3)m_TileWorld.transform.position;
 
 		public void SetTiles(GridRect gridSelection, bool clear = false)
 		{

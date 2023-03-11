@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 using GridCoord = Unity.Mathematics.int3;
 using GridRect = UnityEngine.RectInt;
@@ -99,16 +100,18 @@ namespace CodeSmile.Tile
 			}
 		}
 
-		public int GetTilesInRect(GridRect rect, out IList<GridCoord> coords, out IList<Tile> tiles)
+		public int GetTilesInRect_old(GridRect rect, out IList<GridCoord> coords, out IList<Tile> tiles, out IDictionary<GridCoord, Tile> dict)
 		{
 			coords = new List<GridCoord>();
 			tiles = new List<Tile>();
+			dict = new Dictionary<GridCoord, Tile>();
 
 			foreach (var coord in rect.GetTileCoords())
 			{
 				var tile = GetTile(coord);
 				if (tile != null)
 				{
+					dict.Add(coord, tile);
 					coords.Add(coord);
 					tiles.Add(tile);
 				}
@@ -116,6 +119,55 @@ namespace CodeSmile.Tile
 
 			return coords.Count;
 		}
+		public void GetTilesInRect(GridRect rect, out IDictionary<GridCoord, Tile> dict)
+		{
+			dict = new Dictionary<GridCoord, Tile>();
+
+			foreach (var coord in rect.GetTileCoords())
+			{
+				var tile = GetTile(coord);
+				if (tile != null)
+				{
+					dict.Add(coord, tile);
+				}
+			}
+		}
+		public void GetTilesInUnionRect(GridRect rect1, GridRect rect2, out IDictionary<GridCoord, Tile> coordsAndTiles)
+		{
+			coordsAndTiles = new Dictionary<GridCoord, Tile>();
+			var unionRect = rect1.Union(rect2);
+
+			foreach (var coord in unionRect.GetTileCoords())
+			{
+				var tile = GetTile(coord);
+				if (tile != null)
+				{
+					coordsAndTiles.Add(coord, tile);
+				}
+			}
+		}
+		/*
+public void GetTilesInRect2(GridRect rect1, GridRect rect2, out IDictionary<GridCoord, Tile> onlyInRect1, out IDictionary<GridCoord, Tile> onlyInRect2)
+{
+	onlyInRect1 = onlyInRect2 = null;
+	if (rect1.Equals(rect2))
+		return;
+
+	onlyInRect1 = new Dictionary<GridCoord, Tile>();
+	onlyInRect2 = new Dictionary<GridCoord, Tile>();
+
+	var unionRect = rect1.Union(rect2);
+	foreach (var coord in unionRect.GetTileCoords())
+	{
+		var tile = GetTile(coord);
+		if (tile != null)
+		{
+			dict.Add(coord, tile);
+			coords.Add(coord);
+			tiles.Add(tile);
+		}
+	}
+}*/
 
 		public TileFlags SetTileFlags(GridCoord coord, TileFlags flags)
 		{

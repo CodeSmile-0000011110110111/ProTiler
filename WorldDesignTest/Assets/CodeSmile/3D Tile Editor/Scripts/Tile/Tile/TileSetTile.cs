@@ -21,7 +21,11 @@ namespace CodeSmile.Tile
 			SetDisplayName();
 		}
 
-		public void SetDisplayName() => m_DisplayName = $"{m_Category}: {m_Prefab?.name}";
+		public void SetDisplayName()
+		{
+			var prefabName = m_Prefab != null ? m_Prefab.name : "<missing>";
+			m_DisplayName = $"{m_Category}: {prefabName}";
+		}
 
 		public GameObject Prefab
 		{

@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 using GridCoord = Unity.Mathematics.int3;
 using GridSize = Unity.Mathematics.int3;
@@ -13,6 +14,33 @@ namespace CodeSmile
 {
 	public static class RectIntExt
 	{
+		public static RectInt Union(this RectInt RA, in RectInt RB)
+		{
+			var union = new RectInt();
+			union.min = Vector2Int.Min(RA.min, RB.min);
+			union.max = Vector2Int.Max(RA.max, RB.max);
+			return union;
+		}
+		
+		public static bool Intersects(this RectInt r1, RectInt r2, out RectInt intersection)
+		{
+			intersection = new RectInt();
+			var overlaps = r2.Overlaps(r1);
+			if (overlaps)
+			{
+				var x1 = math.min(r1.xMax, r2.xMax);
+				var x2 = math.max(r1.xMin, r2.xMin);
+				var y1 = math.min(r1.yMax, r2.yMax);
+				var y2 = math.max(r1.yMin, r2.yMin);
+				intersection.x = math.min(x1, x2);
+				intersection.y = math.min(y1, y2);
+				intersection.width = math.max(0, x1 - x2);
+				intersection.height = math.max(0, y1 - y2);
+			}
+ 
+			return overlaps;
+		}
+		
 		public static IReadOnlyList<GridCoord> GetTileCoords(this GridRect gridRect)
 		{
 			// FIXME: use rect.allPositionsWithin ?

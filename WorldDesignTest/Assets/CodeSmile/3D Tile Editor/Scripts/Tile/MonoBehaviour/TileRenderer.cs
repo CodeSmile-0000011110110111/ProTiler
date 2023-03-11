@@ -3,7 +3,6 @@
 
 using System;
 using System.Collections.Generic;
-using Unity.Mathematics;
 using UnityEngine;
 using GridCoord = Unity.Mathematics.int3;
 using GridSize = Unity.Mathematics.int3;
@@ -28,10 +27,11 @@ namespace CodeSmile.Tile
 		///     enumerate that collection for visibility (not necessarily every frame)
 		/// </summary>
 		[ExecuteInEditMode]
-		public class TileRenderer : MonoBehaviour
+		public partial class TileRenderer : MonoBehaviour
 		{
 			private const int MinDrawDistance = 10;
 			private const int MaxDrawDistance = 100;
+			public const HideFlags RenderHideFlags = HideFlags.DontSave;
 
 			[Range(MinDrawDistance, MaxDrawDistance)] [SerializeField] private int m_DrawDistance = MinDrawDistance;
 
@@ -39,9 +39,12 @@ namespace CodeSmile.Tile
 			[NonSerialized] private TileWorld m_World;
 			[NonSerialized] private Transform m_Cursor;
 			[NonSerialized] private Transform m_TilesParent;
+			[NonSerialized] private Transform m_PoolParent;
 
-			private int m_PrevDrawDistance;
+			private GameObjectPool m_TileProxyPool;
 			private GridCoord m_CursorRenderCoord;
+			private GridRect m_PrevVisibleRect;
+			private int m_PrevDrawDistance;
 			private int m_SelectedTileIndex;
 
 			private void Init()
@@ -56,18 +59,53 @@ namespace CodeSmile.Tile
 			private void OnEnable()
 			{
 				Init();
+				InitTileProxyPool();
 				Repaint();
 				RegisterTileWorldEvents();
 			}
 
-			private void OnDisable() => UnregisterTileWorldEvents();
-
-			private void OnRenderObject()
+			private void OnDisable()
 			{
-				//Debug.Log(Time.frameCount + System.Reflection.MethodBase.GetCurrentMethod().Name);
+				UnregisterTileWorldEvents();
+				DisposeTileProxyPool();
+			}
 
-				var camera = Camera.current;
-				if (camera == null)
+			private void OnRenderObject() => DestroyAndInstantiateTiles();
+
+			private void OnValidate()
+			{
+				ClampDrawDistance();
+				UpdateTileProxyPoolCount();
+			}
+
+			private void InitTileProxyPool()
+			{
+				var prefab = new GameObject("TileProxy");
+				try
+				{
+					var tileProxy = prefab.AddComponent<TileProxy>();
+					tileProxy.Layer = m_World.ActiveLayer;
+					tileProxy.Coord = new GridCoord(int.MinValue, 0, int.MinValue);
+
+					var poolSize = m_DrawDistance * m_DrawDistance;
+					m_PoolParent = CreateChildObject("TileProxy Pool");
+					m_TileProxyPool = new GameObjectPool(prefab, m_PoolParent, poolSize);
+				}
+				finally
+				{
+					prefab.DestroyInAnyMode();
+				}
+			}
+
+			private void DisposeTileProxyPool()
+			{
+				m_TileProxyPool.Dispose();
+				m_TileProxyPool = null;
+			}
+
+			private void DestroyAndInstantiateTiles()
+			{
+				if (IsCameraValid(out var camera) == false)
 					return;
 
 				var layer = m_World.ActiveLayer;
@@ -75,30 +113,37 @@ namespace CodeSmile.Tile
 
 				DestroyTilesOutside(camRect);
 				InstantiateTiles(layer, camRect);
+
+				UpdateTileProxyObjects(layer, camRect);
 				UpdateCursorTile(layer);
 			}
 
-			private void OnValidate()
+			private void SetOrReplaceTiles(GridRect rect)
 			{
-				ClampDrawDistance();
-				UpdateTileProxyObjects();
+				if (IsCameraValid(out var camera) == false)
+					return;
+
+				var camRect = GetCameraRect(camera);
+				rect.ClampToBounds(camRect);
+
+				DestroyTilesInside(rect);
+				InstantiateTiles(m_World.ActiveLayer, rect);
 			}
 
-			private void UpdateTileProxyObjects()
+			private void UpdateTileProxyPoolCount()
 			{
 				if (m_DrawDistance != m_PrevDrawDistance)
 				{
 					m_PrevDrawDistance = m_DrawDistance;
-					// TODO: update go count
+					var poolSize = m_DrawDistance * m_DrawDistance;
+					StartCoroutine(new WaitForFramesElapsed(1, () => { m_TileProxyPool.UpdatePoolSize(poolSize); }));
 				}
 			}
-
-			private void ClampDrawDistance() => m_DrawDistance = math.clamp(m_DrawDistance, MinDrawDistance, MaxDrawDistance);
 
 			public void Repaint()
 			{
 				m_TilesParent.DestroyAllChildren();
-				OnRenderObject();
+				DestroyAndInstantiateTiles();
 			}
 
 			private void RegisterTileWorldEvents()
@@ -117,78 +162,7 @@ namespace CodeSmile.Tile
 				layer.OnSetTileFlags -= SetTileFlags;
 			}
 
-			private RectInt GetCameraRect(Camera camera)
-			{
-				var camForward = camera.transform.forward;
-				var rayOrigin = camera.transform.position + camForward * (m_DrawDistance * 10f);
-				var camRay = new Ray(rayOrigin, Vector3.down);
-				camRay.IntersectsPlane(out float3 point);
-
-				//var camPos = (float3)camera.transform.position;
-				var camPos = point;
-				var camCoord = m_World.ActiveLayer.Grid.ToGridCoord(camPos);
-				var coord1 = new GridCoord(camCoord.x - m_DrawDistance, 0, camCoord.z - m_DrawDistance);
-				var coord2 = new GridCoord(camCoord.x + m_DrawDistance, 0, camCoord.z + m_DrawDistance);
-				return TileGrid.MakeRect(coord1, coord2);
-			}
-
-			private void SetOrReplaceTiles(GridRect rect)
-			{
-				var camera = Camera.current;
-				if (camera == null)
-					return;
-
-				var camRect = GetCameraRect(camera);
-				rect.ClampToBounds(camRect);
-
-				DestroyTilesInside(rect);
-				InstantiateTiles(m_World.ActiveLayer, rect);
-			}
-
-			private void SetTileFlags(GridCoord coord, TileFlags flags)
-			{
-				if (TryGetGameObjectAtCoord(coord, out var go))
-					ApplyTileFlags(go, flags);
-			}
-
 			private void OnClearActiveLayer() => DestroyAllTiles();
-
-			private bool IsGameObjectAtCoord(GridCoord coord) => m_ActiveObjects.ContainsKey(coord);
-			private bool TryGetGameObjectAtCoord(GridCoord coord, out GameObject go) => m_ActiveObjects.TryGetValue(coord, out go);
-
-			private void InstantiateTiles(TileLayer layer, GridRect rect)
-			{
-				if (rect.width <= 0 || rect.height <= 0)
-					return;
-
-				var tileset = layer.TileSet;
-				var tileCount = layer.TileContainer.GetTilesInRect(rect, out var coords, out var tiles);
-				for (var i = 0; i < tileCount; i++)
-				{
-					var coord = coords[i];
-					if (IsGameObjectAtCoord(coord) == false)
-					{
-						var tile = tiles[i];
-						var prefab = tileset.GetPrefab(tile.TileSetIndex);
-						if (prefab != null)
-						{
-							var worldPos = layer.GetTileWorldPosition(coord);
-							var go = InstantiateTileObject(prefab, worldPos, m_TilesParent, tile.Flags);
-							m_ActiveObjects.Add(coord, go);
-						}
-					}
-				}
-
-				//Selection.SetActiveObjectWithContext(null, null);
-			}
-
-			private GameObject InstantiateTileObject(GameObject prefab, Vector3 position, Transform parent, TileFlags flags)
-			{
-				var go = Instantiate(prefab, position, quaternion.identity, parent);
-				ApplyTileFlags(go, flags);
-				go.hideFlags = HideFlags.HideAndDontSave;
-				return go;
-			}
 
 			private void UpdateCursorTile(TileLayer layer)
 			{
@@ -214,116 +188,55 @@ namespace CodeSmile.Tile
 				}
 			}
 
-			private void SetCursorPosition(TileLayer layer, GridCoord cursorCoord)
+			private void UpdateTileProxyObjects(TileLayer layer, GridRect visibleRect)
 			{
-				m_CursorRenderCoord = cursorCoord;
-				m_Cursor.position = layer.Grid.ToWorldPosition(m_CursorRenderCoord) + layer.TileSet.GetTileOffset();
-			}
+				if (visibleRect.Equals(m_PrevVisibleRect))
+					return;
 
-			private Transform CreateChildObject(string name, GameObject prefab = null)
-			{
-				var child = transform.Find(name);
-				if (child == null)
+				// a few of them need updates
+				// => compare prev and current visible rect
+				// tiles in prev but not in current => reusable
+				// tiles in current but not prev => must be updated
+
+				var tileset = layer.TileSet;
+
+				var unionRect = visibleRect.Union(m_PrevVisibleRect);
+				var intersects = visibleRect.Intersects(m_PrevVisibleRect, out var intersection);
+
+				var proxies = m_TileProxyPool.GameObjects;
+
+				// find tiles that are no longer visible
+				var reusableProxies = new List<TileProxy>();
+				for (var j = 0; j < proxies.Count; j++)
 				{
-					if (prefab == null)
-					{
-						child = new GameObject(name).transform;
-						child.parent = transform;
-					}
-					else
-					{
-						child = Instantiate(prefab, transform).transform;
-						child.name = name;
-					}
+					var proxy = proxies[j].GetComponent<TileProxy>();
+					var coord = proxy.Coord;
+					var coord2d = new Vector2Int(coord.x, coord.z);
 
-					child.gameObject.hideFlags = HideFlags.HideAndDontSave;
+					// no longer visible?
+					if (visibleRect.Contains(coord2d) == false)
+						reusableProxies.Add(proxy);
 				}
-				return child;
-			}
+				
+				if (reusableProxies.Count > 0)
+					Debug.Log($"re-use: {reusableProxies.Count}, visible: {visibleRect}, prev: {m_PrevVisibleRect}, union: {unionRect}, intersect: {intersection} ({intersects})");
 
-			private void ApplyTileFlags(GameObject go, TileFlags flags)
-			{
-				var t = go.transform;
-				t.localScale = ScaleFromTileFlags(flags, t.localScale);
-				t.rotation = RotationFromTileFlags(flags);
-			}
-
-			private Vector3 ScaleFromTileFlags(TileFlags flags, Vector3 scale)
-			{
-				if (flags.HasFlag(TileFlags.FlipHorizontal))
-					scale.x *= -1f;
-				if (flags.HasFlag(TileFlags.FlipVertical))
-					scale.z *= -1f;
-
-				return scale;
-			}
-
-			private Quaternion RotationFromTileFlags(TileFlags flags)
-			{
-				if (flags.HasFlag(TileFlags.DirectionEast))
-					return Quaternion.Euler(0f, 90f, 0f);
-				if (flags.HasFlag(TileFlags.DirectionSouth))
-					return Quaternion.Euler(0f, 180f, 0f);
-				if (flags.HasFlag(TileFlags.DirectionWest))
-					return Quaternion.Euler(0f, 270f, 0f);
-
-				return Quaternion.identity;
-			}
-
-			private void DestroyTilesOutside(GridRect rect)
-			{
-				var coordsToRemove = new List<GridCoord>();
-				foreach (var coord in m_ActiveObjects.Keys)
+				layer.TileContainer.GetTilesInRect(visibleRect, out var tiles);
+				var i = 0;
+				foreach (var coord in tiles.Keys)
 				{
-					if (rect.IsInside(coord) == false)
-						coordsToRemove.Add(coord);
+					var coord2d = new Vector2Int(coord.x, coord.z);
+					if (intersection.Contains(coord2d))
+						continue;
+
+					var tile = tiles[coord];
+					Debug.Log($"  update tile {tile.TileSetIndex} at {coord}, re-use proxy index {i}");
+					var proxy = reusableProxies[i++];
+					proxy.Coord = coord;
+					proxy.Tile = tile;
 				}
 
-				foreach (var coord in coordsToRemove)
-				{
-					var go = m_ActiveObjects[coord];
-					if (go.IsMissing() == false)
-					{
-						//Debug.Log($"Remove {go.name}");
-						//go.transform.localScale = new Vector3(.2f, .2f, .2f);
-						go.DestroyInAnyMode();
-					}
-
-					m_ActiveObjects.Remove(coord);
-				}
-			}
-
-			private void DestroyTilesInside(GridRect rect)
-			{
-				var coordsToRemove = new List<GridCoord>();
-				foreach (var coord in m_ActiveObjects.Keys)
-				{
-					if (rect.IsInside(coord))
-						coordsToRemove.Add(coord);
-				}
-
-				foreach (var coord in coordsToRemove)
-				{
-					var go = m_ActiveObjects[coord];
-					if (go.IsMissing() == false)
-						go.DestroyInAnyMode();
-
-					m_ActiveObjects.Remove(coord);
-				}
-			}
-
-			private void DestroyAllTiles()
-			{
-				Debug.Log("DestroyAllTiles ...");
-				foreach (var coord in m_ActiveObjects.Keys)
-				{
-					var go = m_ActiveObjects[coord];
-					if (go.IsMissing() == false)
-						go.DestroyInAnyMode();
-				}
-
-				m_ActiveObjects.Clear();
-				m_TilesParent.DestroyAllChildren();
+				m_PrevVisibleRect = visibleRect;
 			}
 		}
 	}

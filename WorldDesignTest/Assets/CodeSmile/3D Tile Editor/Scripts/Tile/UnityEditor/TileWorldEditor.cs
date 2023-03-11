@@ -217,7 +217,8 @@ namespace CodeSmile.Tile.UnityEditor
 
 		private void UpdateStartSelectionCoord()
 		{
-			if (HandleUtilityExt.GUIPointToGridCoord(MousePos, ActiveLayerGrid, out var coord))
+			var planeY = TileWorld.transform.position.y;
+			if (HandleUtilityExt.GUIPointToGridCoord(MousePos, ActiveLayerGrid, out var coord, planeY))
 			{
 				m_StartSelectionCoord = coord;
 				UpdateSelectionRect();
@@ -226,7 +227,8 @@ namespace CodeSmile.Tile.UnityEditor
 
 		private void UpdateCurrentSelectionCoord()
 		{
-			if (HandleUtilityExt.GUIPointToGridCoord(MousePos, ActiveLayerGrid, out var coord))
+			var planeY = TileWorld.transform.position.y;
+			if (HandleUtilityExt.GUIPointToGridCoord(MousePos, ActiveLayerGrid, out var coord, planeY))
 			{
 				ActiveLayer.CursorCoord = coord;
 				UpdateSelectionRect();
