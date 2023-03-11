@@ -16,7 +16,6 @@ namespace CodeSmile.Tile.UnityEditor
 	public class TileWorldEditor : Editor
 	{
 		private readonly EditorInputState m_InputState = new();
-		private GridCoord m_CurrentSelectionCoord;
 		private GridCoord m_StartSelectionCoord;
 		private GridRect m_SelectionRect;
 		private bool m_IsPaintingTiles;
@@ -25,7 +24,7 @@ namespace CodeSmile.Tile.UnityEditor
 		{
 			if (Selection.activeGameObject != TileWorld.gameObject)
 				return;
-			
+
 			m_InputState?.Update();
 
 			//Debug.Log($"{Time.frameCount}: {Event.current.type}");
@@ -123,16 +122,17 @@ namespace CodeSmile.Tile.UnityEditor
 		{
 			var didModify = false;
 			var shouldUseEvent = false;
+			var cursorCoord = ActiveLayer.CursorCoord;
 			switch (Event.current.keyCode)
 			{
 				case KeyCode.LeftArrow:
 				case KeyCode.RightArrow:
 				case KeyCode.UpArrow:
 				case KeyCode.DownArrow:
-					ActiveLayer.ClearTileFlags(m_CurrentSelectionCoord, TileFlags.DirectionNorth);
-					ActiveLayer.ClearTileFlags(m_CurrentSelectionCoord, TileFlags.DirectionSouth);
-					ActiveLayer.ClearTileFlags(m_CurrentSelectionCoord, TileFlags.DirectionEast);
-					ActiveLayer.ClearTileFlags(m_CurrentSelectionCoord, TileFlags.DirectionWest);
+					ActiveLayer.ClearTileFlags(cursorCoord, TileFlags.DirectionNorth);
+					ActiveLayer.ClearTileFlags(cursorCoord, TileFlags.DirectionSouth);
+					ActiveLayer.ClearTileFlags(cursorCoord, TileFlags.DirectionEast);
+					ActiveLayer.ClearTileFlags(cursorCoord, TileFlags.DirectionWest);
 					didModify = true;
 					break;
 			}
@@ -144,48 +144,47 @@ namespace CodeSmile.Tile.UnityEditor
 				case KeyCode.F:
 				{
 					var camera = Camera.current;
-					camera.transform.position = ActiveLayer.Grid.ToWorldPosition(m_CurrentSelectionCoord);
+					camera.transform.position = ActiveLayer.Grid.ToWorldPosition(cursorCoord);
 					shouldUseEvent = true;
 					break;
-					
 				}
 				case KeyCode.H:
 				{
-					var tile = ActiveLayer.GetTile(m_CurrentSelectionCoord);
+					var tile = ActiveLayer.GetTile(cursorCoord);
 					if (tile == null)
 						break;
 
 					if (tile.Flags.HasFlag(TileFlags.FlipHorizontal))
-						ActiveLayer.ClearTileFlags(m_CurrentSelectionCoord, TileFlags.FlipHorizontal);
+						ActiveLayer.ClearTileFlags(cursorCoord, TileFlags.FlipHorizontal);
 					else
-						ActiveLayer.SetTileFlags(m_CurrentSelectionCoord, TileFlags.FlipHorizontal);
+						ActiveLayer.SetTileFlags(cursorCoord, TileFlags.FlipHorizontal);
 					didModify = true;
 					break;
 				}
 				case KeyCode.V:
 				{
-					var tile = ActiveLayer.GetTile(m_CurrentSelectionCoord);
+					var tile = ActiveLayer.GetTile(cursorCoord);
 					if (tile == null)
 						break;
 
-					if (ActiveLayer.GetTile(m_CurrentSelectionCoord).Flags.HasFlag(TileFlags.FlipVertical))
-						ActiveLayer.ClearTileFlags(m_CurrentSelectionCoord, TileFlags.FlipVertical);
+					if (ActiveLayer.GetTile(cursorCoord).Flags.HasFlag(TileFlags.FlipVertical))
+						ActiveLayer.ClearTileFlags(cursorCoord, TileFlags.FlipVertical);
 					else
-						ActiveLayer.SetTileFlags(m_CurrentSelectionCoord, TileFlags.FlipVertical);
+						ActiveLayer.SetTileFlags(cursorCoord, TileFlags.FlipVertical);
 					didModify = true;
 					break;
 				}
 				case KeyCode.LeftArrow:
-					ActiveLayer.SetTileFlags(m_CurrentSelectionCoord, TileFlags.DirectionWest);
+					ActiveLayer.SetTileFlags(cursorCoord, TileFlags.DirectionWest);
 					break;
 				case KeyCode.RightArrow:
-					ActiveLayer.SetTileFlags(m_CurrentSelectionCoord, TileFlags.DirectionEast);
+					ActiveLayer.SetTileFlags(cursorCoord, TileFlags.DirectionEast);
 					break;
 				case KeyCode.UpArrow:
-					ActiveLayer.SetTileFlags(m_CurrentSelectionCoord, TileFlags.DirectionNorth);
+					ActiveLayer.SetTileFlags(cursorCoord, TileFlags.DirectionNorth);
 					break;
 				case KeyCode.DownArrow:
-					ActiveLayer.SetTileFlags(m_CurrentSelectionCoord, TileFlags.DirectionSouth);
+					ActiveLayer.SetTileFlags(cursorCoord, TileFlags.DirectionSouth);
 					break;
 			}
 
@@ -201,15 +200,16 @@ namespace CodeSmile.Tile.UnityEditor
 			if (ev.shift)
 			{
 				var delta = ev.delta.y >= 0 ? 1 : -1;
-				if (ev.control)
-					ActiveLayer.TileSetIndex += delta;
-				else
+				ActiveLayer.SelectedTileSetIndex += delta;
+				ActiveLayer.OnValidate();
+
+				if (ev.control == false)
 				{
-					var tile = ActiveLayer.GetTile(m_CurrentSelectionCoord);
+					var cursorCoord = ActiveLayer.CursorCoord;
+					var tile = ActiveLayer.GetTile(cursorCoord);
 					var newTile = new Tile(tile);
-					newTile.TileSetIndex += delta;
-					//Debug.Log($"{m_CurrentSelectionCoord} new tile: {newTile} (prev: {tile})");
-					ActiveLayer.SetTile(m_CurrentSelectionCoord, newTile);
+					newTile.TileSetIndex = ActiveLayer.SelectedTileSetIndex;
+					ActiveLayer.SetTile(cursorCoord, newTile);
 				}
 				ev.Use();
 			}
@@ -228,12 +228,12 @@ namespace CodeSmile.Tile.UnityEditor
 		{
 			if (HandleUtilityExt.GUIPointToGridCoord(MousePos, ActiveLayerGrid, out var coord))
 			{
-				m_CurrentSelectionCoord = coord;
+				ActiveLayer.CursorCoord = coord;
 				UpdateSelectionRect();
 			}
 		}
 
-		private void UpdateSelectionRect() => m_SelectionRect = GridUtil.MakeRect(m_StartSelectionCoord, m_CurrentSelectionCoord);
+		private void UpdateSelectionRect() => m_SelectionRect = TileGrid.MakeRect(m_StartSelectionCoord, ActiveLayer.CursorCoord);
 
 		private float2 MousePos => Event.current.mousePosition;
 		private TileWorld TileWorld => (TileWorld)target;
@@ -245,12 +245,13 @@ namespace CodeSmile.Tile.UnityEditor
 		private void PaintSelectedTiles()
 		{
 			ActiveLayer.SetTiles(m_SelectionRect, Event.current.shift);
+			//Undo.RecordObject(ActiveLayer, "Paint Tiles");
 			EditorUtility.SetDirty(TileWorld);
 		}
 
 		private void DrawSelection()
 		{
-			var worldRect = GridUtil.ToWorldRect(m_SelectionRect, ActiveLayerGrid.Size);
+			var worldRect = TileGrid.ToWorldRect(m_SelectionRect, ActiveLayerGrid.Size);
 			var worldPos = TileWorld.transform.position;
 			var cubePos = worldRect.GetWorldCenter() + worldPos;
 			var cubeSize = worldRect.GetWorldSize(ActiveLayer.TileCursorHeight);

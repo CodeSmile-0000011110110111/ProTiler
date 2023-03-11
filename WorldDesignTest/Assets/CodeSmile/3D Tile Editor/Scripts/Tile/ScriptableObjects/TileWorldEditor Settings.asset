@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0bbf33ec33f4621a3fc8b8c010ba1d6, type: 3}
+  m_Name: TileWorldEditor Settings
+  m_EditorClassIdentifier: 
+  m_MissingTilePrefab: {fileID: 2950151417341406190, guid: 64621874619a9944894a3e8ee74b2903, type: 3}
+  m_TileProxyPrefab: {fileID: 2515290403760314628, guid: e19e5a14a1a9bee47a7d6f01545ebe7c, type: 3}

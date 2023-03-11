@@ -1,10 +1,6 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
-using System;
-using UnityEditor;
-using UnityEngine;
-
 namespace CodeSmile.Tile
 {
 	public sealed partial class TileLayer
@@ -21,8 +17,10 @@ namespace CodeSmile.Tile
 			UpdateTileCount();
 			ClampGridSize();
 			ClampTileSetIndex();
-			ValidateLayerPrefabs();
+			SetTileName();
 		}
+
+		private void SetTileName() => m_SelectedTileName = TileSet.GetPrefab(m_SelectedTileSetIndex)?.name;
 
 		private void ClampGridSize()
 		{
@@ -30,26 +28,6 @@ namespace CodeSmile.Tile
 				Grid.ClampGridSize();
 		}
 
-
-		public void ValidateLayerPrefabs()
-		{
-			for (var i = 0; i < m_TileSet.Count; i++)
-			{
-				var tilePrefab = m_TileSet.GetPrefab(i);
-				if (tilePrefab != null)
-				{
-					var source = PrefabUtility.GetCorrespondingObjectFromOriginalSource(tilePrefab);
-					if (source == null)
-					{
-						Debug.LogWarning($"Tile '{tilePrefab.name}' is a scene instance. Tiles must be prefabs!");
-						m_TileSet.SetPrefab(i, null);
-					}
-				}
-			}
-
-			// FIXME: don't call this on every validate, only when changed...
-			//m_TileSet.UpdateTiles();
-		}
 #endif
 	}
 }

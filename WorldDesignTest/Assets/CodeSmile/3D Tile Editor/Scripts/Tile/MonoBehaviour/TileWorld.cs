@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 namespace CodeSmile.Tile
@@ -16,6 +17,15 @@ namespace CodeSmile.Tile
 
 		private void Reset()
 		{
+			#if UNITY_EDITOR
+			string[] guids1 = AssetDatabase.FindAssets("t:TileWorldEditorSettings");
+			Debug.Log($"found TileProxy count: {guids1.Length}");
+			foreach (string guid1 in guids1)
+			{
+				Debug.Log(AssetDatabase.GUIDToAssetPath(guid1));
+			}
+			#endif
+			
 			if (m_Layers.Count == 0)
 			{
 				name = nameof(TileWorld);

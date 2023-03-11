@@ -1,0 +1,287 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 959ec10b09b340d189983580b3070567, type: 3}
+  m_Name: Minigolf Kit TileSet
+  m_EditorClassIdentifier: 
+  m_Grid:
+    m_GridSize:
+      x: 10
+      y: 1
+      z: 10
+  m_TileAnchor: 0
+  m_DragDropPrefabsHereToAdd: []
+  m_Tiles:
+  - m_DisplayName: 'Category0: block'
+    m_Prefab: {fileID: 5816734305106723122, guid: 2b8715fed5207864ba8e92da95d1ce27, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: bump'
+    m_Prefab: {fileID: 2492619656531404557, guid: 510d31d5560ecaa4b97fe420ebf38cae, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: bumpDown'
+    m_Prefab: {fileID: 7502739866920185110, guid: a22010aeec18ad04b8dc2a0dce3f13ea, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: bumpDownWalls'
+    m_Prefab: {fileID: 7541676008925553003, guid: 75842c1606900d84db6a27ff1dbd7ced, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: bumpWalls'
+    m_Prefab: {fileID: 6848819707940390750, guid: 1fbc23a0a5f670444a6b8019eb1d9a7c, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: castle'
+    m_Prefab: {fileID: 7715009435333971336, guid: 47413f70415d74740a2c2be13bd587fb, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: corner'
+    m_Prefab: {fileID: 5620323070737313419, guid: e7abac522f51d744a8a55cce9a7e9417, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: crest'
+    m_Prefab: {fileID: 9144184290971880985, guid: 568bf7e89dbb70a4580afcfe8868997d, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: end'
+    m_Prefab: {fileID: 7012558559657039596, guid: b5afa58039c5e4e499854bdd21efab57, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: gap'
+    m_Prefab: {fileID: 3973892770104406876, guid: 3e521022d6485ce4ebde0e4de8d0ed4f, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: hillCorner'
+    m_Prefab: {fileID: 9109672929423003878, guid: f39a979d69f1d6b4eb3899fe949cfcfd, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: hillRound'
+    m_Prefab: {fileID: 7375461690520726575, guid: 96298a34791fc254ba4607c0c871aaf0, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: hillSquare'
+    m_Prefab: {fileID: 5455920595662280467, guid: 56e2095aeea21f141b6633860bec6195, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: holeOpen'
+    m_Prefab: {fileID: 2245510656163108016, guid: e0c44535a18cb774cb74c4cdfcd70d17, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: holeRound'
+    m_Prefab: {fileID: 7793217351708564650, guid: 4e161c91cc8451646883d1f63dc6976a, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: holeSquare'
+    m_Prefab: {fileID: 2292408890318982523, guid: 089fa0f556556134c85ab2ff017f7b6c, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: innerCorner'
+    m_Prefab: {fileID: 626085391793052803, guid: d1fffd009cc54e3419f5a45720843bdd, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: narrowBlock'
+    m_Prefab: {fileID: 1863888988623763204, guid: a246daff5332cc1499f4a770df686e16, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: narrowRound'
+    m_Prefab: {fileID: 68506085588901188, guid: b2acd48b4338be94f8fa19386ca2ea4f, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: narrowSquare'
+    m_Prefab: {fileID: 8771416142458673831, guid: 52315504b7c63834aa533bdc4f086ed5, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: obstacleBlock'
+    m_Prefab: {fileID: 995540862541438373, guid: c60b2e5562b185043be7f218a280b6de, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: obstacleDiamond'
+    m_Prefab: {fileID: 1403026708632008714, guid: 651db6e6f588672419b9daf7ab25a77a, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: obstacleTriangle'
+    m_Prefab: {fileID: 1026258284037837911, guid: 6b2b39bd1b411fa4ab23f12d9824881f, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: open'
+    m_Prefab: {fileID: 1128099714351643450, guid: bcb4942d47116964982169d0ca5cda36, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: ramp'
+    m_Prefab: {fileID: 6442806134713636235, guid: dac32c5c66322924d8563082b0410cf5, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: rampA'
+    m_Prefab: {fileID: 6443144003043431544, guid: 855de297fa162be4f817b413b5c98a58, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: rampB'
+    m_Prefab: {fileID: 4709728641283103186, guid: 9c8a7e80323792f48aebba64f5dd22f4, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: rampC'
+    m_Prefab: {fileID: 2084163551018295263, guid: a55bd7047f02afa418f80c392ad838b3, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: rampD'
+    m_Prefab: {fileID: 5965518599205028073, guid: 4544f0f246c3e2c49a5eb0f1028ae70a, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: rampLarge'
+    m_Prefab: {fileID: 4840237384420063426, guid: fdd15e397e978e14a8aad77be0cdb9ce, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: rampLargeSide'
+    m_Prefab: {fileID: 1572982907799801984, guid: 8305894d6da2d7f48bc807bc5fa43cbf, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: rampSharp'
+    m_Prefab: {fileID: 1398810027779292648, guid: 0d92aa9c447439c4a817839e36f234c1, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: rampSide'
+    m_Prefab: {fileID: 1431453626726151952, guid: b3796c02c1b104b4b9b2f92529bb016e, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: rampSquare'
+    m_Prefab: {fileID: 1689806625702850932, guid: f1cd12208a9872b4e8a7fb20281d353b, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: roundCornerA'
+    m_Prefab: {fileID: 5571062852807529429, guid: b6dd26efac7012b40a1f1d9ed4f4897a, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: roundCornerB'
+    m_Prefab: {fileID: 2057510492541892194, guid: 7f324298365d4984abf2b635cd1bf612, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: roundCornerC'
+    m_Prefab: {fileID: 4532734736683215740, guid: 8acb8902336f32645af43714d540671b, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: roundLargeCorner'
+    m_Prefab: {fileID: 254540959829791383, guid: a7cc96c1a94c13f41a5a2e1aff6cc2d8, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: roundLargeCornerOpen'
+    m_Prefab: {fileID: 4577208176099582794, guid: 8f2f6b875fa9bbc4897f901e26454658, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: side'
+    m_Prefab: {fileID: 1099433560639150578, guid: 6e70acf87520fa7418572259164c868f, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: skewCorner'
+    m_Prefab: {fileID: 4371776158533515498, guid: 6021d328a6f51d64cab0975e986f94fc, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: skewLargeCorner'
+    m_Prefab: {fileID: 1936737763414621396, guid: e6373f0b8c62d2846a28276194d26ad3, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: skewLargeCornerOpen'
+    m_Prefab: {fileID: 1203646495589472942, guid: d35e362155f91ec42a98017f0972f657, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: split'
+    m_Prefab: {fileID: 4777597208200251187, guid: 254876533ecc11e45b9d702c930fd64d, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: splitStart'
+    m_Prefab: {fileID: 6265810563052037493, guid: 88f759b5841d8034c9826d8b47724870, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: splitT'
+    m_Prefab: {fileID: 5658326350555193993, guid: 399a01326a422b5458a083f1ccd3be23, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: splitWallsToOpen'
+    m_Prefab: {fileID: 4356220422445213643, guid: 143f0f8830bac164791bcb499c8c1145, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: squareCornerA'
+    m_Prefab: {fileID: 8008865243312739578, guid: 6d7af5694652e3847a6fb98682e91dee, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: start'
+    m_Prefab: {fileID: 3851021628342926934, guid: d6d24f70d562e3b4fac7e287424d0b36, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: straight'
+    m_Prefab: {fileID: 4900342668831366048, guid: 2d1b2012344c2fa4d95542fcc663b07a, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: tunnelDouble'
+    m_Prefab: {fileID: 8064899956847854170, guid: 187ac3bacd1d8ff4e8d5b6111fb50104, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: tunnelNarrow'
+    m_Prefab: {fileID: 7423635393368241632, guid: 2f9c1089dbd4aba4bae10461c3e0613a, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: tunnelWide'
+    m_Prefab: {fileID: 9063088679842692869, guid: 71fc2043ae6483148a8a858963b732c5, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: wallLeft'
+    m_Prefab: {fileID: 1776600094000989927, guid: fc8eb80948ba3664895ab64fe67d8517, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: wallRight'
+    m_Prefab: {fileID: 5020270894555301242, guid: ac082ef9c952c0d4ea0589941e2fcd92, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: wallsToOpen'
+    m_Prefab: {fileID: 6384342978064122609, guid: 7171b356ff6db894195ce4f0dd8d0b00, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: windmill'
+    m_Prefab: {fileID: 4153488673294586415, guid: 8f103252a4449344f99d08de1bc5e5bb, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: flag_blue'
+    m_Prefab: {fileID: 3878162227744140682, guid: f7ef78e17f0e0a74ebbb4586293a1fd5, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: flag_green'
+    m_Prefab: {fileID: 4784721856200883635, guid: a93c11919d26f294ba7cbaac38b0527a, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: flag_red'
+    m_Prefab: {fileID: 1865633088286795343, guid: b5663bc8c997c8b42a06b5a9aea2b53b, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: club_blue'
+    m_Prefab: {fileID: 5562934016198190723, guid: 30bbf3e41daf17a4699c70651dabf3be, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: club_green'
+    m_Prefab: {fileID: 6897307069126974780, guid: d61871b2cbb513d4bb89b1503c0c1e78, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: club_red'
+    m_Prefab: {fileID: 9203808542391624723, guid: ba0ba993da5c1e340b861e28703690b9, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: ball_blue'
+    m_Prefab: {fileID: 7874092242136765809, guid: 01f3f006dbd77954a83af7abac8063d8, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: ball_green'
+    m_Prefab: {fileID: 5808532355752338147, guid: 1e1e43a0a4010144e9847a5bec841782, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: ball_red'
+    m_Prefab: {fileID: 307222973476926815, guid: 8acd6b6dbeea3ae4b9fa7c6a7705338f, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  m_TileCursorHeight: 5

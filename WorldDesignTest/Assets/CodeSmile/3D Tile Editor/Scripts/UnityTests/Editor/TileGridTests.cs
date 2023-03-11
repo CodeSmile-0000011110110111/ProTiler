@@ -51,52 +51,52 @@ public class TileGridTests
 	{
 		var coord1 = new GridCoord(0, 0, 0);
 		var coord2 = new GridCoord(0, 0, 0);
-		var rect = GridUtil.MakeRect(coord1, coord2);
+		var rect = TileGrid.MakeRect(coord1, coord2);
 		Assert.AreEqual(new GridRect(0, 0, 1, 1), rect);
 
 		coord1 = new GridCoord(0, 0, 0);
 		coord2 = new GridCoord(1, 1, 1);
-		rect = GridUtil.MakeRect(coord1, coord2);
+		rect = TileGrid.MakeRect(coord1, coord2);
 		Assert.AreEqual(new GridRect(0, 0, 2, 2), rect);
 
 		coord1 = new GridCoord(1, 1, 1);
 		coord2 = new GridCoord(0, 0, 0);
-		rect = GridUtil.MakeRect(coord1, coord2);
+		rect = TileGrid.MakeRect(coord1, coord2);
 		Assert.AreEqual(new GridRect(0, 0, 2, 2), rect);
 
 		coord1 = new GridCoord(1, 1, 1);
 		coord2 = new GridCoord(3, 3, 3);
-		rect = GridUtil.MakeRect(coord1, coord2);
+		rect = TileGrid.MakeRect(coord1, coord2);
 		Assert.AreEqual(new GridRect(1, 1, 3, 3), rect);
 
 		coord1 = new GridCoord(3, 3, 3);
 		coord2 = new GridCoord(1, 1, 1);
-		rect = GridUtil.MakeRect(coord1, coord2);
+		rect = TileGrid.MakeRect(coord1, coord2);
 		Assert.AreEqual(new GridRect(1, 1, 3, 3), rect);
 
 		coord1 = new GridCoord(-3, -3, -3);
 		coord2 = new GridCoord(1, 1, 1);
-		rect = GridUtil.MakeRect(coord1, coord2);
+		rect = TileGrid.MakeRect(coord1, coord2);
 		Assert.AreEqual(new GridRect(-3, -3, 5, 5), rect);
 
 		coord1 = new GridCoord(-2, -2, -2);
 		coord2 = new GridCoord(0, 0, 0);
-		rect = GridUtil.MakeRect(coord1, coord2);
+		rect = TileGrid.MakeRect(coord1, coord2);
 		Assert.AreEqual(new GridRect(-2, -2, 3, 3), rect);
 
 		coord1 = new GridCoord(1, 4, 4);
 		coord2 = new GridCoord(4, 1, 1);
-		rect = GridUtil.MakeRect(coord1, coord2);
+		rect = TileGrid.MakeRect(coord1, coord2);
 		Assert.AreEqual(new GridRect(1, 1, 4, 4), rect);
 
 		coord1 = new GridCoord(-2, 0, 0);
 		coord2 = new GridCoord(0, -2, -2);
-		rect = GridUtil.MakeRect(coord1, coord2);
+		rect = TileGrid.MakeRect(coord1, coord2);
 		Assert.AreEqual(new GridRect(-2, -2, 3, 3), rect);
 
 		coord1 = new GridCoord(0, -2, -2);
 		coord2 = new GridCoord(-2, 0, 0);
-		rect = GridUtil.MakeRect(coord1, coord2);
+		rect = TileGrid.MakeRect(coord1, coord2);
 		Assert.AreEqual(new GridRect(-2, -2, 3, 3), rect);
 	}
 
@@ -105,14 +105,14 @@ public class TileGridTests
 	{
 		var coord1 = new GridCoord(1, 1, 1);
 		var coord2 = new GridCoord(3, 3, 3);
-		var rect = GridUtil.MakeRect(coord1, coord2);
-		var worldRect = GridUtil.ToWorldRect(rect, new GridSize(10, 1, 10));
+		var rect = TileGrid.MakeRect(coord1, coord2);
+		var worldRect = TileGrid.ToWorldRect(rect, new GridSize(10, 1, 10));
 		Assert.AreEqual(new Rect(10, 10, 30, 30), worldRect);
 
 		coord1 = new GridCoord(-1, -1, -1);
 		coord2 = new GridCoord(3, 3, 3);
-		rect = GridUtil.MakeRect(coord1, coord2);
-		worldRect = GridUtil.ToWorldRect(rect, new GridSize(10, 1, 10));
+		rect = TileGrid.MakeRect(coord1, coord2);
+		worldRect = TileGrid.ToWorldRect(rect, new GridSize(10, 1, 10));
 		Assert.AreEqual(new Rect(-10, -10, 50, 50), worldRect);
 	}
 }

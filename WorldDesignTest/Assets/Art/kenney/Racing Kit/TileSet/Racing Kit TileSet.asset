@@ -1,0 +1,471 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 959ec10b09b340d189983580b3070567, type: 3}
+  m_Name: Racing Kit TileSet
+  m_EditorClassIdentifier: 
+  m_Grid:
+    m_GridSize:
+      x: 10
+      y: 1
+      z: 10
+  m_TileAnchor: 1
+  m_AddPrefabs: []
+  m_Tiles:
+  - m_DisplayName: 'Category0: bannerTowerGreen'
+    m_Prefab: {fileID: 8019696407274300035, guid: 536ec54ee49df544fafa1814c79b452a, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: bannerTowerRed'
+    m_Prefab: {fileID: 8636099167670003224, guid: 9319a4c8a88c1ae45a7d41852cbf6cb8, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: barrierRed'
+    m_Prefab: {fileID: 3928334652131036075, guid: 467bfa8e2147ad0459acd04537c78764, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: barrierWall'
+    m_Prefab: {fileID: 3103832838665178736, guid: 53ffb66703c75194ea0b3253a39eb881, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: barrierWhite'
+    m_Prefab: {fileID: 94633355879516873, guid: e80c918b743485c4f9de11e85f6274d5, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: billboard'
+    m_Prefab: {fileID: 7972980305188916365, guid: c55305083769c3949b8be2641cec90c5, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: billboardDouble_exclusive'
+    m_Prefab: {fileID: 2191690710690131254, guid: eed4a6e74797fe3439bf3613cbc570b8, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: billboardLow'
+    m_Prefab: {fileID: 1014193581854945393, guid: 49ad436a54f8f10469e45d2d363cefa7, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: billboardLower'
+    m_Prefab: {fileID: 6598708462336472009, guid: c7912b8097bbab54abd01ff1d3093ad8, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: camera_exclusive'
+    m_Prefab: {fileID: 8830957938634837314, guid: d1437a7587b2be24682ddef7bb261b7e, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: fenceCurved'
+    m_Prefab: {fileID: 9070148193463960561, guid: 29f2b9114ee9af04a817f2c0f9671eb6, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: fenceStraight'
+    m_Prefab: {fileID: 3890997266493204732, guid: 84e69f6cd29dc5844abed32c52031275, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: flagCheckers'
+    m_Prefab: {fileID: 6135151920844652523, guid: 0be056f7f9d3a2247b8aef6a1bd21da4, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: flagCheckersSmall'
+    m_Prefab: {fileID: 4530630381038794543, guid: 7a08bfed5a37f86489e0ae3c32e100eb, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: flagGreen'
+    m_Prefab: {fileID: 425101741449660157, guid: d4f19193d67fc0f4b9224b4295b28677, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: flagRed'
+    m_Prefab: {fileID: 2414500349711287934, guid: ce8824e832a27f544b6422b879cc9cbc, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: flagTankco'
+    m_Prefab: {fileID: 2219811534572867695, guid: 8459b6f6c18e95849828edf2a9dfa67f, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: grandStand'
+    m_Prefab: {fileID: 2481595240696911716, guid: 69290f597ba36664ba0f387f9bbc7e8f, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: grandStandAwning'
+    m_Prefab: {fileID: 147265766909475602, guid: e9e81222277e4834789f1b846388909f, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: grandStandCovered'
+    m_Prefab: {fileID: 8964003943425519008, guid: 77e4d42c0ab50fd4ca27eb0c3f487a44, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: grandStandCoveredRound'
+    m_Prefab: {fileID: 751547034896386116, guid: 98facf1ae8b492b4b8ca3b576ed608f4, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: grandStandRound'
+    m_Prefab: {fileID: 7876757187407418844, guid: 58822fe6ef346ab42ac58bbf40ef7f0c, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: grass'
+    m_Prefab: {fileID: 9163166253421674997, guid: 96a9f45822b6c2148bfb93ccb15046ee, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: lightColored'
+    m_Prefab: {fileID: 5773116885569053354, guid: 67f69dc111d487e479f266dfddb53de7, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: lightPost_exclusive'
+    m_Prefab: {fileID: 2660788623595975320, guid: 0b19f5f6db61783489bd2f437e99dd0f, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: lightPostLarge'
+    m_Prefab: {fileID: 5964686055835019814, guid: 07cb2bc0c73e9b549b560b4bc76b550c, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: lightPostModern'
+    m_Prefab: {fileID: 5510971570580408685, guid: ab9308d2a073d0141b58de8a3afa2ed5, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: lightRed'
+    m_Prefab: {fileID: 7892352109274831973, guid: d85884bcc12ae2f4bb6e6d95f96ca2cb, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: lightRedDouble'
+    m_Prefab: {fileID: 5071755356012810381, guid: 5287e2a2057b62d4ab7a61029d8765ad, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: overhead'
+    m_Prefab: {fileID: 1608405196351938739, guid: 148ac3986755c2640ab3c8988be0cd3a, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: overheadLights'
+    m_Prefab: {fileID: 9173673940900753494, guid: f8de1f37e66782f4cba41bec1f3d3386, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: overheadRound'
+    m_Prefab: {fileID: 2325189184320345079, guid: b4f8ef9d23d494343a203859ec573d6e, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: overheadRoundColored'
+    m_Prefab: {fileID: 1742720802615489146, guid: 4a7fd8bb5a47d314a8a450664eb8bd44, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: pitsGarage'
+    m_Prefab: {fileID: 4162256592937115867, guid: 8387cbbaffd3ac14baa63a8f004c72ed, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: pitsGarageClosed'
+    m_Prefab: {fileID: 6140193442444495746, guid: fb31833903611be4f9551feca857cdcf, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: pitsGarageCorner'
+    m_Prefab: {fileID: 2673356956231817142, guid: ba87730311f2d9e40a846ec02d184f23, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: pitsOffice'
+    m_Prefab: {fileID: 7659797677671182010, guid: 21c82d6533ea1da4dbea4aaa4ecd8715, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: pitsOfficeCorner'
+    m_Prefab: {fileID: 4780380454906822846, guid: 62f305cf2721be047914f0ca49520594, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: pitsOfficeRoof'
+    m_Prefab: {fileID: 5184611094511242523, guid: 04bef9b74e2302d4b949449989c799d7, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: pylon'
+    m_Prefab: {fileID: 20590647796098814, guid: 7859d4ba23c890a4fbf9b2cfb5b1056f, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: raceCarGreen'
+    m_Prefab: {fileID: 200150682494310583, guid: 330f02ba31d12804983d1756f345e98c, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: raceCarOrange'
+    m_Prefab: {fileID: 6691134262981773588, guid: d53b7c173f1820d42a46383e613095e4, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: raceCarRed'
+    m_Prefab: {fileID: 7354116972653498542, guid: ea68379f6f3684f438ab731dd3f07587, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: raceCarWhite'
+    m_Prefab: {fileID: 6213381834745710588, guid: 13a6172066128f54583c2e751ae09ad0, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: radarEquipment'
+    m_Prefab: {fileID: 6069491117798560824, guid: 28f712f50da573c42bc787cffbec36bb, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: rail'
+    m_Prefab: {fileID: 8760301306489143603, guid: 97362fd7e7bac0c48b307322796f2dfc, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: railDouble'
+    m_Prefab: {fileID: 1383213369998313442, guid: fe353f1c1507d994f80c2f65c17d1c3f, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: ramp'
+    m_Prefab: {fileID: 3014377495045384634, guid: a61a52eb0e494c64c8322dfa2dbd086e, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: roadBump'
+    m_Prefab: {fileID: 9075244273224938108, guid: c9fb19b1958330f419e450fc5d68e4cf, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: roadCornerBridgeLarge'
+    m_Prefab: {fileID: 6499735559267798236, guid: 30a171b383abb0e4a9039aacf269139e, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: roadCornerBridgeLarger'
+    m_Prefab: {fileID: 1068947923024344181, guid: 243023d2b1f60de44bbf7b8ce60de314, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: roadCornerBridgeSmall'
+    m_Prefab: {fileID: 1601115056366008165, guid: c268740d1e9a14343a9b55f87e511d57, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: roadCornerLarge'
+    m_Prefab: {fileID: 407995705238875196, guid: 2372888d696685c43a17c04a0437fe46, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: roadCornerLargeBorder'
+    m_Prefab: {fileID: 9161039770178233537, guid: d79890c666fdea34a947ec60d6fd7db9, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: roadCornerLargeBorderInner'
+    m_Prefab: {fileID: 1455943169482836815, guid: 518d8b7cbcc8c2f4b8cdabc30f0553ab, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: roadCornerLarger'
+    m_Prefab: {fileID: 4844033823556834225, guid: c5127aaecf0979646b86e5b1be8c2c2e, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: roadCornerLargerBorder'
+    m_Prefab: {fileID: 4798980893375117715, guid: 246fbe2b0208185418d27ceb9e7096de, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: roadCornerLargerBorderInner'
+    m_Prefab: {fileID: 7327278368738813907, guid: 611b48c1e4ca02f4c96e908b6eb91a4e, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: roadCornerLargerSand'
+    m_Prefab: {fileID: 9067070317673679674, guid: 82733313afd58be4f89acb70a5079a7f, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: roadCornerLargerSandInner'
+    m_Prefab: {fileID: 813700944279908430, guid: a0217d6aca94d6f4c9421b457b2dad3d, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: roadCornerLargerWall'
+    m_Prefab: {fileID: 3381241508497639735, guid: 655a099988884da408f31dd3262dc67e, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: roadCornerLargerWallInner'
+    m_Prefab: {fileID: 6215142060329671703, guid: 3fd37e9ebca4fa544b11a1f1d228de3a, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: roadCornerLargeSand'
+    m_Prefab: {fileID: 3434938985667202821, guid: 7bd3b55295cb38c47b83ac16392205b1, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: roadCornerLargeSandInner'
+    m_Prefab: {fileID: 2101004866490155286, guid: 83679f0b434710145bdcfed91c35c5a0, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: roadCornerLargeWall'
+    m_Prefab: {fileID: 6763298196997132389, guid: 1ecc6683aae1349469773ebabfe392b3, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: roadCornerLargeWallInner'
+    m_Prefab: {fileID: 8285014954538622181, guid: ad4dc43d17fff984ea7bf4171bf6b97f, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: roadCornerSmall'
+    m_Prefab: {fileID: 4308238215907723445, guid: 11975c67b4537ee49a680f3962ad964f, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: roadCornerSmallBorder'
+    m_Prefab: {fileID: 1994596294457411291, guid: 48b72b47ec63b644bbfd1704ba5c332e, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: roadCornerSmallSand'
+    m_Prefab: {fileID: 8831524830991182663, guid: 8efc83a26caa04744be1258e02705b4e, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: roadCornerSmallSquare'
+    m_Prefab: {fileID: 850189737125698794, guid: 72d6e9b2f944d644a8e025b2eb7a1f8b, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: roadCornerSmallWall'
+    m_Prefab: {fileID: 646419735671101541, guid: 37a57ba89bde2784cb2d651d00fb0816, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: roadCrossing'
+    m_Prefab: {fileID: 2686118863904747976, guid: fbbf622e1e60da745aa7a859bb126924, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: roadCurved'
+    m_Prefab: {fileID: 8354528094895170328, guid: 177b4811e40825a4d8c5767426ce3cf4, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: roadCurvedSplit'
+    m_Prefab: {fileID: 2379374898450475721, guid: bfd726c8b6b03534ca20b7e961359d88, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: roadEnd'
+    m_Prefab: {fileID: 6457570113536956188, guid: 3fb0e9abdc3182b49a57c9df2a71f2a2, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: roadPitEntry'
+    m_Prefab: {fileID: 8535635283314681585, guid: 468ec311ffacfe346af243760e70a572, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: roadPitGarage'
+    m_Prefab: {fileID: 3993023741338770421, guid: 7b9c28ebb8882ed4a863795233c5d1c6, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: roadPitStraight'
+    m_Prefab: {fileID: 5654158763066235045, guid: 7dba4eecc7359b14c8dfdd69e46e3f53, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: roadPitStraightLong'
+    m_Prefab: {fileID: 7852385564541819183, guid: cd3bbe773ea4d4044831dcfd5cc68da9, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: roadRamp'
+    m_Prefab: {fileID: 6481420996491737641, guid: a25a2d89075c43d4d84f3d327b100bca, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: roadRampLong'
+    m_Prefab: {fileID: 8776157533533766116, guid: 62e5408384d0e8d45b5375b8f8e4457c, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: roadRampLongCurved'
+    m_Prefab: {fileID: 1114419655408577852, guid: 3a8126c9ffa07f34ca0b596bc7ddac8a, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: roadRampLongCurvedWall'
+    m_Prefab: {fileID: 7272040463028157232, guid: b821efc7436f4044a952cbdd8e9910ef, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: roadRampLongWall'
+    m_Prefab: {fileID: 6329223778866439407, guid: 5c334733639ee3749bc57bb84cfc1c80, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: roadRampWall'
+    m_Prefab: {fileID: 6222357565615981434, guid: 9e1fb2a2d1608724c9b473f540628dad, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: roadSide'
+    m_Prefab: {fileID: 1679691593735289339, guid: 68116e97f7b62b7459358d4f5fe48bdd, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: roadSplit'
+    m_Prefab: {fileID: 3324070307278366341, guid: afe64bec0d193424fbe2655d9cb91976, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: roadSplitLarge'
+    m_Prefab: {fileID: 8726545746039447478, guid: d9d9838828616e142a02f0ad9c85304d, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: roadSplitLarger'
+    m_Prefab: {fileID: 2610017617092324187, guid: 139d585071bc5d3498b25cb95b709e32, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: roadSplitRound'
+    m_Prefab: {fileID: 628917320093749173, guid: 08503178d6201fc44a63142befb17c2e, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: roadSplitRoundLarge'
+    m_Prefab: {fileID: 470616896312327978, guid: 9a325e0c5ea9e38419c094e7b18b0b9a, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: roadSplitSmall'
+    m_Prefab: {fileID: 5230200853925152211, guid: c2202e734a4745649a92484832020334, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: roadStart'
+    m_Prefab: {fileID: 2602965240213725911, guid: 721c051b45d9e1d4aa226bfc4c68d663, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: roadStartPositions'
+    m_Prefab: {fileID: 8749100246992710032, guid: 1ce7852cb98bc3241a47d8faf8a45a58, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: roadStraight'
+    m_Prefab: {fileID: 8015274231171316415, guid: b192459677f72294d9f4a7a7fc265dff, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: roadStraightArrow'
+    m_Prefab: {fileID: 1885042472348020636, guid: 2b18ffa327e61d642bf2f7d5b5ffc10f, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: roadStraightBridge'
+    m_Prefab: {fileID: 5039917915122201295, guid: 5ab1cbd297722e640b2e5404365cbf2c, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: roadStraightBridgeMid'
+    m_Prefab: {fileID: 4170553002372548464, guid: 966ff3ffe9a0966499a243e30c498a1e, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: roadStraightBridgeStart'
+    m_Prefab: {fileID: 5091767408776265208, guid: 87194c6fcb82057449a591a65a4ef479, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: roadStraightLong'
+    m_Prefab: {fileID: 6162490383072255481, guid: aaa7b166a73ed464c93caf9a2815a1c2, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: roadStraightLongBump'
+    m_Prefab: {fileID: 4508203353880104458, guid: 1f4abc4390d1c46479f4750f61cb922f, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: roadStraightLongBumpRound'
+    m_Prefab: {fileID: 6583674882640392889, guid: 584f3d80edf65d347ac50b7fe71bc6b4, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: roadStraightLongMid'
+    m_Prefab: {fileID: 3827911739902715682, guid: 0df34ddcc0acf384aa2f1214eaed39a7, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: roadStraightSkew'
+    m_Prefab: {fileID: 5581647375537191539, guid: e821c975d012c8f4291316ddaefdfa8d, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: tent'
+    m_Prefab: {fileID: 153059249214229840, guid: 2dbc0028d86e4e143ba6d7c5e273acbd, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: tentClosed'
+    m_Prefab: {fileID: 2184675002951916988, guid: 12a354f29a92c8449a80d39a9d4ace27, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: tentClosedLong'
+    m_Prefab: {fileID: 7015252162592355081, guid: 1ee3c117dc2c1de40beec35a2f29e02f, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: tentLong'
+    m_Prefab: {fileID: 5343057790912235249, guid: 5eea8c2d61f56ed4188aa8a382eca8f7, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: tentRoof'
+    m_Prefab: {fileID: 2127805110496321412, guid: b911ecd239b42434b8dc9036a2a369bb, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: tentRoofDouble'
+    m_Prefab: {fileID: 7662350553112513102, guid: ea34685a0dc85dc448380bdfdb9002a5, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: treeLarge'
+    m_Prefab: {fileID: 6118559406243647246, guid: 08fd71a60f70ad1459899695d42719fc, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: treeSmall'
+    m_Prefab: {fileID: 380440584335934492, guid: 600d32fe9c372c14c937b97a0f370346, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  m_TileCursorHeight: 5

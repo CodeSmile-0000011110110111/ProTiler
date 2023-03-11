@@ -12,56 +12,69 @@ using WorldRect = UnityEngine.Rect;
 namespace CodeSmile.Tile
 {
 	[Serializable]
-	public sealed partial class TileLayer
+	public sealed partial class TileLayer 
 	{
-		[SerializeField] private float m_TileCursorHeight = 5f;
-		[SerializeField] private TileGrid m_Grid = new(new GridSize(30, 1, 30));
-		[SerializeField] private int m_TileSetIndex;
-		[SerializeField] private TileSet m_TileSet = new();
+		private static readonly TileGrid DefaultGrid = new();
+
+		[SerializeField] private int m_SelectedTileSetIndex;
+		[ReadOnlyField] [SerializeField] private string m_SelectedTileName;
+
+		[SerializeField] private GridCoord m_CursorCoord;
+
+		[SerializeField] private TileSet m_TileSet;
 		[HideInInspector] [SerializeField] private TileContainer m_TileContainer = new();
-		[SerializeField] private TilePivot m_TilePivot;
 		[SerializeField] private bool m_ClearTiles;
-		[SerializeField] private int m_TileCount;
+		[ReadOnlyField] [SerializeField] private int m_TileCount;
 
 		public Action OnClearTiles;
 		public Action<GridRect> OnSetTiles;
 		public Action<GridCoord, TileFlags> OnSetTileFlags;
 
-		public TilePivot TilePivot { get => m_TilePivot; set => m_TilePivot = value; }
-
-		public TileGrid Grid { get => m_Grid; set => m_Grid = value; }
 		public TileContainer TileContainer => m_TileContainer;
-		public TileSet TileSet => m_TileSet;
-		public float TileCursorHeight { get => m_TileCursorHeight; set => m_TileCursorHeight = value; }
-		public int TileSetIndex
+		//public TileSet TileSet => m_TileSet;
+		public TileSet TileSet
 		{
-			get => m_TileSetIndex;
+			get
+			{
+				if (m_TileSet == null)
+					m_TileSet = ScriptableObject.CreateInstance(typeof(TileSet)) as TileSet;
+				return m_TileSet;
+			}
+		}
+		public TileGrid Grid
+		{
+			get
+			{
+				if (m_TileSet != null)
+					return m_TileSet.Grid;
+
+				return DefaultGrid;
+			}
+		}
+
+		public float TileCursorHeight { get => TileSet.TileCursorHeight; set => TileSet.TileCursorHeight = value; }
+		public int SelectedTileSetIndex
+		{
+			get => m_SelectedTileSetIndex;
 			set
 			{
-				m_TileSetIndex = value;
+				m_SelectedTileSetIndex = value;
 				ClampTileSetIndex();
 			}
 		}
-		private void ClampTileSetIndex() => m_TileSetIndex = Mathf.Clamp(m_TileSetIndex, 0, m_TileSet.Count - 1);
+		public GridCoord CursorCoord { get => m_CursorCoord; set => m_CursorCoord = value; }
+		private void ClampTileSetIndex() => m_SelectedTileSetIndex = Mathf.Clamp(m_SelectedTileSetIndex, 0, TileSet.Count - 1);
 
 		private void UpdateTileCount() => m_TileCount = m_TileContainer.Count;
 
-		public float3 GetTileOffset()
-		{
-			var gridSize = m_Grid.Size;
-			return m_TilePivot switch
-			{
-				TilePivot.Center => new float3(gridSize.x * .5f, gridSize.y * .5f, gridSize.z * .5f),
-				_ => throw new ArgumentOutOfRangeException(),
-			};
-		}
+		public float3 GetTileOffset() => TileSet.GetTileOffset();
 
-		public float3 GetTileWorldPosition(GridCoord coord) => m_Grid.ToWorldPosition(coord) + GetTileOffset();
+		public float3 GetTileWorldPosition(GridCoord coord) => Grid.ToWorldPosition(coord) + GetTileOffset();
 
 		public void SetTiles(GridRect gridSelection, bool clear = false)
 		{
 			//var prefabTile = clear ? null : m_TileSet.GetPrefabIndex(m_TileSetIndex);
-			var coords = m_TileContainer.SetTiles(gridSelection, clear ? -1 : m_TileSetIndex);
+			var coords = m_TileContainer.SetTiles(gridSelection, clear ? -1 : m_SelectedTileSetIndex);
 			OnSetTiles?.Invoke(gridSelection);
 			UpdateTileCount();
 		}

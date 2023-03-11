@@ -17,8 +17,21 @@ namespace CodeSmile.Tile
 		private static GridSize MinGridSize = new(1, 1, 1);
 
 		[SerializeField] private GridSize m_GridSize;
+
+		public static GridRect MakeRect(GridCoord coord1, GridCoord coord2)
+		{
+			var coordMin = math.min(coord1, coord2);
+			var coordMax = math.max(coord1, coord2);
+			return new GridRect(coordMin.x, coordMin.z, coordMax.x - coordMin.x + 1, coordMax.z - coordMin.z + 1);
+		}
+
+		public static WorldRect ToWorldRect(GridRect rect, GridSize gridSize) => new(
+			rect.x * gridSize.x, rect.y * gridSize.z,
+			rect.width * gridSize.x, rect.height * gridSize.z);
 		//public Vector3Int Gap { get => m_Gap; set => m_Gap = value; }
 		//[SerializeField] private Vector3Int m_Gap;
+
+		public TileGrid() => m_GridSize = MinGridSize;
 
 		public TileGrid(GridSize gridSize)
 		{

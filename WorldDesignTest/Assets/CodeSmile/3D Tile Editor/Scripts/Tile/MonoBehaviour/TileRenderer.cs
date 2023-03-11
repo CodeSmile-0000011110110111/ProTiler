@@ -30,18 +30,33 @@ namespace CodeSmile.Tile
 		[ExecuteInEditMode]
 		public class TileRenderer : MonoBehaviour
 		{
-			private static readonly Vector2Int MinDrawDistance = new(1, 1);
-			private static readonly Vector2Int MaxDrawDistance = new(byte.MaxValue + 1, byte.MaxValue + 1);
+			private const int MinDrawDistance = 10;
+			private const int MaxDrawDistance = 100;
 
-			[SerializeField] private Vector2Int m_DrawDistance = new(20, 20);
+			[Range(MinDrawDistance, MaxDrawDistance)] [SerializeField] private int m_DrawDistance = MinDrawDistance;
 
 			[NonSerialized] private readonly Dictionary<GridCoord, GameObject> m_ActiveObjects = new();
 			[NonSerialized] private TileWorld m_World;
+			[NonSerialized] private Transform m_Cursor;
+			[NonSerialized] private Transform m_TilesParent;
+
+			private int m_PrevDrawDistance;
+			private GridCoord m_CursorRenderCoord;
+			private int m_SelectedTileIndex;
+
+			private void Init()
+			{
+				if (m_World == null)
+					m_World = GetComponent<TileWorld>();
+
+				m_Cursor = CreateChildObject("Cursor");
+				m_TilesParent = CreateChildObject("Tiles");
+			}
 
 			private void OnEnable()
 			{
-				SetWorld();
-				transform.DestroyAllChildren();
+				Init();
+				Repaint();
 				RegisterTileWorldEvents();
 			}
 
@@ -49,6 +64,8 @@ namespace CodeSmile.Tile
 
 			private void OnRenderObject()
 			{
+				//Debug.Log(Time.frameCount + System.Reflection.MethodBase.GetCurrentMethod().Name);
+
 				var camera = Camera.current;
 				if (camera == null)
 					return;
@@ -58,9 +75,31 @@ namespace CodeSmile.Tile
 
 				DestroyTilesOutside(camRect);
 				InstantiateTiles(layer, camRect);
+				UpdateCursorTile(layer);
 			}
 
-			private void OnValidate() => m_DrawDistance.Clamp(MinDrawDistance, MaxDrawDistance);
+			private void OnValidate()
+			{
+				ClampDrawDistance();
+				UpdateTileProxyObjects();
+			}
+
+			private void UpdateTileProxyObjects()
+			{
+				if (m_DrawDistance != m_PrevDrawDistance)
+				{
+					m_PrevDrawDistance = m_DrawDistance;
+					// TODO: update go count
+				}
+			}
+
+			private void ClampDrawDistance() => m_DrawDistance = math.clamp(m_DrawDistance, MinDrawDistance, MaxDrawDistance);
+
+			public void Repaint()
+			{
+				m_TilesParent.DestroyAllChildren();
+				OnRenderObject();
+			}
 
 			private void RegisterTileWorldEvents()
 			{
@@ -80,17 +119,17 @@ namespace CodeSmile.Tile
 
 			private RectInt GetCameraRect(Camera camera)
 			{
-				var camPos = (float3)camera.transform.position;
-				var camCoord = m_World.ActiveLayer.Grid.ToGridCoord(camPos);
-				var coord1 = new GridCoord(camCoord.x - m_DrawDistance.x, 0, camCoord.z - m_DrawDistance.y);
-				var coord2 = new GridCoord(camCoord.x + m_DrawDistance.x, 0, camCoord.z + m_DrawDistance.y);
-				return GridUtil.MakeRect(coord1, coord2);
-			}
+				var camForward = camera.transform.forward;
+				var rayOrigin = camera.transform.position + camForward * (m_DrawDistance * 10f);
+				var camRay = new Ray(rayOrigin, Vector3.down);
+				camRay.IntersectsPlane(out float3 point);
 
-			private void SetWorld()
-			{
-				if (m_World == null)
-					m_World = GetComponent<TileWorld>();
+				//var camPos = (float3)camera.transform.position;
+				var camPos = point;
+				var camCoord = m_World.ActiveLayer.Grid.ToGridCoord(camPos);
+				var coord1 = new GridCoord(camCoord.x - m_DrawDistance, 0, camCoord.z - m_DrawDistance);
+				var coord2 = new GridCoord(camCoord.x + m_DrawDistance, 0, camCoord.z + m_DrawDistance);
+				return TileGrid.MakeRect(coord1, coord2);
 			}
 
 			private void SetOrReplaceTiles(GridRect rect)
@@ -134,30 +173,83 @@ namespace CodeSmile.Tile
 						if (prefab != null)
 						{
 							var worldPos = layer.GetTileWorldPosition(coord);
-							var go = Instantiate(prefab, worldPos, quaternion.identity, transform);
-							ApplyTileFlags(go, tile.Flags);
-							go.hideFlags = HideFlags.DontSaveInEditor |
-							               HideFlags.DontSaveInBuild |
-							               HideFlags.HideInInspector |
-							               HideFlags.HideInHierarchy |
-							               HideFlags.NotEditable |
-							               HideFlags.DontUnloadUnusedAsset;
+							var go = InstantiateTileObject(prefab, worldPos, m_TilesParent, tile.Flags);
 							m_ActiveObjects.Add(coord, go);
 						}
 					}
 				}
+
+				//Selection.SetActiveObjectWithContext(null, null);
+			}
+
+			private GameObject InstantiateTileObject(GameObject prefab, Vector3 position, Transform parent, TileFlags flags)
+			{
+				var go = Instantiate(prefab, position, quaternion.identity, parent);
+				ApplyTileFlags(go, flags);
+				go.hideFlags = HideFlags.HideAndDontSave;
+				return go;
+			}
+
+			private void UpdateCursorTile(TileLayer layer)
+			{
+				var cursorCoord = layer.CursorCoord;
+
+				var index = layer.SelectedTileSetIndex;
+				if (m_SelectedTileIndex != index)
+				{
+					m_SelectedTileIndex = index;
+					Debug.Log($"selected tile index: {m_SelectedTileIndex}");
+
+					m_Cursor.gameObject.DestroyInAnyMode();
+
+					var prefab = layer.TileSet.GetPrefab(index);
+					m_Cursor = CreateChildObject("Cursor", prefab);
+					SetCursorPosition(layer, cursorCoord);
+				}
+
+				if (m_CursorRenderCoord.Equals(cursorCoord) == false)
+				{
+					SetCursorPosition(layer, cursorCoord);
+					//Debug.Log($"cursor pos changed: {m_CursorRenderCoord}");
+				}
+			}
+
+			private void SetCursorPosition(TileLayer layer, GridCoord cursorCoord)
+			{
+				m_CursorRenderCoord = cursorCoord;
+				m_Cursor.position = layer.Grid.ToWorldPosition(m_CursorRenderCoord) + layer.TileSet.GetTileOffset();
+			}
+
+			private Transform CreateChildObject(string name, GameObject prefab = null)
+			{
+				var child = transform.Find(name);
+				if (child == null)
+				{
+					if (prefab == null)
+					{
+						child = new GameObject(name).transform;
+						child.parent = transform;
+					}
+					else
+					{
+						child = Instantiate(prefab, transform).transform;
+						child.name = name;
+					}
+
+					child.gameObject.hideFlags = HideFlags.HideAndDontSave;
+				}
+				return child;
 			}
 
 			private void ApplyTileFlags(GameObject go, TileFlags flags)
 			{
 				var t = go.transform;
-				t.localScale = ScaleFromTileFlags(flags);
+				t.localScale = ScaleFromTileFlags(flags, t.localScale);
 				t.rotation = RotationFromTileFlags(flags);
 			}
 
-			private Vector3 ScaleFromTileFlags(TileFlags flags)
+			private Vector3 ScaleFromTileFlags(TileFlags flags, Vector3 scale)
 			{
-				var scale = Vector3.one;
 				if (flags.HasFlag(TileFlags.FlipHorizontal))
 					scale.x *= -1f;
 				if (flags.HasFlag(TileFlags.FlipVertical))
@@ -231,7 +323,7 @@ namespace CodeSmile.Tile
 				}
 
 				m_ActiveObjects.Clear();
-				transform.DestroyAllChildren();
+				m_TilesParent.DestroyAllChildren();
 			}
 		}
 	}

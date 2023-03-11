@@ -119,21 +119,26 @@ namespace CodeSmile.Tile
 
 		public TileFlags SetTileFlags(GridCoord coord, TileFlags flags)
 		{
+			var tileFlags = TileFlags.None;
 			var tile = GetTile(coord);
 			if (tile != null)
 			{
 				tile.Flags |= flags;
-				//Debug.Log($"Tile {tile.TileSetIndex} at {coord} gets flags: {tile.Flags}");
+				tileFlags = flags;
 			}
-			return tile.Flags;
+			return tileFlags;
 		}
 
 		public TileFlags ClearTileFlags(GridCoord coord, TileFlags flags)
 		{
+			var tileFlags = TileFlags.None;
 			var tile = GetTile(coord);
 			if (tile != null)
+			{
 				tile.Flags &= ~flags;
-			return tile.Flags;
+				tileFlags = flags;
+			}
+			return tileFlags;
 		}
 	}
 }
