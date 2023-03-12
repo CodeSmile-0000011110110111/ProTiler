@@ -138,9 +138,6 @@ namespace CodeSmile.Tile
 				var layer = m_World.ActiveLayer;
 				var camRect = GetCameraRect();
 
-				DestroyTilesOutside(camRect);
-				InstantiateTiles(layer, camRect);
-
 				UpdateTileProxyObjects(layer, camRect);
 				UpdateCursorTile(layer);
 			}
@@ -223,6 +220,16 @@ namespace CodeSmile.Tile
 				layer.OnClearTiles -= OnClearActiveLayer;
 				layer.OnSetTiles -= SetOrReplaceTiles;
 				layer.OnSetTileFlags -= SetTileFlags;
+			}
+
+			private void OnClearActiveLayer()
+			{
+				Debug.LogWarning("clear layer not implemented");
+			}
+
+			private void SetOrReplaceTiles(RectInt rect)
+			{
+				Debug.LogWarning("SetOrReplaceTiles not implemented");
 			}
 		}
 	}

@@ -1,6 +1,6 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
-
+/*
 using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
@@ -13,7 +13,7 @@ namespace CodeSmile.Tile
 		{
 			private void InstantiateTiles(TileLayer layer, RectInt rect)
 			{
-				/*if (rect.width <= 0 || rect.height <= 0)
+				if (rect.width <= 0 || rect.height <= 0)
 					return;
 
 				var tileset = layer.TileSet;
@@ -32,7 +32,7 @@ namespace CodeSmile.Tile
 							m_ActiveObjects.Add(coord, go);
 						}
 					}
-				}*/
+				}
 			}
 
 			private void DestroyTilesOutside(RectInt rect)
@@ -55,12 +55,13 @@ namespace CodeSmile.Tile
 					}
 
 					m_ActiveObjects.Remove(coord);
-				}*/
+				}
 			}
 
+			
 			private void DestroyTilesInside(RectInt rect)
 			{
-				/*var coordsToRemove = new List<int3>();
+				var coordsToRemove = new List<int3>();
 				foreach (var coord in m_ActiveObjects.Keys)
 				{
 					if (rect.IsInside(coord))
@@ -74,40 +75,24 @@ namespace CodeSmile.Tile
 						go.DestroyInAnyMode();
 
 					m_ActiveObjects.Remove(coord);
-				}*/
-			}
-
-			private void DestroyAllTiles()
-			{
-				Debug.Log("DestroyAllTiles ...");
-				/*
-				foreach (var coord in m_ActiveObjects.Keys)
-				{
-					var go = m_ActiveObjects[coord];
-					if (go.IsMissing() == false)
-						go.DestroyInAnyMode();
 				}
-
-				m_ActiveObjects.Clear();
-				m_TilesParent.DestroyAllChildren();
-			*/
 			}
 
-			private void OnClearActiveLayer() => DestroyAllTiles();
-
-			private void SetOrReplaceTiles(RectInt rect)
+			
+		private void DestroyAllTiles()
+		{
+			Debug.Log("DestroyAllTiles ...");
+			foreach (var coord in m_ActiveObjects.Keys)
 			{
-				/*
-				if (IsCameraValid(out var camera) == false)
-					return;
-
-				var camRect = GetCameraRect(camera);
-				rect.ClampToBounds(camRect);
-
-				DestroyTilesInside(rect);
-				InstantiateTiles(m_World.ActiveLayer, rect);
-			*/
+				var go = m_ActiveObjects[coord];
+				if (go.IsMissing() == false)
+					go.DestroyInAnyMode();
 			}
+
+			m_ActiveObjects.Clear();
+			m_TilesParent.DestroyAllChildren();
+		}
 		}
 	}
 }
+		*/
