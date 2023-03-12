@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 using GridCoord = Unity.Mathematics.int3;
 using GridSize = Unity.Mathematics.int3;
@@ -37,79 +38,105 @@ namespace CodeSmile.Tile
 
 			[NonSerialized] private readonly Dictionary<GridCoord, GameObject> m_ActiveObjects = new();
 			[NonSerialized] private TileWorld m_World;
-			[NonSerialized] private Transform m_Cursor;
 			[NonSerialized] private Transform m_TilesParent;
 			[NonSerialized] private Transform m_PoolParent;
 
+			private GameObject m_TileProxyPrefab;
 			private GameObjectPool m_TileProxyPool;
-			private GridCoord m_CursorRenderCoord;
 			private GridRect m_PrevVisibleRect;
-			private int m_PrevDrawDistance;
+			[NonSerialized] private int m_PrevDrawDistance;
 			private int m_SelectedTileIndex;
-
-			private void Init()
-			{
-				if (m_World == null)
-					m_World = GetComponent<TileWorld>();
-
-				m_Cursor = CreateChildObject("Cursor");
-				m_TilesParent = CreateChildObject("Tiles");
-			}
 
 			private void OnEnable()
 			{
-				Init();
-				InitTileProxyPool();
-				Repaint();
+				OnEnableInit();
 				RegisterTileWorldEvents();
+				Repaint();
 			}
 
 			private void OnDisable()
 			{
 				UnregisterTileWorldEvents();
-				DisposeTileProxyPool();
+				OnDisableDisposeTileProxies();
 			}
 
 			private void OnRenderObject() => DestroyAndInstantiateTiles();
 
-			private void OnValidate()
+			private void OnValidate() => UpdateDrawDistance();
+
+			private void OnEnableInit()
 			{
-				ClampDrawDistance();
+				if (m_World == null)
+					m_World = GetComponent<TileWorld>();
+
+				m_Cursor = FindOrCreateChildObject("Cursor");
+				m_TilesParent = FindOrCreateChildObject("Tiles");
+
+				CreateTileProxyPool();
+			}
+
+			private void CreateTileProxyPool()
+			{
+				CreateTileProxyPrefab();
+				m_PoolParent = FindOrCreateChildObject("TileProxies");
+
+				var poolSize = 10;
+				Debug.Log($"INIT TileProxy pool with {poolSize} instances");
+				m_TileProxyPool = new GameObjectPool(m_TileProxyPrefab, m_PoolParent, poolSize);
+				UpdateDrawDistance();
 				UpdateTileProxyPoolCount();
+				UpdateTileProxyObjects(m_World.ActiveLayer, GetCameraRect(), true);
 			}
 
-			private void InitTileProxyPool()
+			private void CreateTileProxyPrefab()
 			{
-				var prefab = new GameObject("TileProxy");
-				try
-				{
-					var tileProxy = prefab.AddComponent<TileProxy>();
-					tileProxy.Layer = m_World.ActiveLayer;
-					tileProxy.Coord = new GridCoord(int.MinValue, 0, int.MinValue);
+				m_TileProxyPrefab = new GameObject("TileProxy");
+				m_TileProxyPrefab.hideFlags = HideFlags.HideAndDontSave;
+				m_TileProxyPrefab.transform.parent = transform;
 
-					var poolSize = m_DrawDistance * m_DrawDistance;
-					m_PoolParent = CreateChildObject("TileProxy Pool");
-					m_TileProxyPool = new GameObjectPool(prefab, m_PoolParent, poolSize);
-				}
-				finally
-				{
-					prefab.DestroyInAnyMode();
-				}
+				var tileProxy = m_TileProxyPrefab.AddComponent<TileProxy>();
+				tileProxy.Layer = m_World.ActiveLayer;
+				Debug.Log($"Created TileProxy prefab with layer: {tileProxy.Layer}");
 			}
 
-			private void DisposeTileProxyPool()
+			private void OnDisableDisposeTileProxies()
 			{
-				m_TileProxyPool.Dispose();
+				m_TileProxyPool?.Dispose();
 				m_TileProxyPool = null;
+				m_TileProxyPrefab.DestroyInAnyMode();
+				m_TileProxyPrefab = null;
+			}
+
+			private void UpdateDrawDistance()
+			{
+				m_DrawDistance = math.clamp(m_DrawDistance, MinDrawDistance, MaxDrawDistance);
+				if (m_DrawDistance != m_PrevDrawDistance)
+				{
+					m_PrevDrawDistance = m_DrawDistance;
+					UpdateTileProxyPoolCount();
+				}
+			}
+
+			private void UpdateTileProxyPoolCount()
+			{
+				if (m_TileProxyPool != null)
+				{
+					var poolSize = m_DrawDistance * m_DrawDistance;
+					StartCoroutine(new WaitForFramesElapsed(1, () =>
+					{
+						Debug.Log($"UPDATE TileProxy pool with {poolSize} instances");
+						m_TileProxyPool.UpdatePoolSize(poolSize);
+					}));
+				}
 			}
 
 			private void DestroyAndInstantiateTiles()
 			{
-				if (IsCameraValid(out var camera) == false)
+				if (IsCurrentCameraValid() == false)
 					return;
 
 				var layer = m_World.ActiveLayer;
-				var camRect = GetCameraRect(camera);
+				var camRect = GetCameraRect();
 
 				DestroyTilesOutside(camRect);
 				InstantiateTiles(layer, camRect);
@@ -118,26 +145,62 @@ namespace CodeSmile.Tile
 				UpdateCursorTile(layer);
 			}
 
-			private void SetOrReplaceTiles(GridRect rect)
+			private void UpdateTileProxyObjects(TileLayer layer, GridRect visibleRect, bool forceUpdate = false)
 			{
-				if (IsCameraValid(out var camera) == false)
+				if (visibleRect.Equals(m_PrevVisibleRect) || IsCurrentCameraValid() == false)
 					return;
 
-				var camRect = GetCameraRect(camera);
-				rect.ClampToBounds(camRect);
+				// a few of them need updates
+				// => compare prev and current visible rect
+				// tiles in prev but not in current => reusable
+				// tiles in current but not prev => must be updated
 
-				DestroyTilesInside(rect);
-				InstantiateTiles(m_World.ActiveLayer, rect);
-			}
+				var unionRect = visibleRect.Union(m_PrevVisibleRect);
+				var intersects = visibleRect.Intersects(m_PrevVisibleRect, out var intersection);
+				var proxies = m_TileProxyPool.GameObjects;
 
-			private void UpdateTileProxyPoolCount()
-			{
-				if (m_DrawDistance != m_PrevDrawDistance)
+				// find tiles that are no longer visible
+				var reusableProxies = new List<TileProxy>();
+				for (var j = 0; j < proxies.Count; j++)
 				{
-					m_PrevDrawDistance = m_DrawDistance;
-					var poolSize = m_DrawDistance * m_DrawDistance;
-					StartCoroutine(new WaitForFramesElapsed(1, () => { m_TileProxyPool.UpdatePoolSize(poolSize); }));
+					var proxy = proxies[j].GetComponent<TileProxy>();
+					var coord = proxy.Coord;
+					var coord2d = new Vector2Int(coord.x, coord.z);
+
+					// no longer visible?
+					if (visibleRect.Contains(coord2d) == false || forceUpdate)
+						reusableProxies.Add(proxy);
 				}
+
+				layer.TileContainer.GetTilesInRect(visibleRect, out var tiles);
+				var i = 0;
+				foreach (var coord in tiles.Keys)
+				{
+					var coord2d = new Vector2Int(coord.x, coord.z);
+					if (intersection.Contains(coord2d) && forceUpdate == false)
+						continue;
+
+					var tile = tiles[coord];
+					if (i < reusableProxies.Count)
+					{
+						//Debug.Log($"  update tile {tile.TileSetIndex} at {coord}, re-use proxy index {i}");
+						var proxy = reusableProxies[i];
+						proxy.Layer = m_World.ActiveLayer;
+						proxy.SetCoordAndTile(coord, tile);
+					}
+					else
+						Debug.LogWarning($"  needed {i} proxies but only {reusableProxies.Count} available, coord: {coord}");
+
+					i++;
+				}
+
+				if (i > reusableProxies.Count)
+				{
+					Debug.LogWarning($"needed: {i}, freed: {reusableProxies.Count}, vis: {visibleRect}, " +
+					                 $"union: {unionRect}, isect: {intersection} ({intersects})");
+				}
+
+				m_PrevVisibleRect = visibleRect;
 			}
 
 			public void Repaint()
@@ -160,83 +223,6 @@ namespace CodeSmile.Tile
 				layer.OnClearTiles -= OnClearActiveLayer;
 				layer.OnSetTiles -= SetOrReplaceTiles;
 				layer.OnSetTileFlags -= SetTileFlags;
-			}
-
-			private void OnClearActiveLayer() => DestroyAllTiles();
-
-			private void UpdateCursorTile(TileLayer layer)
-			{
-				var cursorCoord = layer.CursorCoord;
-
-				var index = layer.SelectedTileSetIndex;
-				if (m_SelectedTileIndex != index)
-				{
-					m_SelectedTileIndex = index;
-					Debug.Log($"selected tile index: {m_SelectedTileIndex}");
-
-					m_Cursor.gameObject.DestroyInAnyMode();
-
-					var prefab = layer.TileSet.GetPrefab(index);
-					m_Cursor = CreateChildObject("Cursor", prefab);
-					SetCursorPosition(layer, cursorCoord);
-				}
-
-				if (m_CursorRenderCoord.Equals(cursorCoord) == false)
-				{
-					SetCursorPosition(layer, cursorCoord);
-					//Debug.Log($"cursor pos changed: {m_CursorRenderCoord}");
-				}
-			}
-
-			private void UpdateTileProxyObjects(TileLayer layer, GridRect visibleRect)
-			{
-				if (visibleRect.Equals(m_PrevVisibleRect))
-					return;
-
-				// a few of them need updates
-				// => compare prev and current visible rect
-				// tiles in prev but not in current => reusable
-				// tiles in current but not prev => must be updated
-
-				var tileset = layer.TileSet;
-
-				var unionRect = visibleRect.Union(m_PrevVisibleRect);
-				var intersects = visibleRect.Intersects(m_PrevVisibleRect, out var intersection);
-
-				var proxies = m_TileProxyPool.GameObjects;
-
-				// find tiles that are no longer visible
-				var reusableProxies = new List<TileProxy>();
-				for (var j = 0; j < proxies.Count; j++)
-				{
-					var proxy = proxies[j].GetComponent<TileProxy>();
-					var coord = proxy.Coord;
-					var coord2d = new Vector2Int(coord.x, coord.z);
-
-					// no longer visible?
-					if (visibleRect.Contains(coord2d) == false)
-						reusableProxies.Add(proxy);
-				}
-				
-				if (reusableProxies.Count > 0)
-					Debug.Log($"re-use: {reusableProxies.Count}, visible: {visibleRect}, prev: {m_PrevVisibleRect}, union: {unionRect}, intersect: {intersection} ({intersects})");
-
-				layer.TileContainer.GetTilesInRect(visibleRect, out var tiles);
-				var i = 0;
-				foreach (var coord in tiles.Keys)
-				{
-					var coord2d = new Vector2Int(coord.x, coord.z);
-					if (intersection.Contains(coord2d))
-						continue;
-
-					var tile = tiles[coord];
-					Debug.Log($"  update tile {tile.TileSetIndex} at {coord}, re-use proxy index {i}");
-					var proxy = reusableProxies[i++];
-					proxy.Coord = coord;
-					proxy.Tile = tile;
-				}
-
-				m_PrevVisibleRect = visibleRect;
 			}
 		}
 	}

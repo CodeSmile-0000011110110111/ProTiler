@@ -16,6 +16,7 @@ namespace CodeSmile.Tile
 	{
 		private static readonly TileGrid DefaultGrid = new();
 
+		[SerializeField] private string m_Name = "Layer";
 		[SerializeField] private int m_SelectedTileSetIndex;
 		[ReadOnlyField] [SerializeField] private string m_SelectedTileName;
 
@@ -27,13 +28,15 @@ namespace CodeSmile.Tile
 		[ReadOnlyField] [SerializeField] private int m_TileCount;
 
 		[NonSerialized] private TileWorld m_TileWorld;
-		public TileWorld TileWorld { get => m_TileWorld; internal set => m_TileWorld = value; }
 
 		public Action OnClearTiles;
 		public Action<GridRect> OnSetTiles;
 		public Action<GridCoord, TileFlags> OnSetTileFlags;
-
 		public TileLayer(TileWorld world) => m_TileWorld = world;
+
+		public override string ToString() => m_Name;
+		public string Name => m_Name;
+		public TileWorld TileWorld { get => m_TileWorld; internal set => m_TileWorld = value; }
 
 		public TileContainer TileContainer { get => m_TileContainer; set => m_TileContainer = value; }
 		//public TileSet TileSet => m_TileSet;

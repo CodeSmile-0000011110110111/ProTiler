@@ -18,7 +18,7 @@ namespace CodeSmile.Tile
 		{
 #if UNITY_EDITOR
 			var guids1 = AssetDatabase.FindAssets("t:TileWorldEditorSettings");
-			Debug.Log($"found TileProxy count: {guids1.Length}");
+			Debug.Log($"found {guids1.Length} TileWorldEditorSettings asset");
 			foreach (var guid1 in guids1)
 				Debug.Log(AssetDatabase.GUIDToAssetPath(guid1));
 #endif

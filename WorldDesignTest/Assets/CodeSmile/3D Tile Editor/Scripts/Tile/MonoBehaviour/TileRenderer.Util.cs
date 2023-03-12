@@ -3,6 +3,10 @@
 
 using Unity.Mathematics;
 using UnityEngine;
+using GridCoord = Unity.Mathematics.int3;
+using GridSize = Unity.Mathematics.int3;
+using GridRect = UnityEngine.RectInt;
+using WorldRect = UnityEngine.Rect;
 
 namespace CodeSmile.Tile
 {
@@ -10,24 +14,18 @@ namespace CodeSmile.Tile
 	{
 		public partial class TileRenderer
 		{
-			private static bool IsCameraValid(out Camera camera)
-			{
-				camera = Camera.current;
-				return camera != null;
-			}
+			private static bool IsCurrentCameraValid() => Camera.current != null;
 
-			private void ClampDrawDistance() => m_DrawDistance = math.clamp(m_DrawDistance, MinDrawDistance, MaxDrawDistance);
-
-			private void SetTileFlags(int3 coord, TileFlags flags)
+			private void SetTileFlags(GridCoord coord, TileFlags flags)
 			{
 				if (TryGetGameObjectAtCoord(coord, out var go))
 					ApplyTileFlags(go, flags);
 			}
 
-			private bool IsGameObjectAtCoord(int3 coord) => m_ActiveObjects.ContainsKey(coord);
-			private bool TryGetGameObjectAtCoord(int3 coord, out GameObject go) => m_ActiveObjects.TryGetValue(coord, out go);
+			private bool IsGameObjectAtCoord(GridCoord coord) => m_ActiveObjects.ContainsKey(coord);
+			private bool TryGetGameObjectAtCoord(GridCoord coord, out GameObject go) => m_ActiveObjects.TryGetValue(coord, out go);
 
-			private Transform CreateChildObject(string name, GameObject prefab = null, HideFlags hideFlags = RenderHideFlags)
+			private Transform FindOrCreateChildObject(string name, GameObject prefab = null, HideFlags hideFlags = RenderHideFlags)
 			{
 				var child = transform.Find(name);
 				if (child == null)
@@ -42,9 +40,9 @@ namespace CodeSmile.Tile
 						child = Instantiate(prefab, transform).transform;
 						child.name = name;
 					}
-
-					child.gameObject.hideFlags = hideFlags;
 				}
+
+				child.gameObject.hideFlags = hideFlags;
 				return child;
 			}
 
@@ -85,25 +83,25 @@ namespace CodeSmile.Tile
 				return go;
 			}
 
-			private void SetCursorPosition(TileLayer layer, int3 cursorCoord)
+			private void SetCursorPosition(TileLayer layer, GridCoord cursorCoord)
 			{
 				m_CursorRenderCoord = cursorCoord;
 				m_Cursor.position = layer.Grid.ToWorldPosition(m_CursorRenderCoord) + layer.TileSet.GetTileOffset();
 			}
 
-			private RectInt GetCameraRect(Camera camera)
+			private RectInt GetCameraRect()
 			{
+				if (IsCurrentCameraValid() == false)
+					return new GridRect();
+					
+				var camera = Camera.current;
 				var camForward = camera.transform.forward;
 				var rayOrigin = camera.transform.position + camForward * (m_DrawDistance * 10f);
 				var camRay = new Ray(rayOrigin, Vector3.down);
-				camRay.IntersectsPlane(out float3 point);
+				camRay.IntersectsPlane(out float3 camPos);
 
-				//var camPos = (float3)camera.transform.position;
-				var camPos = point;
 				var camCoord = m_World.ActiveLayer.Grid.ToGridCoord(camPos);
-				var coord1 = new int3(camCoord.x - m_DrawDistance, 0, camCoord.z - m_DrawDistance);
-				var coord2 = new int3(camCoord.x + m_DrawDistance, 0, camCoord.z + m_DrawDistance);
-				return TileGrid.MakeRect(coord1, coord2);
+				return new GridRect(camCoord.x - m_DrawDistance / 2, camCoord.z - m_DrawDistance / 2, m_DrawDistance, m_DrawDistance);
 			}
 		}
 	}

@@ -12,17 +12,21 @@ namespace CodeSmile.Tile
 {
 	public class TileProxy : MonoBehaviour
 	{
-		private GridCoord m_Coord;
-		private Tile m_Tile;
-		private TileLayer m_Layer;
-		private GameObject m_Instance;
+		[NonSerialized] private GridCoord m_Coord;
+		[NonSerialized] private Tile m_Tile;
+		[NonSerialized] private TileLayer m_Layer;
+		[NonSerialized] private GameObject m_Instance;
 
-		private void OnEnable() => UpdateInstance();
+		private void OnEnable()
+		{
+			m_Coord = Global.InvalidCoord;
+			UpdateInstance();
+		}
 
 		public GridCoord Coord
 		{
 			get => m_Coord;
-			set
+			internal set
 			{
 				if (m_Coord.Equals(value) == false)
 				{
@@ -35,7 +39,7 @@ namespace CodeSmile.Tile
 		public Tile Tile
 		{
 			get => m_Tile;
-			set
+			internal set
 			{
 				if (m_Tile != value)
 				{
@@ -47,33 +51,40 @@ namespace CodeSmile.Tile
 		public TileLayer Layer
 		{
 			get => m_Layer;
-			set
+			internal set
 			{
-				Debug.Log($"proxy set layer to: {value}");
 				if (value == null)
 					throw new ArgumentNullException("layer must not be null");
-				
+
 				m_Layer = value;
 			}
 		}
 
+		public void SetCoordAndTile(GridCoord coord, Tile tile)
+		{
+			//Debug.Log($"update TileProxy at {coord} with tile {tile}, layer: {m_Layer}");
+			
+			// order is important!
+			Coord = coord;
+			Tile = tile;
+		}
+
 		private void UpdateInstance()
 		{
-			Debug.Log($"update instance at {m_Coord} with tile {m_Tile}");
 			if (m_Instance != null)
 			{
 				m_Instance.DestroyInAnyMode();
 				m_Instance = null;
 			}
 
-			if (m_Tile != null && m_Layer != null && m_Layer.TileSet != null)
+			if (m_Tile != null && m_Layer.TileSet != null)
 			{
 				var prefab = m_Layer.TileSet.GetPrefab(m_Tile.TileSetIndex);
 				var worldPos = m_Layer.GetTilePosition(m_Coord);
 				m_Instance = InstantiateTileObject(prefab, worldPos, transform, m_Tile.Flags);
 
 #if UNITY_EDITOR
-				m_Instance.name = $"({m_Coord} Tile#{m_Tile.TileSetIndex}, Layer: {m_Layer}";
+				name = $"({m_Coord} Tile#{m_Tile.TileSetIndex}, Layer: {m_Layer}";
 #endif
 			}
 		}

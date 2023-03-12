@@ -13,7 +13,7 @@ namespace CodeSmile.Tile
 		{
 			private void InstantiateTiles(TileLayer layer, RectInt rect)
 			{
-				if (rect.width <= 0 || rect.height <= 0)
+				/*if (rect.width <= 0 || rect.height <= 0)
 					return;
 
 				var tileset = layer.TileSet;
@@ -32,12 +32,12 @@ namespace CodeSmile.Tile
 							m_ActiveObjects.Add(coord, go);
 						}
 					}
-				}
+				}*/
 			}
 
 			private void DestroyTilesOutside(RectInt rect)
 			{
-				var coordsToRemove = new List<int3>();
+				/*var coordsToRemove = new List<int3>();
 				foreach (var coord in m_ActiveObjects.Keys)
 				{
 					if (rect.IsInside(coord) == false)
@@ -55,12 +55,12 @@ namespace CodeSmile.Tile
 					}
 
 					m_ActiveObjects.Remove(coord);
-				}
+				}*/
 			}
 
 			private void DestroyTilesInside(RectInt rect)
 			{
-				var coordsToRemove = new List<int3>();
+				/*var coordsToRemove = new List<int3>();
 				foreach (var coord in m_ActiveObjects.Keys)
 				{
 					if (rect.IsInside(coord))
@@ -74,12 +74,13 @@ namespace CodeSmile.Tile
 						go.DestroyInAnyMode();
 
 					m_ActiveObjects.Remove(coord);
-				}
+				}*/
 			}
 
 			private void DestroyAllTiles()
 			{
 				Debug.Log("DestroyAllTiles ...");
+				/*
 				foreach (var coord in m_ActiveObjects.Keys)
 				{
 					var go = m_ActiveObjects[coord];
@@ -89,6 +90,23 @@ namespace CodeSmile.Tile
 
 				m_ActiveObjects.Clear();
 				m_TilesParent.DestroyAllChildren();
+			*/
+			}
+
+			private void OnClearActiveLayer() => DestroyAllTiles();
+
+			private void SetOrReplaceTiles(RectInt rect)
+			{
+				/*
+				if (IsCameraValid(out var camera) == false)
+					return;
+
+				var camRect = GetCameraRect(camera);
+				rect.ClampToBounds(camRect);
+
+				DestroyTilesInside(rect);
+				InstantiateTiles(m_World.ActiveLayer, rect);
+			*/
 			}
 		}
 	}
