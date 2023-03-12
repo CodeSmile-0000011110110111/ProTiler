@@ -38,14 +38,13 @@ namespace CodeSmile.Tile
 
 			[NonSerialized] private readonly Dictionary<GridCoord, GameObject> m_ActiveObjects = new();
 			[NonSerialized] private TileWorld m_World;
-			[NonSerialized] private Transform m_TilesParent;
 			[NonSerialized] private Transform m_PoolParent;
 
 			private GameObject m_TileProxyPrefab;
 			private GameObjectPool m_TileProxyPool;
-			private GridRect m_PrevVisibleRect;
+			[NonSerialized] private GridRect m_PrevVisibleRect;
 			[NonSerialized] private int m_PrevDrawDistance;
-			private int m_SelectedTileIndex;
+			[NonSerialized] private int m_SelectedTileIndex;
 
 			private void OnEnable()
 			{
@@ -70,7 +69,6 @@ namespace CodeSmile.Tile
 					m_World = GetComponent<TileWorld>();
 
 				m_Cursor = FindOrCreateChildObject("Cursor");
-				m_TilesParent = FindOrCreateChildObject("Tiles");
 
 				CreateTileProxyPool();
 			}
@@ -202,7 +200,6 @@ namespace CodeSmile.Tile
 
 			public void Repaint()
 			{
-				m_TilesParent.DestroyAllChildren();
 				DestroyAndInstantiateTiles();
 			}
 
