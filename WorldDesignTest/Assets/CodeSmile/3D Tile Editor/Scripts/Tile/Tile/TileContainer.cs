@@ -7,7 +7,6 @@
 
 using System;
 using System.Collections.Generic;
-using Unity.Mathematics;
 using UnityEngine;
 using GridCoord = Unity.Mathematics.int3;
 using GridRect = UnityEngine.RectInt;
@@ -119,19 +118,19 @@ namespace CodeSmile.Tile
 
 			return coords.Count;
 		}
-		public void GetTilesInRect(GridRect rect, out IDictionary<GridCoord, Tile> dict)
-		{
-			dict = new Dictionary<GridCoord, Tile>();
 
+		public IDictionary<GridCoord, Tile> GetTilesInRect(GridRect rect)
+		{
+			var dict = new Dictionary<GridCoord, Tile>();
 			foreach (var coord in rect.GetTileCoords())
 			{
 				var tile = GetTile(coord);
 				if (tile != null)
-				{
 					dict.Add(coord, tile);
-				}
 			}
+			return dict;
 		}
+
 		public void GetTilesInUnionRect(GridRect rect1, GridRect rect2, out IDictionary<GridCoord, Tile> coordsAndTiles)
 		{
 			coordsAndTiles = new Dictionary<GridCoord, Tile>();
@@ -141,9 +140,7 @@ namespace CodeSmile.Tile
 			{
 				var tile = GetTile(coord);
 				if (tile != null)
-				{
 					coordsAndTiles.Add(coord, tile);
-				}
 			}
 		}
 		/*

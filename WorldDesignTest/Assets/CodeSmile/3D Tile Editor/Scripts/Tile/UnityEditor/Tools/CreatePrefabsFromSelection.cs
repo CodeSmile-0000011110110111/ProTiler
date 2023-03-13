@@ -13,7 +13,7 @@ namespace CodeSmile.Tile.UnityEditor
 {
 	public static class CreatePrefabsFromSelection
 	{
-		private const string MenuItemText = "Tools/Create Prefabs from Model Prefabs";
+		private const string MenuItemText = "CodeSmile/Create Prefabs from Model Prefabs";
 
 		[MenuItem(MenuItemText)]
 		private static void CreatePrefabs()

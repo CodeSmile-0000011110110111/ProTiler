@@ -50,6 +50,7 @@ namespace CodeSmile.Tile
 			{
 				var go = Object.Instantiate(m_Prefab, Vector3.zero, quaternion.identity, m_Parent);
 				go.hideFlags = m_HideFlags;
+				go.SetActive(false);
 				m_GameObjects.Add(go);
 			}
 		}

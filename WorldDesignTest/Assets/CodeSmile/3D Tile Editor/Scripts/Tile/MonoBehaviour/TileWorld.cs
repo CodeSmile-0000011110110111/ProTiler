@@ -8,7 +8,6 @@ using UnityEngine;
 namespace CodeSmile.Tile
 {
 	[ExecuteInEditMode]
-	[RequireComponent(typeof(TileRenderer))]
 	public sealed partial class TileWorld : MonoBehaviour, ISerializationCallbackReceiver
 	{
 		[SerializeField] private int m_ActiveLayerIndex;
@@ -32,10 +31,29 @@ namespace CodeSmile.Tile
 
 			if (GetComponent<TileRenderer>() == null)
 				gameObject.AddComponent<TileRenderer>();
+
+			Selection.selectionChanged += OnSelectionChanged;
+		}
+
+		private void OnSelectionChanged()
+		{
+			if (Selection.activeGameObject != null)
+			{
+				// Debug.Log("selected: " + Selection.activeGameObject);
+				// Debug.Log("selected parent: " + Selection.activeGameObject.transform.parent.name);
+				// Debug.Log("selected parent's parent: " + Selection.activeGameObject.transform.parent.parent.name);
+				var proxy = Selection.activeGameObject.GetComponentsInParent<TileProxy>();
+				if (proxy.Length > 0)
+				{
+					Debug.Log($"TileProxy: {proxy[0].name}" );
+					Selection.SetActiveObjectWithContext(proxy[0].gameObject, Selection.activeGameObject);
+				}
+			}
 		}
 
 		public void OnBeforeSerialize() {}
 
+	
 		public void OnAfterDeserialize()
 		{
 			foreach (var layer in m_Layers)

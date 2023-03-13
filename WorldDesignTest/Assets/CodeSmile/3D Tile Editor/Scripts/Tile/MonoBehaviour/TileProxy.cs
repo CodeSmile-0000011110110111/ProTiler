@@ -2,6 +2,7 @@
 // Refer to included LICENSE file for terms and conditions.
 
 using System;
+using System.Collections;
 using UnityEngine;
 using GridCoord = Unity.Mathematics.int3;
 using GridSize = Unity.Mathematics.int3;
@@ -44,10 +45,11 @@ namespace CodeSmile.Tile
 				if (m_Tile != value)
 				{
 					m_Tile = value;
-					UpdateInstance();
+					StartCoroutine(UpdateInstanceAfterDelay());
 				}
 			}
 		}
+
 		public TileLayer Layer
 		{
 			get => m_Layer;
@@ -69,6 +71,12 @@ namespace CodeSmile.Tile
 			Tile = tile;
 		}
 
+		private IEnumerator UpdateInstanceAfterDelay()
+		{
+			yield return null;
+			UpdateInstance();
+		}
+		
 		private void UpdateInstance()
 		{
 			if (m_Instance != null)
@@ -95,7 +103,6 @@ namespace CodeSmile.Tile
 		{
 			var go = Instantiate(prefab, position, Quaternion.identity, parent);
 			ApplyTileFlags(go, flags);
-			go.hideFlags = TileWorld.TileRenderer.RenderHideFlags;
 			return go;
 		}
 

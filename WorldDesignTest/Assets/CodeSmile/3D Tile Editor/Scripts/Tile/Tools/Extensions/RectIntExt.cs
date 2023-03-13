@@ -14,6 +14,13 @@ namespace CodeSmile
 {
 	public static class RectIntExt
 	{
+		public static Rect ToWorldRect(this RectInt r, GridSize scale)
+		{
+			var pos = new Vector2(r.x * scale.x, r.y * scale.z);
+			var size = new Vector2(r.size.x * scale.x, r.size.y * scale.z);
+			return new Rect(pos, size);
+		}
+
 		public static RectInt Union(this RectInt RA, in RectInt RB)
 		{
 			var union = new RectInt();
@@ -21,7 +28,7 @@ namespace CodeSmile
 			union.max = Vector2Int.Max(RA.max, RB.max);
 			return union;
 		}
-		
+
 		public static bool Intersects(this RectInt r1, RectInt r2, out RectInt intersection)
 		{
 			intersection = new RectInt();
@@ -37,10 +44,10 @@ namespace CodeSmile
 				intersection.width = math.max(0, x1 - x2);
 				intersection.height = math.max(0, y1 - y2);
 			}
- 
+
 			return overlaps;
 		}
-		
+
 		public static IReadOnlyList<GridCoord> GetTileCoords(this GridRect gridRect)
 		{
 			// FIXME: use rect.allPositionsWithin ?

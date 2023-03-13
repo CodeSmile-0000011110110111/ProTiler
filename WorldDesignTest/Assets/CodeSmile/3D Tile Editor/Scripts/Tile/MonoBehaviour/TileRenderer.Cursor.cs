@@ -7,15 +7,15 @@ using UnityEngine;
 
 namespace CodeSmile.Tile
 {
-	public sealed partial class TileWorld
-	{
-		public partial class TileRenderer
-		{
-			[NonSerialized] private Transform m_Cursor;
-			private int3 m_CursorRenderCoord;
 
-			private void UpdateCursorTile(TileLayer layer)
-			{
+	public partial class TileRenderer
+	{
+		private GameObject m_Cursor;
+		private int3 m_CursorRenderCoord;
+
+		private void UpdateCursorTile(TileLayer layer)
+		{
+			/*
 				var cursorCoord = layer.CursorCoord;
 
 				var index = layer.SelectedTileSetIndex;
@@ -27,7 +27,7 @@ namespace CodeSmile.Tile
 					m_Cursor.gameObject.DestroyInAnyMode();
 
 					var prefab = layer.TileSet.GetPrefab(index);
-					m_Cursor = FindOrCreateChildObject("Cursor", prefab);
+					m_Cursor = FindOrCreateChildObject("Cursor", prefab, RenderHideFlags);
 					SetCursorPosition(layer, cursorCoord);
 				}
 
@@ -36,7 +36,18 @@ namespace CodeSmile.Tile
 					SetCursorPosition(layer, cursorCoord);
 					//Debug.Log($"cursor pos changed: {m_CursorRenderCoord}");
 				}
-			}
+				*/
+		}
+
+		private void CreateCursorOnce()
+		{
+			m_Cursor = FindOrCreateGameObject("Cursor", m_PersistentObjectHideFlags);
+		}
+
+		private void SetCursorPosition(TileLayer layer, int3 cursorCoord)
+		{
+			m_CursorRenderCoord = cursorCoord;
+			m_Cursor.transform.position = layer.Grid.ToWorldPosition(m_CursorRenderCoord) + layer.TileSet.GetTileOffset();
 		}
 	}
 }
