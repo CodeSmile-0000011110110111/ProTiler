@@ -29,8 +29,8 @@ namespace CodeSmile.Tile
 				m_Layers.Add(new TileLayer(this));
 			}
 
-			if (GetComponent<TileRenderer>() == null)
-				gameObject.AddComponent<TileRenderer>();
+			if (GetComponent<TileLayerRenderer>() == null)
+				gameObject.AddComponent<TileLayerRenderer>();
 
 			Selection.selectionChanged += OnSelectionChanged;
 		}

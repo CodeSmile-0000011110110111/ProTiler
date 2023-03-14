@@ -2,13 +2,14 @@
 // Refer to included LICENSE file for terms and conditions.
 
 using UnityEngine;
+using GridCoord = Unity.Mathematics.int3;
+using GridSize = Unity.Mathematics.int3;
+using GridRect = UnityEngine.RectInt;
+using WorldRect = UnityEngine.Rect;
 
 namespace CodeSmile.Tile
 {
-	public sealed partial class TileWorld
-	{}
-
-	public partial class TileRenderer
+	public partial class TileLayerRenderer
 	{
 		private void RegisterTileWorldEvents()
 		{
@@ -26,11 +27,24 @@ namespace CodeSmile.Tile
 			layer.OnSetTileFlags -= SetTileFlags;
 		}
 
-		private void OnClearActiveLayer() => Debug.LogWarning("clear layer not implemented");
+		private void OnClearActiveLayer() => RecreateTileProxyPool();
 
-		private void SetOrReplaceTiles(RectInt rect)
+		private void SetOrReplaceTiles(GridRect dirtyRect)
 		{
+			// FIXME: this is brute force recreating
+			RecreateTileProxyPool();
+			
+			/*
+			// mark visible rect as requiring update
+			m_PrevVisibleRect = new GridRect();
+			SetTilesInRectAsDirty(dirtyRect);
 			UpdateTileProxyObjects(m_World.ActiveLayer);
+			*/
+			
 		}
+
+		private void SetTileFlags(GridCoord coord, TileFlags flags) => Debug.LogWarning("SetTileFlags not implemented");
+		// if (TryGetGameObjectAtCoord(coord, out var go))
+		// 	ApplyTileFlags(go, flags);
 	}
 }

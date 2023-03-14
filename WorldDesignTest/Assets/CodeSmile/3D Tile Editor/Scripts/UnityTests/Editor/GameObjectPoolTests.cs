@@ -29,7 +29,7 @@ public class GameObjectPoolTests
 	public void CreateUpdateDisposeTest()
 	{
 		var poolSize = 100;
-		var pool = new GameObjectPool(m_Prefab, m_Parent, poolSize);
+		var pool = new ObjectPool<GameObject>(m_Prefab, m_Parent, poolSize);
 		Assert.AreEqual(poolSize, pool.Count);
 
 		poolSize += 10;

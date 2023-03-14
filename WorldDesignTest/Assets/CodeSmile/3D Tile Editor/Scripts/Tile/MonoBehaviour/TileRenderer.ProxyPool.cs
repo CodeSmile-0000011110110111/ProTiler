@@ -14,14 +14,14 @@ using WorldRect = UnityEngine.Rect;
 
 namespace CodeSmile.Tile
 {
-	public partial class TileRenderer
+	public partial class TileLayerRenderer
 	{
 		private GameObject m_TileProxyPoolParent;
 		private GameObject m_TileProxyPrefab;
-		private GameObjectPool m_TileProxyPool;
+		private ObjectPool<GameObject> m_TileProxyPool;
 
 		[NonSerialized] private GridRect m_GizmosPrevVisibleRect;
-		[NonSerialized] private List<TileProxy> m_GizmosReusableProxies;
+		[NonSerialized] private List<TileProxy> m_DirtyProxies;
 		[NonSerialized] private IDictionary<GridCoord, Tile> m_GizmosVisibleTiles;
 
 		private void RecreateTileProxyPool()
@@ -32,7 +32,7 @@ namespace CodeSmile.Tile
 			DisposeTileProxyPool();
 			m_TileProxyPoolParent = FindOrCreateGameObject("TileProxy(Pool)", m_PersistentObjectHideFlags);
 
-			m_TileProxyPool = new GameObjectPool(m_TileProxyPrefab, m_TileProxyPoolParent.transform, poolSize);
+			m_TileProxyPool = new ObjectPool<GameObject>(m_TileProxyPrefab, m_TileProxyPoolParent.transform, poolSize);
 			InitializeTileProxyObjects(m_World.ActiveLayer, GetCameraRect());
 		}
 
@@ -99,9 +99,9 @@ namespace CodeSmile.Tile
 
 		private void GizmosDrawLastReusedTiles(float radius)
 		{
-			if (m_GizmosReusableProxies != null)
+			if (m_DirtyProxies != null)
 			{
-				foreach (var proxy in m_GizmosReusableProxies)
+				foreach (var proxy in m_DirtyProxies)
 				{
 					if (proxy == null)
 						continue;
@@ -127,7 +127,7 @@ namespace CodeSmile.Tile
 			if (IsCurrentCameraValid() == false)
 				return;
 
-			var proxies = m_TileProxyPool.GameObjects;
+			var proxies = m_TileProxyPool.Instances;
 			var tiles = layer.TileContainer.GetTilesInRect(visibleRect);
 			if (proxies.Count < tiles.Keys.Count)
 				throw new Exception($"more Tiles ({tiles.Keys.Count}) than TileProxy ({proxies.Count}) instances!");
@@ -159,20 +159,25 @@ namespace CodeSmile.Tile
 
 			var unionRect = m_VisibleRect.Union(m_PrevVisibleRect);
 			var intersects = m_VisibleRect.Intersects(m_PrevVisibleRect, out var intersection);
-			var proxies = m_TileProxyPool.GameObjects;
+			var proxies = m_TileProxyPool.Instances;
 
 			// find tiles that are no longer visible
-			m_GizmosReusableProxies = new List<TileProxy>();
+			m_DirtyProxies = new List<TileProxy>();
 			for (var j = 0; j < proxies.Count; j++)
 			{
 				var proxy = proxies[j].GetComponent<TileProxy>();
+				if (proxy.gameObject.activeSelf == false)
+				{
+					m_DirtyProxies.Add(proxy);
+					continue;
+				}
 
 				var coord = proxy.Coord;
 				var coord2d = new Vector2Int(coord.x, coord.z);
-				if (m_VisibleRect.Contains(coord2d) == false || proxy.gameObject.activeSelf == false)
+				if (m_VisibleRect.Contains(coord2d) == false)
 				{
 					proxy.gameObject.SetActive(false);
-					m_GizmosReusableProxies.Add(proxy);
+					m_DirtyProxies.Add(proxy);
 				}
 			}
 
@@ -185,10 +190,10 @@ namespace CodeSmile.Tile
 					continue;
 
 				var tile = m_GizmosVisibleTiles[coord];
-				if (i < m_GizmosReusableProxies.Count)
+				if (i < m_DirtyProxies.Count)
 				{
 					//Debug.Log($"  update tile {tile.TileSetIndex} at {coord}, re-use proxy index {i}");
-					var proxy = m_GizmosReusableProxies[i];
+					var proxy = m_DirtyProxies[i];
 					proxy.Layer = m_World.ActiveLayer;
 					proxy.gameObject.SetActive(true);
 					proxy.SetCoordAndTile(coord, tile);
@@ -197,14 +202,36 @@ namespace CodeSmile.Tile
 				i++;
 			}
 
-			if (i > m_GizmosReusableProxies.Count)
+			if (i > m_DirtyProxies.Count)
 			{
-				Debug.LogWarning($"tile proxies count mismatch - needed: {i}, freed: {m_GizmosReusableProxies.Count}," +
+				Debug.LogWarning($"tile proxies count mismatch - needed: {i}, freed: {m_DirtyProxies.Count}," +
 				                 $" vis: {m_VisibleRect}, union: {unionRect}, isect: {intersection} ({intersects})");
 			}
 
 			m_GizmosPrevVisibleRect = m_PrevVisibleRect;
 			m_PrevVisibleRect = m_VisibleRect;
+		}
+
+		private void SetTilesInRectAsDirty(RectInt dirtyRect)
+		{
+			// two options:
+			// 1) move outside visible rect bounds
+			// 2) SetActive(false)
+			// which is faster? does it matter?
+
+			// set tile proxies within dirty rect as inactive
+			var proxies = m_TileProxyPool.Instances;
+			for (var j = 0; j < proxies.Count; j++)
+			{
+				var proxy = proxies[j].GetComponent<TileProxy>();
+				if (proxy.gameObject.activeSelf == false)
+					continue;
+
+				var coord = proxy.Coord;
+				var coord2d = new Vector2Int(coord.x, coord.z);
+				if (dirtyRect.Contains(coord2d))
+					proxy.gameObject.SetActive(false);
+			}
 		}
 	}
 }

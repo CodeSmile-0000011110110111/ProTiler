@@ -10,18 +10,11 @@ using WorldRect = UnityEngine.Rect;
 
 namespace CodeSmile.Tile
 {
-	public partial class TileRenderer
+	public partial class TileLayerRenderer
 	{
 		[SerializeField] private float m_VisibleRectDistanceMultiplier = 10f;
 		
 		private static bool IsCurrentCameraValid() => Camera.current != null;
-
-		private void SetTileFlags(GridCoord coord, TileFlags flags)
-		{
-			Debug.LogWarning("SetTileFlags not implemented");
-			// if (TryGetGameObjectAtCoord(coord, out var go))
-			// 	ApplyTileFlags(go, flags);
-		}
 
 		private void ApplyTileFlags(GameObject go, TileFlags flags)
 		{

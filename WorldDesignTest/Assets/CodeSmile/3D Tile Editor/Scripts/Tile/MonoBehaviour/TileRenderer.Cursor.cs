@@ -8,7 +8,7 @@ using UnityEngine;
 namespace CodeSmile.Tile
 {
 
-	public partial class TileRenderer
+	public partial class TileLayerRenderer
 	{
 		private GameObject m_Cursor;
 		private int3 m_CursorRenderCoord;
