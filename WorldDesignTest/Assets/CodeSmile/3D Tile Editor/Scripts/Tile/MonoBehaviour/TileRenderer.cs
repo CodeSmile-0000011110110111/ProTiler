@@ -26,34 +26,20 @@ namespace CodeSmile.Tile
 	/// </summary>
 	[ExecuteInEditMode]
 	[RequireComponent(typeof(TileWorld))]
-	public sealed partial class TileLayerRenderer : MonoBehaviour
+	public sealed partial class TileRenderer : MonoBehaviour
 	{
 		private const int MinDrawDistance = 10;
 		private const int MaxDrawDistance = 100;
 
 		[Range(MinDrawDistance, MaxDrawDistance)] [SerializeField] private int m_DrawDistance = MinDrawDistance;
-
-		private readonly HideFlags m_RenderHideFlags = /*HideFlags.DontSave |
-		                                               HideFlags.HideInHierarchy | 
-		                                               HideFlags.HideInInspector |*/
-		                                               HideFlags.NotEditable;
-
-		private readonly HideFlags m_PersistentObjectHideFlags = /*HideFlags.HideInHierarchy |
-		                                                         HideFlags.HideInInspector |
-		                                                         HideFlags.NotEditable |*/
-		                                                         HideFlags.DontUnloadUnusedAsset;
+		[SerializeField] private float m_VisibleRectDistance = 10f;
 
 		private TileWorld m_World;
-		[NonSerialized] private GridRect m_VisibleRect;
-		[NonSerialized] private GridRect m_PrevVisibleRect;
-		[NonSerialized] private int m_PrevDrawDistance;
-		[NonSerialized] private int m_SelectedTileIndex;
 
 		private void Awake()
 		{
 			m_World = GetComponent<TileWorld>();
 			CreateTileProxyPrefabOnce();
-			CreateCursorOnce();
 		}
 
 		private void OnEnable()
@@ -66,24 +52,21 @@ namespace CodeSmile.Tile
 
 		private void OnDisable()
 		{
-			Debug.Log("TileWorld OnDisable");
 			UnregisterTileWorldEvents();
 
 			DisposeTileProxyPool();
 		}
 
+		private void OnDestroy() => Debug.Log("TileWorld OnDestroy");
+
 		private void OnDrawGizmosSelected() => DrawProxyPoolGizmos();
 
 		private void OnRenderObject()
 		{
-			if (IsCurrentCameraValid() == false)
+			if (CameraExt.IsCurrentCameraValid() == false)
 				return;
 
-			m_VisibleRect = GetCameraRect();
-
-			var layer = m_World.ActiveLayer;
-			UpdateTileProxyObjects(layer);
-			UpdateCursorTile(layer);
+			UpdateTileProxiesInVisibleRect();
 		}
 
 		private void OnValidate()
@@ -92,13 +75,9 @@ namespace CodeSmile.Tile
 			if (m_DrawDistance != m_PrevDrawDistance)
 			{
 				m_PrevDrawDistance = m_DrawDistance;
+				StopAllCoroutines();
 				StartCoroutine(WaitForEndOfFrameThenRecreateTileProxyPool());
 			}
-		}
-
-		private void OnDestroy()
-		{
-			Debug.Log("TileWorld OnDestroy");
 		}
 
 		private void ClampDrawDistance() => m_DrawDistance = math.clamp(m_DrawDistance, MinDrawDistance, MaxDrawDistance);

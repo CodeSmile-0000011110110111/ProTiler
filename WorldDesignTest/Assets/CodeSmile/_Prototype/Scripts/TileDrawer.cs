@@ -13,7 +13,7 @@ namespace CodeSmile
 		[SerializeField] private bool m_PickRandomTile = true;
 		[SerializeField] private int m_SelectedTileIndex;
 		[SerializeField] private List<GameObject> m_TilePrefabs;
-		public IReadOnlyList<GameObject> TilePrefabs => m_TilePrefabs;
+		public IReadOnlyList<GameObject> TilePrefabs => m_TilePrefabs.AsReadOnly();
 		#pragma warning restore
 
 		public void CreateTileAt(Vector3 position)

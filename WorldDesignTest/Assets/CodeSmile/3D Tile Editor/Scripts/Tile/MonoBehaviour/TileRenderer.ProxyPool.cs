@@ -14,15 +14,20 @@ using WorldRect = UnityEngine.Rect;
 
 namespace CodeSmile.Tile
 {
-	public partial class TileLayerRenderer
+	public partial class TileRenderer
 	{
+		private readonly TileCursorRenderer m_TileCursorRenderer;
 		private GameObject m_TileProxyPoolParent;
 		private GameObject m_TileProxyPrefab;
-		private ObjectPool<GameObject> m_TileProxyPool;
+		private ObjectPool<TileProxy> m_TileProxyPool;
 
 		[NonSerialized] private GridRect m_GizmosPrevVisibleRect;
-		[NonSerialized] private List<TileProxy> m_DirtyProxies;
 		[NonSerialized] private IDictionary<GridCoord, Tile> m_GizmosVisibleTiles;
+
+		[NonSerialized] private GridRect m_VisibleRect;
+		[NonSerialized] private GridRect m_PrevVisibleRect;
+		[NonSerialized] private int m_PrevDrawDistance;
+		public TileCursorRenderer TileCursorRenderer => m_TileCursorRenderer;
 
 		private void RecreateTileProxyPool()
 		{
@@ -30,10 +35,13 @@ namespace CodeSmile.Tile
 			Debug.Log($"INIT TileProxy pool with {poolSize} instances");
 
 			DisposeTileProxyPool();
-			m_TileProxyPoolParent = FindOrCreateGameObject("TileProxy(Pool)", m_PersistentObjectHideFlags);
+			m_TileProxyPoolParent = FindOrCreateGameObject("TileProxy(Pool)", Global.TileRenderHideFlags);
+			m_TileProxyPool = new ObjectPool<TileProxy>(m_TileProxyPrefab, m_TileProxyPoolParent.transform, poolSize);
+			if (m_TileProxyPool.InactiveInstances.Count != poolSize)
+				throw new Exception("pool objects should all be initially inactive");
 
-			m_TileProxyPool = new ObjectPool<GameObject>(m_TileProxyPrefab, m_TileProxyPoolParent.transform, poolSize);
-			InitializeTileProxyObjects(m_World.ActiveLayer, GetCameraRect());
+			m_PrevVisibleRect = m_GizmosPrevVisibleRect = new GridRect();
+			m_PrevDrawDistance = m_DrawDistance;
 		}
 
 		private void DisposeTileProxyPool()
@@ -59,7 +67,7 @@ namespace CodeSmile.Tile
 			if (m_World.ActiveLayer == null)
 				throw new ArgumentNullException("TileWorld.ActiveLayer is null");
 
-			m_TileProxyPrefab = FindOrCreateGameObject("TileProxy(Prefab)", m_PersistentObjectHideFlags);
+			m_TileProxyPrefab = FindOrCreateGameObject("TileProxy(Prefab)", Global.TileRenderHideFlags);
 
 			var tileProxy = m_TileProxyPrefab.GetOrAddComponent<TileProxy>();
 			tileProxy.Layer = m_World.ActiveLayer;
@@ -69,7 +77,6 @@ namespace CodeSmile.Tile
 		{
 			yield return null;
 
-			ClampDrawDistance();
 			RecreateTileProxyPool();
 		}
 
@@ -78,7 +85,7 @@ namespace CodeSmile.Tile
 			var gridSize = m_World.ActiveLayer.Grid.Size;
 			GizmosDrawRect(m_GizmosPrevVisibleRect.ToWorldRect(gridSize), Color.yellow);
 			GizmosDrawRect(m_VisibleRect.ToWorldRect(gridSize), Color.green);
-			//GizmosDrawLastReusedTiles(gridSize.x / 2f);
+			//GizmosDrawInactiveTiles(gridSize.x / 2f);
 			//GizmosDrawVisibleTiles();
 		}
 
@@ -97,18 +104,19 @@ namespace CodeSmile.Tile
 			}
 		}
 
-		private void GizmosDrawLastReusedTiles(float radius)
+		private void GizmosDrawInactiveTiles(float radius)
 		{
-			if (m_DirtyProxies != null)
+			var inactiveProxies = m_TileProxyPool.InactiveInstances;
+			if (inactiveProxies != null)
 			{
-				foreach (var proxy in m_DirtyProxies)
+				foreach (var proxy in inactiveProxies)
 				{
 					if (proxy == null)
 						continue;
 
 					var pos = proxy.transform.position;
 					Gizmos.DrawSphere(pos, radius);
-					Gizmos.DrawLine(pos, pos + new Vector3(0f, radius + 0.5f, 0f));
+					Gizmos.DrawLine(pos, pos + new Vector3(0f, radius + 5f, 0f));
 				}
 			}
 		}
@@ -122,94 +130,62 @@ namespace CodeSmile.Tile
 			Gizmos.color = prevColor;
 		}
 
-		private void InitializeTileProxyObjects(TileLayer layer, RectInt visibleRect)
+		private void UpdateTileProxiesInVisibleRect()
 		{
-			if (IsCurrentCameraValid() == false)
+			var layer = m_World.ActiveLayer;
+			var visibleRect = GetVisibleRect(layer);
+			if (visibleRect.Equals(m_PrevVisibleRect))
 				return;
-
-			var proxies = m_TileProxyPool.Instances;
-			var tiles = layer.TileContainer.GetTilesInRect(visibleRect);
-			if (proxies.Count < tiles.Keys.Count)
-				throw new Exception($"more Tiles ({tiles.Keys.Count}) than TileProxy ({proxies.Count}) instances!");
-
-			var i = 0;
-			foreach (var coord in tiles.Keys)
-			{
-				var tile = tiles[coord];
-				var proxy = proxies[i].GetComponent<TileProxy>();
-				proxy.Layer = m_World.ActiveLayer;
-				proxy.gameObject.SetActive(true);
-				proxy.SetCoordAndTile(coord, tile);
-				i++;
-			}
-
-			m_PrevVisibleRect = m_GizmosPrevVisibleRect = visibleRect;
-			m_PrevDrawDistance = m_DrawDistance;
+			
+			UpdateTileProxies(layer, visibleRect);
+			m_GizmosPrevVisibleRect = m_PrevVisibleRect;
+			m_PrevVisibleRect = m_VisibleRect;
 		}
 
-		private void UpdateTileProxyObjects(TileLayer layer)
+		private void UpdateTileProxies(TileLayer layer, GridRect visibleRect)
 		{
-			if (m_VisibleRect.Equals(m_PrevVisibleRect) || IsCurrentCameraValid() == false)
-				return;
-
 			// a few of them need updates
 			// => compare prev and current visible rect
 			// tiles in prev but not in current => reusable
 			// tiles in current but not prev => must be updated
 
-			var unionRect = m_VisibleRect.Union(m_PrevVisibleRect);
-			var intersects = m_VisibleRect.Intersects(m_PrevVisibleRect, out var intersection);
-			var proxies = m_TileProxyPool.Instances;
+			GridRect intersectRect;
+			if (m_PrevVisibleRect.width == 0 || m_PrevVisibleRect.height == 0)
+			{
+				// first time initialization, assume all tiles visible
+				m_PrevVisibleRect = visibleRect;
+				intersectRect = new GridRect(); // force all tiles "visible"
+			}
+			else
+				m_VisibleRect.Intersects(m_PrevVisibleRect, out intersectRect);
 
 			// find tiles that are no longer visible
-			m_DirtyProxies = new List<TileProxy>();
+			var proxies = m_TileProxyPool.AllInstances;
 			for (var j = 0; j < proxies.Count; j++)
 			{
-				var proxy = proxies[j].GetComponent<TileProxy>();
-				if (proxy.gameObject.activeSelf == false)
-				{
-					m_DirtyProxies.Add(proxy);
+				var proxy = proxies[j];
+				if (proxy == null || proxy.gameObject.activeSelf == false)
 					continue;
-				}
 
-				var coord = proxy.Coord;
-				var coord2d = new Vector2Int(coord.x, coord.z);
-				if (m_VisibleRect.Contains(coord2d) == false)
-				{
-					proxy.gameObject.SetActive(false);
-					m_DirtyProxies.Add(proxy);
-				}
+				if (m_VisibleRect.Contains(proxy.Coord.ToCoord2d()) == false)
+					m_TileProxyPool.ReturnToPool(proxy);
 			}
 
-			m_GizmosVisibleTiles = layer.TileContainer.GetTilesInRect(m_VisibleRect);
-			var i = 0;
+			m_GizmosVisibleTiles = layer.TileContainer.GetTilesInRect(visibleRect);
 			foreach (var coord in m_GizmosVisibleTiles.Keys)
 			{
-				var coord2d = new Vector2Int(coord.x, coord.z);
-				if (intersection.Contains(coord2d))
+				if (intersectRect.Contains(coord.ToCoord2d()))
 					continue;
 
 				var tile = m_GizmosVisibleTiles[coord];
-				if (i < m_DirtyProxies.Count)
 				{
 					//Debug.Log($"  update tile {tile.TileSetIndex} at {coord}, re-use proxy index {i}");
-					var proxy = m_DirtyProxies[i];
+					var proxy = m_TileProxyPool.GetPooledObject();
 					proxy.Layer = m_World.ActiveLayer;
-					proxy.gameObject.SetActive(true);
 					proxy.SetCoordAndTile(coord, tile);
 				}
-
-				i++;
 			}
 
-			if (i > m_DirtyProxies.Count)
-			{
-				Debug.LogWarning($"tile proxies count mismatch - needed: {i}, freed: {m_DirtyProxies.Count}," +
-				                 $" vis: {m_VisibleRect}, union: {unionRect}, isect: {intersection} ({intersects})");
-			}
-
-			m_GizmosPrevVisibleRect = m_PrevVisibleRect;
-			m_PrevVisibleRect = m_VisibleRect;
 		}
 
 		private void SetTilesInRectAsDirty(RectInt dirtyRect)
@@ -220,17 +196,14 @@ namespace CodeSmile.Tile
 			// which is faster? does it matter?
 
 			// set tile proxies within dirty rect as inactive
-			var proxies = m_TileProxyPool.Instances;
-			for (var j = 0; j < proxies.Count; j++)
+			var proxies = m_TileProxyPool.AllInstances;
+			for (var i = 0; i < proxies.Count; i++)
 			{
-				var proxy = proxies[j].GetComponent<TileProxy>();
-				if (proxy.gameObject.activeSelf == false)
+				if (proxies[i].gameObject.activeSelf == false)
 					continue;
 
-				var coord = proxy.Coord;
-				var coord2d = new Vector2Int(coord.x, coord.z);
-				if (dirtyRect.Contains(coord2d))
-					proxy.gameObject.SetActive(false);
+				if (dirtyRect.Contains(proxies[i].Coord.ToCoord2d()))
+					m_TileProxyPool.ReturnToPool(proxies[i]);
 			}
 		}
 	}

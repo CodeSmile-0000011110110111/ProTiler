@@ -12,6 +12,11 @@ namespace CodeSmile.Tile.UnityEditor
 		private const string MenuItemText = "CodeSmile/Reload Scene #%r";
 
 		[MenuItem(MenuItemText)]
-		public static void ReloadScene() => EditorSceneManager.OpenScene(SceneManager.GetActiveScene().path);
+		public static void ReloadScene()
+		{
+			EditorSceneManager.SaveOpenScenes();
+			var activeScene = SceneManager.GetActiveScene();
+			EditorSceneManager.OpenScene(activeScene.path);
+		}
 	}
 }

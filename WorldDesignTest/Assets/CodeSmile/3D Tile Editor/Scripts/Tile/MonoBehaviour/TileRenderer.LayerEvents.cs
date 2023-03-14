@@ -9,7 +9,7 @@ using WorldRect = UnityEngine.Rect;
 
 namespace CodeSmile.Tile
 {
-	public partial class TileLayerRenderer
+	public partial class TileRenderer
 	{
 		private void RegisterTileWorldEvents()
 		{
@@ -32,15 +32,12 @@ namespace CodeSmile.Tile
 		private void SetOrReplaceTiles(GridRect dirtyRect)
 		{
 			// FIXME: this is brute force recreating
-			RecreateTileProxyPool();
+			//RecreateTileProxyPool();
 			
-			/*
 			// mark visible rect as requiring update
 			m_PrevVisibleRect = new GridRect();
 			SetTilesInRectAsDirty(dirtyRect);
-			UpdateTileProxyObjects(m_World.ActiveLayer);
-			*/
-			
+			UpdateTileProxies(m_World.ActiveLayer, dirtyRect);
 		}
 
 		private void SetTileFlags(GridCoord coord, TileFlags flags) => Debug.LogWarning("SetTileFlags not implemented");

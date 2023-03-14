@@ -54,5 +54,19 @@ namespace CodeSmile.Tile
 		}
 
 		public float3 ToWorldPosition(GridCoord coord) => new(coord.x * m_GridSize.x, coord.y * m_GridSize.y, coord.z * m_GridSize.z);
+
+		public RectInt GetCameraRect(Camera camera, int drawDistance, float distanceMultiplier)
+		{
+			if (camera == null)
+				return new GridRect();
+					
+			var camTrans = camera.transform;
+			var rayOrigin = camTrans.position + camTrans.forward * (drawDistance * distanceMultiplier);
+			var camRay = new Ray(rayOrigin, Vector3.down);
+			camRay.IntersectsPlane(out float3 camPos);
+
+			var camCoord = ToGridCoord(camPos);
+			return new GridRect(camCoord.x - drawDistance / 2, camCoord.z - drawDistance / 2, drawDistance, drawDistance);
+		}
 	}
 }

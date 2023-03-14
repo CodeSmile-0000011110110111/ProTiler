@@ -92,7 +92,7 @@ namespace CodeSmile.Tile
 		public void SetTile(GridCoord coord, Tile tile)
 		{
 			m_TileContainer.SetTile(coord, tile);
-			OnSetTiles?.Invoke(new GridRect(new Vector2Int(coord.x, coord.z), new Vector2Int(1, 1)));
+			OnSetTiles?.Invoke(new GridRect(coord.ToCoord2d(), new Vector2Int(1, 1)));
 		}
 
 		public void ClearTiles()

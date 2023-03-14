@@ -2,7 +2,6 @@
 // Refer to included LICENSE file for terms and conditions.
 
 using System;
-using System.Collections;
 using UnityEngine;
 using GridCoord = Unity.Mathematics.int3;
 using GridSize = Unity.Mathematics.int3;
@@ -13,42 +12,22 @@ namespace CodeSmile.Tile
 {
 	public class TileProxy : MonoBehaviour
 	{
-		[NonSerialized] private GridCoord m_Coord;
+		[NonSerialized] private GridCoord m_Coord = Global.InvalidGridCoord;
 		[NonSerialized] private Tile m_Tile;
 		[NonSerialized] private TileLayer m_Layer;
 		[NonSerialized] private GameObject m_Instance;
 
+		/*
 		private void OnEnable()
 		{
 			m_Coord = Global.InvalidCoord;
 			UpdateInstance();
 		}
+		*/
 
-		public GridCoord Coord
-		{
-			get => m_Coord;
-			internal set
-			{
-				if (m_Coord.Equals(value) == false)
-				{
-					m_Coord = value;
-					MoveToCoord();
-				}
-			}
-		}
+		public GridCoord Coord => m_Coord;
 
-		public Tile Tile
-		{
-			get => m_Tile;
-			internal set
-			{
-				if (m_Tile != value)
-				{
-					m_Tile = value;
-					StartCoroutine(UpdateInstanceAfterDelay());
-				}
-			}
-		}
+		public Tile Tile => m_Tile;
 
 		public TileLayer Layer
 		{
@@ -65,24 +44,33 @@ namespace CodeSmile.Tile
 		public void SetCoordAndTile(GridCoord coord, Tile tile)
 		{
 			//Debug.Log($"update TileProxy at {coord} with tile {tile}, layer: {m_Layer}");
-			
+
 			// order is important!
-			Coord = coord;
-			Tile = tile;
+			if (m_Coord.Equals(coord) == false)
+			{
+				m_Coord = coord;
+				transform.position = m_Layer.Grid.ToWorldPosition(m_Coord);
+			}
+
+			if (m_Tile != tile)
+			{
+				var isSamePrefab = m_Tile != null && tile != null && m_Tile.TileSetIndex == tile.TileSetIndex;
+				m_Tile = tile;
+
+				// also need to update the instance if it uses a different prefab
+				if (isSamePrefab == false)
+					UpdateInstance();
+			}
 		}
 
-		private IEnumerator UpdateInstanceAfterDelay()
-		{
-			yield return null;
-			UpdateInstance();
-		}
-		
 		private void UpdateInstance()
 		{
 			if (m_Instance != null)
 			{
-				m_Instance.DestroyInAnyMode();
-				m_Instance = null;
+				// cannot delete instances here, otherwise Unity will crash within drawing MeshOutline
+				// delay with a coroutine also does not work reliably due to order of execution issues
+				m_Instance.SetActive(false);
+				TileWorld.ToBeDeletedInstances.Add(m_Instance);
 			}
 
 			if (m_Tile != null && m_Layer.TileSet != null)
@@ -92,12 +80,11 @@ namespace CodeSmile.Tile
 				m_Instance = InstantiateTileObject(prefab, worldPos, transform, m_Tile.Flags);
 
 #if UNITY_EDITOR
-				name = $"({m_Coord} Tile#{m_Tile.TileSetIndex}, Layer: {m_Layer}";
+				name = $"Tile#{m_Tile.TileSetIndex} @ {m_Coord}, {m_Layer}";
+				//Debug.Log("UpdateInstance: " + name);
 #endif
 			}
 		}
-
-		private void MoveToCoord() => transform.position = m_Layer.Grid.ToWorldPosition(m_Coord);
 
 		private GameObject InstantiateTileObject(GameObject prefab, Vector3 position, Transform parent, TileFlags flags)
 		{

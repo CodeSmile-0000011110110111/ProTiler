@@ -51,7 +51,7 @@ namespace CodeSmile.Tile
 		//public Tile GetPrefabIndex(int index) => m_Tiles[index];
 
 		public int Count => m_Tiles.Count;
-		public IReadOnlyList<TileSetTile> Tiles => m_Tiles;
+		public IReadOnlyList<TileSetTile> Tiles => m_Tiles.AsReadOnly();
 		public float TileCursorHeight { get => m_TileCursorHeight; set => m_TileCursorHeight = value; }
 	}
 }

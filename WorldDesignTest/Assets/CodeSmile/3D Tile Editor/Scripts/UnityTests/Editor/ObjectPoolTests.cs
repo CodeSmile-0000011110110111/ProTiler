@@ -6,7 +6,7 @@ using CodeSmile.Tile;
 using NUnit.Framework;
 using UnityEngine;
 
-public class GameObjectPoolTests
+public class ObjectPoolTests
 {
 	private GameObject m_Prefab;
 	private Transform m_Parent;
@@ -15,6 +15,7 @@ public class GameObjectPoolTests
 	public void SetUp()
 	{
 		m_Prefab = new GameObject("test");
+		m_Prefab.AddComponent<TileProxy>();
 		m_Parent = new GameObject("parent").transform;
 	}
 
@@ -29,7 +30,7 @@ public class GameObjectPoolTests
 	public void CreateUpdateDisposeTest()
 	{
 		var poolSize = 100;
-		var pool = new ObjectPool<GameObject>(m_Prefab, m_Parent, poolSize);
+		var pool = new ObjectPool<TileProxy>(m_Prefab, m_Parent, poolSize);
 		Assert.AreEqual(poolSize, pool.Count);
 
 		poolSize += 10;
