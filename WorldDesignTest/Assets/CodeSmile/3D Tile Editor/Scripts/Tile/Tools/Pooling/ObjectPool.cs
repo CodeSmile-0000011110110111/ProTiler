@@ -74,6 +74,9 @@ namespace CodeSmile.Tile
 
 		public T GetPooledObject(bool setActive = true)
 		{
+			if (m_InactiveInstances.Count == 0)
+				throw new Exception("no more objects in pool");
+			
 			var lastIndex = m_InactiveInstances.Count - 1;
 			var instance = m_InactiveInstances[lastIndex];
 			m_InactiveInstances.RemoveAt(lastIndex);

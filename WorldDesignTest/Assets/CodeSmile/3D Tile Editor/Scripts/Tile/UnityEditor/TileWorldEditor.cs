@@ -20,6 +20,11 @@ namespace CodeSmile.Tile.UnityEditor
 		private GridRect m_SelectionRect;
 		private bool m_IsPaintingTiles;
 
+		private float2 MousePos => Event.current.mousePosition;
+		private TileWorld TileWorld => (TileWorld)target;
+		private TileLayer ActiveLayer => TileWorld.ActiveLayer;
+		private TileGrid ActiveLayerGrid => TileWorld.ActiveLayer.Grid;
+
 		private void OnSceneGUI()
 		{
 			if (Selection.activeGameObject != TileWorld.gameObject)
@@ -141,6 +146,10 @@ namespace CodeSmile.Tile.UnityEditor
 
 			switch (Event.current.keyCode)
 			{
+				case KeyCode.S:
+					GizmosExt.ShowSelectionOutline = !GizmosExt.ShowSelectionOutline;
+					break;
+
 				case KeyCode.F:
 				{
 					var camera = Camera.current;
@@ -236,11 +245,6 @@ namespace CodeSmile.Tile.UnityEditor
 		}
 
 		private void UpdateSelectionRect() => m_SelectionRect = TileGrid.MakeRect(m_StartSelectionCoord, ActiveLayer.CursorCoord);
-
-		private float2 MousePos => Event.current.mousePosition;
-		private TileWorld TileWorld => (TileWorld)target;
-		private TileLayer ActiveLayer => TileWorld.ActiveLayer;
-		private TileGrid ActiveLayerGrid => TileWorld.ActiveLayer.Grid;
 
 		private bool IsLeftMouseButtonDown() => m_InputState.IsButtonDown(MouseButton.LeftMouse);
 

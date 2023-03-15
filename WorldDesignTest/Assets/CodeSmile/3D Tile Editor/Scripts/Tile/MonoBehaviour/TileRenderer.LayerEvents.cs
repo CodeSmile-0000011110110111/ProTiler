@@ -29,16 +29,7 @@ namespace CodeSmile.Tile
 
 		private void OnClearActiveLayer() => RecreateTileProxyPool();
 
-		private void SetOrReplaceTiles(GridRect dirtyRect)
-		{
-			// FIXME: this is brute force recreating
-			//RecreateTileProxyPool();
-			
-			// mark visible rect as requiring update
-			m_PrevVisibleRect = new GridRect();
-			SetTilesInRectAsDirty(dirtyRect);
-			UpdateTileProxies(m_World.ActiveLayer, dirtyRect);
-		}
+		private void SetOrReplaceTiles(GridRect dirtyRect) => UpdateTileProxiesInDirtyRect(dirtyRect);
 
 		private void SetTileFlags(GridCoord coord, TileFlags flags) => Debug.LogWarning("SetTileFlags not implemented");
 		// if (TryGetGameObjectAtCoord(coord, out var go))

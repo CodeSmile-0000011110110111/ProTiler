@@ -1,7 +1,6 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
-using System;
 using Unity.Mathematics;
 using UnityEngine;
 using GridCoord = Unity.Mathematics.int3;
@@ -28,11 +27,11 @@ namespace CodeSmile.Tile
 	[RequireComponent(typeof(TileWorld))]
 	public sealed partial class TileRenderer : MonoBehaviour
 	{
-		private const int MinDrawDistance = 10;
+		private const int MinDrawDistance = 2;
 		private const int MaxDrawDistance = 100;
 
 		[Range(MinDrawDistance, MaxDrawDistance)] [SerializeField] private int m_DrawDistance = MinDrawDistance;
-		[SerializeField] private float m_VisibleRectDistance = 10f;
+		[SerializeField] private float m_VisibleRectDistance = 20f;
 
 		private TileWorld m_World;
 

@@ -21,7 +21,6 @@ namespace CodeSmile.Tile
 		private GameObject m_TileProxyPrefab;
 		private ObjectPool<TileProxy> m_TileProxyPool;
 
-		[NonSerialized] private GridRect m_GizmosPrevVisibleRect;
 		[NonSerialized] private IDictionary<GridCoord, Tile> m_GizmosVisibleTiles;
 
 		[NonSerialized] private GridRect m_VisibleRect;
@@ -40,7 +39,7 @@ namespace CodeSmile.Tile
 			if (m_TileProxyPool.InactiveInstances.Count != poolSize)
 				throw new Exception("pool objects should all be initially inactive");
 
-			m_PrevVisibleRect = m_GizmosPrevVisibleRect = new GridRect();
+			m_PrevVisibleRect = new GridRect();
 			m_PrevDrawDistance = m_DrawDistance;
 		}
 
@@ -83,7 +82,7 @@ namespace CodeSmile.Tile
 		private void DrawProxyPoolGizmos()
 		{
 			var gridSize = m_World.ActiveLayer.Grid.Size;
-			GizmosDrawRect(m_GizmosPrevVisibleRect.ToWorldRect(gridSize), Color.yellow);
+			GizmosDrawRect(m_PrevVisibleRect.ToWorldRect(gridSize), Color.yellow);
 			GizmosDrawRect(m_VisibleRect.ToWorldRect(gridSize), Color.green);
 			//GizmosDrawInactiveTiles(gridSize.x / 2f);
 			//GizmosDrawVisibleTiles();
@@ -134,76 +133,70 @@ namespace CodeSmile.Tile
 		{
 			var layer = m_World.ActiveLayer;
 			var visibleRect = GetVisibleRect(layer);
-			if (visibleRect.Equals(m_PrevVisibleRect))
+			if (visibleRect.Equals(m_VisibleRect))
 				return;
-			
-			UpdateTileProxies(layer, visibleRect);
-			m_GizmosPrevVisibleRect = m_PrevVisibleRect;
+
 			m_PrevVisibleRect = m_VisibleRect;
+			m_VisibleRect = visibleRect;
+			m_VisibleRect.Intersects(m_PrevVisibleRect, out var staysUnchangedRect);
+			UpdateTileProxies(layer, m_VisibleRect, staysUnchangedRect);
 		}
 
-		private void UpdateTileProxies(TileLayer layer, GridRect visibleRect)
+		private void UpdateTileProxiesInDirtyRect(RectInt dirtyRect)
+		{
+			// mark visible rect as requiring update
+			SetTilesInRectAsDirty(dirtyRect);
+			m_VisibleRect.Intersects(dirtyRect, out var dirtyInsideVisibleRect);
+			UpdateTileProxies(m_World.ActiveLayer, dirtyInsideVisibleRect, new GridRect());
+		}
+
+		private void UpdateTileProxies(TileLayer layer, GridRect dirtyRect, RectInt unchangedRect)
 		{
 			// a few of them need updates
 			// => compare prev and current visible rect
 			// tiles in prev but not in current => reusable
 			// tiles in current but not prev => must be updated
 
-			GridRect intersectRect;
-			if (m_PrevVisibleRect.width == 0 || m_PrevVisibleRect.height == 0)
-			{
-				// first time initialization, assume all tiles visible
-				m_PrevVisibleRect = visibleRect;
-				intersectRect = new GridRect(); // force all tiles "visible"
-			}
-			else
-				m_VisibleRect.Intersects(m_PrevVisibleRect, out intersectRect);
-
 			// find tiles that are no longer visible
 			var proxies = m_TileProxyPool.AllInstances;
-			for (var j = 0; j < proxies.Count; j++)
+			for (var i = 0; i < proxies.Count; i++)
 			{
-				var proxy = proxies[j];
-				if (proxy == null || proxy.gameObject.activeSelf == false)
+				var proxy = proxies[i];
+				if (proxy == null)
+					continue;
+				if (proxy.gameObject.activeSelf == false)
 					continue;
 
 				if (m_VisibleRect.Contains(proxy.Coord.ToCoord2d()) == false)
 					m_TileProxyPool.ReturnToPool(proxy);
 			}
 
-			m_GizmosVisibleTiles = layer.TileContainer.GetTilesInRect(visibleRect);
+			m_GizmosVisibleTiles = layer.TileContainer.GetTilesInRect(dirtyRect);
 			foreach (var coord in m_GizmosVisibleTiles.Keys)
 			{
-				if (intersectRect.Contains(coord.ToCoord2d()))
+				if (unchangedRect.Contains(coord.ToCoord2d()))
 					continue;
 
-				var tile = m_GizmosVisibleTiles[coord];
-				{
-					//Debug.Log($"  update tile {tile.TileSetIndex} at {coord}, re-use proxy index {i}");
-					var proxy = m_TileProxyPool.GetPooledObject();
-					proxy.Layer = m_World.ActiveLayer;
-					proxy.SetCoordAndTile(coord, tile);
-				}
+				var proxy = m_TileProxyPool.GetPooledObject();
+				proxy.Layer = m_World.ActiveLayer;
+				proxy.SetCoordAndTile(coord, m_GizmosVisibleTiles[coord]);
 			}
-
 		}
 
 		private void SetTilesInRectAsDirty(RectInt dirtyRect)
 		{
-			// two options:
-			// 1) move outside visible rect bounds
-			// 2) SetActive(false)
-			// which is faster? does it matter?
-
 			// set tile proxies within dirty rect as inactive
 			var proxies = m_TileProxyPool.AllInstances;
 			for (var i = 0; i < proxies.Count; i++)
 			{
-				if (proxies[i].gameObject.activeSelf == false)
+				var proxy = proxies[i];
+				if (proxy == null)
+					continue;
+				if (proxy.gameObject.activeSelf == false)
 					continue;
 
-				if (dirtyRect.Contains(proxies[i].Coord.ToCoord2d()))
-					m_TileProxyPool.ReturnToPool(proxies[i]);
+				if (dirtyRect.Contains(proxy.Coord.ToCoord2d()))
+					m_TileProxyPool.ReturnToPool(proxy);
 			}
 		}
 	}

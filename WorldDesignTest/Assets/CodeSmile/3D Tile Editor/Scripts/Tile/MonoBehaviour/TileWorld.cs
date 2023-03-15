@@ -21,6 +21,9 @@ namespace CodeSmile.Tile
 			Debug.Log($"found {guids1.Length} TileWorldEditorSettings asset");
 			foreach (var guid1 in guids1)
 				Debug.Log(AssetDatabase.GUIDToAssetPath(guid1));
+
+			Selection.selectionChanged -= OnSelectionChanged;
+			Selection.selectionChanged += OnSelectionChanged;
 #endif
 
 			if (m_Layers.Count == 0)
@@ -32,8 +35,6 @@ namespace CodeSmile.Tile
 
 			if (GetComponent<TileRenderer>() == null)
 				gameObject.AddComponent<TileRenderer>();
-
-			Selection.selectionChanged += OnSelectionChanged;
 		}
 
 		private void Update()
@@ -54,13 +55,16 @@ namespace CodeSmile.Tile
 				layer.TileWorld = this;
 		}
 
+#if UNITY_EDITOR
 		private void OnSelectionChanged()
 		{
 			if (Selection.activeGameObject != null)
 			{
-				// Debug.Log("selected: " + Selection.activeGameObject);
-				// Debug.Log("selected parent: " + Selection.activeGameObject.transform.parent.name);
-				// Debug.Log("selected parent's parent: " + Selection.activeGameObject.transform.parent.parent.name);
+				if (Selection.activeGameObject == gameObject)
+				{
+					// TODO: disable selection outline
+				}
+				
 				var proxy = Selection.activeGameObject.GetComponentsInParent<TileProxy>();
 				if (proxy.Length > 0)
 				{
@@ -69,6 +73,7 @@ namespace CodeSmile.Tile
 				}
 			}
 		}
+#endif
 
 		public TileLayer ActiveLayer => m_Layers[m_ActiveLayerIndex];
 		public static List<GameObject> ToBeDeletedInstances => m_ToBeDeletedInstances;
