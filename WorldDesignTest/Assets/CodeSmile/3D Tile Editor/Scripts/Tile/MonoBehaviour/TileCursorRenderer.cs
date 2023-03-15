@@ -18,8 +18,6 @@ namespace CodeSmile.Tile
 		[NonSerialized] private int m_SelectedTileSetIndex = Global.InvalidTileSetIndex;
 		[NonSerialized] private TileWorld m_World;
 
-		private void Awake() => m_World = GetComponent<TileWorld>();
-
 		private void Update()
 		{
 			if (m_ToBeDeletedCursors.Count > 0)
@@ -29,6 +27,8 @@ namespace CodeSmile.Tile
 				m_ToBeDeletedCursors.Clear();
 			}
 		}
+
+		private void OnEnable() => m_World = GetComponent<TileWorld>();
 
 		private void OnRenderObject()
 		{
@@ -77,8 +77,11 @@ namespace CodeSmile.Tile
 
 		private void SetCursorPosition(TileLayer layer, int3 cursorCoord)
 		{
-			m_CursorRenderCoord = cursorCoord;
-			m_Cursor.transform.position = layer.Grid.ToWorldPosition(m_CursorRenderCoord) + layer.TileSet.GetTileOffset();
+			if (m_Cursor != null)
+			{
+				m_CursorRenderCoord = cursorCoord;
+				m_Cursor.transform.position = layer.Grid.ToWorldPosition(m_CursorRenderCoord) + layer.TileSet.GetTileOffset();
+			}
 		}
 	}
 }

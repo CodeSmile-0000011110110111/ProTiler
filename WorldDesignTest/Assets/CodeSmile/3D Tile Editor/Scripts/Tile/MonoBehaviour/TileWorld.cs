@@ -34,7 +34,15 @@ namespace CodeSmile.Tile
 			}
 
 			if (GetComponent<TileRenderer>() == null)
+			{
+				Debug.LogWarning("TileWorld OnReset add TileRenderer");
 				gameObject.AddComponent<TileRenderer>();
+			}
+			if (GetComponent<TileCursorRenderer>() == null)
+			{
+				Debug.LogWarning("TileWorld OnReset add Cursor renderer");
+				gameObject.AddComponent<TileCursorRenderer>();
+			}
 		}
 
 		private void Update()
@@ -65,12 +73,15 @@ namespace CodeSmile.Tile
 					// TODO: disable selection outline
 				}
 				
+				/*
 				var proxy = Selection.activeGameObject.GetComponentsInParent<TileProxy>();
 				if (proxy.Length > 0)
 				{
 					Debug.Log($"TileProxy: {proxy[0].name}");
 					Selection.SetActiveObjectWithContext(proxy[0].gameObject, Selection.activeGameObject);
 				}
+				*/
+				
 			}
 		}
 #endif

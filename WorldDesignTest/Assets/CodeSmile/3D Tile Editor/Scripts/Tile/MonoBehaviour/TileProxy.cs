@@ -46,7 +46,7 @@ namespace CodeSmile.Tile
 			//Debug.Log($"update TileProxy at {coord} with tile {tile}, layer: {m_Layer}");
 
 			// order is important!
-			if (m_Coord.Equals(coord) == false)
+			//if (m_Coord.Equals(coord) == false)
 			{
 				m_Coord = coord;
 				transform.position = m_Layer.Grid.ToWorldPosition(m_Coord);
