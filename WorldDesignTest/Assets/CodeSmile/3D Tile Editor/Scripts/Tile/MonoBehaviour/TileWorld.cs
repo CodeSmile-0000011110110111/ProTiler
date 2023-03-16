@@ -14,6 +14,8 @@ namespace CodeSmile.Tile
 		[SerializeField] private int m_ActiveLayerIndex;
 		[SerializeField] private List<TileLayer> m_Layers = new();
 
+		public int UndoTest;
+		
 		private void Reset()
 		{
 #if UNITY_EDITOR
@@ -33,14 +35,12 @@ namespace CodeSmile.Tile
 				m_Layers.Add(new TileLayer(this));
 			}
 
-			if (GetComponent<TileRenderer>() == null)
+			if (GetComponent<TileLayerRenderer>() == null)
 			{
-				Debug.LogWarning("TileWorld OnReset add TileRenderer");
-				gameObject.AddComponent<TileRenderer>();
+				gameObject.AddComponent<TileLayerRenderer>();
 			}
 			if (GetComponent<TileCursorRenderer>() == null)
 			{
-				Debug.LogWarning("TileWorld OnReset add Cursor renderer");
 				gameObject.AddComponent<TileCursorRenderer>();
 			}
 		}

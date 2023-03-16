@@ -11,12 +11,23 @@ using WorldRect = UnityEngine.Rect;
 
 namespace CodeSmile.Tile
 {
+	public enum LayerType
+	{
+		Tile,
+		Terrain,
+		Object,
+		Data,
+	}
+
 	[Serializable]
 	public sealed partial class TileLayer
 	{
+		public int UndoTest;
+
 		private static readonly TileGrid DefaultGrid = new();
 
 		[SerializeField] private string m_Name = "Layer";
+		[SerializeField] private LayerType m_LayerType = LayerType.Tile;
 		[SerializeField] private int m_SelectedTileSetIndex;
 		[ReadOnlyField] [SerializeField] private string m_SelectedTileName;
 
@@ -32,9 +43,6 @@ namespace CodeSmile.Tile
 		public Action OnClearTiles;
 		public Action<GridRect> OnSetTiles;
 		public Action<GridCoord, TileFlags> OnSetTileFlags;
-		public TileLayer(TileWorld world) => m_TileWorld = world;
-
-		public override string ToString() => m_Name;
 		public string Name => m_Name;
 		public TileWorld TileWorld { get => m_TileWorld; internal set => m_TileWorld = value; }
 
@@ -45,10 +53,10 @@ namespace CodeSmile.Tile
 			get
 			{
 				if (m_TileSet == null)
-					m_TileSet = ScriptableObject.CreateInstance(typeof(TileSet)) as TileSet;
+					m_TileSet = ScriptableObject.CreateInstance<TileSet>();
 				return m_TileSet;
 			}
-			set => throw new NotImplementedException();
+			set => m_TileSet = value;
 		}
 		public TileGrid Grid
 		{
@@ -74,6 +82,10 @@ namespace CodeSmile.Tile
 		}
 		public GridCoord CursorCoord { get => m_CursorCoord; set => m_CursorCoord = value; }
 		public TileWorld World { get => m_TileWorld; set => m_TileWorld = value; }
+		public LayerType LayerType { get => m_LayerType; set => m_LayerType = value; }
+		public TileLayer(TileWorld world) => m_TileWorld = world;
+
+		public override string ToString() => m_Name;
 		private void ClampTileSetIndex() => m_SelectedTileSetIndex = Mathf.Clamp(m_SelectedTileSetIndex, 0, TileSet.Count - 1);
 
 		private void UpdateTileCount() => m_TileCount = m_TileContainer.Count;

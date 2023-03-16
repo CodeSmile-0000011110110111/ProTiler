@@ -28,7 +28,7 @@ namespace CodeSmile.Tile
 	/// </summary>
 	[ExecuteInEditMode]
 	[RequireComponent(typeof(TileWorld))]
-	public sealed partial class TileRenderer : MonoBehaviour
+	public sealed partial class TileLayerRenderer : MonoBehaviour
 	{
 		private const int MinDrawDistance = 2;
 		private const int MaxDrawDistance = 100;
@@ -205,6 +205,9 @@ namespace CodeSmile.Tile
 
 		private void UpdateTileProxies(TileLayer layer, GridRect dirtyRect, RectInt unchangedRect)
 		{
+			if (dirtyRect.width == 0 || dirtyRect.height == 0)
+				return;
+			
 			// a few of them need updates
 			// => compare prev and current visible rect
 			// tiles in prev but not in current => reusable

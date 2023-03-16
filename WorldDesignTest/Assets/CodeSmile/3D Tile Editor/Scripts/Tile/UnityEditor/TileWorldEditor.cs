@@ -103,10 +103,10 @@ namespace CodeSmile.Tile.UnityEditor
 					//Debug.Log($"{Event.current.type}");
 					break;
 				case EventType.ValidateCommand:
-					//Debug.Log($"{Event.current.type}");
+					Debug.Log($"{Event.current.type}");
 					break;
 				case EventType.ExecuteCommand:
-					//Debug.Log($"{Event.current.type}");
+					Debug.Log($"{Event.current.type}");
 					break;
 				case EventType.ContextClick:
 					Debug.Log($"{Event.current.type}");
@@ -118,7 +118,7 @@ namespace CodeSmile.Tile.UnityEditor
 					//Debug.Log($"{Event.current.type}");
 					break;
 				case EventType.Repaint:
-					DrawSelection();
+					DrawCursor();
 					break;
 			}
 		}
@@ -146,10 +146,6 @@ namespace CodeSmile.Tile.UnityEditor
 
 			switch (Event.current.keyCode)
 			{
-				case KeyCode.S:
-					GizmosExt.ShowSelectionOutline = !GizmosExt.ShowSelectionOutline;
-					break;
-
 				case KeyCode.F:
 				{
 					var camera = Camera.current;
@@ -164,9 +160,16 @@ namespace CodeSmile.Tile.UnityEditor
 						break;
 
 					if (tile.Flags.HasFlag(TileFlags.FlipHorizontal))
+					{
+						Undo.RecordObject(TileWorld, "Layer.ClearTileFlags");
+						ActiveLayer.SetTileFlags(cursorCoord, TileFlags.FlipVertical);
 						ActiveLayer.ClearTileFlags(cursorCoord, TileFlags.FlipHorizontal);
+					}
 					else
+					{	
+						Undo.RecordObject(TileWorld, "Layer.SetTileFlags");
 						ActiveLayer.SetTileFlags(cursorCoord, TileFlags.FlipHorizontal);
+					}
 					didModify = true;
 					break;
 				}
@@ -177,22 +180,32 @@ namespace CodeSmile.Tile.UnityEditor
 						break;
 
 					if (ActiveLayer.GetTile(cursorCoord).Flags.HasFlag(TileFlags.FlipVertical))
+					{
+						Undo.RecordObject(TileWorld, "Layer.ClearTileFlags");
 						ActiveLayer.ClearTileFlags(cursorCoord, TileFlags.FlipVertical);
+					}
 					else
+					{
+						Undo.RecordObject(TileWorld, "Layer.SetTileFlags");
 						ActiveLayer.SetTileFlags(cursorCoord, TileFlags.FlipVertical);
+					}
 					didModify = true;
 					break;
 				}
 				case KeyCode.LeftArrow:
+					Undo.RecordObject(TileWorld, "Layer.SetTileFlags");
 					ActiveLayer.SetTileFlags(cursorCoord, TileFlags.DirectionWest);
 					break;
 				case KeyCode.RightArrow:
+					Undo.RecordObject(TileWorld, "Layer.SetTileFlags");
 					ActiveLayer.SetTileFlags(cursorCoord, TileFlags.DirectionEast);
 					break;
 				case KeyCode.UpArrow:
+					Undo.RecordObject(TileWorld, "Layer.SetTileFlags");
 					ActiveLayer.SetTileFlags(cursorCoord, TileFlags.DirectionNorth);
 					break;
 				case KeyCode.DownArrow:
+					Undo.RecordObject(TileWorld, "Layer.SetTileFlags");
 					ActiveLayer.SetTileFlags(cursorCoord, TileFlags.DirectionSouth);
 					break;
 			}
@@ -218,6 +231,8 @@ namespace CodeSmile.Tile.UnityEditor
 					var tile = ActiveLayer.GetTile(cursorCoord);
 					var newTile = new Tile(tile);
 					newTile.TileSetIndex = ActiveLayer.SelectedTileSetIndex;
+
+					Undo.RecordObject(TileWorld, "Layer.SetTile");
 					ActiveLayer.SetTile(cursorCoord, newTile);
 				}
 				ev.Use();
@@ -250,12 +265,13 @@ namespace CodeSmile.Tile.UnityEditor
 
 		private void PaintSelectedTiles()
 		{
+			Undo.RecordObject(TileWorld, "Layer.SetTiles");
 			ActiveLayer.SetTiles(m_SelectionRect, Event.current.shift);
 			//Undo.RecordObject(ActiveLayer, "Paint Tiles");
 			EditorUtility.SetDirty(TileWorld);
 		}
 
-		private void DrawSelection()
+		private void DrawCursor()
 		{
 			var worldRect = TileGrid.ToWorldRect(m_SelectionRect, ActiveLayerGrid.Size);
 			var worldPos = TileWorld.transform.position;

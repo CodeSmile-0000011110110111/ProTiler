@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace CodeSmile.Tile
 {
-	public sealed partial class TileRenderer
+	public sealed partial class TileLayerRenderer
 	{
 		private void OnDrawGizmosSelected() => DrawProxyPoolGizmos();
 
