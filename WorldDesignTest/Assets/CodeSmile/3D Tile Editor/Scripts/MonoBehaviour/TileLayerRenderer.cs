@@ -223,7 +223,7 @@ namespace CodeSmile.Tile
 					m_TileProxyPool.ReturnToPool(proxy);
 			}
 
-			m_GizmosVisibleTiles = layer.TileContainer.GetTilesInRect(dirtyRect);
+			m_GizmosVisibleTiles = layer.TileDataContainer.GetTilesInRect(dirtyRect);
 			foreach (var coord in m_GizmosVisibleTiles.Keys)
 			{
 				if (unchangedRect.Contains(coord.ToCoord2d()))

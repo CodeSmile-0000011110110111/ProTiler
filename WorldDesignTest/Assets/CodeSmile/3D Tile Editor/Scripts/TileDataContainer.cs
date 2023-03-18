@@ -43,9 +43,11 @@ namespace CodeSmile.Tile
 	}
 
 	[Serializable]
-	public sealed class TileContainer
+	public sealed class TileDataContainer
 	{
 		[SerializeField] private SerializedCoordAndTile m_Tiles = new();
+
+		public int Count { get => m_Tiles.Count; }
 
 		public bool Contains(GridCoord coord) => m_Tiles.ContainsKey(coord);
 
@@ -57,10 +59,8 @@ namespace CodeSmile.Tile
 				m_Tiles.Remove(coord);
 		}
 
-		public int Count => m_Tiles.Count;
-
 		//public Tile this[GridCoord coord] => GetTile(coord);
-		public TileData GetTile(GridCoord coord) => m_Tiles.TryGetValue(coord, out var tile) ? tile : default;
+		public TileData GetTile(GridCoord coord) => m_Tiles.TryGetValue(coord, out var tile) ? tile : Global.InvalidTileData;
 
 		public IReadOnlyList<GridCoord> SetTiles(GridRect rect, int tileSetIndex)
 		{
@@ -75,15 +75,12 @@ namespace CodeSmile.Tile
 			if (tileSetIndex < 0)
 				ClearTile(coord);
 			else
-			{
-				var newTile = new TileData(tileSetIndex);
-				SetTile(coord, newTile);
-			}
+				SetTile(coord, new TileData(tileSetIndex));
 		}
 
 		public void SetTile(GridCoord coord, TileData tileData)
 		{
-			if (tileData == null)
+			if (tileData.TileSetIndex < 0)
 				ClearTile(coord);
 			else
 			{
@@ -99,34 +96,16 @@ namespace CodeSmile.Tile
 			}
 		}
 
-		public int GetTilesInRect_old(GridRect rect, out IList<GridCoord> coords, out IList<TileData> tiles, out IDictionary<GridCoord, TileData> dict)
-		{
-			coords = new List<GridCoord>();
-			tiles = new List<TileData>();
-			dict = new Dictionary<GridCoord, TileData>();
-
-			foreach (var coord in rect.GetTileCoords())
-			{
-				var tile = GetTile(coord);
-				if (tile != null)
-				{
-					dict.Add(coord, tile);
-					coords.Add(coord);
-					tiles.Add(tile);
-				}
-			}
-
-			return coords.Count;
-		}
-
 		public IDictionary<GridCoord, TileData> GetTilesInRect(GridRect rect)
 		{
 			var dict = new Dictionary<GridCoord, TileData>();
 			foreach (var coord in rect.GetTileCoords())
 			{
 				var tile = GetTile(coord);
-				if (tile != null)
-					dict.Add(coord, tile);
+				if (tile.TileSetIndex < 0)
+					continue;
+
+				dict.Add(coord, tile);
 			}
 			return dict;
 		}
@@ -139,55 +118,31 @@ namespace CodeSmile.Tile
 			foreach (var coord in unionRect.GetTileCoords())
 			{
 				var tile = GetTile(coord);
-				if (tile != null)
-					coordsAndTiles.Add(coord, tile);
+				if (tile.TileSetIndex < 0)
+					continue;
+
+				coordsAndTiles.Add(coord, tile);
 			}
 		}
-		/*
-public void GetTilesInRect2(GridRect rect1, GridRect rect2, out IDictionary<GridCoord, Tile> onlyInRect1, out IDictionary<GridCoord, Tile> onlyInRect2)
-{
-	onlyInRect1 = onlyInRect2 = null;
-	if (rect1.Equals(rect2))
-		return;
-
-	onlyInRect1 = new Dictionary<GridCoord, Tile>();
-	onlyInRect2 = new Dictionary<GridCoord, Tile>();
-
-	var unionRect = rect1.Union(rect2);
-	foreach (var coord in unionRect.GetTileCoords())
-	{
-		var tile = GetTile(coord);
-		if (tile != null)
-		{
-			dict.Add(coord, tile);
-			coords.Add(coord);
-			tiles.Add(tile);
-		}
-	}
-}*/
 
 		public TileFlags SetTileFlags(GridCoord coord, TileFlags flags)
 		{
-			var tileFlags = TileFlags.None;
 			var tile = GetTile(coord);
-			if (tile != null)
-			{
-				tile.Flags |= flags;
-				tileFlags = flags;
-			}
-			return tileFlags;
+			if (tile.TileSetIndex < 0)
+				return TileFlags.None;
+
+			tile.Flags |= flags;
+			return tile.Flags;
 		}
 
 		public TileFlags ClearTileFlags(GridCoord coord, TileFlags flags)
 		{
-			var tileFlags = TileFlags.None;
 			var tile = GetTile(coord);
-			if (tile != null)
-			{
-				tile.Flags &= ~flags;
-				tileFlags = flags;
-			}
-			return tileFlags;
+			if (tile.TileSetIndex < 0)
+				return TileFlags.None;
+
+			tile.Flags &= ~flags;
+			return tile.Flags;
 		}
 	}
 }

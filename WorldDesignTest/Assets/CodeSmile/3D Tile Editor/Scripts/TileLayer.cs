@@ -26,7 +26,7 @@ namespace CodeSmile.Tile
 		[SerializeField] private string m_Name = "Layer";
 		[SerializeField] private LayerType m_LayerType = LayerType.Tile;
 		[SerializeField] private TileSet m_TileSet;
-		[HideInInspector] [SerializeField] private TileContainer m_TileContainer = new();
+		[HideInInspector] [SerializeField] private TileDataContainer m_TileDataContainer = new();
 
 		[Header("Debug")]
 		[SerializeField] private bool m_ClearTilesButton;
@@ -47,7 +47,7 @@ namespace CodeSmile.Tile
 		public string Name => m_Name;
 		public TileWorld TileWorld { get => m_TileWorld; internal set => m_TileWorld = value; }
 
-		public TileContainer TileContainer { get => m_TileContainer; set => m_TileContainer = value; }
+		public TileDataContainer TileDataContainer { get => m_TileDataContainer; set => m_TileDataContainer = value; }
 		public TileSet TileSet
 		{
 			get
@@ -88,7 +88,7 @@ namespace CodeSmile.Tile
 		public override string ToString() => m_Name;
 		private void ClampTileSetIndex() => m_DebugSelectedTileSetIndex = Mathf.Clamp(m_DebugSelectedTileSetIndex, 0, TileSet.Count - 1);
 
-		private void DebugUpdateTileCount() => m_DebugTileCount = m_TileContainer.Count;
+		private void DebugUpdateTileCount() => m_DebugTileCount = m_TileDataContainer.Count;
 
 		public float3 GetTilePosition(GridCoord coord) =>
 			Grid.ToWorldPosition(coord) + TileSet.GetTileOffset() + (float3)m_TileWorld.transform.position;
@@ -96,7 +96,7 @@ namespace CodeSmile.Tile
 		public void SetTiles(GridRect gridSelection, bool clear = false)
 		{
 			//var prefabTile = clear ? null : m_TileSet.GetPrefabIndex(m_TileSetIndex);
-			var coords = m_TileContainer.SetTiles(gridSelection, clear ? -1 : m_DebugSelectedTileSetIndex);
+			var coords = m_TileDataContainer.SetTiles(gridSelection, clear ? -1 : m_DebugSelectedTileSetIndex);
 			OnSetTiles?.Invoke(gridSelection);
 			DebugUpdateTileCount();
 		}
@@ -104,41 +104,41 @@ namespace CodeSmile.Tile
 		public void DrawTile(GridCoord coord)
 		{
 			var tile = GetTile(coord);
-			if (tile != null)
-				tile.TileSetIndex = m_DebugSelectedTileSetIndex;
-			else
+			if (tile.TileSetIndex < 0)
 				tile = new TileData(m_DebugSelectedTileSetIndex);
+			else
+				tile.TileSetIndex = m_DebugSelectedTileSetIndex;
 
 			SetTile(coord, tile);
 		}
 
 		public void SetTile(GridCoord coord, TileData tileData)
 		{
-			m_TileContainer.SetTile(coord, tileData);
+			m_TileDataContainer.SetTile(coord, tileData);
 			OnSetTile?.Invoke(coord, tileData);
 		}
 
-		public void ClearTile(GridCoord coord) => SetTile(coord, null);
+		public void ClearTile(GridCoord coord) => SetTile(coord, Global.InvalidTileData);
 
 		public void ClearTiles()
 		{
-			m_TileContainer.ClearTiles();
+			m_TileDataContainer.ClearTiles();
 			DebugUpdateTileCount();
 			OnClearTiles?.Invoke();
 		}
 
 		public void SetTileFlags(GridCoord coord, TileFlags flags)
 		{
-			var tileFlags = m_TileContainer.SetTileFlags(coord, flags);
+			var tileFlags = m_TileDataContainer.SetTileFlags(coord, flags);
 			OnSetTileFlags?.Invoke(coord, tileFlags);
 		}
 
 		public void ClearTileFlags(GridCoord coord, TileFlags flags)
 		{
-			var tileFlags = m_TileContainer.ClearTileFlags(coord, flags);
+			var tileFlags = m_TileDataContainer.ClearTileFlags(coord, flags);
 			OnSetTileFlags?.Invoke(coord, tileFlags);
 		}
 
-		public TileData GetTile(GridCoord coord) => m_TileContainer.GetTile(coord);
+		public TileData GetTile(GridCoord coord) => m_TileDataContainer.GetTile(coord);
 	}
 }

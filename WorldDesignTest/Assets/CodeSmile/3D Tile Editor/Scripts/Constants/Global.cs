@@ -14,10 +14,11 @@ namespace CodeSmile.Tile
 		public const string TileEditorName = "WorldCraft";
 
 		public const int InvalidTileSetIndex = -1;
+		public static readonly TileData InvalidTileData = new(InvalidTileSetIndex);
 		public static readonly GridCoord InvalidGridCoord = new(int.MinValue, int.MinValue, int.MinValue);
 		public static readonly GridRect InvalidGridRect = new(int.MinValue, int.MinValue, 0, 0);
-		public static readonly HideFlags TileRenderHideFlags = HideFlags.DontSave; 
-			//HideFlags.HideAndDontSave | HideFlags.HideInInspector;
-			public static readonly TileGrid DefaultGrid = new();
+		public static readonly HideFlags TileRenderHideFlags = HideFlags.DontSave;
+		//HideFlags.HideAndDontSave | HideFlags.HideInInspector;
+		public static readonly TileGrid DefaultGrid = new();
 	}
 }

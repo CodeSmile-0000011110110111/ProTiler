@@ -188,7 +188,7 @@ namespace CodeSmileEditor.Tile
 				case KeyCode.H:
 				{
 					var tile = ActiveLayer.GetTile(m_CursorCoord);
-					if (tile == null)
+					if (tile.TileSetIndex < 0)
 						break;
 
 					if (tile.Flags.HasFlag(TileFlags.FlipHorizontal))
@@ -208,7 +208,7 @@ namespace CodeSmileEditor.Tile
 				case KeyCode.V:
 				{
 					var tile = ActiveLayer.GetTile(m_CursorCoord);
-					if (tile == null)
+					if (tile.TileSetIndex < 0)
 						break;
 
 					if (ActiveLayer.GetTile(m_CursorCoord).Flags.HasFlag(TileFlags.FlipVertical))
@@ -306,8 +306,7 @@ namespace CodeSmileEditor.Tile
 			else
 				ActiveLayer.DrawTile(coord);
 
-			if (EditorUtility.IsDirty(TileWorld) == false)
-				EditorUtility.SetDirty(TileWorld);
+			EditorUtility.SetDirty(TileWorld);
 		}
 
 		private void DrawCursor()

@@ -25,9 +25,9 @@ namespace CodeSmile.Tile
 		}
 		*/
 
-		public GridCoord Coord => m_Coord;
+		public GridCoord Coord { get => m_Coord; }
 
-		public TileData TileData => m_TileData;
+		public TileData TileData { get => m_TileData; }
 
 		public TileLayer Layer
 		{
@@ -52,14 +52,11 @@ namespace CodeSmile.Tile
 				transform.position = m_Layer.Grid.ToWorldPosition(m_Coord);
 			}
 
-			if (m_TileData != tileData)
+			var canUseExistingInstance = m_TileData.TileSetIndex == tileData.TileSetIndex;
+			if (canUseExistingInstance == false)
 			{
-				var isSamePrefab = m_TileData != null && tileData != null && m_TileData.TileSetIndex == tileData.TileSetIndex;
 				m_TileData = tileData;
-
-				// also need to update the instance if it uses a different prefab
-				if (isSamePrefab == false)
-					UpdateInstance();
+				UpdateInstance();
 			}
 		}
 
@@ -73,17 +70,17 @@ namespace CodeSmile.Tile
 				TileWorld.ToBeDeletedInstances.Add(m_Instance);
 			}
 
-			if (m_TileData != null && m_Layer.TileSet != null)
-			{
-				var prefab = m_Layer.TileSet.GetPrefab(m_TileData.TileSetIndex);
-				var worldPos = m_Layer.GetTilePosition(m_Coord);
-				m_Instance = InstantiateTileObject(prefab, worldPos, transform, m_TileData.Flags);
+			if (m_TileData.TileSetIndex < 0 || m_Layer.TileSet == null)
+				return;
+
+			var prefab = m_Layer.TileSet.GetPrefab(m_TileData.TileSetIndex);
+			var worldPos = m_Layer.GetTilePosition(m_Coord);
+			m_Instance = InstantiateTileObject(prefab, worldPos, transform, m_TileData.Flags);
 
 #if UNITY_EDITOR
-				name = $"Tile#{m_TileData.TileSetIndex} @ {m_Coord}, {m_Layer}";
-				//Debug.Log("UpdateInstance: " + name);
+			name = $"Tile#{m_TileData.TileSetIndex} @ {m_Coord}, {m_Layer}";
+			//Debug.Log("UpdateInstance: " + name);
 #endif
-			}
 		}
 
 		private GameObject InstantiateTileObject(GameObject prefab, Vector3 position, Transform parent, TileFlags flags)

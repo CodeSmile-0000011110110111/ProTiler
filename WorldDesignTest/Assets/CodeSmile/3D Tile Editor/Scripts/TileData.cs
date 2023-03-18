@@ -12,30 +12,25 @@ using WorldRect = UnityEngine.Rect;
 namespace CodeSmile.Tile
 {
 	[Serializable]
-	public sealed class TileData
+	public struct TileData
 	{
-		//[SerializeField] private GridCoord m_Coord;
 		[SerializeField] private int m_TileSetIndex;
 		[SerializeField] private TileFlags m_Flags;
 
+		public int TileSetIndex { get => m_TileSetIndex; set => m_TileSetIndex = math.max(0, value); }
+		public TileFlags Flags { get => m_Flags; set => m_Flags = value; }
+
 		public TileData(TileData tileData)
 		{
-			if (tileData != null)
-			{
-				m_TileSetIndex = tileData.m_TileSetIndex;
-				m_Flags = tileData.m_Flags;
-			}
+			m_TileSetIndex = tileData.m_TileSetIndex;
+			m_Flags = tileData.m_Flags;
 		}
 
 		public TileData(int tileSetIndex, TileFlags flags = TileFlags.None)
 		{
-			//m_Coord = coord;
 			m_TileSetIndex = tileSetIndex;
 			m_Flags = flags;
 		}
-
-		public int TileSetIndex { get => m_TileSetIndex; set => m_TileSetIndex = math.max(0, value); }
-		public TileFlags Flags { get => m_Flags; set => m_Flags = value; }
 
 		public override string ToString() => $"Tile Index #{m_TileSetIndex}, Flags: {m_Flags}";
 	}

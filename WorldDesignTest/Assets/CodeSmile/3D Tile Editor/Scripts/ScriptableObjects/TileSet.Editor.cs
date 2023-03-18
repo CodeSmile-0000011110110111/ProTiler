@@ -8,8 +8,7 @@ namespace CodeSmile.Tile
 {
 	public partial class TileSet
 	{
-		
-		#if UNITY_EDITOR
+#if UNITY_EDITOR
 		private void OnValidate()
 		{
 			if (m_DragDropPrefabsHereToAdd.Count > 0)
@@ -34,6 +33,6 @@ namespace CodeSmile.Tile
 				}
 			}
 		}
-		#endif
+#endif
 	}
 }
