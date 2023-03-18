@@ -39,9 +39,9 @@ namespace CodeSmile.Tile
 		private TileWorld m_World;
 		private GameObject m_TileProxyPoolParent;
 		private GameObject m_TileProxyPrefab;
-		private ObjectPool<TileProxy> m_TileProxyPool;
+		private ObjectPool<Tile> m_TileProxyPool;
 
-		[NonSerialized] private IDictionary<GridCoord, Tile> m_GizmosVisibleTiles;
+		[NonSerialized] private IDictionary<GridCoord, TileData> m_GizmosVisibleTiles;
 
 		[NonSerialized] private GridRect m_VisibleRect;
 		[NonSerialized] private GridRect m_PrevVisibleRect;
@@ -114,7 +114,7 @@ namespace CodeSmile.Tile
 
 		private void SetOrReplaceTiles(GridRect dirtyRect) => UpdateTileProxiesInDirtyRect(dirtyRect);
 
-		private void SetOrReplaceTile(GridCoord coord, Tile tile)
+		private void SetOrReplaceTile(GridCoord coord, TileData tileData)
 		{
 			var dirtyRect = new GridRect(coord.ToCoord2d(), new Vector2Int(1, 1));
 			UpdateTileProxiesInDirtyRect(dirtyRect);
@@ -132,7 +132,7 @@ namespace CodeSmile.Tile
 			if (m_TileProxyPrefab == null || m_TileProxyPrefab.IsMissing())
 				throw new Exception("TileProxy prefab null or missing");
 
-			m_TileProxyPool = new ObjectPool<TileProxy>(m_TileProxyPrefab, m_TileProxyPoolParent.transform, poolSize);
+			m_TileProxyPool = new ObjectPool<Tile>(m_TileProxyPrefab, m_TileProxyPoolParent.transform, poolSize);
 			if (m_TileProxyPool.InactiveInstances.Count != poolSize)
 				throw new Exception("pool objects should all be initially inactive");
 
@@ -160,7 +160,7 @@ namespace CodeSmile.Tile
 				return;
 
 			m_TileProxyPrefab = gameObject.FindOrCreateChild("TileProxy(Prefab)", Global.TileRenderHideFlags);
-			var tileProxy = m_TileProxyPrefab.GetOrAddComponent<TileProxy>();
+			var tileProxy = m_TileProxyPrefab.GetOrAddComponent<Tile>();
 			tileProxy.Layer = m_World.ActiveLayer;
 		}
 

@@ -12,22 +12,22 @@ using WorldRect = UnityEngine.Rect;
 namespace CodeSmile.Tile
 {
 	[Serializable]
-	public sealed class Tile
+	public sealed class TileData
 	{
 		//[SerializeField] private GridCoord m_Coord;
 		[SerializeField] private int m_TileSetIndex;
 		[SerializeField] private TileFlags m_Flags;
 
-		public Tile(Tile tile)
+		public TileData(TileData tileData)
 		{
-			if (tile != null)
+			if (tileData != null)
 			{
-				m_TileSetIndex = tile.m_TileSetIndex;
-				m_Flags = tile.m_Flags;
+				m_TileSetIndex = tileData.m_TileSetIndex;
+				m_Flags = tileData.m_Flags;
 			}
 		}
 
-		public Tile(int tileSetIndex, TileFlags flags = TileFlags.None)
+		public TileData(int tileSetIndex, TileFlags flags = TileFlags.None)
 		{
 			//m_Coord = coord;
 			m_TileSetIndex = tileSetIndex;

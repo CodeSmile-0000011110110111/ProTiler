@@ -37,7 +37,7 @@ namespace CodeSmile.Tile
 
 		[NonSerialized] private TileWorld m_TileWorld;
 
-		public Action<GridCoord, Tile> OnSetTile;
+		public Action<GridCoord, TileData> OnSetTile;
 		
 		// TODO: refactor
 		public Action OnClearTiles;
@@ -107,15 +107,15 @@ namespace CodeSmile.Tile
 			if (tile != null)
 				tile.TileSetIndex = m_DebugSelectedTileSetIndex;
 			else
-				tile = new Tile(m_DebugSelectedTileSetIndex);
+				tile = new TileData(m_DebugSelectedTileSetIndex);
 
 			SetTile(coord, tile);
 		}
 
-		public void SetTile(GridCoord coord, Tile tile)
+		public void SetTile(GridCoord coord, TileData tileData)
 		{
-			m_TileContainer.SetTile(coord, tile);
-			OnSetTile?.Invoke(coord, tile);
+			m_TileContainer.SetTile(coord, tileData);
+			OnSetTile?.Invoke(coord, tileData);
 		}
 
 		public void ClearTile(GridCoord coord) => SetTile(coord, null);
@@ -139,6 +139,6 @@ namespace CodeSmile.Tile
 			OnSetTileFlags?.Invoke(coord, tileFlags);
 		}
 
-		public Tile GetTile(GridCoord coord) => m_TileContainer.GetTile(coord);
+		public TileData GetTile(GridCoord coord) => m_TileContainer.GetTile(coord);
 	}
 }

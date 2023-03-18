@@ -10,10 +10,10 @@ using WorldRect = UnityEngine.Rect;
 
 namespace CodeSmile.Tile
 {
-	public class TileProxy : MonoBehaviour
+	public class Tile : MonoBehaviour
 	{
 		[NonSerialized] private GridCoord m_Coord = Global.InvalidGridCoord;
-		[NonSerialized] private Tile m_Tile;
+		[NonSerialized] private TileData m_TileData;
 		[NonSerialized] private TileLayer m_Layer;
 		[NonSerialized] private GameObject m_Instance;
 
@@ -27,7 +27,7 @@ namespace CodeSmile.Tile
 
 		public GridCoord Coord => m_Coord;
 
-		public Tile Tile => m_Tile;
+		public TileData TileData => m_TileData;
 
 		public TileLayer Layer
 		{
@@ -41,7 +41,7 @@ namespace CodeSmile.Tile
 			}
 		}
 
-		public void SetCoordAndTile(GridCoord coord, Tile tile)
+		public void SetCoordAndTile(GridCoord coord, TileData tileData)
 		{
 			//Debug.Log($"update TileProxy at {coord} with tile {tile}, layer: {m_Layer}");
 
@@ -52,10 +52,10 @@ namespace CodeSmile.Tile
 				transform.position = m_Layer.Grid.ToWorldPosition(m_Coord);
 			}
 
-			if (m_Tile != tile)
+			if (m_TileData != tileData)
 			{
-				var isSamePrefab = m_Tile != null && tile != null && m_Tile.TileSetIndex == tile.TileSetIndex;
-				m_Tile = tile;
+				var isSamePrefab = m_TileData != null && tileData != null && m_TileData.TileSetIndex == tileData.TileSetIndex;
+				m_TileData = tileData;
 
 				// also need to update the instance if it uses a different prefab
 				if (isSamePrefab == false)
@@ -73,14 +73,14 @@ namespace CodeSmile.Tile
 				TileWorld.ToBeDeletedInstances.Add(m_Instance);
 			}
 
-			if (m_Tile != null && m_Layer.TileSet != null)
+			if (m_TileData != null && m_Layer.TileSet != null)
 			{
-				var prefab = m_Layer.TileSet.GetPrefab(m_Tile.TileSetIndex);
+				var prefab = m_Layer.TileSet.GetPrefab(m_TileData.TileSetIndex);
 				var worldPos = m_Layer.GetTilePosition(m_Coord);
-				m_Instance = InstantiateTileObject(prefab, worldPos, transform, m_Tile.Flags);
+				m_Instance = InstantiateTileObject(prefab, worldPos, transform, m_TileData.Flags);
 
 #if UNITY_EDITOR
-				name = $"Tile#{m_Tile.TileSetIndex} @ {m_Coord}, {m_Layer}";
+				name = $"Tile#{m_TileData.TileSetIndex} @ {m_Coord}, {m_Layer}";
 				//Debug.Log("UpdateInstance: " + name);
 #endif
 			}

@@ -14,10 +14,10 @@ using GridRect = UnityEngine.RectInt;
 namespace CodeSmile.Tile
 {
 	[Serializable]
-	public sealed class SerializedCoordAndTile : Dictionary<GridCoord, Tile>, ISerializationCallbackReceiver
+	public sealed class SerializedCoordAndTile : Dictionary<GridCoord, TileData>, ISerializationCallbackReceiver
 	{
 		[SerializeField] private List<GridCoord> m_Keys = new();
-		[SerializeField] private List<Tile> m_Values = new();
+		[SerializeField] private List<TileData> m_Values = new();
 
 		public void OnBeforeSerialize()
 		{
@@ -60,7 +60,7 @@ namespace CodeSmile.Tile
 		public int Count => m_Tiles.Count;
 
 		//public Tile this[GridCoord coord] => GetTile(coord);
-		public Tile GetTile(GridCoord coord) => m_Tiles.TryGetValue(coord, out var tile) ? tile : default;
+		public TileData GetTile(GridCoord coord) => m_Tiles.TryGetValue(coord, out var tile) ? tile : default;
 
 		public IReadOnlyList<GridCoord> SetTiles(GridRect rect, int tileSetIndex)
 		{
@@ -76,20 +76,20 @@ namespace CodeSmile.Tile
 				ClearTile(coord);
 			else
 			{
-				var newTile = new Tile(tileSetIndex);
+				var newTile = new TileData(tileSetIndex);
 				SetTile(coord, newTile);
 			}
 		}
 
-		public void SetTile(GridCoord coord, Tile tile)
+		public void SetTile(GridCoord coord, TileData tileData)
 		{
-			if (tile == null)
+			if (tileData == null)
 				ClearTile(coord);
 			else
 			{
 #if TRYADDTILES
-				if (m_Tiles.TryAdd(coord, tile) == false)
-					m_Tiles[coord] = tile;
+				if (m_Tiles.TryAdd(coord, tileData) == false)
+					m_Tiles[coord] = tileData;
 #else
 				if (m_Tiles.ContainsKey(coord))
 					m_Tiles[coord] = tile;
@@ -99,11 +99,11 @@ namespace CodeSmile.Tile
 			}
 		}
 
-		public int GetTilesInRect_old(GridRect rect, out IList<GridCoord> coords, out IList<Tile> tiles, out IDictionary<GridCoord, Tile> dict)
+		public int GetTilesInRect_old(GridRect rect, out IList<GridCoord> coords, out IList<TileData> tiles, out IDictionary<GridCoord, TileData> dict)
 		{
 			coords = new List<GridCoord>();
-			tiles = new List<Tile>();
-			dict = new Dictionary<GridCoord, Tile>();
+			tiles = new List<TileData>();
+			dict = new Dictionary<GridCoord, TileData>();
 
 			foreach (var coord in rect.GetTileCoords())
 			{
@@ -119,9 +119,9 @@ namespace CodeSmile.Tile
 			return coords.Count;
 		}
 
-		public IDictionary<GridCoord, Tile> GetTilesInRect(GridRect rect)
+		public IDictionary<GridCoord, TileData> GetTilesInRect(GridRect rect)
 		{
-			var dict = new Dictionary<GridCoord, Tile>();
+			var dict = new Dictionary<GridCoord, TileData>();
 			foreach (var coord in rect.GetTileCoords())
 			{
 				var tile = GetTile(coord);
@@ -131,9 +131,9 @@ namespace CodeSmile.Tile
 			return dict;
 		}
 
-		public void GetTilesInUnionRect(GridRect rect1, GridRect rect2, out IDictionary<GridCoord, Tile> coordsAndTiles)
+		public void GetTilesInUnionRect(GridRect rect1, GridRect rect2, out IDictionary<GridCoord, TileData> coordsAndTiles)
 		{
-			coordsAndTiles = new Dictionary<GridCoord, Tile>();
+			coordsAndTiles = new Dictionary<GridCoord, TileData>();
 			var unionRect = rect1.Union(rect2);
 
 			foreach (var coord in unionRect.GetTileCoords())
