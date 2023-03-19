@@ -13,8 +13,6 @@ namespace CodeSmile.Tile
 		private static readonly List<GameObject> m_ToBeDeletedInstances = new();
 		[SerializeField] private int m_ActiveLayerIndex;
 		[SerializeField] private List<TileLayer> m_Layers = new();
-
-		public int UndoTest;
 		
 		private void Reset()
 		{

@@ -31,10 +31,10 @@ namespace CodeSmile.Tile
 	public sealed partial class TileLayerRenderer : MonoBehaviour
 	{
 		private const int MinDrawDistance = 2;
-		private const int MaxDrawDistance = 100;
+		private const int MaxDrawDistance = 128;
 
 		[Range(MinDrawDistance, MaxDrawDistance)] [SerializeField] private int m_DrawDistance = MinDrawDistance;
-		[SerializeField] private float m_VisibleRectDistance = 20f;
+		[SerializeField] private float m_VisibleRectDistance = 5f;
 
 		private TileWorld m_World;
 		private GameObject m_TileProxyPoolParent;

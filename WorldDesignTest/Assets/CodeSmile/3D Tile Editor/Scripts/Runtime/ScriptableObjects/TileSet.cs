@@ -19,7 +19,7 @@ namespace CodeSmile.Tile
 		[SerializeField] private TileAnchor m_TileAnchor;
 		[SerializeField] private List<GameObject> m_DragDropPrefabsHereToAdd = new();
 		[SerializeField] private List<TileSetTile> m_Tiles = new();
-		[SerializeField] private float m_TileCursorHeight = 5f;
+		[SerializeField] private float m_TileCursorHeight = 2f;
 		public TileGrid Grid { get => m_Grid; set => m_Grid = value; }
 
 		public float3 GetTileOffset()
