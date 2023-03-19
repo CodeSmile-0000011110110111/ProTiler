@@ -31,6 +31,7 @@ namespace CodeSmile
 				var rayOrigin = (float3)ray.origin;
 				var distanceToPlane = math.dot(planePoint - rayOrigin, planeNormal) / denominator;
 				intersectPoint = rayOrigin + rayDirection * distanceToPlane;
+				intersectPoint.y = planeY;
 			}
 			else
 				intersectPoint = default;

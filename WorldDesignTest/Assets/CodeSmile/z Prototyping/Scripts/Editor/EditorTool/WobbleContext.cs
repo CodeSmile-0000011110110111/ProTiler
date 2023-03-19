@@ -1,6 +1,7 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
+/*
 using System;
 using UnityEditor;
 using UnityEditor.EditorTools;
@@ -38,3 +39,4 @@ public class WobbleContext : EditorToolContext
 		return null;
 	}
 }
+*/

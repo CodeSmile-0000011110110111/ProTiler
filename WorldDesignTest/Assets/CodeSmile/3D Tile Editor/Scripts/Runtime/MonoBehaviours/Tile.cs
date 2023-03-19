@@ -43,7 +43,7 @@ namespace CodeSmile.Tile
 
 		public void SetCoordAndTile(GridCoord coord, TileData tileData)
 		{
-			//Debug.Log($"update TileProxy at {coord} with tile {tile}, layer: {m_Layer}");
+			//Debug.Log($"update Tile at {coord} with tile {tile}, layer: {m_Layer}");
 
 			// order is important!
 			//if (m_Coord.Equals(coord) == false)
@@ -52,8 +52,8 @@ namespace CodeSmile.Tile
 				transform.position = m_Layer.Grid.ToWorldPosition(m_Coord);
 			}
 
-			var canUseExistingInstance = m_TileData.TileSetIndex == tileData.TileSetIndex;
-			if (canUseExistingInstance == false)
+			var mustUpdateInstance = m_TileData.TileSetIndex != tileData.TileSetIndex || m_Instance == null;
+			if (mustUpdateInstance )
 			{
 				m_TileData = tileData;
 				UpdateInstance();

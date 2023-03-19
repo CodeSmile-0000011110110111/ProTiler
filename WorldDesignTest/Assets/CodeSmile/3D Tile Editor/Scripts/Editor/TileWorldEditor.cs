@@ -3,6 +3,7 @@
 
 using CodeSmile;
 using CodeSmile.Tile;
+using System;
 using Unity.Mathematics;
 using UnityEditor;
 using UnityEngine;
@@ -13,12 +14,6 @@ using GridRect = UnityEngine.RectInt;
 
 namespace CodeSmileEditor.Tile
 {
-	public enum DrawingMode
-	{
-		Pen,
-		RectangleFill,
-	}
-
 	[CustomEditor(typeof(TileWorld))]
 	public class TileWorldEditor : Editor
 	{
@@ -28,18 +23,23 @@ namespace CodeSmileEditor.Tile
 		private GridRect m_SelectionRect;
 		private bool m_IsDrawingTiles;
 		private bool m_IsClearingTiles;
+		private bool m_IsMouseInView;
 
-		private readonly DrawingMode m_DrawingMode = DrawingMode.Pen;
-
-		private float2 MousePos => Event.current.mousePosition;
-		private TileWorld TileWorld => (TileWorld)target;
-		private TileLayer ActiveLayer => TileWorld.ActiveLayer;
-		private TileGrid ActiveLayerGrid => TileWorld.ActiveLayer.Grid;
+		private float2 MousePos { get => Event.current.mousePosition; }
+		private TileWorld TileWorld { get => (TileWorld)target; }
+		private TileLayer ActiveLayer { get => TileWorld.ActiveLayer; }
+		private TileGrid ActiveLayerGrid { get => TileWorld.ActiveLayer.Grid; }
 
 		private void OnSceneGUI()
 		{
 			if (Selection.activeGameObject != TileWorld.gameObject)
 				return;
+
+			var editMode = (EditMode)EditorPrefs.GetInt(Global.EditorPrefEditMode);
+
+			var previewRenderer = (target as TileWorld).GetComponent<TilePreviewRenderer>();
+			if (previewRenderer != null)
+				previewRenderer.ShowPreview = m_IsMouseInView && editMode != EditMode.Selection;
 
 			m_InputState?.Update();
 
@@ -57,35 +57,14 @@ namespace CodeSmileEditor.Tile
 					break;
 				case EventType.MouseDown:
 					if (IsLeftMouseButtonDown())
-					{
-						UpdateStartSelectionCoord();
-						UpdateCursorCoord();
-						if (m_DrawingMode == DrawingMode.Pen)
-							StartTileDrawing();
-						Event.current.Use();
-					}
+						StartTileDrawing(editMode);
 					break;
 				case EventType.MouseDrag:
 					if (IsLeftMouseButtonDown())
-					{
-						if (m_DrawingMode == DrawingMode.Pen)
-						{
-							UpdateStartSelectionCoord();
-							DrawTile(m_StartSelectionCoord, m_IsClearingTiles);
-						}
-						UpdateCursorCoord();
-						Event.current.Use();
-					}
+						ContinueTileDrawing(editMode);
 					break;
 				case EventType.MouseUp:
-					if (m_IsDrawingTiles)
-					{
-						UpdateCursorCoord();
-						if (m_DrawingMode == DrawingMode.Pen)
-							DrawTile(m_StartSelectionCoord, m_IsClearingTiles);
-						EndTileDrawing();
-						Event.current.Use();
-					}
+					EndTileDrawing(editMode);
 					break;
 				case EventType.ScrollWheel:
 					//ChangeTile();
@@ -132,28 +111,61 @@ namespace CodeSmileEditor.Tile
 					Debug.Log($"{Event.current.type}");
 					break;
 				case EventType.MouseEnterWindow:
-					//Debug.Log($"{Event.current.type}");
+					m_IsMouseInView = true;
 					break;
 				case EventType.MouseLeaveWindow:
-					//Debug.Log($"{Event.current.type}");
+					m_IsMouseInView = false;
+					EndTileDrawing(editMode);
 					break;
 				case EventType.Repaint:
-					DrawCursor();
+					if (m_IsMouseInView && editMode == EditMode.PenDraw)
+						DrawCursorHandle();
 					break;
 			}
 		}
 
-		private void StartTileDrawing()
+		private void StartTileDrawing(EditMode editMode)
 		{
-			m_IsDrawingTiles = true;
-			m_IsClearingTiles = Event.current.shift;
-			Undo.RecordObject(TileWorld, m_IsClearingTiles ? "Clear Tile" : "Draw Tile");
+			UpdateStartSelectionCoord();
+			UpdateCursorCoord();
+			if (editMode == EditMode.PenDraw)
+			{
+				m_IsDrawingTiles = true;
+				m_IsClearingTiles = Event.current.shift;
+				Undo.RecordObject(TileWorld, m_IsClearingTiles ? "Clear Tile" : "Draw Tile");
+			}
+
+			if (editMode != EditMode.Selection)
+				Event.current.Use();
 		}
 
-		private void EndTileDrawing()
+		private void ContinueTileDrawing(EditMode editMode)
 		{
-			m_IsDrawingTiles = false;
-			m_IsClearingTiles = false;
+			if (editMode == EditMode.PenDraw)
+			{
+				UpdateCursorCoord();
+				DrawLine(m_StartSelectionCoord, m_CursorCoord, m_IsClearingTiles);
+			}
+			UpdateStartSelectionCoord();
+
+			if (editMode != EditMode.Selection)
+				Event.current.Use();
+		}
+
+		private void EndTileDrawing(EditMode editMode)
+		{
+			if (m_IsDrawingTiles)
+			{
+				UpdateCursorCoord();
+				if (editMode == EditMode.PenDraw)
+					DrawLine(m_StartSelectionCoord, m_StartSelectionCoord, m_IsClearingTiles);
+
+				m_IsDrawingTiles = false;
+				m_IsClearingTiles = false;
+
+				if (editMode != EditMode.Selection)
+					Event.current.Use();
+			}
 		}
 
 		private void HandleShortcuts()
@@ -248,32 +260,6 @@ namespace CodeSmileEditor.Tile
 				Event.current.Use();
 		}
 
-		/*
-		private void ChangeTile()
-		{
-			// TODO: Refactor ...
-			
-			var ev = Event.current;
-			if (ev.shift)
-			{
-				var delta = ev.delta.y >= 0 ? 1 : -1;
-				ActiveLayer.SelectedTileSetIndex += delta;
-				ActiveLayer.OnValidate();
-
-				if (ev.control == false)
-				{
-					var tile = ActiveLayer.GetTile(m_CursorCoord);
-					var newTile = new CodeSmile.Tile.Tile(tile);
-					newTile.TileSetIndex = ActiveLayer.SelectedTileSetIndex;
-
-					Undo.RecordObject(TileWorld, "Layer.SetTile");
-					ActiveLayer.SetTile(m_CursorCoord, newTile);
-				}
-				ev.Use();
-			}
-		}
-		*/
-
 		private void UpdateStartSelectionCoord()
 		{
 			var planeY = TileWorld.transform.position.y;
@@ -301,6 +287,7 @@ namespace CodeSmileEditor.Tile
 
 		private void DrawTile(GridCoord coord, bool clear)
 		{
+			//Debug.Log($"\tDrawTile at {coord}");
 			if (clear)
 				ActiveLayer.ClearTile(coord);
 			else
@@ -309,7 +296,83 @@ namespace CodeSmileEditor.Tile
 			EditorUtility.SetDirty(TileWorld);
 		}
 
-		private void DrawCursor()
+		private void DrawLine(GridCoord start, GridCoord end, bool clear) => DrawLine(start.x, start.z, end.x, end.z, clear, DrawTile);
+
+		/*
+			if (start.Equals(end))
+			{
+				DrawTile(end, clear);
+				return;
+			}
+
+			//Debug.Log($"DrawLine from {start} to {end}");
+			var delta = end - start;
+			for (var x = start.x; x < end.x; x++)
+			{
+				var z = start.z + delta.z * (x - start.x) / delta.x;
+				DrawTile(new GridCoord(x, end.y, z), clear);
+			}
+		*/
+		/// <summary>
+		///     Source: https://stackoverflow.com/a/11683720
+		/// </summary>
+		/// <param name="x"></param>
+		/// <param name="y"></param>
+		/// <param name="x2"></param>
+		/// <param name="y2"></param>
+		/// <param name="clear"></param>
+		/// <param name="callback"></param>
+		public void DrawLine(int x, int y, int x2, int y2, bool clear, Action<GridCoord, bool> callback)
+		{
+			// TODO: refactor ...
+			var w = x2 - x;
+			var h = y2 - y;
+			int dx1 = 0, dy1 = 0, dx2 = 0, dy2 = 0;
+
+			if (w < 0) dx1 = -1;
+			else if (w > 0) dx1 = 1;
+
+			if (h < 0) dy1 = -1;
+			else if (h > 0) dy1 = 1;
+
+			if (w < 0) dx2 = -1;
+			else if (w > 0) dx2 = 1;
+
+			var longest = math.abs(w);
+			var shortest = math.abs(h);
+			if (!(longest > shortest))
+			{
+				longest = math.abs(h);
+				shortest = math.abs(w);
+				if (h < 0) dy2 = -1;
+				else if (h > 0) dy2 = 1;
+				dx2 = 0;
+			}
+
+			var coord = new GridCoord(0, 0, 0);
+			var numerator = longest >> 1;
+			for (var i = 0; i <= longest; i++)
+			{
+				coord.x = x;
+				coord.z = y;
+				callback(coord, clear);
+
+				numerator += shortest;
+				if (!(numerator < longest))
+				{
+					numerator -= longest;
+					x += dx1;
+					y += dy1;
+				}
+				else
+				{
+					x += dx2;
+					y += dy2;
+				}
+			}
+		}
+
+		private void DrawCursorHandle()
 		{
 			var worldRect = TileGrid.ToWorldRect(m_SelectionRect, ActiveLayerGrid.Size);
 			var worldPos = TileWorld.transform.position;

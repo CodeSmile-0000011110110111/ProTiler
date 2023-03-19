@@ -5,6 +5,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
+using UnityEditor;
 using UnityEngine;
 using GridCoord = Unity.Mathematics.int3;
 using GridSize = Unity.Mathematics.int3;
@@ -37,9 +38,9 @@ namespace CodeSmile.Tile
 		[SerializeField] private float m_VisibleRectDistance = 5f;
 
 		private TileWorld m_World;
-		private GameObject m_TileProxyPoolParent;
-		private GameObject m_TileProxyPrefab;
-		private ObjectPool<Tile> m_TileProxyPool;
+		private GameObject m_TilePoolParent;
+		private GameObject m_TilePrefab;
+		private ObjectPool<Tile> m_TilePool;
 
 		[NonSerialized] private IDictionary<GridCoord, TileData> m_GizmosVisibleTiles;
 
@@ -55,8 +56,8 @@ namespace CodeSmile.Tile
 			m_PrevDrawDistance = m_DrawDistance;
 			Debug.Log($"OnEnable draw distance is: {m_DrawDistance}");
 
-			CreateTileProxyPrefabOnce();
-			RecreateTileProxyPool();
+			CreateTilePrefabOnce();
+			RecreateTilePool();
 
 			RegisterTileWorldEvents();
 		}
@@ -65,7 +66,7 @@ namespace CodeSmile.Tile
 		{
 			UnregisterTileWorldEvents();
 
-			DisposeTileProxyPool();
+			DisposeTilePool();
 		}
 
 		private void OnRenderObject()
@@ -84,7 +85,7 @@ namespace CodeSmile.Tile
 				Debug.Log($"new draw distance is: {m_DrawDistance}");
 				m_PrevDrawDistance = m_DrawDistance;
 				StopAllCoroutines();
-				StartCoroutine(WaitThenRecreateTileProxyPool());
+				StartCoroutine(WaitThenRecreateTilePool());
 			}
 		}
 
@@ -99,6 +100,10 @@ namespace CodeSmile.Tile
 			layer.OnSetTile += SetOrReplaceTile;
 			layer.OnSetTiles += SetOrReplaceTiles;
 			layer.OnSetTileFlags += SetTileFlags;
+
+#if UNITY_EDITOR
+			Undo.undoRedoPerformed += UndoRedoPerformed;
+#endif
 		}
 
 		private void UnregisterTileWorldEvents()
@@ -108,12 +113,15 @@ namespace CodeSmile.Tile
 			layer.OnSetTile -= SetOrReplaceTile;
 			layer.OnSetTiles -= SetOrReplaceTiles;
 			layer.OnSetTileFlags -= SetTileFlags;
+
+#if UNITY_EDITOR
+			Undo.undoRedoPerformed -= UndoRedoPerformed;
+#endif
 		}
 
-		private void OnClearActiveLayer() => RecreateTileProxyPool();
-
+		private void UndoRedoPerformed() => RecreateTilePool();
+		private void OnClearActiveLayer() => RecreateTilePool();
 		private void SetOrReplaceTiles(GridRect dirtyRect) => UpdateTileProxiesInDirtyRect(dirtyRect);
-
 		private void SetOrReplaceTile(GridCoord coord, TileData tileData)
 		{
 			var dirtyRect = new GridRect(coord.ToCoord2d(), new Vector2Int(1, 1));
@@ -122,53 +130,53 @@ namespace CodeSmile.Tile
 
 		private void SetTileFlags(GridCoord coord, TileFlags flags) => Debug.LogWarning("SetTileFlags not implemented");
 
-		private void RecreateTileProxyPool()
+		private void RecreateTilePool()
 		{
 			var poolSize = m_DrawDistance * m_DrawDistance;
-			Debug.Log($"RecreateTileProxyPool pool with {poolSize} instances");
+			Debug.Log($"RecreateTilePool pool with {poolSize} instances");
 
-			DisposeTileProxyPool();
-			m_TileProxyPoolParent = gameObject.FindOrCreateChild("TileProxy(Pool)", Global.TileRenderHideFlags);
-			if (m_TileProxyPrefab == null || m_TileProxyPrefab.IsMissing())
-				throw new Exception("TileProxy prefab null or missing");
+			DisposeTilePool();
+			m_TilePoolParent = gameObject.FindOrCreateChild("TilePool", Global.TileRenderHideFlags);
+			if (m_TilePrefab == null || m_TilePrefab.IsMissing())
+				throw new Exception("Tile prefab null or missing");
 
-			m_TileProxyPool = new ObjectPool<Tile>(m_TileProxyPrefab, m_TileProxyPoolParent.transform, poolSize);
-			if (m_TileProxyPool.InactiveInstances.Count != poolSize)
+			m_TilePool = new ObjectPool<Tile>(m_TilePrefab, m_TilePoolParent.transform, poolSize);
+			if (m_TilePool.InactiveInstances.Count != poolSize)
 				throw new Exception("pool objects should all be initially inactive");
 
 			m_PrevVisibleRect = new GridRect();
 			m_PrevDrawDistance = m_DrawDistance;
 		}
 
-		private void DisposeTileProxyPool()
+		private void DisposeTilePool()
 		{
-			if (m_TileProxyPool != null)
+			if (m_TilePool != null)
 			{
-				m_TileProxyPool.Dispose();
-				m_TileProxyPool = null;
+				m_TilePool.Dispose();
+				m_TilePool = null;
 			}
-			if (m_TileProxyPoolParent != null)
+			if (m_TilePoolParent != null)
 			{
-				m_TileProxyPoolParent.DestroyInAnyMode();
-				m_TileProxyPoolParent = null;
+				m_TilePoolParent.DestroyInAnyMode();
+				m_TilePoolParent = null;
 			}
 		}
 
-		private void CreateTileProxyPrefabOnce()
+		private void CreateTilePrefabOnce()
 		{
-			if (m_TileProxyPrefab != null)
+			if (m_TilePrefab != null)
 				return;
 
-			m_TileProxyPrefab = gameObject.FindOrCreateChild("TileProxy(Prefab)", Global.TileRenderHideFlags);
-			var tileProxy = m_TileProxyPrefab.GetOrAddComponent<Tile>();
-			tileProxy.Layer = m_World.ActiveLayer;
+			m_TilePrefab = gameObject.FindOrCreateChild("TilePrefab", Global.TileRenderHideFlags);
+			var tile = m_TilePrefab.GetOrAddComponent<Tile>();
+			tile.Layer = m_World.ActiveLayer;
 		}
 
-		private IEnumerator WaitThenRecreateTileProxyPool()
+		private IEnumerator WaitThenRecreateTilePool()
 		{
 			yield return null;
 
-			RecreateTileProxyPool();
+			RecreateTilePool();
 			m_VisibleRect = new GridRect();
 			UpdateTileProxiesInVisibleRect();
 		}
@@ -186,7 +194,7 @@ namespace CodeSmile.Tile
 			m_PrevVisibleRect = m_VisibleRect;
 			m_VisibleRect = visibleRect;
 			m_VisibleRect.Intersects(m_PrevVisibleRect, out var staysUnchangedRect);
-			UpdateTileProxies(layer, m_VisibleRect, staysUnchangedRect);
+			UpdateVisibleTiles(layer, m_VisibleRect, staysUnchangedRect);
 		}
 
 		private void UpdateTileProxiesInDirtyRect(RectInt dirtyRect)
@@ -194,10 +202,10 @@ namespace CodeSmile.Tile
 			// mark visible rect as requiring update
 			SetTilesInRectAsDirty(dirtyRect);
 			m_VisibleRect.Intersects(dirtyRect, out var dirtyInsideVisibleRect);
-			UpdateTileProxies(m_World.ActiveLayer, dirtyInsideVisibleRect, new GridRect());
+			UpdateVisibleTiles(m_World.ActiveLayer, dirtyInsideVisibleRect, new GridRect());
 		}
 
-		private void UpdateTileProxies(TileLayer layer, GridRect dirtyRect, RectInt unchangedRect)
+		private void UpdateVisibleTiles(TileLayer layer, GridRect dirtyRect, RectInt unchangedRect)
 		{
 			if (dirtyRect.width == 0 || dirtyRect.height == 0)
 				return;
@@ -210,17 +218,17 @@ namespace CodeSmile.Tile
 			//Debug.Log($"dirty: {dirtyRect}, unchanged: {unchangedRect}");
 
 			// find tiles that are no longer visible
-			var proxies = m_TileProxyPool.AllInstances;
-			for (var i = 0; i < proxies.Count; i++)
+			var tiles = m_TilePool.AllInstances;
+			for (var i = 0; i < tiles.Count; i++)
 			{
-				var proxy = proxies[i];
-				if (proxy == null)
+				var tile = tiles[i];
+				if (tile == null)
 					continue;
-				if (proxy.gameObject.activeSelf == false)
+				if (tile.gameObject.activeSelf == false)
 					continue;
 
-				if (m_VisibleRect.Contains(proxy.Coord.ToCoord2d()) == false)
-					m_TileProxyPool.ReturnToPool(proxy);
+				if (m_VisibleRect.Contains(tile.Coord.ToCoord2d()) == false)
+					m_TilePool.ReturnToPool(tile);
 			}
 
 			m_GizmosVisibleTiles = layer.TileDataContainer.GetTilesInRect(dirtyRect);
@@ -229,26 +237,26 @@ namespace CodeSmile.Tile
 				if (unchangedRect.Contains(coord.ToCoord2d()))
 					continue;
 
-				var proxy = m_TileProxyPool.GetPooledObject();
-				proxy.Layer = m_World.ActiveLayer;
-				proxy.SetCoordAndTile(coord, m_GizmosVisibleTiles[coord]);
+				var tile = m_TilePool.GetPooledObject();
+				tile.Layer = m_World.ActiveLayer;
+				tile.SetCoordAndTile(coord, m_GizmosVisibleTiles[coord]);
 			}
 		}
 
 		private void SetTilesInRectAsDirty(RectInt dirtyRect)
 		{
 			// set tile proxies within dirty rect as inactive
-			var proxies = m_TileProxyPool.AllInstances;
-			for (var i = 0; i < proxies.Count; i++)
+			var tiles = m_TilePool.AllInstances;
+			for (var i = 0; i < tiles.Count; i++)
 			{
-				var proxy = proxies[i];
-				if (proxy == null)
+				var tile = tiles[i];
+				if (tile == null)
 					continue;
-				if (proxy.gameObject.activeSelf == false)
+				if (tile.gameObject.activeSelf == false)
 					continue;
 
-				if (dirtyRect.Contains(proxy.Coord.ToCoord2d()))
-					m_TileProxyPool.ReturnToPool(proxy);
+				if (dirtyRect.Contains(tile.Coord.ToCoord2d()))
+					m_TilePool.ReturnToPool(tile);
 			}
 		}
 	}

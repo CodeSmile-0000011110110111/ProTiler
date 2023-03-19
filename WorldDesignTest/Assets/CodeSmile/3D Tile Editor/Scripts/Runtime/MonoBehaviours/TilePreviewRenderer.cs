@@ -10,13 +10,15 @@ namespace CodeSmile.Tile
 {
 	[ExecuteInEditMode]
 	[RequireComponent(typeof(TileWorld))]
-	public sealed class TileCursorRenderer : MonoBehaviour
+	public sealed class TilePreviewRenderer : MonoBehaviour
 	{
-		[NonSerialized] private readonly List<GameObject> m_ToBeDeletedCursors = new();
-		[NonSerialized] private GameObject m_Cursor;
-		[NonSerialized] private int3 m_CursorRenderCoord;
-		[NonSerialized] private int m_SelectedTileSetIndex = Global.InvalidTileSetIndex;
+		[NonSerialized] private readonly List<GameObject> m_ToBeDeletedPreviews = new();
+		[NonSerialized] private GameObject m_Preview;
+		[NonSerialized] private int3 m_RenderCoord;
+		[NonSerialized] private int m_TileSetIndex = Global.InvalidTileSetIndex;
 		[NonSerialized] private TileWorld m_World;
+
+		private bool m_ShowPreview;
 
 		private void Update() => DestroyCursorsScheduledForDeletion();
 
@@ -32,36 +34,35 @@ namespace CodeSmile.Tile
 		{
 			if (CameraExt.IsSceneViewOrGameCamera(Camera.current) == false)
 				return;
-			
-			var layer = m_World.ActiveLayer;
-			UpdateCursorTile(layer);
+
+			if (m_ShowPreview)
+				UpdateCursorTile();
 		}
 
 		private void DestroyCursorsScheduledForDeletion()
 		{
-			if (m_ToBeDeletedCursors.Count > 0)
+			if (m_ToBeDeletedPreviews.Count > 0)
 			{
-				foreach (var cursor in m_ToBeDeletedCursors)
+				foreach (var cursor in m_ToBeDeletedPreviews)
 					cursor.DestroyInAnyMode();
-				m_ToBeDeletedCursors.Clear();
+				m_ToBeDeletedPreviews.Clear();
 			}
 		}
 
-		private void UpdateCursorTile(TileLayer layer)
+		private void UpdateCursorTile()
 		{
-			// FIXME: this should be a OnCursorMove event (+ OnSelection event)
+			var layer = m_World.ActiveLayer;
 			var cursorCoord = layer.DebugCursorCoord;
-
 			var index = layer.SelectedTileSetIndex;
-			if (m_SelectedTileSetIndex != index)
+			if (m_TileSetIndex != index || m_Preview == null)
 			{
-				m_SelectedTileSetIndex = index;
+				m_TileSetIndex = index;
 				//Debug.Log($"selected tile index: {m_SelectedTileSetIndex}");
 
-				UpdateCursorInstance(layer, m_SelectedTileSetIndex, cursorCoord);
+				UpdateCursorInstance(layer, m_TileSetIndex, cursorCoord);
 			}
 
-			if (m_CursorRenderCoord.Equals(cursorCoord) == false)
+			if (m_RenderCoord.Equals(cursorCoord) == false)
 			{
 				SetCursorPosition(layer, cursorCoord);
 				//Debug.Log($"cursor pos changed: {m_CursorRenderCoord}");
@@ -81,24 +82,40 @@ namespace CodeSmile.Tile
 
 		private void InstantiateCursor(GameObject prefab)
 		{
-			m_Cursor = Instantiate(prefab);
-			m_Cursor.name = "Cursor";
-			m_Cursor.hideFlags = Global.TileRenderHideFlags;
-			m_Cursor.transform.parent = transform;
+			m_Preview = Instantiate(prefab);
+			m_Preview.name = "Cursor";
+			m_Preview.hideFlags = Global.TileRenderHideFlags;
+			m_Preview.transform.parent = transform;
 		}
 
 		private void ScheduleCursorForDeletion()
 		{
-			if (m_Cursor != null)
-				m_ToBeDeletedCursors.Add(m_Cursor);
+			if (m_Preview != null)
+			{
+				m_ToBeDeletedPreviews.Add(m_Preview);
+				m_Preview = null;
+			}
 		}
 
 		private void SetCursorPosition(TileLayer layer, int3 cursorCoord)
 		{
-			if (m_Cursor != null)
+			if (m_Preview != null)
 			{
-				m_CursorRenderCoord = cursorCoord;
-				m_Cursor.transform.position = layer.Grid.ToWorldPosition(m_CursorRenderCoord) + layer.TileSet.GetTileOffset();
+				m_RenderCoord = cursorCoord;
+				m_Preview.transform.position = layer.Grid.ToWorldPosition(m_RenderCoord) + layer.TileSet.GetTileOffset();
+			}
+		}
+
+		public bool ShowPreview
+		{
+			get => m_ShowPreview;
+			set
+			{
+				m_ShowPreview = value;
+				if (m_ShowPreview)
+					UpdateCursorTile();
+				else
+					ScheduleCursorForDeletion();
 			}
 		}
 	}

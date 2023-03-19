@@ -13,7 +13,18 @@ namespace CodeSmile.Tile
 		private static readonly List<GameObject> m_ToBeDeletedInstances = new();
 		[SerializeField] private int m_ActiveLayerIndex;
 		[SerializeField] private List<TileLayer> m_Layers = new();
-		
+
+		public TileLayer ActiveLayer { get => m_Layers[m_ActiveLayerIndex]; }
+		public static List<GameObject> ToBeDeletedInstances { get => m_ToBeDeletedInstances; }
+
+		public void OnBeforeSerialize() {}
+
+		public void OnAfterDeserialize()
+		{
+			foreach (var layer in m_Layers)
+				layer.TileWorld = this;
+		}
+
 		private void Reset()
 		{
 #if UNITY_EDITOR
@@ -22,8 +33,6 @@ namespace CodeSmile.Tile
 			foreach (var guid1 in guids1)
 				Debug.Log(AssetDatabase.GUIDToAssetPath(guid1));
 
-			Selection.selectionChanged -= OnSelectionChanged;
-			Selection.selectionChanged += OnSelectionChanged;
 #endif
 
 			if (m_Layers.Count == 0)
@@ -34,13 +43,9 @@ namespace CodeSmile.Tile
 			}
 
 			if (GetComponent<TileLayerRenderer>() == null)
-			{
 				gameObject.AddComponent<TileLayerRenderer>();
-			}
-			if (GetComponent<TileCursorRenderer>() == null)
-			{
-				gameObject.AddComponent<TileCursorRenderer>();
-			}
+			if (GetComponent<TilePreviewRenderer>() == null)
+				gameObject.AddComponent<TilePreviewRenderer>();
 		}
 
 		private void Update()
@@ -52,39 +57,5 @@ namespace CodeSmile.Tile
 				m_ToBeDeletedInstances.Clear();
 			}
 		}
-
-		public void OnBeforeSerialize() {}
-
-		public void OnAfterDeserialize()
-		{
-			foreach (var layer in m_Layers)
-				layer.TileWorld = this;
-		}
-
-#if UNITY_EDITOR
-		private void OnSelectionChanged()
-		{
-			if (Selection.activeGameObject != null)
-			{
-				if (Selection.activeGameObject == gameObject)
-				{
-					// TODO: disable selection outline
-				}
-				
-				/*
-				var proxy = Selection.activeGameObject.GetComponentsInParent<TileProxy>();
-				if (proxy.Length > 0)
-				{
-					Debug.Log($"TileProxy: {proxy[0].name}");
-					Selection.SetActiveObjectWithContext(proxy[0].gameObject, Selection.activeGameObject);
-				}
-				*/
-				
-			}
-		}
-#endif
-
-		public TileLayer ActiveLayer => m_Layers[m_ActiveLayerIndex];
-		public static List<GameObject> ToBeDeletedInstances => m_ToBeDeletedInstances;
 	}
 }

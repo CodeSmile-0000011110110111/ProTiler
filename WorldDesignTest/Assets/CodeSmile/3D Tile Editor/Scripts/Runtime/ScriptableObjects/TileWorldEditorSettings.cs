@@ -9,6 +9,6 @@ namespace CodeSmile.Tile
 	public class TileWorldEditorSettings : ScriptableObject
 	{
 		[SerializeField] private GameObject m_MissingTilePrefab;
-		[SerializeField] private GameObject m_TileProxyPrefab;
+		[SerializeField] private GameObject m_TilePrefab;
 	}
 }

@@ -9,9 +9,9 @@ namespace CodeSmile.Tile
 {
 	public sealed partial class TileLayerRenderer
 	{
-		private void OnDrawGizmosSelected() => DrawProxyPoolGizmos();
+		private void OnDrawGizmosSelected() => DrawTilePoolGizmos();
 
-		private void DrawProxyPoolGizmos()
+		private void DrawTilePoolGizmos()
 		{
 			var gridSize = m_World.ActiveLayer.Grid.Size;
 			GizmosDrawRect(m_PrevVisibleRect.ToWorldRect(gridSize), Color.yellow);

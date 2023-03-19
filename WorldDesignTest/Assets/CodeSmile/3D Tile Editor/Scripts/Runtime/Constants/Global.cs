@@ -11,14 +11,25 @@ namespace CodeSmile.Tile
 {
 	public static class Global
 	{
-		public const string TileEditorName = "WorldCraft";
+		public const string TileEditorName = "Fliesenleger 3D";
+
+		public const string TileEditorIconPathRoot = "Assets/Gizmos/CodeSmile/TileEditor/";
+		public const string OverlayIconPath = TileEditorIconPathRoot + "Overlays/";
+		public const string EditorToolsIconPath = TileEditorIconPathRoot + "EditorTools/";
+		public const string EditorPrefEditMode = "EditorPrefDrawMode";
 
 		public const int InvalidTileSetIndex = -1;
+
+#if DEBUG
+		public const HideFlags TileRenderHideFlags = HideFlags.DontSave;
+#else
+		public const HideFlags TileRenderHideFlags = HideFlags.HideAndDontSave | HideFlags.HideInInspector;
+#endif
+
 		public static readonly TileData InvalidTileData = new(InvalidTileSetIndex);
 		public static readonly GridCoord InvalidGridCoord = new(int.MinValue, int.MinValue, int.MinValue);
 		public static readonly GridRect InvalidGridRect = new(int.MinValue, int.MinValue, 0, 0);
-		public static readonly HideFlags TileRenderHideFlags = HideFlags.DontSave;
-		//HideFlags.HideAndDontSave | HideFlags.HideInInspector;
 		public static readonly TileGrid DefaultGrid = new();
+
 	}
 }

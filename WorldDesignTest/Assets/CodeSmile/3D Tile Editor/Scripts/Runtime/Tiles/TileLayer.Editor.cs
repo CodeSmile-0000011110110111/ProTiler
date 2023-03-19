@@ -14,7 +14,7 @@ namespace CodeSmile.Tile
 				ClearTiles();
 			}
 
-			DebugUpdateTileCount();
+			UpdateDebugTileCount();
 			ClampGridSize();
 			ClampTileSetIndex();
 			SetTileName();

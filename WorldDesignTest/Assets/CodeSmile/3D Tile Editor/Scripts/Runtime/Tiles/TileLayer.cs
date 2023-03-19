@@ -88,7 +88,7 @@ namespace CodeSmile.Tile
 		public override string ToString() => m_Name;
 		private void ClampTileSetIndex() => m_DebugSelectedTileSetIndex = Mathf.Clamp(m_DebugSelectedTileSetIndex, 0, TileSet.Count - 1);
 
-		private void DebugUpdateTileCount() => m_DebugTileCount = m_TileDataContainer.Count;
+		private void UpdateDebugTileCount() => m_DebugTileCount = m_TileDataContainer.Count;
 
 		public float3 GetTilePosition(GridCoord coord) =>
 			Grid.ToWorldPosition(coord) + TileSet.GetTileOffset() + (float3)m_TileWorld.transform.position;
@@ -98,7 +98,7 @@ namespace CodeSmile.Tile
 			//var prefabTile = clear ? null : m_TileSet.GetPrefabIndex(m_TileSetIndex);
 			var coords = m_TileDataContainer.SetTiles(gridSelection, clear ? -1 : m_DebugSelectedTileSetIndex);
 			OnSetTiles?.Invoke(gridSelection);
-			DebugUpdateTileCount();
+			UpdateDebugTileCount();
 		}
 
 		public void DrawTile(GridCoord coord)
@@ -116,6 +116,7 @@ namespace CodeSmile.Tile
 		{
 			m_TileDataContainer.SetTile(coord, tileData);
 			OnSetTile?.Invoke(coord, tileData);
+			UpdateDebugTileCount();
 		}
 
 		public void ClearTile(GridCoord coord) => SetTile(coord, Global.InvalidTileData);
@@ -123,8 +124,8 @@ namespace CodeSmile.Tile
 		public void ClearTiles()
 		{
 			m_TileDataContainer.ClearTiles();
-			DebugUpdateTileCount();
 			OnClearTiles?.Invoke();
+			UpdateDebugTileCount();
 		}
 
 		public void SetTileFlags(GridCoord coord, TileFlags flags)
