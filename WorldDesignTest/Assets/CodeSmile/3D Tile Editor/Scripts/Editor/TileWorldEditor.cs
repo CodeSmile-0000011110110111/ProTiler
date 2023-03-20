@@ -3,7 +3,7 @@
 
 using CodeSmile;
 using CodeSmile.Tile;
-using System;
+using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEditor;
 using UnityEngine;
@@ -132,7 +132,6 @@ namespace CodeSmileEditor.Tile
 			{
 				m_IsDrawingTiles = true;
 				m_IsClearingTiles = Event.current.shift;
-				Undo.RecordObject(TileWorld, m_IsClearingTiles ? "Clear Tile" : "Draw Tile");
 			}
 
 			if (editMode != EditMode.Selection)
@@ -288,6 +287,8 @@ namespace CodeSmileEditor.Tile
 		private void DrawTile(GridCoord coord, bool clear)
 		{
 			//Debug.Log($"\tDrawTile at {coord}");
+			Undo.RecordObject(TileWorld, m_IsClearingTiles ? $"Clear Tile {coord}" : $"Draw Tile {coord}");
+
 			if (clear)
 				ActiveLayer.ClearTile(coord);
 			else
@@ -296,80 +297,11 @@ namespace CodeSmileEditor.Tile
 			EditorUtility.SetDirty(TileWorld);
 		}
 
-		private void DrawLine(GridCoord start, GridCoord end, bool clear) => DrawLine(start.x, start.z, end.x, end.z, clear, DrawTile);
-
-		/*
-			if (start.Equals(end))
-			{
-				DrawTile(end, clear);
-				return;
-			}
-
-			//Debug.Log($"DrawLine from {start} to {end}");
-			var delta = end - start;
-			for (var x = start.x; x < end.x; x++)
-			{
-				var z = start.z + delta.z * (x - start.x) / delta.x;
-				DrawTile(new GridCoord(x, end.y, z), clear);
-			}
-		*/
-		/// <summary>
-		///     Source: https://stackoverflow.com/a/11683720
-		/// </summary>
-		/// <param name="x"></param>
-		/// <param name="y"></param>
-		/// <param name="x2"></param>
-		/// <param name="y2"></param>
-		/// <param name="clear"></param>
-		/// <param name="callback"></param>
-		public void DrawLine(int x, int y, int x2, int y2, bool clear, Action<GridCoord, bool> callback)
+		private void DrawLine(GridCoord start, GridCoord end, bool clear)
 		{
-			// TODO: refactor ...
-			var w = x2 - x;
-			var h = y2 - y;
-			int dx1 = 0, dy1 = 0, dx2 = 0, dy2 = 0;
-
-			if (w < 0) dx1 = -1;
-			else if (w > 0) dx1 = 1;
-
-			if (h < 0) dy1 = -1;
-			else if (h > 0) dy1 = 1;
-
-			if (w < 0) dx2 = -1;
-			else if (w > 0) dx2 = 1;
-
-			var longest = math.abs(w);
-			var shortest = math.abs(h);
-			if (!(longest > shortest))
-			{
-				longest = math.abs(h);
-				shortest = math.abs(w);
-				if (h < 0) dy2 = -1;
-				else if (h > 0) dy2 = 1;
-				dx2 = 0;
-			}
-
-			var coord = new GridCoord(0, 0, 0);
-			var numerator = longest >> 1;
-			for (var i = 0; i <= longest; i++)
-			{
-				coord.x = x;
-				coord.z = y;
-				callback(coord, clear);
-
-				numerator += shortest;
-				if (!(numerator < longest))
-				{
-					numerator -= longest;
-					x += dx1;
-					y += dy1;
-				}
-				else
-				{
-					x += dx2;
-					y += dy2;
-				}
-			}
+			var coords = start.MakeLine(end);
+			foreach (var coord in coords)
+				DrawTile(coord, clear);
 		}
 
 		private void DrawCursorHandle()

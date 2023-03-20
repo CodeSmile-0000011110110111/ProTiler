@@ -57,5 +57,20 @@ namespace CodeSmile.Tile
 				m_ToBeDeletedInstances.Clear();
 			}
 		}
+
+		/*
+		private void OnEnable()
+		{
+			Undo.undoRedoEvent += (in UndoRedoInfo undo) =>
+			{
+				Debug.Log($"UndoRedoEvent: {undo} / {undo.undoName} / {undo.undoGroup} / {undo.isRedo}");
+			};
+			Undo.undoRedoPerformed += () =>
+			{
+				Debug.Log($"UndoRedoPerformed");
+				//ActiveLayer.OnClearTiles?.Invoke();
+			};
+		}
+	*/
 	}
 }

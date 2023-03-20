@@ -74,7 +74,7 @@ namespace CodeSmile.Tile
 			if (CameraExt.IsSceneViewOrGameCamera(Camera.current) == false)
 				return;
 
-			UpdateTileProxiesInVisibleRect();
+			UpdateTilesInVisibleRect();
 		}
 
 		private void OnValidate()
@@ -96,9 +96,9 @@ namespace CodeSmile.Tile
 		private void RegisterTileWorldEvents()
 		{
 			var layer = m_World.ActiveLayer;
-			layer.OnClearTiles += OnClearActiveLayer;
-			layer.OnSetTile += SetOrReplaceTile;
-			layer.OnSetTiles += SetOrReplaceTiles;
+			layer.OnClearTiles += OnClearTiles;
+			layer.OnSetTile += OnSetTile;
+			layer.OnSetTiles += OnSetTiles;
 			layer.OnSetTileFlags += SetTileFlags;
 
 #if UNITY_EDITOR
@@ -109,9 +109,9 @@ namespace CodeSmile.Tile
 		private void UnregisterTileWorldEvents()
 		{
 			var layer = m_World.ActiveLayer;
-			layer.OnClearTiles -= OnClearActiveLayer;
-			layer.OnSetTile -= SetOrReplaceTile;
-			layer.OnSetTiles -= SetOrReplaceTiles;
+			layer.OnClearTiles -= OnClearTiles;
+			layer.OnSetTile -= OnSetTile;
+			layer.OnSetTiles -= OnSetTiles;
 			layer.OnSetTileFlags -= SetTileFlags;
 
 #if UNITY_EDITOR
@@ -119,13 +119,23 @@ namespace CodeSmile.Tile
 #endif
 		}
 
-		private void UndoRedoPerformed() => RecreateTilePool();
-		private void OnClearActiveLayer() => RecreateTilePool();
-		private void SetOrReplaceTiles(GridRect dirtyRect) => UpdateTileProxiesInDirtyRect(dirtyRect);
-		private void SetOrReplaceTile(GridCoord coord, TileData tileData)
+		private void UndoRedoPerformed()
+		{
+			StopAllCoroutines();
+			StartCoroutine(WaitThenRecreateTilePool());
+		}
+
+		private void OnClearTiles()
+		{
+			RecreateTilePool();
+			UpdateTilesInVisibleRect();
+		}
+
+		private void OnSetTiles(GridRect dirtyRect) => UpdateTilesInDirtyRect(dirtyRect);
+		private void OnSetTile(GridCoord coord, TileData tileData)
 		{
 			var dirtyRect = new GridRect(coord.ToCoord2d(), new Vector2Int(1, 1));
-			UpdateTileProxiesInDirtyRect(dirtyRect);
+			UpdateTilesInDirtyRect(dirtyRect);
 		}
 
 		private void SetTileFlags(GridCoord coord, TileFlags flags) => Debug.LogWarning("SetTileFlags not implemented");
@@ -178,10 +188,10 @@ namespace CodeSmile.Tile
 
 			RecreateTilePool();
 			m_VisibleRect = new GridRect();
-			UpdateTileProxiesInVisibleRect();
+			UpdateTilesInVisibleRect();
 		}
 
-		private void UpdateTileProxiesInVisibleRect()
+		private void UpdateTilesInVisibleRect()
 		{
 			if (CameraExt.IsSceneViewOrGameCamera(Camera.current) == false)
 				return;
@@ -197,7 +207,7 @@ namespace CodeSmile.Tile
 			UpdateVisibleTiles(layer, m_VisibleRect, staysUnchangedRect);
 		}
 
-		private void UpdateTileProxiesInDirtyRect(RectInt dirtyRect)
+		private void UpdateTilesInDirtyRect(RectInt dirtyRect)
 		{
 			// mark visible rect as requiring update
 			SetTilesInRectAsDirty(dirtyRect);
