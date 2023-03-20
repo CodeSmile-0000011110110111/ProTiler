@@ -35,7 +35,7 @@ namespace CodeSmileEditor.Tile
 			if (Selection.activeGameObject != TileWorld.gameObject)
 				return;
 
-			var editMode = (EditMode)EditorPrefs.GetInt(Global.EditorPrefEditMode);
+			var editMode = TileEditorState.instance.EditMode;
 
 			var previewRenderer = (target as TileWorld).GetComponent<TilePreviewRenderer>();
 			if (previewRenderer != null)

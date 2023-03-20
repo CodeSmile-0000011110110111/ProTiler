@@ -16,7 +16,7 @@ namespace CodeSmile.Tile
 		public const string TileEditorIconPathRoot = "Assets/Gizmos/CodeSmile/TileEditor/";
 		public const string OverlayIconPath = TileEditorIconPathRoot + "Overlays/";
 		public const string EditorToolsIconPath = TileEditorIconPathRoot + "EditorTools/";
-		public const string EditorPrefEditMode = "EditorPrefDrawMode";
+		
 
 		public const int InvalidTileSetIndex = -1;
 
