@@ -65,7 +65,7 @@ namespace CodeSmileEditor.Tile
 					EndTileDrawing(editMode);
 					break;
 				case EventType.ScrollWheel:
-					//ChangeTile();
+					OnMouseWheelChangeSelectedTileSetIndex();
 					break;
 				case EventType.KeyDown:
 					HandleShortcuts();
@@ -122,6 +122,19 @@ namespace CodeSmileEditor.Tile
 			}
 		}
 
+		private void OnMouseWheelChangeSelectedTileSetIndex()
+		{
+			var ev = Event.current;
+			if (ev.shift)
+			{
+				var delta = ev.delta.y >= 0 ? 1 : -1;
+				var index = TileEditorState.instance.DrawingTileSetIndex + delta;
+				TileEditorState.instance.DrawingTileSetIndex = math.clamp(index, 0, Layer.TileSet.Count - 1);
+				Layer.DebugSelectedTileSetIndex = TileEditorState.instance.DrawingTileSetIndex;
+				ev.Use();
+			}
+		}
+
 		private void StartTileDrawing(EditMode editMode)
 		{
 			UpdateStartSelectionCoord();
@@ -141,7 +154,7 @@ namespace CodeSmileEditor.Tile
 			if (editMode == EditMode.PenDraw)
 			{
 				UpdateCursorCoord();
-				Layer.DrawLine(m_StartSelectionCoord, m_CursorCoord, TileEditorState.instance.DrawingTileSetIndex);
+				DrawFromStartToCursor();
 			}
 			UpdateStartSelectionCoord();
 
@@ -155,7 +168,7 @@ namespace CodeSmileEditor.Tile
 			{
 				UpdateCursorCoord();
 				if (editMode == EditMode.PenDraw)
-					Layer.DrawLine(m_StartSelectionCoord, m_CursorCoord, TileEditorState.instance.DrawingTileSetIndex);
+					DrawFromStartToCursor();
 
 				m_IsDrawingTiles = false;
 				m_IsClearingTiles = false;
@@ -163,6 +176,12 @@ namespace CodeSmileEditor.Tile
 				if (editMode != EditMode.Selection)
 					Event.current.Use();
 			}
+		}
+
+		private void DrawFromStartToCursor()
+		{
+			var index = m_IsClearingTiles ? Global.InvalidTileSetIndex : TileEditorState.instance.DrawingTileSetIndex;
+			Layer.DrawLine(m_StartSelectionCoord, m_CursorCoord, index);
 		}
 
 		private void HandleShortcuts()
@@ -258,8 +277,6 @@ namespace CodeSmileEditor.Tile
 		private void UpdateSelectionRect() => m_SelectionRect = TileGrid.MakeRect(m_StartSelectionCoord, m_CursorCoord);
 
 		private bool IsLeftMouseButtonDown() => m_InputState.IsButtonDown(MouseButton.LeftMouse);
-
-
 
 		private void DrawCursorHandle()
 		{

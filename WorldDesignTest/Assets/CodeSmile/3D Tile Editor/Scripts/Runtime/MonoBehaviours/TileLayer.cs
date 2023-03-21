@@ -35,9 +35,9 @@ namespace CodeSmile.Tile
 		[ReadOnlyField] [SerializeField] private GridCoord m_DebugCursorCoord;
 		[ReadOnlyField] [SerializeField] private int m_DebugTileCount;
 
-		[NonSerialized] private int m_TileSetInstanceId;
-		[NonSerialized] private TileLayerRenderer m_LayerRenderer;
-		[NonSerialized] private TilePreviewRenderer m_PreviewRenderer;
+		private int m_TileSetInstanceId;
+		private TileLayerRenderer m_LayerRenderer;
+		private TilePreviewRenderer m_PreviewRenderer;
 
 		// TODO: refactor
 		//public Action<GridCoord, TileData> OnSetTile;

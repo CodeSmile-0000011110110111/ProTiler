@@ -34,7 +34,7 @@ namespace CodeSmile.Tile
 					m_TileSet.TileCursorHeight = value;
 			}
 		}
-		public int SelectedTileSetIndex
+		public int DebugSelectedTileSetIndex
 		{
 			get => m_DebugSelectedTileSetIndex;
 			set

@@ -74,7 +74,7 @@ namespace CodeSmile.Tile
 				return;
 
 			var cursorCoord = m_Layer.DebugCursorCoord;
-			var index = m_Layer.SelectedTileSetIndex;
+			var index = m_Layer.DebugSelectedTileSetIndex;
 			if (m_TileSetIndex != index || m_Preview == null)
 			{
 				m_TileSetIndex = index;

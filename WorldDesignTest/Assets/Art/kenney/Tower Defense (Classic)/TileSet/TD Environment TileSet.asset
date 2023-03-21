@@ -168,4 +168,4 @@ MonoBehaviour:
     m_Prefab: {fileID: 831411824521798353, guid: 30715372d2ac8da46bf4d176b895096f, type: 3}
     m_Category: 0
     m_CustomFlags: 0
-  m_TileCursorHeight: 15
+  m_TileCursorHeight: 1
