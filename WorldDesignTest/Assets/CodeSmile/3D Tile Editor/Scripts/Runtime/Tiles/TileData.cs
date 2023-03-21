@@ -32,6 +32,6 @@ namespace CodeSmile.Tile
 			m_Flags = flags;
 		}
 
-		public override string ToString() => $"Tile Index #{m_TileSetIndex}, Flags: {m_Flags}";
+		public override string ToString() => $"TD(#{m_TileSetIndex} | {m_Flags})";
 	}
 }

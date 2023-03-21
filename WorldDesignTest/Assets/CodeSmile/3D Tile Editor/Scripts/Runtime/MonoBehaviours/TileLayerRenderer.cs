@@ -28,29 +28,31 @@ namespace CodeSmile.Tile
 	///     enumerate that collection for visibility (not necessarily every frame)
 	/// </summary>
 	[ExecuteInEditMode]
-	[RequireComponent(typeof(TileWorld))]
+	[RequireComponent(typeof(TileLayer))]
 	public sealed partial class TileLayerRenderer : MonoBehaviour
 	{
 		private const int MinDrawDistance = 2;
 		private const int MaxDrawDistance = 128;
 
-		[Range(MinDrawDistance, MaxDrawDistance)] [SerializeField] private int m_DrawDistance = MinDrawDistance;
+		[Range(MinDrawDistance, MaxDrawDistance)]
+		[SerializeField] private int m_DrawDistance = MinDrawDistance;
 		[SerializeField] private float m_VisibleRectDistance = 5f;
 
-		private TileWorld m_World;
+		private TileLayer m_Layer;
 		private GameObject m_TilePoolParent;
 		private GameObject m_TilePrefab;
-		private ObjectPool<Tile> m_TilePool;
+		private ComponentPool<TileDataProxy> m_TilePool;
 
 		[NonSerialized] private IDictionary<GridCoord, TileData> m_GizmosVisibleTiles;
-
 		[NonSerialized] private GridRect m_VisibleRect;
 		[NonSerialized] private GridRect m_PrevVisibleRect;
 		[NonSerialized] private int m_PrevDrawDistance;
 
 		private void OnEnable()
 		{
-			m_World = GetComponent<TileWorld>();
+			m_Layer = GetComponent<TileLayer>();
+			if (m_Layer == null)
+				throw new NullReferenceException("layer is null");
 
 			ClampDrawDistance();
 			m_PrevDrawDistance = m_DrawDistance;
@@ -58,6 +60,7 @@ namespace CodeSmile.Tile
 
 			CreateTilePrefabOnce();
 			RecreateTilePool();
+			ForceUpdateTilesInVisibleRect();
 
 			RegisterTileWorldEvents();
 		}
@@ -95,11 +98,10 @@ namespace CodeSmile.Tile
 
 		private void RegisterTileWorldEvents()
 		{
-			var layer = m_World.ActiveLayer;
-			layer.OnClearTiles += OnClearTiles;
-			layer.OnSetTile += OnSetTile;
-			layer.OnSetTiles += OnSetTiles;
-			layer.OnSetTileFlags += SetTileFlags;
+			m_Layer.OnClearTiles += OnClearTiles;
+			m_Layer.OnSetTile += OnSetTile;
+			m_Layer.OnSetTiles += OnSetTiles;
+			m_Layer.OnTileFlagsChanged += SetTileFlags;
 
 #if UNITY_EDITOR
 			Undo.undoRedoPerformed += UndoRedoPerformed;
@@ -108,11 +110,10 @@ namespace CodeSmile.Tile
 
 		private void UnregisterTileWorldEvents()
 		{
-			var layer = m_World.ActiveLayer;
-			layer.OnClearTiles -= OnClearTiles;
-			layer.OnSetTile -= OnSetTile;
-			layer.OnSetTiles -= OnSetTiles;
-			layer.OnSetTileFlags -= SetTileFlags;
+			m_Layer.OnClearTiles -= OnClearTiles;
+			m_Layer.OnSetTile -= OnSetTile;
+			m_Layer.OnSetTiles -= OnSetTiles;
+			m_Layer.OnTileFlagsChanged -= SetTileFlags;
 
 #if UNITY_EDITOR
 			Undo.undoRedoPerformed -= UndoRedoPerformed;
@@ -128,10 +129,11 @@ namespace CodeSmile.Tile
 		private void OnClearTiles()
 		{
 			RecreateTilePool();
-			UpdateTilesInVisibleRect();
+			ForceUpdateTilesInVisibleRect();
 		}
 
 		private void OnSetTiles(GridRect dirtyRect) => UpdateTilesInDirtyRect(dirtyRect);
+
 		private void OnSetTile(GridCoord coord, TileData tileData)
 		{
 			var dirtyRect = new GridRect(coord.ToCoord2d(), new Vector2Int(1, 1));
@@ -146,13 +148,11 @@ namespace CodeSmile.Tile
 			Debug.Log($"RecreateTilePool pool with {poolSize} instances");
 
 			DisposeTilePool();
-			m_TilePoolParent = gameObject.FindOrCreateChild("TilePool", Global.TileRenderHideFlags);
+			m_TilePoolParent = gameObject.FindOrCreateChild("TilePool", Global.TileHideFlags);
 			if (m_TilePrefab == null || m_TilePrefab.IsMissing())
 				throw new Exception("Tile prefab null or missing");
 
-			m_TilePool = new ObjectPool<Tile>(m_TilePrefab, m_TilePoolParent.transform, poolSize);
-			if (m_TilePool.InactiveInstances.Count != poolSize)
-				throw new Exception("pool objects should all be initially inactive");
+			m_TilePool = new ComponentPool<TileDataProxy>(m_TilePrefab, m_TilePoolParent.transform, poolSize);
 
 			m_PrevVisibleRect = new GridRect();
 			m_PrevDrawDistance = m_DrawDistance;
@@ -177,9 +177,12 @@ namespace CodeSmile.Tile
 			if (m_TilePrefab != null)
 				return;
 
-			m_TilePrefab = gameObject.FindOrCreateChild("TilePrefab", Global.TileRenderHideFlags);
-			var tile = m_TilePrefab.GetOrAddComponent<Tile>();
-			tile.Layer = m_World.ActiveLayer;
+			m_TilePrefab = gameObject.FindOrCreateChild("TilePrefab", Global.TileHideFlags);
+			var tile = m_TilePrefab.GetOrAddComponent<TileDataProxy>();
+
+			if (m_Layer == null)
+				throw new NullReferenceException();
+			tile.Layer = m_Layer;
 		}
 
 		private IEnumerator WaitThenRecreateTilePool()
@@ -187,6 +190,11 @@ namespace CodeSmile.Tile
 			yield return null;
 
 			RecreateTilePool();
+			ForceUpdateTilesInVisibleRect();
+		}
+
+		private void ForceUpdateTilesInVisibleRect()
+		{
 			m_VisibleRect = new GridRect();
 			UpdateTilesInVisibleRect();
 		}
@@ -196,15 +204,14 @@ namespace CodeSmile.Tile
 			if (CameraExt.IsSceneViewOrGameCamera(Camera.current) == false)
 				return;
 
-			var layer = m_World.ActiveLayer;
-			var visibleRect = GetVisibleRect(layer);
+			var visibleRect = GetVisibleRect(m_Layer);
 			if (visibleRect.Equals(m_VisibleRect))
 				return;
 
 			m_PrevVisibleRect = m_VisibleRect;
 			m_VisibleRect = visibleRect;
 			m_VisibleRect.Intersects(m_PrevVisibleRect, out var staysUnchangedRect);
-			UpdateVisibleTiles(layer, m_VisibleRect, staysUnchangedRect);
+			UpdateVisibleTiles(m_Layer, m_VisibleRect, staysUnchangedRect);
 		}
 
 		private void UpdateTilesInDirtyRect(RectInt dirtyRect)
@@ -212,7 +219,7 @@ namespace CodeSmile.Tile
 			// mark visible rect as requiring update
 			SetTilesInRectAsDirty(dirtyRect);
 			m_VisibleRect.Intersects(dirtyRect, out var dirtyInsideVisibleRect);
-			UpdateVisibleTiles(m_World.ActiveLayer, dirtyInsideVisibleRect, new GridRect());
+			UpdateVisibleTiles(m_Layer, dirtyInsideVisibleRect, new GridRect());
 		}
 
 		private void UpdateVisibleTiles(TileLayer layer, GridRect dirtyRect, RectInt unchangedRect)
@@ -248,7 +255,7 @@ namespace CodeSmile.Tile
 					continue;
 
 				var tile = m_TilePool.GetPooledObject();
-				tile.Layer = m_World.ActiveLayer;
+				tile.Layer = m_Layer;
 				tile.SetCoordAndTile(coord, m_GizmosVisibleTiles[coord]);
 			}
 		}

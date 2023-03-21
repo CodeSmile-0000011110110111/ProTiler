@@ -21,7 +21,7 @@ namespace CodeSmile.Tile
 		public const int InvalidTileSetIndex = -1;
 
 #if DEBUG
-		public const HideFlags TileRenderHideFlags = HideFlags.DontSave;
+		public const HideFlags TileHideFlags = HideFlags.DontSave;
 #else
 		public const HideFlags TileRenderHideFlags = HideFlags.HideAndDontSave | HideFlags.HideInInspector;
 #endif

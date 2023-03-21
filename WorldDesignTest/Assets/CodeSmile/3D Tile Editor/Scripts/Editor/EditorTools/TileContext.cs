@@ -8,7 +8,7 @@ using UnityEditor;
 using UnityEditor.EditorTools;
 using UnityEngine;
 
-[EditorToolContext(Global.TileEditorName + " Tile Tools", typeof(Tile))]
+[EditorToolContext(Global.TileEditorName + " Tile Tools", typeof(TileDataProxy))]
 [Icon(Global.EditorToolsIconPath + "TileEditorTools.png")]
 public sealed class TileContext : EditorToolContext
 {

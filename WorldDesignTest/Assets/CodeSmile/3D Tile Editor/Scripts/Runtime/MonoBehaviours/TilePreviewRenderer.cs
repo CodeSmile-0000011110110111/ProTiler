@@ -9,20 +9,25 @@ using UnityEngine;
 namespace CodeSmile.Tile
 {
 	[ExecuteInEditMode]
-	[RequireComponent(typeof(TileWorld))]
+	[RequireComponent(typeof(TileLayer))]
 	public sealed class TilePreviewRenderer : MonoBehaviour
 	{
+		[NonSerialized] private TileLayer m_Layer;
 		[NonSerialized] private readonly List<GameObject> m_ToBeDeletedPreviews = new();
 		[NonSerialized] private GameObject m_Preview;
 		[NonSerialized] private int3 m_RenderCoord;
 		[NonSerialized] private int m_TileSetIndex = Global.InvalidTileSetIndex;
-		[NonSerialized] private TileWorld m_World;
 
 		private bool m_ShowPreview;
 
-		private void Update() => DestroyCursorsScheduledForDeletion();
+		private void OnEnable()
+		{
+			m_Layer = GetComponent<TileLayer>();
+			if (m_Layer == null)
+				throw new NullReferenceException("layer is null");
+		}
 
-		private void OnEnable() => m_World = GetComponent<TileWorld>();
+		private void Update() => DestroyCursorsScheduledForDeletion();
 
 		private void OnDisable()
 		{
@@ -51,20 +56,19 @@ namespace CodeSmile.Tile
 
 		private void UpdateCursorTile()
 		{
-			var layer = m_World.ActiveLayer;
-			var cursorCoord = layer.DebugCursorCoord;
-			var index = layer.SelectedTileSetIndex;
+			var cursorCoord = m_Layer.DebugCursorCoord;
+			var index = m_Layer.SelectedTileSetIndex;
 			if (m_TileSetIndex != index || m_Preview == null)
 			{
 				m_TileSetIndex = index;
 				//Debug.Log($"selected tile index: {m_SelectedTileSetIndex}");
 
-				UpdateCursorInstance(layer, m_TileSetIndex, cursorCoord);
+				UpdateCursorInstance(m_Layer, m_TileSetIndex, cursorCoord);
 			}
 
 			if (m_RenderCoord.Equals(cursorCoord) == false)
 			{
-				SetCursorPosition(layer, cursorCoord);
+				SetCursorPosition(m_Layer, cursorCoord);
 				//Debug.Log($"cursor pos changed: {m_CursorRenderCoord}");
 			}
 		}
@@ -84,7 +88,7 @@ namespace CodeSmile.Tile
 		{
 			m_Preview = Instantiate(prefab);
 			m_Preview.name = "Cursor";
-			m_Preview.hideFlags = Global.TileRenderHideFlags;
+			m_Preview.hideFlags = Global.TileHideFlags;
 			m_Preview.transform.parent = transform;
 		}
 

@@ -8,23 +8,8 @@ using UnityEngine;
 namespace CodeSmile.Tile
 {
 	[ExecuteInEditMode]
-	public sealed partial class TileWorld : MonoBehaviour, ISerializationCallbackReceiver
+	public sealed class TileWorld : MonoBehaviour
 	{
-		private static readonly List<GameObject> m_ToBeDeletedInstances = new();
-		[SerializeField] private int m_ActiveLayerIndex;
-		[SerializeField] private List<TileLayer> m_Layers = new();
-
-		public TileLayer ActiveLayer { get => m_Layers[m_ActiveLayerIndex]; }
-		public static List<GameObject> ToBeDeletedInstances { get => m_ToBeDeletedInstances; }
-
-		public void OnBeforeSerialize() {}
-
-		public void OnAfterDeserialize()
-		{
-			foreach (var layer in m_Layers)
-				layer.TileWorld = this;
-		}
-
 		private void Reset()
 		{
 #if UNITY_EDITOR
@@ -35,42 +20,19 @@ namespace CodeSmile.Tile
 
 #endif
 
-			if (m_Layers.Count == 0)
+			// first time init
+			if (GetComponentsInChildren<TileLayer>().Length == 0)
 			{
 				name = nameof(TileWorld);
-				m_ActiveLayerIndex = 0;
-				m_Layers.Add(new TileLayer(this));
-			}
-
-			if (GetComponent<TileLayerRenderer>() == null)
-				gameObject.AddComponent<TileLayerRenderer>();
-			if (GetComponent<TilePreviewRenderer>() == null)
-				gameObject.AddComponent<TilePreviewRenderer>();
-		}
-
-		private void Update()
-		{
-			if (m_ToBeDeletedInstances.Count > 0)
-			{
-				foreach (var instance in m_ToBeDeletedInstances)
-					instance.DestroyInAnyMode();
-				m_ToBeDeletedInstances.Clear();
+				CreateNewLayer("Layer");
 			}
 		}
 
-		/*
-		private void OnEnable()
+		private void CreateNewLayer(string name)
 		{
-			Undo.undoRedoEvent += (in UndoRedoInfo undo) =>
-			{
-				Debug.Log($"UndoRedoEvent: {undo} / {undo.undoName} / {undo.undoGroup} / {undo.isRedo}");
-			};
-			Undo.undoRedoPerformed += () =>
-			{
-				Debug.Log($"UndoRedoPerformed");
-				//ActiveLayer.OnClearTiles?.Invoke();
-			};
+			var go = new GameObject(name, typeof(TileLayer));
+			go.hideFlags = Global.TileHideFlags;
+			go.transform.parent = transform;
 		}
-	*/
 	}
 }

@@ -3,7 +3,6 @@
 
 using CodeSmile;
 using CodeSmile.Tile;
-using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEditor;
 using UnityEngine;
@@ -14,8 +13,8 @@ using GridRect = UnityEngine.RectInt;
 
 namespace CodeSmileEditor.Tile
 {
-	[CustomEditor(typeof(TileWorld))]
-	public class TileWorldEditor : Editor
+	[CustomEditor(typeof(TileLayer))]
+	public class TileLayerEditor : Editor
 	{
 		private readonly EditorInputState m_InputState = new();
 		private GridCoord m_StartSelectionCoord;
@@ -26,18 +25,17 @@ namespace CodeSmileEditor.Tile
 		private bool m_IsMouseInView;
 
 		private float2 MousePos { get => Event.current.mousePosition; }
-		private TileWorld TileWorld { get => (TileWorld)target; }
-		private TileLayer ActiveLayer { get => TileWorld.ActiveLayer; }
-		private TileGrid ActiveLayerGrid { get => TileWorld.ActiveLayer.Grid; }
+		private TileLayer Layer { get => (TileLayer)target; }
+		private TileGrid Grid { get => ((TileLayer)target).Grid; }
 
 		private void OnSceneGUI()
 		{
-			if (Selection.activeGameObject != TileWorld.gameObject)
+			if (Selection.activeGameObject != Layer.gameObject)
 				return;
 
 			var editMode = TileEditorState.instance.EditMode;
 
-			var previewRenderer = (target as TileWorld).GetComponent<TilePreviewRenderer>();
+			var previewRenderer = Layer.GetComponent<TilePreviewRenderer>();
 			if (previewRenderer != null)
 				previewRenderer.ShowPreview = m_IsMouseInView && editMode != EditMode.Selection;
 
@@ -169,7 +167,6 @@ namespace CodeSmileEditor.Tile
 
 		private void HandleShortcuts()
 		{
-			var didModify = false;
 			var shouldUseEvent = false;
 			switch (Event.current.keyCode)
 			{
@@ -177,11 +174,10 @@ namespace CodeSmileEditor.Tile
 				case KeyCode.RightArrow:
 				case KeyCode.UpArrow:
 				case KeyCode.DownArrow:
-					ActiveLayer.ClearTileFlags(m_CursorCoord, TileFlags.DirectionNorth);
-					ActiveLayer.ClearTileFlags(m_CursorCoord, TileFlags.DirectionSouth);
-					ActiveLayer.ClearTileFlags(m_CursorCoord, TileFlags.DirectionEast);
-					ActiveLayer.ClearTileFlags(m_CursorCoord, TileFlags.DirectionWest);
-					didModify = true;
+					Layer.ClearTileFlags(m_CursorCoord, TileFlags.DirectionNorth);
+					Layer.ClearTileFlags(m_CursorCoord, TileFlags.DirectionSouth);
+					Layer.ClearTileFlags(m_CursorCoord, TileFlags.DirectionEast);
+					Layer.ClearTileFlags(m_CursorCoord, TileFlags.DirectionWest);
 					break;
 			}
 
@@ -192,77 +188,56 @@ namespace CodeSmileEditor.Tile
 				case KeyCode.F:
 				{
 					var camera = Camera.current;
-					camera.transform.position = ActiveLayer.Grid.ToWorldPosition(m_CursorCoord);
+					camera.transform.position = Layer.Grid.ToWorldPosition(m_CursorCoord);
 					shouldUseEvent = true;
 					break;
 				}
 				case KeyCode.H:
 				{
-					var tile = ActiveLayer.GetTile(m_CursorCoord);
+					var tile = Layer.GetTileData(m_CursorCoord);
 					if (tile.TileSetIndex < 0)
 						break;
 
 					if (tile.Flags.HasFlag(TileFlags.FlipHorizontal))
-					{
-						Undo.RecordObject(TileWorld, "Layer.ClearTileFlags");
-						ActiveLayer.SetTileFlags(m_CursorCoord, TileFlags.FlipVertical);
-						ActiveLayer.ClearTileFlags(m_CursorCoord, TileFlags.FlipHorizontal);
-					}
+						Layer.ClearTileFlags(m_CursorCoord, TileFlags.FlipHorizontal);
 					else
-					{
-						Undo.RecordObject(TileWorld, "Layer.SetTileFlags");
-						ActiveLayer.SetTileFlags(m_CursorCoord, TileFlags.FlipHorizontal);
-					}
-					didModify = true;
+						Layer.SetTileFlags(m_CursorCoord, TileFlags.FlipHorizontal);
 					break;
 				}
 				case KeyCode.V:
 				{
-					var tile = ActiveLayer.GetTile(m_CursorCoord);
+					var tile = Layer.GetTileData(m_CursorCoord);
 					if (tile.TileSetIndex < 0)
 						break;
 
-					if (ActiveLayer.GetTile(m_CursorCoord).Flags.HasFlag(TileFlags.FlipVertical))
-					{
-						Undo.RecordObject(TileWorld, "Layer.ClearTileFlags");
-						ActiveLayer.ClearTileFlags(m_CursorCoord, TileFlags.FlipVertical);
-					}
+					if (tile.Flags.HasFlag(TileFlags.FlipVertical))
+						Layer.ClearTileFlags(m_CursorCoord, TileFlags.FlipVertical);
 					else
-					{
-						Undo.RecordObject(TileWorld, "Layer.SetTileFlags");
-						ActiveLayer.SetTileFlags(m_CursorCoord, TileFlags.FlipVertical);
-					}
-					didModify = true;
+						Layer.SetTileFlags(m_CursorCoord, TileFlags.FlipVertical);
 					break;
 				}
 				case KeyCode.LeftArrow:
-					Undo.RecordObject(TileWorld, "Layer.SetTileFlags");
-					ActiveLayer.SetTileFlags(m_CursorCoord, TileFlags.DirectionWest);
+					Layer.SetTileFlags(m_CursorCoord, TileFlags.DirectionWest);
 					break;
 				case KeyCode.RightArrow:
-					Undo.RecordObject(TileWorld, "Layer.SetTileFlags");
-					ActiveLayer.SetTileFlags(m_CursorCoord, TileFlags.DirectionEast);
+					Layer.SetTileFlags(m_CursorCoord, TileFlags.DirectionEast);
 					break;
 				case KeyCode.UpArrow:
-					Undo.RecordObject(TileWorld, "Layer.SetTileFlags");
-					ActiveLayer.SetTileFlags(m_CursorCoord, TileFlags.DirectionNorth);
+					Layer.SetTileFlags(m_CursorCoord, TileFlags.DirectionNorth);
 					break;
 				case KeyCode.DownArrow:
-					Undo.RecordObject(TileWorld, "Layer.SetTileFlags");
-					ActiveLayer.SetTileFlags(m_CursorCoord, TileFlags.DirectionSouth);
+					Layer.SetTileFlags(m_CursorCoord, TileFlags.DirectionSouth);
 					break;
 			}
 
-			if (didModify)
-				EditorUtility.SetDirty(TileWorld);
-			if (shouldUseEvent || didModify)
+			if (shouldUseEvent)
 				Event.current.Use();
 		}
 
 		private void UpdateStartSelectionCoord()
 		{
-			var planeY = TileWorld.transform.position.y;
-			if (HandleUtilityExt.GUIPointToGridCoord(MousePos, ActiveLayerGrid, out var coord, planeY))
+			var planeY = Layer.transform.position.y;
+			if (HandleUtilityExt.GUIPointToGridCoord(MousePos, Grid, out var coord, planeY))
 			{
 				m_StartSelectionCoord = coord;
 				UpdateSelectionRect();
@@ -271,11 +246,11 @@ namespace CodeSmileEditor.Tile
 
 		private void UpdateCursorCoord()
 		{
-			var planeY = TileWorld.transform.position.y;
-			if (HandleUtilityExt.GUIPointToGridCoord(MousePos, ActiveLayerGrid, out var coord, planeY))
+			var planeY = Layer.transform.position.y;
+			if (HandleUtilityExt.GUIPointToGridCoord(MousePos, Grid, out var coord, planeY))
 			{
 				m_CursorCoord = coord;
-				ActiveLayer.DebugCursorCoord = coord;
+				Layer.DebugCursorCoord = coord;
 				UpdateSelectionRect();
 			}
 		}
@@ -286,15 +261,10 @@ namespace CodeSmileEditor.Tile
 
 		private void DrawTile(GridCoord coord, bool clear)
 		{
-			//Debug.Log($"\tDrawTile at {coord}");
-			Undo.RecordObject(TileWorld, m_IsClearingTiles ? $"Clear Tile {coord}" : $"Draw Tile {coord}");
-
 			if (clear)
-				ActiveLayer.ClearTile(coord);
+				Layer.ClearTile(coord);
 			else
-				ActiveLayer.DrawTile(coord);
-
-			EditorUtility.SetDirty(TileWorld);
+				Layer.DrawTile(coord);
 		}
 
 		private void DrawLine(GridCoord start, GridCoord end, bool clear)
@@ -306,10 +276,10 @@ namespace CodeSmileEditor.Tile
 
 		private void DrawCursorHandle()
 		{
-			var worldRect = TileGrid.ToWorldRect(m_SelectionRect, ActiveLayerGrid.Size);
-			var worldPos = TileWorld.transform.position;
+			var worldRect = TileGrid.ToWorldRect(m_SelectionRect, Grid.Size);
+			var worldPos = Layer.transform.position;
 			var cubePos = worldRect.GetWorldCenter() + worldPos;
-			var cubeSize = worldRect.GetWorldSize(ActiveLayer.TileCursorHeight);
+			var cubeSize = worldRect.GetWorldSize(Layer.TileCursorHeight);
 			Handles.DrawWireCube(cubePos, cubeSize);
 		}
 	}

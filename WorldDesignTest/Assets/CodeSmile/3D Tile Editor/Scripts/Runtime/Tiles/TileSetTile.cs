@@ -7,7 +7,7 @@ using UnityEngine;
 namespace CodeSmile.Tile
 {
 	[Serializable]
-	public class TileSetTile
+	public sealed class TileSetTile
 	{
 		[HideInInspector] [SerializeField] private string m_DisplayName = "test";
 		[SerializeField] private GameObject m_Prefab;

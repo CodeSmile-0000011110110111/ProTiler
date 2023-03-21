@@ -2,6 +2,7 @@
 // Refer to included LICENSE file for terms and conditions.
 
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using GridCoord = Unity.Mathematics.int3;
 using GridSize = Unity.Mathematics.int3;
@@ -10,20 +11,16 @@ using WorldRect = UnityEngine.Rect;
 
 namespace CodeSmile.Tile
 {
-	public class Tile : MonoBehaviour
+	public class TileDataProxy : MonoBehaviour
 	{
-		[NonSerialized] private GridCoord m_Coord = Global.InvalidGridCoord;
-		[NonSerialized] private TileData m_TileData;
-		[NonSerialized] private TileLayer m_Layer;
-		[NonSerialized] private GameObject m_Instance;
+		[SerializeField] private TileLayer m_Layer;
+		[SerializeField] private GameObject m_Instance;
+		[SerializeField] private GridCoord m_Coord = Global.InvalidGridCoord;
+		[SerializeField] private TileData m_TileData = Global.InvalidTileData;
 
-		/*
-		private void OnEnable()
-		{
-			m_Coord = Global.InvalidCoord;
-			UpdateInstance();
-		}
-		*/
+		private readonly List<GameObject> m_InstancesToBeDestroyed = new();
+		public List<GameObject> ToBeDeletedInstances { get => m_InstancesToBeDestroyed; }
+
 
 		public GridCoord Coord { get => m_Coord; }
 
@@ -60,6 +57,21 @@ namespace CodeSmile.Tile
 			}
 		}
 
+		private void Update()
+		{
+			ProcessInstancesScheduledForDestroy();
+		}
+
+		private void ProcessInstancesScheduledForDestroy()
+		{
+			if (m_InstancesToBeDestroyed.Count > 0)
+			{
+				foreach (var instance in m_InstancesToBeDestroyed)
+					instance.DestroyInAnyMode();
+				m_InstancesToBeDestroyed.Clear();
+			}
+		}
+
 		private void UpdateInstance()
 		{
 			if (m_Instance != null)
@@ -67,10 +79,10 @@ namespace CodeSmile.Tile
 				// cannot delete instances here, otherwise Unity will crash within drawing MeshOutline
 				// delay with a coroutine also does not work reliably due to order of execution issues
 				m_Instance.SetActive(false);
-				TileWorld.ToBeDeletedInstances.Add(m_Instance);
+				m_InstancesToBeDestroyed.Add(m_Instance);
 			}
 
-			if (m_TileData.TileSetIndex < 0 || m_Layer.TileSet == null)
+			if (m_TileData.TileSetIndex < 0 || m_Layer.TileSet == null || m_Layer.TileSet.IsEmpty)
 				return;
 
 			var prefab = m_Layer.TileSet.GetPrefab(m_TileData.TileSetIndex);
@@ -118,5 +130,7 @@ namespace CodeSmile.Tile
 
 			return Quaternion.identity;
 		}
+
+		public override string ToString() => $"Tile {m_TileData} at {m_Coord} in {m_Layer.name}";
 	}
 }

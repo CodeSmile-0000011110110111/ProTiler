@@ -13,7 +13,7 @@ namespace CodeSmile.Tile
 
 		private void DrawTilePoolGizmos()
 		{
-			var gridSize = m_World.ActiveLayer.Grid.Size;
+			var gridSize = m_Layer.Grid.Size;
 			GizmosDrawRect(m_PrevVisibleRect.ToWorldRect(gridSize), Color.yellow);
 			GizmosDrawRect(m_VisibleRect.ToWorldRect(gridSize), Color.green);
 			//GizmosDrawVisibleTiles();
@@ -21,8 +21,7 @@ namespace CodeSmile.Tile
 
 		private void GizmosDrawVisibleTiles()
 		{
-			var tileset = m_World.ActiveLayer.TileSet;
-			var grid = m_World.ActiveLayer.Grid;
+			var grid = m_Layer.Grid;
 			if (m_GizmosVisibleTiles != null)
 			{
 				foreach (var coord in m_GizmosVisibleTiles.Keys)

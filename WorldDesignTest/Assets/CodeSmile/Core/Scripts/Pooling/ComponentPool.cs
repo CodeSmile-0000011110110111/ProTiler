@@ -9,19 +9,19 @@ using Object = UnityEngine.Object;
 
 namespace CodeSmile.Tile
 {
-	public sealed class ObjectPool<T> : IDisposable where T : Component, new()
+	public sealed class ComponentPool<T> : IDisposable where T : Component, new()
 	{
-		private readonly List<T> m_AllInstances = new();
-		private readonly List<T> m_InactiveInstances = new();
-		private readonly GameObject m_Prefab;
-		private readonly Transform m_Parent;
-		private readonly HideFlags m_HideFlags;
+		[NonSerialized] private readonly List<T> m_AllInstances = new();
+		[NonSerialized] private readonly List<T> m_InactiveInstances = new();
+		[NonSerialized] private readonly GameObject m_Prefab;
+		[NonSerialized] private readonly Transform m_Parent;
+		[NonSerialized] private readonly HideFlags m_HideFlags;
 
 		public int Count => m_AllInstances.Count;
 		public IReadOnlyList<T> AllInstances => m_AllInstances.AsReadOnly();
 		public IReadOnlyList<T> InactiveInstances => m_InactiveInstances.AsReadOnly();
 
-		public ObjectPool(GameObject prefab, Transform parent, int poolSize, HideFlags hideFlags = HideFlags.None)
+		public ComponentPool(GameObject prefab, Transform parent, int poolSize, HideFlags hideFlags = HideFlags.None)
 		{
 			if (parent == null)
 				throw new ArgumentNullException(nameof(parent), "parent must not be null");

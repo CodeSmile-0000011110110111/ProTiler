@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.Mathematics;
 using UnityEngine;
 using GridCoord = Unity.Mathematics.int3;
@@ -50,6 +51,7 @@ namespace CodeSmile.Tile
 
 		//public Tile GetPrefabIndex(int index) => m_Tiles[index];
 
+		public bool IsEmpty => m_Tiles.Count == 0;
 		public int Count => m_Tiles.Count;
 		public IReadOnlyList<TileSetTile> Tiles => m_Tiles.AsReadOnly();
 		public float TileCursorHeight { get => m_TileCursorHeight; set => m_TileCursorHeight = value; }

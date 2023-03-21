@@ -15,7 +15,7 @@ public class ObjectPoolTests
 	public void SetUp()
 	{
 		m_Prefab = new GameObject("test");
-		m_Prefab.AddComponent<Tile>();
+		m_Prefab.AddComponent<TileDataProxy>();
 		m_Parent = new GameObject("parent").transform;
 	}
 
@@ -30,7 +30,7 @@ public class ObjectPoolTests
 	public void CreateUpdateDisposeTest()
 	{
 		var poolSize = 100;
-		var pool = new ObjectPool<Tile>(m_Prefab, m_Parent, poolSize);
+		var pool = new ComponentPool<TileDataProxy>(m_Prefab, m_Parent, poolSize);
 		Assert.AreEqual(poolSize, pool.Count);
 
 		poolSize += 10;
