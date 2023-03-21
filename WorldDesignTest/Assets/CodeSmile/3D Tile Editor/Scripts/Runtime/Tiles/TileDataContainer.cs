@@ -51,13 +51,7 @@ namespace CodeSmile.Tile
 
 		public bool Contains(GridCoord coord) => m_Tiles.ContainsKey(coord);
 
-		public void ClearTiles() => m_Tiles.Clear();
-
-		public void ClearTile(GridCoord coord)
-		{
-			if (m_Tiles.ContainsKey(coord))
-				m_Tiles.Remove(coord);
-		}
+		public void ClearAllTiles() => m_Tiles.Clear();
 
 		//public Tile this[GridCoord coord] => GetTile(coord);
 		public TileData GetTile(GridCoord coord) => m_Tiles.TryGetValue(coord, out var tile) ? tile : Global.InvalidTileData;
@@ -65,35 +59,59 @@ namespace CodeSmile.Tile
 		public IReadOnlyList<GridCoord> SetTiles(GridRect rect, int tileSetIndex)
 		{
 			var coords = rect.GetTileCoords();
-			for (var i = 0; i < coords.Count; i++)
-				SetTile(coords[i], tileSetIndex);
+			SetTiles(coords, tileSetIndex);
 			return coords;
+		}
+
+		public IReadOnlyList<TileData> SetTiles(IReadOnlyList<GridCoord> coords, int tileSetIndex)
+		{
+			var tiles = new List<TileData>();
+			if (tileSetIndex < 0)
+			{
+				for (var i = 0; i < coords.Count; i++)
+				{
+					TryRemoveTile(coords[i]);
+					tiles.Add(Global.InvalidTileData);
+				}
+			}
+			else
+			{
+				for (var i = 0; i < coords.Count; i++)
+				{
+					var tile = new TileData(tileSetIndex);
+					AddOrReplaceTile(coords[i], tile);
+					tiles.Add(tile);
+				}
+			}
+			
+			return tiles;
 		}
 
 		public void SetTile(GridCoord coord, int tileSetIndex)
 		{
 			if (tileSetIndex < 0)
-				ClearTile(coord);
+				TryRemoveTile(coord);
 			else
-				SetTile(coord, new TileData(tileSetIndex));
+				AddOrReplaceTile(coord, new TileData(tileSetIndex));
 		}
 
-		public void SetTile(GridCoord coord, TileData tileData)
+		private void AddOrReplaceTile(GridCoord coord, TileData tileData)
 		{
-			if (tileData.TileSetIndex < 0)
-				ClearTile(coord);
-			else
-			{
 #if TRYADDTILES
-				if (m_Tiles.TryAdd(coord, tileData) == false)
-					m_Tiles[coord] = tileData;
+			if (m_Tiles.TryAdd(coord, tileData) == false)
+				m_Tiles[coord] = tileData;
 #else
 				if (m_Tiles.ContainsKey(coord))
 					m_Tiles[coord] = tile;
 				else
 					m_Tiles.Add(coord, tile);
 #endif
-			}
+		}
+
+		public void TryRemoveTile(GridCoord coord)
+		{
+			if (m_Tiles.ContainsKey(coord))
+				m_Tiles.Remove(coord);
 		}
 
 		public IDictionary<GridCoord, TileData> GetTilesInRect(GridRect rect)

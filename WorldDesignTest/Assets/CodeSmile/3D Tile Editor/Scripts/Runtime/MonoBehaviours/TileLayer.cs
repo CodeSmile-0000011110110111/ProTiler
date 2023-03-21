@@ -2,7 +2,9 @@
 // Refer to included LICENSE file for terms and conditions.
 
 using System;
+using System.Collections.Generic;
 using Unity.Mathematics;
+using UnityEditor;
 using UnityEngine;
 using GridCoord = Unity.Mathematics.int3;
 using GridSize = Unity.Mathematics.int3;
@@ -34,26 +36,31 @@ namespace CodeSmile.Tile
 		[ReadOnlyField] [SerializeField] private int m_DebugTileCount;
 
 		[NonSerialized] private int m_TileSetInstanceId;
-		
-		public Action<GridCoord, TileData> OnSetTile;
+		[NonSerialized] private TileLayerRenderer m_LayerRenderer;
+		[NonSerialized] private TilePreviewRenderer m_PreviewRenderer;
 
 		// TODO: refactor
-		public Action OnClearTiles;
-		public Action<GridRect> OnSetTiles;
-		public Action<GridCoord, TileFlags> OnTileFlagsChanged;
+		//public Action<GridCoord, TileData> OnSetTile;
+		//public Action OnClearAllTiles;
+		//public Action<IReadOnlyList<GridCoord>, IReadOnlyList<TileData>> OnSetTiles;
+		//public Action<GridRect> OnSetTilesInRect;
+		//public Action<GridCoord, TileFlags> OnTileFlagsChanged;
+
+		private void Reset() => OnEnable(); // Editor will not call OnEnable when layer added during Reset
 
 		private void OnEnable()
 		{
 			if (m_LayerType == LayerType.Tile)
 			{
-				gameObject.GetOrAddComponent<TileLayerRenderer>();
-				gameObject.GetOrAddComponent<TilePreviewRenderer>();
+				m_LayerRenderer = gameObject.GetOrAddComponent<TileLayerRenderer>();
+				m_PreviewRenderer = gameObject.GetOrAddComponent<TilePreviewRenderer>();
 			}
 			else
 				throw new Exception($"layer type {m_LayerType} not supported");
 		}
 
 		public override string ToString() => name;
+
 		private void DebugClampTileSetIndex()
 		{
 			if (m_TileSet != null && m_TileSet.IsEmpty == false)
@@ -61,12 +68,6 @@ namespace CodeSmile.Tile
 		}
 
 		private void UpdateDebugTileCount() => m_DebugTileCount = m_TileDataContainer.Count;
-
-		private void SetTileData(GridCoord coord, TileData tileData)
-		{
-			m_TileDataContainer.SetTile(coord, tileData);
-			UpdateDebugTileCount();
-		}
 
 		/*
 		public void SetTiles(GridRect gridSelection, bool clear = false)
@@ -78,38 +79,35 @@ namespace CodeSmile.Tile
 		}
 		*/
 
-		public void DrawTile(GridCoord coord)
+		public void DrawLine(GridCoord start, GridCoord end, int tileSetIndex)
 		{
-			var tileData = GetTileData(coord);
-			if (tileData.TileSetIndex < 0)
-				tileData = new TileData(m_DebugSelectedTileSetIndex);
-			else
-				tileData.TileSetIndex = m_DebugSelectedTileSetIndex;
-
-			this.RecordUndoInEditor(nameof(DrawTile));
-			SetTileData(coord, tileData);
-			this.SetDirtyInEditor();
-			
-			OnSetTile?.Invoke(coord, tileData);
-		}
-
-		public void ClearTile(GridCoord coord)
-		{
-			this.RecordUndoInEditor(nameof(ClearTile));
-			SetTileData(coord, Global.InvalidTileData);
-			this.SetDirtyInEditor();
-
-			OnSetTile?.Invoke(coord, Global.InvalidTileData);
-		}
-
-		public void ClearTiles()
-		{
-			this.RecordUndoInEditor(nameof(ClearTiles));
-			m_TileDataContainer.ClearTiles();
-			this.SetDirtyInEditor();
-
-			OnClearTiles?.Invoke();
+			this.RecordUndoInEditor(tileSetIndex < 0 ? "Clear Tiles" : "Draw Tiles");
+			var coords = start.MakeLine(end);
+			var tiles = m_TileDataContainer.SetTiles(coords, tileSetIndex);
 			UpdateDebugTileCount();
+			this.SetDirtyInEditor();
+
+			m_LayerRenderer.RedrawTiles(coords, tiles);
+		}
+		
+		/*public void DrawTile(GridCoord coord, int tileSetIndex)
+		{
+			this.RecordUndoInEditor(tileSetIndex < 0 ? "Clear Tile" : "Draw Tile");
+			var tileData = m_TileDataContainer.SetTile(coord, tileSetIndex);
+			UpdateDebugTileCount();
+			
+			this.SetDirtyInEditor();
+			OnSetTile?.Invoke(coord, tileData);
+		}*/
+
+		public void ClearAllTiles()
+		{
+			this.RecordUndoInEditor(nameof(ClearAllTiles));
+			m_TileDataContainer.ClearAllTiles();
+			UpdateDebugTileCount();
+			this.SetDirtyInEditor();
+
+			m_LayerRenderer.ForceRedraw();
 		}
 
 		public void SetTileFlags(GridCoord coord, TileFlags flags)
@@ -117,8 +115,8 @@ namespace CodeSmile.Tile
 			this.RecordUndoInEditor(nameof(SetTileFlags));
 			var tileFlags = m_TileDataContainer.SetTileFlags(coord, flags);
 			this.SetDirtyInEditor();
-
-			OnTileFlagsChanged?.Invoke(coord, tileFlags);
+			
+			m_LayerRenderer.UpdateTileFlagsAndRedraw(coord, tileFlags);
 		}
 
 		public void ClearTileFlags(GridCoord coord, TileFlags flags)
@@ -127,7 +125,7 @@ namespace CodeSmile.Tile
 			var tileFlags = m_TileDataContainer.ClearTileFlags(coord, flags);
 			this.SetDirtyInEditor();
 
-			OnTileFlagsChanged?.Invoke(coord, tileFlags);
+			m_LayerRenderer.UpdateTileFlagsAndRedraw(coord, tileFlags);
 		}
 
 		public TileData GetTileData(GridCoord coord) => m_TileDataContainer.GetTile(coord);

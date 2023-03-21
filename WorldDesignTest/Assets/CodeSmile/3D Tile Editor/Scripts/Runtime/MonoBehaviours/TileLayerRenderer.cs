@@ -2,7 +2,6 @@
 // Refer to included LICENSE file for terms and conditions.
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEditor;
@@ -62,12 +61,16 @@ namespace CodeSmile.Tile
 			RecreateTilePool();
 			ForceUpdateTilesInVisibleRect();
 
-			RegisterTileWorldEvents();
+#if UNITY_EDITOR
+			Undo.undoRedoPerformed += DelayedForceRepaint;
+#endif
 		}
 
 		private void OnDisable()
 		{
-			UnregisterTileWorldEvents();
+#if UNITY_EDITOR
+			Undo.undoRedoPerformed -= DelayedForceRepaint;
+#endif
 
 			DisposeTilePool();
 		}
@@ -87,60 +90,19 @@ namespace CodeSmile.Tile
 			{
 				Debug.Log($"new draw distance is: {m_DrawDistance}");
 				m_PrevDrawDistance = m_DrawDistance;
-				StopAllCoroutines();
-				StartCoroutine(WaitThenRecreateTilePool());
+				DelayedForceRepaint();
 			}
+		}
+
+		private void DelayedForceRepaint()
+		{
+			StopAllCoroutines();
+			StartCoroutine(new WaitForFramesElapsed(1, () => ForceRedraw()));
 		}
 
 		private void ClampDrawDistance() => m_DrawDistance = math.clamp(m_DrawDistance, MinDrawDistance, MaxDrawDistance);
 
 		private GridRect GetVisibleRect(TileLayer layer) => layer.Grid.GetCameraRect(Camera.current, m_DrawDistance, m_VisibleRectDistance);
-
-		private void RegisterTileWorldEvents()
-		{
-			m_Layer.OnClearTiles += OnClearTiles;
-			m_Layer.OnSetTile += OnSetTile;
-			m_Layer.OnSetTiles += OnSetTiles;
-			m_Layer.OnTileFlagsChanged += SetTileFlags;
-
-#if UNITY_EDITOR
-			Undo.undoRedoPerformed += UndoRedoPerformed;
-#endif
-		}
-
-		private void UnregisterTileWorldEvents()
-		{
-			m_Layer.OnClearTiles -= OnClearTiles;
-			m_Layer.OnSetTile -= OnSetTile;
-			m_Layer.OnSetTiles -= OnSetTiles;
-			m_Layer.OnTileFlagsChanged -= SetTileFlags;
-
-#if UNITY_EDITOR
-			Undo.undoRedoPerformed -= UndoRedoPerformed;
-#endif
-		}
-
-		private void UndoRedoPerformed()
-		{
-			StopAllCoroutines();
-			StartCoroutine(WaitThenRecreateTilePool());
-		}
-
-		private void OnClearTiles()
-		{
-			RecreateTilePool();
-			ForceUpdateTilesInVisibleRect();
-		}
-
-		private void OnSetTiles(GridRect dirtyRect) => UpdateTilesInDirtyRect(dirtyRect);
-
-		private void OnSetTile(GridCoord coord, TileData tileData)
-		{
-			var dirtyRect = new GridRect(coord.ToCoord2d(), new Vector2Int(1, 1));
-			UpdateTilesInDirtyRect(dirtyRect);
-		}
-
-		private void SetTileFlags(GridCoord coord, TileFlags flags) => Debug.LogWarning("SetTileFlags not implemented");
 
 		private void RecreateTilePool()
 		{
@@ -182,15 +144,8 @@ namespace CodeSmile.Tile
 
 			if (m_Layer == null)
 				throw new NullReferenceException();
+
 			tile.Layer = m_Layer;
-		}
-
-		private IEnumerator WaitThenRecreateTilePool()
-		{
-			yield return null;
-
-			RecreateTilePool();
-			ForceUpdateTilesInVisibleRect();
 		}
 
 		private void ForceUpdateTilesInVisibleRect()
@@ -276,5 +231,28 @@ namespace CodeSmile.Tile
 					m_TilePool.ReturnToPool(tile);
 			}
 		}
+
+		internal void ForceRedraw()
+		{
+			RecreateTilePool();
+			ForceUpdateTilesInVisibleRect();
+		}
+
+		internal void OnSetTilesInRect(GridRect dirtyRect) => UpdateTilesInDirtyRect(dirtyRect);
+
+		internal void RedrawTiles(IReadOnlyList<GridCoord> coords, IReadOnlyList<TileData> tiles)
+		{
+			for (var i = 0; i < coords.Count; i++)
+				OnSetTile(coords[i], tiles[i]);
+		}
+
+		internal void OnSetTile(GridCoord coord, TileData tileData)
+		{
+			// FIXME: access and change that tile instance directly
+			var dirtyRect = new GridRect(coord.ToCoord2d(), new Vector2Int(1, 1));
+			UpdateTilesInDirtyRect(dirtyRect);
+		}
+
+		internal void UpdateTileFlagsAndRedraw(GridCoord coord, TileFlags flags) => Debug.LogWarning("SetTileFlags not implemented");
 	}
 }

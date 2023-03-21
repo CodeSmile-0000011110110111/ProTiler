@@ -12,13 +12,30 @@ namespace CodeSmile.Tile
 	[RequireComponent(typeof(TileLayer))]
 	public sealed class TilePreviewRenderer : MonoBehaviour
 	{
-		[NonSerialized] private TileLayer m_Layer;
 		[NonSerialized] private readonly List<GameObject> m_ToBeDeletedPreviews = new();
+		[NonSerialized] private TileLayer m_Layer;
 		[NonSerialized] private GameObject m_Preview;
 		[NonSerialized] private int3 m_RenderCoord;
 		[NonSerialized] private int m_TileSetIndex = Global.InvalidTileSetIndex;
 
 		private bool m_ShowPreview;
+
+		public bool ShowPreview
+		{
+			get => m_ShowPreview;
+			set
+			{
+				m_ShowPreview = value;
+				UpdateCursorTile();
+
+				if (m_ShowPreview == false)
+					ScheduleCursorForDeletion();
+			}
+		}
+
+		private void Reset() => OnEnable(); // Editor will not call OnEnable
+
+		private void Update() => DestroyCursorsScheduledForDeletion();
 
 		private void OnEnable()
 		{
@@ -26,8 +43,6 @@ namespace CodeSmile.Tile
 			if (m_Layer == null)
 				throw new NullReferenceException("layer is null");
 		}
-
-		private void Update() => DestroyCursorsScheduledForDeletion();
 
 		private void OnDisable()
 		{
@@ -40,8 +55,7 @@ namespace CodeSmile.Tile
 			if (CameraExt.IsSceneViewOrGameCamera(Camera.current) == false)
 				return;
 
-			if (m_ShowPreview)
-				UpdateCursorTile();
+			UpdateCursorTile();
 		}
 
 		private void DestroyCursorsScheduledForDeletion()
@@ -56,6 +70,9 @@ namespace CodeSmile.Tile
 
 		private void UpdateCursorTile()
 		{
+			if (m_ShowPreview == false || m_Layer == null)
+				return;
+
 			var cursorCoord = m_Layer.DebugCursorCoord;
 			var index = m_Layer.SelectedTileSetIndex;
 			if (m_TileSetIndex != index || m_Preview == null)
@@ -75,12 +92,16 @@ namespace CodeSmile.Tile
 
 		private void UpdateCursorInstance(TileLayer layer, int index, int3 cursorCoord)
 		{
-			var prefab = layer.TileSet.GetPrefab(index);
-			if (prefab != null)
+			var tileSet = layer.TileSet;
+			if (tileSet != null)
 			{
-				ScheduleCursorForDeletion();
-				InstantiateCursor(prefab);
-				SetCursorPosition(layer, cursorCoord);
+				var prefab = tileSet.GetPrefab(index);
+				if (prefab != null)
+				{
+					ScheduleCursorForDeletion();
+					InstantiateCursor(prefab);
+					SetCursorPosition(layer, cursorCoord);
+				}
 			}
 		}
 
@@ -107,19 +128,6 @@ namespace CodeSmile.Tile
 			{
 				m_RenderCoord = cursorCoord;
 				m_Preview.transform.position = layer.Grid.ToWorldPosition(m_RenderCoord) + layer.TileSet.GetTileOffset();
-			}
-		}
-
-		public bool ShowPreview
-		{
-			get => m_ShowPreview;
-			set
-			{
-				m_ShowPreview = value;
-				if (m_ShowPreview)
-					UpdateCursorTile();
-				else
-					ScheduleCursorForDeletion();
 			}
 		}
 	}

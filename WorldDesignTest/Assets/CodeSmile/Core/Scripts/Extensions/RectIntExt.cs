@@ -47,7 +47,7 @@ namespace CodeSmile
 
 			return overlaps;
 		}
-
+		
 		public static IReadOnlyList<GridCoord> GetTileCoords(this GridRect gridRect)
 		{
 			// FIXME: use rect.allPositionsWithin ?

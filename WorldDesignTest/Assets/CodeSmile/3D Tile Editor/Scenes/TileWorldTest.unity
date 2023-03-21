@@ -123,6 +123,51 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &66338583
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 66338585}
+  - component: {fileID: 66338584}
+  m_Layer: 0
+  m_Name: TileWorld
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &66338584
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 66338583}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fc69f16a6954e1d98300ecf5e1e15c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &66338585
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 66338583}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1212899938}
+  m_Father: {fileID: 0}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &117670602
 GameObject:
   m_ObjectHideFlags: 0
@@ -543,50 +588,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 284681273}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &337256424
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 337256426}
-  - component: {fileID: 337256425}
-  m_Layer: 0
-  m_Name: TileWorld
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &337256425
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 337256424}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6fc69f16a6954e1d98300ecf5e1e15c6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &337256426
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 337256424}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 11
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &413718598
 GameObject:
   m_ObjectHideFlags: 0
@@ -2300,6 +2301,1772 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1211695615}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1212899937
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1212899938}
+  - component: {fileID: 1212899941}
+  - component: {fileID: 1212899940}
+  - component: {fileID: 1212899939}
+  m_Layer: 0
+  m_Name: TileLayer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1212899938
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1212899937}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 66338585}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1212899939
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1212899937}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13a66dc1b1554460b8333660d2fc8baa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1212899940
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1212899937}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8b0b4f0983e47b99a26407fc88cb154, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_DrawDistance: 56
+  m_VisibleRectDistance: 5
+--- !u!114 &1212899941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1212899937}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5f4529c9dc849fdab6290f8d38c98b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_LayerType: 0
+  m_TileSet: {fileID: 11400000, guid: afce479364314724981f1f1029a86dc7, type: 2}
+  m_TileDataContainer:
+    m_Tiles:
+      m_Keys:
+      - x: -150
+        y: 0
+        z: -132
+      - x: -151
+        y: 0
+        z: -132
+      - x: -152
+        y: 0
+        z: -133
+      - x: -153
+        y: 0
+        z: -133
+      - x: -154
+        y: 0
+        z: -134
+      - x: -155
+        y: 0
+        z: -134
+      - x: -156
+        y: 0
+        z: -134
+      - x: -157
+        y: 0
+        z: -135
+      - x: -158
+        y: 0
+        z: -135
+      - x: -159
+        y: 0
+        z: -135
+      - x: -160
+        y: 0
+        z: -135
+      - x: -161
+        y: 0
+        z: -136
+      - x: -162
+        y: 0
+        z: -136
+      - x: -163
+        y: 0
+        z: -136
+      - x: -164
+        y: 0
+        z: -136
+      - x: -165
+        y: 0
+        z: -137
+      - x: -166
+        y: 0
+        z: -137
+      - x: -167
+        y: 0
+        z: -137
+      - x: -168
+        y: 0
+        z: -137
+      - x: -168
+        y: 0
+        z: -136
+      - x: -168
+        y: 0
+        z: -135
+      - x: -168
+        y: 0
+        z: -134
+      - x: -168
+        y: 0
+        z: -133
+      - x: -167
+        y: 0
+        z: -132
+      - x: -167
+        y: 0
+        z: -131
+      - x: -167
+        y: 0
+        z: -130
+      - x: -166
+        y: 0
+        z: -129
+      - x: -166
+        y: 0
+        z: -128
+      - x: -165
+        y: 0
+        z: -127
+      - x: -165
+        y: 0
+        z: -126
+      - x: -164
+        y: 0
+        z: -125
+      - x: -164
+        y: 0
+        z: -124
+      - x: -163
+        y: 0
+        z: -123
+      - x: -163
+        y: 0
+        z: -122
+      - x: -162
+        y: 0
+        z: -121
+      - x: -162
+        y: 0
+        z: -120
+      - x: -161
+        y: 0
+        z: -119
+      - x: -161
+        y: 0
+        z: -118
+      - x: -160
+        y: 0
+        z: -117
+      - x: -160
+        y: 0
+        z: -116
+      - x: -159
+        y: 0
+        z: -115
+      - x: -159
+        y: 0
+        z: -114
+      - x: -158
+        y: 0
+        z: -113
+      - x: -158
+        y: 0
+        z: -112
+      - x: -157
+        y: 0
+        z: -111
+      - x: -157
+        y: 0
+        z: -110
+      - x: -156
+        y: 0
+        z: -109
+      - x: -156
+        y: 0
+        z: -108
+      - x: -155
+        y: 0
+        z: -107
+      - x: -155
+        y: 0
+        z: -106
+      - x: -154
+        y: 0
+        z: -105
+      - x: -154
+        y: 0
+        z: -104
+      - x: -153
+        y: 0
+        z: -103
+      - x: -152
+        y: 0
+        z: -102
+      - x: -152
+        y: 0
+        z: -101
+      - x: -151
+        y: 0
+        z: -100
+      - x: -151
+        y: 0
+        z: -99
+      - x: -150
+        y: 0
+        z: -98
+      - x: -150
+        y: 0
+        z: -97
+      - x: -149
+        y: 0
+        z: -96
+      - x: -149
+        y: 0
+        z: -95
+      - x: -148
+        y: 0
+        z: -94
+      - x: -147
+        y: 0
+        z: -93
+      - x: -146
+        y: 0
+        z: -92
+      - x: -145
+        y: 0
+        z: -91
+      - x: -144
+        y: 0
+        z: -90
+      - x: -143
+        y: 0
+        z: -89
+      - x: -142
+        y: 0
+        z: -90
+      - x: -141
+        y: 0
+        z: -91
+      - x: -140
+        y: 0
+        z: -92
+      - x: -140
+        y: 0
+        z: -93
+      - x: -140
+        y: 0
+        z: -94
+      - x: -140
+        y: 0
+        z: -95
+      - x: -140
+        y: 0
+        z: -96
+      - x: -140
+        y: 0
+        z: -97
+      - x: -140
+        y: 0
+        z: -98
+      - x: -140
+        y: 0
+        z: -99
+      - x: -140
+        y: 0
+        z: -100
+      - x: -140
+        y: 0
+        z: -101
+      - x: -140
+        y: 0
+        z: -102
+      - x: -140
+        y: 0
+        z: -103
+      - x: -140
+        y: 0
+        z: -104
+      - x: -140
+        y: 0
+        z: -105
+      - x: -140
+        y: 0
+        z: -106
+      - x: -140
+        y: 0
+        z: -107
+      - x: -141
+        y: 0
+        z: -108
+      - x: -141
+        y: 0
+        z: -109
+      - x: -141
+        y: 0
+        z: -110
+      - x: -141
+        y: 0
+        z: -111
+      - x: -142
+        y: 0
+        z: -112
+      - x: -142
+        y: 0
+        z: -113
+      - x: -142
+        y: 0
+        z: -114
+      - x: -142
+        y: 0
+        z: -115
+      - x: -143
+        y: 0
+        z: -116
+      - x: -143
+        y: 0
+        z: -117
+      - x: -144
+        y: 0
+        z: -118
+      - x: -144
+        y: 0
+        z: -119
+      - x: -144
+        y: 0
+        z: -120
+      - x: -145
+        y: 0
+        z: -121
+      - x: -145
+        y: 0
+        z: -122
+      - x: -146
+        y: 0
+        z: -123
+      - x: -146
+        y: 0
+        z: -124
+      - x: -146
+        y: 0
+        z: -125
+      - x: -147
+        y: 0
+        z: -126
+      - x: -147
+        y: 0
+        z: -127
+      - x: -148
+        y: 0
+        z: -128
+      - x: -148
+        y: 0
+        z: -129
+      - x: -149
+        y: 0
+        z: -130
+      - x: -149
+        y: 0
+        z: -131
+      - x: -151
+        y: 0
+        z: -133
+      - x: -151
+        y: 0
+        z: -134
+      - x: -152
+        y: 0
+        z: -135
+      - x: -153
+        y: 0
+        z: -136
+      - x: -154
+        y: 0
+        z: -137
+      - x: -154
+        y: 0
+        z: -138
+      - x: -155
+        y: 0
+        z: -139
+      - x: -156
+        y: 0
+        z: -140
+      - x: -156
+        y: 0
+        z: -141
+      - x: -157
+        y: 0
+        z: -142
+      - x: -158
+        y: 0
+        z: -142
+      - x: -159
+        y: 0
+        z: -141
+      - x: -160
+        y: 0
+        z: -141
+      - x: -161
+        y: 0
+        z: -140
+      - x: -162
+        y: 0
+        z: -140
+      - x: -163
+        y: 0
+        z: -139
+      - x: -164
+        y: 0
+        z: -139
+      - x: -165
+        y: 0
+        z: -138
+      - x: -166
+        y: 0
+        z: -138
+      - x: -166
+        y: 0
+        z: -136
+      - x: -167
+        y: 0
+        z: -135
+      - x: -167
+        y: 0
+        z: -134
+      - x: -167
+        y: 0
+        z: -133
+      - x: -168
+        y: 0
+        z: -130
+      - x: -168
+        y: 0
+        z: -129
+      - x: -168
+        y: 0
+        z: -128
+      - x: -168
+        y: 0
+        z: -127
+      - x: -168
+        y: 0
+        z: -126
+      - x: -167
+        y: 0
+        z: -125
+      - x: -167
+        y: 0
+        z: -124
+      - x: -167
+        y: 0
+        z: -123
+      - x: -167
+        y: 0
+        z: -122
+      - x: -166
+        y: 0
+        z: -121
+      - x: -166
+        y: 0
+        z: -120
+      - x: -166
+        y: 0
+        z: -119
+      - x: -166
+        y: 0
+        z: -118
+      - x: -166
+        y: 0
+        z: -117
+      - x: -165
+        y: 0
+        z: -116
+      - x: -165
+        y: 0
+        z: -115
+      - x: -165
+        y: 0
+        z: -114
+      - x: -164
+        y: 0
+        z: -113
+      - x: -163
+        y: 0
+        z: -112
+      - x: -162
+        y: 0
+        z: -112
+      - x: -161
+        y: 0
+        z: -111
+      - x: -160
+        y: 0
+        z: -110
+      - x: -159
+        y: 0
+        z: -109
+      - x: -158
+        y: 0
+        z: -109
+      - x: -157
+        y: 0
+        z: -108
+      - x: -156
+        y: 0
+        z: -107
+      - x: -155
+        y: 0
+        z: -108
+      - x: -154
+        y: 0
+        z: -108
+      - x: -153
+        y: 0
+        z: -109
+      - x: -152
+        y: 0
+        z: -110
+      - x: -151
+        y: 0
+        z: -111
+      - x: -150
+        y: 0
+        z: -111
+      - x: -149
+        y: 0
+        z: -112
+      - x: -149
+        y: 0
+        z: -113
+      - x: -148
+        y: 0
+        z: -114
+      - x: -148
+        y: 0
+        z: -115
+      - x: -147
+        y: 0
+        z: -116
+      - x: -147
+        y: 0
+        z: -117
+      - x: -147
+        y: 0
+        z: -118
+      - x: -146
+        y: 0
+        z: -119
+      - x: -146
+        y: 0
+        z: -120
+      - x: -146
+        y: 0
+        z: -121
+      - x: -145
+        y: 0
+        z: -123
+      - x: -144
+        y: 0
+        z: -124
+      - x: -144
+        y: 0
+        z: -125
+      - x: -144
+        y: 0
+        z: -126
+      - x: -143
+        y: 0
+        z: -127
+      - x: -143
+        y: 0
+        z: -128
+      - x: -143
+        y: 0
+        z: -129
+      - x: -143
+        y: 0
+        z: -130
+      - x: -143
+        y: 0
+        z: -131
+      - x: -143
+        y: 0
+        z: -132
+      - x: -144
+        y: 0
+        z: -133
+      - x: -144
+        y: 0
+        z: -134
+      - x: -144
+        y: 0
+        z: -135
+      - x: -144
+        y: 0
+        z: -136
+      - x: -144
+        y: 0
+        z: -137
+      - x: -144
+        y: 0
+        z: -138
+      - x: -144
+        y: 0
+        z: -139
+      - x: -144
+        y: 0
+        z: -140
+      - x: -144
+        y: 0
+        z: -141
+      - x: -144
+        y: 0
+        z: -142
+      - x: -145
+        y: 0
+        z: -143
+      - x: -145
+        y: 0
+        z: -144
+      - x: -145
+        y: 0
+        z: -145
+      - x: -145
+        y: 0
+        z: -146
+      - x: -145
+        y: 0
+        z: -147
+      - x: -146
+        y: 0
+        z: -147
+      - x: -147
+        y: 0
+        z: -147
+      - x: -148
+        y: 0
+        z: -148
+      - x: -149
+        y: 0
+        z: -148
+      - x: -150
+        y: 0
+        z: -148
+      - x: -151
+        y: 0
+        z: -148
+      - x: -152
+        y: 0
+        z: -147
+      - x: -153
+        y: 0
+        z: -146
+      - x: -154
+        y: 0
+        z: -145
+      - x: -155
+        y: 0
+        z: -144
+      - x: -156
+        y: 0
+        z: -144
+      - x: -157
+        y: 0
+        z: -143
+      - x: -159
+        y: 0
+        z: -140
+      - x: -160
+        y: 0
+        z: -139
+      - x: -160
+        y: 0
+        z: -138
+      - x: -161
+        y: 0
+        z: -137
+      - x: -161
+        y: 0
+        z: -135
+      - x: -162
+        y: 0
+        z: -134
+      - x: -162
+        y: 0
+        z: -133
+      - x: -163
+        y: 0
+        z: -132
+      - x: -163
+        y: 0
+        z: -131
+      - x: -163
+        y: 0
+        z: -130
+      - x: -164
+        y: 0
+        z: -129
+      - x: -164
+        y: 0
+        z: -128
+      - x: -165
+        y: 0
+        z: -125
+      - x: -166
+        y: 0
+        z: -124
+      - x: -166
+        y: 0
+        z: -123
+      - x: -167
+        y: 0
+        z: -121
+      - x: -165
+        y: 0
+        z: -119
+      - x: -164
+        y: 0
+        z: -118
+      - x: -163
+        y: 0
+        z: -117
+      - x: -162
+        y: 0
+        z: -116
+      - x: -161
+        y: 0
+        z: -115
+      - x: -160
+        y: 0
+        z: -114
+      - x: -159
+        y: 0
+        z: -113
+      - x: -156
+        y: 0
+        z: -110
+      - x: -155
+        y: 0
+        z: -109
+      - x: -154
+        y: 0
+        z: -109
+      - x: -151
+        y: 0
+        z: -110
+      - x: -150
+        y: 0
+        z: -110
+      - x: -149
+        y: 0
+        z: -110
+      - x: -148
+        y: 0
+        z: -111
+      - x: -147
+        y: 0
+        z: -111
+      - x: -146
+        y: 0
+        z: -111
+      - x: -145
+        y: 0
+        z: -111
+      - x: -144
+        y: 0
+        z: -112
+      - x: -143
+        y: 0
+        z: -112
+      - x: -141
+        y: 0
+        z: -112
+      - x: -140
+        y: 0
+        z: -113
+      - x: -139
+        y: 0
+        z: -113
+      - x: -138
+        y: 0
+        z: -113
+      - x: -137
+        y: 0
+        z: -114
+      - x: -136
+        y: 0
+        z: -115
+      - x: -136
+        y: 0
+        z: -116
+      - x: -135
+        y: 0
+        z: -117
+      - x: -134
+        y: 0
+        z: -118
+      - x: -135
+        y: 0
+        z: -118
+      - x: -136
+        y: 0
+        z: -119
+      - x: -137
+        y: 0
+        z: -119
+      - x: -138
+        y: 0
+        z: -119
+      - x: -139
+        y: 0
+        z: -119
+      - x: -140
+        y: 0
+        z: -120
+      - x: -141
+        y: 0
+        z: -120
+      - x: -142
+        y: 0
+        z: -120
+      - x: -143
+        y: 0
+        z: -120
+      - x: -145
+        y: 0
+        z: -120
+      - x: -147
+        y: 0
+        z: -121
+      - x: -148
+        y: 0
+        z: -121
+      - x: -149
+        y: 0
+        z: -121
+      - x: -150
+        y: 0
+        z: -121
+      - x: -151
+        y: 0
+        z: -121
+      - x: -152
+        y: 0
+        z: -121
+      - x: -153
+        y: 0
+        z: -121
+      - x: -154
+        y: 0
+        z: -121
+      - x: -155
+        y: 0
+        z: -121
+      - x: -156
+        y: 0
+        z: -121
+      - x: -157
+        y: 0
+        z: -121
+      - x: -158
+        y: 0
+        z: -120
+      - x: -158
+        y: 0
+        z: -119
+      - x: -157
+        y: 0
+        z: -118
+      - x: -157
+        y: 0
+        z: -117
+      - x: -157
+        y: 0
+        z: -116
+      - x: -156
+        y: 0
+        z: -115
+      - x: -156
+        y: 0
+        z: -114
+      - x: -155
+        y: 0
+        z: -113
+      - x: -154
+        y: 0
+        z: -112
+      - x: -153
+        y: 0
+        z: -111
+      - x: -152
+        y: 0
+        z: -109
+      - x: -151
+        y: 0
+        z: -108
+      - x: -150
+        y: 0
+        z: -107
+      - x: -149
+        y: 0
+        z: -106
+      - x: -148
+        y: 0
+        z: -106
+      - x: -147
+        y: 0
+        z: -106
+      - x: -146
+        y: 0
+        z: -105
+      - x: -145
+        y: 0
+        z: -105
+      - x: -144
+        y: 0
+        z: -105
+      - x: -143
+        y: 0
+        z: -105
+      - x: -142
+        y: 0
+        z: -106
+      - x: -142
+        y: 0
+        z: -107
+      - x: -140
+        y: 0
+        z: -110
+      - x: -140
+        y: 0
+        z: -111
+      - x: -140
+        y: 0
+        z: -112
+      - x: -141
+        y: 0
+        z: -114
+      - x: -141
+        y: 0
+        z: -115
+      - x: -141
+        y: 0
+        z: -116
+      - x: -141
+        y: 0
+        z: -117
+      - x: -141
+        y: 0
+        z: -118
+      - x: -142
+        y: 0
+        z: -119
+      - x: -143
+        y: 0
+        z: -121
+      - x: -143
+        y: 0
+        z: -122
+      - x: -144
+        y: 0
+        z: -123
+      - x: -145
+        y: 0
+        z: -125
+      - x: -146
+        y: 0
+        z: -126
+      - x: -146
+        y: 0
+        z: -127
+      - x: -147
+        y: 0
+        z: -128
+      - x: -149
+        y: 0
+        z: -128
+      - x: -150
+        y: 0
+        z: -129
+      - x: -151
+        y: 0
+        z: -129
+      - x: -152
+        y: 0
+        z: -129
+      - x: -153
+        y: 0
+        z: -129
+      - x: -154
+        y: 0
+        z: -128
+      - x: -155
+        y: 0
+        z: -128
+      - x: -156
+        y: 0
+        z: -128
+      - x: -157
+        y: 0
+        z: -127
+      - x: -157
+        y: 0
+        z: -126
+      - x: -158
+        y: 0
+        z: -125
+      - x: -158
+        y: 0
+        z: -124
+      - x: -159
+        y: 0
+        z: -123
+      - x: -159
+        y: 0
+        z: -122
+      - x: -159
+        y: 0
+        z: -121
+      - x: -159
+        y: 0
+        z: -120
+      - x: -159
+        y: 0
+        z: -119
+      - x: -160
+        y: 0
+        z: -118
+      - x: -160
+        y: 0
+        z: -115
+      - x: -159
+        y: 0
+        z: -112
+      - x: -158
+        y: 0
+        z: -111
+      - x: -158
+        y: 0
+        z: -110
+      m_Values:
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+      - m_TileSetIndex: 0
+        m_Flags: 0
+  m_DebugClearTilesButton: 0
+  m_DebugSelectedTileSetIndex: 0
+  m_DebugSelectedTileName: tile_087
+  m_DebugCursorCoord:
+    x: -191
+    y: 0
+    z: -138
+  m_DebugTileCount: 336
 --- !u!1 &1282295938
 GameObject:
   m_ObjectHideFlags: 0

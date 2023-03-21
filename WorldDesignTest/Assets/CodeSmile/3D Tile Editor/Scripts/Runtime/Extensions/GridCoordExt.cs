@@ -13,7 +13,9 @@ namespace CodeSmile.Tile
 {
 	public static class GridCoordExt
 	{
-		public static Vector2Int ToCoord2d(this GridCoord coord) => new Vector2Int(coord.x, coord.z);
+		public static Vector2Int ToCoord2d(this GridCoord coord) => new(coord.x, coord.z);
+
+		public static RectInt MakeRect(this GridCoord coord, GridCoord other) => TileGrid.MakeRect(coord, other);
 
 		public static IReadOnlyList<GridCoord> MakeLine(this GridCoord coord1, GridCoord coord2) =>
 			MakeLine(coord1.x, coord1.z, coord2.x, coord2.z);

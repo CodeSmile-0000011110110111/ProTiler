@@ -141,7 +141,7 @@ namespace CodeSmileEditor.Tile
 			if (editMode == EditMode.PenDraw)
 			{
 				UpdateCursorCoord();
-				DrawLine(m_StartSelectionCoord, m_CursorCoord, m_IsClearingTiles);
+				Layer.DrawLine(m_StartSelectionCoord, m_CursorCoord, TileEditorState.instance.DrawingTileSetIndex);
 			}
 			UpdateStartSelectionCoord();
 
@@ -155,7 +155,7 @@ namespace CodeSmileEditor.Tile
 			{
 				UpdateCursorCoord();
 				if (editMode == EditMode.PenDraw)
-					DrawLine(m_StartSelectionCoord, m_StartSelectionCoord, m_IsClearingTiles);
+					Layer.DrawLine(m_StartSelectionCoord, m_CursorCoord, TileEditorState.instance.DrawingTileSetIndex);
 
 				m_IsDrawingTiles = false;
 				m_IsClearingTiles = false;
@@ -259,20 +259,7 @@ namespace CodeSmileEditor.Tile
 
 		private bool IsLeftMouseButtonDown() => m_InputState.IsButtonDown(MouseButton.LeftMouse);
 
-		private void DrawTile(GridCoord coord, bool clear)
-		{
-			if (clear)
-				Layer.ClearTile(coord);
-			else
-				Layer.DrawTile(coord);
-		}
 
-		private void DrawLine(GridCoord start, GridCoord end, bool clear)
-		{
-			var coords = start.MakeLine(end);
-			foreach (var coord in coords)
-				DrawTile(coord, clear);
-		}
 
 		private void DrawCursorHandle()
 		{

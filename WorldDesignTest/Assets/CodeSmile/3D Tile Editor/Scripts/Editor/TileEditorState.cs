@@ -11,6 +11,7 @@ namespace CodeSmileEditor.Tile
 	internal sealed class TileEditorState : ScriptableSingleton<TileEditorState>
 	{
 		[SerializeField] private EditMode m_EditMode = EditMode.Selection;
+		[SerializeField] private int m_DrawingTileSetIndex;
 		public EditMode EditMode
 		{
 			get => m_EditMode;
@@ -19,6 +20,11 @@ namespace CodeSmileEditor.Tile
 				m_EditMode = value;
 				Save(true);
 			}
+		}
+		public int DrawingTileSetIndex
+		{
+			get => m_DrawingTileSetIndex;
+			set => m_DrawingTileSetIndex = value;
 		}
 
 		// save on exit in case any property does not get immediately saved

@@ -1,7 +1,6 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
-using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
@@ -24,15 +23,10 @@ namespace CodeSmile.Tile
 			if (GetComponentsInChildren<TileLayer>().Length == 0)
 			{
 				name = nameof(TileWorld);
-				CreateNewLayer("Layer");
+				CreateNewTileLayer("TileLayer");
 			}
 		}
 
-		private void CreateNewLayer(string name)
-		{
-			var go = new GameObject(name, typeof(TileLayer));
-			go.hideFlags = Global.TileHideFlags;
-			go.transform.parent = transform;
-		}
+		private void CreateNewTileLayer(string name) => new GameObject(name, typeof(TileLayer)).transform.parent = transform;
 	}
 }
