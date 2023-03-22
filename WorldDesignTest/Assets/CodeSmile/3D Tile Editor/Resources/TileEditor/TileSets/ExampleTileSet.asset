@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 959ec10b09b340d189983580b3070567, type: 3}
+  m_Name: ExampleTileSet
+  m_EditorClassIdentifier: 
+  m_Grid:
+    m_GridSize:
+      x: 10
+      y: 1
+      z: 10
+  m_TileAnchor: 0
+  m_DragDropPrefabsHereToAdd: []
+  m_Tiles:
+  - m_DisplayName: 'Category0: ExampleTile0'
+    m_Prefab: {fileID: 2950151417341406190, guid: eed6895ddbbd644429ad76a4a1097f67, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: ExampleTile1'
+    m_Prefab: {fileID: 2950151417341406190, guid: 39a15d94c0296814c95b3f61102072e0, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  m_TileCursorHeight: 2

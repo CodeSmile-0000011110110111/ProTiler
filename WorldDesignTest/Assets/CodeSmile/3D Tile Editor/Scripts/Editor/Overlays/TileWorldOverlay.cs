@@ -79,7 +79,7 @@ namespace CodeSmileEditor.Tile
 
 		public TileWorldSelectionToggle()
 		{
-			value = TileEditorState.instance.EditMode == EditMode.Selection;
+			value = TileEditorState.instance.TileEditMode == TileEditMode.Selection;
 			tooltip = "Select Tiles";
 
 			onIcon = AssetDatabase.LoadAssetAtPath<Texture2D>(Global.OverlayIconPath + "TileSelectionOnIcon.png");
@@ -91,7 +91,7 @@ namespace CodeSmileEditor.Tile
 		{
 			if (evt.newValue)
 			{
-				TileEditorState.instance.EditMode = EditMode.Selection;
+				TileEditorState.instance.TileEditMode = TileEditMode.Selection;
 				//EditorPrefs.SetInt(Global.EditorPrefEditMode, (int)EditMode.Selection);
 				//EditorWindow.GetWindow<TileWorldEditor>();
 				//var editor = Editor.FindObjectOfType<TileWorldEditor>();
@@ -107,7 +107,7 @@ namespace CodeSmileEditor.Tile
 
 		public TileWorldPenDrawingToggle()
 		{
-			value = TileEditorState.instance.EditMode == EditMode.PenDraw;
+			value = TileEditorState.instance.TileEditMode == TileEditMode.PenDraw;
 			tooltip = "Draw Tiles";
 
 			onIcon = AssetDatabase.LoadAssetAtPath<Texture2D>(Global.OverlayIconPath + "TilePenDrawingOnIcon.png");
@@ -117,7 +117,7 @@ namespace CodeSmileEditor.Tile
 
 		private void OnToggleChange(ChangeEvent<bool> evt)
 		{
-			TileEditorState.instance.EditMode = EditMode.PenDraw;
+			TileEditorState.instance.TileEditMode = TileEditMode.PenDraw;
 			//EditorPrefs.SetInt(Global.EditorPrefEditMode, (int)EditMode.PenDraw);
 		}
 	}
@@ -129,7 +129,7 @@ namespace CodeSmileEditor.Tile
 
 		public TileWorldRectDrawingToggle()
 		{
-			value = TileEditorState.instance.EditMode == EditMode.RectFill;
+			value = TileEditorState.instance.TileEditMode == TileEditMode.RectFill;
 			tooltip = "Rectangle Fill Tiles";
 
 			onIcon = AssetDatabase.LoadAssetAtPath<Texture2D>(Global.OverlayIconPath + "TileRectDrawingOnIcon.png");
@@ -139,7 +139,7 @@ namespace CodeSmileEditor.Tile
 
 		private void OnToggleChange(ChangeEvent<bool> evt)
 		{
-			TileEditorState.instance.EditMode = EditMode.RectFill;
+			TileEditorState.instance.TileEditMode = TileEditMode.RectFill;
 			//EditorPrefs.SetInt(Global.EditorPrefEditMode, (int)EditMode.RectFill);
 		}
 	}

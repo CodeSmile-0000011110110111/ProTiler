@@ -25,7 +25,6 @@ namespace CodeSmile.Tile
 
 			UpdateDebugTileCount();
 			ClampGridSize();
-			DebugClampTileSetIndex();
 			DebugSetTileName();
 		}
 
@@ -36,8 +35,7 @@ namespace CodeSmile.Tile
 			renderer.enabled = true;
 		}));
 
-		private void DebugSetTileName() => m_DebugSelectedTileName =
-			TileSet != null ? TileSet.GetPrefab(m_DebugSelectedTileSetIndex)?.name : "<TileSet missing>";
+		private void DebugSetTileName() => m_DebugSelectedTileName = TileSet.GetPrefab(m_DrawBrush.TileSetIndex)?.name;
 
 		private void ClampGridSize()
 		{

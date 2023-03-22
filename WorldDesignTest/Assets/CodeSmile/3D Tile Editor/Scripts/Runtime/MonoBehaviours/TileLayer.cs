@@ -2,9 +2,7 @@
 // Refer to included LICENSE file for terms and conditions.
 
 using System;
-using System.Collections.Generic;
 using Unity.Mathematics;
-using UnityEditor;
 using UnityEngine;
 using GridCoord = Unity.Mathematics.int3;
 using GridSize = Unity.Mathematics.int3;
@@ -23,6 +21,8 @@ namespace CodeSmile.Tile
 
 	public sealed partial class TileLayer : MonoBehaviour
 	{
+		private static TileSet s_ExampleTileSet;
+
 		[Header("Layer Settings")]
 		[SerializeField] private LayerType m_LayerType = LayerType.Tile;
 		[SerializeField] private TileSet m_TileSet;
@@ -30,21 +30,13 @@ namespace CodeSmile.Tile
 
 		[Header("Debug")]
 		[SerializeField] private bool m_DebugClearTilesButton;
-		[SerializeField] private int m_DebugSelectedTileSetIndex;
 		[ReadOnlyField] [SerializeField] private string m_DebugSelectedTileName;
-		[ReadOnlyField] [SerializeField] private GridCoord m_DebugCursorCoord;
 		[ReadOnlyField] [SerializeField] private int m_DebugTileCount;
 
 		private int m_TileSetInstanceId;
 		private TileLayerRenderer m_LayerRenderer;
 		private TilePreviewRenderer m_PreviewRenderer;
-
-		// TODO: refactor
-		//public Action<GridCoord, TileData> OnSetTile;
-		//public Action OnClearAllTiles;
-		//public Action<IReadOnlyList<GridCoord>, IReadOnlyList<TileData>> OnSetTiles;
-		//public Action<GridRect> OnSetTilesInRect;
-		//public Action<GridCoord, TileFlags> OnTileFlagsChanged;
+		private TileBrush m_DrawBrush = new(GridCoord.zero, 0);
 
 		private void Reset() => OnEnable(); // Editor will not call OnEnable when layer added during Reset
 
@@ -61,13 +53,15 @@ namespace CodeSmile.Tile
 
 		public override string ToString() => name;
 
-		private void DebugClampTileSetIndex()
-		{
-			if (m_TileSet != null && m_TileSet.IsEmpty == false)
-				m_DebugSelectedTileSetIndex = Mathf.Clamp(m_DebugSelectedTileSetIndex, 0, m_TileSet.Count - 1);
-		}
-
 		private void UpdateDebugTileCount() => m_DebugTileCount = m_TileDataContainer.Count;
+
+		private TileSet GetExampleTileSet()
+		{
+			if (s_ExampleTileSet == null)
+				s_ExampleTileSet = Resources.Load<TileSet>(Global.TileEditorResourceTileSetsPath + "ExampleTileSet");
+
+			return s_ExampleTileSet;
+		}
 
 		/*
 		public void SetTiles(GridRect gridSelection, bool clear = false)
@@ -79,17 +73,17 @@ namespace CodeSmile.Tile
 		}
 		*/
 
-		public void DrawLine(GridCoord start, GridCoord end, int tileSetIndex)
+		public void DrawLine(GridCoord start, GridCoord end)
 		{
-			this.RecordUndoInEditor(tileSetIndex < 0 ? "Clear Tiles" : "Draw Tiles");
+			this.RecordUndoInEditor(m_DrawBrush.IsClearing ? "Clear Tiles" : "Draw Tiles");
 			var coords = start.MakeLine(end);
-			var tiles = m_TileDataContainer.SetTiles(coords, tileSetIndex);
+			var tiles = m_TileDataContainer.SetTiles(coords, m_DrawBrush.TileSetIndex);
 			UpdateDebugTileCount();
 			this.SetDirtyInEditor();
 
 			m_LayerRenderer.RedrawTiles(coords, tiles);
 		}
-		
+
 		/*public void DrawTile(GridCoord coord, int tileSetIndex)
 		{
 			this.RecordUndoInEditor(tileSetIndex < 0 ? "Clear Tile" : "Draw Tile");
@@ -115,7 +109,7 @@ namespace CodeSmile.Tile
 			this.RecordUndoInEditor(nameof(SetTileFlags));
 			var tileFlags = m_TileDataContainer.SetTileFlags(coord, flags);
 			this.SetDirtyInEditor();
-			
+
 			m_LayerRenderer.UpdateTileFlagsAndRedraw(coord, tileFlags);
 		}
 

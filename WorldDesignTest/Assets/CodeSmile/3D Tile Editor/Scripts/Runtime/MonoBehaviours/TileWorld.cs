@@ -23,10 +23,16 @@ namespace CodeSmile.Tile
 			if (GetComponentsInChildren<TileLayer>().Length == 0)
 			{
 				name = nameof(TileWorld);
-				CreateNewTileLayer("TileLayer");
+				var layer = CreateNewTileLayer("TileLayer");
+				Selection.activeGameObject = layer;
 			}
 		}
 
-		private void CreateNewTileLayer(string name) => new GameObject(name, typeof(TileLayer)).transform.parent = transform;
+		private GameObject CreateNewTileLayer(string name)
+		{
+			var layer = new GameObject(name, typeof(TileLayer));
+			layer.transform.parent = transform;
+			return layer;
+		}
 	}
 }

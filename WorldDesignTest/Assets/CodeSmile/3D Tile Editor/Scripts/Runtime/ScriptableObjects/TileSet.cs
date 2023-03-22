@@ -3,7 +3,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Unity.Mathematics;
 using UnityEngine;
 using GridCoord = Unity.Mathematics.int3;
@@ -16,12 +15,42 @@ namespace CodeSmile.Tile
 	[CreateAssetMenu(fileName = "New TileSet", menuName = Global.TileEditorName + "/TileSet", order = 0)]
 	public partial class TileSet : ScriptableObject
 	{
+		private static GameObject s_MissingTilePrefab;
+		private static GameObject s_ClearingTilePrefab;
 		[SerializeField] private TileGrid m_Grid = new(new GridSize(10, 1, 10));
 		[SerializeField] private TileAnchor m_TileAnchor;
 		[SerializeField] private List<GameObject> m_DragDropPrefabsHereToAdd = new();
 		[SerializeField] private List<TileSetTile> m_Tiles = new();
 		[SerializeField] private float m_TileCursorHeight = 2f;
-		public TileGrid Grid { get => m_Grid; set => m_Grid = value; }
+
+		public TileGrid Grid
+		{
+			get => m_Grid;
+			set
+			{
+				if (m_Grid != value)
+				{
+					m_Grid = value;
+					UpdateMissingTileSize();
+				}
+			}
+		}
+
+		//public Tile GetPrefabIndex(int index) => m_Tiles[index];
+
+		public bool IsEmpty { get => m_Tiles.Count == 0; }
+		public int Count { get => m_Tiles.Count; }
+		public IReadOnlyList<TileSetTile> Tiles { get => m_Tiles.AsReadOnly(); }
+		public float TileCursorHeight { get => m_TileCursorHeight; set => m_TileCursorHeight = value; }
+
+		private void UpdateMissingTileSize()
+		{
+			if (s_MissingTilePrefab != null)
+			{
+				var size = m_Grid.Size;
+				s_MissingTilePrefab.transform.localScale = new Vector3(size.x, size.y, size.z);
+			}
+		}
 
 		public float3 GetTileOffset()
 		{
@@ -45,15 +74,24 @@ namespace CodeSmile.Tile
 			m_DragDropPrefabsHereToAdd.Clear();
 		}
 
-		public GameObject GetPrefab(int index) => index >= 0 && index < m_Tiles.Count ? m_Tiles[index].Prefab : null;
+		public GameObject GetPrefab(int index) => index >= 0 && index < m_Tiles.Count ? m_Tiles[index].Prefab : GetSpecialTilePrefab(index);
+
+		private GameObject GetSpecialTilePrefab(int index)
+		{
+			if (index < 0)
+			{
+				if (s_ClearingTilePrefab == null)
+					s_ClearingTilePrefab = Resources.Load<GameObject>(Global.TileEditorResourcePrefabsPath + "ClearingTile");
+				return s_ClearingTilePrefab;
+			}
+
+			if (s_MissingTilePrefab == null)
+				s_MissingTilePrefab = Resources.Load<GameObject>(Global.TileEditorResourcePrefabsPath + "MissingTile");
+
+			UpdateMissingTileSize();
+			return s_MissingTilePrefab;
+		}
 
 		public void SetPrefab(int index, GameObject prefab) => m_Tiles[index].Prefab = prefab;
-
-		//public Tile GetPrefabIndex(int index) => m_Tiles[index];
-
-		public bool IsEmpty => m_Tiles.Count == 0;
-		public int Count => m_Tiles.Count;
-		public IReadOnlyList<TileSetTile> Tiles => m_Tiles.AsReadOnly();
-		public float TileCursorHeight { get => m_TileCursorHeight; set => m_TileCursorHeight = value; }
 	}
 }

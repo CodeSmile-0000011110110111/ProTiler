@@ -34,7 +34,7 @@ namespace CodeSmile.Tile
 		private const int MaxDrawDistance = 128;
 
 		[Range(MinDrawDistance, MaxDrawDistance)]
-		[SerializeField] private int m_DrawDistance = MinDrawDistance;
+		[SerializeField] private int m_DrawDistance = 20;
 		[SerializeField] private float m_VisibleRectDistance = 5f;
 
 		private TileLayer m_Layer;

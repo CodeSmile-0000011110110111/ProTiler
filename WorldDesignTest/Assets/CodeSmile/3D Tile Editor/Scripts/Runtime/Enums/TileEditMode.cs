@@ -3,7 +3,7 @@
 
 namespace CodeSmileEditor.Tile
 {
-	public enum EditMode
+	public enum TileEditMode
 	{
 		Selection,
 		PenDraw,

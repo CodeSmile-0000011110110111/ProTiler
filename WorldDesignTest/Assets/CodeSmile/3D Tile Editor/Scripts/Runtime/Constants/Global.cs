@@ -11,11 +11,15 @@ namespace CodeSmile.Tile
 {
 	public static class Global
 	{
-		public const string TileEditorName = "Fliesenleger 3D";
+		public const string TileEditorName = "ProTiler"; 
+		// Previously named (but not known) as:
+		//public const string TileEditorName = "Fliesenleger 3D";
 
 		public const string TileEditorIconPathRoot = "Assets/Gizmos/CodeSmile/TileEditor/";
 		public const string OverlayIconPath = TileEditorIconPathRoot + "Overlays/";
 		public const string EditorToolsIconPath = TileEditorIconPathRoot + "EditorTools/";
+		public const string TileEditorResourcePrefabsPath = "TileEditor/Prefabs/";
+		public const string TileEditorResourceTileSetsPath = "TileEditor/TileSets/";
 		
 
 		public const int InvalidTileSetIndex = -1;

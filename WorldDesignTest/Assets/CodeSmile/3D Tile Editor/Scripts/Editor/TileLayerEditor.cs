@@ -14,7 +14,7 @@ using GridRect = UnityEngine.RectInt;
 namespace CodeSmileEditor.Tile
 {
 	[CustomEditor(typeof(TileLayer))]
-	public class TileLayerEditor : Editor
+	public partial class TileLayerEditor : Editor
 	{
 		private readonly EditorInputState m_InputState = new();
 		private GridCoord m_StartSelectionCoord;
@@ -33,11 +33,11 @@ namespace CodeSmileEditor.Tile
 			if (Selection.activeGameObject != Layer.gameObject)
 				return;
 
-			var editMode = TileEditorState.instance.EditMode;
+			var editMode = TileEditorState.instance.TileEditMode;
 
 			var previewRenderer = Layer.GetComponent<TilePreviewRenderer>();
 			if (previewRenderer != null)
-				previewRenderer.ShowPreview = m_IsMouseInView && editMode != EditMode.Selection;
+				previewRenderer.ShowPreview = m_IsMouseInView && editMode != TileEditMode.Selection;
 
 			m_InputState?.Update();
 
@@ -68,9 +68,10 @@ namespace CodeSmileEditor.Tile
 					OnMouseWheelChangeSelectedTileSetIndex();
 					break;
 				case EventType.KeyDown:
-					HandleShortcuts();
+					HandleKeyDown();
 					break;
 				case EventType.KeyUp:
+					HandleKeyUp();
 					break;
 				case EventType.TouchMove:
 					Debug.Log($"{Event.current.type}");
@@ -116,7 +117,7 @@ namespace CodeSmileEditor.Tile
 					EndTileDrawing(editMode);
 					break;
 				case EventType.Repaint:
-					if (m_IsMouseInView && editMode == EditMode.PenDraw)
+					if (m_IsMouseInView && editMode == TileEditMode.PenDraw)
 						DrawCursorHandle();
 					break;
 			}
@@ -125,133 +126,72 @@ namespace CodeSmileEditor.Tile
 		private void OnMouseWheelChangeSelectedTileSetIndex()
 		{
 			var ev = Event.current;
-			if (ev.shift)
+			if (ev.control)
 			{
 				var delta = ev.delta.y >= 0 ? 1 : -1;
-				var index = TileEditorState.instance.DrawingTileSetIndex + delta;
-				TileEditorState.instance.DrawingTileSetIndex = math.clamp(index, 0, Layer.TileSet.Count - 1);
-				Layer.DebugSelectedTileSetIndex = TileEditorState.instance.DrawingTileSetIndex;
+				SetDrawTileSetIndex(GetDrawTileSetIndex() + delta);
+				SetLayerBrush();
 				ev.Use();
 			}
 		}
 
-		private void StartTileDrawing(EditMode editMode)
+		private void SetDrawTileSetIndex(int tileSetIndex)
+		{
+			tileSetIndex = math.clamp(tileSetIndex, 0, Layer.TileSet.Count - 1);
+			TileEditorState.instance.DrawTileSetIndex = tileSetIndex;
+		}
+
+		private TileBrush CreateDrawBrush(bool clear) =>
+			new(m_CursorCoord, clear ? Global.InvalidTileSetIndex : TileEditorState.instance.DrawTileSetIndex);
+
+		private int GetDrawTileSetIndex() => TileEditorState.instance.DrawTileSetIndex;
+
+		private void StartTileDrawing(TileEditMode tileEditMode)
 		{
 			UpdateStartSelectionCoord();
 			UpdateCursorCoord();
-			if (editMode == EditMode.PenDraw)
+			if (tileEditMode == TileEditMode.PenDraw)
 			{
 				m_IsDrawingTiles = true;
-				m_IsClearingTiles = Event.current.shift;
+				SetLayerBrush();
 			}
 
-			if (editMode != EditMode.Selection)
+			if (tileEditMode != TileEditMode.Selection)
 				Event.current.Use();
 		}
 
-		private void ContinueTileDrawing(EditMode editMode)
+		private void SetLayerBrush() => Layer.DrawBrush = CreateDrawBrush(m_IsClearingTiles);
+
+		private void ContinueTileDrawing(TileEditMode tileEditMode)
 		{
-			if (editMode == EditMode.PenDraw)
+			if (tileEditMode == TileEditMode.PenDraw)
 			{
 				UpdateCursorCoord();
 				DrawFromStartToCursor();
 			}
 			UpdateStartSelectionCoord();
 
-			if (editMode != EditMode.Selection)
+			if (tileEditMode != TileEditMode.Selection)
 				Event.current.Use();
 		}
 
-		private void EndTileDrawing(EditMode editMode)
+		private void EndTileDrawing(TileEditMode tileEditMode)
 		{
 			if (m_IsDrawingTiles)
 			{
 				UpdateCursorCoord();
-				if (editMode == EditMode.PenDraw)
+				if (tileEditMode == TileEditMode.PenDraw)
 					DrawFromStartToCursor();
 
 				m_IsDrawingTiles = false;
-				m_IsClearingTiles = false;
+				UpdateClearingState();
 
-				if (editMode != EditMode.Selection)
+				if (tileEditMode != TileEditMode.Selection)
 					Event.current.Use();
 			}
 		}
 
-		private void DrawFromStartToCursor()
-		{
-			var index = m_IsClearingTiles ? Global.InvalidTileSetIndex : TileEditorState.instance.DrawingTileSetIndex;
-			Layer.DrawLine(m_StartSelectionCoord, m_CursorCoord, index);
-		}
-
-		private void HandleShortcuts()
-		{
-			var shouldUseEvent = false;
-			switch (Event.current.keyCode)
-			{
-				case KeyCode.LeftArrow:
-				case KeyCode.RightArrow:
-				case KeyCode.UpArrow:
-				case KeyCode.DownArrow:
-					Layer.ClearTileFlags(m_CursorCoord, TileFlags.DirectionNorth);
-					Layer.ClearTileFlags(m_CursorCoord, TileFlags.DirectionSouth);
-					Layer.ClearTileFlags(m_CursorCoord, TileFlags.DirectionEast);
-					Layer.ClearTileFlags(m_CursorCoord, TileFlags.DirectionWest);
-					break;
-			}
-
-			//Debug.Log($"{Event.current.type}: {Event.current.keyCode}" );
-
-			switch (Event.current.keyCode)
-			{
-				case KeyCode.F:
-				{
-					var camera = Camera.current;
-					camera.transform.position = Layer.Grid.ToWorldPosition(m_CursorCoord);
-					shouldUseEvent = true;
-					break;
-				}
-				case KeyCode.H:
-				{
-					var tile = Layer.GetTileData(m_CursorCoord);
-					if (tile.TileSetIndex < 0)
-						break;
-
-					if (tile.Flags.HasFlag(TileFlags.FlipHorizontal))
-						Layer.ClearTileFlags(m_CursorCoord, TileFlags.FlipHorizontal);
-					else
-						Layer.SetTileFlags(m_CursorCoord, TileFlags.FlipHorizontal);
-					break;
-				}
-				case KeyCode.V:
-				{
-					var tile = Layer.GetTileData(m_CursorCoord);
-					if (tile.TileSetIndex < 0)
-						break;
-
-					if (tile.Flags.HasFlag(TileFlags.FlipVertical))
-						Layer.ClearTileFlags(m_CursorCoord, TileFlags.FlipVertical);
-					else
-						Layer.SetTileFlags(m_CursorCoord, TileFlags.FlipVertical);
-					break;
-				}
-				case KeyCode.LeftArrow:
-					Layer.SetTileFlags(m_CursorCoord, TileFlags.DirectionWest);
-					break;
-				case KeyCode.RightArrow:
-					Layer.SetTileFlags(m_CursorCoord, TileFlags.DirectionEast);
-					break;
-				case KeyCode.UpArrow:
-					Layer.SetTileFlags(m_CursorCoord, TileFlags.DirectionNorth);
-					break;
-				case KeyCode.DownArrow:
-					Layer.SetTileFlags(m_CursorCoord, TileFlags.DirectionSouth);
-					break;
-			}
-
-			if (shouldUseEvent)
-				Event.current.Use();
-		}
+		private void DrawFromStartToCursor() => Layer.DrawLine(m_StartSelectionCoord, m_CursorCoord);
 
 		private void UpdateStartSelectionCoord()
 		{
@@ -269,7 +209,7 @@ namespace CodeSmileEditor.Tile
 			if (HandleUtilityExt.GUIPointToGridCoord(MousePos, Grid, out var coord, planeY))
 			{
 				m_CursorCoord = coord;
-				Layer.DebugCursorCoord = coord;
+				SetLayerBrush();
 				UpdateSelectionRect();
 			}
 		}
@@ -285,6 +225,19 @@ namespace CodeSmileEditor.Tile
 			var cubePos = worldRect.GetWorldCenter() + worldPos;
 			var cubeSize = worldRect.GetWorldSize(Layer.TileCursorHeight);
 			Handles.DrawWireCube(cubePos, cubeSize);
+		}
+
+		private void UpdateClearingState()
+		{
+			if (m_IsDrawingTiles == false)
+			{
+				var isHoldingShift = Event.current.shift;
+				if (m_IsClearingTiles != isHoldingShift)
+				{
+					m_IsClearingTiles = isHoldingShift;
+					SetLayerBrush();
+				}
+			}
 		}
 	}
 }

@@ -3,6 +3,7 @@
 
 using System;
 using Unity.Mathematics;
+using UnityEngine;
 
 namespace CodeSmile.Tile
 {
@@ -11,7 +12,13 @@ namespace CodeSmile.Tile
 		public TileDataContainer TileDataContainer { get => m_TileDataContainer; set => m_TileDataContainer = value; }
 		public TileSet TileSet
 		{
-			get => m_TileSet;
+			get
+			{
+				if (m_TileSet == null)
+					m_TileSet = GetExampleTileSet();
+				
+				return m_TileSet;
+			}
 			set => m_TileSet = value;
 		}
 		public TileGrid Grid
@@ -34,16 +41,16 @@ namespace CodeSmile.Tile
 					m_TileSet.TileCursorHeight = value;
 			}
 		}
-		public int DebugSelectedTileSetIndex
+
+		public LayerType LayerType { get => m_LayerType; set => m_LayerType = value; }
+		public TileBrush DrawBrush
 		{
-			get => m_DebugSelectedTileSetIndex;
+			get => m_DrawBrush;
 			set
 			{
-				m_DebugSelectedTileSetIndex = value;
-				DebugClampTileSetIndex();
+				m_DrawBrush = value;
+				DebugSetTileName();
 			}
 		}
-		public int3 DebugCursorCoord { get => m_DebugCursorCoord; set => m_DebugCursorCoord = value; }
-		public LayerType LayerType { get => m_LayerType; set => m_LayerType = value; }
 	}
 }
