@@ -124,10 +124,6 @@ namespace CodeSmile.Tile
 
 		public TileData GetTileData(GridCoord coord) => m_TileDataContainer.GetTile(coord);
 
-		public float3 GetTilePosition(GridCoord coord)
-		{
-			var tileOffset = m_TileSet != null ? m_TileSet.GetTileOffset() : float3.zero;
-			return Grid.ToWorldPosition(coord) + tileOffset + (float3)transform.position;
-		}
+		public float3 GetTilePosition(GridCoord coord) => Grid.ToWorldPosition(coord) + TileSet.GetTileOffset() + (float3)transform.position;
 	}
 }

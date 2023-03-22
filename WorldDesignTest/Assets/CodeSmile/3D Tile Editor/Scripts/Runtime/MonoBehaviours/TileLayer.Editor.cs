@@ -13,14 +13,11 @@ namespace CodeSmile.Tile
 				StartCoroutine(new WaitForFramesElapsed(1, () => { ClearAllTiles(); }));
 			}
 
-			if (m_TileSet != null)
+			var tileSetId = TileSet.GetInstanceID();
+			if (m_TileSetInstanceId != tileSetId)
 			{
-				var tileSetId = m_TileSet.GetInstanceID();
-				if (m_TileSetInstanceId != tileSetId)
-				{
-					m_TileSetInstanceId = tileSetId;
-					ForceUpdateTileLayerRenderer();
-				}
+				m_TileSetInstanceId = tileSetId;
+				ForceUpdateTileLayerRenderer();
 			}
 
 			UpdateDebugTileCount();

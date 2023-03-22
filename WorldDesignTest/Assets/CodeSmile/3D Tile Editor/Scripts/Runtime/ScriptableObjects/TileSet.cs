@@ -21,7 +21,6 @@ namespace CodeSmile.Tile
 		[SerializeField] private TileAnchor m_TileAnchor;
 		[SerializeField] private List<GameObject> m_DragDropPrefabsHereToAdd = new();
 		[SerializeField] private List<TileSetTile> m_Tiles = new();
-		[SerializeField] private float m_TileCursorHeight = 2f;
 
 		public TileGrid Grid
 		{
@@ -41,7 +40,6 @@ namespace CodeSmile.Tile
 		public bool IsEmpty { get => m_Tiles.Count == 0; }
 		public int Count { get => m_Tiles.Count; }
 		public IReadOnlyList<TileSetTile> Tiles { get => m_Tiles.AsReadOnly(); }
-		public float TileCursorHeight { get => m_TileCursorHeight; set => m_TileCursorHeight = value; }
 
 		private void UpdateMissingTileSize()
 		{

@@ -223,7 +223,7 @@ namespace CodeSmileEditor.Tile
 			var worldRect = TileGrid.ToWorldRect(m_SelectionRect, Grid.Size);
 			var worldPos = Layer.transform.position;
 			var cubePos = worldRect.GetWorldCenter() + worldPos;
-			var cubeSize = worldRect.GetWorldSize(Layer.TileCursorHeight);
+			var cubeSize = worldRect.GetWorldSize(Layer.Grid.Size.y);
 			Handles.DrawWireCube(cubePos, cubeSize);
 		}
 

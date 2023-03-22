@@ -9,7 +9,7 @@ namespace CodeSmileEditor.Tile
 {
 	public static class ReloadActiveScene
 	{
-		private const string MenuItemText = "CodeSmile/Reload Scene #%r";
+		private const string MenuItemText = "Tools/CodeSmile/Reload Scene #%r";
 
 		[MenuItem(MenuItemText)]
 		public static void ReloadScene()

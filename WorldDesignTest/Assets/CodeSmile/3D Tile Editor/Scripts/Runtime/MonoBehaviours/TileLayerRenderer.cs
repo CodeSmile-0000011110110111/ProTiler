@@ -96,8 +96,11 @@ namespace CodeSmile.Tile
 
 		private void DelayedForceRepaint()
 		{
-			StopAllCoroutines();
-			StartCoroutine(new WaitForFramesElapsed(1, () => ForceRedraw()));
+			if (enabled && gameObject.activeInHierarchy)
+			{
+				StopAllCoroutines();
+				StartCoroutine(new WaitForFramesElapsed(1, () => ForceRedraw()));
+			}
 		}
 
 		private void ClampDrawDistance() => m_DrawDistance = math.clamp(m_DrawDistance, MinDrawDistance, MaxDrawDistance);
