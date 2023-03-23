@@ -58,7 +58,6 @@ public class TileEditorWindow : EditorWindow
 		var activeGameObject = Selection.activeGameObject;
 		if (activeGameObject != null)
 		{
-			Debug.Log($"active selection: {activeGameObject.name}");
 			var tileLayer = activeGameObject.GetComponent<TileLayer>();
 			if (tileLayer != null)
 			{

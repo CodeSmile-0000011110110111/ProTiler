@@ -809,6 +809,1647 @@ MonoBehaviour:
       - x: -8
         y: 0
         z: -14
+      - x: -10
+        y: 0
+        z: -20
+      - x: -7
+        y: 0
+        z: -20
+      - x: -7
+        y: 0
+        z: -23
+      - x: -8
+        y: 0
+        z: -23
+      - x: -9
+        y: 0
+        z: -23
+      - x: -10
+        y: 0
+        z: -23
+      - x: -11
+        y: 0
+        z: -23
+      - x: -12
+        y: 0
+        z: -23
+      - x: -13
+        y: 0
+        z: -23
+      - x: -14
+        y: 0
+        z: -23
+      - x: -15
+        y: 0
+        z: -23
+      - x: -16
+        y: 0
+        z: -23
+      - x: -17
+        y: 0
+        z: -23
+      - x: -18
+        y: 0
+        z: -23
+      - x: -19
+        y: 0
+        z: -24
+      - x: -20
+        y: 0
+        z: -24
+      - x: -21
+        y: 0
+        z: -24
+      - x: -22
+        y: 0
+        z: -24
+      - x: -23
+        y: 0
+        z: -24
+      - x: -24
+        y: 0
+        z: -24
+      - x: -25
+        y: 0
+        z: -24
+      - x: -26
+        y: 0
+        z: -24
+      - x: -27
+        y: 0
+        z: -24
+      - x: -28
+        y: 0
+        z: -24
+      - x: -29
+        y: 0
+        z: -24
+      - x: -30
+        y: 0
+        z: -24
+      - x: -7
+        y: 0
+        z: -12
+      - x: -7
+        y: 0
+        z: -13
+      - x: -7
+        y: 0
+        z: -14
+      - x: -7
+        y: 0
+        z: -15
+      - x: -7
+        y: 0
+        z: -16
+      - x: -7
+        y: 0
+        z: -17
+      - x: -7
+        y: 0
+        z: -18
+      - x: -7
+        y: 0
+        z: -19
+      - x: -6
+        y: 0
+        z: -20
+      - x: -6
+        y: 0
+        z: -21
+      - x: -6
+        y: 0
+        z: -22
+      - x: -6
+        y: 0
+        z: -23
+      - x: -6
+        y: 0
+        z: -24
+      - x: -6
+        y: 0
+        z: -25
+      - x: -6
+        y: 0
+        z: -26
+      - x: -6
+        y: 0
+        z: -27
+      - x: -6
+        y: 0
+        z: -18
+      - x: -6
+        y: 0
+        z: -17
+      - x: -5
+        y: 0
+        z: -17
+      - x: -5
+        y: 0
+        z: -16
+      - x: -5
+        y: 0
+        z: -15
+      - x: -5
+        y: 0
+        z: -14
+      - x: -6
+        y: 0
+        z: -16
+      - x: -5
+        y: 0
+        z: -13
+      - x: -5
+        y: 0
+        z: -12
+      - x: -6
+        y: 0
+        z: -15
+      - x: -5
+        y: 0
+        z: -11
+      - x: -6
+        y: 0
+        z: -14
+      - x: -6
+        y: 0
+        z: -13
+      - x: -6
+        y: 0
+        z: -12
+      - x: -6
+        y: 0
+        z: -11
+      - x: -6
+        y: 0
+        z: -19
+      - x: -4
+        y: 0
+        z: -18
+      - x: -7
+        y: 0
+        z: -26
+      - x: -8
+        y: 0
+        z: -27
+      - x: -8
+        y: 0
+        z: -28
+      - x: -9
+        y: 0
+        z: -21
+      - x: -9
+        y: 0
+        z: -22
+      - x: -10
+        y: 0
+        z: -22
+      - x: -8
+        y: 0
+        z: -22
+      - x: -7
+        y: 0
+        z: -22
+      - x: -10
+        y: 0
+        z: -24
+      - x: -11
+        y: 0
+        z: -24
+      - x: -12
+        y: 0
+        z: -24
+      - x: -13
+        y: 0
+        z: -24
+      - x: -13
+        y: 0
+        z: -25
+      - x: -14
+        y: 0
+        z: -25
+      - x: -14
+        y: 0
+        z: -26
+      - x: -13
+        y: 0
+        z: -26
+      - x: -12
+        y: 0
+        z: -26
+      - x: -11
+        y: 0
+        z: -26
+      - x: -10
+        y: 0
+        z: -26
+      - x: -9
+        y: 0
+        z: -26
+      - x: -9
+        y: 0
+        z: -25
+      - x: -8
+        y: 0
+        z: -25
+      - x: -7
+        y: 0
+        z: -25
+      - x: -7
+        y: 0
+        z: -24
+      - x: -8
+        y: 0
+        z: -20
+      - x: -8
+        y: 0
+        z: -21
+      - x: -8
+        y: 0
+        z: -19
+      - x: -7
+        y: 0
+        z: -10
+      - x: -8
+        y: 0
+        z: -10
+      - x: -8
+        y: 0
+        z: -9
+      - x: -9
+        y: 0
+        z: -9
+      - x: -9
+        y: 0
+        z: -8
+      - x: -11
+        y: 0
+        z: -22
+      - x: -7
+        y: 0
+        z: -21
+      - x: -8
+        y: 0
+        z: -24
+      - x: -8
+        y: 0
+        z: -26
+      - x: -15
+        y: 0
+        z: -26
+      - x: -16
+        y: 0
+        z: -27
+      - x: -17
+        y: 0
+        z: -27
+      - x: -18
+        y: 0
+        z: -27
+      - x: -17
+        y: 0
+        z: -26
+      - x: -16
+        y: 0
+        z: -26
+      - x: -15
+        y: 0
+        z: -25
+      - x: 4
+        y: 0
+        z: 3
+      - x: 4
+        y: 0
+        z: 4
+      - x: 4
+        y: 0
+        z: 5
+      - x: 4
+        y: 0
+        z: 6
+      - x: 4
+        y: 0
+        z: 7
+      - x: 4
+        y: 0
+        z: 8
+      - x: 3
+        y: 0
+        z: 9
+      - x: 3
+        y: 0
+        z: 10
+      - x: 3
+        y: 0
+        z: 11
+      - x: 3
+        y: 0
+        z: 12
+      - x: 3
+        y: 0
+        z: 13
+      - x: 2
+        y: 0
+        z: 14
+      - x: 2
+        y: 0
+        z: 15
+      - x: 2
+        y: 0
+        z: 16
+      - x: 2
+        y: 0
+        z: 17
+      - x: 2
+        y: 0
+        z: 18
+      - x: 1
+        y: 0
+        z: 19
+      - x: 1
+        y: 0
+        z: 20
+      - x: 1
+        y: 0
+        z: 21
+      - x: 1
+        y: 0
+        z: 22
+      - x: 0
+        y: 0
+        z: 23
+      - x: 0
+        y: 0
+        z: 24
+      - x: 0
+        y: 0
+        z: 25
+      - x: 0
+        y: 0
+        z: 26
+      - x: 0
+        y: 0
+        z: 27
+      - x: 0
+        y: 0
+        z: 28
+      - x: -1
+        y: 0
+        z: 29
+      - x: -1
+        y: 0
+        z: 30
+      - x: -1
+        y: 0
+        z: 31
+      - x: -1
+        y: 0
+        z: 32
+      - x: -1
+        y: 0
+        z: 33
+      - x: -1
+        y: 0
+        z: 34
+      - x: -2
+        y: 0
+        z: 35
+      - x: -2
+        y: 0
+        z: 36
+      - x: -2
+        y: 0
+        z: 37
+      - x: -2
+        y: 0
+        z: 38
+      - x: -3
+        y: 0
+        z: 39
+      - x: -3
+        y: 0
+        z: 40
+      - x: -3
+        y: 0
+        z: 41
+      - x: -4
+        y: 0
+        z: 42
+      - x: -4
+        y: 0
+        z: 43
+      - x: -5
+        y: 0
+        z: 44
+      - x: -5
+        y: 0
+        z: 45
+      - x: -5
+        y: 0
+        z: 46
+      - x: -5
+        y: 0
+        z: 47
+      - x: -5
+        y: 0
+        z: 48
+      - x: -6
+        y: 0
+        z: 49
+      - x: -6
+        y: 0
+        z: 50
+      - x: -6
+        y: 0
+        z: 51
+      - x: -7
+        y: 0
+        z: 52
+      - x: -8
+        y: 0
+        z: 53
+      - x: -8
+        y: 0
+        z: 54
+      - x: -8
+        y: 0
+        z: 55
+      - x: -9
+        y: 0
+        z: 56
+      - x: -9
+        y: 0
+        z: 57
+      - x: -10
+        y: 0
+        z: 58
+      - x: -10
+        y: 0
+        z: 59
+      - x: -10
+        y: 0
+        z: 60
+      - x: -11
+        y: 0
+        z: 61
+      - x: -11
+        y: 0
+        z: 62
+      - x: -12
+        y: 0
+        z: 63
+      - x: -12
+        y: 0
+        z: 64
+      - x: -13
+        y: 0
+        z: 65
+      - x: -14
+        y: 0
+        z: 66
+      - x: -14
+        y: 0
+        z: 67
+      - x: -14
+        y: 0
+        z: 68
+      - x: -15
+        y: 0
+        z: 69
+      - x: -15
+        y: 0
+        z: 70
+      - x: -16
+        y: 0
+        z: 71
+      - x: -16
+        y: 0
+        z: 72
+      - x: -17
+        y: 0
+        z: 73
+      - x: -17
+        y: 0
+        z: 74
+      - x: -18
+        y: 0
+        z: 75
+      - x: -19
+        y: 0
+        z: 76
+      - x: -19
+        y: 0
+        z: 77
+      - x: -20
+        y: 0
+        z: 78
+      - x: -20
+        y: 0
+        z: 79
+      - x: -21
+        y: 0
+        z: 80
+      - x: -21
+        y: 0
+        z: 81
+      - x: -22
+        y: 0
+        z: 82
+      - x: -22
+        y: 0
+        z: 83
+      - x: -23
+        y: 0
+        z: 84
+      - x: -23
+        y: 0
+        z: 85
+      - x: -24
+        y: 0
+        z: 86
+      - x: -24
+        y: 0
+        z: 87
+      - x: -25
+        y: 0
+        z: 88
+      - x: -25
+        y: 0
+        z: 89
+      - x: -26
+        y: 0
+        z: 90
+      - x: -26
+        y: 0
+        z: 91
+      - x: -26
+        y: 0
+        z: 92
+      - x: -27
+        y: 0
+        z: 93
+      - x: -27
+        y: 0
+        z: 94
+      - x: -28
+        y: 0
+        z: 95
+      - x: -28
+        y: 0
+        z: 96
+      - x: -29
+        y: 0
+        z: 97
+      - x: -29
+        y: 0
+        z: 98
+      - x: -30
+        y: 0
+        z: 99
+      - x: -30
+        y: 0
+        z: 100
+      - x: -31
+        y: 0
+        z: 101
+      - x: -31
+        y: 0
+        z: 102
+      - x: -32
+        y: 0
+        z: 103
+      - x: -32
+        y: 0
+        z: 104
+      - x: -33
+        y: 0
+        z: 105
+      - x: -33
+        y: 0
+        z: 106
+      - x: -34
+        y: 0
+        z: 107
+      - x: -34
+        y: 0
+        z: 108
+      - x: -35
+        y: 0
+        z: 109
+      - x: -35
+        y: 0
+        z: 110
+      - x: -36
+        y: 0
+        z: 111
+      - x: -36
+        y: 0
+        z: 112
+      - x: -37
+        y: 0
+        z: 113
+      - x: -37
+        y: 0
+        z: 114
+      - x: -38
+        y: 0
+        z: 115
+      - x: -38
+        y: 0
+        z: 116
+      - x: -39
+        y: 0
+        z: 117
+      - x: -39
+        y: 0
+        z: 118
+      - x: -40
+        y: 0
+        z: 119
+      - x: -40
+        y: 0
+        z: 120
+      - x: -41
+        y: 0
+        z: 121
+      - x: -41
+        y: 0
+        z: 122
+      - x: -42
+        y: 0
+        z: 123
+      - x: -43
+        y: 0
+        z: 124
+      - x: -43
+        y: 0
+        z: 125
+      - x: -44
+        y: 0
+        z: 126
+      - x: -45
+        y: 0
+        z: 127
+      - x: -45
+        y: 0
+        z: 128
+      - x: -46
+        y: 0
+        z: 129
+      - x: -46
+        y: 0
+        z: 130
+      - x: -47
+        y: 0
+        z: 131
+      - x: -48
+        y: 0
+        z: 132
+      - x: -48
+        y: 0
+        z: 133
+      - x: -49
+        y: 0
+        z: 134
+      - x: -49
+        y: 0
+        z: 135
+      - x: -50
+        y: 0
+        z: 136
+      - x: -51
+        y: 0
+        z: 137
+      - x: -51
+        y: 0
+        z: 138
+      - x: -52
+        y: 0
+        z: 139
+      - x: -52
+        y: 0
+        z: 140
+      - x: -53
+        y: 0
+        z: 141
+      - x: -54
+        y: 0
+        z: 142
+      - x: -55
+        y: 0
+        z: 143
+      - x: -56
+        y: 0
+        z: 144
+      - x: -57
+        y: 0
+        z: 145
+      - x: -58
+        y: 0
+        z: 146
+      - x: -58
+        y: 0
+        z: 147
+      - x: -59
+        y: 0
+        z: 148
+      - x: -60
+        y: 0
+        z: 149
+      - x: -61
+        y: 0
+        z: 150
+      - x: -61
+        y: 0
+        z: 151
+      - x: -62
+        y: 0
+        z: 152
+      - x: -63
+        y: 0
+        z: 153
+      - x: -64
+        y: 0
+        z: 154
+      - x: -64
+        y: 0
+        z: 155
+      - x: -65
+        y: 0
+        z: 156
+      - x: -66
+        y: 0
+        z: 157
+      - x: -66
+        y: 0
+        z: 158
+      - x: -67
+        y: 0
+        z: 159
+      - x: -68
+        y: 0
+        z: 160
+      - x: -69
+        y: 0
+        z: 161
+      - x: -70
+        y: 0
+        z: 162
+      - x: -71
+        y: 0
+        z: 161
+      - x: -72
+        y: 0
+        z: 162
+      - x: -72
+        y: 0
+        z: 163
+      - x: -73
+        y: 0
+        z: 164
+      - x: -73
+        y: 0
+        z: 165
+      - x: -74
+        y: 0
+        z: 166
+      - x: -75
+        y: 0
+        z: 165
+      - x: -76
+        y: 0
+        z: 164
+      - x: -77
+        y: 0
+        z: 164
+      - x: -78
+        y: 0
+        z: 165
+      - x: -79
+        y: 0
+        z: 166
+      - x: -80
+        y: 0
+        z: 167
+      - x: -81
+        y: 0
+        z: 168
+      - x: -82
+        y: 0
+        z: 168
+      - x: -83
+        y: 0
+        z: 168
+      - x: -84
+        y: 0
+        z: 168
+      - x: -85
+        y: 0
+        z: 168
+      - x: -86
+        y: 0
+        z: 168
+      - x: -87
+        y: 0
+        z: 168
+      - x: -88
+        y: 0
+        z: 169
+      - x: -89
+        y: 0
+        z: 169
+      - x: -90
+        y: 0
+        z: 169
+      - x: -91
+        y: 0
+        z: 169
+      - x: -92
+        y: 0
+        z: 170
+      - x: -93
+        y: 0
+        z: 170
+      - x: -94
+        y: 0
+        z: 170
+      - x: -95
+        y: 0
+        z: 170
+      - x: -96
+        y: 0
+        z: 170
+      - x: -97
+        y: 0
+        z: 170
+      - x: -98
+        y: 0
+        z: 170
+      - x: -99
+        y: 0
+        z: 170
+      - x: -100
+        y: 0
+        z: 169
+      - x: -101
+        y: 0
+        z: 168
+      - x: -102
+        y: 0
+        z: 167
+      - x: -103
+        y: 0
+        z: 166
+      - x: -104
+        y: 0
+        z: 165
+      - x: -105
+        y: 0
+        z: 164
+      - x: -106
+        y: 0
+        z: 163
+      - x: -107
+        y: 0
+        z: 162
+      - x: -108
+        y: 0
+        z: 161
+      - x: -109
+        y: 0
+        z: 161
+      - x: -110
+        y: 0
+        z: 160
+      - x: -111
+        y: 0
+        z: 159
+      - x: -111
+        y: 0
+        z: 158
+      - x: -112
+        y: 0
+        z: 157
+      - x: -113
+        y: 0
+        z: 156
+      - x: -114
+        y: 0
+        z: 155
+      - x: -115
+        y: 0
+        z: 154
+      - x: -116
+        y: 0
+        z: 153
+      - x: -117
+        y: 0
+        z: 152
+      - x: -118
+        y: 0
+        z: 151
+      - x: -118
+        y: 0
+        z: 150
+      - x: -118
+        y: 0
+        z: 149
+      - x: -118
+        y: 0
+        z: 148
+      - x: -118
+        y: 0
+        z: 147
+      - x: -118
+        y: 0
+        z: 146
+      - x: -118
+        y: 0
+        z: 145
+      - x: -118
+        y: 0
+        z: 144
+      - x: -118
+        y: 0
+        z: 143
+      - x: -118
+        y: 0
+        z: 142
+      - x: -118
+        y: 0
+        z: 141
+      - x: -118
+        y: 0
+        z: 140
+      - x: -117
+        y: 0
+        z: 139
+      - x: -117
+        y: 0
+        z: 138
+      - x: -117
+        y: 0
+        z: 137
+      - x: -117
+        y: 0
+        z: 136
+      - x: -116
+        y: 0
+        z: 135
+      - x: -116
+        y: 0
+        z: 134
+      - x: -116
+        y: 0
+        z: 133
+      - x: -116
+        y: 0
+        z: 132
+      - x: -117
+        y: 0
+        z: 131
+      - x: -117
+        y: 0
+        z: 130
+      - x: -117
+        y: 0
+        z: 129
+      - x: -117
+        y: 0
+        z: 128
+      - x: -116
+        y: 0
+        z: 127
+      - x: -116
+        y: 0
+        z: 126
+      - x: -116
+        y: 0
+        z: 125
+      - x: -116
+        y: 0
+        z: 124
+      - x: -115
+        y: 0
+        z: 123
+      - x: -115
+        y: 0
+        z: 122
+      - x: -114
+        y: 0
+        z: 121
+      - x: -114
+        y: 0
+        z: 120
+      - x: -113
+        y: 0
+        z: 119
+      - x: -113
+        y: 0
+        z: 118
+      - x: -112
+        y: 0
+        z: 117
+      - x: -112
+        y: 0
+        z: 116
+      - x: -113
+        y: 0
+        z: 115
+      - x: -114
+        y: 0
+        z: 115
+      - x: -113
+        y: 0
+        z: 114
+      - x: -113
+        y: 0
+        z: 113
+      - x: -112
+        y: 0
+        z: 112
+      - x: -111
+        y: 0
+        z: 111
+      - x: -111
+        y: 0
+        z: 110
+      - x: -110
+        y: 0
+        z: 109
+      - x: -109
+        y: 0
+        z: 108
+      - x: -109
+        y: 0
+        z: 107
+      - x: -108
+        y: 0
+        z: 106
+      - x: -108
+        y: 0
+        z: 105
+      - x: -108
+        y: 0
+        z: 104
+      - x: -108
+        y: 0
+        z: 103
+      - x: -108
+        y: 0
+        z: 102
+      - x: -107
+        y: 0
+        z: 101
+      - x: -107
+        y: 0
+        z: 100
+      - x: -106
+        y: 0
+        z: 99
+      - x: -106
+        y: 0
+        z: 98
+      - x: -105
+        y: 0
+        z: 97
+      - x: -105
+        y: 0
+        z: 96
+      - x: -104
+        y: 0
+        z: 95
+      - x: -104
+        y: 0
+        z: 94
+      - x: -103
+        y: 0
+        z: 93
+      - x: -103
+        y: 0
+        z: 92
+      - x: -102
+        y: 0
+        z: 91
+      - x: -101
+        y: 0
+        z: 90
+      - x: -101
+        y: 0
+        z: 89
+      - x: -100
+        y: 0
+        z: 88
+      - x: -99
+        y: 0
+        z: 87
+      - x: -99
+        y: 0
+        z: 86
+      - x: -99
+        y: 0
+        z: 85
+      - x: -98
+        y: 0
+        z: 84
+      - x: -98
+        y: 0
+        z: 83
+      - x: -98
+        y: 0
+        z: 82
+      - x: -97
+        y: 0
+        z: 81
+      - x: -97
+        y: 0
+        z: 80
+      - x: -96
+        y: 0
+        z: 79
+      - x: -96
+        y: 0
+        z: 78
+      - x: -95
+        y: 0
+        z: 77
+      - x: -95
+        y: 0
+        z: 76
+      - x: -94
+        y: 0
+        z: 75
+      - x: -93
+        y: 0
+        z: 74
+      - x: -93
+        y: 0
+        z: 73
+      - x: -92
+        y: 0
+        z: 72
+      - x: -91
+        y: 0
+        z: 71
+      - x: -90
+        y: 0
+        z: 70
+      - x: -90
+        y: 0
+        z: 69
+      - x: -89
+        y: 0
+        z: 68
+      - x: -89
+        y: 0
+        z: 67
+      - x: -88
+        y: 0
+        z: 66
+      - x: -87
+        y: 0
+        z: 65
+      - x: -87
+        y: 0
+        z: 64
+      - x: -86
+        y: 0
+        z: 63
+      - x: -85
+        y: 0
+        z: 62
+      - x: -85
+        y: 0
+        z: 61
+      - x: -84
+        y: 0
+        z: 60
+      - x: -83
+        y: 0
+        z: 59
+      - x: -83
+        y: 0
+        z: 58
+      - x: -82
+        y: 0
+        z: 57
+      - x: -81
+        y: 0
+        z: 56
+      - x: -80
+        y: 0
+        z: 55
+      - x: -80
+        y: 0
+        z: 54
+      - x: -79
+        y: 0
+        z: 53
+      - x: -78
+        y: 0
+        z: 52
+      - x: -77
+        y: 0
+        z: 51
+      - x: -76
+        y: 0
+        z: 50
+      - x: -76
+        y: 0
+        z: 49
+      - x: -75
+        y: 0
+        z: 48
+      - x: -75
+        y: 0
+        z: 47
+      - x: -74
+        y: 0
+        z: 46
+      - x: -73
+        y: 0
+        z: 45
+      - x: -72
+        y: 0
+        z: 44
+      - x: -71
+        y: 0
+        z: 43
+      - x: -71
+        y: 0
+        z: 42
+      - x: -70
+        y: 0
+        z: 41
+      - x: -69
+        y: 0
+        z: 40
+      - x: -69
+        y: 0
+        z: 39
+      - x: -68
+        y: 0
+        z: 38
+      - x: -67
+        y: 0
+        z: 37
+      - x: -66
+        y: 0
+        z: 36
+      - x: -66
+        y: 0
+        z: 35
+      - x: -65
+        y: 0
+        z: 34
+      - x: -64
+        y: 0
+        z: 34
+      - x: -64
+        y: 0
+        z: 33
+      - x: -63
+        y: 0
+        z: 32
+      - x: -62
+        y: 0
+        z: 31
+      - x: -61
+        y: 0
+        z: 30
+      - x: -61
+        y: 0
+        z: 29
+      - x: -60
+        y: 0
+        z: 28
+      - x: -59
+        y: 0
+        z: 28
+      - x: -58
+        y: 0
+        z: 27
+      - x: -57
+        y: 0
+        z: 26
+      - x: -56
+        y: 0
+        z: 25
+      - x: -55
+        y: 0
+        z: 24
+      - x: -54
+        y: 0
+        z: 23
+      - x: -53
+        y: 0
+        z: 22
+      - x: -52
+        y: 0
+        z: 21
+      - x: -51
+        y: 0
+        z: 21
+      - x: -50
+        y: 0
+        z: 20
+      - x: -50
+        y: 0
+        z: 19
+      - x: -49
+        y: 0
+        z: 18
+      - x: -48
+        y: 0
+        z: 18
+      - x: -47
+        y: 0
+        z: 18
+      - x: -46
+        y: 0
+        z: 17
+      - x: -46
+        y: 0
+        z: 16
+      - x: -45
+        y: 0
+        z: 15
+      - x: -44
+        y: 0
+        z: 15
+      - x: -43
+        y: 0
+        z: 14
+      - x: -42
+        y: 0
+        z: 14
+      - x: -41
+        y: 0
+        z: 13
+      - x: -40
+        y: 0
+        z: 12
+      - x: -39
+        y: 0
+        z: 12
+      - x: -38
+        y: 0
+        z: 11
+      - x: -37
+        y: 0
+        z: 10
+      - x: -36
+        y: 0
+        z: 10
+      - x: -35
+        y: 0
+        z: 10
+      - x: -34
+        y: 0
+        z: 9
+      - x: -33
+        y: 0
+        z: 8
+      - x: -32
+        y: 0
+        z: 8
+      - x: -31
+        y: 0
+        z: 8
+      - x: -30
+        y: 0
+        z: 7
+      - x: -29
+        y: 0
+        z: 6
+      - x: -28
+        y: 0
+        z: 6
+      - x: -27
+        y: 0
+        z: 6
+      - x: -26
+        y: 0
+        z: 5
+      - x: -25
+        y: 0
+        z: 5
+      - x: -24
+        y: 0
+        z: 4
+      - x: -23
+        y: 0
+        z: 4
+      - x: -22
+        y: 0
+        z: 3
+      - x: -21
+        y: 0
+        z: 3
+      - x: -20
+        y: 0
+        z: 2
+      - x: -19
+        y: 0
+        z: 2
+      - x: -18
+        y: 0
+        z: 2
+      - x: -17
+        y: 0
+        z: 2
+      - x: -16
+        y: 0
+        z: 1
+      - x: -15
+        y: 0
+        z: 1
+      - x: -14
+        y: 0
+        z: 1
+      - x: -13
+        y: 0
+        z: 0
+      - x: -12
+        y: 0
+        z: 0
+      - x: -11
+        y: 0
+        z: 0
+      - x: -11
+        y: 0
+        z: -1
+      - x: -10
+        y: 0
+        z: -1
+      - x: -9
+        y: 0
+        z: -1
+      - x: -8
+        y: 0
+        z: -2
+      - x: -7
+        y: 0
+        z: -2
+      - x: -6
+        y: 0
+        z: -3
+      - x: -5
+        y: 0
+        z: -3
+      - x: -5
+        y: 0
+        z: -4
+      - x: -4
+        y: 0
+        z: -4
+      - x: -4
+        y: 0
+        z: -5
+      - x: -4
+        y: 0
+        z: -6
+      - x: -19
+        y: 0
+        z: -3
+      - x: -19
+        y: 0
+        z: -4
+      - x: -20
+        y: 0
+        z: -4
+      - x: -20
+        y: 0
+        z: -5
+      - x: -21
+        y: 0
+        z: -5
+      - x: -21
+        y: 0
+        z: -6
+      - x: -22
+        y: 0
+        z: -6
+      - x: -23
+        y: 0
+        z: -7
+      - x: -23
+        y: 0
+        z: -8
+      - x: -24
+        y: 0
+        z: -8
+      - x: -21
+        y: 0
+        z: -27
+      - x: -21
+        y: 0
+        z: -26
+      - x: -22
+        y: 0
+        z: -26
+      - x: -22
+        y: 0
+        z: -25
+      - x: -23
+        y: 0
+        z: -23
+      - x: -24
+        y: 0
+        z: -22
+      - x: -24
+        y: 0
+        z: -21
+      - x: -24
+        y: 0
+        z: -20
+      - x: -25
+        y: 0
+        z: -20
+      - x: -25
+        y: 0
+        z: -19
+      - x: -25
+        y: 0
+        z: -18
+      - x: -25
+        y: 0
+        z: -17
+      - x: -16
+        y: 0
+        z: -28
+      - x: -16
+        y: 0
+        z: -29
+      - x: -17
+        y: 0
+        z: -28
+      - x: -17
+        y: 0
+        z: -29
+      - x: -18
+        y: 0
+        z: -29
+      - x: -19
+        y: 0
+        z: -29
+      - x: -19
+        y: 0
+        z: -30
+      - x: -20
+        y: 0
+        z: -30
+      - x: -21
+        y: 0
+        z: -30
+      - x: -22
+        y: 0
+        z: -30
+      - x: -23
+        y: 0
+        z: -29
+      - x: -24
+        y: 0
+        z: -29
+      - x: -24
+        y: 0
+        z: -28
+      - x: -24
+        y: 0
+        z: -30
+      - x: -1
+        y: 0
+        z: -14
+      - x: 0
+        y: 0
+        z: -14
+      - x: 1
+        y: 0
+        z: -14
+      - x: 2
+        y: 0
+        z: -14
+      - x: -1
+        y: 0
+        z: -13
+      - x: 0
+        y: 0
+        z: -13
+      - x: 1
+        y: 0
+        z: -13
+      - x: -3
+        y: 0
+        z: -13
+      - x: -3
+        y: 0
+        z: -15
+      - x: -1
+        y: 0
+        z: -15
+      - x: -2
+        y: 0
+        z: -15
       m_Values:
       - m_TileSetIndex: 7
         m_Flags: 0
@@ -874,7 +2515,7 @@ MonoBehaviour:
         m_Flags: 0
       - m_TileSetIndex: 21
         m_Flags: 0
-      - m_TileSetIndex: 21
+      - m_TileSetIndex: 1
         m_Flags: 0
       - m_TileSetIndex: 23
         m_Flags: 0
@@ -1040,7 +2681,7 @@ MonoBehaviour:
         m_Flags: 0
       - m_TileSetIndex: 16
         m_Flags: 0
-      - m_TileSetIndex: 16
+      - m_TileSetIndex: 1
         m_Flags: 0
       - m_TileSetIndex: 16
         m_Flags: 0
@@ -1104,7 +2745,7 @@ MonoBehaviour:
         m_Flags: 0
       - m_TileSetIndex: 33
         m_Flags: 0
-      - m_TileSetIndex: 0
+      - m_TileSetIndex: 1
         m_Flags: 0
       - m_TileSetIndex: 20
         m_Flags: 0
@@ -1194,7 +2835,7 @@ MonoBehaviour:
         m_Flags: 0
       - m_TileSetIndex: 2
         m_Flags: 0
-      - m_TileSetIndex: 4
+      - m_TileSetIndex: 1
         m_Flags: 0
       - m_TileSetIndex: 2
         m_Flags: 0
@@ -1216,9 +2857,1103 @@ MonoBehaviour:
         m_Flags: 0
       - m_TileSetIndex: 4
         m_Flags: 0
+      - m_TileSetIndex: 1
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 1
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 1
+        m_Flags: 0
+      - m_TileSetIndex: 1
+        m_Flags: 0
+      - m_TileSetIndex: 1
+        m_Flags: 0
+      - m_TileSetIndex: 1
+        m_Flags: 0
+      - m_TileSetIndex: 1
+        m_Flags: 0
+      - m_TileSetIndex: 1
+        m_Flags: 0
+      - m_TileSetIndex: 1
+        m_Flags: 0
+      - m_TileSetIndex: 1
+        m_Flags: 0
+      - m_TileSetIndex: 1
+        m_Flags: 0
+      - m_TileSetIndex: 1
+        m_Flags: 0
+      - m_TileSetIndex: 1
+        m_Flags: 0
+      - m_TileSetIndex: 1
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 1
+        m_Flags: 0
+      - m_TileSetIndex: 1
+        m_Flags: 0
+      - m_TileSetIndex: 1
+        m_Flags: 0
+      - m_TileSetIndex: 1
+        m_Flags: 0
+      - m_TileSetIndex: 1
+        m_Flags: 0
+      - m_TileSetIndex: 1
+        m_Flags: 0
+      - m_TileSetIndex: 1
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 1
+        m_Flags: 0
+      - m_TileSetIndex: 1
+        m_Flags: 0
+      - m_TileSetIndex: 1
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 1
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 1
+        m_Flags: 0
+      - m_TileSetIndex: 1
+        m_Flags: 0
+      - m_TileSetIndex: 1
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 1
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 1
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 1
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 1
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 1
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 1
+        m_Flags: 0
+      - m_TileSetIndex: 1
+        m_Flags: 0
+      - m_TileSetIndex: 1
+        m_Flags: 0
+      - m_TileSetIndex: 1
+        m_Flags: 0
+      - m_TileSetIndex: 1
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 1
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 1
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 1
+        m_Flags: 0
+      - m_TileSetIndex: 1
+        m_Flags: 0
+      - m_TileSetIndex: 1
+        m_Flags: 0
+      - m_TileSetIndex: 1
+        m_Flags: 0
+      - m_TileSetIndex: 1
+        m_Flags: 0
+      - m_TileSetIndex: 1
+        m_Flags: 0
+      - m_TileSetIndex: 1
+        m_Flags: 0
+      - m_TileSetIndex: 1
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 2
+        m_Flags: 0
+      - m_TileSetIndex: 46
+        m_Flags: 1
+      - m_TileSetIndex: 46
+        m_Flags: 8
+      - m_TileSetIndex: 46
+        m_Flags: 1
+      - m_TileSetIndex: 46
+        m_Flags: 1
+      - m_TileSetIndex: 46
+        m_Flags: 2
+      - m_TileSetIndex: 46
+        m_Flags: 34
+      - m_TileSetIndex: 46
+        m_Flags: 50
+      - m_TileSetIndex: 46
+        m_Flags: 1
+      - m_TileSetIndex: 46
+        m_Flags: 8
+      - m_TileSetIndex: 46
+        m_Flags: 1
+      - m_TileSetIndex: 46
+        m_Flags: 1
   m_DebugClearTilesButton: 0
-  m_DebugSelectedTileName: tile_105
-  m_DebugTileCount: 203
+  m_DebugSelectedTileName: tile_101
+  m_DebugTileCount: 750
 --- !u!1 &536396590
 GameObject:
   m_ObjectHideFlags: 0
@@ -1263,6 +3998,51 @@ Transform:
   - {fileID: 410566309}
   m_Father: {fileID: 0}
   m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &663941674
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 663941676}
+  - component: {fileID: 663941675}
+  m_Layer: 0
+  m_Name: TileWorld
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &663941675
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 663941674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fc69f16a6954e1d98300ecf5e1e15c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &663941676
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 663941674}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1088388945}
+  m_Father: {fileID: 0}
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &746889615
 GameObject:
@@ -1549,6 +4329,374 @@ LightingSettings:
   m_PVRTiledBaking: 0
   m_NumRaysToShootPerTexel: -1
   m_RespectSceneVisibilityWhenBakingGI: 0
+--- !u!1 &1088388944
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1088388945}
+  - component: {fileID: 1088388947}
+  - component: {fileID: 1088388946}
+  m_Layer: 0
+  m_Name: TileLayer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1088388945
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1088388944}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 663941676}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1088388946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1088388944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8b0b4f0983e47b99a26407fc88cb154, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_DrawDistance: 20
+  m_VisibleRectDistance: 5
+--- !u!114 &1088388947
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1088388944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5f4529c9dc849fdab6290f8d38c98b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_LayerType: 0
+  m_TileSet: {fileID: 11400000, guid: 744e189687a6a4e49a55c93b21feb839, type: 2}
+  m_TileDataContainer:
+    m_Tiles:
+      m_Keys:
+      - x: -10
+        y: 0
+        z: -17
+      - x: -13
+        y: 0
+        z: -16
+      - x: -13
+        y: 0
+        z: -17
+      - x: -12
+        y: 0
+        z: -17
+      - x: -12
+        y: 0
+        z: -18
+      - x: -11
+        y: 0
+        z: -18
+      - x: -10
+        y: 0
+        z: -18
+      - x: -9
+        y: 0
+        z: -18
+      - x: -8
+        y: 0
+        z: -18
+      - x: -7
+        y: 0
+        z: -18
+      - x: -7
+        y: 0
+        z: -17
+      - x: -7
+        y: 0
+        z: -16
+      - x: -8
+        y: 0
+        z: -16
+      - x: -9
+        y: 0
+        z: -16
+      - x: -10
+        y: 0
+        z: -16
+      - x: -10
+        y: 0
+        z: -19
+      - x: -11
+        y: 0
+        z: -19
+      - x: -12
+        y: 0
+        z: -19
+      - x: -13
+        y: 0
+        z: -19
+      - x: -13
+        y: 0
+        z: -18
+      - x: -11
+        y: 0
+        z: -17
+      - x: -9
+        y: 0
+        z: -17
+      - x: -9
+        y: 0
+        z: -19
+      - x: -8
+        y: 0
+        z: -19
+      - x: -8
+        y: 0
+        z: -17
+      - x: -11
+        y: 0
+        z: -16
+      - x: -12
+        y: 0
+        z: -16
+      - x: -11
+        y: 0
+        z: -15
+      - x: -10
+        y: 0
+        z: -15
+      - x: -9
+        y: 0
+        z: -15
+      - x: -9
+        y: 0
+        z: -14
+      - x: -8
+        y: 0
+        z: -14
+      - x: -7
+        y: 0
+        z: -14
+      - x: -7
+        y: 0
+        z: -15
+      - x: -12
+        y: 0
+        z: -15
+      - x: -6
+        y: 0
+        z: -15
+      - x: -6
+        y: 0
+        z: -16
+      - x: -6
+        y: 0
+        z: -17
+      - x: -13
+        y: 0
+        z: -15
+      - x: -14
+        y: 0
+        z: -15
+      - x: -14
+        y: 0
+        z: -14
+      - x: -14
+        y: 0
+        z: -13
+      - x: -14
+        y: 0
+        z: -12
+      - x: -14
+        y: 0
+        z: -11
+      - x: -14
+        y: 0
+        z: -10
+      - x: -14
+        y: 0
+        z: -17
+      - x: -3
+        y: 0
+        z: -17
+      - x: -2
+        y: 0
+        z: -17
+      - x: -3
+        y: 0
+        z: -15
+      - x: -3
+        y: 0
+        z: -19
+      - x: 0
+        y: 0
+        z: -19
+      - x: -2
+        y: 0
+        z: -19
+      - x: -2
+        y: 0
+        z: -18
+      - x: -1
+        y: 0
+        z: -18
+      - x: -1
+        y: 0
+        z: -17
+      - x: -3
+        y: 0
+        z: -18
+      - x: -1
+        y: 0
+        z: -19
+      - x: -3
+        y: 0
+        z: -20
+      - x: -2
+        y: 0
+        z: -20
+      - x: -8
+        y: 0
+        z: -15
+      m_Values:
+      - m_TileSetIndex: 1
+        m_Flags: 50
+      - m_TileSetIndex: 1
+        m_Flags: 1
+      - m_TileSetIndex: 0
+        m_Flags: 1
+      - m_TileSetIndex: 1
+        m_Flags: 18
+      - m_TileSetIndex: 0
+        m_Flags: 1
+      - m_TileSetIndex: 0
+        m_Flags: 24
+      - m_TileSetIndex: 0
+        m_Flags: 1
+      - m_TileSetIndex: 0
+        m_Flags: 17
+      - m_TileSetIndex: 0
+        m_Flags: 2
+      - m_TileSetIndex: 0
+        m_Flags: 17
+      - m_TileSetIndex: 1
+        m_Flags: 33
+      - m_TileSetIndex: 0
+        m_Flags: 36
+      - m_TileSetIndex: 1
+        m_Flags: 2
+      - m_TileSetIndex: 1
+        m_Flags: 2
+      - m_TileSetIndex: 1
+        m_Flags: 34
+      - m_TileSetIndex: 0
+        m_Flags: 56
+      - m_TileSetIndex: 0
+        m_Flags: 4
+      - m_TileSetIndex: 0
+        m_Flags: 4
+      - m_TileSetIndex: 0
+        m_Flags: 8
+      - m_TileSetIndex: 0
+        m_Flags: 1
+      - m_TileSetIndex: 1
+        m_Flags: 8
+      - m_TileSetIndex: 1
+        m_Flags: 36
+      - m_TileSetIndex: 0
+        m_Flags: 18
+      - m_TileSetIndex: 0
+        m_Flags: 1
+      - m_TileSetIndex: 1
+        m_Flags: 33
+      - m_TileSetIndex: 1
+        m_Flags: 1
+      - m_TileSetIndex: 1
+        m_Flags: 8
+      - m_TileSetIndex: 1
+        m_Flags: 4
+      - m_TileSetIndex: 1
+        m_Flags: 8
+      - m_TileSetIndex: 0
+        m_Flags: 49
+      - m_TileSetIndex: 0
+        m_Flags: 4
+      - m_TileSetIndex: 0
+        m_Flags: 52
+      - m_TileSetIndex: 0
+        m_Flags: 4
+      - m_TileSetIndex: 1
+        m_Flags: 1
+      - m_TileSetIndex: 1
+        m_Flags: 2
+      - m_TileSetIndex: 1
+        m_Flags: 4
+      - m_TileSetIndex: 1
+        m_Flags: 52
+      - m_TileSetIndex: 1
+        m_Flags: 33
+      - m_TileSetIndex: 1
+        m_Flags: 1
+      - m_TileSetIndex: 1
+        m_Flags: 1
+      - m_TileSetIndex: 1
+        m_Flags: 1
+      - m_TileSetIndex: 1
+        m_Flags: 1
+      - m_TileSetIndex: 1
+        m_Flags: 1
+      - m_TileSetIndex: 1
+        m_Flags: 1
+      - m_TileSetIndex: 1
+        m_Flags: 1
+      - m_TileSetIndex: -1
+        m_Flags: 1
+      - m_TileSetIndex: 0
+        m_Flags: 34
+      - m_TileSetIndex: 0
+        m_Flags: 1
+      - m_TileSetIndex: -1
+        m_Flags: 1
+      - m_TileSetIndex: 0
+        m_Flags: 52
+      - m_TileSetIndex: -1
+        m_Flags: 1
+      - m_TileSetIndex: 1
+        m_Flags: 20
+      - m_TileSetIndex: -1
+        m_Flags: 1
+      - m_TileSetIndex: -1
+        m_Flags: 1
+      - m_TileSetIndex: -1
+        m_Flags: 1
+      - m_TileSetIndex: -1
+        m_Flags: 1
+      - m_TileSetIndex: -1
+        m_Flags: 1
+      - m_TileSetIndex: -1
+        m_Flags: 1
+      - m_TileSetIndex: -1
+        m_Flags: 1
+      - m_TileSetIndex: -1
+        m_Flags: 1
+  m_DebugClearTilesButton: 0
+  m_DebugSelectedTileName: ExampleTile0
+  m_DebugTileCount: 60
 --- !u!1 &1282295938
 GameObject:
   m_ObjectHideFlags: 0
@@ -2012,8 +5160,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2141523470}
-  m_LocalRotation: {x: 0.36458927, y: 0.30822036, z: -0.1292986, w: 0.8691126}
-  m_LocalPosition: {x: 49.67, y: 199.64496, z: -67.482475}
+  m_LocalRotation: {x: -0.22602504, y: -0.37451, z: 0.09526833, w: -0.8941918}
+  m_LocalPosition: {x: -211.33177, y: 32.91294, z: -213.82816}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

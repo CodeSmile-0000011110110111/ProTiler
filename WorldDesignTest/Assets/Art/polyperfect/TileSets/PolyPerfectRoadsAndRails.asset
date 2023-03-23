@@ -1,0 +1,131 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 959ec10b09b340d189983580b3070567, type: 3}
+  m_Name: PolyPerfectRoadsAndRails
+  m_EditorClassIdentifier: 
+  m_Grid:
+    m_GridSize:
+      x: 30
+      y: 1
+      z: 30
+  m_TileAnchor: 0
+  m_DragDropPrefabsHereToAdd: []
+  m_Tiles:
+  - m_DisplayName: 'Category0: tile-mainroad-intersection'
+    m_Prefab: {fileID: 1109849741087532, guid: 1c2c97d44483d40bb944f369f60436c2, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: tile-mainroad-intersection-t'
+    m_Prefab: {fileID: 1979837445614976, guid: 304fd0617b5c443c9835a7121efa80dc, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: tile-mainroad-road-intersection'
+    m_Prefab: {fileID: 2912435451792391564, guid: 7509e6d720c436e469746692393cd95a, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: tile-mainroad-road-intersection-t'
+    m_Prefab: {fileID: 2374395948781378512, guid: 7ea223eeb9c13be4b8b958f5fdbd8eb1, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: tile-mainroad-straight'
+    m_Prefab: {fileID: 1075509480121184, guid: 494957db1966c4528a98d8c72a75f577, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: tile-mainroad-straight-crosswalk'
+    m_Prefab: {fileID: 2507302295146314054, guid: 6f4eec12f0a54cf45aae729354e765dc, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: tile-mainroad-curve'
+    m_Prefab: {fileID: 1166448421446040, guid: cc8321d76764142a0adf00468a1a68dd, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: tile-road-curve'
+    m_Prefab: {fileID: 1152315849743070, guid: d9ecf073012ed423aa1bca266513310b, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: tile-road-end'
+    m_Prefab: {fileID: 3601197999933958695, guid: 0cbdf8c9dc0a249499a5f8206e4bc432, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: tile-road-intersection'
+    m_Prefab: {fileID: 1276043819525500, guid: 4f9dbdfd598574eec9cdb681d5424bc5, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: tile-road-intersection-t'
+    m_Prefab: {fileID: 1584619070152842, guid: 31be3ba78a561484bb6193bc06e13d7a, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: tile-road-mainroad-intersection'
+    m_Prefab: {fileID: 1019822720009250, guid: 96e7e7d8fa7ae4c308c2f79f2454dcfe, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: tile-road-mainroad-intersection-t'
+    m_Prefab: {fileID: 1630882658714348, guid: f81870c72f74c449fa83b5a59612dd11, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: tile-road-straight'
+    m_Prefab: {fileID: 1189697016854918, guid: e1304517d24a34d348e58d276929bd24, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: tile-road-straight-crosswalk'
+    m_Prefab: {fileID: 4485210420748912762, guid: fff850cc16fa72841b15e0cd496a3212, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: tile-road-to-mainroad'
+    m_Prefab: {fileID: 6389780277532430638, guid: 1167bf001fc67214a845d2214dea7dd4, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: tile-road-to-mainroad-intersection-t'
+    m_Prefab: {fileID: 825495416114529173, guid: 5d41d26226093d34abd8a9d6c1b38846, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: tile-roads-mainroad-intersection'
+    m_Prefab: {fileID: 4725182447514682545, guid: e533f67785b49cc4d86758b48f7555d5, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: tile-rail-straight'
+    m_Prefab: {fileID: 1560651869017548, guid: 199ae42c16eb94ea7bc20dba2308893f, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: tile-rail-straight-double'
+    m_Prefab: {fileID: 6269458825334324279, guid: 27ce924a01564fb4da4540a1cd3a6c33, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: tile-rail-y'
+    m_Prefab: {fileID: 513788862809960254, guid: c2b6b3965ca4e8943abbef41f56d8303, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: tile-rail-road-crossing'
+    m_Prefab: {fileID: 1009300597746894, guid: b2541bb4da3aa48948430c773496c390, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: tile-rail-mainroad-crossing'
+    m_Prefab: {fileID: 1166184297577304, guid: 62fe35ba0ab694e9eb52247a020d1b1d, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: tile-rail-intersection'
+    m_Prefab: {fileID: 1485430406210958, guid: b4899de6a58b84eebbb41129c020d17d, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: tile-rail-curve-double'
+    m_Prefab: {fileID: 8066234248989138609, guid: f73ffcc4de1698b45aae4ca2a37234fd, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: tile-rail-curve'
+    m_Prefab: {fileID: 1637706505542578, guid: 09fe31fc1ee1440b2b9d6d695a74bed9, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  - m_DisplayName: 'Category0: tile-rail-conjunction'
+    m_Prefab: {fileID: 5555059601614746814, guid: b90eb364569382c4d9527490de844629, type: 3}
+    m_Category: 0
+    m_CustomFlags: 0
+  m_TileCursorHeight: 2

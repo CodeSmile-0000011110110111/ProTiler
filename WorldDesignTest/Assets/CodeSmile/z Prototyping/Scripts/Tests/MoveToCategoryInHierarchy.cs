@@ -2,11 +2,8 @@
 // Refer to included LICENSE file for terms and conditions.
 
 using System;
-using UnityEngine;
-using UnityEngine.SceneManagement;
-#if UNITY_EDITOR
 using UnityEditor;
-#endif
+using UnityEngine;
 
 namespace CodeSmile
 {
@@ -18,10 +15,10 @@ namespace CodeSmile
 			ParentWithPrefabName,
 		}
 
-		#pragma warning disable 0414
+#pragma warning disable 0414
 		[SerializeField] private string m_ParentObjectPrefix = "_";
 		[SerializeField] private MoveTo m_MoveTo;
-		#pragma warning restore
+#pragma warning restore
 
 		private void Start()
 		{
@@ -39,7 +36,7 @@ namespace CodeSmile
 						parent = new GameObject(folderName);
 
 					transform.parent = parent.transform;
-							
+
 					//var rootObjects = SceneManager.GetActiveScene().GetRootGameObjects();
 
 					switch (m_MoveTo)
@@ -59,7 +56,5 @@ namespace CodeSmile
 				Destroy(this);
 			}
 		}
-		
-		
 	}
 }

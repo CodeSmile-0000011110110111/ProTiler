@@ -55,7 +55,6 @@ namespace CodeSmile.Tile
 
 			ClampDrawDistance();
 			m_PrevDrawDistance = m_DrawDistance;
-			Debug.Log($"OnEnable draw distance is: {m_DrawDistance}");
 
 			CreateTilePrefabOnce();
 			RecreateTilePool();
@@ -88,7 +87,6 @@ namespace CodeSmile.Tile
 			ClampDrawDistance();
 			if (m_PrevDrawDistance != m_DrawDistance)
 			{
-				Debug.Log($"new draw distance is: {m_DrawDistance}");
 				m_PrevDrawDistance = m_DrawDistance;
 				DelayedForceRepaint();
 			}
@@ -96,7 +94,7 @@ namespace CodeSmile.Tile
 
 		private void DelayedForceRepaint()
 		{
-			if (enabled && gameObject.activeInHierarchy)
+			if (isActiveAndEnabled)
 			{
 				StopAllCoroutines();
 				StartCoroutine(new WaitForFramesElapsed(1, () => ForceRedraw()));
@@ -110,7 +108,7 @@ namespace CodeSmile.Tile
 		private void RecreateTilePool()
 		{
 			var poolSize = m_DrawDistance * m_DrawDistance;
-			Debug.Log($"RecreateTilePool pool with {poolSize} instances");
+			//Debug.Log($"RecreateTilePool pool with {poolSize} instances");
 
 			DisposeTilePool();
 			m_TilePoolParent = gameObject.FindOrCreateChild("TilePool", Global.TileHideFlags);
@@ -256,6 +254,11 @@ namespace CodeSmile.Tile
 			UpdateTilesInDirtyRect(dirtyRect);
 		}
 
-		internal void UpdateTileFlagsAndRedraw(GridCoord coord, TileFlags flags) => Debug.LogWarning("SetTileFlags not implemented");
+		internal void UpdateTileFlagsAndRedraw(GridCoord coord, TileFlags flags)
+		{
+			//Debug.LogWarning("SetTileFlags not implemented");
+			var dirtyRect = new GridRect(coord.ToCoord2d(), new Vector2Int(1, 1));
+			UpdateTilesInDirtyRect(dirtyRect);
+		}
 	}
 }

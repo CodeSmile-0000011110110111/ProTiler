@@ -37,18 +37,36 @@ namespace CodeSmile.Tile
 		private TileLayerRenderer m_LayerRenderer;
 		private TilePreviewRenderer m_PreviewRenderer;
 		private TileBrush m_DrawBrush = new(GridCoord.zero, 0);
+		private TileLayerRenderer LayerRenderer
+		{
+			get
+			{
+				if (m_LayerRenderer == null)
+					m_LayerRenderer = gameObject.GetOrAddComponent<TileLayerRenderer>();
+				return m_LayerRenderer;
+			}
+		}
+		private TilePreviewRenderer PreviewRenderer
+		{
+			get
+			{
+				if (m_PreviewRenderer == null)
+					m_PreviewRenderer = gameObject.GetOrAddComponent<TilePreviewRenderer>();
+				return m_PreviewRenderer;
+			}
+		}
 
 		private void Reset() => OnEnable(); // Editor will not call OnEnable when layer added during Reset
 
 		private void OnEnable()
 		{
-			if (m_LayerType == LayerType.Tile)
-			{
-				m_LayerRenderer = gameObject.GetOrAddComponent<TileLayerRenderer>();
-				m_PreviewRenderer = gameObject.GetOrAddComponent<TilePreviewRenderer>();
-			}
-			else
+			if (m_LayerType != LayerType.Tile)
 				throw new Exception($"layer type {m_LayerType} not supported");
+
+			if (m_LayerRenderer == null)
+				m_LayerRenderer = gameObject.GetOrAddComponent<TileLayerRenderer>();
+			if (m_PreviewRenderer == null)
+				m_PreviewRenderer = gameObject.GetOrAddComponent<TilePreviewRenderer>();
 		}
 
 		public override string ToString() => name;
@@ -63,15 +81,9 @@ namespace CodeSmile.Tile
 			return s_ExampleTileSet;
 		}
 
-		/*
-		public void SetTiles(GridRect gridSelection, bool clear = false)
-		{
-			//var prefabTile = clear ? null : m_TileSet.GetPrefabIndex(m_TileSetIndex);
-			var coords = m_TileDataContainer.SetTiles(gridSelection, clear ? -1 : m_DebugSelectedTileSetIndex);
-			OnSetTiles?.Invoke(gridSelection);
-			UpdateDebugTileCount();
-		}
-		*/
+		public TileData GetTileData(GridCoord coord) => m_TileDataContainer.GetTile(coord);
+
+		public float3 GetTilePosition(GridCoord coord) => Grid.ToWorldPosition(coord) + TileSet.GetTileOffset() + (float3)transform.position;
 
 		public void DrawLine(GridCoord start, GridCoord end)
 		{
@@ -81,18 +93,8 @@ namespace CodeSmile.Tile
 			UpdateDebugTileCount();
 			this.SetDirtyInEditor();
 
-			m_LayerRenderer.RedrawTiles(coords, tiles);
+			LayerRenderer.RedrawTiles(coords, tiles);
 		}
-
-		/*public void DrawTile(GridCoord coord, int tileSetIndex)
-		{
-			this.RecordUndoInEditor(tileSetIndex < 0 ? "Clear Tile" : "Draw Tile");
-			var tileData = m_TileDataContainer.SetTile(coord, tileSetIndex);
-			UpdateDebugTileCount();
-			
-			this.SetDirtyInEditor();
-			OnSetTile?.Invoke(coord, tileData);
-		}*/
 
 		public void ClearAllTiles()
 		{
@@ -101,7 +103,7 @@ namespace CodeSmile.Tile
 			UpdateDebugTileCount();
 			this.SetDirtyInEditor();
 
-			m_LayerRenderer.ForceRedraw();
+			LayerRenderer.ForceRedraw();
 		}
 
 		public void SetTileFlags(GridCoord coord, TileFlags flags)
@@ -110,7 +112,7 @@ namespace CodeSmile.Tile
 			var tileFlags = m_TileDataContainer.SetTileFlags(coord, flags);
 			this.SetDirtyInEditor();
 
-			m_LayerRenderer.UpdateTileFlagsAndRedraw(coord, tileFlags);
+			LayerRenderer.UpdateTileFlagsAndRedraw(coord, tileFlags);
 		}
 
 		public void ClearTileFlags(GridCoord coord, TileFlags flags)
@@ -119,11 +121,25 @@ namespace CodeSmile.Tile
 			var tileFlags = m_TileDataContainer.ClearTileFlags(coord, flags);
 			this.SetDirtyInEditor();
 
-			m_LayerRenderer.UpdateTileFlagsAndRedraw(coord, tileFlags);
+			LayerRenderer.UpdateTileFlagsAndRedraw(coord, tileFlags);
 		}
 
-		public TileData GetTileData(GridCoord coord) => m_TileDataContainer.GetTile(coord);
+		public void RotateTile(GridCoord coord, int delta)
+		{
+			this.RecordUndoInEditor(nameof(RotateTile));
+			var tileFlags = m_TileDataContainer.RotateTile(coord, delta);
+			this.SetDirtyInEditor();
 
-		public float3 GetTilePosition(GridCoord coord) => Grid.ToWorldPosition(coord) + TileSet.GetTileOffset() + (float3)transform.position;
+			LayerRenderer.UpdateTileFlagsAndRedraw(coord, tileFlags);
+		}
+
+		public void FlipTile(GridCoord coord, int delta)
+		{
+			this.RecordUndoInEditor(nameof(FlipTile));
+			var tileFlags = m_TileDataContainer.FlipTile(coord, delta);
+			this.SetDirtyInEditor();
+
+			LayerRenderer.UpdateTileFlagsAndRedraw(coord, tileFlags);
+		}
 	}
 }

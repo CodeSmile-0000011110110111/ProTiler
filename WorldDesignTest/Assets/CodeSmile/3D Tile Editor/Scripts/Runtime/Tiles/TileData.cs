@@ -12,7 +12,7 @@ using WorldRect = UnityEngine.Rect;
 namespace CodeSmile.Tile
 {
 	[Serializable]
-	public struct TileData
+	public struct TileData : IEquatable<TileData>
 	{
 		[SerializeField] private int m_TileSetIndex;
 		[SerializeField] private TileFlags m_Flags;
@@ -20,18 +20,109 @@ namespace CodeSmile.Tile
 		public int TileSetIndex { get => m_TileSetIndex; set => m_TileSetIndex = math.max(0, value); }
 		public TileFlags Flags { get => m_Flags; set => m_Flags = value; }
 
+		public static bool operator ==(TileData left, TileData right) => left.Equals(right);
+		public static bool operator !=(TileData left, TileData right) => !left.Equals(right);
+
 		public TileData(TileData tileData)
 		{
 			m_TileSetIndex = tileData.m_TileSetIndex;
 			m_Flags = tileData.m_Flags;
+			EnsureDefaultRotation();
 		}
 
 		public TileData(int tileSetIndex, TileFlags flags = TileFlags.None)
 		{
 			m_TileSetIndex = tileSetIndex;
 			m_Flags = flags;
+			EnsureDefaultRotation();
 		}
 
-		public override string ToString() => $"TD(#{m_TileSetIndex} | {m_Flags})";
+		public bool Equals(TileData other) => m_TileSetIndex == other.m_TileSetIndex && m_Flags == other.m_Flags;
+
+		private void EnsureDefaultRotation()
+		{
+			if ((m_Flags & TileFlags.AllDirections) == 0)
+				m_Flags |= TileFlags.DirectionNorth;
+		}
+
+		public TileFlags Rotate(int delta)
+		{
+			if (m_TileSetIndex < 0)
+				return TileFlags.None;
+
+			var direction = m_Flags & TileFlags.AllDirections;
+			m_Flags &= ~TileFlags.AllDirections;
+
+			var newDirection = TileFlags.None;
+			switch (direction)
+			{
+				case TileFlags.DirectionNorth:
+					newDirection = delta < 0 ? TileFlags.DirectionWest : TileFlags.DirectionEast;
+					break;
+				case TileFlags.DirectionWest:
+					newDirection = delta < 0 ? TileFlags.DirectionSouth : TileFlags.DirectionNorth;
+					break;
+				case TileFlags.DirectionSouth:
+					newDirection = delta < 0 ? TileFlags.DirectionEast : TileFlags.DirectionWest;
+					break;
+				case TileFlags.DirectionEast:
+					newDirection = delta < 0 ? TileFlags.DirectionNorth : TileFlags.DirectionSouth;
+					break;
+			}
+			m_Flags |= newDirection;
+			return newDirection;
+		}
+
+		public TileFlags Flip(int delta)
+		{
+			if (m_TileSetIndex < 0)
+				return TileFlags.None;
+
+			var flip = m_Flags & TileFlags.AllFlips;
+			m_Flags &= ~TileFlags.AllFlips;
+
+			var newFlip = TileFlags.None;
+			switch (flip)
+			{
+				case TileFlags.None:
+					newFlip = delta < 0 ? TileFlags.FlipHorizontal : TileFlags.FlipVertical;
+					break;
+				case TileFlags.FlipHorizontal:
+					newFlip = delta < 0 ? TileFlags.AllFlips : TileFlags.None;
+					break;
+				case TileFlags.AllFlips:
+					newFlip = delta < 0 ? TileFlags.FlipVertical : TileFlags.FlipHorizontal;
+					break;
+				case TileFlags.FlipVertical:
+					newFlip = delta < 0 ? TileFlags.None : TileFlags.AllFlips;
+					break;
+			}
+			m_Flags |= newFlip;
+			return newFlip;
+		}
+
+		public override string ToString() => $"T(#{m_TileSetIndex} | {m_Flags})";
+
+		public TileFlags ClearFlags(TileFlags flags)
+		{
+			if (m_TileSetIndex < 0)
+				return TileFlags.None;
+
+			m_Flags &= ~flags;
+			return m_Flags;
+		}
+
+		public TileFlags SetFlags(TileFlags flags)
+		{
+			if (m_TileSetIndex < 0)
+				return TileFlags.None;
+
+			m_Flags |= flags;
+			return m_Flags;
+		}
+
+		public override bool Equals(object obj) => obj is TileData other && Equals(other);
+
+		public override int GetHashCode() => HashCode.Combine(m_TileSetIndex, (int)m_Flags);
 	}
 }

@@ -21,7 +21,6 @@ namespace CodeSmile.Tile
 		private readonly List<GameObject> m_InstancesToBeDestroyed = new();
 		public List<GameObject> ToBeDeletedInstances { get => m_InstancesToBeDestroyed; }
 
-
 		public GridCoord Coord { get => m_Coord; }
 
 		public TileData TileData { get => m_TileData; }
@@ -38,6 +37,8 @@ namespace CodeSmile.Tile
 			}
 		}
 
+		private void Update() => ProcessInstancesScheduledForDestroy();
+
 		public void SetCoordAndTile(GridCoord coord, TileData tileData)
 		{
 			//Debug.Log($"update Tile at {coord} with tile {tile}, layer: {m_Layer}");
@@ -49,17 +50,12 @@ namespace CodeSmile.Tile
 				transform.position = m_Layer.Grid.ToWorldPosition(m_Coord);
 			}
 
-			var mustUpdateInstance = m_TileData.TileSetIndex != tileData.TileSetIndex || m_Instance == null;
-			if (mustUpdateInstance )
+			var mustUpdateInstance = m_TileData != tileData || m_Instance == null;
+			if (mustUpdateInstance)
 			{
 				m_TileData = tileData;
 				UpdateInstance();
 			}
-		}
-
-		private void Update()
-		{
-			ProcessInstancesScheduledForDestroy();
 		}
 
 		private void ProcessInstancesScheduledForDestroy()

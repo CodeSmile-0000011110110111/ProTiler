@@ -14,7 +14,7 @@ using GridRect = UnityEngine.RectInt;
 namespace CodeSmileEditor.Tile
 {
 	[CustomEditor(typeof(TileLayer))]
-	public partial class TileLayerEditor : Editor
+	public class TileLayerEditor : Editor
 	{
 		private readonly EditorInputState m_InputState = new();
 		private GridCoord m_StartSelectionCoord;
@@ -65,7 +65,7 @@ namespace CodeSmileEditor.Tile
 					EndTileDrawing(editMode);
 					break;
 				case EventType.ScrollWheel:
-					OnMouseWheelChangeSelectedTileSetIndex();
+					OnScrollWheel();
 					break;
 				case EventType.KeyDown:
 					HandleKeyDown();
@@ -123,16 +123,31 @@ namespace CodeSmileEditor.Tile
 			}
 		}
 
-		private void OnMouseWheelChangeSelectedTileSetIndex()
+		private void OnScrollWheel()
 		{
 			var ev = Event.current;
-			if (ev.control)
+			var delta = ev.delta.y >= 0 ? 1 : -1;
+			if (ev.shift && ev.control)
 			{
-				var delta = ev.delta.y >= 0 ? 1 : -1;
-				SetDrawTileSetIndex(GetDrawTileSetIndex() + delta);
-				SetLayerBrush();
+				Layer.FlipTile(m_CursorCoord, delta);
 				ev.Use();
 			}
+			else if (ev.shift)
+			{
+				Layer.RotateTile(m_CursorCoord, delta);
+				ev.Use();
+			}
+			else if (ev.control)
+			{
+				ChangeSelectedTileSetIndex(delta);
+				ev.Use();
+			}
+		}
+
+		private void ChangeSelectedTileSetIndex(int delta)
+		{
+			SetDrawTileSetIndex(GetDrawTileSetIndex() + delta);
+			SetLayerBrush();
 		}
 
 		private void SetDrawTileSetIndex(int tileSetIndex)
@@ -239,5 +254,9 @@ namespace CodeSmileEditor.Tile
 				}
 			}
 		}
+
+		private void HandleKeyDown() => UpdateClearingState();
+
+		private void HandleKeyUp() => UpdateClearingState();
 	}
 }

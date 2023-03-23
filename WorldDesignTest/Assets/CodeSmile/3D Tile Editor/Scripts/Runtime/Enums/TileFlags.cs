@@ -15,5 +15,8 @@ namespace CodeSmile.Tile
 		DirectionWest = 1 << 3,
 		FlipHorizontal = 1 << 4,
 		FlipVertical = 1 << 5,
+
+		AllDirections = DirectionNorth | DirectionSouth | DirectionEast | DirectionWest,
+		AllFlips = FlipHorizontal | FlipVertical,
 	}
 }

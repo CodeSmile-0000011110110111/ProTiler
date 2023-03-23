@@ -24,8 +24,15 @@ namespace CodeSmile.Tile
 			{
 				name = nameof(TileWorld);
 				var layer = CreateNewTileLayer("TileLayer");
-				Selection.activeGameObject = layer;
+				SelectFirstLayerInEditor(layer);
 			}
+		}
+
+		private static void SelectFirstLayerInEditor(GameObject layer)
+		{
+			#if UNITY_EDITOR
+			Selection.activeGameObject = layer;
+			#endif
 		}
 
 		private GameObject CreateNewTileLayer(string name)

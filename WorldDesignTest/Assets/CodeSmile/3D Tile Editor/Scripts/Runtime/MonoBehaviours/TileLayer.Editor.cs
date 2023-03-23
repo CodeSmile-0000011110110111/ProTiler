@@ -25,12 +25,18 @@ namespace CodeSmile.Tile
 			DebugSetTileName();
 		}
 
-		private void ForceUpdateTileLayerRenderer() => StartCoroutine(new WaitForFramesElapsed(1, () =>
+		private void ForceUpdateTileLayerRenderer()
 		{
-			var renderer = GetComponent<TileLayerRenderer>();
-			renderer.enabled = false;
-			renderer.enabled = true;
-		}));
+			if (isActiveAndEnabled)
+			{
+				StartCoroutine(new WaitForFramesElapsed(1, () =>
+				{
+					var renderer = GetComponent<TileLayerRenderer>();
+					renderer.enabled = false;
+					renderer.enabled = true;
+				}));
+			}
+		}
 
 		private void DebugSetTileName() => m_DebugSelectedTileName = TileSet.GetPrefab(m_DrawBrush.TileSetIndex)?.name;
 

@@ -9,6 +9,7 @@ namespace CodeSmile.Tile
 {
 	public sealed partial class TileLayerRenderer
 	{
+#if UNITY_EDITOR
 		private void OnDrawGizmosSelected() => DrawTilePoolGizmos();
 
 		private void DrawTilePoolGizmos()
@@ -41,5 +42,6 @@ namespace CodeSmile.Tile
 				new Vector3(rect.size.x, 1f, rect.size.y));
 			Gizmos.color = prevColor;
 		}
+#endif
 	}
 }

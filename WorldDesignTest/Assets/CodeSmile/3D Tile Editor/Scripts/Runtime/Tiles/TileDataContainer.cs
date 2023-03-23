@@ -79,11 +79,11 @@ namespace CodeSmile.Tile
 				for (var i = 0; i < coords.Count; i++)
 				{
 					var tile = new TileData(tileSetIndex);
-					AddOrReplaceTile(coords[i], tile);
+					AddOrUpdateTile(coords[i], tile);
 					tiles.Add(tile);
 				}
 			}
-			
+
 			return tiles;
 		}
 
@@ -92,14 +92,14 @@ namespace CodeSmile.Tile
 			if (tileSetIndex < 0)
 				TryRemoveTile(coord);
 			else
-				AddOrReplaceTile(coord, new TileData(tileSetIndex));
+				AddOrUpdateTile(coord, new TileData(tileSetIndex));
 		}
 
-		private void AddOrReplaceTile(GridCoord coord, TileData tileData)
+		private void AddOrUpdateTile(GridCoord coord, TileData tileData)
 		{
 #if TRYADDTILES
 			if (m_Tiles.TryAdd(coord, tileData) == false)
-				m_Tiles[coord] = tileData;
+				UpdateTile(coord, tileData);
 #else
 				if (m_Tiles.ContainsKey(coord))
 					m_Tiles[coord] = tile;
@@ -107,6 +107,8 @@ namespace CodeSmile.Tile
 					m_Tiles.Add(coord, tile);
 #endif
 		}
+
+		private void UpdateTile(GridCoord coord, TileData tileData) => m_Tiles[coord] = tileData;
 
 		public void TryRemoveTile(GridCoord coord)
 		{
@@ -146,21 +148,41 @@ namespace CodeSmile.Tile
 		public TileFlags SetTileFlags(GridCoord coord, TileFlags flags)
 		{
 			var tile = GetTile(coord);
-			if (tile.TileSetIndex < 0)
-				return TileFlags.None;
-
-			tile.Flags |= flags;
-			return tile.Flags;
+			var newFlags = tile.SetFlags(flags);
+			if (newFlags != flags)
+				UpdateTile(coord, tile);
+			return newFlags;
 		}
 
 		public TileFlags ClearTileFlags(GridCoord coord, TileFlags flags)
 		{
+			
 			var tile = GetTile(coord);
-			if (tile.TileSetIndex < 0)
-				return TileFlags.None;
+			var newFlags = tile.ClearFlags(flags);
+			if (newFlags != flags)
+				UpdateTile(coord, tile);
+			return newFlags;
+			
+		}
 
-			tile.Flags &= ~flags;
-			return tile.Flags;
+		public TileFlags RotateTile(GridCoord coord, int delta)
+		{
+			var tile = GetTile(coord);
+			var flags = tile.Flags;
+			var newFlags = tile.Rotate(delta);
+			if (newFlags != flags)
+				UpdateTile(coord, tile);
+			return newFlags;
+		}
+		
+		public TileFlags FlipTile(GridCoord coord, int delta)
+		{
+			var tile = GetTile(coord);
+			var flags = tile.Flags;
+			var newFlags = tile.Flip(delta);
+			if (newFlags != flags)
+				UpdateTile(coord, tile);
+			return newFlags;
 		}
 	}
 }

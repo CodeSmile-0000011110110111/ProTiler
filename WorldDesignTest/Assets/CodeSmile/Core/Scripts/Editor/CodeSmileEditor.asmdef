@@ -1,4 +1,18 @@
 {
-	"name": "CodeSmileEditor",
-	"references":[ "GUID:0de177a875028db4d97efebe9a09aa5a" ]
+    "name": "CodeSmileEditor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:0de177a875028db4d97efebe9a09aa5a"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }
