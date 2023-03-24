@@ -2,6 +2,8 @@
 // Refer to included LICENSE file for terms and conditions.
 
 using System;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using Unity.Mathematics;
 using UnityEngine;
 using GridCoord = Unity.Mathematics.int3;
@@ -19,6 +21,7 @@ namespace CodeSmile.Tile
 		Data,
 	}
 
+	[SuppressMessage("ReSharper", "PossibleNullReferenceException")]
 	public sealed partial class TileLayer : MonoBehaviour
 	{
 		private static TileSet s_ExampleTileSet;
@@ -31,7 +34,6 @@ namespace CodeSmile.Tile
 		[Header("Debug")]
 		[SerializeField] private bool m_DebugClearTilesButton;
 		[ReadOnlyField] [SerializeField] private string m_DebugSelectedTileName;
-		[ReadOnlyField] [SerializeField] private int m_DebugTileCount;
 
 		private int m_TileSetInstanceId;
 		private TileLayerRenderer m_LayerRenderer;
@@ -56,6 +58,8 @@ namespace CodeSmile.Tile
 			}
 		}
 
+		public int TileCount { get => m_TileDataContainer.Count; }
+
 		private void Reset() => OnEnable(); // Editor will not call OnEnable when layer added during Reset
 
 		private void OnEnable()
@@ -71,8 +75,6 @@ namespace CodeSmile.Tile
 
 		public override string ToString() => name;
 
-		private void UpdateDebugTileCount() => m_DebugTileCount = m_TileDataContainer.Count;
-
 		private TileSet GetExampleTileSet()
 		{
 			if (s_ExampleTileSet == null)
@@ -80,6 +82,8 @@ namespace CodeSmile.Tile
 
 			return s_ExampleTileSet;
 		}
+
+		public IDictionary<GridCoord, TileData> GetTilesInRect(GridRect rect) => m_TileDataContainer.GetTilesInRect(rect);
 
 		public TileData GetTileData(GridCoord coord) => m_TileDataContainer.GetTile(coord);
 
@@ -90,7 +94,6 @@ namespace CodeSmile.Tile
 			this.RecordUndoInEditor(m_DrawBrush.IsClearing ? "Clear Tiles" : "Draw Tiles");
 			var coords = start.MakeLine(end);
 			var tiles = m_TileDataContainer.SetTiles(coords, m_DrawBrush.TileSetIndex);
-			UpdateDebugTileCount();
 			this.SetDirtyInEditor();
 
 			LayerRenderer.RedrawTiles(coords, tiles);
@@ -100,7 +103,6 @@ namespace CodeSmile.Tile
 		{
 			this.RecordUndoInEditor(nameof(ClearAllTiles));
 			m_TileDataContainer.ClearAllTiles();
-			UpdateDebugTileCount();
 			this.SetDirtyInEditor();
 
 			LayerRenderer.ForceRedraw();

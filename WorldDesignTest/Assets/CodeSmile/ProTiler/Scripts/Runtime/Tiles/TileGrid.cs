@@ -14,7 +14,7 @@ namespace CodeSmile.Tile
 	[Serializable]
 	public sealed class TileGrid
 	{
-		private static GridSize MinGridSize = new(1, 1, 1);
+		private static GridSize s_MinGridSize = new(1, 1, 1);
 
 		[SerializeField] private GridSize m_GridSize;
 
@@ -31,7 +31,7 @@ namespace CodeSmile.Tile
 		//public Vector3Int Gap { get => m_Gap; set => m_Gap = value; }
 		//[SerializeField] private Vector3Int m_Gap;
 
-		public TileGrid() => m_GridSize = MinGridSize;
+		public TileGrid() => m_GridSize = s_MinGridSize;
 
 		public TileGrid(GridSize gridSize)
 		{
@@ -41,7 +41,7 @@ namespace CodeSmile.Tile
 
 		public GridSize Size { get => m_GridSize; set => m_GridSize = value; }
 
-		public void ClampGridSize() => m_GridSize = math.max(m_GridSize, MinGridSize);
+		public void ClampGridSize() => m_GridSize = math.max(m_GridSize, s_MinGridSize);
 
 		public GridSize ToGridCoord(float3 position)
 		{

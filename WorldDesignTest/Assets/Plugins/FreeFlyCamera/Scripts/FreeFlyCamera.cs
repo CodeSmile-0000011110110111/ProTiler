@@ -1,7 +1,6 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
-using Unity.Mathematics;
 using UnityEngine;
 
 [RequireComponent(typeof(Camera))]
@@ -69,9 +68,9 @@ public class FreeFlyCamera : MonoBehaviour
 	[Tooltip("This keypress will move the camera to initialization position")]
 	private KeyCode _initPositonButton = KeyCode.R;
 
-	[SerializeField] private Vector3 m_MinPos = new Vector3(float.MinValue,float.MinValue,float.MinValue);
-	[SerializeField] private Vector3 m_MaxPos = new Vector3(float.MaxValue,float.MaxValue,float.MaxValue);
-	
+	[SerializeField] private Vector3 m_MinPos = new(float.MinValue, float.MinValue, float.MinValue);
+	[SerializeField] private Vector3 m_MaxPos = new(float.MaxValue, float.MaxValue, float.MaxValue);
+
 	private CursorLockMode _wantedMode;
 
 	private float _currentIncrease = 1;

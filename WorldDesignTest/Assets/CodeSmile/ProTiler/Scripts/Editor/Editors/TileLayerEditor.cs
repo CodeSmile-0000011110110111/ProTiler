@@ -3,6 +3,7 @@
 
 using CodeSmile;
 using CodeSmile.Tile;
+using System.Diagnostics.CodeAnalysis;
 using Unity.Mathematics;
 using UnityEditor;
 using UnityEngine;
@@ -10,10 +11,12 @@ using UnityEngine.UIElements;
 using GridCoord = Unity.Mathematics.int3;
 using GridSize = Unity.Mathematics.int3;
 using GridRect = UnityEngine.RectInt;
+// ReSharper disable HeapView.ObjectAllocation
 
 namespace CodeSmileEditor.Tile
 {
 	[CustomEditor(typeof(TileLayer))]
+	[SuppressMessage("ReSharper", "PossibleNullReferenceException")]
 	public class TileLayerEditor : Editor
 	{
 		private readonly EditorInputState m_InputState = new();

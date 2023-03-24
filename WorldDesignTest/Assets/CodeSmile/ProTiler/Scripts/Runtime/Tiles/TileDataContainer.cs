@@ -45,7 +45,7 @@ namespace CodeSmile.Tile
 	[Serializable]
 	public sealed class TileDataContainer
 	{
-		[SerializeField] private SerializedCoordAndTile m_Tiles = new();
+		[SerializeReference] private SerializedCoordAndTile m_Tiles = new();
 
 		public int Count { get => m_Tiles.Count; }
 

@@ -205,7 +205,7 @@ namespace CodeSmile.Tile
 					m_TilePool.ReturnToPool(tile);
 			}
 
-			m_GizmosVisibleTiles = layer.TileDataContainer.GetTilesInRect(dirtyRect);
+			m_GizmosVisibleTiles = layer.GetTilesInRect(dirtyRect);
 			foreach (var coord in m_GizmosVisibleTiles.Keys)
 			{
 				if (unchangedRect.Contains(coord.ToCoord2d()))
