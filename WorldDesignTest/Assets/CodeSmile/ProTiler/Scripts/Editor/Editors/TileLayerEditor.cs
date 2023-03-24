@@ -55,11 +55,7 @@ namespace CodeSmileEditor.Tile
 				m_PreviewRenderer.ShowPreview = m_IsMouseInView && editMode != TileEditMode.Selection;
 		}
 
-		private void ChangeSelectedTileSetIndex(int delta)
-		{
-			DrawTileSetIndex += delta;
-			UpdateLayerDrawBrush();
-		}
+		private void ChangeSelectedTileSetIndex(int delta) => DrawTileSetIndex += delta;
 
 		private TileBrush CreateDrawBrush(bool clear) =>
 			new(m_CursorCoord, clear ? Global.InvalidTileSetIndex : TileEditorState.instance.DrawTileSetIndex);
@@ -74,7 +70,6 @@ namespace CodeSmileEditor.Tile
 			if (editMode == TileEditMode.PenDraw || editMode == TileEditMode.RectFill)
 			{
 				m_IsDrawingTiles = true;
-				UpdateLayerDrawBrush();
 				Event.current.Use();
 			}
 		}
@@ -89,14 +84,10 @@ namespace CodeSmileEditor.Tile
 				{
 					DrawLineFromStartToCursor();
 					UpdateStartSelectionCoord();
-					UpdateLayerDrawBrush();
 					Event.current.Use();
 				}
 				else if (editMode == TileEditMode.RectFill)
-				{
-					UpdateLayerDrawBrush();
 					Event.current.Use();
-				}
 			}
 			else
 				UpdateStartSelectionCoord();
@@ -107,7 +98,6 @@ namespace CodeSmileEditor.Tile
 			if (m_IsDrawingTiles)
 			{
 				UpdateCursorCoord();
-				UpdateLayerDrawBrush();
 
 				if (editMode == TileEditMode.PenDraw)
 				{
@@ -121,7 +111,6 @@ namespace CodeSmileEditor.Tile
 				}
 
 				m_IsDrawingTiles = false;
-				UpdateClearingState();
 			}
 		}
 
@@ -139,10 +128,7 @@ namespace CodeSmileEditor.Tile
 			{
 				var shouldClear = Event.current.shift || IsRightMouseButtonDown();
 				if (m_IsClearingTiles != shouldClear)
-				{
 					m_IsClearingTiles = shouldClear;
-					UpdateLayerDrawBrush();
-				}
 			}
 		}
 
@@ -180,7 +166,29 @@ namespace CodeSmileEditor.Tile
 				var worldPos = Layer.transform.position;
 				var cubePos = worldRect.GetWorldCenter() + worldPos;
 				var cubeSize = worldRect.GetWorldSize(Layer.Grid.Size.y);
+
+				var prevColor = Handles.color;
+				Handles.color = Global.OutlineColor;
 				Handles.DrawWireCube(cubePos, cubeSize);
+				Handles.color = prevColor;
+
+				//Handles.DrawAAPolyLine();
+
+				var renderer = Layer.GetComponent<TilePreviewRenderer>();
+				var cursor = renderer.transform.Find("Cursor");
+				if (cursor != null)
+				{
+					var meshRenderer = cursor.GetComponent<MeshRenderer>();
+					if (meshRenderer == null && cursor.childCount > 0)
+					{
+						meshRenderer = cursor.GetChild(0).GetComponent<MeshRenderer>();
+						if (meshRenderer == null && cursor.GetChild(0).childCount > 0)
+							meshRenderer = cursor.GetChild(0).GetChild(0).GetComponent<MeshRenderer>();
+					}
+
+					if (meshRenderer != null)
+						Handles.DrawOutline(new[] { meshRenderer.gameObject }, Global.OutlineColor);
+				}
 			}
 		}
 

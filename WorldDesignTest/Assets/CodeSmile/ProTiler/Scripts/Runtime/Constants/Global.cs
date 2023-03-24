@@ -11,7 +11,7 @@ namespace CodeSmile.Tile
 {
 	public static class Global
 	{
-		public const string TileEditorName = "ProTiler"; 
+		public const string TileEditorName = "ProTiler";
 		// Previously named (but not known) as:
 		//public const string TileEditorName = "Fliesenleger 3D";
 
@@ -20,7 +20,6 @@ namespace CodeSmile.Tile
 		public const string EditorToolsIconPath = TileEditorIconPathRoot + "EditorTools/";
 		public const string TileEditorResourcePrefabsPath = "TileEditor/Prefabs/";
 		public const string TileEditorResourceTileSetsPath = "TileEditor/TileSets/";
-		
 
 		public const int InvalidTileSetIndex = -1;
 
@@ -30,10 +29,10 @@ namespace CodeSmile.Tile
 		public const HideFlags TileHideFlags = HideFlags.HideAndDontSave | HideFlags.HideInInspector;
 #endif
 
+		public static readonly Color OutlineColor = new(1f, .7f, .4f);
 		public static readonly TileData InvalidTileData = new(InvalidTileSetIndex);
 		public static readonly GridCoord InvalidGridCoord = new(int.MinValue, int.MinValue, int.MinValue);
 		public static readonly GridRect InvalidGridRect = new(int.MinValue, int.MinValue, 0, 0);
 		public static readonly TileGrid DefaultGrid = new();
-
 	}
 }

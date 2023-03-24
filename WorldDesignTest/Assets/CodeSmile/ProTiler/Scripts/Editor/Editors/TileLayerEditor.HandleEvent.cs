@@ -86,17 +86,18 @@ namespace CodeSmileEditor.Tile
 					OnRepaint(editMode);
 					break;
 			}
+
+			UpdateClearingState();
+			UpdateLayerDrawBrush();
 		}
 
 		private void OnKeyDown(TileEditMode editMode)
 		{
 			if (Event.current.keyCode == KeyCode.Escape)
 				CancelTileDrawing(editMode);
-
-			UpdateClearingState();
 		}
 
-		private void OnKeyUp(TileEditMode editMode) => UpdateClearingState();
+		private void OnKeyUp(TileEditMode editMode) {}
 		private void OnMouseEnterWindow(TileEditMode editMode) => m_IsMouseInView = true;
 
 		private void OnMouseLeaveWindow(TileEditMode editMode)
@@ -111,8 +112,6 @@ namespace CodeSmileEditor.Tile
 			// We do not need to check for mouse button down here since they can be assumed "up" at all times in MouseMove.
 			UpdateStartSelectionCoord();
 			UpdateCursorCoord();
-			if (editMode != TileEditMode.Selection)
-				UpdateLayerDrawBrush();
 		}
 
 		private void OnMouseDown(TileEditMode editMode)
