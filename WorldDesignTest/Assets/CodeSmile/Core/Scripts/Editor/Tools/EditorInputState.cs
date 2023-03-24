@@ -8,49 +8,74 @@ using UnityEngine.UIElements;
 
 namespace CodeSmileEditor.Tile
 {
-	public sealed partial class EditorInputState
+	public sealed class EditorInputState
 	{
-		private readonly Dictionary<MouseButton, bool> m_ButtonPressed;
-		private readonly Dictionary<KeyCode, bool> m_KeyPressed;
-		private bool m_TouchDown;
+		private readonly Dictionary<MouseButton, bool> m_IsButtonPressed;
+		private readonly Dictionary<KeyCode, bool> m_IsKeyPressed;
+		private Dictionary<MouseButton, bool> m_WasButtonPressed;
+		private Dictionary<KeyCode, bool> m_WasKeyPressed;
+		private bool m_IsTouchDown;
+		private bool m_WasTouchDown;
 
-		public bool IsTouchDown => m_TouchDown;
+		public bool IsTouchDown => m_IsTouchDown;
+		public bool WasTouchDown => m_WasTouchDown;
+		public bool IsButtonOrTouchDown => IsButtonDown(MouseButton.LeftMouse) || m_IsTouchDown;
+		public bool WasButtonOrTouchDown => WasButtonDown(MouseButton.LeftMouse) || m_WasTouchDown;
 
 		public EditorInputState()
 		{
-			m_ButtonPressed = new Dictionary<MouseButton, bool>
+			m_IsButtonPressed = new Dictionary<MouseButton, bool>
 			{
 				{ MouseButton.LeftMouse, false },
 				{ MouseButton.MiddleMouse, false },
 				{ MouseButton.RightMouse, false },
 			};
 
-			m_KeyPressed = new Dictionary<KeyCode, bool>();
+			m_IsKeyPressed = new Dictionary<KeyCode, bool>();
 			var keyCodes = Enum.GetValues(typeof(KeyCode));
 			foreach (KeyCode keyCode in keyCodes)
 			{
-				if (m_KeyPressed.ContainsKey(keyCode) == false)
-					m_KeyPressed.Add(keyCode, false);
+				if (m_IsKeyPressed.ContainsKey(keyCode) == false)
+					m_IsKeyPressed.Add(keyCode, false);
 			}
+
+			UpdatePreviousStates();
 		}
 
-		public bool IsButtonDown(MouseButton button) => m_ButtonPressed[button];
-		public bool IsKeyDown(KeyCode keyCode) => m_KeyPressed[keyCode];
+		public bool IsButtonDown(MouseButton button) => m_IsButtonPressed[button];
+		public bool IsOnlyButtonDown(MouseButton button) => IsButtonDown(button) && ButtonDownCount() == 1;
 
-		private void SetKeyPressed(bool down) => m_KeyPressed[Event.current.keyCode] = down;
+		public int ButtonDownCount()
+		{
+			var count = 0;
+			foreach (var state in m_IsButtonPressed.Values)
+			{
+				if (state)
+					count++;
+			}
+			return count;
+		}
+
+		public bool IsKeyDown(KeyCode keyCode) => m_IsKeyPressed[keyCode];
+		public bool WasButtonDown(MouseButton button) => m_WasButtonPressed[button];
+		public bool WasKeyDown(KeyCode keyCode) => m_WasKeyPressed[keyCode];
 
 		private void SetButtonPressed(bool down)
 		{
-			if (Event.current.button < m_ButtonPressed.Count)
-				m_ButtonPressed[MouseButtonFromEvent()] = down;
+			if (Event.current.button < m_IsButtonPressed.Count)
+				m_IsButtonPressed[MouseButtonFromEvent()] = down;
 		}
+
+		private void SetKeyPressed(bool down) => m_IsKeyPressed[Event.current.keyCode] = down;
 
 		private MouseButton MouseButtonFromEvent() => (MouseButton)Mathf.Clamp(Event.current.button, 0, 2);
 
-		private void SetTouchPressed(bool down) => m_TouchDown = down;
+		private void SetTouchPressed(bool down) => m_IsTouchDown = down;
 
 		public void Update()
 		{
+			UpdatePreviousStates();
+
 			switch (Event.current.type)
 			{
 				case EventType.TouchDown:
@@ -72,6 +97,13 @@ namespace CodeSmileEditor.Tile
 					SetKeyPressed(false);
 					break;
 			}
+		}
+
+		private void UpdatePreviousStates()
+		{
+			m_WasKeyPressed = new Dictionary<KeyCode, bool>(m_IsKeyPressed);
+			m_WasButtonPressed = new Dictionary<MouseButton, bool>(m_IsButtonPressed);
+			m_WasTouchDown = m_IsTouchDown;
 		}
 	}
 }

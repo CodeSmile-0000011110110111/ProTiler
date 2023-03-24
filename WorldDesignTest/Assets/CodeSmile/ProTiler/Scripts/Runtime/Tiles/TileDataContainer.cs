@@ -45,7 +45,7 @@ namespace CodeSmile.Tile
 	[Serializable]
 	public sealed class TileDataContainer
 	{
-		[SerializeReference] private SerializedCoordAndTile m_Tiles = new();
+		[SerializeField] private SerializedCoordAndTile m_Tiles = new();
 
 		public int Count { get => m_Tiles.Count; }
 
@@ -53,32 +53,32 @@ namespace CodeSmile.Tile
 
 		public void ClearAllTiles() => m_Tiles.Clear();
 
-		//public Tile this[GridCoord coord] => GetTile(coord);
+		//public TileData this[GridCoord coord] => GetTile(coord);
 		public TileData GetTile(GridCoord coord) => m_Tiles.TryGetValue(coord, out var tile) ? tile : Global.InvalidTileData;
 
-		public IReadOnlyList<GridCoord> SetTiles(GridRect rect, int tileSetIndex)
+		public ( IReadOnlyList<GridCoord>, IReadOnlyList<TileData> ) SetTileIndexes(GridRect rect, int tileSetIndex)
 		{
 			var coords = rect.GetTileCoords();
-			SetTiles(coords, tileSetIndex);
-			return coords;
+			var tiles = SetTileIndexes(coords, tileSetIndex);
+			return (coords, tiles);
 		}
 
-		public IReadOnlyList<TileData> SetTiles(IReadOnlyList<GridCoord> coords, int tileSetIndex)
+		public IReadOnlyList<TileData> SetTileIndexes(IReadOnlyList<GridCoord> coords, int tileSetIndex)
 		{
+			var tile = new TileData(tileSetIndex);
 			var tiles = new List<TileData>();
-			if (tileSetIndex < 0)
+			if (tile.IsInvalid)
 			{
 				for (var i = 0; i < coords.Count; i++)
 				{
 					TryRemoveTile(coords[i]);
-					tiles.Add(Global.InvalidTileData);
+					tiles.Add(tile);
 				}
 			}
 			else
 			{
 				for (var i = 0; i < coords.Count; i++)
 				{
-					var tile = new TileData(tileSetIndex);
 					AddOrUpdateTile(coords[i], tile);
 					tiles.Add(tile);
 				}
@@ -87,15 +87,11 @@ namespace CodeSmile.Tile
 			return tiles;
 		}
 
-		public void SetTile(GridCoord coord, int tileSetIndex)
-		{
-			if (tileSetIndex < 0)
-				TryRemoveTile(coord);
-			else
-				AddOrUpdateTile(coord, new TileData(tileSetIndex));
-		}
+		public void ClearTile(GridCoord coord) => TryRemoveTile(coord);
 
-		private void AddOrUpdateTile(GridCoord coord, TileData tileData)
+		public void SetTile(GridCoord coord, TileData tileData) => AddOrUpdateTile(coord, tileData);
+
+		private void AddOrUpdateTile(GridCoord coord, in TileData tileData)
 		{
 #if TRYADDTILES
 			if (m_Tiles.TryAdd(coord, tileData) == false)
@@ -110,7 +106,7 @@ namespace CodeSmile.Tile
 
 		private void UpdateTile(GridCoord coord, TileData tileData) => m_Tiles[coord] = tileData;
 
-		public void TryRemoveTile(GridCoord coord)
+		private void TryRemoveTile(GridCoord coord)
 		{
 			if (m_Tiles.ContainsKey(coord))
 				m_Tiles.Remove(coord);
@@ -122,7 +118,7 @@ namespace CodeSmile.Tile
 			foreach (var coord in rect.GetTileCoords())
 			{
 				var tile = GetTile(coord);
-				if (tile.TileSetIndex < 0)
+				if (tile.IsInvalid)
 					continue;
 
 				dict.Add(coord, tile);
@@ -130,58 +126,47 @@ namespace CodeSmile.Tile
 			return dict;
 		}
 
-		public void GetTilesInUnionRect(GridRect rect1, GridRect rect2, out IDictionary<GridCoord, TileData> coordsAndTiles)
-		{
-			coordsAndTiles = new Dictionary<GridCoord, TileData>();
-			var unionRect = rect1.Union(rect2);
-
-			foreach (var coord in unionRect.GetTileCoords())
-			{
-				var tile = GetTile(coord);
-				if (tile.TileSetIndex < 0)
-					continue;
-
-				coordsAndTiles.Add(coord, tile);
-			}
-		}
-
 		public TileFlags SetTileFlags(GridCoord coord, TileFlags flags)
 		{
 			var tile = GetTile(coord);
+			if (tile.IsInvalid)
+				return TileFlags.None;
+
 			var newFlags = tile.SetFlags(flags);
-			if (newFlags != flags)
-				UpdateTile(coord, tile);
+			UpdateTile(coord, tile);
 			return newFlags;
 		}
 
 		public TileFlags ClearTileFlags(GridCoord coord, TileFlags flags)
 		{
-			
 			var tile = GetTile(coord);
+			if (tile.IsInvalid)
+				return TileFlags.None;
+
 			var newFlags = tile.ClearFlags(flags);
-			if (newFlags != flags)
-				UpdateTile(coord, tile);
+			UpdateTile(coord, tile);
 			return newFlags;
-			
 		}
 
 		public TileFlags RotateTile(GridCoord coord, int delta)
 		{
 			var tile = GetTile(coord);
-			var flags = tile.Flags;
+			if (tile.IsInvalid)
+				return TileFlags.None;
+
 			var newFlags = tile.Rotate(delta);
-			if (newFlags != flags)
-				UpdateTile(coord, tile);
+			UpdateTile(coord, tile);
 			return newFlags;
 		}
-		
+
 		public TileFlags FlipTile(GridCoord coord, int delta)
 		{
 			var tile = GetTile(coord);
-			var flags = tile.Flags;
+			if (tile.IsInvalid)
+				return TileFlags.None;
+
 			var newFlags = tile.Flip(delta);
-			if (newFlags != flags)
-				UpdateTile(coord, tile);
+			UpdateTile(coord, tile);
 			return newFlags;
 		}
 	}

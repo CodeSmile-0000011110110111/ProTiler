@@ -4,9 +4,7 @@
 using CodeSmile.Tile;
 using NUnit.Framework;
 using System.Diagnostics.CodeAnalysis;
-using Unity.Mathematics;
 using UnityEditor;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 using GridCoord = Unity.Mathematics.int3;
 using GridSize = Unity.Mathematics.int3;
@@ -32,10 +30,7 @@ public class DrawingUndoRedoTests
 	}
 
 	[TearDown]
-	public void TearDown()
-	{
-		
-	}
+	public void TearDown() {}
 
 	[Test]
 	public void DrawLineUndoRedoTests()
@@ -60,14 +55,13 @@ public class DrawingUndoRedoTests
 		Assert.AreEqual(2, m_TileLayer.TileCount);
 		Assert.AreEqual(0, m_TileLayer.GetTileData(start).TileSetIndex);
 		Assert.AreEqual(0, m_TileLayer.GetTileData(end).TileSetIndex);
-
 	}
-	
+
 	[Test]
 	public void ClearTilesUndoRedoTests()
 	{
-		var start = new GridCoord(-1,0,-2);
-		var end = new GridCoord(3,0,1);
+		var start = new GridCoord(-1, 0, -2);
+		var end = new GridCoord(3, 0, 1);
 		var tileIndex = 0;
 		m_TileLayer.DrawBrush = new TileBrush(GridCoord.zero, tileIndex);
 		m_TileLayer.DrawLine(start, end);

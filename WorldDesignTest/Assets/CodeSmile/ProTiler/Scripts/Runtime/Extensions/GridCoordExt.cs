@@ -13,7 +13,7 @@ namespace CodeSmile.Tile
 {
 	public static class GridCoordExt
 	{
-		public static Vector2Int ToCoord2d(this GridCoord coord) => new(coord.x, coord.z);
+		public static Vector2Int ToCoord2(this GridCoord coord) => new(coord.x, coord.z);
 
 		public static RectInt MakeRect(this GridCoord coord, GridCoord other) => TileGrid.MakeRect(coord, other);
 
@@ -32,7 +32,7 @@ namespace CodeSmile.Tile
 		private static IReadOnlyList<GridCoord> MakeLine(int x1, int y1, int x2, int y2)
 		{
 			var coords = new List<GridCoord>();
-
+			
 			// TODO: refactor ...
 			var w = x2 - x1;
 			var h = y2 - y1;

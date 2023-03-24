@@ -93,7 +93,16 @@ namespace CodeSmile.Tile
 		{
 			this.RecordUndoInEditor(m_DrawBrush.IsClearing ? "Clear Tiles" : "Draw Tiles");
 			var coords = start.MakeLine(end);
-			var tiles = m_TileDataContainer.SetTiles(coords, m_DrawBrush.TileSetIndex);
+			var tiles = m_TileDataContainer.SetTileIndexes(coords, m_DrawBrush.TileSetIndex);
+			this.SetDirtyInEditor();
+
+			LayerRenderer.RedrawTiles(coords, tiles);
+		}
+
+		public void DrawRect(RectInt rect)
+		{
+			this.RecordUndoInEditor(m_DrawBrush.IsClearing ? "Clear Tiles" : "Draw Tiles");
+			var (coords, tiles) = m_TileDataContainer.SetTileIndexes(rect, m_DrawBrush.TileSetIndex);
 			this.SetDirtyInEditor();
 
 			LayerRenderer.RedrawTiles(coords, tiles);

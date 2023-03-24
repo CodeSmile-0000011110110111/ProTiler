@@ -17,39 +17,39 @@ namespace CodeSmile.Tile
 		[SerializeField] private int m_TileSetIndex;
 		[SerializeField] private TileFlags m_Flags;
 
-		public int TileSetIndex { get => m_TileSetIndex; set => m_TileSetIndex = math.max(0, value); }
+		public int TileSetIndex { get => m_TileSetIndex; set => m_TileSetIndex = math.max(Global.InvalidTileSetIndex, value); }
 		public TileFlags Flags { get => m_Flags; set => m_Flags = value; }
+		public bool IsValid => m_TileSetIndex >= 0;
+		public bool IsInvalid => m_TileSetIndex < 0;
 
 		public static bool operator ==(TileData left, TileData right) => left.Equals(right);
 		public static bool operator !=(TileData left, TileData right) => !left.Equals(right);
-
+		
 		public TileData(TileData tileData)
 		{
 			m_TileSetIndex = tileData.m_TileSetIndex;
 			m_Flags = tileData.m_Flags;
-			EnsureDefaultRotation();
+			EnsureRotationIsSet();
 		}
 
 		public TileData(int tileSetIndex, TileFlags flags = TileFlags.None)
 		{
 			m_TileSetIndex = tileSetIndex;
 			m_Flags = flags;
-			EnsureDefaultRotation();
+			EnsureRotationIsSet();
 		}
 
 		public bool Equals(TileData other) => m_TileSetIndex == other.m_TileSetIndex && m_Flags == other.m_Flags;
 
-		private void EnsureDefaultRotation()
+		private void EnsureRotationIsSet()
 		{
-			if ((m_Flags & TileFlags.AllDirections) == 0)
+			if ((m_Flags & TileFlags.AllDirections) == TileFlags.None)
 				m_Flags |= TileFlags.DirectionNorth;
 		}
 
 		public TileFlags Rotate(int delta)
 		{
-			if (m_TileSetIndex < 0)
-				return TileFlags.None;
-
+			EnsureRotationIsSet();
 			var direction = m_Flags & TileFlags.AllDirections;
 			m_Flags &= ~TileFlags.AllDirections;
 
@@ -75,9 +75,6 @@ namespace CodeSmile.Tile
 
 		public TileFlags Flip(int delta)
 		{
-			if (m_TileSetIndex < 0)
-				return TileFlags.None;
-
 			var flip = m_Flags & TileFlags.AllFlips;
 			m_Flags &= ~TileFlags.AllFlips;
 
@@ -105,18 +102,12 @@ namespace CodeSmile.Tile
 
 		public TileFlags ClearFlags(TileFlags flags)
 		{
-			if (m_TileSetIndex < 0)
-				return TileFlags.None;
-
 			m_Flags &= ~flags;
 			return m_Flags;
 		}
 
 		public TileFlags SetFlags(TileFlags flags)
 		{
-			if (m_TileSetIndex < 0)
-				return TileFlags.None;
-
 			m_Flags |= flags;
 			return m_Flags;
 		}

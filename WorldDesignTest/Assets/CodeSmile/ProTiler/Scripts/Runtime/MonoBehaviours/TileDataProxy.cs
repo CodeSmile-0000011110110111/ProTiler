@@ -78,7 +78,7 @@ namespace CodeSmile.Tile
 				m_InstancesToBeDestroyed.Add(m_Instance);
 			}
 
-			if (m_TileData.TileSetIndex < 0 || m_Layer.TileSet == null || m_Layer.TileSet.IsEmpty)
+			if (m_TileData.IsInvalid || m_Layer.TileSet == null || m_Layer.TileSet.IsEmpty)
 				return;
 
 			var prefab = m_Layer.TileSet.GetPrefab(m_TileData.TileSetIndex);

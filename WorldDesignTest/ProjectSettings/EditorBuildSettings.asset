@@ -6,6 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/CodeSmile/3D Tile Editor/Scenes/PreAlphaDemoScene.unity
+    path: Assets/CodeSmile/ProTiler/Scenes/PreAlphaDemoScene.unity
     guid: d479d5121208ccf43975b8b8a404667f
   m_configObjects: {}

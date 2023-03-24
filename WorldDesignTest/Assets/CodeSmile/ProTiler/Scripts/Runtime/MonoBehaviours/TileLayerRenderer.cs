@@ -201,14 +201,14 @@ namespace CodeSmile.Tile
 				if (tile.gameObject.activeSelf == false)
 					continue;
 
-				if (m_VisibleRect.Contains(tile.Coord.ToCoord2d()) == false)
+				if (m_VisibleRect.Contains(tile.Coord.ToCoord2()) == false)
 					m_TilePool.ReturnToPool(tile);
 			}
 
 			m_GizmosVisibleTiles = layer.GetTilesInRect(dirtyRect);
 			foreach (var coord in m_GizmosVisibleTiles.Keys)
 			{
-				if (unchangedRect.Contains(coord.ToCoord2d()))
+				if (unchangedRect.Contains(coord.ToCoord2()))
 					continue;
 
 				var tile = m_TilePool.GetPooledObject();
@@ -229,7 +229,7 @@ namespace CodeSmile.Tile
 				if (tile.gameObject.activeSelf == false)
 					continue;
 
-				if (dirtyRect.Contains(tile.Coord.ToCoord2d()))
+				if (dirtyRect.Contains(tile.Coord.ToCoord2()))
 					m_TilePool.ReturnToPool(tile);
 			}
 		}
@@ -251,14 +251,14 @@ namespace CodeSmile.Tile
 		internal void OnSetTile(GridCoord coord, TileData tileData)
 		{
 			// FIXME: access and change that tile instance directly
-			var dirtyRect = new GridRect(coord.ToCoord2d(), new Vector2Int(1, 1));
+			var dirtyRect = new GridRect(coord.ToCoord2(), new Vector2Int(1, 1));
 			UpdateTilesInDirtyRect(dirtyRect);
 		}
 
 		internal void UpdateTileFlagsAndRedraw(GridCoord coord, TileFlags flags)
 		{
 			//Debug.LogWarning("SetTileFlags not implemented");
-			var dirtyRect = new GridRect(coord.ToCoord2d(), new Vector2Int(1, 1));
+			var dirtyRect = new GridRect(coord.ToCoord2(), new Vector2Int(1, 1));
 			UpdateTilesInDirtyRect(dirtyRect);
 		}
 	}

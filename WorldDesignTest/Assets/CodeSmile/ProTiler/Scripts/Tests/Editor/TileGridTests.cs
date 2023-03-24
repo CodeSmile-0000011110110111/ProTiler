@@ -4,9 +4,10 @@
 using CodeSmile.Tile;
 using NUnit.Framework;
 using UnityEngine;
-using GridSize = Unity.Mathematics.int3;
 using GridCoord = Unity.Mathematics.int3;
+using GridSize = Unity.Mathematics.int3;
 using GridRect = UnityEngine.RectInt;
+using WorldRect = UnityEngine.Rect;
 
 public class TileGridTests
 {
