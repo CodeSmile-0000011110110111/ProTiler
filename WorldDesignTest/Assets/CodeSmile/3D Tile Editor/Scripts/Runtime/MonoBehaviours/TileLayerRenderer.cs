@@ -61,6 +61,7 @@ namespace CodeSmile.Tile
 			ForceUpdateTilesInVisibleRect();
 
 #if UNITY_EDITOR
+			Undo.undoRedoPerformed -= DelayedForceRepaint;
 			Undo.undoRedoPerformed += DelayedForceRepaint;
 #endif
 		}

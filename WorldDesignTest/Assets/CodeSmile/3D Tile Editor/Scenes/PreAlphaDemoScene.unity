@@ -15763,7 +15763,7 @@ MonoBehaviour:
       - m_TileSetIndex: 111
         m_Flags: 1
   m_DebugClearTilesButton: 0
-  m_DebugSelectedTileName: tile-plain
+  m_DebugSelectedTileName: building-restuarant-china
   m_DebugTileCount: 2673
 --- !u!114 &1462416866
 MonoBehaviour:

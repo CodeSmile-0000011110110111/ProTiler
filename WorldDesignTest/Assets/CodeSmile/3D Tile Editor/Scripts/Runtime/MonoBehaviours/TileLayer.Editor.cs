@@ -28,14 +28,7 @@ namespace CodeSmile.Tile
 		private void ForceUpdateTileLayerRenderer()
 		{
 			if (isActiveAndEnabled)
-			{
-				StartCoroutine(new WaitForFramesElapsed(1, () =>
-				{
-					var renderer = GetComponent<TileLayerRenderer>();
-					renderer.enabled = false;
-					renderer.enabled = true;
-				}));
-			}
+				StartCoroutine(new WaitForFramesElapsed(1, () => { LayerRenderer.ForceRedraw(); }));
 		}
 
 		private void DebugSetTileName() => m_DebugSelectedTileName = TileSet.GetPrefab(m_DrawBrush.TileSetIndex)?.name;
