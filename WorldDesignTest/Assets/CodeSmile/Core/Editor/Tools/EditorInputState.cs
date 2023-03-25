@@ -32,8 +32,9 @@ namespace CodeSmileEditor.Tile
 			}
 		}
 
-		public bool IsShiftKeyDown => IsKeyDown(KeyCode.LeftShift) || IsKeyDown(KeyCode.RightShift);
-		public bool IsCtrlKeyDown => IsKeyDown(KeyCode.LeftControl) || IsKeyDown(KeyCode.RightControl);
+		public bool IsShiftKeyDown => Event.current.shift;
+		public bool IsCtrlKeyDown => Event.current.control;
+		public bool IsAltKeyDown => Event.current.alt;
 
 		public EditorInputState()
 		{
@@ -46,7 +47,7 @@ namespace CodeSmileEditor.Tile
 			}
 		}
 
-		public bool IsButtonDown(MouseButton button) => m_MouseButtonDown[InputState.ToInt(button)];
+		public bool IsButtonDown(MouseButton button) => m_MouseButtonDown[RuntimeInputState.ToInt(button)];
 
 		public bool IsOnlyButtonDown(MouseButton button) => IsButtonDown(button) && MouseButtonsDownCount == 1;
 
@@ -58,7 +59,7 @@ namespace CodeSmileEditor.Tile
 				case EventType.TouchDown:
 				case EventType.MouseDown:
 				{
-					var button = InputState.ToMouseButton(Event.current.button);
+					var button = RuntimeInputState.ToMouseButton(Event.current.button);
 					SetMouseButtonDownState(button, true);
 					OnMouseButtonDown?.Invoke(button);
 					break;
@@ -66,7 +67,7 @@ namespace CodeSmileEditor.Tile
 				case EventType.TouchUp:
 				case EventType.MouseUp:
 				{
-					var button = InputState.ToMouseButton(Event.current.button);
+					var button = RuntimeInputState.ToMouseButton(Event.current.button);
 					SetMouseButtonDownState(button, false);
 					OnMouseButtonUp?.Invoke(button);
 					break;

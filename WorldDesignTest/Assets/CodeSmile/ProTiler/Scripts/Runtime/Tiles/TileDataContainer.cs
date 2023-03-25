@@ -47,7 +47,7 @@ namespace CodeSmile.Tile
 	{
 		[SerializeField] private SerializedCoordAndTile m_Tiles = new();
 
-		public int Count { get => m_Tiles.Count; }
+		public int Count => m_Tiles.Count;
 
 		public bool Contains(GridCoord coord) => m_Tiles.ContainsKey(coord);
 
@@ -56,14 +56,10 @@ namespace CodeSmile.Tile
 		//public TileData this[GridCoord coord] => GetTile(coord);
 		public TileData GetTile(GridCoord coord) => m_Tiles.TryGetValue(coord, out var tile) ? tile : Const.InvalidTileData;
 
-		public ( IReadOnlyList<GridCoord>, IReadOnlyList<TileData> ) SetTileIndexes(GridRect rect, int tileSetIndex)
-		{
-			var coords = rect.GetTileCoords();
-			var tiles = SetTileIndexes(coords, tileSetIndex);
-			return (coords, tiles);
-		}
+		public (IReadOnlyList<GridCoord>, IReadOnlyList<TileData>) SetTileIndexes(GridRect rect, int tileSetIndex) =>
+			SetTileIndexes(rect.GetTileCoords(), tileSetIndex);
 
-		public IReadOnlyList<TileData> SetTileIndexes(IReadOnlyList<GridCoord> coords, int tileSetIndex)
+		public (IReadOnlyList<GridCoord>, IReadOnlyList<TileData>) SetTileIndexes(IReadOnlyList<GridCoord> coords, int tileSetIndex)
 		{
 			var tile = new TileData(tileSetIndex);
 			var tiles = new List<TileData>();
@@ -84,7 +80,7 @@ namespace CodeSmile.Tile
 				}
 			}
 
-			return tiles;
+			return (coords, tiles);
 		}
 
 		public void ClearTile(GridCoord coord) => TryRemoveTile(coord);

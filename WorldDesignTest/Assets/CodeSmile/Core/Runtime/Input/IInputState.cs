@@ -11,6 +11,7 @@ namespace CodeSmile
 		public int MouseButtonsDownCount { get; }
 		bool IsShiftKeyDown { get; }
 		bool IsCtrlKeyDown { get; }
+		bool IsAltKeyDown { get; }
 		public bool IsButtonDown(MouseButton button);
 		public bool IsOnlyButtonDown(MouseButton button);
 		public bool IsKeyDown(KeyCode keyCode);

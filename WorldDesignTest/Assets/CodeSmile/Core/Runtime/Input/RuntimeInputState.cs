@@ -8,7 +8,7 @@ using UnityEngine.InputSystem;
 
 namespace CodeSmile
 {
-	public class InputState : IInputState
+	public class RuntimeInputState : IInputState
 	{
 		private readonly bool[] m_MouseButtonDown = new bool[(int)MouseButton.Count];
 		private readonly bool[] m_MouseButtonUp = new bool[(int)MouseButton.Count];
@@ -59,6 +59,17 @@ namespace CodeSmile
 				return UnityEngine.InputSystem.Keyboard.current.ctrlKey.isPressed;
 #else // Legacy input system backend enabled
 				return Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl);
+#endif
+			}
+		}
+		public bool IsAltKeyDown
+		{
+			get
+			{
+#if ENABLE_INPUT_SYSTEM && !ENABLE_LEGACY_INPUT_MANAGER // New input system backends are enabled.
+				return UnityEngine.InputSystem.Keyboard.current.altKey.isPressed;
+#else // Legacy input system backend enabled
+				return Input.GetKey(KeyCode.LeftAlt) || Input.GetKey(KeyCode.RightAlt);
 #endif
 			}
 		}

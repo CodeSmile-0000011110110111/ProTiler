@@ -1,4 +1,4 @@
-﻿// Copyright (C) 2021-2023 Steffen Itterheim
+﻿/*// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
 using CodeSmile;
@@ -110,25 +110,9 @@ namespace CodeSmileEditor.Tile
 				ContinueTileDrawing();
 		}
 
-		private void OnScrollWheel(IInputState inputState, float delta)
-		{
-			var editMode = TileEditorState.instance.TileEditMode;
-			if (editMode != TileEditMode.Selection)
-				if (Layer.ModifyTileAttributes(m_CursorCoord, delta, inputState.IsShiftKeyDown, inputState.IsCtrlKeyDown))
-					Event.current.Use();
-		}
-
-		private void OnLayout() => HandleUtilityExt.AddDefaultControl(GetHashCode());
-
-		private void OnRepaint()
-		{
-			if (m_IsMouseInView && IsRightMouseButtonDown() == false)
-				DrawCursorHandle(TileEditorState.instance.TileEditMode);
-		}
-
 		private bool IsOnlyLeftMouseButtonDown() => m_Input.IsOnlyButtonDown(MouseButton.LeftMouse);
 
 		private bool IsRightMouseButtonDown() => m_Input.IsButtonDown(MouseButton.RightMouse);
 
 	}
-}
+}*/

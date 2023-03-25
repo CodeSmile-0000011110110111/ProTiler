@@ -2,6 +2,7 @@
 // Refer to included LICENSE file for terms and conditions.
 
 using CodeSmile.Tile;
+using Unity.Mathematics;
 using UnityEditor;
 using UnityEngine;
 
@@ -24,7 +25,7 @@ namespace CodeSmileEditor.Tile
 		public int DrawTileSetIndex
 		{
 			get => m_DrawTileSetIndex;
-			set => m_DrawTileSetIndex = value;
+			set => m_DrawTileSetIndex = math.max(value, Const.InvalidTileSetIndex);
 		}
 
 		// save on exit in case any property does not get immediately saved

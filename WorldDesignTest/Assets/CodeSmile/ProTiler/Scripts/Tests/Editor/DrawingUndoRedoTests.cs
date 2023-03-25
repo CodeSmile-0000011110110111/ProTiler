@@ -16,6 +16,7 @@ using WorldRect = UnityEngine.Rect;
 public class DrawingUndoRedoTests
 {
 	private TileLayer m_TileLayer;
+	private TileLayerToolbox m_Toolbox;
 
 	[SetUp]
 	public void SetUp()
@@ -23,6 +24,9 @@ public class DrawingUndoRedoTests
 		var world = new GameObject("world", typeof(TileWorld));
 		m_TileLayer = world.transform.GetChild(0).GetComponent<TileLayer>();
 		Assert.NotNull(m_TileLayer);
+
+		m_Toolbox = world.transform.GetChild(0).GetComponent<TileLayerToolbox>();
+		Assert.NotNull(m_Toolbox);
 
 		var tileSet = AssetDatabase.LoadAssetAtPath<TileSet>("Assets/Art/kenney/Tower Defense (Classic)/TileSet/TD Terrain TileSet.asset");
 		Assert.NotNull(tileSet);
@@ -37,8 +41,8 @@ public class DrawingUndoRedoTests
 	{
 		var start = new GridCoord(0, 0, 0);
 		var end = new GridCoord(1, 0, 1);
-		m_TileLayer.DrawBrush = new TileBrush(GridCoord.zero, 0);
-		m_TileLayer.DrawLine(start, end);
+		m_Toolbox.DrawBrush = new TileBrush(GridCoord.zero, 0);
+		m_Toolbox.DrawLine(start, end);
 
 		Assert.AreEqual(2, m_TileLayer.TileCount);
 		Assert.AreEqual(0, m_TileLayer.GetTileData(start).TileSetIndex);
@@ -63,8 +67,8 @@ public class DrawingUndoRedoTests
 		var start = new GridCoord(-1, 0, -2);
 		var end = new GridCoord(3, 0, 1);
 		var tileIndex = 0;
-		m_TileLayer.DrawBrush = new TileBrush(GridCoord.zero, tileIndex);
-		m_TileLayer.DrawLine(start, end);
+		m_Toolbox.DrawBrush = new TileBrush(GridCoord.zero, tileIndex);
+		m_Toolbox.DrawLine(start, end);
 		var tileCount = m_TileLayer.TileCount;
 
 		Assert.AreEqual(tileCount, m_TileLayer.TileCount);
@@ -74,7 +78,7 @@ public class DrawingUndoRedoTests
 		// FIXME: undo/redo clear all only works after doing undo/redo once before
 		//Undo.PerformUndo();
 		Undo.PerformRedo();
-		m_TileLayer.ClearAllTiles();
+		m_Toolbox.ClearAllTiles();
 
 		Assert.AreEqual(0, m_TileLayer.TileCount);
 		Assert.AreEqual(Const.InvalidTileSetIndex, m_TileLayer.GetTileData(start).TileSetIndex);

@@ -1,7 +1,7 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
-using CodeSmile;
+/*using CodeSmile;
 using CodeSmile.Tile;
 using System.Diagnostics.CodeAnalysis;
 using Unity.Mathematics;
@@ -15,7 +15,7 @@ using GridRect = UnityEngine.RectInt;
 
 namespace CodeSmileEditor.Tile
 {
-	[CustomEditor(typeof(TileLayer))]
+	//[CustomEditor(typeof(TileLayer))]
 	[SuppressMessage("ReSharper", "PossibleNullReferenceException")]
 	public partial class TileLayerEditor : Editor
 	{
@@ -26,7 +26,7 @@ namespace CodeSmileEditor.Tile
 		private bool m_IsClearingTiles;
 		private bool m_IsMouseInView;
 
-		private TilePreviewRenderer m_PreviewRenderer;
+		private TileLayerPreviewRenderer m_LayerPreviewRenderer;
 		private IInputState m_Input;
 
 		private TileLayer Layer => (TileLayer)target;
@@ -71,13 +71,13 @@ namespace CodeSmileEditor.Tile
 
 		private void UpdatePreviewRendererState()
 		{
-			if (m_PreviewRenderer == null)
-				m_PreviewRenderer = Layer.GetComponent<TilePreviewRenderer>();
+			if (m_LayerPreviewRenderer == null)
+				m_LayerPreviewRenderer = Layer.GetComponent<TileLayerPreviewRenderer>();
 
-			if (m_PreviewRenderer != null)
+			if (m_LayerPreviewRenderer != null)
 			{
 				var editMode = TileEditorState.instance.TileEditMode;
-				m_PreviewRenderer.ShowPreview = m_IsMouseInView && editMode != TileEditMode.Selection;
+				m_LayerPreviewRenderer.enabled = m_IsMouseInView && editMode != TileEditMode.Selection;
 			}
 		}
 
@@ -202,7 +202,7 @@ namespace CodeSmileEditor.Tile
 
 				//Handles.DrawAAPolyLine();
 
-				var renderer = Layer.GetComponent<TilePreviewRenderer>();
+				var renderer = Layer.GetComponent<TileLayerPreviewRenderer>();
 				var cursor = renderer.transform.Find("Cursor");
 				if (cursor != null)
 				{
@@ -220,5 +220,38 @@ namespace CodeSmileEditor.Tile
 			}
 		}
 
+		private void OnLayout() => HandleUtilityExt.AddDefaultControl(GetHashCode());
+
+		private void OnRepaint()
+		{
+			if (m_IsMouseInView && IsRightMouseButtonDown() == false)
+				DrawCursorHandle(TileEditorState.instance.TileEditMode);
+		}
+
+		private void OnScrollWheel(IInputState inputState, float scrollDelta)
+		{
+			var editMode = TileEditorState.instance.TileEditMode;
+			if (editMode != TileEditMode.Selection)
+			{
+				var delta = scrollDelta >= 0 ? 1 : -1;
+				var shift = inputState.IsShiftKeyDown;
+				var ctrl = inputState.IsCtrlKeyDown;
+				if (shift && ctrl)
+				{
+					Layer.FlipTile(m_CursorCoord, delta);
+					Event.current.Use();
+				}
+				else if (shift)
+				{
+					Layer.RotateTile(m_CursorCoord, delta);
+					Event.current.Use();
+				}
+				else if (ctrl)
+				{
+					Layer.IncrementDrawTileSetIndex(delta);
+					Event.current.Use();
+				}
+			}
+		}
 	}
-}
+}*/

@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using Unity.Mathematics;
+using UnityEditor;
 using UnityEngine;
 using GridCoord = Unity.Mathematics.int3;
 using GridSize = Unity.Mathematics.int3;
@@ -34,7 +35,7 @@ namespace CodeSmile.Tile
 				}
 			}
 		}
-
+		
 		//public Tile GetPrefabIndex(int index) => m_Tiles[index];
 
 		public bool IsEmpty { get => m_Tiles.Count == 0; }
@@ -91,5 +92,33 @@ namespace CodeSmile.Tile
 		}
 
 		public void SetPrefab(int index, GameObject prefab) => m_Tiles[index].Prefab = prefab;
+
+#if UNITY_EDITOR
+		private void OnValidate()
+		{
+			if (m_DragDropPrefabsHereToAdd.Count > 0)
+				AddPrefabs();
+
+			ValidateLayerPrefabs();
+			Grid.ClampGridSize();
+		}
+
+		public void ValidateLayerPrefabs()
+		{
+			for (var i = m_Tiles.Count - 1; i >= 0; i--)
+			{
+				var tilePrefab = GetPrefab(i);
+				if (tilePrefab != null)
+				{
+					var source = PrefabUtility.GetCorrespondingObjectFromOriginalSource(tilePrefab);
+					if (source == null)
+					{
+						Debug.LogWarning($"'{tilePrefab.name}' is an instance. Tiles must be prefabs!");
+						m_Tiles.RemoveAt(i);
+					}
+				}
+			}
+		}
+#endif
 	}
 }
