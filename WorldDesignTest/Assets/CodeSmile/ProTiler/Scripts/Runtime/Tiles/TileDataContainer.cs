@@ -54,7 +54,7 @@ namespace CodeSmile.Tile
 		public void ClearAllTiles() => m_Tiles.Clear();
 
 		//public TileData this[GridCoord coord] => GetTile(coord);
-		public TileData GetTile(GridCoord coord) => m_Tiles.TryGetValue(coord, out var tile) ? tile : Global.InvalidTileData;
+		public TileData GetTile(GridCoord coord) => m_Tiles.TryGetValue(coord, out var tile) ? tile : Const.InvalidTileData;
 
 		public ( IReadOnlyList<GridCoord>, IReadOnlyList<TileData> ) SetTileIndexes(GridRect rect, int tileSetIndex)
 		{

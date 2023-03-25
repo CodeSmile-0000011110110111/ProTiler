@@ -12,13 +12,13 @@ using UnityEngine.UIElements;
 
 namespace CodeSmileEditor.Tile
 {
-	[Overlay(typeof(SceneView), Global.TileEditorName, Global.TileEditorName)]
-	[Icon(Global.OverlayIconPath + "OverlayToolbarIcon.png")]
+	[Overlay(typeof(SceneView), Const.TileEditorName, Const.TileEditorName)]
+	[Icon(Const.OverlayIconPath + "OverlayToolbarIcon.png")]
 	public class TileWorldOverlay : ToolbarOverlay
 	{
 		public static void SetToggleOn(Type toggleType)
 		{
-			SceneView.lastActiveSceneView.TryGetOverlay(Global.TileEditorName, out var overlay);
+			SceneView.lastActiveSceneView.TryGetOverlay(Const.TileEditorName, out var overlay);
 			var tileWorldOverlay = overlay as TileWorldOverlay;
 			if (tileWorldOverlay != null)
 			{
@@ -68,9 +68,9 @@ namespace CodeSmileEditor.Tile
 	[EditorToolbarElement(Id, typeof(SceneView))]
 	internal class TileWorldSelectionToggle : TileEditorToolbarRadioToggle
 	{
-		public const string Id = Global.TileEditorName + "/Selection";
+		public const string Id = Const.TileEditorName + "/Selection";
 
-		[Shortcut(Global.TileEditorName + "/Tile Selection Tool", typeof(SceneView), KeyCode.S)]
+		[Shortcut(Const.TileEditorName + "/Tile Selection Tool", typeof(SceneView), KeyCode.S)]
 		private static void TileWorldSelectionShortcut()
 		{
 			Debug.Log("selection shortcut!");
@@ -82,8 +82,8 @@ namespace CodeSmileEditor.Tile
 			value = TileEditorState.instance.TileEditMode == TileEditMode.Selection;
 			tooltip = "Select Tiles";
 
-			onIcon = AssetDatabase.LoadAssetAtPath<Texture2D>(Global.OverlayIconPath + "TileSelectionOnIcon.png");
-			offIcon = AssetDatabase.LoadAssetAtPath<Texture2D>(Global.OverlayIconPath + "TileSelectionOffIcon.png");
+			onIcon = AssetDatabase.LoadAssetAtPath<Texture2D>(Const.OverlayIconPath + "TileSelectionOnIcon.png");
+			offIcon = AssetDatabase.LoadAssetAtPath<Texture2D>(Const.OverlayIconPath + "TileSelectionOffIcon.png");
 			this.RegisterValueChangedCallback(OnToggleChange);
 		}
 
@@ -103,15 +103,15 @@ namespace CodeSmileEditor.Tile
 	[EditorToolbarElement(Id, typeof(SceneView))]
 	internal class TileWorldPenDrawingToggle : TileEditorToolbarRadioToggle
 	{
-		public const string Id = Global.TileEditorName + "/PenDrawing";
+		public const string Id = Const.TileEditorName + "/PenDrawing";
 
 		public TileWorldPenDrawingToggle()
 		{
 			value = TileEditorState.instance.TileEditMode == TileEditMode.PenDraw;
 			tooltip = "Draw Tiles";
 
-			onIcon = AssetDatabase.LoadAssetAtPath<Texture2D>(Global.OverlayIconPath + "TilePenDrawingOnIcon.png");
-			offIcon = AssetDatabase.LoadAssetAtPath<Texture2D>(Global.OverlayIconPath + "TilePenDrawingOffIcon.png");
+			onIcon = AssetDatabase.LoadAssetAtPath<Texture2D>(Const.OverlayIconPath + "TilePenDrawingOnIcon.png");
+			offIcon = AssetDatabase.LoadAssetAtPath<Texture2D>(Const.OverlayIconPath + "TilePenDrawingOffIcon.png");
 			this.RegisterValueChangedCallback(OnToggleChange);
 		}
 
@@ -125,15 +125,15 @@ namespace CodeSmileEditor.Tile
 	[EditorToolbarElement(Id, typeof(SceneView))]
 	internal class TileWorldRectDrawingToggle : TileEditorToolbarRadioToggle
 	{
-		public const string Id = Global.TileEditorName + "/RectDrawing";
+		public const string Id = Const.TileEditorName + "/RectDrawing";
 
 		public TileWorldRectDrawingToggle()
 		{
 			value = TileEditorState.instance.TileEditMode == TileEditMode.RectFill;
 			tooltip = "Rectangle Fill Tiles";
 
-			onIcon = AssetDatabase.LoadAssetAtPath<Texture2D>(Global.OverlayIconPath + "TileRectDrawingOnIcon.png");
-			offIcon = AssetDatabase.LoadAssetAtPath<Texture2D>(Global.OverlayIconPath + "TileRectDrawingOffIcon.png");
+			onIcon = AssetDatabase.LoadAssetAtPath<Texture2D>(Const.OverlayIconPath + "TileRectDrawingOnIcon.png");
+			offIcon = AssetDatabase.LoadAssetAtPath<Texture2D>(Const.OverlayIconPath + "TileRectDrawingOffIcon.png");
 			this.RegisterValueChangedCallback(OnToggleChange);
 		}
 

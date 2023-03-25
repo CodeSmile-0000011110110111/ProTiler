@@ -27,7 +27,7 @@ public class TileDataTests
 		Assert.AreEqual(0, tileData.TileSetIndex);
 		Assert.AreEqual(TileFlags.None, tileData.Flags);
 
-		tileData = new TileData(Global.InvalidTileSetIndex);
+		tileData = new TileData(Const.InvalidTileSetIndex);
 		Assert.IsTrue(tileData.IsInvalid);
 
 		Assert.IsNotNull(tileData.ToString());
@@ -76,8 +76,8 @@ public class TileDataTests
 	{
 		var tileData = new TileData(1);
 		Assert.AreEqual(1, tileData.TileSetIndex);
-		tileData.TileSetIndex = Global.InvalidTileSetIndex;
-		Assert.AreEqual(Global.InvalidTileSetIndex, tileData.TileSetIndex);
+		tileData.TileSetIndex = Const.InvalidTileSetIndex;
+		Assert.AreEqual(Const.InvalidTileSetIndex, tileData.TileSetIndex);
 		tileData.TileSetIndex = int.MaxValue;
 		Assert.AreEqual(int.MaxValue, tileData.TileSetIndex);
 	}

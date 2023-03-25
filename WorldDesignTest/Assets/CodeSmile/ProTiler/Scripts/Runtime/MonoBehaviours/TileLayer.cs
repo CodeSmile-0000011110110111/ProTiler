@@ -1,10 +1,12 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
+using CodeSmileEditor.Tile;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using Unity.Mathematics;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using GridCoord = Unity.Mathematics.int3;
 using GridSize = Unity.Mathematics.int3;
@@ -78,7 +80,7 @@ namespace CodeSmile.Tile
 		private TileSet GetExampleTileSet()
 		{
 			if (s_ExampleTileSet == null)
-				s_ExampleTileSet = Resources.Load<TileSet>(Global.TileEditorResourceTileSetsPath + "ExampleTileSet");
+				s_ExampleTileSet = Resources.Load<TileSet>(Const.TileEditorResourceTileSetsPath + "ExampleTileSet");
 
 			return s_ExampleTileSet;
 		}

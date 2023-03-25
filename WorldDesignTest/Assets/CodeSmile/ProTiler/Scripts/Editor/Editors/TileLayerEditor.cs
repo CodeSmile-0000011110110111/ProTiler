@@ -25,16 +25,39 @@ namespace CodeSmileEditor.Tile
 		private bool m_IsDrawingTiles;
 		private bool m_IsClearingTiles;
 		private bool m_IsMouseInView;
-		private TilePreviewRenderer m_PreviewRenderer;
 
-		private float2 MousePos => Event.current.mousePosition;
+		private TilePreviewRenderer m_PreviewRenderer;
+		private IInputState m_Input;
+
 		private TileLayer Layer => (TileLayer)target;
 		private TileGrid Grid => ((TileLayer)target).Grid;
 
-		private int DrawTileSetIndex
+
+		private void OnEnable()
 		{
-			get => TileEditorState.instance.DrawTileSetIndex;
-			set => TileEditorState.instance.DrawTileSetIndex = math.clamp(value, 0, Layer.TileSet.Count - 1);
+			if (m_Input == null)
+			{
+				var input = new EditorInputState();
+				input.OnMouseButtonDown += OnMouseButtonDown;
+				input.OnMouseButtonUp += OnMouseButtonUp;
+				input.OnScrollWheel += OnScrollWheel;
+				input.OnKeyDown += OnKeyDown;
+				input.OnKeyUp += OnKeyUp;
+				m_Input = input;
+			}
+		}
+
+		private void OnDisable()
+		{
+			if (m_Input != null)
+			{
+				var input = m_Input as EditorInputState;
+				input.OnMouseButtonDown -= OnMouseButtonDown;
+				input.OnMouseButtonUp -= OnMouseButtonUp;
+				input.OnScrollWheel -= OnScrollWheel;
+				input.OnKeyDown -= OnKeyDown;
+				input.OnKeyUp -= OnKeyUp;
+			}
 		}
 
 		private void OnSceneGUI()
@@ -42,31 +65,34 @@ namespace CodeSmileEditor.Tile
 			if (Selection.activeGameObject != Layer.gameObject)
 				return;
 
-			var editMode = TileEditorState.instance.TileEditMode;
-			UpdatePreviewRenderer(editMode);
-			HandleEventsAndInput(editMode);
+			UpdatePreviewRendererState();
+			HandleEventsAndInput();
 		}
 
-		private void UpdatePreviewRenderer(TileEditMode editMode)
+		private void UpdatePreviewRendererState()
 		{
 			if (m_PreviewRenderer == null)
 				m_PreviewRenderer = Layer.GetComponent<TilePreviewRenderer>();
+
 			if (m_PreviewRenderer != null)
+			{
+				var editMode = TileEditorState.instance.TileEditMode;
 				m_PreviewRenderer.ShowPreview = m_IsMouseInView && editMode != TileEditMode.Selection;
+			}
 		}
 
-		private void ChangeSelectedTileSetIndex(int delta) => DrawTileSetIndex += delta;
-
 		private TileBrush CreateDrawBrush(bool clear) =>
-			new(m_CursorCoord, clear ? Global.InvalidTileSetIndex : TileEditorState.instance.DrawTileSetIndex);
+			new(m_CursorCoord, clear ? Const.InvalidTileSetIndex : TileEditorState.instance.DrawTileSetIndex);
 
 		private void UpdateLayerDrawBrush() => Layer.DrawBrush = CreateDrawBrush(m_IsClearingTiles);
 		private void HideLayerDrawBrush() => Layer.DrawBrush = CreateDrawBrush(true);
 
-		private void StartTileDrawing(TileEditMode editMode)
+		private void StartTileDrawing()
 		{
 			UpdateStartSelectionCoord();
 			UpdateCursorCoord();
+
+			var editMode = TileEditorState.instance.TileEditMode;
 			if (editMode == TileEditMode.PenDraw || editMode == TileEditMode.RectFill)
 			{
 				m_IsDrawingTiles = true;
@@ -74,12 +100,13 @@ namespace CodeSmileEditor.Tile
 			}
 		}
 
-		private void ContinueTileDrawing(TileEditMode editMode)
+		private void ContinueTileDrawing()
 		{
 			UpdateCursorCoord();
 
 			if (m_IsDrawingTiles)
 			{
+				var editMode = TileEditorState.instance.TileEditMode;
 				if (editMode == TileEditMode.PenDraw)
 				{
 					DrawLineFromStartToCursor();
@@ -93,12 +120,13 @@ namespace CodeSmileEditor.Tile
 				UpdateStartSelectionCoord();
 		}
 
-		private void FinishTileDrawing(TileEditMode editMode)
+		private void FinishTileDrawing()
 		{
 			if (m_IsDrawingTiles)
 			{
 				UpdateCursorCoord();
 
+				var editMode = TileEditorState.instance.TileEditMode;
 				if (editMode == TileEditMode.PenDraw)
 				{
 					DrawLineFromStartToCursor();
@@ -114,7 +142,7 @@ namespace CodeSmileEditor.Tile
 			}
 		}
 
-		private void CancelTileDrawing(TileEditMode editMode)
+		private void CancelTileDrawing()
 		{
 			m_IsDrawingTiles = false;
 			UpdateCursorCoord();
@@ -152,10 +180,10 @@ namespace CodeSmileEditor.Tile
 		private GridCoord GetMouseCursorCoord()
 		{
 			var planeY = Layer.transform.position.y;
-			if (HandleUtilityExt.GUIPointToGridCoord(MousePos, Grid, out var coord, planeY))
+			if (HandleUtilityExt.GUIPointToGridCoord(m_Input.MousePosition, Grid, out var coord, planeY))
 				return coord;
 
-			return Global.InvalidGridCoord;
+			return Const.InvalidGridCoord;
 		}
 
 		private void DrawCursorHandle(TileEditMode editMode)
@@ -168,7 +196,7 @@ namespace CodeSmileEditor.Tile
 				var cubeSize = worldRect.GetWorldSize(Layer.Grid.Size.y);
 
 				var prevColor = Handles.color;
-				Handles.color = Global.OutlineColor;
+				Handles.color = Const.OutlineColor;
 				Handles.DrawWireCube(cubePos, cubeSize);
 				Handles.color = prevColor;
 
@@ -187,34 +215,10 @@ namespace CodeSmileEditor.Tile
 					}
 
 					if (meshRenderer != null)
-						Handles.DrawOutline(new[] { meshRenderer.gameObject }, Global.OutlineColor);
+						Handles.DrawOutline(new[] { meshRenderer.gameObject }, Const.OutlineColor);
 				}
 			}
 		}
 
-		private void ModifyTileAttributes(TileEditMode editMode)
-		{
-			var ev = Event.current;
-			var delta = ev.delta.y >= 0 ? 1 : -1;
-
-			if (editMode != TileEditMode.Selection)
-			{
-				if (ev.shift && ev.control)
-				{
-					Layer.FlipTile(m_CursorCoord, delta);
-					ev.Use();
-				}
-				else if (ev.shift)
-				{
-					Layer.RotateTile(m_CursorCoord, delta);
-					ev.Use();
-				}
-				else if (ev.control)
-				{
-					ChangeSelectedTileSetIndex(delta);
-					ev.Use();
-				}
-			}
-		}
 	}
 }

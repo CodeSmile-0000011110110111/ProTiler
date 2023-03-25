@@ -9,8 +9,8 @@ using UnityEngine;
 
 namespace CodeSmileEditor.Tile
 {
-	[EditorToolContext(Global.TileEditorName + " World Tools", typeof(TileWorld))]
-	[Icon(Global.EditorToolsIconPath + "TileWorldEditorTools.png")]
+	[EditorToolContext(Const.TileEditorName + " World Tools", typeof(TileWorld))]
+	[Icon(Const.EditorToolsIconPath + "TileWorldEditorTools.png")]
 	public sealed class TileWorldContext : EditorToolContext
 	{
 		// Tool contexts can also implement an OnToolGUI function that is invoked before tools. This is a good place to

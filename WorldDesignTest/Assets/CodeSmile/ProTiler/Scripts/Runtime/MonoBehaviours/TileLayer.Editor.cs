@@ -1,7 +1,9 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
+using CodeSmileEditor.Tile;
 using System.Diagnostics.CodeAnalysis;
+using UnityEditor.Experimental.GraphView;
 
 namespace CodeSmile.Tile
 {
@@ -43,7 +45,7 @@ namespace CodeSmile.Tile
 			}
 		}
 
-		private void DebugSetTileName() => m_DebugSelectedTileName = TileSet.GetPrefab(m_DrawBrush.TileSetIndex)?.name;
+		private void DebugSetTileName() => m_DebugSelectedTileName = TileSet.GetPrefab(m_DrawBrush.TileSetIndex).name;
 
 		private void ClampGridSize() => Grid?.ClampGridSize();
 	}

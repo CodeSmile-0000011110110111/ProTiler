@@ -12,7 +12,7 @@ using WorldRect = UnityEngine.Rect;
 
 namespace CodeSmile.Tile
 {
-	[CreateAssetMenu(fileName = "New TileSet", menuName = Global.TileEditorName + "/TileSet", order = 0)]
+	[CreateAssetMenu(fileName = "New TileSet", menuName = Const.TileEditorName + "/TileSet", order = 0)]
 	public partial class TileSet : ScriptableObject
 	{
 		private static GameObject s_MissingTilePrefab;
@@ -79,12 +79,12 @@ namespace CodeSmile.Tile
 			if (index < 0)
 			{
 				if (s_ClearingTilePrefab == null)
-					s_ClearingTilePrefab = Resources.Load<GameObject>(Global.TileEditorResourcePrefabsPath + "ClearingTile");
+					s_ClearingTilePrefab = Resources.Load<GameObject>(Const.TileEditorResourcePrefabsPath + "ClearingTile");
 				return s_ClearingTilePrefab;
 			}
 
 			if (s_MissingTilePrefab == null)
-				s_MissingTilePrefab = Resources.Load<GameObject>(Global.TileEditorResourcePrefabsPath + "MissingTile");
+				s_MissingTilePrefab = Resources.Load<GameObject>(Const.TileEditorResourcePrefabsPath + "MissingTile");
 
 			UpdateMissingTileSize();
 			return s_MissingTilePrefab;

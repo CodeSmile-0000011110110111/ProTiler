@@ -27,7 +27,7 @@ public class TileDataContainerTests
 		Assert.IsTrue(tdc.Contains(coord1));
 		Assert.IsFalse(tdc.Contains(coord2));
 		Assert.AreEqual(2, tdc.GetTile(coord1).TileSetIndex);
-		Assert.AreEqual(Global.InvalidTileData, tdc.GetTile(coord2));
+		Assert.AreEqual(Const.InvalidTileData, tdc.GetTile(coord2));
 		
 		tdc.ClearAllTiles();
 
@@ -43,7 +43,7 @@ public class TileDataContainerTests
 		Assert.AreEqual(3, tdc.GetTile(coord1).TileSetIndex);
 		Assert.AreEqual(4, tdc.GetTile(coord2).TileSetIndex);
 		
-		tdc.SetTile(coord1, Global.InvalidTileData);
+		tdc.SetTile(coord1, Const.InvalidTileData);
 		Assert.IsTrue(tdc.Contains(coord1));
 		Assert.AreEqual(2, tdc.Count);
 		tdc.ClearTile(coord1);
@@ -84,7 +84,7 @@ public class TileDataContainerTests
 		var coord2 = new GridCoord(2, 0, 2);
 		tdc.SetTileIndexes(new GridRect(coord1.ToCoord2(), coord2.ToCoord2()), 1);
 		Assert.AreEqual(4, tdc.Count);
-		tdc.SetTileIndexes(new GridRect(coord1.ToCoord2(), coord2.ToCoord2()), Global.InvalidTileSetIndex);
+		tdc.SetTileIndexes(new GridRect(coord1.ToCoord2(), coord2.ToCoord2()), Const.InvalidTileSetIndex);
 		Assert.AreEqual(0, tdc.Count);
 	}
 }

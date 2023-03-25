@@ -1,18 +1,16 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
+using CodeSmile;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 namespace CodeSmileEditor.Tile
 {
 	public partial class TileLayerEditor
 	{
-		private readonly EditorInputState m_InputState = new();
-
-		private void HandleEventsAndInput(TileEditMode editMode)
+		private void HandleEventsAndInput()
 		{
-			m_InputState.Update();
+			m_Input.UpdateInputStates();
 
 			switch (Event.current.type)
 			{
@@ -20,37 +18,10 @@ namespace CodeSmileEditor.Tile
 					OnLayout();
 					break;
 				case EventType.MouseMove:
-					OnMouseMove(editMode);
-					break;
-				case EventType.MouseDown:
-					OnMouseDown(editMode);
+					OnMouseMove();
 					break;
 				case EventType.MouseDrag:
-					OnMouseDrag(editMode);
-					break;
-				case EventType.MouseUp:
-					OnMouseUp(editMode);
-					break;
-				case EventType.ScrollWheel:
-					OnScrollWheel(editMode);
-					break;
-				case EventType.KeyDown:
-					OnKeyDown(editMode);
-					break;
-				case EventType.KeyUp:
-					OnKeyUp(editMode);
-					break;
-				case EventType.TouchMove:
-					Debug.Log($"{Event.current.type}");
-					break;
-				case EventType.TouchEnter:
-					Debug.Log($"{Event.current.type}");
-					break;
-				case EventType.TouchLeave:
-					Debug.Log($"{Event.current.type}");
-					break;
-				case EventType.TouchStationary:
-					Debug.Log($"{Event.current.type}");
+					OnMouseDrag();
 					break;
 				case EventType.DragUpdated:
 					Debug.Log($"{Event.current.type}");
@@ -60,12 +31,6 @@ namespace CodeSmileEditor.Tile
 					break;
 				case EventType.DragExited:
 					Debug.Log($"{Event.current.type}");
-					break;
-				case EventType.Ignore:
-					Debug.Log($"{Event.current.type}");
-					break;
-				case EventType.Used:
-					//Debug.Log($"{Event.current.type}");
 					break;
 				case EventType.ValidateCommand:
 					Debug.Log($"{Event.current.type}");
@@ -77,13 +42,21 @@ namespace CodeSmileEditor.Tile
 					Debug.Log($"{Event.current.type}");
 					break;
 				case EventType.MouseEnterWindow:
-					OnMouseEnterWindow(editMode);
+					OnMouseEnterWindow();
 					break;
 				case EventType.MouseLeaveWindow:
-					OnMouseLeaveWindow(editMode);
+					OnMouseLeaveWindow();
 					break;
 				case EventType.Repaint:
-					OnRepaint(editMode);
+					OnRepaint();
+					break;
+
+				// handled by EditorInputState
+				case EventType.MouseDown:
+				case EventType.MouseUp:
+				case EventType.KeyDown:
+				case EventType.KeyUp:
+				case EventType.ScrollWheel:
 					break;
 			}
 
@@ -91,22 +64,22 @@ namespace CodeSmileEditor.Tile
 			UpdateLayerDrawBrush();
 		}
 
-		private void OnKeyDown(TileEditMode editMode)
+		private void OnKeyDown(KeyCode keyCode)
 		{
-			if (Event.current.keyCode == KeyCode.Escape)
-				CancelTileDrawing(editMode);
+			if (keyCode == KeyCode.Escape)
+				CancelTileDrawing();
 		}
 
-		private void OnKeyUp(TileEditMode editMode) {}
-		private void OnMouseEnterWindow(TileEditMode editMode) => m_IsMouseInView = true;
+		private void OnKeyUp(KeyCode keyCode) {}
+		private void OnMouseEnterWindow() => m_IsMouseInView = true;
 
-		private void OnMouseLeaveWindow(TileEditMode editMode)
+		private void OnMouseLeaveWindow()
 		{
 			m_IsMouseInView = false;
-			FinishTileDrawing(editMode);
+			FinishTileDrawing();
 		}
 
-		private void OnMouseMove(TileEditMode editMode)
+		private void OnMouseMove()
 		{
 			// Note: MouseMove and MouseDrag are mutually exclusive! With button down only MouseDrag event is sent.
 			// We do not need to check for mouse button down here since they can be assumed "up" at all times in MouseMove.
@@ -114,43 +87,48 @@ namespace CodeSmileEditor.Tile
 			UpdateCursorCoord();
 		}
 
-		private void OnMouseDown(TileEditMode editMode)
+		private void OnMouseButtonDown(MouseButton button)
 		{
 			if (IsRightMouseButtonDown())
-				CancelTileDrawing(editMode);
+				CancelTileDrawing();
 			else if (IsOnlyLeftMouseButtonDown())
-				StartTileDrawing(editMode);
+				StartTileDrawing();
+		}
+		private void OnMouseButtonUp(MouseButton button)
+		{
+			if (button == MouseButton.RightMouse)
+				CancelTileDrawing();
+			else if (button == MouseButton.LeftMouse)
+				FinishTileDrawing();
 		}
 
-		private void OnMouseDrag(TileEditMode editMode)
+		private void OnMouseDrag()
 		{
 			if (IsRightMouseButtonDown())
-				CancelTileDrawing(editMode);
+				CancelTileDrawing();
 			else if (IsOnlyLeftMouseButtonDown())
-				ContinueTileDrawing(editMode);
+				ContinueTileDrawing();
 		}
 
-		private void OnMouseUp(TileEditMode editMode)
+		private void OnScrollWheel(IInputState inputState, float delta)
 		{
-			if (WasRightMouseButtonDown())
-				CancelTileDrawing(editMode);
-			else if (WasLeftMouseButtonDown())
-				FinishTileDrawing(editMode);
+			var editMode = TileEditorState.instance.TileEditMode;
+			if (editMode != TileEditMode.Selection)
+				if (Layer.ModifyTileAttributes(m_CursorCoord, delta, inputState.IsShiftKeyDown, inputState.IsCtrlKeyDown))
+					Event.current.Use();
 		}
-
-		private void OnScrollWheel(TileEditMode editMode) => ModifyTileAttributes(editMode);
 
 		private void OnLayout() => HandleUtilityExt.AddDefaultControl(GetHashCode());
 
-		private void OnRepaint(TileEditMode editMode)
+		private void OnRepaint()
 		{
 			if (m_IsMouseInView && IsRightMouseButtonDown() == false)
-				DrawCursorHandle(editMode);
+				DrawCursorHandle(TileEditorState.instance.TileEditMode);
 		}
 
-		private bool IsOnlyLeftMouseButtonDown() => m_InputState.IsOnlyButtonDown(MouseButton.LeftMouse);
-		private bool WasLeftMouseButtonDown() => m_InputState.WasButtonDown(MouseButton.LeftMouse);
-		private bool IsRightMouseButtonDown() => m_InputState.IsButtonDown(MouseButton.RightMouse);
-		private bool WasRightMouseButtonDown() => m_InputState.WasButtonDown(MouseButton.RightMouse);
+		private bool IsOnlyLeftMouseButtonDown() => m_Input.IsOnlyButtonDown(MouseButton.LeftMouse);
+
+		private bool IsRightMouseButtonDown() => m_Input.IsButtonDown(MouseButton.RightMouse);
+
 	}
 }

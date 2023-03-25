@@ -16,7 +16,7 @@ namespace CodeSmile.Tile
 		[NonSerialized] private TileLayer m_Layer;
 		[NonSerialized] private GameObject m_Preview;
 		[NonSerialized] private int3 m_RenderCoord;
-		[NonSerialized] private int m_TileSetIndex = Global.InvalidTileSetIndex;
+		[NonSerialized] private int m_TileSetIndex = Const.InvalidTileSetIndex;
 
 		private bool m_ShowPreview;
 
@@ -109,7 +109,7 @@ namespace CodeSmile.Tile
 		{
 			m_Preview = Instantiate(prefab);
 			m_Preview.name = "Cursor";
-			m_Preview.hideFlags = Global.TileHideFlags;
+			m_Preview.hideFlags = Const.TileHideFlags;
 			m_Preview.transform.parent = transform;
 		}
 

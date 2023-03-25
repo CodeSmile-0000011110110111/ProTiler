@@ -25,7 +25,7 @@ namespace CodeSmileEditor.Tile
 		private ListView m_TileSetTilesList;
 		private Button m_HighlightedTileButton;
 
-		[MenuItem("Tools/" + Global.TileEditorName + "/" + WindowName)]
+		[MenuItem("Tools/" + Const.TileEditorName + "/" + WindowName)]
 		public static void ShowExample()
 		{
 			var wnd = GetWindow<TileEditorWindow>();
@@ -34,10 +34,14 @@ namespace CodeSmileEditor.Tile
 
 		private static Texture2D GetPrefabPreview(GameObject prefab)
 		{
+			Texture2D tex = null;
 			var path = AssetDatabase.GetAssetPath(prefab);
 			var editor = Editor.CreateEditor(prefab);
-			var tex = editor.RenderStaticPreview(path, null, TileImageSize.x, TileImageSize.y);
-			DestroyImmediate(editor);
+			if (editor != null)
+			{
+				tex = editor.RenderStaticPreview(path, null, TileImageSize.x, TileImageSize.y);
+				DestroyImmediate(editor);
+			}
 			return tex;
 		}
 

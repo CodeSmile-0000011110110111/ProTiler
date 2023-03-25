@@ -9,7 +9,7 @@ using WorldRect = UnityEngine.Rect;
 
 namespace CodeSmile.Tile
 {
-	public static class Global
+	public static class Const
 	{
 		public const string TileEditorName = "ProTiler";
 		// Previously named (but not known) as:

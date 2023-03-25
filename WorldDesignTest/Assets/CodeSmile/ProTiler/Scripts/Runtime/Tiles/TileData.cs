@@ -17,7 +17,7 @@ namespace CodeSmile.Tile
 		[SerializeField] private int m_TileSetIndex;
 		[SerializeField] private TileFlags m_Flags;
 
-		public int TileSetIndex { get => m_TileSetIndex; set => m_TileSetIndex = math.max(Global.InvalidTileSetIndex, value); }
+		public int TileSetIndex { get => m_TileSetIndex; set => m_TileSetIndex = math.max(Const.InvalidTileSetIndex, value); }
 		public TileFlags Flags { get => m_Flags; set => m_Flags = value; }
 		public bool IsValid => m_TileSetIndex >= 0;
 		public bool IsInvalid => m_TileSetIndex < 0;

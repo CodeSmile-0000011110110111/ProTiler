@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace CodeSmileEditor.Tile
 {
-	[FilePath(Global.TileEditorName + "/TileEditorState.settings", FilePathAttribute.Location.PreferencesFolder)]
+	[FilePath(Const.TileEditorName + "/TileEditorState.settings", FilePathAttribute.Location.PreferencesFolder)]
 	internal sealed class TileEditorState : ScriptableSingleton<TileEditorState>
 	{
 		[SerializeField] private TileEditMode m_TileEditMode = TileEditMode.Selection;

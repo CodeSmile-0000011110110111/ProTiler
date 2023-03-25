@@ -47,8 +47,8 @@ public class DrawingUndoRedoTests
 		Undo.PerformUndo();
 
 		Assert.AreEqual(0, m_TileLayer.TileCount);
-		Assert.AreEqual(Global.InvalidTileSetIndex, m_TileLayer.GetTileData(start).TileSetIndex);
-		Assert.AreEqual(Global.InvalidTileSetIndex, m_TileLayer.GetTileData(end).TileSetIndex);
+		Assert.AreEqual(Const.InvalidTileSetIndex, m_TileLayer.GetTileData(start).TileSetIndex);
+		Assert.AreEqual(Const.InvalidTileSetIndex, m_TileLayer.GetTileData(end).TileSetIndex);
 
 		Undo.PerformRedo();
 
@@ -77,8 +77,8 @@ public class DrawingUndoRedoTests
 		m_TileLayer.ClearAllTiles();
 
 		Assert.AreEqual(0, m_TileLayer.TileCount);
-		Assert.AreEqual(Global.InvalidTileSetIndex, m_TileLayer.GetTileData(start).TileSetIndex);
-		Assert.AreEqual(Global.InvalidTileSetIndex, m_TileLayer.GetTileData(end).TileSetIndex);
+		Assert.AreEqual(Const.InvalidTileSetIndex, m_TileLayer.GetTileData(start).TileSetIndex);
+		Assert.AreEqual(Const.InvalidTileSetIndex, m_TileLayer.GetTileData(end).TileSetIndex);
 
 		Undo.PerformUndo();
 
@@ -89,7 +89,7 @@ public class DrawingUndoRedoTests
 		Undo.PerformRedo();
 
 		Assert.AreEqual(0, m_TileLayer.TileCount);
-		Assert.AreEqual(Global.InvalidTileSetIndex, m_TileLayer.GetTileData(start).TileSetIndex);
-		Assert.AreEqual(Global.InvalidTileSetIndex, m_TileLayer.GetTileData(end).TileSetIndex);
+		Assert.AreEqual(Const.InvalidTileSetIndex, m_TileLayer.GetTileData(start).TileSetIndex);
+		Assert.AreEqual(Const.InvalidTileSetIndex, m_TileLayer.GetTileData(end).TileSetIndex);
 	}
 }

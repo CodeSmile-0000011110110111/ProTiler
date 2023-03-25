@@ -15,8 +15,8 @@ namespace CodeSmile.Tile
 	{
 		[SerializeField] private TileLayer m_Layer;
 		[SerializeField] private GameObject m_Instance;
-		[SerializeField] private GridCoord m_Coord = Global.InvalidGridCoord;
-		[SerializeField] private TileData m_TileData = Global.InvalidTileData;
+		[SerializeField] private GridCoord m_Coord = Const.InvalidGridCoord;
+		[SerializeField] private TileData m_TileData = Const.InvalidTileData;
 
 		private readonly List<GameObject> m_InstancesToBeDestroyed = new();
 		public List<GameObject> ToBeDeletedInstances { get => m_InstancesToBeDestroyed; }

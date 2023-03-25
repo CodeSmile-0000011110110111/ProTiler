@@ -16,7 +16,7 @@ namespace CodeSmileEditor.Tile
 
 		private TileSet m_ActiveTileSet;
 
-		[MenuItem("Tools/" + Global.TileEditorName + "/" + WindowName)]
+		[MenuItem("Tools/" + Const.TileEditorName + "/" + WindowName)]
 		public static void ShowExample()
 		{
 			var wnd = GetWindow<TileInspectorWindow>();
