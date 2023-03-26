@@ -6,7 +6,9 @@
         "UnityEditor.TestRunner",
         "Unity.Mathematics",
         "CodeSmile",
-        "CodeSmile.ProTiler"
+        "CodeSmile.Extensions",
+        "CodeSmile.ProTiler",
+        "CodeSmile.ProTiler.TileData"
     ],
     "includePlatforms": [
         "Editor"

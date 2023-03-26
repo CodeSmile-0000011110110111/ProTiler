@@ -2,6 +2,7 @@
 // Refer to included LICENSE file for terms and conditions.
 
 using CodeSmile.Extensions;
+using CodeSmile.ProTiler.Data;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,8 +17,8 @@ namespace CodeSmile.ProTiler
 	{
 		[SerializeField] private TileLayer m_Layer;
 		[SerializeField] private GameObject m_Instance;
-		[SerializeField] private GridCoord m_Coord = Global.InvalidGridCoord;
-		[SerializeField] private TileData m_TileData = Global.InvalidTileData;
+		[SerializeField] private GridCoord m_Coord = TileData.InvalidGridCoord;
+		[SerializeField] private TileData m_TileData = TileData.InvalidTileData;
 
 		private readonly List<GameObject> m_InstancesToBeDestroyed = new();
 		public List<GameObject> ToBeDeletedInstances { get => m_InstancesToBeDestroyed; }

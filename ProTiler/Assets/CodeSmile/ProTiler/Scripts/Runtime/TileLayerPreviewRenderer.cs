@@ -2,6 +2,7 @@
 // Refer to included LICENSE file for terms and conditions.
 
 using CodeSmile.Extensions;
+using CodeSmile.ProTiler.Data;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,7 +21,7 @@ namespace CodeSmile.ProTiler
 		[NonSerialized] private TileLayer m_Layer;
 		[NonSerialized] private GameObject m_Preview;
 		[NonSerialized] private GridCoord m_RenderCoord;
-		[NonSerialized] private int m_TileSetIndex = Global.InvalidTileSetIndex;
+		[NonSerialized] private int m_TileSetIndex = TileData.InvalidTileSetIndex;
 
 		private TileBrush m_PreviewBrush;
 		public TileBrush PreviewBrush

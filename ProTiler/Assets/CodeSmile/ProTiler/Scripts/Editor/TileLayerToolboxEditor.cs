@@ -3,7 +3,9 @@
 
 using CodeSmile.Editor.ProTiler.Extensions;
 using CodeSmile.ProTiler;
+using CodeSmile.ProTiler.Data;
 using CodeSmile.ProTiler.Extensions;
+using Unity.Mathematics;
 using UnityEditor;
 using UnityEngine;
 using GridCoord = Unity.Mathematics.int3;
@@ -75,7 +77,7 @@ namespace CodeSmile.Editor.ProTiler
 			if (HandleUtilityExt.GUIPointToGridCoord(m_Input.MousePosition, Toolbox.Layer.Grid, out var coord, planeY))
 				return coord;
 
-			return Global.InvalidGridCoord;
+			return TileData.InvalidGridCoord;
 		}
 
 		public bool StartTileDrawing(TileEditMode editMode)
@@ -174,10 +176,15 @@ namespace CodeSmile.Editor.ProTiler
 			UpdateSelectionRect();
 		}
 
-		private void UpdateSelectionRect() => m_SelectionRect = TileGrid.MakeRect(m_StartSelectionCoord, m_CursorCoord);
+		private void UpdateSelectionRect()
+		{
+			var coordMin = math.min(m_StartSelectionCoord, m_CursorCoord);
+			var coordMax = math.max(m_StartSelectionCoord, m_CursorCoord);
+			m_SelectionRect = new GridRect(coordMin.x, coordMin.z, coordMax.x - coordMin.x + 1, coordMax.z - coordMin.z + 1);
+		}
 
 		private TileBrush CreateDrawBrush(bool clear) =>
-			new(m_CursorCoord, clear ? Global.InvalidTileSetIndex : ProTilerState.instance.DrawTileSetIndex);
+			new(m_CursorCoord, clear ? TileData.InvalidTileSetIndex : ProTilerState.instance.DrawTileSetIndex);
 
 		private void UpdateLayerDrawBrush()
 		{

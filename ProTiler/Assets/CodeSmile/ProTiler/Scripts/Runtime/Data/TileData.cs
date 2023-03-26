@@ -9,22 +9,24 @@ using GridSize = Unity.Mathematics.int3;
 using GridRect = UnityEngine.RectInt;
 using WorldRect = UnityEngine.Rect;
 
-namespace CodeSmile.ProTiler
+namespace CodeSmile.ProTiler.Data
 {
 	[Serializable]
 	public struct TileData : IEquatable<TileData>
 	{
+		public const int InvalidTileSetIndex = -1;
+		
 		[SerializeField] private int m_TileSetIndex;
 		[SerializeField] private TileFlags m_Flags;
 
-		public int TileSetIndex { get => m_TileSetIndex; set => m_TileSetIndex = math.max(Global.InvalidTileSetIndex, value); }
+		public int TileSetIndex { get => m_TileSetIndex; set => m_TileSetIndex = math.max(InvalidTileSetIndex, value); }
 		public TileFlags Flags { get => m_Flags; set => m_Flags = value; }
 		public bool IsValid => m_TileSetIndex >= 0;
 		public bool IsInvalid => m_TileSetIndex < 0;
 
 		public static bool operator ==(TileData left, TileData right) => left.Equals(right);
 		public static bool operator !=(TileData left, TileData right) => !left.Equals(right);
-		
+
 		public TileData(TileData tileData)
 		{
 			m_TileSetIndex = tileData.m_TileSetIndex;
@@ -115,5 +117,7 @@ namespace CodeSmile.ProTiler
 		public override bool Equals(object obj) => obj is TileData other && Equals(other);
 
 		public override int GetHashCode() => HashCode.Combine(m_TileSetIndex, (int)m_Flags);
+		public static readonly TileData InvalidTileData = new(TileData.InvalidTileSetIndex);
+		public static readonly GridCoord InvalidGridCoord = new(int.MinValue, int.MinValue, int.MinValue);
 	}
 }

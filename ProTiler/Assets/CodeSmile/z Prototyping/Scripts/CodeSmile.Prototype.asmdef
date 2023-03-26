@@ -2,11 +2,12 @@
     "name": "CodeSmile.Prototype",
     "rootNamespace": "",
     "references": [
+        "GUID:0de177a875028db4d97efebe9a09aa5a",
+        "GUID:2a1bc76c5d074cc4c839253d25f72fbc",
         "GUID:778dc1ae943a97647b34617c263c224d",
         "GUID:df380645f10b7bc4b97d4f5eb6303d95",
         "GUID:2665a8d13d1b3f18800f46e256720795",
-        "GUID:d8b63aba1907145bea998dd612889d6b",
-        "GUID:0de177a875028db4d97efebe9a09aa5a"
+        "GUID:d8b63aba1907145bea998dd612889d6b"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

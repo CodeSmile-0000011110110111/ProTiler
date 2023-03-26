@@ -1,7 +1,6 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
-using CodeSmile.InputState;
 using System;
 using Unity.Mathematics;
 using UnityEngine;
@@ -11,12 +10,6 @@ namespace CodeSmile.InputState
 {
 	public class RuntimeInputState : IInputState
 	{
-		public event Action<MouseButton> OnMouseButtonDown;
-		public event Action<MouseButton> OnMouseButtonUp;
-		public event Action<KeyCode> OnKeyDown;
-		public event Action<KeyCode> OnKeyUp;
-		public event Action<IInputState, float> OnScrollWheel;
-		
 		private readonly bool[] m_MouseButtonDown = new bool[(int)MouseButton.Count];
 		private readonly bool[] m_MouseButtonUp = new bool[(int)MouseButton.Count];
 
@@ -27,7 +20,7 @@ namespace CodeSmile.InputState
 #if ENABLE_INPUT_SYSTEM && !ENABLE_LEGACY_INPUT_MANAGER // New input system backends are enabled.
 				return UnityEngine.InputSystem.Mouse.current.position.value;
 #else // Legacy input system backend enabled
-				return UnityEngine.Input.mousePosition;
+				return Input.mousePosition;
 #endif
 			}
 		}
@@ -48,7 +41,7 @@ namespace CodeSmile.InputState
 #if ENABLE_INPUT_SYSTEM && !ENABLE_LEGACY_INPUT_MANAGER // New input system backends are enabled.
 				return UnityEngine.InputSystem.Keyboard.current.shiftKey.isPressed;
 #else // Legacy input system backend enabled
-				return UnityEngine.Input.GetKey(KeyCode.LeftShift) || UnityEngine.Input.GetKey(KeyCode.RightShift);
+				return Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
 #endif
 			}
 		}
@@ -59,7 +52,7 @@ namespace CodeSmile.InputState
 #if ENABLE_INPUT_SYSTEM && !ENABLE_LEGACY_INPUT_MANAGER // New input system backends are enabled.
 				return UnityEngine.InputSystem.Keyboard.current.ctrlKey.isPressed;
 #else // Legacy input system backend enabled
-				return UnityEngine.Input.GetKey(KeyCode.LeftControl) || UnityEngine.Input.GetKey(KeyCode.RightControl);
+				return Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl);
 #endif
 			}
 		}
@@ -70,7 +63,7 @@ namespace CodeSmile.InputState
 #if ENABLE_INPUT_SYSTEM && !ENABLE_LEGACY_INPUT_MANAGER // New input system backends are enabled.
 				return UnityEngine.InputSystem.Keyboard.current.altKey.isPressed;
 #else // Legacy input system backend enabled
-				return UnityEngine.Input.GetKey(KeyCode.LeftAlt) || UnityEngine.Input.GetKey(KeyCode.RightAlt);
+				return Input.GetKey(KeyCode.LeftAlt) || Input.GetKey(KeyCode.RightAlt);
 #endif
 			}
 		}
@@ -223,7 +216,7 @@ namespace CodeSmile.InputState
 					"legacy KeyCode to new InputSystem mapping may be incomplete, add key to switch if needed")
 			};
 #else
-			return UnityEngine.Input.GetKey(keyCode);
+			return Input.GetKey(keyCode);
 #endif
 		}
 
@@ -235,7 +228,7 @@ namespace CodeSmile.InputState
 				throw new NotImplementedException("any key down new input system (runtime support)");
 #endif
 #if ENABLE_LEGACY_INPUT_MANAGER // Legacy input system backend enabled
-			if (UnityEngine.Input.anyKeyDown)
+			if (Input.anyKeyDown)
 				throw new NotImplementedException("any key down legacy input system (runtime support)");
 #endif
 
@@ -256,9 +249,9 @@ namespace CodeSmile.InputState
 			for (var button = 0; button < (int)MouseButton.Count; button++)
 			{
 #if ENABLE_LEGACY_INPUT_MANAGER // Legacy input system backend enabled
-				m_MouseButtonDown[button] = UnityEngine.Input.GetMouseButtonDown(button);
-				m_MouseButtonUp[button] = UnityEngine.Input.GetMouseButtonUp(button);
-				var scrollDelta = UnityEngine.Input.mouseScrollDelta.y;
+				m_MouseButtonDown[button] = Input.GetMouseButtonDown(button);
+				m_MouseButtonUp[button] = Input.GetMouseButtonUp(button);
+				var scrollDelta = Input.mouseScrollDelta.y;
 #endif
 
 				if (m_MouseButtonDown[button])
@@ -269,5 +262,12 @@ namespace CodeSmile.InputState
 					OnScrollWheel?.Invoke(this, scrollDelta);
 			}
 		}
+#pragma warning disable 0067
+		public event Action<MouseButton> OnMouseButtonDown;
+		public event Action<MouseButton> OnMouseButtonUp;
+		public event Action<KeyCode> OnKeyDown;
+		public event Action<KeyCode> OnKeyUp;
+		public event Action<IInputState, float> OnScrollWheel;
+#pragma warning restore 0067
 	}
 }

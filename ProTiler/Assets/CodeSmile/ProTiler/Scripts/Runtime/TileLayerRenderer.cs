@@ -3,6 +3,7 @@
 
 using CodeSmile.Extensions;
 using CodeSmile.Pooling;
+using CodeSmile.ProTiler.Data;
 using CodeSmile.ProTiler.Extensions;
 using System;
 using System.Collections.Generic;

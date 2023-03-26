@@ -5,6 +5,8 @@ using NUnit.Framework;
 using System.Diagnostics.CodeAnalysis;
 using UnityEditor;
 using UnityEngine;
+using CodeSmile.ProTiler;
+using CodeSmile.ProTiler.Data;
 using GridCoord = Unity.Mathematics.int3;
 using GridSize = Unity.Mathematics.int3;
 using GridRect = UnityEngine.RectInt;
@@ -52,8 +54,8 @@ namespace CodeSmile.ProTiler.Tests.Editor
 			Undo.PerformUndo();
 
 			Assert.AreEqual(0, m_TileLayer.TileCount);
-			Assert.AreEqual(Global.InvalidTileSetIndex, m_TileLayer.GetTileData(start).TileSetIndex);
-			Assert.AreEqual(Global.InvalidTileSetIndex, m_TileLayer.GetTileData(end).TileSetIndex);
+			Assert.AreEqual(TileData.InvalidTileSetIndex, m_TileLayer.GetTileData(start).TileSetIndex);
+			Assert.AreEqual(TileData.InvalidTileSetIndex, m_TileLayer.GetTileData(end).TileSetIndex);
 
 			Undo.PerformRedo();
 
@@ -82,8 +84,8 @@ namespace CodeSmile.ProTiler.Tests.Editor
 			m_Toolbox.ClearAllTiles();
 
 			Assert.AreEqual(0, m_TileLayer.TileCount);
-			Assert.AreEqual(Global.InvalidTileSetIndex, m_TileLayer.GetTileData(start).TileSetIndex);
-			Assert.AreEqual(Global.InvalidTileSetIndex, m_TileLayer.GetTileData(end).TileSetIndex);
+			Assert.AreEqual(TileData.InvalidTileSetIndex, m_TileLayer.GetTileData(start).TileSetIndex);
+			Assert.AreEqual(TileData.InvalidTileSetIndex, m_TileLayer.GetTileData(end).TileSetIndex);
 
 			Undo.PerformUndo();
 
@@ -94,8 +96,8 @@ namespace CodeSmile.ProTiler.Tests.Editor
 			Undo.PerformRedo();
 
 			Assert.AreEqual(0, m_TileLayer.TileCount);
-			Assert.AreEqual(Global.InvalidTileSetIndex, m_TileLayer.GetTileData(start).TileSetIndex);
-			Assert.AreEqual(Global.InvalidTileSetIndex, m_TileLayer.GetTileData(end).TileSetIndex);
+			Assert.AreEqual(TileData.InvalidTileSetIndex, m_TileLayer.GetTileData(start).TileSetIndex);
+			Assert.AreEqual(TileData.InvalidTileSetIndex, m_TileLayer.GetTileData(end).TileSetIndex);
 		}
 	}
 }

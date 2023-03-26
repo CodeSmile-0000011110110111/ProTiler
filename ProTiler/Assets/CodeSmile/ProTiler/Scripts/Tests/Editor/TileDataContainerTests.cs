@@ -1,12 +1,15 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
+using CodeSmile.ProTiler.Data;
 using CodeSmile.ProTiler.Extensions;
 using NUnit.Framework;
 using UnityEngine.Tilemaps;
 using GridCoord = Unity.Mathematics.int3;
 using GridSize = Unity.Mathematics.int3;
 using GridRect = UnityEngine.RectInt;
+using TileData = CodeSmile.ProTiler.Data.TileData;
+using TileFlags = CodeSmile.ProTiler.Data.TileFlags;
 using WorldRect = UnityEngine.Rect;
 
 namespace CodeSmile.ProTiler.Tests.Editor
@@ -30,7 +33,7 @@ namespace CodeSmile.ProTiler.Tests.Editor
 			Assert.IsTrue(tdc.Contains(coord1));
 			Assert.IsFalse(tdc.Contains(coord2));
 			Assert.AreEqual(2, tdc.GetTile(coord1).TileSetIndex);
-			Assert.AreEqual(Global.InvalidTileData, tdc.GetTile(coord2));
+			Assert.AreEqual(TileData.InvalidTileData, tdc.GetTile(coord2));
 
 			tdc.ClearAllTiles();
 
@@ -46,7 +49,7 @@ namespace CodeSmile.ProTiler.Tests.Editor
 			Assert.AreEqual(3, tdc.GetTile(coord1).TileSetIndex);
 			Assert.AreEqual(4, tdc.GetTile(coord2).TileSetIndex);
 
-			tdc.SetTile(coord1, Global.InvalidTileData);
+			tdc.SetTile(coord1, TileData.InvalidTileData);
 			Assert.IsTrue(tdc.Contains(coord1));
 			Assert.AreEqual(2, tdc.Count);
 			tdc.ClearTile(coord1);
@@ -87,7 +90,7 @@ namespace CodeSmile.ProTiler.Tests.Editor
 			var coord2 = new GridCoord(2, 0, 2);
 			tdc.SetTileIndexes(new GridRect(coord1.ToCoord2(), coord2.ToCoord2()), 1);
 			Assert.AreEqual(4, tdc.Count);
-			tdc.SetTileIndexes(new GridRect(coord1.ToCoord2(), coord2.ToCoord2()), Global.InvalidTileSetIndex);
+			tdc.SetTileIndexes(new GridRect(coord1.ToCoord2(), coord2.ToCoord2()), TileData.InvalidTileSetIndex);
 			Assert.AreEqual(0, tdc.Count);
 		}
 	}

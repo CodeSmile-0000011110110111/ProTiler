@@ -4,6 +4,7 @@
 using CodeSmile;
 using CodeSmile.Extensions;
 using CodeSmile.ProTiler;
+using CodeSmile.ProTiler.Data;
 using Unity.Mathematics;
 using UnityEditor;
 using UnityEngine;

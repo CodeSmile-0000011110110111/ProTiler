@@ -12,7 +12,7 @@ using UnityEngine;
 using GridCoord = Unity.Mathematics.int3;
 using GridRect = UnityEngine.RectInt;
 
-namespace CodeSmile.ProTiler
+namespace CodeSmile.ProTiler.Data
 {
 	[Serializable]
 	public sealed class TileDataContainer
@@ -26,7 +26,7 @@ namespace CodeSmile.ProTiler
 		public void ClearAllTiles() => m_TilesDataDictionary.Clear();
 
 		//public TileData this[GridCoord coord] => GetTile(coord);
-		public TileData GetTile(GridCoord coord) => m_TilesDataDictionary.TryGetValue(coord, out var tile) ? tile : Global.InvalidTileData;
+		public TileData GetTile(GridCoord coord) => m_TilesDataDictionary.TryGetValue(coord, out var tile) ? tile : TileData.InvalidTileData;
 
 		public (IReadOnlyList<GridCoord>, IReadOnlyList<TileData>) SetTileIndexes(GridRect rect, int tileSetIndex) =>
 			SetTileIndexes(rect.GetTileCoords(), tileSetIndex);

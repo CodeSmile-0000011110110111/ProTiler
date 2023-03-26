@@ -1,10 +1,7 @@
 {
-    "name": "CodeSmile.ProTiler",
+    "name": "CodeSmile.Extensions",
     "rootNamespace": "",
     "references": [
-        "GUID:0de177a875028db4d97efebe9a09aa5a",
-        "GUID:2a1bc76c5d074cc4c839253d25f72fbc",
-        "GUID:b8f654bab7c7aa94d9a89d638c2f26d3",
         "GUID:d8b63aba1907145bea998dd612889d6b"
     ],
     "includePlatforms": [],

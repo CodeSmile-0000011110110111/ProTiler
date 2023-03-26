@@ -4,17 +4,17 @@
 using System;
 using UnityEngine;
 
-namespace CodeSmile.ProTiler
+namespace CodeSmile.ProTiler.Data
 {
 	[Serializable]
 	public sealed class TileSetTile
 	{
 		[HideInInspector] [SerializeField] private string m_DisplayName = "test";
 		[SerializeField] private GameObject m_Prefab;
-		[SerializeField] private TileSetCategory m_Category;
+		[SerializeField] private string m_Category;
 		[SerializeField] private int m_CustomFlags;
 
-		public TileSetTile(GameObject prefab, TileSetCategory category = 0)
+		public TileSetTile(GameObject prefab, string category = "Uncategorized")
 		{
 			m_Prefab = prefab;
 			m_Category = category;
@@ -36,7 +36,7 @@ namespace CodeSmile.ProTiler
 				SetDisplayName();
 			}
 		}
-		public TileSetCategory Category
+		public string Category
 		{
 			get => m_Category;
 			set

@@ -2,6 +2,7 @@
 // Refer to included LICENSE file for terms and conditions.
 
 using CodeSmile.Extensions;
+using CodeSmile.ProTiler.Data;
 using UnityEngine;
 using GridCoord = Unity.Mathematics.int3;
 using GridSize = Unity.Mathematics.int3;
@@ -16,6 +17,7 @@ namespace CodeSmile.ProTiler
 		[Header("Debug")]
 		[SerializeField] private bool m_DebugClearTilesButton;
 		[ReadOnlyField] [SerializeField] private string m_DebugSelectedTileName;
+		[ReadOnlyField] [SerializeField] private int m_DebugTileCount;
 
 		private int m_TileSetInstanceId;
 		private TileLayer m_Layer;
@@ -79,6 +81,8 @@ namespace CodeSmile.ProTiler
 			}
 		}
 
+		private void DebugUpdateTileCount() => m_DebugTileCount = Layer.TileCount;
+
 		public void DrawLine(GridCoord start, GridCoord end)
 		{
 			Layer.RecordUndoInEditor(DrawBrush.IsClearing ? "Clear Tiles" : "Draw Tiles");
@@ -86,6 +90,7 @@ namespace CodeSmile.ProTiler
 			Layer.SetDirtyInEditor();
 
 			LayerRenderer.RedrawTiles(coords, tiles);
+			DebugUpdateTileCount();
 		}
 
 		public void DrawRect(RectInt rect)
@@ -95,6 +100,7 @@ namespace CodeSmile.ProTiler
 			Layer.SetDirtyInEditor();
 
 			LayerRenderer.RedrawTiles(coords, tiles);
+			DebugUpdateTileCount();
 		}
 
 		public void ClearAllTiles()
@@ -104,6 +110,7 @@ namespace CodeSmile.ProTiler
 			Layer.SetDirtyInEditor();
 
 			LayerRenderer.ForceRedraw();
+			DebugUpdateTileCount();
 		}
 
 		public void SetTileFlags(GridCoord coord, TileFlags flags)
@@ -150,6 +157,7 @@ namespace CodeSmile.ProTiler
 			{
 				m_DebugClearTilesButton = false;
 				ClearAllTiles();
+				DebugUpdateTileCount();
 			}
 		}
 

@@ -639,6 +639,7 @@ PlayerSettings:
   webGLPowerPreference: 2
   scriptingDefineSymbols:
     Standalone: 
+    WebGL: CODE_ANALYSIS
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend:

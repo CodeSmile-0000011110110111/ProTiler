@@ -1,6 +1,7 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
+using CodeSmile.ProTiler.Data;
 using NUnit.Framework;
 using System.Diagnostics.CodeAnalysis;
 using GridCoord = Unity.Mathematics.int3;
@@ -28,7 +29,7 @@ namespace CodeSmile.ProTiler.Tests.Editor
 			Assert.AreEqual(0, tileData.TileSetIndex);
 			Assert.AreEqual(TileFlags.None, tileData.Flags);
 
-			tileData = new TileData(Global.InvalidTileSetIndex);
+			tileData = new TileData(TileData.InvalidTileSetIndex);
 			Assert.IsTrue(tileData.IsInvalid);
 
 			Assert.IsNotNull(tileData.ToString());
@@ -52,8 +53,10 @@ namespace CodeSmile.ProTiler.Tests.Editor
 			Assert.IsTrue(tileData2.Equals((object)tileData2));
 			Assert.IsFalse(tileData1.Equals((object)tileData2));
 			Assert.IsFalse(tileData2.Equals((object)tileData1));
+			#pragma warning disable 1718
 			Assert.IsTrue(tileData1 == tileData1);
 			Assert.IsTrue(tileData2 == tileData2);
+			#pragma warning restore 1718
 			Assert.IsTrue(tileData1 != tileData2);
 			Assert.IsTrue(tileData2 != tileData1);
 			Assert.IsTrue(tileData1 == new TileData(tileData1));
@@ -77,8 +80,8 @@ namespace CodeSmile.ProTiler.Tests.Editor
 		{
 			var tileData = new TileData(1);
 			Assert.AreEqual(1, tileData.TileSetIndex);
-			tileData.TileSetIndex = Global.InvalidTileSetIndex;
-			Assert.AreEqual(Global.InvalidTileSetIndex, tileData.TileSetIndex);
+			tileData.TileSetIndex = TileData.InvalidTileSetIndex;
+			Assert.AreEqual(TileData.InvalidTileSetIndex, tileData.TileSetIndex);
 			tileData.TileSetIndex = int.MaxValue;
 			Assert.AreEqual(int.MaxValue, tileData.TileSetIndex);
 		}

@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
 
-namespace CodeSmile.ProTiler
+namespace CodeSmile.ProTiler.Data
 {
 	[Serializable]
 	public sealed class TileDataDictionary : Dictionary<int3, TileData>, ISerializationCallbackReceiver

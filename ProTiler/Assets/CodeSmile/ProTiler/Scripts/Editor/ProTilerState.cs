@@ -2,6 +2,7 @@
 // Refer to included LICENSE file for terms and conditions.
 
 using CodeSmile.ProTiler;
+using CodeSmile.ProTiler.Data;
 using Unity.Mathematics;
 using UnityEditor;
 using UnityEngine;
@@ -25,7 +26,7 @@ namespace CodeSmile.Editor.ProTiler
 		public int DrawTileSetIndex
 		{
 			get => m_DrawTileSetIndex;
-			set => m_DrawTileSetIndex = math.max(value, Global.InvalidTileSetIndex);
+			set => m_DrawTileSetIndex = math.max(value, TileData.InvalidTileSetIndex);
 		}
 
 		// save on exit in case any property does not get immediately saved

@@ -21,8 +21,6 @@ namespace CodeSmile.ProTiler
 		public const string TileEditorResourcePrefabsPath = "TileEditor/Prefabs/";
 		public const string TileEditorResourceTileSetsPath = "TileEditor/TileSets/";
 
-		public const int InvalidTileSetIndex = -1;
-
 #if DEBUG
 		public const HideFlags TileHideFlags = HideFlags.DontSave;
 #else
@@ -30,9 +28,5 @@ namespace CodeSmile.ProTiler
 #endif
 
 		public static readonly Color OutlineColor = new(1f, .7f, .4f);
-		public static readonly TileData InvalidTileData = new(InvalidTileSetIndex);
-		public static readonly GridCoord InvalidGridCoord = new(int.MinValue, int.MinValue, int.MinValue);
-		public static readonly GridRect InvalidGridRect = new(int.MinValue, int.MinValue, 0, 0);
-		public static readonly TileGrid DefaultGrid = new();
 	}
 }

@@ -5,16 +5,39 @@ using System;
 using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
-using GridCoord = Unity.Mathematics.int3;
-using GridSize = Unity.Mathematics.int3;
-using GridRect = UnityEngine.RectInt;
-using WorldRect = UnityEngine.Rect;
 
 namespace CodeSmile.Extensions
 {
 	public static class RectIntExt
 	{
-		public static Rect ToWorldRect(this RectInt r, GridSize scale)
+		public static IReadOnlyList<int3> GetTileCoords(this RectInt gridRect)
+		{
+			// FIXME: use rect.allPositionsWithin ?
+
+			var coordIndex = 0;
+			if (gridRect.width <= 0 || gridRect.height <= 0)
+				throw new ArgumentException($"rect {gridRect} is too small!");
+
+			var coords = new int3[gridRect.width * gridRect.height];
+
+			try
+			{
+				var endX = gridRect.x + gridRect.width;
+				var endY = gridRect.y + gridRect.height;
+				for (var x = gridRect.x; x < endX; x++)
+					for (var y = gridRect.y; y < endY; y++)
+						coords[coordIndex++] = new int3(x, 0, y);
+			}
+			catch (Exception e)
+			{
+				Debug.LogError($"{e} at coord index: {coordIndex}, rect: {gridRect}");
+				throw;
+			}
+
+			return coords;
+		}
+		
+		public static Rect ToWorldRect(this RectInt r, int3 scale)
 		{
 			var pos = new Vector2(r.x * scale.x, r.y * scale.z);
 			var size = new Vector2(r.size.x * scale.x, r.size.y * scale.z);
@@ -47,35 +70,8 @@ namespace CodeSmile.Extensions
 
 			return overlaps;
 		}
-		
-		public static IReadOnlyList<GridCoord> GetTileCoords(this GridRect gridRect)
-		{
-			// FIXME: use rect.allPositionsWithin ?
 
-			var coordIndex = 0;
-			if (gridRect.width <= 0 || gridRect.height <= 0)
-				throw new ArgumentException($"rect {gridRect} is too small!");
-
-			var coords = new GridCoord[gridRect.width * gridRect.height];
-
-			try
-			{
-				var endX = gridRect.x + gridRect.width;
-				var endY = gridRect.y + gridRect.height;
-				for (var x = gridRect.x; x < endX; x++)
-					for (var y = gridRect.y; y < endY; y++)
-						coords[coordIndex++] = new GridCoord(x, 0, y);
-			}
-			catch (Exception e)
-			{
-				Debug.LogError($"{e} at coord index: {coordIndex}, rect: {gridRect}");
-				throw;
-			}
-
-			return coords;
-		}
-
-		public static bool IsInside(this GridRect rect, GridCoord coord) => coord.x >= rect.x && coord.x < rect.x + rect.width &&
-		                                                                    coord.z >= rect.y && coord.z < rect.y + rect.height;
+		public static bool IsInside(this RectInt rect, int3 coord) => coord.x >= rect.x && coord.x < rect.x + rect.width &&
+		                                                              coord.z >= rect.y && coord.z < rect.y + rect.height;
 	}
 }
