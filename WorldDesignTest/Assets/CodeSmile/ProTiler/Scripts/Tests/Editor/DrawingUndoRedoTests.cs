@@ -1,7 +1,6 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
-using CodeSmile.Tile;
 using NUnit.Framework;
 using System.Diagnostics.CodeAnalysis;
 using UnityEditor;
@@ -11,89 +10,92 @@ using GridSize = Unity.Mathematics.int3;
 using GridRect = UnityEngine.RectInt;
 using WorldRect = UnityEngine.Rect;
 
-[SuppressMessage("ReSharper", "HeapView.BoxingAllocation")]
-[SuppressMessage("ReSharper", "PossibleNullReferenceException")]
-public class DrawingUndoRedoTests
+namespace CodeSmile.ProTiler.Tests.Editor
 {
-	private TileLayer m_TileLayer;
-	private TileLayerToolbox m_Toolbox;
-
-	[SetUp]
-	public void SetUp()
+	[SuppressMessage("ReSharper", "HeapView.BoxingAllocation")]
+	[SuppressMessage("ReSharper", "PossibleNullReferenceException")]
+	public class DrawingUndoRedoTests
 	{
-		var world = new GameObject("world", typeof(TileWorld));
-		m_TileLayer = world.transform.GetChild(0).GetComponent<TileLayer>();
-		Assert.NotNull(m_TileLayer);
+		private TileLayer m_TileLayer;
+		private TileLayerToolbox m_Toolbox;
 
-		m_Toolbox = world.transform.GetChild(0).GetComponent<TileLayerToolbox>();
-		Assert.NotNull(m_Toolbox);
+		[SetUp]
+		public void SetUp()
+		{
+			var world = new GameObject("world", typeof(TileWorld));
+			m_TileLayer = world.transform.GetChild(0).GetComponent<TileLayer>();
+			Assert.NotNull(m_TileLayer);
 
-		var tileSet = AssetDatabase.LoadAssetAtPath<TileSet>("Assets/Art/kenney/Tower Defense (Classic)/TileSet/TD Terrain TileSet.asset");
-		Assert.NotNull(tileSet);
-		m_TileLayer.TileSet = tileSet;
-	}
+			m_Toolbox = world.transform.GetChild(0).GetComponent<TileLayerToolbox>();
+			Assert.NotNull(m_Toolbox);
 
-	[TearDown]
-	public void TearDown() {}
+			var tileSet = AssetDatabase.LoadAssetAtPath<TileSet>("Assets/Art/kenney/Tower Defense (Classic)/TileSet/TD Terrain TileSet.asset");
+			Assert.NotNull(tileSet);
+			m_TileLayer.TileSet = tileSet;
+		}
 
-	[Test]
-	public void DrawLineUndoRedoTests()
-	{
-		var start = new GridCoord(0, 0, 0);
-		var end = new GridCoord(1, 0, 1);
-		m_Toolbox.DrawBrush = new TileBrush(GridCoord.zero, 0);
-		m_Toolbox.DrawLine(start, end);
+		[TearDown]
+		public void TearDown() {}
 
-		Assert.AreEqual(2, m_TileLayer.TileCount);
-		Assert.AreEqual(0, m_TileLayer.GetTileData(start).TileSetIndex);
-		Assert.AreEqual(0, m_TileLayer.GetTileData(end).TileSetIndex);
+		[Test]
+		public void DrawLineUndoRedoTests()
+		{
+			var start = new GridCoord(0, 0, 0);
+			var end = new GridCoord(1, 0, 1);
+			m_Toolbox.DrawBrush = new TileBrush(GridCoord.zero, 0);
+			m_Toolbox.DrawLine(start, end);
 
-		Undo.PerformUndo();
+			Assert.AreEqual(2, m_TileLayer.TileCount);
+			Assert.AreEqual(0, m_TileLayer.GetTileData(start).TileSetIndex);
+			Assert.AreEqual(0, m_TileLayer.GetTileData(end).TileSetIndex);
 
-		Assert.AreEqual(0, m_TileLayer.TileCount);
-		Assert.AreEqual(Const.InvalidTileSetIndex, m_TileLayer.GetTileData(start).TileSetIndex);
-		Assert.AreEqual(Const.InvalidTileSetIndex, m_TileLayer.GetTileData(end).TileSetIndex);
+			Undo.PerformUndo();
 
-		Undo.PerformRedo();
+			Assert.AreEqual(0, m_TileLayer.TileCount);
+			Assert.AreEqual(Global.InvalidTileSetIndex, m_TileLayer.GetTileData(start).TileSetIndex);
+			Assert.AreEqual(Global.InvalidTileSetIndex, m_TileLayer.GetTileData(end).TileSetIndex);
 
-		Assert.AreEqual(2, m_TileLayer.TileCount);
-		Assert.AreEqual(0, m_TileLayer.GetTileData(start).TileSetIndex);
-		Assert.AreEqual(0, m_TileLayer.GetTileData(end).TileSetIndex);
-	}
+			Undo.PerformRedo();
 
-	[Test]
-	public void ClearTilesUndoRedoTests()
-	{
-		var start = new GridCoord(-1, 0, -2);
-		var end = new GridCoord(3, 0, 1);
-		var tileIndex = 0;
-		m_Toolbox.DrawBrush = new TileBrush(GridCoord.zero, tileIndex);
-		m_Toolbox.DrawLine(start, end);
-		var tileCount = m_TileLayer.TileCount;
+			Assert.AreEqual(2, m_TileLayer.TileCount);
+			Assert.AreEqual(0, m_TileLayer.GetTileData(start).TileSetIndex);
+			Assert.AreEqual(0, m_TileLayer.GetTileData(end).TileSetIndex);
+		}
 
-		Assert.AreEqual(tileCount, m_TileLayer.TileCount);
-		Assert.AreEqual(tileIndex, m_TileLayer.GetTileData(start).TileSetIndex);
-		Assert.AreEqual(tileIndex, m_TileLayer.GetTileData(end).TileSetIndex);
+		[Test]
+		public void ClearTilesUndoRedoTests()
+		{
+			var start = new GridCoord(-1, 0, -2);
+			var end = new GridCoord(3, 0, 1);
+			var tileIndex = 0;
+			m_Toolbox.DrawBrush = new TileBrush(GridCoord.zero, tileIndex);
+			m_Toolbox.DrawLine(start, end);
+			var tileCount = m_TileLayer.TileCount;
 
-		// FIXME: undo/redo clear all only works after doing undo/redo once before
-		//Undo.PerformUndo();
-		Undo.PerformRedo();
-		m_Toolbox.ClearAllTiles();
+			Assert.AreEqual(tileCount, m_TileLayer.TileCount);
+			Assert.AreEqual(tileIndex, m_TileLayer.GetTileData(start).TileSetIndex);
+			Assert.AreEqual(tileIndex, m_TileLayer.GetTileData(end).TileSetIndex);
 
-		Assert.AreEqual(0, m_TileLayer.TileCount);
-		Assert.AreEqual(Const.InvalidTileSetIndex, m_TileLayer.GetTileData(start).TileSetIndex);
-		Assert.AreEqual(Const.InvalidTileSetIndex, m_TileLayer.GetTileData(end).TileSetIndex);
+			// FIXME: undo/redo clear all only works after doing undo/redo once before
+			//Undo.PerformUndo();
+			Undo.PerformRedo();
+			m_Toolbox.ClearAllTiles();
 
-		Undo.PerformUndo();
+			Assert.AreEqual(0, m_TileLayer.TileCount);
+			Assert.AreEqual(Global.InvalidTileSetIndex, m_TileLayer.GetTileData(start).TileSetIndex);
+			Assert.AreEqual(Global.InvalidTileSetIndex, m_TileLayer.GetTileData(end).TileSetIndex);
 
-		Assert.AreEqual(tileCount, m_TileLayer.TileCount);
-		Assert.AreEqual(0, m_TileLayer.GetTileData(start).TileSetIndex);
-		Assert.AreEqual(0, m_TileLayer.GetTileData(end).TileSetIndex);
+			Undo.PerformUndo();
 
-		Undo.PerformRedo();
+			Assert.AreEqual(tileCount, m_TileLayer.TileCount);
+			Assert.AreEqual(0, m_TileLayer.GetTileData(start).TileSetIndex);
+			Assert.AreEqual(0, m_TileLayer.GetTileData(end).TileSetIndex);
 
-		Assert.AreEqual(0, m_TileLayer.TileCount);
-		Assert.AreEqual(Const.InvalidTileSetIndex, m_TileLayer.GetTileData(start).TileSetIndex);
-		Assert.AreEqual(Const.InvalidTileSetIndex, m_TileLayer.GetTileData(end).TileSetIndex);
+			Undo.PerformRedo();
+
+			Assert.AreEqual(0, m_TileLayer.TileCount);
+			Assert.AreEqual(Global.InvalidTileSetIndex, m_TileLayer.GetTileData(start).TileSetIndex);
+			Assert.AreEqual(Global.InvalidTileSetIndex, m_TileLayer.GetTileData(end).TileSetIndex);
+		}
 	}
 }

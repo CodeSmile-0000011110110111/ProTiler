@@ -3,4 +3,4 @@
 
 using System.Runtime.CompilerServices;
 
-[assembly: InternalsVisibleTo("CodeSmileEditor.Tile.Tests")]
+[assembly: InternalsVisibleTo("CodeSmile.Editor.ProTiler.Tests")]

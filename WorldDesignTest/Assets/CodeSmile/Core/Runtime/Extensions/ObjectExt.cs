@@ -4,7 +4,7 @@
 using UnityEngine;
 using UnityEditor;
 
-namespace CodeSmile
+namespace CodeSmile.Extensions
 {
 	public static class ObjectExt
 	{

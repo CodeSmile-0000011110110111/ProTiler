@@ -4,7 +4,7 @@
 using Unity.Mathematics;
 using UnityEngine;
 
-namespace CodeSmile
+namespace CodeSmile.Extensions
 {
 	public static class RayExt
 	{

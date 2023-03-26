@@ -1,9 +1,0 @@
-<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <Style src="project://database/Assets/CodeSmile/3D%20Tile%20Editor/Scripts/Editor/Windows/TileEditorWindow.uss?fileID=7433441132597879392&amp;guid=0999a98102d88e5469621217c7de5774&amp;type=3#TileEditorWindow" />
-    <ui:ListView focusable="true" name="TileSetTilesList" style="flex-grow: 1; flex-direction: row;" />
-    <ui:ScrollView>
-        <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: row;">
-            <ui:Label tabindex="-1" text="Label" display-tooltip-when-elided="true" />
-        </ui:VisualElement>
-    </ui:ScrollView>
-</ui:UXML>

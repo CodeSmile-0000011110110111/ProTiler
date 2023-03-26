@@ -3,7 +3,7 @@
 
 using UnityEngine;
 
-namespace CodeSmile
+namespace CodeSmile.Extensions
 {
 	public static class TransformExt
 	{

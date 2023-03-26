@@ -1,13 +1,14 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
+using CodeSmile.Extensions;
 using System;
 using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace CodeSmile.Tile
+namespace CodeSmile.Pooling
 {
 	public sealed class ComponentPool<T> : IDisposable where T : Component, new()
 	{

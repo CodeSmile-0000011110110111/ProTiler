@@ -2,12 +2,13 @@
 // Refer to included LICENSE file for terms and conditions.
 
 using CodeSmile;
-using CodeSmile.Tile;
+using CodeSmile.Extensions;
+using CodeSmile.ProTiler;
 using Unity.Mathematics;
 using UnityEditor;
 using UnityEngine;
 
-namespace CodeSmileEditor.Tile
+namespace CodeSmile.Editor.ProTiler.Extensions
 {
 	public static class HandleUtilityExt
 	{

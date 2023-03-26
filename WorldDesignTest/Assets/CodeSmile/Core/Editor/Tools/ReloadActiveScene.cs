@@ -5,7 +5,7 @@ using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine.SceneManagement;
 
-namespace CodeSmileEditor.Tile
+namespace CodeSmile.Editor.Tools
 {
 	public static class ReloadActiveScene
 	{

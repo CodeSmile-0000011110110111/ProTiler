@@ -3,7 +3,7 @@
 
 using UnityEngine;
 
-namespace CodeSmile.Tile
+namespace CodeSmile.Extensions
 {
 	public static class CameraExt
 	{
