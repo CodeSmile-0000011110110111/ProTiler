@@ -1,6 +1,7 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
+using CodeSmile.Extensions;
 using CodeSmile.ProTiler.Data;
 using CodeSmile.ProTiler.Extensions;
 using System;
@@ -56,7 +57,7 @@ namespace CodeSmile.ProTiler
 		{
 			get
 			{
-				if (s_ExampleTileSet == null)
+				if (s_ExampleTileSet == null || s_ExampleTileSet.IsMissing())
 					s_ExampleTileSet = Resources.Load<TileSet>(Global.TileEditorResourceTileSetsPath + "ExampleTileSet");
 				return s_ExampleTileSet;
 			}

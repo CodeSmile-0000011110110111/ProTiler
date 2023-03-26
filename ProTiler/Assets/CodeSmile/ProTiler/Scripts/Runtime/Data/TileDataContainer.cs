@@ -17,16 +17,16 @@ namespace CodeSmile.ProTiler.Data
 	[Serializable]
 	public sealed class TileDataContainer
 	{
-		[SerializeField] private TileDataDictionary m_TilesDataDictionary = new();
+		[SerializeField] private TileDataDictionary m_Tiles = new();
 
-		public int Count => m_TilesDataDictionary.Count;
+		public int Count => m_Tiles.Count;
 
-		public bool Contains(GridCoord coord) => m_TilesDataDictionary.ContainsKey(coord);
+		public bool Contains(GridCoord coord) => m_Tiles.ContainsKey(coord);
 
-		public void ClearAllTiles() => m_TilesDataDictionary.Clear();
+		public void ClearAllTiles() => m_Tiles.Clear();
 
 		//public TileData this[GridCoord coord] => GetTile(coord);
-		public TileData GetTile(GridCoord coord) => m_TilesDataDictionary.TryGetValue(coord, out var tile) ? tile : TileData.InvalidTileData;
+		public TileData GetTile(GridCoord coord) => m_Tiles.TryGetValue(coord, out var tile) ? tile : TileData.InvalidTileData;
 
 		public (IReadOnlyList<GridCoord>, IReadOnlyList<TileData>) SetTileIndexes(GridRect rect, int tileSetIndex) =>
 			SetTileIndexes(rect.GetTileCoords(), tileSetIndex);
@@ -62,7 +62,7 @@ namespace CodeSmile.ProTiler.Data
 		private void AddOrUpdateTile(GridCoord coord, in TileData tileData)
 		{
 #if TRYADDTILES
-			if (m_TilesDataDictionary.TryAdd(coord, tileData) == false)
+			if (m_Tiles.TryAdd(coord, tileData) == false)
 				UpdateTile(coord, tileData);
 #else
 				if (m_Tiles.ContainsKey(coord))
@@ -72,12 +72,12 @@ namespace CodeSmile.ProTiler.Data
 #endif
 		}
 
-		private void UpdateTile(GridCoord coord, TileData tileData) => m_TilesDataDictionary[coord] = tileData;
+		private void UpdateTile(GridCoord coord, TileData tileData) => m_Tiles[coord] = tileData;
 
 		private void TryRemoveTile(GridCoord coord)
 		{
-			if (m_TilesDataDictionary.ContainsKey(coord))
-				m_TilesDataDictionary.Remove(coord);
+			if (m_Tiles.ContainsKey(coord))
+				m_Tiles.Remove(coord);
 		}
 
 		public IDictionary<GridCoord, TileData> GetTilesInRect(GridRect rect)

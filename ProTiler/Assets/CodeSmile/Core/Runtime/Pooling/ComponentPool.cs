@@ -12,11 +12,11 @@ namespace CodeSmile.Pooling
 {
 	public sealed class ComponentPool<T> : IDisposable where T : Component, new()
 	{
-		[NonSerialized] private readonly List<T> m_AllInstances = new();
-		[NonSerialized] private readonly List<T> m_InactiveInstances = new();
-		[NonSerialized] private readonly GameObject m_Prefab;
-		[NonSerialized] private readonly Transform m_Parent;
-		[NonSerialized] private readonly HideFlags m_HideFlags;
+		private readonly List<T> m_AllInstances = new();
+		private readonly List<T> m_InactiveInstances = new();
+		private readonly Transform m_Parent;
+		private readonly HideFlags m_HideFlags;
+		private readonly GameObject m_Prefab;
 
 		public int Count => m_AllInstances.Count;
 		public IReadOnlyList<T> AllInstances => m_AllInstances.AsReadOnly();
@@ -51,6 +51,9 @@ namespace CodeSmile.Pooling
 
 		private void InstantiatePrefabs(int newCount)
 		{
+			if (m_Prefab == null)
+				throw new NullReferenceException("ComponentPool m_Prefab is null");
+			
 			for (var i = 0; i < newCount; i++)
 			{
 				var go = Object.Instantiate(m_Prefab, Vector3.zero, quaternion.identity, m_Parent);
@@ -93,8 +96,6 @@ namespace CodeSmile.Pooling
 #if DEBUG
 			if (instance == null)
 				throw new ArgumentNullException("instance must not be null");
-			if (m_InactiveInstances.Contains(instance))
-				throw new ArgumentException("instance already returned to pool");
 #endif
 
 			if (setInactive)

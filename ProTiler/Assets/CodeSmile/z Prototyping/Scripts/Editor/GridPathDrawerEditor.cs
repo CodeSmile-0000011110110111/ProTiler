@@ -6,10 +6,10 @@ using UnityEditor;
 using UnityEngine;
 using UnityEditor_Handles = UnityEditor.Handles;
 
-namespace CodeSmile.UnityEditor
+namespace CodeSmile.Editor
 {
 	[CustomEditor(typeof(GridPathDrawer))]
-	public class GridPathDrawerEditor : Editor
+	public class GridPathDrawerEditor : UnityEditor.Editor
 	{
 		private int m_ClosestLineIndex;
 
@@ -88,7 +88,7 @@ namespace CodeSmile.UnityEditor
 		private void DrawPathLineHandles()
 		{
 			var pathDrawer = (GridPathDrawer)target;
-			var path = pathDrawer.Path.ToArray();
+			var path = pathDrawer.TestPath.ToArray();
 			for (var i = 0; i < path.Length - 1; i++)
 			{
 				var line = path[i + 1] - path[i];
@@ -150,7 +150,7 @@ namespace CodeSmile.UnityEditor
 		private int GetClosestLineIndex(float minDistance)
 		{
 			var pathDrawer = (GridPathDrawer)target;
-			var points = pathDrawer.Path;
+			var points = pathDrawer.TestPath;
 			var closestDistance = float.MaxValue;
 			var closestIndex = -1;
 			for (var i = 0; i < points.Count - 1; i++)
@@ -169,7 +169,7 @@ namespace CodeSmile.UnityEditor
 		private void DrawPathPoints()
 		{
 			var pathDrawer = (GridPathDrawer)target;
-			var path = pathDrawer.Path;
+			var path = pathDrawer.TestPath;
 			UnityEditor_Handles.color = UnityEditor_Handles.elementPreselectionColor;
 			var size = 1f;
 			for (var i = 0; i < path.Count; i++)
@@ -180,7 +180,7 @@ namespace CodeSmile.UnityEditor
 		private void DrawPathLines()
 		{
 			var pathDrawer = (GridPathDrawer)target;
-			var path = pathDrawer.Path;
+			var path = pathDrawer.TestPath;
 			for (var i = 0; i < path.Count - 1; i++)
 			{
 				UnityEditor_Handles.color = m_ClosestLineIndex == i ? UnityEditor_Handles.selectedColor : UnityEditor_Handles.elementColor;

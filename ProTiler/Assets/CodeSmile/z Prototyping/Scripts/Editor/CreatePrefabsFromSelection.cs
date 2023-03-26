@@ -10,7 +10,7 @@ using System.IO;
 using UnityEditor;
 using UnityEngine;
 
-namespace CodeSmile.Editor.Tools
+namespace CodeSmile.Editor.Prototype
 {
 	public static class CreatePrefabsFromSelection
 	{

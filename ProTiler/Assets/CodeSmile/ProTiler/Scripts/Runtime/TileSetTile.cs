@@ -4,7 +4,7 @@
 using System;
 using UnityEngine;
 
-namespace CodeSmile.ProTiler.Data
+namespace CodeSmile.ProTiler
 {
 	[Serializable]
 	public sealed class TileSetTile
@@ -13,19 +13,6 @@ namespace CodeSmile.ProTiler.Data
 		[SerializeField] private GameObject m_Prefab;
 		[SerializeField] private string m_Category;
 		[SerializeField] private int m_CustomFlags;
-
-		public TileSetTile(GameObject prefab, string category = "Uncategorized")
-		{
-			m_Prefab = prefab;
-			m_Category = category;
-			SetDisplayName();
-		}
-
-		public void SetDisplayName()
-		{
-			var prefabName = m_Prefab != null ? m_Prefab.name : "<missing>";
-			m_DisplayName = $"{m_Category}: {prefabName}";
-		}
 
 		public GameObject Prefab
 		{
@@ -44,6 +31,24 @@ namespace CodeSmile.ProTiler.Data
 				m_Category = value;
 				SetDisplayName();
 			}
+		}
+		public string DisplayName
+		{
+			get => m_DisplayName;
+			set => m_DisplayName = value;
+		}
+
+		public TileSetTile(GameObject prefab, string category = "Uncategorized")
+		{
+			m_Prefab = prefab;
+			m_Category = category;
+			SetDisplayName();
+		}
+
+		public void SetDisplayName()
+		{
+			var prefabName = m_Prefab != null ? m_Prefab.name : "<missing>";
+			m_DisplayName = $"{m_Category}: {prefabName}";
 		}
 	}
 }

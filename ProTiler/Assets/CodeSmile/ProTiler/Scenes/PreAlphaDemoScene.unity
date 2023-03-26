@@ -264,7 +264,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8b0b4f0983e47b99a26407fc88cb154, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_DrawDistance: 50
+  m_DrawDistance: 28
   m_VisibleRectDistance: 14
 --- !u!114 &107156463
 MonoBehaviour:
@@ -2149,6 +2149,12 @@ MonoBehaviour:
       - x: 25
         y: 0
         z: 8
+      - x: 9
+        y: 0
+        z: -3
+      - x: 5
+        y: 0
+        z: -1
       m_Values:
       - m_TileSetIndex: 10
         m_Flags: 1
@@ -3394,6 +3400,10 @@ MonoBehaviour:
         m_Flags: 1
       - m_TileSetIndex: 10
         m_Flags: 1
+      - m_TileSetIndex: 0
+        m_Flags: 1
+      - m_TileSetIndex: 10
+        m_Flags: 1
 --- !u!114 &107156464
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3419,7 +3429,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_DebugClearTilesButton: 0
-  m_DebugSelectedTileName: tile-water
+  m_DebugSelectedTileName: industry-refinery
+  m_DebugTileCount: 624
 --- !u!1 &559112926
 GameObject:
   m_ObjectHideFlags: 0
@@ -3497,11 +3508,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 11496292, guid: 0abab5bb77339e4428787a870eb31bd3, type: 3}
       propertyPath: m_toggleModeKeyCode
-      value: 284
+      value: 96
       objectReference: {fileID: 0}
     - target: {fileID: 11496292, guid: 0abab5bb77339e4428787a870eb31bd3, type: 3}
       propertyPath: m_toggleActiveKeyCode
-      value: 283
+      value: 95
       objectReference: {fileID: 0}
     - target: {fileID: 22451668, guid: 0abab5bb77339e4428787a870eb31bd3, type: 3}
       propertyPath: m_Pivot.x
@@ -19817,6 +19828,12 @@ MonoBehaviour:
       - x: 25
         y: 0
         z: -1
+      - x: 6
+        y: 0
+        z: -1
+      - x: 9
+        y: 0
+        z: 17
       m_Values:
       - m_TileSetIndex: 0
         m_Flags: 1
@@ -30512,6 +30529,10 @@ MonoBehaviour:
         m_Flags: 1
       - m_TileSetIndex: 21
         m_Flags: 8
+      - m_TileSetIndex: 0
+        m_Flags: 1
+      - m_TileSetIndex: 41
+        m_Flags: 1
 --- !u!114 &1462416866
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30524,7 +30545,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8b0b4f0983e47b99a26407fc88cb154, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_DrawDistance: 50
+  m_DrawDistance: 28
   m_VisibleRectDistance: 14
 --- !u!114 &1462416867
 MonoBehaviour:
@@ -30551,7 +30572,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_DebugClearTilesButton: 0
-  m_DebugSelectedTileName: tile-hole-big
+  m_DebugSelectedTileName: building-cabin-big
+  m_DebugTileCount: 5349
 --- !u!1 &1762071070
 GameObject:
   m_ObjectHideFlags: 0
@@ -30781,7 +30803,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8b0b4f0983e47b99a26407fc88cb154, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_DrawDistance: 25
+  m_DrawDistance: 16
   m_VisibleRectDistance: 14
 --- !u!114 &2092322003
 MonoBehaviour:
@@ -30998,6 +31020,21 @@ MonoBehaviour:
       - x: 48
         y: 0
         z: 8
+      - x: 6
+        y: 0
+        z: -1
+      - x: 9
+        y: 0
+        z: 48
+      - x: 28
+        y: 0
+        z: 1
+      - x: 21
+        y: 0
+        z: 0
+      - x: 20
+        y: 0
+        z: 0
       m_Values:
       - m_TileSetIndex: 68
         m_Flags: 1
@@ -31101,8 +31138,8 @@ MonoBehaviour:
         m_Flags: 4
       - m_TileSetIndex: 99
         m_Flags: 2
-      - m_TileSetIndex: 96
-        m_Flags: 8
+      - m_TileSetIndex: 89
+        m_Flags: 1
       - m_TileSetIndex: 119
         m_Flags: 1
       - m_TileSetIndex: 100
@@ -31131,6 +31168,16 @@ MonoBehaviour:
         m_Flags: 1
       - m_TileSetIndex: 12
         m_Flags: 1
+      - m_TileSetIndex: 119
+        m_Flags: 1
+      - m_TileSetIndex: 120
+        m_Flags: 1
+      - m_TileSetIndex: 120
+        m_Flags: 1
+      - m_TileSetIndex: 120
+        m_Flags: 8
+      - m_TileSetIndex: 120
+        m_Flags: 2
 --- !u!114 &2092322004
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -31138,7 +31185,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2092322000}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 13a66dc1b1554460b8333660d2fc8baa, type: 3}
   m_Name: 
@@ -31156,7 +31203,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_DebugClearTilesButton: 0
-  m_DebugSelectedTileName: tile-plain
+  m_DebugSelectedTileName: windmill
+  m_DebugTileCount: 71
 --- !u!1 &2121338146
 GameObject:
   m_ObjectHideFlags: 0

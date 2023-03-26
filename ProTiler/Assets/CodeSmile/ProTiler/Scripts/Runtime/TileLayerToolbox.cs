@@ -39,6 +39,12 @@ namespace CodeSmile.ProTiler
 			get => PreviewRenderer.PreviewBrush;
 			set
 			{
+				if (TileDrawPreviewEnabled)
+				{
+					LayerRenderer.SetTileActive(false, value.Coord);
+					LayerRenderer.SetTileActive(true, PreviewRenderer.PreviewBrush.Coord);
+				}
+				
 				PreviewRenderer.PreviewBrush = value;
 				DebugSetTileName(value.TileSetIndex);
 			}
@@ -56,7 +62,11 @@ namespace CodeSmile.ProTiler
 		public bool TileDrawPreviewEnabled
 		{
 			get => PreviewRenderer.enabled;
-			set => PreviewRenderer.enabled = value;
+			set
+			{
+				LayerRenderer.SetTileActive(!value, PreviewRenderer.PreviewBrush.Coord);
+				PreviewRenderer.enabled = value;
+			}
 		}
 		private TileLayerPreviewRenderer PreviewRenderer
 		{

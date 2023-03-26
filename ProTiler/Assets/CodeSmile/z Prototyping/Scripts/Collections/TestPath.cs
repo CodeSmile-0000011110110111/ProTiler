@@ -8,7 +8,7 @@ using UnityEngine;
 namespace CodeSmile
 {
 	[Serializable]
-	public class Path
+	public class TestPath
 	{
 		[SerializeField] private List<Vector3> m_Points = new();
 		public List<Vector3> Points => m_Points;

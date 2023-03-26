@@ -501,6 +501,6 @@ MonoBehaviour:
     m_Category: 0
     m_CustomFlags: 0
   - m_DisplayName: 'Category0: windmill'
-    m_Prefab: {fileID: 192530, guid: c6f41eee6d090ac438c2e9bbe99ecf24, type: 3}
+    m_Prefab: {fileID: 2143252428490108466, guid: c6f41eee6d090ac438c2e9bbe99ecf24, type: 3}
     m_Category: 0
     m_CustomFlags: 0

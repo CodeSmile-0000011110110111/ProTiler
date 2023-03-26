@@ -68,7 +68,7 @@ namespace CodeSmile.Editor.ProTiler
 		private void UpdateTileDrawPreviewEnabledState()
 		{
 			var editMode = ProTilerState.instance.TileEditMode;
-			Toolbox.TileDrawPreviewEnabled = m_IsMouseInView && editMode != TileEditMode.Selection;
+			ShowDrawBrush(m_IsMouseInView && editMode != TileEditMode.Selection);
 		}
 
 		private GridCoord GetMouseCursorCoord()
@@ -148,14 +148,14 @@ namespace CodeSmile.Editor.ProTiler
 			m_IsDrawingTiles = false;
 			UpdateCursorCoord();
 			UpdateStartSelectionCoord();
-			SetClearDrawBrush();
+			ShowDrawBrush(false);
 		}
 
 		private void UpdateClearingState()
 		{
 			if (m_IsDrawingTiles == false)
 			{
-				var shouldClear = Event.current.shift || IsRightMouseButtonDown();
+				var shouldClear = m_Input.IsAltKeyDown || IsRightMouseButtonDown();
 				if (m_IsClearingTiles != shouldClear)
 					m_IsClearingTiles = shouldClear;
 			}
@@ -193,6 +193,9 @@ namespace CodeSmile.Editor.ProTiler
 				Toolbox.DrawBrush = newBrush;
 		}
 
-		private void SetClearDrawBrush() => Toolbox.DrawBrush = CreateDrawBrush(true);
+		private void ShowDrawBrush(bool show = true)
+		{
+			Toolbox.TileDrawPreviewEnabled = show;
+		}
 	}
 }

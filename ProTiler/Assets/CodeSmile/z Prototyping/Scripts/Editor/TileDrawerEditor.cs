@@ -5,10 +5,10 @@ using UnityEditor;
 using UnityEngine;
 using UnityEditor_Handles = UnityEditor.Handles;
 
-namespace CodeSmile.UnityEditor
+namespace CodeSmile.Editor
 {
 	[CustomEditor(typeof(TileDrawer))]
-	public class TileDrawerEditor : Editor
+	public class TileDrawerEditor : UnityEditor.Editor
 	{
 		private readonly Vector3[] m_IntersectPoint = new Vector3[1];
 

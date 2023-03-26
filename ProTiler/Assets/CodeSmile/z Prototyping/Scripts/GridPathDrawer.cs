@@ -9,7 +9,7 @@ namespace CodeSmile
 	[ExecuteInEditMode]
 	public class GridPathDrawer : MonoBehaviour
 	{
-		[SerializeField] private Path m_Path = new();
+		[SerializeField] private TestPath m_TestPath = new();
 
 		[SerializeField] private bool m_ResetPath;
 
@@ -26,20 +26,20 @@ namespace CodeSmile
 			}
 		}
 
-		public Path Path => m_Path;
+		public TestPath TestPath => m_TestPath;
 		public Grid GridSettings => m_GridSettings;
 
 		public void ResetPath()
 		{
 			//Debug.Log("ResetPath");
-			m_Path.Clear();
-			m_Path.Add(Vector3.left * m_GridSettings.TileSize.x);
-			m_Path.Add(Vector3.right * m_GridSettings.TileSize.x);
-			m_Path.Add(Vector3.right * m_GridSettings.TileSize.x + Vector3.forward * m_GridSettings.TileSize.y);
-			m_Path.Add(Vector3.left * m_GridSettings.TileSize.x + Vector3.forward * m_GridSettings.TileSize.y);
+			m_TestPath.Clear();
+			m_TestPath.Add(Vector3.left * m_GridSettings.TileSize.x);
+			m_TestPath.Add(Vector3.right * m_GridSettings.TileSize.x);
+			m_TestPath.Add(Vector3.right * m_GridSettings.TileSize.x + Vector3.forward * m_GridSettings.TileSize.y);
+			m_TestPath.Add(Vector3.left * m_GridSettings.TileSize.x + Vector3.forward * m_GridSettings.TileSize.y);
 		}
 
-		public void AddPoint(Vector3 point) => m_Path.Add(point);
+		public void AddPoint(Vector3 point) => m_TestPath.Add(point);
 
 		/*
 		public void SetPointsAtIndex(int pointIndex, Vector3 position, Vector3 direction)

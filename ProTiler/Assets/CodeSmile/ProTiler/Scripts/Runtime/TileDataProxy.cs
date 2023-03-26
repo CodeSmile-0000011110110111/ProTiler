@@ -21,11 +21,11 @@ namespace CodeSmile.ProTiler
 		[SerializeField] private TileData m_TileData = TileData.InvalidTileData;
 
 		private readonly List<GameObject> m_InstancesToBeDestroyed = new();
-		public List<GameObject> ToBeDeletedInstances { get => m_InstancesToBeDestroyed; }
+		public List<GameObject> ToBeDeletedInstances => m_InstancesToBeDestroyed;
 
-		public GridCoord Coord { get => m_Coord; }
+		public GridCoord Coord => m_Coord;
 
-		public TileData TileData { get => m_TileData; }
+		public TileData TileData => m_TileData;
 
 		public TileLayer Layer
 		{
@@ -84,6 +84,11 @@ namespace CodeSmile.ProTiler
 				return;
 
 			var prefab = m_Layer.TileSet.GetPrefab(m_TileData.TileSetIndex);
+#if DEBUG
+			if (prefab == null)
+				throw new NullReferenceException($"TileDataProxy: tileset '{m_Layer.TileSet.name}' prefab with index {m_TileData.TileSetIndex} is null");
+#endif
+
 			var worldPos = m_Layer.GetTilePosition(m_Coord);
 			m_Instance = InstantiateTileObject(prefab, worldPos, transform, m_TileData.Flags);
 

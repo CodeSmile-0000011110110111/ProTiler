@@ -4,11 +4,12 @@
 using System;
 using UnityEditor;
 using UnityEngine;
+using UnityEditor_Editor = UnityEditor.Editor;
 
 namespace CodeSmile.HandlesTest.UnityEditor
 {
 	[CustomEditor(typeof(FreeMoveHandle))] [CanEditMultipleObjects]
-	public class FreeMoveHandleEditor : Editor
+	public class FreeMoveHandleEditor : UnityEditor_Editor
 	{
 		private Vector3 m_IntersectPoint;
 

@@ -1,6 +1,7 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
+using CodeSmile.Extensions;
 using CodeSmile.ProTiler.Data;
 using System;
 using System.Collections.Generic;
@@ -25,11 +26,6 @@ namespace CodeSmile.ProTiler
 		[SerializeField] private List<GameObject> m_DragDropPrefabsHereToAdd = new();
 		[SerializeField] private List<TileSetTile> m_Tiles = new();
 
-		private void OnEnable()
-		{
-			UpdateMissingTileSize(m_Grid.Size);
-		}
-
 		public TileGrid Grid
 		{
 			get => m_Grid;
@@ -52,7 +48,7 @@ namespace CodeSmile.ProTiler
 		{
 			get
 			{
-				if (s_ClearingTilePrefab == null)
+				if (s_ClearingTilePrefab == null || s_ClearingTilePrefab.IsMissing())
 					s_ClearingTilePrefab = Resources.Load<GameObject>(Global.TileEditorResourcePrefabsPath + "ClearingTile");
 				return s_ClearingTilePrefab;
 			}
@@ -61,7 +57,7 @@ namespace CodeSmile.ProTiler
 		{
 			get
 			{
-				if (s_MissingTilePrefab == null)
+				if (s_MissingTilePrefab == null || s_MissingTilePrefab.IsMissing())
 					s_MissingTilePrefab = Resources.Load<GameObject>(Global.TileEditorResourcePrefabsPath + "MissingTile");
 				return s_MissingTilePrefab;
 			}
@@ -69,6 +65,8 @@ namespace CodeSmile.ProTiler
 
 		private static void UpdateMissingTileSize(GridSize size) =>
 			MissingTilePrefab.transform.localScale = new Vector3(size.x, size.y, size.z);
+
+		private void OnEnable() => UpdateMissingTileSize(m_Grid.Size);
 
 		public float3 GetTileOffset()
 		{
@@ -92,9 +90,34 @@ namespace CodeSmile.ProTiler
 			m_DragDropPrefabsHereToAdd.Clear();
 		}
 
-		public GameObject GetPrefab(int index) => index >= 0 && index < m_Tiles.Count ? m_Tiles[index].Prefab : GetSpecialTilePrefab(index);
+		public GameObject GetPrefab(int index)
+		{
+			if (index < 0)
+				return ClearingTilePrefab;
+			if (index >= m_Tiles.Count)
+			{
+				Debug.LogWarning($"TileSet '{name}': Index #{index} is outside TileSet bounds");
+				return MissingTilePrefab;
+			}
 
-		private GameObject GetSpecialTilePrefab(int index) => index < 0 ? ClearingTilePrefab : MissingTilePrefab;
+			var tile = m_Tiles[index];
+			var prefab = tile?.Prefab;
+
+#if DEBUG
+			if (tile == null)
+			{
+				Debug.LogWarning($"TileSet '{name}': Tile #{index} is null");
+				return MissingTilePrefab;
+			}
+			if (prefab == null || prefab.IsMissing())
+			{
+				Debug.LogWarning($"TileSet '{name}': Prefab of tile #{index} '{tile.DisplayName}' is null or missing");
+				return MissingTilePrefab;
+			}
+#endif
+
+			return prefab;
+		}
 
 		public void SetPrefab(int index, GameObject prefab) => m_Tiles[index].Prefab = prefab;
 

@@ -4,6 +4,8 @@
 using CodeSmile.Editor.InputState;
 using CodeSmile.InputState;
 using CodeSmile.ProTiler;
+using CodeSmile.ProTiler.Data;
+using Unity.Mathematics;
 using UnityEngine;
 
 namespace CodeSmile.Editor.ProTiler
@@ -121,7 +123,8 @@ namespace CodeSmile.Editor.ProTiler
 				}
 				else if (ctrl)
 				{
-					editorState.DrawTileSetIndex += delta;
+					editorState.DrawTileSetIndex = math.clamp(editorState.DrawTileSetIndex + delta, 
+						TileData.InvalidTileSetIndex, Toolbox.Layer.TileSet.Count - 1);
 					UpdateLayerDrawBrush();
 					Event.current.Use();
 				}
