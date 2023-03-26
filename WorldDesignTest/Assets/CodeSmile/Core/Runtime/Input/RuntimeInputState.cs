@@ -10,14 +10,14 @@ namespace CodeSmile
 {
 	public class RuntimeInputState : IInputState
 	{
+		public event Action<MouseButton> OnMouseButtonDown;
+		public event Action<MouseButton> OnMouseButtonUp;
+		public event Action<KeyCode> OnKeyDown;
+		public event Action<KeyCode> OnKeyUp;
+		public event Action<IInputState, float> OnScrollWheel;
+		
 		private readonly bool[] m_MouseButtonDown = new bool[(int)MouseButton.Count];
 		private readonly bool[] m_MouseButtonUp = new bool[(int)MouseButton.Count];
-
-		public Action<MouseButton> OnMouseButtonDown { get; }
-		public Action<MouseButton> OnMouseButtonUp { get; }
-		public Action<KeyCode> OnKeyDown { get; }
-		public Action<KeyCode> OnKeyUp { get; }
-		public Action<IInputState, float> OnScrollWheel { get; }
 
 		public Vector2 MousePosition
 		{

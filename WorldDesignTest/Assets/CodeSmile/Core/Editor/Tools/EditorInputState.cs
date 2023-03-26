@@ -10,14 +10,14 @@ namespace CodeSmileEditor.Tile
 {
 	public sealed class EditorInputState : IInputState
 	{
+		public event Action<MouseButton> OnMouseButtonDown;
+		public event Action<MouseButton> OnMouseButtonUp;
+		public event Action<KeyCode> OnKeyDown;
+		public event Action<KeyCode> OnKeyUp;
+		public event Action<IInputState, float> OnScrollWheel;
+		
 		private readonly bool[] m_MouseButtonDown = new bool[(int)MouseButton.Count];
 		private readonly Dictionary<KeyCode, bool> m_IsKeyDown;
-
-		public Action<MouseButton> OnMouseButtonDown;
-		public Action<MouseButton> OnMouseButtonUp;
-		public Action<KeyCode> OnKeyDown;
-		public Action<KeyCode> OnKeyUp;
-		public Action<IInputState, float> OnScrollWheel;
 
 		// ReSharper disable once PossibleNullReferenceException
 		public Vector2 MousePosition => Event.current.mousePosition;
