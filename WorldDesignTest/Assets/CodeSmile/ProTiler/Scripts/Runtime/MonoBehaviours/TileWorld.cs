@@ -24,6 +24,7 @@ namespace CodeSmile.Tile
 			{
 				name = nameof(TileWorld);
 				var layer = CreateNewTileLayer("TileLayer");
+				layer.GetOrAddComponent<TileLayerToolbox>();
 				SelectFirstLayerInEditor(layer);
 			}
 		}

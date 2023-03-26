@@ -30,7 +30,7 @@ namespace CodeSmile.Tile
 			get
 			{
 				if (m_TileSet == null)
-					m_TileSet = GetExampleTileSet();
+					m_TileSet = ExampleTileSet;
 
 				return m_TileSet;
 			}
@@ -50,12 +50,14 @@ namespace CodeSmile.Tile
 
 		public override string ToString() => name;
 
-		private TileSet GetExampleTileSet()
+		private static TileSet ExampleTileSet
 		{
-			if (s_ExampleTileSet == null)
-				s_ExampleTileSet = Resources.Load<TileSet>(Const.TileEditorResourceTileSetsPath + "ExampleTileSet");
-
-			return s_ExampleTileSet;
+			get
+			{
+				if (s_ExampleTileSet == null)
+					s_ExampleTileSet = Resources.Load<TileSet>(Const.TileEditorResourceTileSetsPath + "ExampleTileSet");
+				return s_ExampleTileSet;
+			}
 		}
 
 		public IDictionary<GridCoord, TileData> GetTilesInRect(GridRect rect) => m_TileDataContainer.GetTilesInRect(rect);

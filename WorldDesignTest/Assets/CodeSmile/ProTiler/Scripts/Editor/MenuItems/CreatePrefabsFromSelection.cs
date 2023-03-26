@@ -42,17 +42,19 @@ namespace CodeSmileEditor.Tile
 					var instance = PrefabUtility.InstantiatePrefab(gameObject) as GameObject;
 					var prefabRoot = new GameObject(gameObject.name);
 
-					prefabRoot.transform.position = instance.transform.position;
-					prefabRoot.transform.rotation = instance.transform.rotation;
-					prefabRoot.transform.localScale = instance.transform.localScale;
+					var instanceTransform = instance.transform;
+					var prefabRootTransform = prefabRoot.transform;
+					prefabRootTransform.position = instanceTransform.position;
+					prefabRootTransform.rotation = instanceTransform.rotation;
+					prefabRootTransform.localScale = instanceTransform.localScale;
 
-					var hasMeshRenderer = instance.GetComponent<MeshRenderer>() != null;
-					if (hasMeshRenderer)
+					var instanceMeshRenderer = instance.GetComponent<MeshRenderer>();
+					if (instanceMeshRenderer != null)
 					{
 						var rootMeshFilter = prefabRoot.AddComponent<MeshFilter>();
 						var rootMeshRenderer = prefabRoot.AddComponent<MeshRenderer>();
 						rootMeshFilter.sharedMesh = instance.GetComponent<MeshFilter>().sharedMesh;
-						rootMeshRenderer.sharedMaterials = instance.GetComponent<MeshRenderer>().sharedMaterials;
+						rootMeshRenderer.sharedMaterials = instanceMeshRenderer.sharedMaterials;
 
 						if (instance.GetComponent<MeshCollider>() != null)
 							prefabRoot.AddComponent<MeshCollider>();
@@ -61,9 +63,9 @@ namespace CodeSmileEditor.Tile
 					}
 					else
 					{
-						foreach (Transform child in instance.transform)
+						foreach (Transform child in instanceTransform)
 						{
-							var childInstance = Object.Instantiate(child.gameObject, prefabRoot.transform);
+							var childInstance = Object.Instantiate(child.gameObject, prefabRootTransform);
 							childInstance.name = childInstance.name.Replace("(Clone)", "");
 						}
 					}

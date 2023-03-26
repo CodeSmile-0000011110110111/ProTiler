@@ -14,7 +14,7 @@ namespace CodeSmile.Tile
 	[Serializable]
 	public sealed class TileGrid
 	{
-		private static GridSize s_MinGridSize = new(1, 1, 1);
+		private static readonly GridSize s_MinGridSize = new(1, 1, 1);
 
 		[SerializeField] private GridSize m_GridSize;
 

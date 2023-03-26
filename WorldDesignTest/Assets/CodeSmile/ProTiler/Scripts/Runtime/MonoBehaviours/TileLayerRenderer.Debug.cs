@@ -23,11 +23,12 @@ namespace CodeSmile.Tile
 		private void GizmosDrawVisibleTiles()
 		{
 			var grid = m_Layer.Grid;
-			if (m_GizmosVisibleTiles != null)
+			var visibleTiles = m_Layer.GetTilesInRect(m_VisibleRect);
+			if (visibleTiles != null)
 			{
-				foreach (var coord in m_GizmosVisibleTiles.Keys)
+				foreach (var coord in visibleTiles.Keys)
 				{
-					var tile = m_GizmosVisibleTiles[coord];
+					var tile = visibleTiles[coord];
 					var pos = grid.ToWorldPosition(coord);
 					Handles.Label(pos + new float3(0f, 3f, 0f), tile.TileSetIndex.ToString());
 				}

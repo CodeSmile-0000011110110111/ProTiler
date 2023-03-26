@@ -14,14 +14,20 @@ using WorldRect = UnityEngine.Rect;
 namespace CodeSmile.Tile
 {
 	[CreateAssetMenu(fileName = "New TileSet", menuName = Const.TileEditorName + "/TileSet", order = 0)]
-	public partial class TileSet : ScriptableObject
+	public class TileSet : ScriptableObject
 	{
 		private static GameObject s_MissingTilePrefab;
 		private static GameObject s_ClearingTilePrefab;
+
 		[SerializeField] private TileGrid m_Grid = new(new GridSize(10, 1, 10));
 		[SerializeField] private TileAnchor m_TileAnchor;
 		[SerializeField] private List<GameObject> m_DragDropPrefabsHereToAdd = new();
 		[SerializeField] private List<TileSetTile> m_Tiles = new();
+
+		private void OnEnable()
+		{
+			UpdateMissingTileSize(m_Grid.Size);
+		}
 
 		public TileGrid Grid
 		{
@@ -31,25 +37,37 @@ namespace CodeSmile.Tile
 				if (m_Grid != value)
 				{
 					m_Grid = value;
-					UpdateMissingTileSize();
+					UpdateMissingTileSize(m_Grid.Size);
 				}
 			}
 		}
-		
+
 		//public Tile GetPrefabIndex(int index) => m_Tiles[index];
 
-		public bool IsEmpty { get => m_Tiles.Count == 0; }
-		public int Count { get => m_Tiles.Count; }
-		public IReadOnlyList<TileSetTile> Tiles { get => m_Tiles.AsReadOnly(); }
-
-		private void UpdateMissingTileSize()
+		public bool IsEmpty => m_Tiles.Count == 0;
+		public int Count => m_Tiles.Count;
+		public IReadOnlyList<TileSetTile> Tiles => m_Tiles.AsReadOnly();
+		public static GameObject ClearingTilePrefab
 		{
-			if (s_MissingTilePrefab != null)
+			get
 			{
-				var size = m_Grid.Size;
-				s_MissingTilePrefab.transform.localScale = new Vector3(size.x, size.y, size.z);
+				if (s_ClearingTilePrefab == null)
+					s_ClearingTilePrefab = Resources.Load<GameObject>(Const.TileEditorResourcePrefabsPath + "ClearingTile");
+				return s_ClearingTilePrefab;
 			}
 		}
+		public static GameObject MissingTilePrefab
+		{
+			get
+			{
+				if (s_MissingTilePrefab == null)
+					s_MissingTilePrefab = Resources.Load<GameObject>(Const.TileEditorResourcePrefabsPath + "MissingTile");
+				return s_MissingTilePrefab;
+			}
+		}
+
+		private static void UpdateMissingTileSize(GridSize size) =>
+			MissingTilePrefab.transform.localScale = new Vector3(size.x, size.y, size.z);
 
 		public float3 GetTileOffset()
 		{
@@ -75,21 +93,7 @@ namespace CodeSmile.Tile
 
 		public GameObject GetPrefab(int index) => index >= 0 && index < m_Tiles.Count ? m_Tiles[index].Prefab : GetSpecialTilePrefab(index);
 
-		private GameObject GetSpecialTilePrefab(int index)
-		{
-			if (index < 0)
-			{
-				if (s_ClearingTilePrefab == null)
-					s_ClearingTilePrefab = Resources.Load<GameObject>(Const.TileEditorResourcePrefabsPath + "ClearingTile");
-				return s_ClearingTilePrefab;
-			}
-
-			if (s_MissingTilePrefab == null)
-				s_MissingTilePrefab = Resources.Load<GameObject>(Const.TileEditorResourcePrefabsPath + "MissingTile");
-
-			UpdateMissingTileSize();
-			return s_MissingTilePrefab;
-		}
+		private GameObject GetSpecialTilePrefab(int index) => index < 0 ? ClearingTilePrefab : MissingTilePrefab;
 
 		public void SetPrefab(int index, GameObject prefab) => m_Tiles[index].Prefab = prefab;
 

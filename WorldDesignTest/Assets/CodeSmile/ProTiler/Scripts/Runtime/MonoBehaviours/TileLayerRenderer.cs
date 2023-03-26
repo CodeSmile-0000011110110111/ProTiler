@@ -42,7 +42,6 @@ namespace CodeSmile.Tile
 		private GameObject m_TilePrefab;
 		private ComponentPool<TileDataProxy> m_TilePool;
 
-		[NonSerialized] private IDictionary<GridCoord, TileData> m_GizmosVisibleTiles;
 		[NonSerialized] private GridRect m_VisibleRect;
 		[NonSerialized] private GridRect m_PrevVisibleRect;
 		[NonSerialized] private int m_PrevDrawDistance;
@@ -61,7 +60,6 @@ namespace CodeSmile.Tile
 			ForceUpdateTilesInVisibleRect();
 
 #if UNITY_EDITOR
-			Undo.undoRedoPerformed -= DelayedForceRepaint;
 			Undo.undoRedoPerformed += DelayedForceRepaint;
 #endif
 		}
@@ -168,7 +166,7 @@ namespace CodeSmile.Tile
 			m_PrevVisibleRect = m_VisibleRect;
 			m_VisibleRect = visibleRect;
 			m_VisibleRect.Intersects(m_PrevVisibleRect, out var staysUnchangedRect);
-			UpdateVisibleTiles(m_Layer, m_VisibleRect, staysUnchangedRect);
+			UpdateVisibleTiles(m_VisibleRect, staysUnchangedRect);
 		}
 
 		private void UpdateTilesInDirtyRect(RectInt dirtyRect)
@@ -176,10 +174,10 @@ namespace CodeSmile.Tile
 			// mark visible rect as requiring update
 			SetTilesInRectAsDirty(dirtyRect);
 			m_VisibleRect.Intersects(dirtyRect, out var dirtyInsideVisibleRect);
-			UpdateVisibleTiles(m_Layer, dirtyInsideVisibleRect, new GridRect());
+			UpdateVisibleTiles(dirtyInsideVisibleRect, new GridRect());
 		}
 
-		private void UpdateVisibleTiles(TileLayer layer, GridRect dirtyRect, RectInt unchangedRect)
+		private void UpdateVisibleTiles(RectInt dirtyRect, RectInt unchangedRect)
 		{
 			if (dirtyRect.width == 0 || dirtyRect.height == 0)
 				return;
@@ -205,15 +203,15 @@ namespace CodeSmile.Tile
 					m_TilePool.ReturnToPool(tile);
 			}
 
-			m_GizmosVisibleTiles = layer.GetTilesInRect(dirtyRect);
-			foreach (var coord in m_GizmosVisibleTiles.Keys)
+			var visibleTiles = m_Layer.GetTilesInRect(dirtyRect);
+			foreach (var coord in visibleTiles.Keys)
 			{
 				if (unchangedRect.Contains(coord.ToCoord2()))
 					continue;
 
 				var tile = m_TilePool.GetPooledObject();
 				tile.Layer = m_Layer;
-				tile.SetCoordAndTile(coord, m_GizmosVisibleTiles[coord]);
+				tile.SetCoordAndTile(coord, visibleTiles[coord]);
 			}
 		}
 

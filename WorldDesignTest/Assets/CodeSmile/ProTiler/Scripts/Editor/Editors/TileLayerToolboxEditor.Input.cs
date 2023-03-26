@@ -2,6 +2,7 @@
 // Refer to included LICENSE file for terms and conditions.
 
 using CodeSmile;
+using CodeSmile.Tile;
 using UnityEngine;
 
 namespace CodeSmileEditor.Tile
