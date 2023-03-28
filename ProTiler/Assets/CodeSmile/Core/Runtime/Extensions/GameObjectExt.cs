@@ -21,10 +21,14 @@ namespace CodeSmile.Extensions
 			if (t != null)
 				return t.gameObject;
 
-			var go = new GameObject(name);
-			go.hideFlags = hideFlags;
-			go.transform.parent = parent.transform;
-			return go;
+			return new GameObject(name)
+			{
+				hideFlags = hideFlags,
+				transform =
+				{
+					parent = parent.transform,
+				},
+			};
 		}
 	}
 }

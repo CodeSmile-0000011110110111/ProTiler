@@ -55,22 +55,14 @@ namespace CodeSmile.ProTiler.Data
 			var direction = m_Flags & TileFlags.AllDirections;
 			m_Flags &= ~TileFlags.AllDirections;
 
-			var newDirection = TileFlags.None;
-			switch (direction)
+			var newDirection = direction switch
 			{
-				case TileFlags.DirectionNorth:
-					newDirection = delta < 0 ? TileFlags.DirectionWest : TileFlags.DirectionEast;
-					break;
-				case TileFlags.DirectionWest:
-					newDirection = delta < 0 ? TileFlags.DirectionSouth : TileFlags.DirectionNorth;
-					break;
-				case TileFlags.DirectionSouth:
-					newDirection = delta < 0 ? TileFlags.DirectionEast : TileFlags.DirectionWest;
-					break;
-				case TileFlags.DirectionEast:
-					newDirection = delta < 0 ? TileFlags.DirectionNorth : TileFlags.DirectionSouth;
-					break;
-			}
+				TileFlags.DirectionNorth => delta < 0 ? TileFlags.DirectionWest : TileFlags.DirectionEast,
+				TileFlags.DirectionWest => delta < 0 ? TileFlags.DirectionSouth : TileFlags.DirectionNorth,
+				TileFlags.DirectionSouth => delta < 0 ? TileFlags.DirectionEast : TileFlags.DirectionWest,
+				TileFlags.DirectionEast => delta < 0 ? TileFlags.DirectionNorth : TileFlags.DirectionSouth,
+				_ => TileFlags.None
+			};
 			m_Flags |= newDirection;
 			return newDirection;
 		}
@@ -80,22 +72,14 @@ namespace CodeSmile.ProTiler.Data
 			var flip = m_Flags & TileFlags.AllFlips;
 			m_Flags &= ~TileFlags.AllFlips;
 
-			var newFlip = TileFlags.None;
-			switch (flip)
+			var newFlip = flip switch
 			{
-				case TileFlags.None:
-					newFlip = delta < 0 ? TileFlags.FlipHorizontal : TileFlags.FlipVertical;
-					break;
-				case TileFlags.FlipHorizontal:
-					newFlip = delta < 0 ? TileFlags.AllFlips : TileFlags.None;
-					break;
-				case TileFlags.AllFlips:
-					newFlip = delta < 0 ? TileFlags.FlipVertical : TileFlags.FlipHorizontal;
-					break;
-				case TileFlags.FlipVertical:
-					newFlip = delta < 0 ? TileFlags.None : TileFlags.AllFlips;
-					break;
-			}
+				TileFlags.None => delta < 0 ? TileFlags.FlipHorizontal : TileFlags.FlipVertical,
+				TileFlags.FlipHorizontal => delta < 0 ? TileFlags.AllFlips : TileFlags.None,
+				TileFlags.AllFlips => delta < 0 ? TileFlags.FlipVertical : TileFlags.FlipHorizontal,
+				TileFlags.FlipVertical => delta < 0 ? TileFlags.None : TileFlags.AllFlips,
+				_ => TileFlags.None
+			};
 			m_Flags |= newFlip;
 			return newFlip;
 		}

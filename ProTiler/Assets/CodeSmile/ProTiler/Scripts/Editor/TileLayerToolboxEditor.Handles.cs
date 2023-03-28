@@ -22,7 +22,7 @@ namespace CodeSmile.Editor.ProTiler
 
 		private void DrawCursorHandle(TileEditMode editMode)
 		{
-			if (editMode == TileEditMode.PenDraw || editMode == TileEditMode.RectFill)
+			if (editMode is TileEditMode.PenDraw or TileEditMode.RectFill)
 			{
 				var grid = Toolbox.Layer.Grid;
 				var worldRect = TileGrid.ToWorldRect(m_SelectionRect, grid.Size);

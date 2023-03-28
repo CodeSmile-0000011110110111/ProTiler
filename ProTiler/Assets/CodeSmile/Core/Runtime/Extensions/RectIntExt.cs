@@ -36,39 +36,32 @@ namespace CodeSmile.Extensions
 
 			return coords;
 		}
-		
-		public static Rect ToWorldRect(this RectInt r, int3 scale)
-		{
-			var pos = new Vector2(r.x * scale.x, r.y * scale.z);
-			var size = new Vector2(r.size.x * scale.x, r.size.y * scale.z);
-			return new Rect(pos, size);
-		}
 
-		public static RectInt Union(this RectInt RA, in RectInt RB)
+		public static Rect ToWorldRect(this RectInt r, int3 scale) => new(
+			new Vector2(r.x * scale.x, r.y * scale.z),
+			new Vector2(r.size.x * scale.x, r.size.y * scale.z));
+
+		public static RectInt Union(this RectInt RA, in RectInt RB) => new()
 		{
-			var union = new RectInt();
-			union.min = Vector2Int.Min(RA.min, RB.min);
-			union.max = Vector2Int.Max(RA.max, RB.max);
-			return union;
-		}
+			min = Vector2Int.Min(RA.min, RB.min),
+			max = Vector2Int.Max(RA.max, RB.max),
+		};
 
 		public static bool Intersects(this RectInt r1, RectInt r2, out RectInt intersection)
 		{
 			intersection = new RectInt();
-			var overlaps = r2.Overlaps(r1);
-			if (overlaps)
-			{
-				var x1 = math.min(r1.xMax, r2.xMax);
-				var x2 = math.max(r1.xMin, r2.xMin);
-				var y1 = math.min(r1.yMax, r2.yMax);
-				var y2 = math.max(r1.yMin, r2.yMin);
-				intersection.x = math.min(x1, x2);
-				intersection.y = math.min(y1, y2);
-				intersection.width = math.max(0, x1 - x2);
-				intersection.height = math.max(0, y1 - y2);
-			}
+			if (r2.Overlaps(r1) == false)
+				return false;
 
-			return overlaps;
+			var x1 = math.min(r1.xMax, r2.xMax);
+			var x2 = math.max(r1.xMin, r2.xMin);
+			var y1 = math.min(r1.yMax, r2.yMax);
+			var y2 = math.max(r1.yMin, r2.yMin);
+			intersection.x = math.min(x1, x2);
+			intersection.y = math.min(y1, y2);
+			intersection.width = math.max(0, x1 - x2);
+			intersection.height = math.max(0, y1 - y2);
+			return true;
 		}
 
 		public static bool IsInside(this RectInt rect, int3 coord) => coord.x >= rect.x && coord.x < rect.x + rect.width &&

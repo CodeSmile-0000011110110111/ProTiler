@@ -12,8 +12,7 @@ namespace CodeSmile.Editor.ProTiler.Overlays
 		{
 			foreach (var element in toggle.parent.Children())
 			{
-				var otherToggle = element as TileLayerToolbarRadioToggle;
-				if (otherToggle != null && otherToggle != toggle)
+				if (element is TileLayerToolbarRadioToggle otherToggle && otherToggle != toggle)
 					otherToggle.SetValueWithoutNotify(false);
 			}
 		}

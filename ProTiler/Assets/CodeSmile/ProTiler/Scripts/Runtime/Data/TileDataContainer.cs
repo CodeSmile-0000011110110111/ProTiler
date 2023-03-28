@@ -37,17 +37,17 @@ namespace CodeSmile.ProTiler.Data
 			var tiles = new List<TileData>();
 			if (tile.IsInvalid)
 			{
-				for (var i = 0; i < coords.Count; i++)
+				foreach (var t in coords)
 				{
-					TryRemoveTile(coords[i]);
+					TryRemoveTile(t);
 					tiles.Add(tile);
 				}
 			}
 			else
 			{
-				for (var i = 0; i < coords.Count; i++)
+				foreach (var t in coords)
 				{
-					AddOrUpdateTile(coords[i], tile);
+					AddOrUpdateTile(t, tile);
 					tiles.Add(tile);
 				}
 			}

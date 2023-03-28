@@ -10,6 +10,13 @@ namespace CodeSmile.ProTiler
 	[ExecuteInEditMode]
 	public sealed class TileWorld : MonoBehaviour
 	{
+		private static void SelectFirstLayerInEditor(GameObject layer)
+		{
+#if UNITY_EDITOR
+			Selection.activeGameObject = layer;
+#endif
+		}
+
 		private void Reset()
 		{
 #if UNITY_EDITOR
@@ -30,18 +37,6 @@ namespace CodeSmile.ProTiler
 			}
 		}
 
-		private static void SelectFirstLayerInEditor(GameObject layer)
-		{
-			#if UNITY_EDITOR
-			Selection.activeGameObject = layer;
-			#endif
-		}
-
-		private GameObject CreateNewTileLayer(string name)
-		{
-			var layer = new GameObject(name, typeof(TileLayer));
-			layer.transform.parent = transform;
-			return layer;
-		}
+		private GameObject CreateNewTileLayer(string name) => new(name, typeof(TileLayer)) { transform = { parent = transform } };
 	}
 }

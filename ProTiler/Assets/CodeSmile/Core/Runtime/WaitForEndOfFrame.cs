@@ -12,17 +12,9 @@ namespace CodeSmile
 	public class WaitForEndOfFrame : IEnumerator
 	{
 		private readonly Action m_Action;
-		private bool m_MoveOnce = false;
-
+		private bool m_MoveOnce;
 		public object Current => null;
-
-		public WaitForEndOfFrame(Action action)
-		{
-			if (action == null)
-				throw new ArgumentNullException("callback Action must not be null");
-
-			m_Action = action;
-		}
+		public WaitForEndOfFrame(Action action) => m_Action = action ?? throw new ArgumentNullException("callback Action must not be null");
 
 		public bool MoveNext()
 		{
@@ -31,7 +23,7 @@ namespace CodeSmile
 				m_MoveOnce = true;
 				return false;
 			}
-			
+
 			m_Action.Invoke();
 			return true;
 		}

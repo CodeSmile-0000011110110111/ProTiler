@@ -53,9 +53,8 @@ namespace CodeSmile.Editor
 					Handles.SnapToGrid(m_IntersectPoint);
 					canPlaceTile = true;
 				}
-				else
-				{
-					/*
+
+				/*
 					var ray = HandleUtility.GUIPointToWorldRay(mousePos);
 					if (ray.IntersectsPlane(out m_IntersectPoint[0]))
 					{
@@ -64,8 +63,6 @@ namespace CodeSmile.Editor
 						//Debug.Log($"hit virtual plane at {m_IntersectPoint[0]}");
 					}
 					*/
-				}
-
 				if (canPlaceTile)
 				{
 					if (Event.current.button == 0 && (evType == EventType.MouseDown || evType == EventType.MouseDrag ||
@@ -86,8 +83,6 @@ namespace CodeSmile.Editor
 					}
 				}
 			}
-
-
 		}
 	}
 }

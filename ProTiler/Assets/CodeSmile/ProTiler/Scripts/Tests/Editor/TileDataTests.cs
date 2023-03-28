@@ -144,7 +144,7 @@ namespace CodeSmile.ProTiler.Tests.Editor
 		public void TileDataFlipTests()
 		{
 			var tileData = new TileData(0);
-			tileData.Flags = TileFlags.None;
+			tileData.Flags = TileFlags.None; // clear the direction flag
 
 			tileData.Flip(0);
 			Assert.AreEqual(TileFlags.FlipVertical, tileData.Flags);

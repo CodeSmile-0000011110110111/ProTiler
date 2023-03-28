@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
 
-namespace CodeSmile.ProTiler.Extensions
+namespace CodeSmile.Extensions
 {
 	public static class int3Ext
 	{
@@ -28,8 +28,6 @@ namespace CodeSmile.ProTiler.Extensions
 		/// <param name="y1"></param>
 		/// <param name="x2"></param>
 		/// <param name="y2"></param>
-		/// <param name="clear"></param>
-		/// <param name="callback"></param>
 		private static IReadOnlyList<int3> MakeLine(int x1, int y1, int x2, int y2)
 		{
 			var coords = new List<int3>();

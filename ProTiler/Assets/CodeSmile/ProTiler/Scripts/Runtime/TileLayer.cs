@@ -3,7 +3,6 @@
 
 using CodeSmile.Extensions;
 using CodeSmile.ProTiler.Data;
-using CodeSmile.ProTiler.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;

@@ -16,8 +16,7 @@ namespace CodeSmile.Editor.ProTiler.Overlays
 		public static void SetToggleOn(Type toggleType)
 		{
 			SceneView.lastActiveSceneView.TryGetOverlay(Global.TileEditorName, out var overlay);
-			var tileWorldOverlay = overlay as TileLayerOverlay;
-			if (tileWorldOverlay != null)
+			if (overlay is TileLayerOverlay tileWorldOverlay)
 			{
 				// TODO: how to access the overlay's elements??
 

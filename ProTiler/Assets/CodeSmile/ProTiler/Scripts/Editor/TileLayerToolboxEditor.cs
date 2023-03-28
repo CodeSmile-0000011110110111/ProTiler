@@ -2,9 +2,9 @@
 // Refer to included LICENSE file for terms and conditions.
 
 using CodeSmile.Editor.ProTiler.Extensions;
+using CodeSmile.Extensions;
 using CodeSmile.ProTiler;
 using CodeSmile.ProTiler.Data;
-using CodeSmile.ProTiler.Extensions;
 using Unity.Mathematics;
 using UnityEditor;
 using UnityEngine;
@@ -19,16 +19,13 @@ namespace CodeSmile.Editor.ProTiler
 	public partial class TileLayerToolboxEditor : UnityEditor.Editor
 	{
 		private bool m_IsMouseInView;
-
 		private GridCoord m_StartSelectionCoord;
 		private GridCoord m_CursorCoord;
 		private GridRect m_SelectionRect;
 		private bool m_IsDrawingTiles;
 		private bool m_IsClearingTiles;
 		private TileLayerToolbox Toolbox => (TileLayerToolbox)target;
-
 		private void OnEnable() => RegisterInputEvents();
-
 		private void OnDisable() => UnregisterInputEvents();
 
 		public void OnSceneGUI()
@@ -71,14 +68,10 @@ namespace CodeSmile.Editor.ProTiler
 			ShowDrawBrush(m_IsMouseInView && editMode != TileEditMode.Selection);
 		}
 
-		private GridCoord GetMouseCursorCoord()
-		{
-			var planeY = Toolbox.transform.position.y;
-			if (HandleUtilityExt.GUIPointToGridCoord(m_Input.MousePosition, Toolbox.Layer.Grid, out var coord, planeY))
-				return coord;
-
-			return TileData.InvalidGridCoord;
-		}
+		private GridCoord GetMouseCursorCoord() => HandleUtilityExt.GUIPointToGridCoord
+			(m_Input.MousePosition, Toolbox.Layer.Grid, out var coord, Toolbox.transform.position.y)
+			? coord
+			: TileData.InvalidGridCoord;
 
 		public bool StartTileDrawing(TileEditMode editMode)
 		{
@@ -87,7 +80,7 @@ namespace CodeSmile.Editor.ProTiler
 			UpdateStartSelectionCoord();
 			UpdateCursorCoord();
 
-			if (editMode == TileEditMode.PenDraw || editMode == TileEditMode.RectFill)
+			if (editMode is TileEditMode.PenDraw or TileEditMode.RectFill)
 			{
 				m_IsDrawingTiles = true;
 				useEvent = true;
@@ -193,9 +186,6 @@ namespace CodeSmile.Editor.ProTiler
 				Toolbox.DrawBrush = newBrush;
 		}
 
-		private void ShowDrawBrush(bool show = true)
-		{
-			Toolbox.TileDrawPreviewEnabled = show;
-		}
+		private void ShowDrawBrush(bool show = true) => Toolbox.TileDrawPreviewEnabled = show;
 	}
 }

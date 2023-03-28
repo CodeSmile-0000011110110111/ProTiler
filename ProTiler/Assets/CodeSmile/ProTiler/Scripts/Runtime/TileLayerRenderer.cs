@@ -4,7 +4,6 @@
 using CodeSmile.Extensions;
 using CodeSmile.Pooling;
 using CodeSmile.ProTiler.Data;
-using CodeSmile.ProTiler.Extensions;
 using System;
 using System.Collections.Generic;
 using Unity.Mathematics;
@@ -101,7 +100,7 @@ namespace CodeSmile.ProTiler
 			if (isActiveAndEnabled)
 			{
 				StopAllCoroutines();
-				StartCoroutine(new WaitForFramesElapsed(1, () => ForceRedraw()));
+				StartCoroutine(new WaitForFramesElapsed(1, ForceRedraw));
 			}
 		}
 
@@ -207,9 +206,8 @@ namespace CodeSmile.ProTiler
 		{
 			// set tile proxies within dirty rect as inactive
 			var tileProxies = m_TilePool.AllInstances;
-			for (var i = 0; i < tileProxies.Count; i++)
+			foreach (var tileProxy in tileProxies)
 			{
-				var tileProxy = tileProxies[i];
 				if (tileProxy == null)
 					continue;
 				if (tileProxy.gameObject.activeSelf == false)
