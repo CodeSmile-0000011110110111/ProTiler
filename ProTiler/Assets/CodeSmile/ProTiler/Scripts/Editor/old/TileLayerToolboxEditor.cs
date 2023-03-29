@@ -68,10 +68,15 @@ namespace CodeSmile.Editor.ProTiler
 			ShowDrawBrush(m_IsMouseInView && editMode != TileEditMode.Selection);
 		}
 
-		private GridCoord GetMouseCursorCoord() => HandleUtilityExt.GUIPointToGridCoord
-			(m_Input.MousePosition, Toolbox.Layer.Grid, out var coord, Toolbox.transform.position.y)
-			? coord
-			: TileData.InvalidGridCoord;
+		private GridCoord GetMouseCursorCoord()
+		{
+			var gridSize = Toolbox.Layer.Grid.Size;
+
+			return HandleUtilityExt.GUIPointToGridCoord
+				(m_Input.MousePosition, new Vector3Int(gridSize.x, gridSize.y, gridSize.z), out var coord, Toolbox.transform.position.y)
+				? new int3(coord.x, coord.y, coord.z) 
+				: TileData.InvalidGridCoord;
+		}
 
 		public bool StartTileDrawing(TileEditMode editMode)
 		{
@@ -187,5 +192,12 @@ namespace CodeSmile.Editor.ProTiler
 		}
 
 		private void ShowDrawBrush(bool show = true) => Toolbox.TileDrawPreviewEnabled = show;
+		private void OnLayout() => HandleUtilityExt.AddDefaultControl(GetHashCode());
+
+		private void OnRepaint()
+		{
+			if (m_IsMouseInView && IsRightMouseButtonDown() == false)
+				DrawCursorHandle(ProTilerState.instance.TileEditMode);
+		}
 	}
 }

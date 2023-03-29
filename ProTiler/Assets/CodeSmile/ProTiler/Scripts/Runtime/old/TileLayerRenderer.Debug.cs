@@ -13,11 +13,15 @@ namespace CodeSmile.ProTiler
 #if UNITY_EDITOR
 		private void OnDrawGizmosSelected() => DrawTilePoolGizmos();
 
+		public static Rect ToWorldRect(RectInt r, int3 scale) => new(
+			new Vector2(r.x * scale.x, r.y * scale.z),
+			new Vector2(r.size.x * scale.x, r.size.y * scale.z));
+		
 		private void DrawTilePoolGizmos()
 		{
 			var gridSize = m_Layer.Grid.Size;
-			GizmosDrawRect(m_PrevVisibleRect.ToWorldRect(gridSize), Color.yellow);
-			GizmosDrawRect(m_VisibleRect.ToWorldRect(gridSize), Color.green);
+			GizmosDrawRect(ToWorldRect(m_PrevVisibleRect, gridSize), Color.yellow);
+			GizmosDrawRect(ToWorldRect(m_VisibleRect, gridSize), Color.green);
 			//GizmosDrawVisibleTiles();
 		}
 

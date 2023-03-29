@@ -15,6 +15,13 @@ namespace CodeSmile.ProTiler
 		// Previously named (but not known) as:
 		//public const string TileEditorName = "Fliesenleger 3D";
 
+		public const int CreateAssetMenuRootOrder = 0;
+		public const int CreateGameObjectMenuPriority = 0;
+
+		public const string RootMenuName = "Tools";
+		public const string Tile3DPaletteWindowName = "3D Tile Palette";
+		public const string Tilemap3DMenuName = "Tilemap 3D";
+
 		public const string TileEditorIconPathRoot = "Assets/Gizmos/CodeSmile/TileEditor/";
 		public const string OverlayIconPath = TileEditorIconPathRoot + "Overlays/";
 		public const string EditorToolsIconPath = TileEditorIconPathRoot + "EditorTools/";

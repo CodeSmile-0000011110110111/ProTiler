@@ -3429,7 +3429,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_DebugClearTilesButton: 0
-  m_DebugSelectedTileName: industry-refinery
+  m_DebugSelectedTileName: windmill
   m_DebugTileCount: 624
 --- !u!1 &559112926
 GameObject:
@@ -30572,7 +30572,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_DebugClearTilesButton: 0
-  m_DebugSelectedTileName: building-cabin-big
+  m_DebugSelectedTileName: windmill
   m_DebugTileCount: 5349
 --- !u!1 &1762071070
 GameObject:
@@ -30803,7 +30803,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8b0b4f0983e47b99a26407fc88cb154, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_DrawDistance: 16
+  m_DrawDistance: 10
   m_VisibleRectDistance: 14
 --- !u!114 &2092322003
 MonoBehaviour:
@@ -31035,6 +31035,15 @@ MonoBehaviour:
       - x: 20
         y: 0
         z: 0
+      - x: 5
+        y: 0
+        z: 3
+      - x: 8
+        y: 0
+        z: 2
+      - x: 6
+        y: 0
+        z: 7
       m_Values:
       - m_TileSetIndex: 68
         m_Flags: 1
@@ -31178,6 +31187,12 @@ MonoBehaviour:
         m_Flags: 8
       - m_TileSetIndex: 120
         m_Flags: 2
+      - m_TileSetIndex: 120
+        m_Flags: 1
+      - m_TileSetIndex: 120
+        m_Flags: 50
+      - m_TileSetIndex: 120
+        m_Flags: 2
 --- !u!114 &2092322004
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -31204,7 +31219,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_DebugClearTilesButton: 0
   m_DebugSelectedTileName: windmill
-  m_DebugTileCount: 71
+  m_DebugTileCount: 74
 --- !u!1 &2121338146
 GameObject:
   m_ObjectHideFlags: 0

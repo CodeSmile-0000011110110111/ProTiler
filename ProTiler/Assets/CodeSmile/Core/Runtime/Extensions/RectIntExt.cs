@@ -37,9 +37,13 @@ namespace CodeSmile.Extensions
 			return coords;
 		}
 
-		public static Rect ToWorldRect(this RectInt r, int3 scale) => new(
-			new Vector2(r.x * scale.x, r.y * scale.z),
-			new Vector2(r.size.x * scale.x, r.size.y * scale.z));
+		public static Rect ToWorldRect(this RectInt rect, Vector3Int gridSize) => new(
+			rect.x * gridSize.x, rect.y * gridSize.z,
+			rect.width * gridSize.x, rect.height * gridSize.z);
+
+		// public static Rect ToWorldRect(this RectInt r, int3 scale) => new(
+		// 	new Vector2(r.x * scale.x, r.y * scale.z),
+		// 	new Vector2(r.size.x * scale.x, r.size.y * scale.z));
 
 		public static RectInt Union(this RectInt RA, in RectInt RB) => new()
 		{

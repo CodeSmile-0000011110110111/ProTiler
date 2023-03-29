@@ -12,14 +12,6 @@ namespace CodeSmile.Editor.ProTiler
 {
 	public partial class TileLayerToolboxEditor
 	{
-		private void OnLayout() => HandleUtilityExt.AddDefaultControl(GetHashCode());
-
-		private void OnRepaint()
-		{
-			if (m_IsMouseInView && IsRightMouseButtonDown() == false)
-				DrawCursorHandle(ProTilerState.instance.TileEditMode);
-		}
-
 		private void DrawCursorHandle(TileEditMode editMode)
 		{
 			if (editMode is TileEditMode.PenDraw or TileEditMode.RectFill)

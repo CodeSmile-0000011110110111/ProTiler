@@ -51,7 +51,7 @@ namespace CodeSmile.Editor.InputState
 
 		public bool IsOnlyButtonDown(MouseButton button) => IsButtonDown(button) && MouseButtonsDownCount == 1;
 
-		public void UpdateInputStates()
+		public void Update()
 		{
 			// ReSharper disable once PossibleNullReferenceException
 			switch (Event.current.type)

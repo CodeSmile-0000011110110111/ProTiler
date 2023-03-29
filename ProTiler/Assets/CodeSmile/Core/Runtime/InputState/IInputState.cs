@@ -16,6 +16,6 @@ namespace CodeSmile.InputState
 		public bool IsOnlyButtonDown(MouseButton button);
 		public bool IsKeyDown(KeyCode keyCode);
 
-		public void UpdateInputStates();
+		public void Update();
 	}
 }

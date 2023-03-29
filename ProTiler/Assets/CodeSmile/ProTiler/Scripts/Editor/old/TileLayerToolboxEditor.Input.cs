@@ -43,7 +43,7 @@ namespace CodeSmile.Editor.ProTiler
 			}
 		}
 
-		private void UpdateInputStates() => m_Input.UpdateInputStates();
+		private void UpdateInputStates() => m_Input.Update();
 
 		private void OnKeyDown(KeyCode keyCode)
 		{

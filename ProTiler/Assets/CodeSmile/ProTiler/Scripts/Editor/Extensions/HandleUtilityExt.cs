@@ -1,11 +1,7 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
-using CodeSmile;
 using CodeSmile.Extensions;
-using CodeSmile.ProTiler;
-using CodeSmile.ProTiler.Data;
-using Unity.Mathematics;
 using UnityEditor;
 using UnityEngine;
 
@@ -22,12 +18,12 @@ namespace CodeSmile.Editor.ProTiler.Extensions
 		/// <param name="coord">the 3d grid coordinate on the plane</param>
 		/// <param name="planeY">the height of the grid plane, default: 0</param>
 		/// <returns>true if the guiPoint intersected with the plane</returns>
-		public static bool GUIPointToGridCoord(float2 guiPoint, TileGrid grid, out int3 coord, float planeY = 0f)
+		public static bool GUIPointToGridCoord(Vector2 guiPoint, Vector3Int gridSize, out Vector3Int coord, float planeY = 0f)
 		{
 			var ray = HandleUtility.GUIPointToWorldRay(guiPoint);
-			if (ray.IntersectsPlane(out float3 mouseWorldPos, planeY))
+			if (ray.IntersectsPlane(out Vector3 mouseWorldPos, planeY))
 			{
-				coord = grid.ToGridCoord(mouseWorldPos);
+				coord = mouseWorldPos.ToGridCoord(gridSize);
 				return true;
 			}
 

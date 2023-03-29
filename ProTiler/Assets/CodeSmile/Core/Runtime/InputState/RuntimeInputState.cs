@@ -220,7 +220,7 @@ namespace CodeSmile.InputState
 #endif
 		}
 
-		public void UpdateInputStates()
+		public void Update()
 		{
 #if ENABLE_INPUT_SYSTEM && ENABLE_LEGACY_INPUT_MANAGER // New input system backends are enabled.
 			var anyKeyDown = Keyboard.current.anyKey.wasPressedThisFrame;

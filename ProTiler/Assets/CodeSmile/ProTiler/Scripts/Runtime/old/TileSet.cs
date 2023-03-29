@@ -15,7 +15,7 @@ using WorldRect = UnityEngine.Rect;
 
 namespace CodeSmile.ProTiler
 {
-	[CreateAssetMenu(fileName = "New TileSet", menuName = Global.TileEditorName + "/TileSet", order = 0)]
+	//[CreateAssetMenu(fileName = "New TileSet", menuName = Global.TileEditorName + "/TileSet", order = 0)]
 	public class TileSet : ScriptableObject
 	{
 		private static GameObject s_MissingTilePrefab;
