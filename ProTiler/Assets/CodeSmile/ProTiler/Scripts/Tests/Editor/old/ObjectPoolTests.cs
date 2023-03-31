@@ -6,7 +6,7 @@ using CodeSmile.Pooling;
 using NUnit.Framework;
 using UnityEngine;
 
-namespace CodeSmile.ProTiler.Tests.Editor
+namespace CodeSmile.ProTiler.Tests.Editor.old
 {
 	public class ObjectPoolTests
 	{

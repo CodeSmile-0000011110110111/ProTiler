@@ -9,10 +9,10 @@ namespace CodeSmile.Extensions
 	{
 		// Note: a simple int-cast won't do because (int)-0.1f should be -1 and not 0
 		// floor() rounds towards infinity vs int-cast rounds towards zero
-		public static Vector3Int ToGridCoord(this Vector3 position, Vector3Int gridSize) => new(
-			Mathf.FloorToInt(position.x * (1f / gridSize.x)),
-			Mathf.FloorToInt(position.y * (1f / gridSize.y)),
-			Mathf.FloorToInt(position.z * (1f / gridSize.z)));
+		public static Vector3Int ToGridCoord(this Vector3 position, Vector3 cellSize) => new(
+			Mathf.FloorToInt(position.x * (1f / cellSize.x)),
+			Mathf.FloorToInt(position.y * (1f / cellSize.y)),
+			Mathf.FloorToInt(position.z * (1f / cellSize.z)));
 
 		public static RectInt MakeRect(this Vector3Int coord, Vector3Int other)
 		{

@@ -26,7 +26,7 @@ namespace CodeSmile.ProTiler.Editor
 		{
 			if (Selection.activeGameObject != Tilemap.gameObject)
 			{
-				Debug.LogError($"Tilemap Editor object selection mismatch: {Selection.activeGameObject}");
+				//Debug.LogError($"Tilemap Editor object selection mismatch: {Selection.activeGameObject}");
 				return;
 			}
 
@@ -68,7 +68,7 @@ namespace CodeSmile.ProTiler.Editor
 		}
 
 		private Vector3Int GetMouseCursorCoord() => HandleUtilityExt.GUIPointToGridCoord
-			(m_Input.MousePosition, Tilemap.Grid.Size, out var coord, Tilemap.transform.position.y)
+			(m_Input.MousePosition, Tilemap.Grid.CellSize, out var coord, Tilemap.transform.position.y)
 			? coord
 			: Vector3Int.zero;
 
@@ -183,11 +183,11 @@ namespace CodeSmile.ProTiler.Editor
 		{
 			if (editMode is TileEditMode.PenDraw or TileEditMode.RectFill)
 			{
-				var gridSize = Tilemap.Grid.Size;
-				var worldRect = m_SelectionRect.ToWorldRect(gridSize);
+				var cellSize = Tilemap.Grid.CellSize;
+				var worldRect = m_SelectionRect.ToWorldRect(cellSize);
 				var worldPos = Tilemap.transform.position;
 				var cubePos = worldRect.GetWorldCenter() + worldPos;
-				var cubeSize = worldRect.GetWorldSize(gridSize.y);
+				var cubeSize = worldRect.GetWorldSize(cellSize.y);
 
 				var prevColor = Handles.color;
 				Handles.color = Global.OutlineColor;

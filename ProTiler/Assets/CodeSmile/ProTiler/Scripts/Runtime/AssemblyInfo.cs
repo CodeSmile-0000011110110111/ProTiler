@@ -2,6 +2,9 @@
 // Refer to included LICENSE file for terms and conditions.
 
 using System.Diagnostics.CodeAnalysis;
+using System.Runtime.CompilerServices;
+
+[assembly: InternalsVisibleTo("CodeSmile.Editor.ProTiler.Tests")]
 
 [assembly: SuppressMessage("NDepend", "ND1901:AvoidNonReadOnlyStaticFields",
 	Target = "CodeSmile.ProTiler.TileLayer.s_ExampleTileSet", Justification = "TODO")]

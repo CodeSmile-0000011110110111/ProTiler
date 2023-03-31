@@ -14,16 +14,16 @@ namespace CodeSmile.Editor.ProTiler.Extensions
 		///     Tests intersection with an XZ plane at the specified Y height (default: 0).
 		/// </summary>
 		/// <param name="guiPoint">the 2d point ie mouse position</param>
-		/// <param name="grid">the grid that determines the grid size</param>
+		/// <param name="cellSize">the grid that determines the grid size</param>
 		/// <param name="coord">the 3d grid coordinate on the plane</param>
 		/// <param name="planeY">the height of the grid plane, default: 0</param>
 		/// <returns>true if the guiPoint intersected with the plane</returns>
-		public static bool GUIPointToGridCoord(Vector2 guiPoint, Vector3Int gridSize, out Vector3Int coord, float planeY = 0f)
+		public static bool GUIPointToGridCoord(Vector2 guiPoint, Vector3 cellSize, out Vector3Int coord, float planeY = 0f)
 		{
 			var ray = HandleUtility.GUIPointToWorldRay(guiPoint);
 			if (ray.IntersectsPlane(out Vector3 mouseWorldPos, planeY))
 			{
-				coord = mouseWorldPos.ToGridCoord(gridSize);
+				coord = mouseWorldPos.ToGridCoord(cellSize);
 				return true;
 			}
 

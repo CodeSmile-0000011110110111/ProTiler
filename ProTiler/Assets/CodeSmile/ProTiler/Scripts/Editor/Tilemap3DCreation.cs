@@ -16,7 +16,7 @@ namespace CodeSmile.ProTiler.Editor
 
 		[MenuItem("GameObject/" + Global.TileEditorName + "/" + Global.Tilemap3DMenuName + "/" + RectangularTilemapMenuText,
 			priority = Global.CreateGameObjectMenuPriority + 0)]
-		internal static void CreateRectangularTilemap3D() => CreateTilemap3D(Grid3DLayout.Rectangular);
+		internal static void CreateRectangularTilemap3D() => CreateTilemap3D(Grid3D.Layout.Rectangular);
 
 		[MenuItem("GameObject/" + Global.TileEditorName + "/" + Global.Tilemap3DMenuName + "/" + IsometricTilemapMenuText,
 			priority = Global.CreateGameObjectMenuPriority + 3)]
@@ -34,7 +34,7 @@ namespace CodeSmile.ProTiler.Editor
 			priority = Global.CreateGameObjectMenuPriority + 2)]
 		internal static void CreateHexagonalPointTopTilemap3D() => throw new NotImplementedException(nameof(CreateHexagonalPointTopTilemap3D));
 
-		internal static void CreateTilemap3D(Grid3DLayout layout)
+		internal static void CreateTilemap3D(Grid3D.Layout layout)
 		{
 			var root = FindOrCreateRootGrid3D();
 			var uniqueName = GameObjectUtility.GetUniqueNameForSibling(root.transform, "Tilemap3D");
@@ -45,7 +45,7 @@ namespace CodeSmile.ProTiler.Editor
 
 			switch (layout)
 			{
-				case Grid3DLayout.Rectangular:
+				case Grid3D.Layout.Rectangular:
 					break;
 				default:
 					throw new NotImplementedException(layout.ToString());

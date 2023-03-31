@@ -8,6 +8,6 @@ namespace CodeSmile.ProTiler
 	[CreateAssetMenu(fileName = "New 3D Tile", menuName = Global.TileEditorName + "/3D Tile", order = Global.CreateAssetMenuRootOrder)]
 	public class Tile3D : Tile3DBase
 	{
-		
+		public static Tile3D Create() => CreateInstance<Tile3D>();
 	}
 }

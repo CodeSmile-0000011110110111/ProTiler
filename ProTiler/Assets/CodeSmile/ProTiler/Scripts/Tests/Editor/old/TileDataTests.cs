@@ -9,7 +9,7 @@ using GridSize = Unity.Mathematics.int3;
 using GridRect = UnityEngine.RectInt;
 using WorldRect = UnityEngine.Rect;
 
-namespace CodeSmile.ProTiler.Tests.Editor
+namespace CodeSmile.ProTiler.Tests.Editor.old
 {
 	[SuppressMessage("ReSharper", "HeapView.BoxingAllocation")]
 	public class TileDataTests

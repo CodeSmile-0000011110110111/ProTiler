@@ -2,12 +2,14 @@
 // Refer to included LICENSE file for terms and conditions.
 
 using System;
+using UnityEngine;
 
 namespace CodeSmile.ProTiler
 {
 	[Serializable]
 	public struct Tile3DData
 	{
-		private Tile3DBase m_Tile;
+		public Tile3DBase Tile;
+
 	}
 }

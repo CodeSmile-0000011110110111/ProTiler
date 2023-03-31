@@ -6,6 +6,7 @@
 // It is placed in the root Assets folder.
 
 using CodeSmile.Extensions;
+using CodeSmile.z_Prototyping.Scripts.Editor;
 using System.IO;
 using UnityEditor;
 using UnityEngine;
@@ -15,6 +16,13 @@ namespace CodeSmile.Editor.Prototype
 	public static class CreatePrefabsFromSelection
 	{
 		private const string MenuItemText = "Tools/CodeSmile/Create Prefabs from Model Prefabs";
+
+		//[MenuItem("Tools/Call a singleton")]
+		private static void CallSingleton()
+		{
+			Debug.Log(TestSS.instance.GetType().FullName);
+		}
+
 
 		[MenuItem(MenuItemText)]
 		private static void CreatePrefabs()
