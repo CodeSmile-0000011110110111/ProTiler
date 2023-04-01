@@ -73,9 +73,9 @@ namespace CodeSmile.ProTiler
 			m_TileDataContainer.SetTileIndexes(rect, brush.TileSetIndex);
 
 		internal void ClearAllTiles() => m_TileDataContainer.ClearAllTiles();
-		internal TileFlags SetTileFlags(GridCoord coord, TileFlags flags) => m_TileDataContainer.SetTileFlags(coord, flags);
-		internal TileFlags ClearTileFlags(GridCoord coord, TileFlags flags) => m_TileDataContainer.ClearTileFlags(coord, flags);
-		internal TileFlags RotateTile(GridCoord coord, int delta) => m_TileDataContainer.RotateTile(coord, delta);
-		internal TileFlags FlipTile(GridCoord coord, int delta) => m_TileDataContainer.FlipTile(coord, delta);
+		internal TileFlagsOld SetTileFlags(GridCoord coord, TileFlagsOld flags) => m_TileDataContainer.SetTileFlags(coord, flags);
+		internal TileFlagsOld ClearTileFlags(GridCoord coord, TileFlagsOld flags) => m_TileDataContainer.ClearTileFlags(coord, flags);
+		internal TileFlagsOld RotateTile(GridCoord coord, int delta) => m_TileDataContainer.RotateTile(coord, delta);
+		internal TileFlagsOld FlipTile(GridCoord coord, int delta) => m_TileDataContainer.FlipTile(coord, delta);
 	}
 }

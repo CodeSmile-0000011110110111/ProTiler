@@ -1,18 +1,12 @@
 {
-    "name": "CodeSmile.Editor.ProTiler",
+    "name": "CodeSmile.ProTiler.Rendering",
     "rootNamespace": "",
     "references": [
         "GUID:0de177a875028db4d97efebe9a09aa5a",
-        "GUID:4f940526aaebaa547a5dafc2a02498ea",
         "GUID:2a1bc76c5d074cc4c839253d25f72fbc",
-        "GUID:778dc1ae943a97647b34617c263c224d",
-        "GUID:b8f654bab7c7aa94d9a89d638c2f26d3",
-        "GUID:d8b63aba1907145bea998dd612889d6b",
-        "GUID:efa8fb04f93eb1f4c9bcad70c99e9591"
+        "GUID:778dc1ae943a97647b34617c263c224d"
     ],
-    "includePlatforms": [
-        "Editor"
-    ],
+    "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,

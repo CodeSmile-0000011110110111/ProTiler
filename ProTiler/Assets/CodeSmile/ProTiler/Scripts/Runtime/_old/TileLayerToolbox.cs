@@ -123,7 +123,7 @@ namespace CodeSmile.ProTiler
 			DebugUpdateTileCount();
 		}
 
-		public void SetTileFlags(GridCoord coord, TileFlags flags)
+		public void SetTileFlags(GridCoord coord, TileFlagsOld flags)
 		{
 			Layer.RecordUndoInEditor(nameof(SetTileFlags));
 			var tileFlags = Layer.SetTileFlags(coord, flags);
@@ -132,7 +132,7 @@ namespace CodeSmile.ProTiler
 			LayerRenderer.UpdateTileFlagsAndRedraw(coord, tileFlags);
 		}
 
-		public void ClearTileFlags(GridCoord coord, TileFlags flags)
+		public void ClearTileFlags(GridCoord coord, TileFlagsOld flags)
 		{
 			Layer.RecordUndoInEditor(nameof(ClearTileFlags));
 			var tileFlags = Layer.ClearTileFlags(coord, flags);

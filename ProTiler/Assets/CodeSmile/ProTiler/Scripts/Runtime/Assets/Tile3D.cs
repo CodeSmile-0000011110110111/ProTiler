@@ -3,7 +3,7 @@
 
 using UnityEngine;
 
-namespace CodeSmile.ProTiler
+namespace CodeSmile.ProTiler.Assets
 {
 	[CreateAssetMenu(fileName = "New 3D Tile", menuName = Global.TileEditorName + "/3D Tile", order = Global.CreateAssetMenuRootOrder)]
 	public class Tile3D : Tile3DBase

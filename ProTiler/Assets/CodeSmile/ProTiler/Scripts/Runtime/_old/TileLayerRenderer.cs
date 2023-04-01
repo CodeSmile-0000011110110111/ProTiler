@@ -242,7 +242,7 @@ namespace CodeSmile.ProTiler
 			UpdateTilesInDirtyRect(dirtyRect);
 		}
 
-		internal void UpdateTileFlagsAndRedraw(GridCoord coord, TileFlags flags)
+		internal void UpdateTileFlagsAndRedraw(GridCoord coord, TileFlagsOld flags)
 		{
 			//Debug.LogWarning("SetTileFlags not implemented");
 			var dirtyRect = new GridRect(coord.ToCoord2(), new Vector2Int(1, 1));

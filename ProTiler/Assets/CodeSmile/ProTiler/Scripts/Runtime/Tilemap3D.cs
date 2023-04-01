@@ -1,6 +1,7 @@
 // Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
+using CodeSmile.ProTiler.Collections;
 using System;
 using UnityEngine;
 
@@ -37,6 +38,15 @@ namespace CodeSmile.ProTiler
 			}
 		}
 
+		private void OnValidate()
+		{
+			if (m_ChunkSize != m_LastChunkSize)
+			{
+				Chunks.ChangeChunkSize(m_ChunkSize);
+				m_ChunkSize = m_LastChunkSize;
+			}
+		}
+
 		private void InitChunks()
 		{
 			if (m_Chunks == null)
@@ -44,15 +54,6 @@ namespace CodeSmile.ProTiler
 				m_Chunks = new Tilemap3DChunkCollection(m_ChunkSize);
 				m_TileCount = m_Chunks.Count;
 				m_LastChunkSize = m_ChunkSize;
-			}
-		}
-
-		private void OnValidate()
-		{
-			if (m_ChunkSize != m_LastChunkSize)
-			{
-				Chunks.ChangeChunkSize(m_ChunkSize);
-				m_ChunkSize = m_LastChunkSize;
 			}
 		}
 
@@ -70,5 +71,7 @@ namespace CodeSmile.ProTiler
 		}
 
 		public void DrawRect(object makeRect) => throw new NotImplementedException();
+
+		public void GetTileData(Vector3Int[] coords, ref Tile3DCoordData[] tileCoordDatas) => m_Chunks.GetTileData(coords, ref tileCoordDatas);
 	}
 }

@@ -6,7 +6,7 @@ using System;
 namespace CodeSmile.ProTiler.Data
 {
 	[Flags]
-	public enum TileFlags
+	public enum TileFlagsOld
 	{
 		None = 0,
 		DirectionNorth = 1 << 0,

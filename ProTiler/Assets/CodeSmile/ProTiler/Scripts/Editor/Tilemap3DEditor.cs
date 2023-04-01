@@ -21,7 +21,9 @@ namespace CodeSmile.ProTiler.Editor
 		private Tilemap3D Tilemap => (Tilemap3D)target;
 
 		private void OnEnable() => RegisterInputEvents();
+
 		private void OnDisable() => UnregisterInputEvents();
+
 		public void OnSceneGUI()
 		{
 			if (Selection.activeGameObject != Tilemap.gameObject)
@@ -58,7 +60,7 @@ namespace CodeSmile.ProTiler.Editor
 			UpdateClearingState();
 			//UpdateLayerDrawBrush();
 		}
-		
+
 		private void OnLayout() => HandleUtilityExt.AddDefaultControl(GetHashCode());
 
 		private void OnRepaint()
@@ -143,8 +145,14 @@ namespace CodeSmile.ProTiler.Editor
 			ShowDrawBrush(false);
 		}
 
-		private void DrawLineFromStartToCursor() => Tilemap.DrawLine(m_StartSelectionCoord, m_CursorCoord);
+		private void DrawLineFromStartToCursor()
+		{
+			Tilemap3DStats.instance.DrawTileCount++;
+			Tilemap.DrawLine(m_StartSelectionCoord, m_CursorCoord);
+		}
+
 		private void DrawRectFromStartToCursor() => Tilemap.DrawRect(m_StartSelectionCoord.MakeRect(m_CursorCoord));
+
 		private void ShowDrawBrush(bool show = true)
 		{
 			//Toolbox.TileDrawPreviewEnabled = show;
@@ -159,7 +167,7 @@ namespace CodeSmile.ProTiler.Editor
 					m_IsClearingTiles = shouldClear;
 			}
 		}
-		
+
 		private void UpdateStartSelectionCoord()
 		{
 			m_StartSelectionCoord = GetMouseCursorCoord();
@@ -178,7 +186,7 @@ namespace CodeSmile.ProTiler.Editor
 			var coordMax = Vector3Int.Max(m_StartSelectionCoord, m_CursorCoord);
 			m_SelectionRect = new RectInt(coordMin.x, coordMin.z, coordMax.x - coordMin.x + 1, coordMax.z - coordMin.z + 1);
 		}
-		
+
 		private void DrawCursorHandle(TileEditMode editMode)
 		{
 			if (editMode is TileEditMode.PenDraw or TileEditMode.RectFill)

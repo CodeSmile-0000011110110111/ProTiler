@@ -2,6 +2,9 @@
 // Refer to included LICENSE file for terms and conditions.
 
 using CodeSmile.ProTiler;
+using CodeSmile.ProTiler.Assets;
+using CodeSmile.ProTiler.Collections;
+using CodeSmile.ProTiler.Data;
 using NUnit.Framework;
 using UnityEngine;
 
@@ -16,11 +19,13 @@ namespace CodeSmile.Editor.ProTiler.Tests
 			var height = 20;
 			var layer = new Tile3DDataCollection(width, height);
 			Assert.NotNull(layer);
-			Assert.AreEqual(width * height, layer.Count);
+			Assert.AreEqual(width * height, layer.Capacity);
+			Assert.AreEqual(0, layer.Count);
 
 			var coord = new Vector2Int(3, 7);
-			var tileData = new Tile3DData { Tile = ScriptableObject.CreateInstance<Tile3D>() };
+			var tileData = new Tile3DData { Tile = ScriptableObject.CreateInstance<Tile3D>(), PrefabSetIndex = 1,};
 			layer[coord.x, coord.y] = tileData;
+			Assert.AreEqual(1, layer.Count);
 			Assert.AreEqual(tileData.Tile, layer[coord.x,coord.y].Tile);
 			Assert.AreNotEqual(tileData.Tile, layer[coord.x + 1, coord.y - 1].Tile);
 

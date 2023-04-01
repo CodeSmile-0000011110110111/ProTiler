@@ -17,10 +17,10 @@ namespace CodeSmile.ProTiler.Data
 		public const int InvalidTileSetIndex = -1;
 		
 		[SerializeField] private int m_TileSetIndex;
-		[SerializeField] private TileFlags m_Flags;
+		[SerializeField] private TileFlagsOld m_Flags;
 
 		public int TileSetIndex { get => m_TileSetIndex; set => m_TileSetIndex = math.max(InvalidTileSetIndex, value); }
-		public TileFlags Flags { get => m_Flags; set => m_Flags = value; }
+		public TileFlagsOld Flags { get => m_Flags; set => m_Flags = value; }
 		public bool IsValid => m_TileSetIndex >= 0;
 		public bool IsInvalid => m_TileSetIndex < 0;
 
@@ -34,7 +34,7 @@ namespace CodeSmile.ProTiler.Data
 			EnsureRotationIsSet();
 		}
 
-		public TileData(int tileSetIndex, TileFlags flags = TileFlags.None)
+		public TileData(int tileSetIndex, TileFlagsOld flags = TileFlagsOld.None)
 		{
 			m_TileSetIndex = tileSetIndex;
 			m_Flags = flags;
@@ -45,40 +45,40 @@ namespace CodeSmile.ProTiler.Data
 
 		private void EnsureRotationIsSet()
 		{
-			if ((m_Flags & TileFlags.AllDirections) == TileFlags.None)
-				m_Flags |= TileFlags.DirectionNorth;
+			if ((m_Flags & TileFlagsOld.AllDirections) == TileFlagsOld.None)
+				m_Flags |= TileFlagsOld.DirectionNorth;
 		}
 
-		public TileFlags Rotate(int delta)
+		public TileFlagsOld Rotate(int delta)
 		{
 			EnsureRotationIsSet();
-			var direction = m_Flags & TileFlags.AllDirections;
-			m_Flags &= ~TileFlags.AllDirections;
+			var direction = m_Flags & TileFlagsOld.AllDirections;
+			m_Flags &= ~TileFlagsOld.AllDirections;
 
 			var newDirection = direction switch
 			{
-				TileFlags.DirectionNorth => delta < 0 ? TileFlags.DirectionWest : TileFlags.DirectionEast,
-				TileFlags.DirectionWest => delta < 0 ? TileFlags.DirectionSouth : TileFlags.DirectionNorth,
-				TileFlags.DirectionSouth => delta < 0 ? TileFlags.DirectionEast : TileFlags.DirectionWest,
-				TileFlags.DirectionEast => delta < 0 ? TileFlags.DirectionNorth : TileFlags.DirectionSouth,
-				_ => TileFlags.None
+				TileFlagsOld.DirectionNorth => delta < 0 ? TileFlagsOld.DirectionWest : TileFlagsOld.DirectionEast,
+				TileFlagsOld.DirectionWest => delta < 0 ? TileFlagsOld.DirectionSouth : TileFlagsOld.DirectionNorth,
+				TileFlagsOld.DirectionSouth => delta < 0 ? TileFlagsOld.DirectionEast : TileFlagsOld.DirectionWest,
+				TileFlagsOld.DirectionEast => delta < 0 ? TileFlagsOld.DirectionNorth : TileFlagsOld.DirectionSouth,
+				_ => TileFlagsOld.None
 			};
 			m_Flags |= newDirection;
 			return newDirection;
 		}
 
-		public TileFlags Flip(int delta)
+		public TileFlagsOld Flip(int delta)
 		{
-			var flip = m_Flags & TileFlags.AllFlips;
-			m_Flags &= ~TileFlags.AllFlips;
+			var flip = m_Flags & TileFlagsOld.AllFlips;
+			m_Flags &= ~TileFlagsOld.AllFlips;
 
 			var newFlip = flip switch
 			{
-				TileFlags.None => delta < 0 ? TileFlags.FlipHorizontal : TileFlags.FlipVertical,
-				TileFlags.FlipHorizontal => delta < 0 ? TileFlags.AllFlips : TileFlags.None,
-				TileFlags.AllFlips => delta < 0 ? TileFlags.FlipVertical : TileFlags.FlipHorizontal,
-				TileFlags.FlipVertical => delta < 0 ? TileFlags.None : TileFlags.AllFlips,
-				_ => TileFlags.None
+				TileFlagsOld.None => delta < 0 ? TileFlagsOld.FlipHorizontal : TileFlagsOld.FlipVertical,
+				TileFlagsOld.FlipHorizontal => delta < 0 ? TileFlagsOld.AllFlips : TileFlagsOld.None,
+				TileFlagsOld.AllFlips => delta < 0 ? TileFlagsOld.FlipVertical : TileFlagsOld.FlipHorizontal,
+				TileFlagsOld.FlipVertical => delta < 0 ? TileFlagsOld.None : TileFlagsOld.AllFlips,
+				_ => TileFlagsOld.None
 			};
 			m_Flags |= newFlip;
 			return newFlip;
@@ -86,13 +86,13 @@ namespace CodeSmile.ProTiler.Data
 
 		public override string ToString() => $"T(#{m_TileSetIndex} | {m_Flags})";
 
-		public TileFlags ClearFlags(TileFlags flags)
+		public TileFlagsOld ClearFlags(TileFlagsOld flags)
 		{
 			m_Flags &= ~flags;
 			return m_Flags;
 		}
 
-		public TileFlags SetFlags(TileFlags flags)
+		public TileFlagsOld SetFlags(TileFlagsOld flags)
 		{
 			m_Flags |= flags;
 			return m_Flags;

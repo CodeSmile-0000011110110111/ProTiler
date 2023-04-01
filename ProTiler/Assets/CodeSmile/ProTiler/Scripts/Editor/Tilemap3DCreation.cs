@@ -1,6 +1,7 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
+using CodeSmile.ProTiler.Rendering;
 using System;
 using UnityEditor;
 using UnityEngine;
@@ -36,6 +37,8 @@ namespace CodeSmile.ProTiler.Editor
 
 		internal static void CreateTilemap3D(Grid3D.Layout layout)
 		{
+			Tilemap3DStats.instance.TilemapCreatedCount++;
+
 			var root = FindOrCreateRootGrid3D();
 			var uniqueName = GameObjectUtility.GetUniqueNameForSibling(root.transform, "Tilemap3D");
 			var tilemapGO = ObjectFactory.CreateGameObject(uniqueName, typeof(Tilemap3D), typeof(Tilemap3DRenderer));

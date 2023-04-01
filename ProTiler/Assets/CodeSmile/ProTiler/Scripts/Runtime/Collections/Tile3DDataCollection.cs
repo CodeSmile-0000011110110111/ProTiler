@@ -1,10 +1,10 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
+using CodeSmile.ProTiler.Data;
 using System;
-using UnityEngine;
 
-namespace CodeSmile.ProTiler
+namespace CodeSmile.ProTiler.Collections
 {
 	/// <summary>
 	///     Represents a single, flat layer of tiles. Essentially a 2D array.
@@ -33,12 +33,14 @@ namespace CodeSmile.ProTiler
 				var count = 0;
 				foreach (var tileData in m_Tiles)
 				{
-					if (tileData.Tile != null && tileData.Tile.Prefab != null)
+					if (tileData.PrefabSetIndex != Tile3DPrefabSet.InvalidIndex)
 						count++;
 				}
 				return count;
 			}
 		}
+
+		internal int Capacity => m_Tiles.Length;
 
 		internal Tile3DDataCollection(int width, int height)
 		{

@@ -4,7 +4,7 @@
 using CodeSmile.Extensions;
 using UnityEngine;
 
-namespace CodeSmile.ProTiler
+namespace CodeSmile.ProTiler.Rendering
 {
 	[ExecuteAlways]
 	[RequireComponent(typeof(Tilemap3D))]
@@ -33,7 +33,7 @@ namespace CodeSmile.ProTiler
 
 		private void UpdateVisibleTiles()
 		{
-			Tilemap.Chunks.GetTileData(m_VisibleCoords, ref m_TileCoordDatas);
+			Tilemap.GetTileData(m_VisibleCoords, ref m_TileCoordDatas);
 
 			// TODO dont destroy children, implement pooling
 			transform.DestroyAllChildren();

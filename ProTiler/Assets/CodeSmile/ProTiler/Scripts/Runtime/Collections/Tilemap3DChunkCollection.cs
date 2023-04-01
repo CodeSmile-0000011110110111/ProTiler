@@ -1,12 +1,14 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
+using CodeSmile.ProTiler.Assets;
+using CodeSmile.ProTiler.Data;
 using System;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-namespace CodeSmile.ProTiler
+namespace CodeSmile.ProTiler.Collections
 {
 	/// <summary>
 	///     Contains all chunks of a tilemap, dividing tilemap into x/z spatial chunks.

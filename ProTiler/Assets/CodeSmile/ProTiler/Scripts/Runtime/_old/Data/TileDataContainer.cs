@@ -94,44 +94,44 @@ namespace CodeSmile.ProTiler.Data
 			return dict;
 		}
 
-		public TileFlags SetTileFlags(GridCoord coord, TileFlags flags)
+		public TileFlagsOld SetTileFlags(GridCoord coord, TileFlagsOld flags)
 		{
 			var tile = GetTile(coord);
 			if (tile.IsInvalid)
-				return TileFlags.None;
+				return TileFlagsOld.None;
 
 			var newFlags = tile.SetFlags(flags);
 			UpdateTile(coord, tile);
 			return newFlags;
 		}
 
-		public TileFlags ClearTileFlags(GridCoord coord, TileFlags flags)
+		public TileFlagsOld ClearTileFlags(GridCoord coord, TileFlagsOld flags)
 		{
 			var tile = GetTile(coord);
 			if (tile.IsInvalid)
-				return TileFlags.None;
+				return TileFlagsOld.None;
 
 			var newFlags = tile.ClearFlags(flags);
 			UpdateTile(coord, tile);
 			return newFlags;
 		}
 
-		public TileFlags RotateTile(GridCoord coord, int delta)
+		public TileFlagsOld RotateTile(GridCoord coord, int delta)
 		{
 			var tile = GetTile(coord);
 			if (tile.IsInvalid)
-				return TileFlags.None;
+				return TileFlagsOld.None;
 
 			var newFlags = tile.Rotate(delta);
 			UpdateTile(coord, tile);
 			return newFlags;
 		}
 
-		public TileFlags FlipTile(GridCoord coord, int delta)
+		public TileFlagsOld FlipTile(GridCoord coord, int delta)
 		{
 			var tile = GetTile(coord);
 			if (tile.IsInvalid)
-				return TileFlags.None;
+				return TileFlagsOld.None;
 
 			var newFlags = tile.Flip(delta);
 			UpdateTile(coord, tile);

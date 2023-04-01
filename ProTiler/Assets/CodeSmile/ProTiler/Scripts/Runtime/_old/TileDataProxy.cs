@@ -98,37 +98,37 @@ namespace CodeSmile.ProTiler
 #endif
 		}
 
-		private GameObject InstantiateTileObject(GameObject prefab, Vector3 position, Transform parent, TileFlags flags)
+		private GameObject InstantiateTileObject(GameObject prefab, Vector3 position, Transform parent, TileFlagsOld flags)
 		{
 			var go = Instantiate(prefab, position, Quaternion.identity, parent);
 			ApplyTileFlags(go, flags);
 			return go;
 		}
 
-		private void ApplyTileFlags(GameObject go, TileFlags flags)
+		private void ApplyTileFlags(GameObject go, TileFlagsOld flags)
 		{
 			var t = go.transform;
 			t.localScale = ScaleFromTileFlags(flags, t.localScale);
 			t.rotation = RotationFromTileFlags(flags);
 		}
 
-		private Vector3 ScaleFromTileFlags(TileFlags flags, Vector3 scale)
+		private Vector3 ScaleFromTileFlags(TileFlagsOld flags, Vector3 scale)
 		{
-			if (flags.HasFlag(TileFlags.FlipHorizontal))
+			if (flags.HasFlag(TileFlagsOld.FlipHorizontal))
 				scale.x *= -1f;
-			if (flags.HasFlag(TileFlags.FlipVertical))
+			if (flags.HasFlag(TileFlagsOld.FlipVertical))
 				scale.z *= -1f;
 
 			return scale;
 		}
 
-		private Quaternion RotationFromTileFlags(TileFlags flags)
+		private Quaternion RotationFromTileFlags(TileFlagsOld flags)
 		{
-			if (flags.HasFlag(TileFlags.DirectionEast))
+			if (flags.HasFlag(TileFlagsOld.DirectionEast))
 				return Quaternion.Euler(0f, 90f, 0f);
-			if (flags.HasFlag(TileFlags.DirectionSouth))
+			if (flags.HasFlag(TileFlagsOld.DirectionSouth))
 				return Quaternion.Euler(0f, 180f, 0f);
-			if (flags.HasFlag(TileFlags.DirectionWest))
+			if (flags.HasFlag(TileFlagsOld.DirectionWest))
 				return Quaternion.Euler(0f, 270f, 0f);
 
 			return Quaternion.identity;
