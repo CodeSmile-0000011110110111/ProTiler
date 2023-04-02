@@ -123,7 +123,7 @@ namespace CodeSmile.Editor.ProTiler
 				}
 				else if (ctrl)
 				{
-					editorState.DrawTileSetIndex = math.clamp(editorState.DrawTileSetIndex + delta, 
+					editorState.DrawTileSetIndex = math.clamp(editorState.DrawTileSetIndex + delta,
 						TileData.InvalidTileSetIndex, Toolbox.Layer.TileSet.Count - 1);
 					UpdateLayerDrawBrush();
 					Event.current.Use();

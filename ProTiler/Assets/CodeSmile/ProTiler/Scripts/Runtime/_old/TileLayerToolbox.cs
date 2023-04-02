@@ -44,7 +44,7 @@ namespace CodeSmile.ProTiler
 					LayerRenderer.SetTileActive(false, value.Coord);
 					LayerRenderer.SetTileActive(true, PreviewRenderer.PreviewBrush.Coord);
 				}
-				
+
 				PreviewRenderer.PreviewBrush = value;
 				DebugSetTileName(value.TileSetIndex);
 			}

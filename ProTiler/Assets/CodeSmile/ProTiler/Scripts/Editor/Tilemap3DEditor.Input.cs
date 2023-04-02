@@ -66,7 +66,7 @@ namespace CodeSmile.ProTiler.Editor
 				CancelTileDrawing();
 			else if (IsOnlyLeftMouseButtonDown())
 			{
-				if (StartTileDrawing(ProTilerState.instance.TileEditMode))
+				if (StartTileDrawing(TileEditMode.PenDraw))
 					Event.current.Use();
 			}
 		}
@@ -77,7 +77,7 @@ namespace CodeSmile.ProTiler.Editor
 				CancelTileDrawing();
 			else if (button == MouseButton.LeftMouse)
 			{
-				if (FinishTileDrawing(ProTilerState.instance.TileEditMode))
+				if (FinishTileDrawing(TileEditMode.PenDraw))
 					Event.current.Use();
 			}
 		}
@@ -88,7 +88,7 @@ namespace CodeSmile.ProTiler.Editor
 				CancelTileDrawing();
 			else if (IsOnlyLeftMouseButtonDown())
 			{
-				if (ContinueTileDrawing(ProTilerState.instance.TileEditMode))
+				if (ContinueTileDrawing(TileEditMode.PenDraw))
 					Event.current.Use();
 			}
 		}

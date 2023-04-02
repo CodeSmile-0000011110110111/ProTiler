@@ -2,6 +2,7 @@
 // Refer to included LICENSE file for terms and conditions.
 
 using CodeSmile.Extensions;
+using System;
 using UnityEngine;
 
 namespace CodeSmile.ProTiler.Rendering
@@ -42,6 +43,8 @@ namespace CodeSmile.ProTiler.Rendering
 
 			foreach (var tile3DCoordData in m_TileCoordDatas)
 			{
+				throw new NotImplementedException("get prefab from tiledata");
+				/*
 				var tile = tile3DCoordData.TileData.Tile;
 				if (tile == null || tile.Prefab == null)
 					continue;
@@ -50,6 +53,8 @@ namespace CodeSmile.ProTiler.Rendering
 					DestroyImmediate(instance);
 
 				instance = Instantiate(tile.Prefab, transform);
+				*/
+
 			}
 		}
 

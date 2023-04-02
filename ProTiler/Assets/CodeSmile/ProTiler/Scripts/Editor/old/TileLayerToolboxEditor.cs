@@ -74,7 +74,7 @@ namespace CodeSmile.Editor.ProTiler
 
 			return HandleUtilityExt.GUIPointToGridCoord
 				(m_Input.MousePosition, new Vector3Int(gridSize.x, gridSize.y, gridSize.z), out var coord, Toolbox.transform.position.y)
-				? new int3(coord.x, coord.y, coord.z) 
+				? new GridCoord(coord.x, coord.y, coord.z)
 				: TileData.InvalidGridCoord;
 		}
 

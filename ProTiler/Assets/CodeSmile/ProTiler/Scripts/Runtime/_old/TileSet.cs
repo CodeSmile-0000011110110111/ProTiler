@@ -94,6 +94,7 @@ namespace CodeSmile.ProTiler
 		{
 			if (index < 0)
 				return ClearingTilePrefab;
+
 			if (index >= m_Tiles.Count)
 			{
 				Debug.LogWarning($"TileSet '{name}': Index #{index} is outside TileSet bounds");

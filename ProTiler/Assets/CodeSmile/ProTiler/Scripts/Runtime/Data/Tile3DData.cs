@@ -1,27 +1,12 @@
 // Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
-using CodeSmile.ProTiler.Assets;
+using CodeSmile.ProTiler.Data;
 using System;
 using UnityEngine;
 
 namespace CodeSmile.ProTiler
 {
-	[Flags]
-	public enum TileFlags
-	{
-		None = 0,
-		DirectionNorth = 1 << 0,
-		DirectionEast = 1 << 1,
-		DirectionSouth = 1 << 2,
-		DirectionWest = 1 << 3,
-		FlipHorizontal = 1 << 4,
-		FlipVertical = 1 << 5,
-
-		AllDirections = DirectionNorth | DirectionSouth | DirectionEast | DirectionWest,
-		AllFlips = FlipHorizontal | FlipVertical,
-	}
-
 	[Serializable]
 	public struct Tile3DData
 	{
@@ -30,7 +15,7 @@ namespace CodeSmile.ProTiler
 		// TODO matrix
 
 		// TODO remove tile ref
-		public Tile3D Tile;
+		//public Tile3D Tile;
 	}
 
 	[Serializable]

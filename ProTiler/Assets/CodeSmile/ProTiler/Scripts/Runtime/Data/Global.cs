@@ -2,10 +2,6 @@
 // Refer to included LICENSE file for terms and conditions.
 
 using UnityEngine;
-using GridCoord = Unity.Mathematics.int3;
-using GridSize = Unity.Mathematics.int3;
-using GridRect = UnityEngine.RectInt;
-using WorldRect = UnityEngine.Rect;
 
 namespace CodeSmile.ProTiler
 {

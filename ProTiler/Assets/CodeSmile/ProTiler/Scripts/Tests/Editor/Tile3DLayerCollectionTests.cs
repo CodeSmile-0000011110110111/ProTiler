@@ -1,12 +1,8 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
-using CodeSmile.ProTiler;
-using CodeSmile.ProTiler.Assets;
 using CodeSmile.ProTiler.Collections;
-using CodeSmile.ProTiler.Data;
 using NUnit.Framework;
-using UnityEngine;
 
 namespace CodeSmile.Editor.ProTiler.Tests
 {
@@ -22,6 +18,8 @@ namespace CodeSmile.Editor.ProTiler.Tests
 			Assert.AreEqual(width * height, layer.Capacity);
 			Assert.AreEqual(0, layer.Count);
 
+			Assert.Fail("reimplement");
+			/*
 			var coord = new Vector2Int(3, 7);
 			var tileData = new Tile3DData { Tile = ScriptableObject.CreateInstance<Tile3D>(), PrefabSetIndex = 1,};
 			layer[coord.x, coord.y] = tileData;
@@ -30,6 +28,7 @@ namespace CodeSmile.Editor.ProTiler.Tests
 			Assert.AreNotEqual(tileData.Tile, layer[coord.x + 1, coord.y - 1].Tile);
 
 			Object.DestroyImmediate(layer[coord.x, coord.y].Tile);
+		*/
 		}
 	}
 }

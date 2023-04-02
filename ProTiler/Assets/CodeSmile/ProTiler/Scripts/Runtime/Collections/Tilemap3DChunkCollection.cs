@@ -1,11 +1,8 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
-using CodeSmile.ProTiler.Assets;
-using CodeSmile.ProTiler.Data;
 using System;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 
 namespace CodeSmile.ProTiler.Collections
@@ -46,12 +43,16 @@ namespace CodeSmile.ProTiler.Collections
 			m_Chunks = new Dictionary<long, Dictionary<int, Tile3DDataCollection>>();
 			m_Chunks.Add(HashUtility.GetHash(0, 0), new Dictionary<int, Tile3DDataCollection>());
 
-			// TODO: fummy create one tile
+			// TODO: dummy create one tile
+			/*
 			var newTiles = new[] { new Tile3DCoordData { Coord = Vector3Int.zero, TileData = new Tile3DData { Tile = Tile3D.Create() } } };
 			newTiles[0].TileData.Tile.Prefab = AssetDatabase.LoadAssetAtPath(
 				"Assets/Art/kenney/Tower Defense (Classic)/Prefabs/tile_005.prefab",
 				typeof(GameObject)) as GameObject;
+				*/
+			throw new NotImplementedException("create new dummy tiledata");
 
+			var newTiles = new[] { new Tile3DCoordData() };
 			SetTiles(newTiles);
 		}
 
@@ -73,7 +74,7 @@ namespace CodeSmile.ProTiler.Collections
 
 		public void GetTileData(Vector3Int[] coords, ref Tile3DCoordData[] tileDatas)
 		{
-			int index = 0;
+			var index = 0;
 			foreach (var coord in coords)
 			{
 				var coordHash = HashUtility.GetHash(coord.x, coord.z);

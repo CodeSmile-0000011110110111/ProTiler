@@ -66,7 +66,7 @@ namespace CodeSmile.ProTiler.Editor
 		private void OnRepaint()
 		{
 			if (m_HasMouseFocus && IsRightMouseButtonDown() == false)
-				DrawCursorHandle(ProTilerState.instance.TileEditMode);
+				DrawCursorHandle(TileEditMode.PenDraw);
 		}
 
 		private Vector3Int GetMouseCursorCoord() => HandleUtilityExt.GUIPointToGridCoord

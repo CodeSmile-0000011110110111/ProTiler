@@ -1,8 +1,7 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
-using CodeSmile.ProTiler.Data;
-using NUnit.Framework;
+/*using NUnit.Framework;
 using Unity.Mathematics;
 using UnityEngine;
 using GridCoord = Unity.Mathematics.int3;
@@ -143,4 +142,4 @@ namespace CodeSmile.ProTiler.Tests.Editor.old
 			Assert.AreEqual(new Rect(-10, -10, 50, 50), worldRect);
 		}
 	}
-}
+}*/
