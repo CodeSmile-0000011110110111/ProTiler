@@ -13,9 +13,9 @@ namespace CodeSmile.Editor.ProTiler.Overlays
 	[EditorToolbarElement(Id, typeof(SceneView))]
 	internal class TileLayerSelectionToggle : TileLayerToolbarRadioToggle
 	{
-		public const string Id = Global.TileEditorName + "/Selection";
+		public const string Id = Names.TileEditor + "/Selection";
 
-		[Shortcut(Global.TileEditorName + "/Tile Selection Tool", typeof(SceneView), KeyCode.S)]
+		[Shortcut(Names.TileEditor + "/Tile Selection Tool", typeof(SceneView), KeyCode.S)]
 		private static void TileWorldSelectionShortcut()
 		{
 			Debug.Log("selection shortcut!");
@@ -27,8 +27,8 @@ namespace CodeSmile.Editor.ProTiler.Overlays
 			value = ProTilerState.instance.TileEditMode == TileEditMode.Selection;
 			tooltip = "Select Tiles";
 
-			onIcon = AssetDatabase.LoadAssetAtPath<Texture2D>(Global.OverlayIconPath + "TileSelectionOnIcon.png");
-			offIcon = AssetDatabase.LoadAssetAtPath<Texture2D>(Global.OverlayIconPath + "TileSelectionOffIcon.png");
+			onIcon = AssetDatabase.LoadAssetAtPath<Texture2D>(Paths.OverlayIcon + "TileSelectionOnIcon.png");
+			offIcon = AssetDatabase.LoadAssetAtPath<Texture2D>(Paths.OverlayIcon + "TileSelectionOffIcon.png");
 			this.RegisterValueChangedCallback(OnToggleChange);
 		}
 

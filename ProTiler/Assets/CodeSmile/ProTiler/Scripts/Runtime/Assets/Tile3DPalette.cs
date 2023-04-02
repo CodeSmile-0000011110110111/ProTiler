@@ -6,7 +6,7 @@ using UnityEngine;
 namespace CodeSmile.ProTiler.Assets
 {
 	[CreateAssetMenu(fileName = "New 3D Tile Palette",
-		menuName = Global.TileEditorName + "/3D Tile Palette",
-		order = Global.CreateAssetMenuRootOrder)]
+		menuName = Names.TileEditor + "/3D Tile Palette",
+		order = Menus.CreateAssetRootOrder)]
 	public class Tile3DPalette : ScriptableObject {}
 }

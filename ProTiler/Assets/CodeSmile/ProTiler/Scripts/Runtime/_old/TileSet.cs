@@ -49,7 +49,7 @@ namespace CodeSmile.ProTiler
 			get
 			{
 				if (s_ClearingTilePrefab == null || s_ClearingTilePrefab.IsMissing())
-					s_ClearingTilePrefab = Resources.Load<GameObject>(Global.TileEditorResourcePrefabsPath + "ClearingTile");
+					s_ClearingTilePrefab = Resources.Load<GameObject>(Paths.TileEditorResourcePrefabs + "ClearingTile");
 				return s_ClearingTilePrefab;
 			}
 		}
@@ -58,7 +58,7 @@ namespace CodeSmile.ProTiler
 			get
 			{
 				if (s_MissingTilePrefab == null || s_MissingTilePrefab.IsMissing())
-					s_MissingTilePrefab = Resources.Load<GameObject>(Global.TileEditorResourcePrefabsPath + "MissingTile");
+					s_MissingTilePrefab = Resources.Load<GameObject>(Paths.TileEditorResourcePrefabs + "MissingTile");
 				return s_MissingTilePrefab;
 			}
 		}

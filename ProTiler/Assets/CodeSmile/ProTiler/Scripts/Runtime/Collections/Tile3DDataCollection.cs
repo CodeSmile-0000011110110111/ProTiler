@@ -33,7 +33,7 @@ namespace CodeSmile.ProTiler.Collections
 				var count = 0;
 				foreach (var tileData in m_Tiles)
 				{
-					if (tileData.PrefabSetIndex != Tile3DPrefabSet.InvalidIndex)
+					if (tileData.PrefabSetIndex != 0)
 						count++;
 				}
 				return count;

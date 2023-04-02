@@ -10,11 +10,11 @@ public class Tile3DPaletteWindow : EditorWindow
 {
 	[SerializeField] private VisualTreeAsset m_VisualTreeAsset;
 
-	[MenuItem(Global.RootMenuName + "/" + Global.TileEditorName + "/" + Global.Tile3DPaletteWindowName)]
+	[MenuItem(Names.RootMenu + "/" + Names.TileEditor + "/" + Names.Tile3DPaletteWindow)]
 	public static void ShowWindow()
 	{
 		var wnd = GetWindow<Tile3DPaletteWindow>();
-		wnd.titleContent = new GUIContent(Global.Tile3DPaletteWindowName);
+		wnd.titleContent = new GUIContent(Names.Tile3DPaletteWindow);
 	}
 
 	public void CreateGUI()

@@ -12,15 +12,15 @@ namespace CodeSmile.Editor.ProTiler.Overlays
 	[EditorToolbarElement(Id, typeof(SceneView))]
 	internal class TileLayerRectDrawToggle : TileLayerToolbarRadioToggle
 	{
-		public const string Id = Global.TileEditorName + "/RectDrawing";
+		public const string Id = Names.TileEditor + "/RectDrawing";
 
 		public TileLayerRectDrawToggle()
 		{
 			value = ProTilerState.instance.TileEditMode == TileEditMode.RectFill;
 			tooltip = "Rectangle Fill Tiles";
 
-			onIcon = AssetDatabase.LoadAssetAtPath<Texture2D>(Global.OverlayIconPath + "TileRectDrawingOnIcon.png");
-			offIcon = AssetDatabase.LoadAssetAtPath<Texture2D>(Global.OverlayIconPath + "TileRectDrawingOffIcon.png");
+			onIcon = AssetDatabase.LoadAssetAtPath<Texture2D>(Paths.OverlayIcon + "TileRectDrawingOnIcon.png");
+			offIcon = AssetDatabase.LoadAssetAtPath<Texture2D>(Paths.OverlayIcon + "TileRectDrawingOffIcon.png");
 			this.RegisterValueChangedCallback(OnToggleChange);
 		}
 

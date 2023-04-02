@@ -15,24 +15,24 @@ namespace CodeSmile.ProTiler.Editor
 		private const string HexagonalFlatTopTilemapMenuText = "Hexagonal - Flat Top";
 		private const string HexagonalPointTopTilemapMenuText = "Hexagonal - Pointed Top";
 
-		[MenuItem("GameObject/" + Global.TileEditorName + "/" + Global.Tilemap3DMenuName + "/" + RectangularTilemapMenuText,
-			priority = Global.CreateGameObjectMenuPriority + 0)]
+		[MenuItem("GameObject/" + Names.TileEditor + "/" + Names.Tilemap3DMenu + "/" + RectangularTilemapMenuText,
+			priority = Menus.CreateGameObjectPriority + 0)]
 		internal static void CreateRectangularTilemap3D() => CreateTilemap3D(Grid3D.Layout.Rectangular);
 
-		[MenuItem("GameObject/" + Global.TileEditorName + "/" + Global.Tilemap3DMenuName + "/" + IsometricTilemapMenuText,
-			priority = Global.CreateGameObjectMenuPriority + 3)]
+		[MenuItem("GameObject/" + Names.TileEditor + "/" + Names.Tilemap3DMenu + "/" + IsometricTilemapMenuText,
+			priority = Menus.CreateGameObjectPriority + 3)]
 		internal static void CreateIsometricTilemap3D()
 		{
 			Debug.LogWarning("Creating a rectangular 3D tilemap because 'isometric' is just a matter of camera perspective in 3D.");
 			CreateRectangularTilemap3D();
 		}
 
-		[MenuItem("GameObject/" + Global.TileEditorName + "/" + Global.Tilemap3DMenuName + "/" + HexagonalFlatTopTilemapMenuText,
-			priority = Global.CreateGameObjectMenuPriority + 1)]
+		[MenuItem("GameObject/" + Names.TileEditor + "/" + Names.Tilemap3DMenu + "/" + HexagonalFlatTopTilemapMenuText,
+			priority = Menus.CreateGameObjectPriority + 1)]
 		internal static void CreateHexagonalFlatTopTilemap3D() => throw new NotImplementedException(nameof(CreateHexagonalFlatTopTilemap3D));
 
-		[MenuItem("GameObject/" + Global.TileEditorName + "/" + Global.Tilemap3DMenuName + "/" + HexagonalPointTopTilemapMenuText,
-			priority = Global.CreateGameObjectMenuPriority + 2)]
+		[MenuItem("GameObject/" + Names.TileEditor + "/" + Names.Tilemap3DMenu + "/" + HexagonalPointTopTilemapMenuText,
+			priority = Menus.CreateGameObjectPriority + 2)]
 		internal static void CreateHexagonalPointTopTilemap3D() => throw new NotImplementedException(nameof(CreateHexagonalPointTopTilemap3D));
 
 		internal static void CreateTilemap3D(Grid3D.Layout layout)

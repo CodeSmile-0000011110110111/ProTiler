@@ -198,7 +198,7 @@ namespace CodeSmile.ProTiler.Editor
 				var cubeSize = worldRect.GetWorldSize(cellSize.y);
 
 				var prevColor = Handles.color;
-				Handles.color = Global.OutlineColor;
+				Handles.color = Colors.OutlineColor;
 				Handles.DrawWireCube(cubePos, cubeSize);
 				Handles.color = prevColor;
 

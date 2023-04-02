@@ -23,7 +23,7 @@ namespace CodeSmile.Editor.ProTiler
 				var cubeSize = worldRect.GetWorldSize(grid.Size.y);
 
 				var prevColor = Handles.color;
-				Handles.color = Global.OutlineColor;
+				Handles.color = Colors.OutlineColor;
 				Handles.DrawWireCube(cubePos, cubeSize);
 				Handles.color = prevColor;
 
@@ -43,7 +43,7 @@ namespace CodeSmile.Editor.ProTiler
 					}
 
 					if (meshRenderer != null)
-						Handles.DrawOutline(new[] { meshRenderer.gameObject }, Global.OutlineColor);
+						Handles.DrawOutline(new[] { meshRenderer.gameObject }, Colors.OutlineColor);
 				}
 			}
 		}

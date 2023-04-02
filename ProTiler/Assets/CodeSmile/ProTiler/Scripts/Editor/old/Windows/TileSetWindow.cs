@@ -24,7 +24,7 @@ namespace CodeSmile.Editor.ProTiler.Windows
 		private ListView m_TileSetTilesList;
 		private Button m_HighlightedTileButton;
 
-		[MenuItem("Tools/" + Global.TileEditorName + "/" + WindowName)]
+		[MenuItem("Tools/" + Names.TileEditor + "/" + WindowName)]
 		public static void ShowExample()
 		{
 			var wnd = GetWindow<TileSetWindow>();

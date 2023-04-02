@@ -10,14 +10,14 @@ namespace CodeSmile.ProTiler.Assets
 	public abstract class Tile3DBase : ScriptableObject
 	{
 		[SerializeField] private GameObject m_Prefab;
-		[SerializeField] private TileFlags m_Flags;
+		[SerializeField] private Tile3DFlags m_Flags;
 		[SerializeField] [HideInInspector] private Matrix4x4 m_Transform;
 		public GameObject Prefab
 		{
 			get => m_Prefab;
 			set => m_Prefab = value;
 		}
-		public TileFlags Flags
+		public Tile3DFlags Flags
 		{
 			get => m_Flags;
 			set => m_Flags = value;
@@ -27,7 +27,7 @@ namespace CodeSmile.ProTiler.Assets
 			get => m_Transform;
 			set => m_Transform = value;
 		}
-		private void Reset() => m_Flags = TileFlags.DirectionNorth;
+		private void Reset() => m_Flags = Tile3DFlags.DirectionNorth;
 
 		// public virtual void RefreshTile(Vector3Int coord, Tilemap3D tilemap) => tilemap.RefreshTile(coord);
 		// public virtual Tile3DData GetTileData(Vector3Int coord, Tilemap3D tilemap, ref Tile3DData tileData) => throw new NotImplementedException();

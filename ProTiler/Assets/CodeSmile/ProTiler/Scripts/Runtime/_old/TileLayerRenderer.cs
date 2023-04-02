@@ -114,7 +114,7 @@ namespace CodeSmile.ProTiler
 			//Debug.Log($"RecreateTilePool pool with {poolSize} instances");
 
 			DisposeTilePool();
-			m_TilePoolParent = gameObject.FindOrCreateChild("TilePool", Global.TileHideFlags);
+			m_TilePoolParent = gameObject.FindOrCreateChild("TilePool", HideFlags.Tile);
 			if (m_TilePrefab == null || m_TilePrefab.IsMissing())
 				throw new Exception("Tile prefab null or missing");
 
@@ -142,7 +142,7 @@ namespace CodeSmile.ProTiler
 			if (m_TilePrefab != null)
 				return;
 
-			m_TilePrefab = gameObject.FindOrCreateChild("TilePrefab", Global.TileHideFlags);
+			m_TilePrefab = gameObject.FindOrCreateChild("TilePrefab", HideFlags.Tile);
 			var tile = m_TilePrefab.GetOrAddComponent<TileDataProxy>();
 			tile.Layer = m_Layer;
 		}

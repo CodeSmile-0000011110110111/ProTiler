@@ -9,13 +9,13 @@ using UnityEngine;
 
 namespace CodeSmile.Editor.ProTiler.Overlays
 {
-	[Overlay(typeof(SceneView), Global.TileEditorName, Global.TileEditorName)]
-	[Icon(Global.OverlayIconPath + "OverlayToolbarIcon.png")]
+	[Overlay(typeof(SceneView), Names.TileEditor, Names.TileEditor)]
+	[Icon(Paths.OverlayIcon + "OverlayToolbarIcon.png")]
 	public class TileLayerOverlay : ToolbarOverlay
 	{
 		public static void SetToggleOn(Type toggleType)
 		{
-			SceneView.lastActiveSceneView.TryGetOverlay(Global.TileEditorName, out var overlay);
+			SceneView.lastActiveSceneView.TryGetOverlay(Names.TileEditor, out var overlay);
 			if (overlay is TileLayerOverlay tileWorldOverlay)
 			{
 				// TODO: how to access the overlay's elements??

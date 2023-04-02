@@ -57,7 +57,7 @@ namespace CodeSmile.ProTiler
 			get
 			{
 				if (s_ExampleTileSet == null || s_ExampleTileSet.IsMissing())
-					s_ExampleTileSet = Resources.Load<TileSet>(Global.TileEditorResourceTileSetsPath + "ExampleTileSet");
+					s_ExampleTileSet = Resources.Load<TileSet>(Paths.TileEditorResourceTileSets + "ExampleTileSet");
 				return s_ExampleTileSet;
 			}
 		}

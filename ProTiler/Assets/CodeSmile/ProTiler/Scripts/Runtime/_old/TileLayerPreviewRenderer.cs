@@ -101,7 +101,7 @@ namespace CodeSmile.ProTiler
 		{
 			m_Preview = Instantiate(prefab);
 			m_Preview.name = "DrawPreview";
-			m_Preview.hideFlags = Global.TileHideFlags;
+			m_Preview.hideFlags = HideFlags.Tile;
 			m_Preview.transform.parent = transform;
 		}
 

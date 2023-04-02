@@ -11,11 +11,7 @@ namespace CodeSmile.ProTiler
 	public struct Tile3DData
 	{
 		public int PrefabSetIndex;
-		public TileFlags Flags;
-		// TODO matrix
-
-		// TODO remove tile ref
-		//public Tile3D Tile;
+		public Tile3DFlags Flags;
 	}
 
 	[Serializable]

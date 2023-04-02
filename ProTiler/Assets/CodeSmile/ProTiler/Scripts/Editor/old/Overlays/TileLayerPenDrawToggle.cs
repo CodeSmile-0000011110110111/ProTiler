@@ -12,15 +12,15 @@ namespace CodeSmile.Editor.ProTiler.Overlays
 	[EditorToolbarElement(Id, typeof(SceneView))]
 	internal class TileLayerPenDrawToggle : TileLayerToolbarRadioToggle
 	{
-		public const string Id = Global.TileEditorName + "/PenDrawing";
+		public const string Id = Names.TileEditor + "/PenDrawing";
 
 		public TileLayerPenDrawToggle()
 		{
 			value = ProTilerState.instance.TileEditMode == TileEditMode.PenDraw;
 			tooltip = "Draw Tiles";
 
-			onIcon = AssetDatabase.LoadAssetAtPath<Texture2D>(Global.OverlayIconPath + "TilePenDrawingOnIcon.png");
-			offIcon = AssetDatabase.LoadAssetAtPath<Texture2D>(Global.OverlayIconPath + "TilePenDrawingOffIcon.png");
+			onIcon = AssetDatabase.LoadAssetAtPath<Texture2D>(Paths.OverlayIcon + "TilePenDrawingOnIcon.png");
+			offIcon = AssetDatabase.LoadAssetAtPath<Texture2D>(Paths.OverlayIcon + "TilePenDrawingOffIcon.png");
 			this.RegisterValueChangedCallback(OnToggleChange);
 		}
 

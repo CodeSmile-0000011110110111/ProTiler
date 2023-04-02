@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace CodeSmile.Editor.ProTiler
 {
-	[FilePath(Global.TileEditorName + "/EditorState.settings", FilePathAttribute.Location.PreferencesFolder)]
+	[FilePath(Names.TileEditor + "/EditorState.settings", FilePathAttribute.Location.PreferencesFolder)]
 	internal sealed class ProTilerState : ScriptableSingleton<ProTilerState>
 	{
 		[SerializeField] private TileEditMode m_TileEditMode = TileEditMode.Selection;
