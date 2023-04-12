@@ -6,16 +6,7 @@ env:
   UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
 
 jobs:
-  checkLicense:
-    name: Check for the Unity license ☑️
-    runs-on: ubuntu-latest
-    steps:
-      - name: Fail - No license ☠️
-        if: ${{ !startsWith(env.UNITY_LICENSE, '<') }}
-        run: exit 1
-
   testRunner:
-    needs: checkLicense
     name: Test all modes 📝
     runs-on: ubuntu-latest
     steps:
@@ -41,7 +32,7 @@ jobs:
       - name: Restore Library cache
         uses: actions/cache@v2
         with:
-          path: Library
+          path: ProTiler/Library
           key: Library-test-project
           restore-keys: |
             Library-test-project-
@@ -86,7 +77,7 @@ jobs:
 #      - name: Restore Library cache
 #        uses: actions/cache@v2
 #        with:
-#          path: Library
+#          path: ProTiler/Library
 #          key: Library-build-WebGL
 #          restore-keys: |
 #            Library-build-
@@ -130,7 +121,7 @@ jobs:
 #      - name: Restore Library cache
 #        uses: actions/cache@v2
 #        with:
-#          path: Library
+#          path: ProTiler/Library
 #          key: Library-build-StandaloneWindows64
 #          restore-keys: |
 #            Library-build-
@@ -174,7 +165,7 @@ jobs:
 #      - name: Restore Library cache
 #        uses: actions/cache@v2
 #        with:
-#          path: Library
+#          path: ProTiler/Library
 #          key: Library-build-Android
 #          restore-keys: |
 #            Library-build-
@@ -201,14 +192,14 @@ jobs:
 #      - uses: actions/download-artifact@v2
 #        with:
 #          name: build-WebGL
-#          path: build
+#          path: ProTiler/Builds
 #
 #      - name: Display structure of root files
 #        run: ls -R
-#        working-directory: build/WebGL
+#        working-directory: ProTiler/Builds/WebGL
 #
 #      - name: Deploy 🚀
 #        uses: JamesIves/github-pages-deploy-action@4.1.4
 #        with:
 #          branch: gh-pages
-#          folder: build/WebGL
+#          folder: ProTiler/Builds/WebGL
