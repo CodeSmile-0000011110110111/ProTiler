@@ -1,10 +1,10 @@
-name: Build All
+name: Test All
 
-on: workflow_dispatch
+on: [push, pull_request]
 
 jobs:
   buildForAllSupportedPlatforms:
-    name: Build for ${{ matrix.targetPlatform }}
+    name: Test for ${{ matrix.targetPlatform }}
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -36,20 +36,41 @@ jobs:
           key: Library-${{ matrix.targetPlatform }}
           restore-keys: |
             Library-
-            
-      # Build
-      - name: Build ${{ matrix.targetPlatform }}
-        uses: game-ci/unity-builder@v2
+      
+      # EditMode Tests
+      - name: Run EditMode Tests
+        uses: game-ci/unity-test-runner@v2
+        id: editModeTests
         env:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
         with:
+          testMode: EditMode
           projectPath: ${{ matrix.projectPath }}
-          targetPlatform: ${{ matrix.targetPlatform }}
-      
-      # Output
-      - name: Create Output for ${{ matrix.targetPlatform }}
+          githubToken: ${{ secrets.GITHUB_TOKEN }}
+          
+      # Upload EditMode Test Results
+      - name: EditMode Test Results
         uses: actions/upload-artifact@v2
+        if: always()
         with:
-          name: Build-${{ matrix.targetPlatform }}
-          path: build/${{ matrix.targetPlatform }}
+            name: EditMode Test Results
+            path: ${{ steps.editModeTests.outputs.artifactsPath }}
+
+      # PlayMode Tests
+      - name: Run PlayMode Tests
+        uses: game-ci/unity-test-runner@v2
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+        with:
+          testMode: PlayMode
+          projectPath: ${{ matrix.projectPath }}
+          githubToken: ${{ secrets.GITHUB_TOKEN }}
+
+      # Upload PlayMode Test Results
+      - name: PlayMode Test Results
+        uses: actions/upload-artifact@v2
+        if: always()
+        with:
+            name: PlayMode Test Results
+            path: artifacts
           
