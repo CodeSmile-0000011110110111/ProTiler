@@ -6,6 +6,10 @@ jobs:
   build:
     name: Build my project ✨
     runs-on: ubuntu-latest
+    strategy:
+        matrix:
+            projectPath:
+                - ProTiler
     steps:
       # Checkout
       - name: Checkout repository
@@ -16,7 +20,7 @@ jobs:
       # Cache
       - uses: actions/cache@v2
         with:
-          path: ProTiler/Library
+          path: Library
           key: Library-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
           restore-keys: |
             Library-
@@ -43,4 +47,4 @@ jobs:
       - uses: actions/upload-artifact@v2
         with:
           name: WebGL Build
-          path: ProTiler/Builds/WebGL
+          path: Builds/WebGL
