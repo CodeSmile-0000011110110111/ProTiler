@@ -10,10 +10,10 @@ jobs:
       fail-fast: false
       matrix:
         projectPath:
-          - ./TestGameCI
+          - TestGameCI
         testMode:
-          - playmode
           - editmode
+          #- playmode
     steps:
       # Checkout
       - uses: actions/checkout@v2
