@@ -14,6 +14,7 @@
 [Rr]elease/
 [Rr]eleases/
 [Aa]rtifacts/
+[Aa]rtifacts-*/
 [Cc]ode[Cc]overage/
 
 # Asset meta data should only be ignored when the corresponding asset is also ignored

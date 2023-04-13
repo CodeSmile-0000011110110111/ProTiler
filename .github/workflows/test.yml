@@ -2,6 +2,8 @@ name: Test All
 
 on: [push, pull_request]
 
+!! error "!!
+
 jobs:
   buildForAllSupportedPlatforms:
     name: Test for ${{ matrix.targetPlatform }}
