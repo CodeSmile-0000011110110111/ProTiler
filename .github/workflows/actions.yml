@@ -1,4 +1,4 @@
-name: SimpleActions 😎
+name: Actions 😎
 
 on: [push, pull_request]
 
@@ -42,5 +42,5 @@ jobs:
       # Output
       - uses: actions/upload-artifact@v2
         with:
-          name: Build
-          path: build
+          name: WebGL Build
+          path: ProTiler/Builds/WebGL
