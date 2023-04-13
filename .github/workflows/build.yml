@@ -36,13 +36,25 @@ jobs:
           key: Library-${{ matrix.targetPlatform }}
           restore-keys: Library-
       
-      # Test
-      - name: Run TestRunner
+      # EditMode Tests
+      - name: Run EditMode Tests
         uses: game-ci/unity-test-runner@v2
         env:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
         with:
+          testMode: EditMode
           projectPath: ${{ matrix.projectPath }}
+          githubToken: ${{ secrets.GITHUB_TOKEN }}
+
+      # PlayMode Tests
+      - name: Run PlayMode Tests
+        uses: game-ci/unity-test-runner@v2
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+        with:
+          testMode: PlayMode
+          projectPath: ${{ matrix.projectPath }}
+          githubToken: ${{ secrets.GITHUB_TOKEN }}
       
       # Build
       - name: Build ${{ matrix.targetPlatform }}
