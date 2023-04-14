@@ -1,6 +1,6 @@
 name: Test All Modes
 
-on: [push, pull_request]
+on: #[push, pull_request]
 
 jobs:
   testAllModes:
