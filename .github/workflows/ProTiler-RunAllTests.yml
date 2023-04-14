@@ -1,6 +1,6 @@
-name: ProTiler - Run All Tests
+name: ProTiler: Run All Tests
 
-on: [push, pull_request]
+on: workflow_dispatch
 
 jobs:
   testAllModes:

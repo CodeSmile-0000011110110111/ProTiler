@@ -1,4 +1,4 @@
-name: TestGameCI: Build All Platforms
+name: ProTiler: Build All Platforms
 
 on: workflow_dispatch
 
@@ -18,7 +18,7 @@ jobs:
           - Android # Build an Android .apk standalone app.
           - WebGL # WebGL.
         projectPath:
-          - TestGameCI
+          - ProTiler
     
     steps:
       # Checkout
@@ -33,7 +33,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ${{ matrix.projectPath }}/Library
-          key: Library-${{ matrix.targetPlatform }}
+          key: Library-${{ matrix.projectPath }}-${{ matrix.targetPlatform }}
           restore-keys: |
             Library-
             
