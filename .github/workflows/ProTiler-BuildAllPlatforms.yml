@@ -4,7 +4,7 @@ on: workflow_dispatch
 
 jobs:
   testAllModes:
-    name: Test - ${{ matrix.unityVersion }} - ${{ matrix.testMode }}
+    name: Test ${{ matrix.unityVersion }} - ${{ matrix.testMode }}
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -27,9 +27,9 @@ jobs:
       - uses: actions/cache@v3
         with:
           path: ${{ matrix.projectPath }}/Library
-          key: Library-${{ matrix.projectPath }}
+          key: Library-Test-${{ matrix.projectPath }}
           restore-keys: |
-            Library-${{ matrix.projectPath }}
+            Library-Test-${{ matrix.projectPath }}
 
       # Run Tests
       - uses: game-ci/unity-test-runner@v2
@@ -58,7 +58,7 @@ jobs:
 
   buildForAllSupportedPlatforms:
     needs: testAllModes
-    name: Build ${{ matrix.projectPath }} with Unity ${{ matrix.unityVersion }} for ${{ matrix.targetPlatform }}
+    name: Build ${{ matrix.unityVersion }} - ${{ matrix.targetPlatform }}
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
