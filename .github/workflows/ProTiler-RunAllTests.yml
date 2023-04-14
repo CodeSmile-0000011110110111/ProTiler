@@ -21,12 +21,12 @@ jobs:
           - PlayMode
     steps:
       # Checkout
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           lfs: true
           
       # Cache
-      - uses: actions/cache@v2
+      - uses: actions/cache@v3
         with:
           path: ${{ matrix.projectPath }}/Library
           key: Library-${{ matrix.projectPath }}
@@ -47,12 +47,12 @@ jobs:
           coverageOptions: 'useProjectSettings;generateHtmlReport;generateBadgeReport;generateAdditionalMetrics'
       
       # Artifacts
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         if: always()
         with:
           name: Test results for ${{ matrix.unityVersion }}-${{ matrix.testMode }}
           path: ${{ steps.tests.outputs.artifactsPath }}
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         if: always()
         with:
           name: Coverage results for ${{ matrix.unityVersion }}-${{ matrix.testMode }}
