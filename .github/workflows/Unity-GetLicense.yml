@@ -1,4 +1,4 @@
-name: Get Unity License
+name: Unity - Get License
 on:
   workflow_dispatch: {}
 jobs:
