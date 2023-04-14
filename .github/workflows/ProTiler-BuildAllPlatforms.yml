@@ -36,8 +36,6 @@ jobs:
           key: Library-${{ matrix.projectPath }}-${{ matrix.targetPlatform }}
           restore-keys: |
             Library-${{ matrix.projectPath }}-${{ matrix.targetPlatform }}
-            Library-${{ matrix.projectPath }}
-            Library-
             
       # Build
       - name: Build ${{ matrix.targetPlatform }}

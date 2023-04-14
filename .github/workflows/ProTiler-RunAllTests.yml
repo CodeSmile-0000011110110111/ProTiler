@@ -32,8 +32,6 @@ jobs:
           key: Library-${{ matrix.projectPath }}-${{ matrix.unityVersion }}
           restore-keys: |
             Library-${{ matrix.projectPath }}-${{ matrix.unityVersion }}
-            Library-${{ matrix.projectPath }}
-            Library-
       
       # Run Tests
       - uses: game-ci/unity-test-runner@v2
