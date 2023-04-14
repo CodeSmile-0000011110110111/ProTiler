@@ -32,7 +32,7 @@ jobs:
           key: Library-${{ matrix.projectPath }}
           restore-keys: |
             Library-${{ matrix.projectPath }}
-      
+
       # Run Tests
       - uses: game-ci/unity-test-runner@v2
         id: tests
@@ -57,4 +57,3 @@ jobs:
         with:
           name: Coverage results for ${{ matrix.unityVersion }}-${{ matrix.testMode }}
           path: ${{ steps.tests.outputs.coveragePath }}
-          
