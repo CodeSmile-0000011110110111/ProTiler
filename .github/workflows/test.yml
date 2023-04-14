@@ -1,3 +1,5 @@
+ERROR
+
 name: TestGameCI - Test All Modes
 
 on: workflow_dispatch

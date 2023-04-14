@@ -1,3 +1,5 @@
+ERROR
+
 name: TestGameCI - Build All Platforms
 
 on: workflow_dispatch
