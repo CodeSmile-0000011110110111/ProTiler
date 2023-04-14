@@ -4,7 +4,7 @@ on: workflow_dispatch
 
 jobs:
   testAllModes:
-    name: Test in ${{ matrix.testMode }}
+    name: Test - ${{ matrix.unityVersion }} - ${{ matrix.testMode }}
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -31,6 +31,8 @@ jobs:
           path: ${{ matrix.projectPath }}/Library
           key: Library-${{ matrix.projectPath }}-${{ matrix.unityVersion }}
           restore-keys: |
+            Library-${{ matrix.projectPath }}-${{ matrix.unityVersion }}
+            Library-${{ matrix.projectPath }}
             Library-
       
       # Run Tests
