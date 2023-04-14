@@ -13,8 +13,6 @@ jobs:
           - ProTiler
         unityVersion:
           - 2022.2.0f1
-          - 2022.1.0f1
-          - 2021.3.0f1
           - 2021.2.0f1
         testMode:
           - EditMode
@@ -75,8 +73,6 @@ jobs:
           - WebGL # WebGL.
         unityVersion:
           - 2022.2.0f1
-          - 2022.1.0f1
-          - 2021.3.0f1
           - 2021.2.0f1
         projectPath:
           - ProTiler
