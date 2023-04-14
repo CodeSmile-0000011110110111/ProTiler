@@ -11,9 +11,14 @@ jobs:
       matrix:
         projectPath:
           - ProTiler
+        unityVersion:
+          - 2022.2.0f1
+          - 2022.1.0f1
+          - 2021.3.0f1
+          - 2021.2.0f1
         testMode:
-          - editmode
-          - playmode
+          - EditMode
+          - PlayMode
     steps:
       # Checkout
       - uses: actions/checkout@v2
@@ -24,7 +29,7 @@ jobs:
       - uses: actions/cache@v2
         with:
           path: ${{ matrix.projectPath }}/Library
-          key: Library-${{ matrix.projectPath }}
+          key: Library-${{ matrix.projectPath }}-${{ matrix.unityVersion }}
           restore-keys: |
             Library-
       
@@ -36,20 +41,20 @@ jobs:
         with:
           projectPath: ${{ matrix.projectPath }}
           testMode: ${{ matrix.testMode }}
-          artifactsPath: artifacts-${{ matrix.testMode }}
+          artifactsPath: artifacts-${{ matrix.unityVersion }}-${{ matrix.testMode }}
           githubToken: ${{ secrets.GITHUB_TOKEN }}
-          checkName: ${{ matrix.testMode }} Test Results
+          checkName: ${{ matrix.unityVersion }}-${{ matrix.testMode }} Test Results
           coverageOptions: 'useProjectSettings;generateHtmlReport;generateBadgeReport;generateAdditionalMetrics'
       
       # Artifacts
       - uses: actions/upload-artifact@v2
         if: always()
         with:
-          name: Test results for ${{ matrix.testMode }}
+          name: Test results for ${{ matrix.unityVersion }}-${{ matrix.testMode }}
           path: ${{ steps.tests.outputs.artifactsPath }}
       - uses: actions/upload-artifact@v2
         if: always()
         with:
-          name: Coverage results for ${{ matrix.testMode }}
+          name: Coverage results for ${{ matrix.unityVersion }}-${{ matrix.testMode }}
           path: ${{ steps.tests.outputs.coveragePath }}
           
