@@ -1,4 +1,4 @@
-name: Cache - Clear All
+name: Cache - Delete All
 
 on: workflow_dispatch
 
@@ -9,7 +9,7 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v3
         
-      - name: Cleanup
+      - name: Delete Caches
         run: |
           gh extension install actions/gh-actions-cache
           
@@ -24,6 +24,7 @@ jobs:
           echo "Deleting caches..."
           for cacheKey in $cacheKeysForPR
           do
+              echo "Delete: $cacheKey" $cacheKey
               gh actions-cache delete $cacheKey -R $REPO -B $BRANCH --confirm
           done
           echo "Done"
