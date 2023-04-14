@@ -72,7 +72,7 @@ jobs:
           - Android # Build an Android .apk standalone app.
           - WebGL # WebGL.
         unityVersion:
-          - 2022.2.0f1
+          - 2022.2.14f1
           - 2021.2.0f1
         projectPath:
           - ProTiler
@@ -90,10 +90,9 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ${{ matrix.projectPath }}/Library
-          key: Library-${{ matrix.projectPath }}-${{ matrix.targetPlatform }}-${{ hashFiles(matrix.projectPath) }}
+          key: Library-${{ matrix.projectPath }}-${{ matrix.targetPlatform }}
           restore-keys: |
-            Library-${{ matrix.projectPath }}-${{ matrix.targetPlatform }}-${{ hashFiles(matrix.projectPath) }}
-            Library-${{ matrix.projectPath }}-${{ matrix.targetPlatform }}-
+            Library-${{ matrix.projectPath }}-${{ matrix.targetPlatform }}
             Library-${{ matrix.projectPath }}-
 
       # Build
