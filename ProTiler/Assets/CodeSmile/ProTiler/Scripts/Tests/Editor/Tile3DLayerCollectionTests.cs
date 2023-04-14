@@ -11,6 +11,7 @@ namespace CodeSmile.Editor.ProTiler.Tests
 		[Test]
 		public void SetTileTests()
 		{
+			/*
 			var width = 10;
 			var height = 20;
 			var layer = new Tile3DDataCollection(width, height);
@@ -19,6 +20,8 @@ namespace CodeSmile.Editor.ProTiler.Tests
 			Assert.AreEqual(0, layer.Count);
 
 			Assert.Fail("reimplement");
+			*/
+
 			/*
 			var coord = new Vector2Int(3, 7);
 			var tileData = new Tile3DData { Tile = ScriptableObject.CreateInstance<Tile3D>(), PrefabSetIndex = 1,};

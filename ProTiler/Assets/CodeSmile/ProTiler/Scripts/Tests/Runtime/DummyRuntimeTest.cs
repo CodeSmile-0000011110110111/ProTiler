@@ -9,7 +9,7 @@ namespace CodeSmile.ProTiler.Tests.Runtime
 	public class DummyRuntimeTest
 	{
 		// A Test behaves as an ordinary method
-		//[Test]
+		[Test]
 		public void DummyRuntimeTestSimplePasses()
 		{
 			// Use the Assert class to test conditions
