@@ -9,12 +9,11 @@ using Object = UnityEngine.Object;
 namespace CodeSmile.Collections
 {
 	/// <summary>
-	/// Contains UnityEngine.Object instances so they can be accessed by the same index in both editor and runtime.
-	/// It does *not* use GetInstanceID for indexes because the InstanceID differs between Editor and PlayMode.
-	///
-	///	Unorthodox Behaviour:
-	///		Index out of bounds access returns DefaultObject rather than throwing exceptions.
-	///		Will not store null references (throws exception).
+	///     Contains UnityEngine.Object instances so they can be accessed by the same index in both editor and runtime.
+	///     It does *not* use GetInstanceID for indexes because the InstanceID differs between Editor and PlayMode.
+	///     Unorthodox Behaviour:
+	///     Index out of bounds access returns DefaultObject rather than throwing exceptions.
+	///     Will not store null references (throws exception).
 	/// </summary>
 	[Serializable]
 	public class ObjectSet<T> where T : Object
@@ -24,7 +23,11 @@ namespace CodeSmile.Collections
 		private Dictionary<int, T> m_IndexedObjects = new();
 		//private HashSet<ObjectIndexPair> m_ObjectIndexPairs;
 
-		public T this[int index] => m_IndexedObjects.TryGetValue(index, out var existingObject) ? existingObject : DefaultObject;
+		public T this[int index]
+		{
+			get => TryGetObject(index);
+			set => ReplaceAt(index, value);
+		}
 
 		public int Count => m_IndexedObjects.Count;
 
@@ -77,6 +80,8 @@ namespace CodeSmile.Collections
 		}
 
 		public bool RemoveAt(int index) => m_IndexedObjects.Remove(index);
+
+		public T TryGetObject(int index) => m_IndexedObjects.TryGetValue(index, out var existingObject) ? existingObject : DefaultObject;
 
 		public void ReplaceAt(int index, T item)
 		{

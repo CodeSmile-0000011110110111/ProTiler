@@ -135,10 +135,10 @@ namespace CodeSmile.Editor.Tests
 			Assert.Throws<IndexOutOfRangeException>(() => { set.ReplaceAt(2, m_GO1); });
 			Assert.Throws<ArgumentException>(() => { set.ReplaceAt(1, m_GO1); });
 
-			set.ReplaceAt(0, m_GO3);
+			set[0] = m_GO3;
 			Assert.AreEqual(m_GO3, set[0]);
 
-			set.ReplaceAt(0, null);
+			set[0] = null;
 			Assert.AreEqual(set.DefaultObject, set[0]);
 
 			set.ReplaceAt(0, m_GO1);

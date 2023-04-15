@@ -5,7 +5,7 @@ on: workflow_dispatch
 jobs:
 
   testAllModes:
-    name: Test ${{ matrix.testMode }} ${{ matrix.unityVersion }}
+    name: ${{ matrix.unityVersion }} ${{ matrix.testMode }} Tests
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -59,18 +59,18 @@ jobs:
 
   buildAllSupportedPlatforms:
     #needs: testAllModes
-    name: ${{ matrix.targetPlatform }} ${{ matrix.unityVersion }}
+    name: ${{ matrix.unityVersion }} ${{ matrix.targetPlatform }} Build
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
         targetPlatform:
+          - Android # Build an Android .apk standalone app.
+          - iOS # Build an iOS player.
+          - StandaloneLinux64 # Build a Linux 64-bit standalone.
           - StandaloneOSX # Build a macOS standalone (Intel 64-bit).
           - StandaloneWindows # Build a Windows standalone.
           - StandaloneWindows64 # Build a Windows 64-bit standalone.
-          - StandaloneLinux64 # Build a Linux 64-bit standalone.
-          - iOS # Build an iOS player.
-          - Android # Build an Android .apk standalone app.
           - WebGL # WebGL.
         unityVersion:
           - 2022.2.15f1
@@ -106,7 +106,7 @@ jobs:
           targetPlatform: ${{ matrix.targetPlatform }}
           versioning: Semantic
           buildName: ${{ matrix.projectPath }}-${{ matrix.targetPlatform }}-${{ matrix.unityVersion }}
-          buildPath: build/${{ matrix.projectPath }}-${{ matrix.targetPlatform }}-${{ matrix.unityVersion }}
+          buildsPath: build/${{ matrix.projectPath }}-${{ matrix.targetPlatform }}-${{ matrix.unityVersion }}
       
       # Output
       - name: Create Output for ${{ matrix.targetPlatform }}
