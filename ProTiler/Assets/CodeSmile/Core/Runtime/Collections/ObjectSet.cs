@@ -9,7 +9,7 @@ using Object = UnityEngine.Object;
 namespace CodeSmile.Collections
 {
 	/// <summary>
-	///     Contains UnityEngine.Object instances so they can be accessed by the same index in both editor and runtime.
+	///     Contains unique UnityEngine.Object instances so they can be accessed by the same index in both editor and runtime.
 	///     It does *not* use GetInstanceID for indexes because the InstanceID differs between Editor and PlayMode.
 	///     Unorthodox Behaviour:
 	///     Index out of bounds access returns DefaultObject rather than throwing exceptions.
@@ -18,57 +18,108 @@ namespace CodeSmile.Collections
 	[Serializable]
 	public class ObjectSet<T> where T : Object
 	{
-		public T DefaultObject;
 		private int m_NextIndex;
 		private Dictionary<int, T> m_IndexedObjects = new();
 		//private HashSet<ObjectIndexPair> m_ObjectIndexPairs;
 
+		/// <summary>
+		/// The default object that is returned for non-existing indexes. Defaults to null.
+		/// </summary>
+		public T DefaultObject;
+
+		/// <summary>
+		/// Get or set object at index.
+		/// Getter calls TryGetObject.
+		/// Setter calls ReplaceAt.
+		/// </summary>
+		/// <param name="index"></param>
 		public T this[int index]
 		{
 			get => TryGetObject(index);
 			set => ReplaceAt(index, value);
 		}
 
+		/// <summary>
+		/// How many unique objects are in the set.
+		/// </summary>
 		public int Count => m_IndexedObjects.Count;
 
+		/// <summary>
+		/// Creates ObjectSet with DefaultObject null.
+		/// </summary>
 		public ObjectSet()
 			: this(null) {}
 
+		/// <summary>
+		/// Creates ObjectSet with specified DefaultObject.
+		/// </summary>
+		/// <param name="defaultObject"></param>
 		public ObjectSet(T defaultObject) => DefaultObject = defaultObject;
 
-		public bool Add(T item) => Add(item, out var _);
+		/// <summary>
+		/// Adds an object to the set. Does nothing if the object already exists.
+		/// </summary>
+		/// <param name="obj"></param>
+		/// <returns></returns>
+		public bool Add(T obj) => Add(obj, out var _);
 
-		public bool Add(T item, out int index)
+		/// <summary>
+		/// Adds an object to the set and returns its index. If the object already exists in the set, it returns the object's index but does not add it again.
+		/// </summary>
+		/// <param name="obj"></param>
+		/// <param name="index"></param>
+		/// <returns></returns>
+		/// <exception cref="ArgumentNullException">thrown when object is null</exception>
+		public bool Add(T obj, out int index)
 		{
 #if DEBUG
-			if (item == null)
+			if (obj == null)
 				throw new ArgumentNullException("item is null");
 #endif
 
-			if (Contains(item))
+			if (Contains(obj))
 			{
-				index = m_IndexedObjects.First(x => x.Value == item).Key;
+				index = m_IndexedObjects.First(x => x.Value == obj).Key;
 				return false;
 			}
 
-			m_IndexedObjects.Add(m_NextIndex, item);
+			m_IndexedObjects.Add(m_NextIndex, obj);
 			index = m_NextIndex;
 			m_NextIndex++;
 			return true;
 		}
 
+		/// <summary>
+		/// Removes all objects from the set.
+		/// </summary>
 		public void Clear() => m_IndexedObjects.Clear();
 
+		/// <summary>
+		/// Tests if there is an object for the given index.
+		/// </summary>
+		/// <param name="index"></param>
+		/// <returns>True if there is an object reference for the index in the set.</returns>
 		public bool Contains(int index) => m_IndexedObjects.ContainsKey(index);
-		public bool Contains(T item) => m_IndexedObjects.ContainsValue(item);
 
-		public bool Remove(T item)
+		/// <summary>
+		/// Tests if the object exists in the set.
+		/// </summary>
+		/// <param name="obj"></param>
+		/// <returns>True if the object is contained in the set. False if not or if obj is null.</returns>
+		public bool Contains(T obj) => m_IndexedObjects.ContainsValue(obj);
+
+		/// <summary>
+		/// Removes the object from the set. Does nothing if obj is null.
+		/// </summary>
+		/// <param name="obj"></param>
+		/// <returns>True if the object existed and was removed, otherwise false. Also returns false when obj is null.</returns>
+		public bool Remove(T obj)
 		{
-			if (item != null)
+			if (obj != null)
 			{
 				foreach (var kvp in m_IndexedObjects)
 				{
-					if (kvp.Value.Equals(item))
+					if (kvp.Value.Equals(obj))
 					{
 						m_IndexedObjects.Remove(kvp.Key);
 						return true;
@@ -79,25 +130,43 @@ namespace CodeSmile.Collections
 			return false;
 		}
 
+		/// <summary>
+		/// Removes an object at the index.
+		/// </summary>
+		/// <param name="index"></param>
+		/// <returns>True if an object with the index existed and was removed, otherwise false.</returns>
 		public bool RemoveAt(int index) => m_IndexedObjects.Remove(index);
 
+		/// <summary>
+		/// Tries to get an object for an index.
+		/// </summary>
+		/// <param name="index"></param>
+		/// <returns>The object at the index, or DefaultObject if there is no object for the given index.</returns>
 		public T TryGetObject(int index) => m_IndexedObjects.TryGetValue(index, out var existingObject) ? existingObject : DefaultObject;
 
-		public void ReplaceAt(int index, T item)
+		/// <summary>
+		/// Tries to replace an object at the index.
+		/// Note: If obj is null it will remove the object at the index since the set doesn't store null.
+		/// </summary>
+		/// <param name="index">0-based index</param>
+		/// <param name="obj">the object to set</param>
+		/// <exception cref="IndexOutOfRangeException">Thrown when index is < 0 or >= next index.</exception>
+		/// <exception cref="ArgumentException">Thrown when obj already exists in set</exception>
+		public void ReplaceAt(int index, T obj)
 		{
 #if DEBUG
 			if (index < 0)
 				throw new IndexOutOfRangeException("index is negative");
 			if (index >= m_NextIndex)
 				throw new IndexOutOfRangeException($"index {index} is greater or equal than next index {m_NextIndex}");
-			if (Contains(item))
-				throw new ArgumentException("item already exists in set!");
+			if (Contains(obj))
+				throw new ArgumentException("object already exists in set!");
 #endif
 
-			if (item == null)
+			if (obj == null)
 				m_IndexedObjects.Remove(index);
 			else
-				m_IndexedObjects[index] = item;
+				m_IndexedObjects[index] = obj;
 		}
 
 		/*

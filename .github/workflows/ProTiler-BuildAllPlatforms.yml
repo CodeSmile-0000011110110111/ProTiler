@@ -5,7 +5,7 @@ on: workflow_dispatch
 jobs:
 
   testAllModes:
-    name: ${{ matrix.unityVersion }} ${{ matrix.testMode }} Tests
+    name: ${{ matrix.testMode }}-${{ matrix.unityVersion }} Tests
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -58,8 +58,8 @@ jobs:
           path: ${{ steps.tests.outputs.coveragePath }}
 
   buildAllSupportedPlatforms:
-    #needs: testAllModes
-    name: ${{ matrix.unityVersion }} ${{ matrix.targetPlatform }} Build
+    needs: testAllModes
+    name: ${{ matrix.targetPlatform }}-${{ matrix.unityVersion }} Build
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
