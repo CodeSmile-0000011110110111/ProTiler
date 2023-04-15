@@ -14,7 +14,7 @@ jobs:
           - ProTiler
         unityVersion:
           - 2022.2.15f1
-          #- 2021.2.0f1
+          - 2021.2.0f1
         testMode:
           - EditMode
           - PlayMode
@@ -70,7 +70,7 @@ jobs:
           - ProTiler
         unityVersion:
           - 2022.2.15f1
-          #- 2021.2.0f1
+          - 2021.2.0f1
         targetPlatform:
           - Android # Build an Android .apk standalone app.
           - iOS # Build an iOS player.
