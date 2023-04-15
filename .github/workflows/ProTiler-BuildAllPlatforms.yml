@@ -1,4 +1,4 @@
-name: ProTiler - Build All Platforms
+name: ProTiler - Test & Build All
 
 on: workflow_dispatch
 
