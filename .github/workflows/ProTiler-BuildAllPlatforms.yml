@@ -58,7 +58,7 @@ jobs:
           path: ${{ steps.tests.outputs.coveragePath }}
 
   buildAllSupportedPlatforms:
-    needs: testAllModes
+    #needs: testAllModes
     name: ${{ matrix.targetPlatform }} ${{ matrix.unityVersion }}
     runs-on: ubuntu-latest
     strategy:
