@@ -5,7 +5,7 @@ on: workflow_dispatch
 jobs:
 
   testAllModes:
-    name: ${{ matrix.testMode }}-${{ matrix.unityVersion }} Tests
+    name: ${{ matrix.unityVersion }}-${{ matrix.testMode }} Tests
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -21,6 +21,7 @@ jobs:
         testMode:
           - EditMode
           - PlayMode
+
     steps:
       # Checkout
       - uses: actions/checkout@v3

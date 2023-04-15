@@ -5,7 +5,7 @@ on: workflow_dispatch
 jobs:
 
   testAllModes:
-    name: ${{ matrix.testMode }}-${{ matrix.unityVersion }} Tests
+    name: ${{ matrix.unityVersion }}-${{ matrix.testMode }} Tests
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -18,8 +18,6 @@ jobs:
         testMode:
           - EditMode
           - PlayMode
-          
-          
           
     steps:
       # Checkout
@@ -62,11 +60,16 @@ jobs:
 
   buildAllSupportedPlatforms:
     needs: testAllModes
-    name: ${{ matrix.targetPlatform }}-${{ matrix.unityVersion }} Build
+    name: ${{ matrix.unityVersion }}-${{ matrix.targetPlatform }} Build
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
+        projectPath:
+          - ProTiler
+        unityVersion:
+          - 2022.2.15f1
+          - 2021.2.0f1
         targetPlatform:
           - Android # Build an Android .apk standalone app.
           - iOS # Build an iOS player.
@@ -75,11 +78,6 @@ jobs:
           - StandaloneWindows # Build a Windows standalone.
           - StandaloneWindows64 # Build a Windows 64-bit standalone.
           - WebGL # WebGL.
-        unityVersion:
-          - 2022.2.15f1
-          - 2021.2.0f1
-        projectPath:
-          - ProTiler
     
     steps:
       # Checkout
