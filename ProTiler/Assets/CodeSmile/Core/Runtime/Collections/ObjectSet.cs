@@ -9,9 +9,12 @@ using Object = UnityEngine.Object;
 namespace CodeSmile.Collections
 {
 	/// <summary>
-	///     Contains UnityEngine.Object instances so they can be accessed by the same index in both editor and runtime.
-	///     Fault tolerant: Index out of bounds access returns a default object rather than throwing exceptions.
-	///     Note: GetInstanceID cannot be used as an index because its value may differ between Editor and Runtime.
+	/// Contains UnityEngine.Object instances so they can be accessed by the same index in both editor and runtime.
+	/// It does *not* use GetInstanceID for indexes because the InstanceID differs between Editor and PlayMode.
+	///
+	///	Unorthodox Behaviour:
+	///		Index out of bounds access returns DefaultObject rather than throwing exceptions.
+	///		Will not store null references (throws exception).
 	/// </summary>
 	[Serializable]
 	public class ObjectSet<T> where T : Object
@@ -21,11 +24,7 @@ namespace CodeSmile.Collections
 		private Dictionary<int, T> m_IndexedObjects = new();
 		//private HashSet<ObjectIndexPair> m_ObjectIndexPairs;
 
-		public T this[int index]
-		{
-			get => m_IndexedObjects.TryGetValue(index, out var existingObject) ? existingObject : DefaultObject;
-			set => m_IndexedObjects[index] = Contains(index) ? value : throw new KeyNotFoundException($"index {index} does not exist in set");
-		}
+		public T this[int index] => m_IndexedObjects.TryGetValue(index, out var existingObject) ? existingObject : DefaultObject;
 
 		public int Count => m_IndexedObjects.Count;
 
@@ -38,9 +37,14 @@ namespace CodeSmile.Collections
 
 		public bool Add(T item, out int index)
 		{
+#if DEBUG
+			if (item == null)
+				throw new ArgumentNullException("item is null");
+#endif
+
 			if (Contains(item))
 			{
-				index = m_IndexedObjects.FirstOrDefault(x => x.Value == item).Key;
+				index = m_IndexedObjects.First(x => x.Value == item).Key;
 				return false;
 			}
 
@@ -57,18 +61,39 @@ namespace CodeSmile.Collections
 
 		public bool Remove(T item)
 		{
-			foreach (var kvp in m_IndexedObjects)
+			if (item != null)
 			{
-				if (kvp.Value.Equals(item))
+				foreach (var kvp in m_IndexedObjects)
 				{
-					m_IndexedObjects.Remove(kvp.Key);
-					return true;
+					if (kvp.Value.Equals(item))
+					{
+						m_IndexedObjects.Remove(kvp.Key);
+						return true;
+					}
 				}
 			}
+
 			return false;
 		}
 
-		public bool Remove(int index) => m_IndexedObjects.Remove(index);
+		public bool RemoveAt(int index) => m_IndexedObjects.Remove(index);
+
+		public void ReplaceAt(int index, T item)
+		{
+#if DEBUG
+			if (index < 0)
+				throw new IndexOutOfRangeException("index is negative");
+			if (index >= m_NextIndex)
+				throw new IndexOutOfRangeException($"index {index} is greater or equal than next index {m_NextIndex}");
+			if (Contains(item))
+				throw new ArgumentException("item already exists in set!");
+#endif
+
+			if (item == null)
+				m_IndexedObjects.Remove(index);
+			else
+				m_IndexedObjects[index] = item;
+		}
 
 		/*
 		private sealed class ObjectIndexPair : IEquatable<T>

@@ -4,7 +4,6 @@
 using CodeSmile.Collections;
 using NUnit.Framework;
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -56,6 +55,8 @@ namespace CodeSmile.Editor.Tests
 		{
 			var set = m_Set;
 
+			Assert.Throws<ArgumentNullException>(() => { set.Add(null); });
+
 			var added = set.Add(m_GO1);
 			Assert.AreEqual(true, added);
 			Assert.AreEqual(1, set.Count);
@@ -88,8 +89,9 @@ namespace CodeSmile.Editor.Tests
 			Assert.AreEqual(2, set.Count);
 			Assert.AreEqual(2, index3);
 
-			set.Remove(1);
+			set.RemoveAt(1);
 			Assert.AreEqual(1, set.Count);
+			Assert.IsFalse(set.RemoveAt(1));
 			Assert.IsFalse(set.Contains(m_GO1));
 			Assert.IsFalse(set.Contains(m_GO2));
 			Assert.IsTrue(set.Contains(m_GO3));
@@ -97,6 +99,8 @@ namespace CodeSmile.Editor.Tests
 			set.Clear();
 			Assert.AreEqual(0, set.Count);
 			Assert.IsFalse(set.Contains(m_GO3));
+
+			Assert.IsFalse(set.Contains(null));
 		}
 
 		[Test]
@@ -106,7 +110,6 @@ namespace CodeSmile.Editor.Tests
 
 			var obj = set[0];
 			Assert.AreEqual(set.DefaultObject, obj);
-			Assert.Throws(typeof(KeyNotFoundException), () => { set[0] = m_GO1; });
 
 			set.Add(m_GO1);
 			set.Add(m_GO2);
@@ -114,8 +117,32 @@ namespace CodeSmile.Editor.Tests
 			Assert.AreEqual(m_GO1, set[0]);
 			Assert.AreEqual(m_GO2, set[1]);
 			Assert.AreEqual(m_GO3, set[2]);
-			set[2] = m_GO1;
-			Assert.AreEqual(m_GO1, set[2]);
+
+			set.Remove(m_GO2);
+			Assert.AreEqual(set.DefaultObject, set[1]);
+			set.Add(m_GO2);
+			Assert.AreEqual(m_GO2, set[3]);
+		}
+
+		[Test]
+		public void ReplaceTests()
+		{
+			var set = m_Set;
+			set.Add(m_GO1);
+			set.Add(m_GO2);
+
+			Assert.Throws<IndexOutOfRangeException>(() => { set.ReplaceAt(-1, m_GO1); });
+			Assert.Throws<IndexOutOfRangeException>(() => { set.ReplaceAt(2, m_GO1); });
+			Assert.Throws<ArgumentException>(() => { set.ReplaceAt(1, m_GO1); });
+
+			set.ReplaceAt(0, m_GO3);
+			Assert.AreEqual(m_GO3, set[0]);
+
+			set.ReplaceAt(0, null);
+			Assert.AreEqual(set.DefaultObject, set[0]);
+
+			set.ReplaceAt(0, m_GO1);
+			Assert.AreEqual(m_GO1, set[0]);
 		}
 	}
 }

@@ -5,7 +5,7 @@ on: workflow_dispatch
 jobs:
 
   testAllModes:
-    name: Test ${{ matrix.unityVersion }} - ${{ matrix.testMode }}
+    name: Test ${{ matrix.testMode }} ${{ matrix.unityVersion }}
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -59,7 +59,7 @@ jobs:
 
   buildAllSupportedPlatforms:
     needs: testAllModes
-    name: Build ${{ matrix.unityVersion }} - ${{ matrix.targetPlatform }}
+    name: ${{ matrix.targetPlatform }} ${{ matrix.unityVersion }}
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -106,6 +106,7 @@ jobs:
           targetPlatform: ${{ matrix.targetPlatform }}
           versioning: Semantic
           buildName: ${{ matrix.projectPath }}-${{ matrix.targetPlatform }}-${{ matrix.unityVersion }}
+          buildPath: build/${{ matrix.projectPath }}-${{ matrix.targetPlatform }}-${{ matrix.unityVersion }}
       
       # Output
       - name: Create Output for ${{ matrix.targetPlatform }}
