@@ -17,5 +17,5 @@ public class ExampleToolbarOverlay : ToolbarOverlay
 	// This is the only code required to implement a toolbar Overlay. Unlike panel Overlays, the contents are defined
 	// as standalone pieces that will be collected to form a strip of elements.
 	private ExampleToolbarOverlay()
-		: base(ExampleCreateCubeToolbarButton.id, ExampleToolbarToggle.id, ExampleToolbarDropdown.id, ExampleToolbarDropdownToggle.id) {}
+		: base(ExampleCreateCubeToolbarButton.id, ExampleToolbarToggle.id, ExampleToolbarDropdown.id/*, ExampleToolbarDropdownToggle.id*/) {}
 }

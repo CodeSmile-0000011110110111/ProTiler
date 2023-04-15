@@ -42,8 +42,8 @@ namespace CodeSmile.Editor.ProTiler
 							meshRenderer = cursor.GetChild(0).GetChild(0).GetComponent<MeshRenderer>();
 					}
 
-					if (meshRenderer != null)
-						Handles.DrawOutline(new[] { meshRenderer.gameObject }, Colors.OutlineColor);
+					// if (meshRenderer != null)
+					// 	Handles.DrawOutline(new[] { meshRenderer.gameObject }, Colors.OutlineColor);
 				}
 			}
 		}

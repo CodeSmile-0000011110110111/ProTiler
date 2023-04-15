@@ -1,7 +1,7 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
-using UnityEditor;
+/*using UnityEditor;
 using UnityEditor.Toolbars;
 using UnityEngine;
 
@@ -54,4 +54,4 @@ internal class ExampleToolbarDropdownToggle : EditorToolbarDropdownToggle, IAcce
 		menu.AddItem(new GUIContent("Blue"), colorIndex == 2, () => colorIndex = 2);
 		menu.ShowAsContext();
 	}
-}
+}*/
