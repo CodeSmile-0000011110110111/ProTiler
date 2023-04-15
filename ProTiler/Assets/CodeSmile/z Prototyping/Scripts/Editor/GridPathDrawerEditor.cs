@@ -1,7 +1,7 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
-using System;
+/*using System;
 using UnityEditor;
 using UnityEngine;
 using UnityEditor_Handles = UnityEditor.Handles;
@@ -115,23 +115,21 @@ namespace CodeSmile.Editor
 			if (initialValue - change != 0f)
 				Debug.Log("value change: " + change);
 
-			/*
-			var newTargetPosition = Handles.Slider(position, direction, size,
-				(id, position, rotation, size, type) =>
-				{
-					Handles.ArrowHandleCap(id, position, rotation, size, EventType.Repaint);
-					Handles.ArrowHandleCap(id, position, rotation, size, EventType.Layout);
-				}, 1f);
-
-			if (EditorGUI.EndChangeCheck())
-			{
-				var pathDrawer = (GridPathDrawer)target;
-				Undo.RecordObject(pathDrawer, "Move Path Line");
-
-				pathDrawer.Path.MoveEdge(pointIndex, newTargetPosition, direction);
-				Debug.Log($"moved to: {newTargetPosition}");
-			}
-			*/
+			// var newTargetPosition = Handles.Slider(position, direction, size,
+			// 	(id, position, rotation, size, type) =>
+			// 	{
+			// 		Handles.ArrowHandleCap(id, position, rotation, size, EventType.Repaint);
+			// 		Handles.ArrowHandleCap(id, position, rotation, size, EventType.Layout);
+			// 	}, 1f);
+			//
+			// if (EditorGUI.EndChangeCheck())
+			// {
+			// 	var pathDrawer = (GridPathDrawer)target;
+			// 	Undo.RecordObject(pathDrawer, "Move Path Line");
+			//
+			// 	pathDrawer.Path.MoveEdge(pointIndex, newTargetPosition, direction);
+			// 	Debug.Log($"moved to: {newTargetPosition}");
+			// }
 		}
 
 		private void ProcessMouseDownEvent()
@@ -188,4 +186,4 @@ namespace CodeSmile.Editor
 			}
 		}
 	}
-}
+}*/

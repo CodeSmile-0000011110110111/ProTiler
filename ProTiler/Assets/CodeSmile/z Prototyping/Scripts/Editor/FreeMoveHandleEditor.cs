@@ -1,7 +1,7 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
-using System;
+/*using System;
 using UnityEditor;
 using UnityEngine;
 using UnityEditor_Editor = UnityEditor.Editor;
@@ -94,4 +94,4 @@ namespace CodeSmile.HandlesTest.UnityEditor
 			_ => throw new ArgumentOutOfRangeException(nameof(capType), capType, null),
 		};
 	}
-}
+}*/

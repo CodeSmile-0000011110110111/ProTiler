@@ -1,7 +1,7 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
-using UnityEditor;
+/*using UnityEditor;
 using UnityEngine;
 using UnityEditor_Handles = UnityEditor.Handles;
 
@@ -35,13 +35,12 @@ namespace CodeSmile.Editor
 				var gridSize = EditorSnapSettings.gridSize;
 				UnityEditor_Handles.DrawWireCube(m_IntersectPoint[0], gridSize);
 			}
-			/*
-			else if (evType == EventType.MouseMove)
-			{
-				var go = HandleUtility.PickGameObject(Event.current.mousePosition, false);
-				if (go != null)
-					Debug.Log($"picked: {go.name}");
-			}*/
+			// else if (evType == EventType.MouseMove)
+			// {
+			// 	var go = HandleUtility.PickGameObject(Event.current.mousePosition, false);
+			// 	if (go != null)
+			// 		Debug.Log($"picked: {go.name}");
+			// }
 			else
 			{
 				var canPlaceTile = false;
@@ -54,15 +53,13 @@ namespace CodeSmile.Editor
 					canPlaceTile = true;
 				}
 
-				/*
-					var ray = HandleUtility.GUIPointToWorldRay(mousePos);
-					if (ray.IntersectsPlane(out m_IntersectPoint[0]))
-					{
-						HandlesExt.SnapIntersectPointsToGrid(m_IntersectPoint);
-						canPlaceTile = true;
-						//Debug.Log($"hit virtual plane at {m_IntersectPoint[0]}");
-					}
-					*/
+					// var ray = HandleUtility.GUIPointToWorldRay(mousePos);
+					// if (ray.IntersectsPlane(out m_IntersectPoint[0]))
+					// {
+					// 	HandlesExt.SnapIntersectPointsToGrid(m_IntersectPoint);
+					// 	canPlaceTile = true;
+					// 	//Debug.Log($"hit virtual plane at {m_IntersectPoint[0]}");
+					// }
 				if (canPlaceTile)
 				{
 					if (Event.current.button == 0 && (evType == EventType.MouseDown || evType == EventType.MouseDrag ||
@@ -85,4 +82,4 @@ namespace CodeSmile.Editor
 			}
 		}
 	}
-}
+}*/
