@@ -54,11 +54,12 @@ jobs:
         with:
           projectPath: ${{ matrix.projectPath }}
           testMode: ${{ matrix.testMode }}
+          unityVersion: ${{ matrix.unityVersion }}
           artifactsPath: artifacts-${{ matrix.unityVersion }}-${{ matrix.testMode }}
           githubToken: ${{ secrets.GITHUB_TOKEN }}
           checkName: ${{ matrix.unityVersion }}-${{ matrix.testMode }} Test Results
           coverageOptions: 'useProjectSettings;generateHtmlReport;generateBadgeReport;generateAdditionalMetrics'
-      
+    
       # Artifacts
       - uses: actions/upload-artifact@v3
         if: always()

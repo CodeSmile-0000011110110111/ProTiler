@@ -13,7 +13,7 @@ jobs:
         projectPath:
           - ProTiler
         unityVersion:
-          - 2022.2.15f1
+          #- 2022.2.15f1
           - 2021.2.0f1
         testMode:
           - EditMode
@@ -41,6 +41,7 @@ jobs:
         with:
           projectPath: ${{ matrix.projectPath }}
           testMode: ${{ matrix.testMode }}
+          unityVersion: ${{ matrix.unityVersion }}
           artifactsPath: artifacts-${{ matrix.unityVersion }}-${{ matrix.testMode }}
           githubToken: ${{ secrets.GITHUB_TOKEN }}
           checkName: ${{ matrix.unityVersion }}-${{ matrix.testMode }} Test Results
@@ -105,6 +106,7 @@ jobs:
         with:
           projectPath: ${{ matrix.projectPath }}
           targetPlatform: ${{ matrix.targetPlatform }}
+          unityVersion: ${{ matrix.unityVersion }}
           versioning: Semantic
           buildName: ${{ matrix.projectPath }}-${{ matrix.targetPlatform }}-${{ matrix.unityVersion }}
           buildsPath: build/${{ matrix.projectPath }}-${{ matrix.targetPlatform }}-${{ matrix.unityVersion }}
