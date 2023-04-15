@@ -3,6 +3,7 @@ name: ProTiler - Build All Platforms
 on: workflow_dispatch
 
 jobs:
+
   testAllModes:
     name: Test ${{ matrix.unityVersion }} - ${{ matrix.testMode }}
     runs-on: ubuntu-latest
@@ -56,7 +57,7 @@ jobs:
           name: Coverage results for ${{ matrix.unityVersion }}-${{ matrix.testMode }}
           path: ${{ steps.tests.outputs.coveragePath }}
 
-  buildForAllSupportedPlatforms:
+  buildAllSupportedPlatforms:
     needs: testAllModes
     name: Build ${{ matrix.unityVersion }} - ${{ matrix.targetPlatform }}
     runs-on: ubuntu-latest
@@ -72,7 +73,7 @@ jobs:
           - Android # Build an Android .apk standalone app.
           - WebGL # WebGL.
         unityVersion:
-          - 2022.2.14f1
+          - 2022.2.15f1
           - 2021.2.0f1
         projectPath:
           - ProTiler
@@ -104,13 +105,14 @@ jobs:
           projectPath: ${{ matrix.projectPath }}
           targetPlatform: ${{ matrix.targetPlatform }}
           versioning: Semantic
+          buildName: ${{ matrix.projectPath }}-${{ matrix.targetPlatform }}-${{ matrix.unityVersion }}
       
       # Output
       - name: Create Output for ${{ matrix.targetPlatform }}
         uses: actions/upload-artifact@v3
         with:
-          name: Build-${{ matrix.projectPath }}-${{ matrix.targetPlatform }}
-          path: Builds/${{ matrix.projectPath }}-${{ matrix.targetPlatform }}
+          name: ${{ matrix.projectPath }}-${{ matrix.targetPlatform }}-${{ matrix.unityVersion }}
+          path: build/${{ matrix.projectPath }}-${{ matrix.targetPlatform }}-${{ matrix.unityVersion }}
 
 #  buildWebGL:
 #    needs: testRunner
