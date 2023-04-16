@@ -13,7 +13,7 @@ jobs:
         projectPath:
           - ProTiler
         unityVersion:
-          - 2022.2.15f1
+          - 2022.2.0f1
           - 2022.1.0f1
           - 2021.3.0f1
           - 2021.2.0f1

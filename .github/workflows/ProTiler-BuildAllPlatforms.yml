@@ -72,13 +72,21 @@ jobs:
           - 2022.2.15f1
           - 2021.2.0f1
         targetPlatform:
-          - Android # Build an Android .apk standalone app.
-          - iOS # Build an iOS player.
-          - StandaloneLinux64 # Build a Linux 64-bit standalone.
-          - StandaloneOSX # Build a macOS standalone (Intel 64-bit).
-          - StandaloneWindows # Build a Windows standalone.
-          - StandaloneWindows64 # Build a Windows 64-bit standalone.
+          #- Android # Build an Android .apk standalone app.
+          #- iOS # Build an iOS player.
+          #- StandaloneLinux64 # Build a Linux 64-bit standalone.
+          #- StandaloneOSX # Build a macOS standalone (Intel 64-bit).
+          #- StandaloneWindows # Build a Windows standalone.
+          #- StandaloneWindows64 # Build a Windows 64-bit standalone.
           - WebGL # WebGL.
+          - tvOS
+          - WSAPlayer
+          - PS4
+          - PS5
+          - XboxOne
+          - Switch
+          - Stadia
+          - LinuxHeadlessSimulation
     
     steps:
       # Checkout
