@@ -69,8 +69,7 @@ jobs:
         unityVersion:
           - ${{ vars.LATEST_UNITY_VERSION }}
           - ${{ vars.EARLIEST_UNITY_VERSION }}
-        targetPlatform:
-          ${{ vars.TARGET_PLATFORM_WEBGL }}
+        targetPlatform: ${{ fromJson(vars.BUILD_TARGETPLATFORMS) }}
     
     steps:
       # Checkout
