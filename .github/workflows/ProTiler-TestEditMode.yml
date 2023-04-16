@@ -1,6 +1,6 @@
 name: ProTiler - Tests EditMode
 
-on: push
+on: workflow_dispatch
 
 jobs:
 
