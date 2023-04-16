@@ -7,7 +7,6 @@ jobs:
   testAllModes:
     name: ${{ matrix.unityVersion }}-${{ matrix.testMode }} Tests
     runs-on: ubuntu-latest
-    environment: BuildProTiler
     strategy:
       fail-fast: false
       matrix:
@@ -17,15 +16,10 @@ jobs:
           - ${{ vars.LATEST_UNITY_VERSION }}
           - ${{ vars.EARLIEST_UNITY_VERSION }}
         testMode:
-          - EditMode
-          - PlayMode
+          ${{ vars.TEST_EDITMODE }}
+          ${{ vars.TEST_PLAYMODE }}
           
     steps:
-      # Test
-      - uses: /.github/actions/test@v1
-        with:
-            varia: success
-      
       # Checkout
       - uses: actions/checkout@v3
         with:
@@ -69,7 +63,6 @@ jobs:
     needs: testAllModes
     name: ${{ matrix.unityVersion }}-${{ matrix.targetPlatform }} Build
     runs-on: ubuntu-latest
-    environment: BuildProTiler
     strategy:
       fail-fast: false
       matrix:
@@ -79,7 +72,7 @@ jobs:
           - ${{ vars.LATEST_UNITY_VERSION }}
           - ${{ vars.EARLIEST_UNITY_VERSION }}
         targetPlatform:
-          - WebGL
+          ${{ vars.TARGET_PLATFORM_WEBGL }}
     
     steps:
       # Checkout
