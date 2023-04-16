@@ -1,4 +1,4 @@
-name: ProTiler - Build ${{ vars.BUILD_TARGETPLATFORM }}
+name: ProTiler - Build Single
 
 on: workflow_dispatch
 
