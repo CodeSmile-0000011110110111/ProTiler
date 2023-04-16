@@ -1,4 +1,4 @@
-name: ProTiler Tests EditMode
+name: Test ProTiler - EditMode
 
 on: workflow_dispatch
 

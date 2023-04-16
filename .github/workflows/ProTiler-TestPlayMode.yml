@@ -1,4 +1,4 @@
-name: ProTiler Tests PlayMode
+name: Test ProTiler - PlayMode
 
 on: workflow_dispatch
 
