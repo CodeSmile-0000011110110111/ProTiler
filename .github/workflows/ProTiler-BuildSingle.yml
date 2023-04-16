@@ -14,7 +14,7 @@ jobs:
         projectPath:
           - ${{ vars.PROJECT_PATH }}
         unityVersion:
-          - ${{ vars.LATEST_UNITY_VERSION }}
+          #- ${{ vars.LATEST_UNITY_VERSION }}
           - ${{ vars.EARLIEST_UNITY_VERSION }}
         testMode: ${{ fromJson(vars.BUILD_TESTMODES) }}
           
@@ -69,7 +69,7 @@ jobs:
         projectPath:
           - ${{ vars.PROJECT_PATH }}
         unityVersion:
-          - ${{ vars.LATEST_UNITY_VERSION }}
+          #- ${{ vars.LATEST_UNITY_VERSION }}
           - ${{ vars.EARLIEST_UNITY_VERSION }}
         targetPlatform: 
           - ${{ vars.BUILD_TARGETPLATFORM }}
@@ -108,7 +108,7 @@ jobs:
       # Output
       - name: Create Output for ${{ matrix.targetPlatform }}
         uses: actions/upload-artifact@v3
-        if: ${{ matrix.unityVersion == vars.LATEST_UNITY_VERSION }}
+        #if: ${{ matrix.unityVersion == vars.LATEST_UNITY_VERSION }}
         with:
           name: ${{ matrix.projectPath }}-${{ matrix.targetPlatform }}-${{ matrix.unityVersion }}
           path: build/${{ matrix.projectPath }}-${{ matrix.targetPlatform }}-${{ matrix.unityVersion }}
