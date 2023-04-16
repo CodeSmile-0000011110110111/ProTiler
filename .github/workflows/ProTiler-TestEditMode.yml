@@ -1,24 +1,20 @@
 name: ProTiler - Tests EditMode
 
-on: workflow_dispatch
+on: push
 
 jobs:
 
   testAllModes:
     name: ${{ matrix.unityVersion }}-${{ matrix.testMode }} Tests
     runs-on: ubuntu-latest
-    environment: TestProTiler
     strategy:
       fail-fast: false
       matrix:
         projectPath:
           - ${{ vars.PROJECT_PATH }}
         unityVersion:
-          - 2022.2.15f1
-          - 2022.2.0f1
-          - 2022.1.0f1
-          - 2021.3.0f1
-          - 2021.2.0f1
+          - ${{ vars.LATEST_UNITY_VERSION }}
+          - ${{ vars.EARLIEST_UNITY_VERSION }}
         testMode:
           - EditMode
 

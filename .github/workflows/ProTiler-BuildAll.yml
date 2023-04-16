@@ -1,4 +1,4 @@
-name: ProTiler - Build WebGL
+name: ProTiler - Build All
 
 on: push
 
