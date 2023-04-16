@@ -3,7 +3,7 @@ name: ProTiler - Build WebGL
 on: workflow_dispatch
 
 env:
-  PROJECT_PATH: ${{ vars.PROJECT_PATH }}
+  projectPath: ${{ vars.PROJECT_PATH }}
   latestUnityVersion: '2021.2.15f1'
 
 jobs:
@@ -11,6 +11,7 @@ jobs:
   testAllModes:
     name: ${{ matrix.unityVersion }}-${{ matrix.testMode }} Tests
     runs-on: ubuntu-latest
+    environment: BuildProTiler
     strategy:
       fail-fast: false
       matrix:
