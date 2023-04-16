@@ -5,6 +5,7 @@ on: workflow_dispatch
 jobs:
 
   testAllModes:
+    if: ${{ always() }}
     name: ${{ matrix.unityVersion }}-${{ matrix.testMode }} Tests
     runs-on: ubuntu-latest
     environment: BuildProTiler
@@ -60,7 +61,6 @@ jobs:
 
   buildAllSupportedPlatforms:
     needs: testAllModes
-    if: ${{ always() }}
     name: ${{ matrix.unityVersion }}-${{ matrix.targetPlatform }} Build
     runs-on: ubuntu-latest
     environment: BuildProTiler
