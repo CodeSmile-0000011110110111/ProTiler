@@ -3,7 +3,7 @@ name: ProTiler - Build WebGL
 on: workflow_dispatch
 
 env:
-  latestUnityVersion:2021.2.15f1
+  latestUnityVersion: '2021.2.15f1'
 
 jobs:
 
