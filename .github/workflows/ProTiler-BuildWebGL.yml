@@ -16,8 +16,8 @@ jobs:
           - ${{ vars.LATEST_UNITY_VERSION }}
           - ${{ vars.EARLIEST_UNITY_VERSION }}
         testMode:
-          ${{ vars.TEST_EDITMODE }}
-          ${{ vars.TEST_PLAYMODE }}
+          - ${{ vars.TEST_EDITMODE }}
+          - ${{ vars.TEST_PLAYMODE }}
           
     steps:
       # Checkout
