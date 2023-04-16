@@ -1,11 +1,10 @@
-name: ProTiler - Build All
+name: ProTiler - Build ${{ vars.BUILD_TARGETPLATFORM }}
 
 on: workflow_dispatch
 
 jobs:
 
   testAllModes:
-    if: ${{ always() }}
     name: ${{ matrix.unityVersion }}-${{ matrix.testMode }} Tests
     runs-on: ubuntu-latest
     environment: BuildProTiler
@@ -72,7 +71,8 @@ jobs:
         unityVersion:
           - ${{ vars.LATEST_UNITY_VERSION }}
           - ${{ vars.EARLIEST_UNITY_VERSION }}
-        targetPlatform: ${{ fromJson(vars.BUILD_TARGETPLATFORMS) }}
+        targetPlatform: 
+          - ${{ vars.BUILD_TARGETPLATFORM }}
     
     steps:
       # Checkout
