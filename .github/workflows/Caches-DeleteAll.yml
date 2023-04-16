@@ -1,4 +1,4 @@
-name: _Delete - All Caches
+name: _ Delete - All Caches _
 
 on: workflow_dispatch
 

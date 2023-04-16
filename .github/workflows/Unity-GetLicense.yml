@@ -1,4 +1,4 @@
-name: Activation - Unity License
+name: _ Activation - Unity License _
 on:
   workflow_dispatch: {}
 jobs:
