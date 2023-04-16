@@ -1,6 +1,6 @@
 name: ProTiler - Tests PlayMode
 
-on: push
+on: workflow_dispatch
 
 jobs:
 
@@ -11,7 +11,7 @@ jobs:
       fail-fast: false
       matrix:
         projectPath:
-          - ProTiler
+          - ${{ vars.PROJECT_PATH }}
         unityVersion:
           - 2022.2.15f1
           - 2022.2.0f1

@@ -2,6 +2,9 @@ name: ProTiler - Build WebGL
 
 on: workflow_dispatch
 
+env:
+  latestUnityVersion:2021.2.15f1
+
 jobs:
 
   testAllModes:
@@ -11,7 +14,7 @@ jobs:
       fail-fast: false
       matrix:
         projectPath:
-          - ProTiler
+          - ${{ vars.PROJECT_PATH }}
         unityVersion:
           - 2021.2.0f1
         testMode:
@@ -47,16 +50,16 @@ jobs:
           coverageOptions: 'useProjectSettings;generateHtmlReport;generateBadgeReport;generateAdditionalMetrics'
       
       # Artifacts
-      - uses: actions/upload-artifact@v3
-        if: always()
-        with:
-          name: Test results for ${{ matrix.unityVersion }}-${{ matrix.testMode }}
-          path: ${{ steps.tests.outputs.artifactsPath }}
-      - uses: actions/upload-artifact@v3
-        if: always()
-        with:
-          name: Coverage results for ${{ matrix.unityVersion }}-${{ matrix.testMode }}
-          path: ${{ steps.tests.outputs.coveragePath }}
+#      - uses: actions/upload-artifact@v3
+#        if: always()
+#        with:
+#          name: Test results for ${{ matrix.unityVersion }}-${{ matrix.testMode }}
+#          path: ${{ steps.tests.outputs.artifactsPath }}
+#      - uses: actions/upload-artifact@v3
+#        if: always()
+#        with:
+#          name: Coverage results for ${{ matrix.unityVersion }}-${{ matrix.testMode }}
+#          path: ${{ steps.tests.outputs.coveragePath }}
 
   buildAllSupportedPlatforms:
     needs: testAllModes
@@ -68,7 +71,7 @@ jobs:
         projectPath:
           - ProTiler
         unityVersion:
-          - 2022.2.15f1
+          - ${{ env.latestUnityVersion }}
           - 2022.2.0f1
           - 2022.1.0f1
           - 2021.3.0f1
@@ -110,6 +113,7 @@ jobs:
       # Output
       - name: Create Output for ${{ matrix.targetPlatform }}
         uses: actions/upload-artifact@v3
+        if: ${{ matrix.unityVersion == env.latestUnityVersion }}
         with:
           name: ${{ matrix.projectPath }}-${{ matrix.targetPlatform }}-${{ matrix.unityVersion }}
           path: build/${{ matrix.projectPath }}-${{ matrix.targetPlatform }}-${{ matrix.unityVersion }}
