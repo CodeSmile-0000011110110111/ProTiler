@@ -21,11 +21,13 @@ jobs:
     steps:
       # Checkout
       - uses: actions/checkout@v3
+        if: ${{ vars.BUILD_SINGLE_ENABLE_TESTS }}
         with:
           lfs: true
           
       # Cache
       - uses: actions/cache@v3
+        if: ${{ vars.BUILD_SINGLE_ENABLE_TESTS }}
         with:
           path: ${{ matrix.projectPath }}/Library
           key: Library-${{ matrix.projectPath }}-Tests
@@ -34,6 +36,7 @@ jobs:
 
       # Run Tests
       - uses: game-ci/unity-test-runner@v2
+        if: ${{ vars.BUILD_SINGLE_ENABLE_TESTS }}
         id: tests
         env:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
@@ -48,12 +51,12 @@ jobs:
       
       # Artifacts
       - uses: actions/upload-artifact@v3
-        if: always()
+        if: ${{ vars.BUILD_SINGLE_ENABLE_TESTS }}
         with:
           name: Test results for ${{ matrix.unityVersion }}-${{ matrix.testMode }}
           path: ${{ steps.tests.outputs.artifactsPath }}
       - uses: actions/upload-artifact@v3
-        if: always()
+        if: ${{ vars.BUILD_SINGLE_ENABLE_TESTS }}
         with:
           name: Coverage results for ${{ matrix.unityVersion }}-${{ matrix.testMode }}
           path: ${{ steps.tests.outputs.coveragePath }}
