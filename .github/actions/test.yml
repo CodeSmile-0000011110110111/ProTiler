@@ -1,0 +1,9 @@
+inputs:
+  varia: 
+    description: 'some input'
+    default: 'fail! fail! fail!!'
+runs:
+  using: "composite"
+  steps: 
+    - run: echo Hello ${{ inputs.varia }}.
+      shell: bash

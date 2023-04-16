@@ -14,12 +14,18 @@ jobs:
         projectPath:
           - ${{ vars.PROJECT_PATH }}
         unityVersion:
-          - ${{ vars.TEST_UNITY_VERSION }}
+          - ${{ vars.LATEST_UNITY_VERSION }}
+          - ${{ vars.EARLIEST_UNITY_VERSION }}
         testMode:
           - EditMode
           - PlayMode
           
     steps:
+      # Test
+      - uses: /.github/actions/test@v1
+        with:
+            varia: success
+      
       # Checkout
       - uses: actions/checkout@v3
         with:
