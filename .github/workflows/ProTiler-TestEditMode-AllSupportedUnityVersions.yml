@@ -1,4 +1,4 @@
-name: ProTiler - Run All Tests
+name: ProTiler Tests EditMode
 
 on: workflow_dispatch
 
@@ -20,7 +20,6 @@ jobs:
           - 2021.2.0f1
         testMode:
           - EditMode
-          - PlayMode
 
     steps:
       # Checkout
