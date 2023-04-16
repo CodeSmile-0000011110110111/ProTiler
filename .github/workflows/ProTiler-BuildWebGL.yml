@@ -11,12 +11,12 @@ jobs:
   testAllModes:
     name: ${{ matrix.unityVersion }}-${{ matrix.testMode }} Tests
     runs-on: ubuntu-latest
-    environment: BuildProTiler
+    environment: ProTiler
     strategy:
       fail-fast: false
       matrix:
         projectPath:
-          - ${{ vars.PROJECT_PATH }}
+          - ${{ secrets.PROJECT_PATH }}
         unityVersion:
           - 2021.2.0f1
         testMode:
