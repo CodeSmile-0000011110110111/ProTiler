@@ -4,65 +4,7 @@ on: workflow_dispatch
 
 jobs:
 
-#  testAllModes:
-#    name: ${{ matrix.unityVersion }}-${{ matrix.testMode }} Tests
-#    runs-on: ubuntu-latest
-#    if: ${{ vars.BUILD_SINGLE_ENABLE_TESTS }}
-#    environment: BuildProTiler
-#    strategy:
-#      fail-fast: false
-#      matrix:
-#        projectPath:
-#          - ${{ vars.PROJECT_PATH }}
-#        unityVersion:
-#          - ${{ vars.BUILD_SINGLE_UNITYVERSION }}
-#        testMode: ${{ fromJson(vars.BUILD_TESTMODES) }}
-#          
-#    steps:
-#      # Checkout
-#      - uses: actions/checkout@v3
-#        if: ${{ vars.BUILD_SINGLE_ENABLE_TESTS }}
-#        with:
-#          lfs: true
-#          
-#      # Cache
-#      - uses: actions/cache@v3
-#        if: ${{ vars.BUILD_SINGLE_ENABLE_TESTS }}
-#        with:
-#          path: ${{ matrix.projectPath }}/Library
-#          key: Library-${{ matrix.projectPath }}-Tests
-#          restore-keys: |
-#            Library-${{ matrix.projectPath }}-Tests
-#
-#      # Run Tests
-#      - uses: game-ci/unity-test-runner@v2
-#        if: ${{ vars.BUILD_SINGLE_ENABLE_TESTS }}
-#        id: tests
-#        env:
-#          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
-#        with:
-#          projectPath: ${{ matrix.projectPath }}
-#          testMode: ${{ matrix.testMode }}
-#          unityVersion: ${{ matrix.unityVersion }}
-#          artifactsPath: artifacts-${{ matrix.unityVersion }}-${{ matrix.testMode }}
-#          githubToken: ${{ secrets.GITHUB_TOKEN }}
-#          checkName: ${{ matrix.unityVersion }}-${{ matrix.testMode }} Test Results
-#          coverageOptions: 'useProjectSettings;generateHtmlReport;generateBadgeReport;generateAdditionalMetrics'
-#      
-#      # Artifacts
-#      - uses: actions/upload-artifact@v3
-#        if: ${{ vars.BUILD_SINGLE_ENABLE_TESTS }}
-#        with:
-#          name: Test results for ${{ matrix.unityVersion }}-${{ matrix.testMode }}
-#          path: ${{ steps.tests.outputs.artifactsPath }}
-#      - uses: actions/upload-artifact@v3
-#        if: ${{ vars.BUILD_SINGLE_ENABLE_TESTS }}
-#        with:
-#          name: Coverage results for ${{ matrix.unityVersion }}-${{ matrix.testMode }}
-#          path: ${{ steps.tests.outputs.coveragePath }}
-
   buildAllSupportedPlatforms:
-    #needs: testAllModes
     name: ${{ matrix.unityVersion }}-${{ matrix.targetPlatform }} Build
     runs-on: ubuntu-latest
     environment: BuildProTiler

@@ -1,6 +1,6 @@
 name: ProTiler - Build All
 
-on: workflow_dispatch
+on: push
 
 jobs:
 
@@ -45,18 +45,6 @@ jobs:
           githubToken: ${{ secrets.GITHUB_TOKEN }}
           checkName: ${{ matrix.unityVersion }}-${{ matrix.testMode }} Test Results
           coverageOptions: 'useProjectSettings;generateHtmlReport;generateBadgeReport;generateAdditionalMetrics'
-      
-      # Artifacts
-#      - uses: actions/upload-artifact@v3
-#        if: always()
-#        with:
-#          name: Test results for ${{ matrix.unityVersion }}-${{ matrix.testMode }}
-#          path: ${{ steps.tests.outputs.artifactsPath }}
-#      - uses: actions/upload-artifact@v3
-#        if: always()
-#        with:
-#          name: Coverage results for ${{ matrix.unityVersion }}-${{ matrix.testMode }}
-#          path: ${{ steps.tests.outputs.coveragePath }}
 
   buildAllSupportedPlatforms:
     needs: testAllModes
