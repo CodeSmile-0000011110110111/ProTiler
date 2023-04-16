@@ -1,4 +1,4 @@
-name: Build ProTiler - WebGL
+name: ProTiler - Build WebGL
 
 on: workflow_dispatch
 
