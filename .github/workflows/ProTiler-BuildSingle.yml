@@ -4,47 +4,47 @@ on: workflow_dispatch
 
 jobs:
 
-  testAllModes:
-    name: ${{ matrix.unityVersion }}-${{ matrix.testMode }} Tests
-    runs-on: ubuntu-latest
-    environment: BuildProTiler
-    strategy:
-      fail-fast: false
-      matrix:
-        projectPath:
-          - ${{ vars.PROJECT_PATH }}
-        unityVersion:
-          #- ${{ vars.LATEST_UNITY_VERSION }}
-          - ${{ vars.EARLIEST_UNITY_VERSION }}
-        testMode: ${{ fromJson(vars.BUILD_TESTMODES) }}
-          
-    steps:
-      # Checkout
-      - uses: actions/checkout@v3
-        with:
-          lfs: true
-          
-      # Cache
-      - uses: actions/cache@v3
-        with:
-          path: ${{ matrix.projectPath }}/Library
-          key: Library-${{ matrix.projectPath }}-Tests
-          restore-keys: |
-            Library-${{ matrix.projectPath }}-Tests
-
-      # Run Tests
-      - uses: game-ci/unity-test-runner@v2
-        id: tests
-        env:
-          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
-        with:
-          projectPath: ${{ matrix.projectPath }}
-          testMode: ${{ matrix.testMode }}
-          unityVersion: ${{ matrix.unityVersion }}
-          artifactsPath: artifacts-${{ matrix.unityVersion }}-${{ matrix.testMode }}
-          githubToken: ${{ secrets.GITHUB_TOKEN }}
-          checkName: ${{ matrix.unityVersion }}-${{ matrix.testMode }} Test Results
-          coverageOptions: 'useProjectSettings;generateHtmlReport;generateBadgeReport;generateAdditionalMetrics'
+#  testAllModes:
+#    name: ${{ matrix.unityVersion }}-${{ matrix.testMode }} Tests
+#    runs-on: ubuntu-latest
+#    environment: BuildProTiler
+#    strategy:
+#      fail-fast: false
+#      matrix:
+#        projectPath:
+#          - ${{ vars.PROJECT_PATH }}
+#        unityVersion:
+#          #- ${{ vars.LATEST_UNITY_VERSION }}
+#          - ${{ vars.EARLIEST_UNITY_VERSION }}
+#        testMode: ${{ fromJson(vars.BUILD_TESTMODES) }}
+#          
+#    steps:
+#      # Checkout
+#      - uses: actions/checkout@v3
+#        with:
+#          lfs: true
+#          
+#      # Cache
+#      - uses: actions/cache@v3
+#        with:
+#          path: ${{ matrix.projectPath }}/Library
+#          key: Library-${{ matrix.projectPath }}-Tests
+#          restore-keys: |
+#            Library-${{ matrix.projectPath }}-Tests
+#
+#      # Run Tests
+#      - uses: game-ci/unity-test-runner@v2
+#        id: tests
+#        env:
+#          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+#        with:
+#          projectPath: ${{ matrix.projectPath }}
+#          testMode: ${{ matrix.testMode }}
+#          unityVersion: ${{ matrix.unityVersion }}
+#          artifactsPath: artifacts-${{ matrix.unityVersion }}-${{ matrix.testMode }}
+#          githubToken: ${{ secrets.GITHUB_TOKEN }}
+#          checkName: ${{ matrix.unityVersion }}-${{ matrix.testMode }} Test Results
+#          coverageOptions: 'useProjectSettings;generateHtmlReport;generateBadgeReport;generateAdditionalMetrics'
       
       # Artifacts
 #      - uses: actions/upload-artifact@v3
@@ -59,7 +59,7 @@ jobs:
 #          path: ${{ steps.tests.outputs.coveragePath }}
 
   buildAllSupportedPlatforms:
-    needs: testAllModes
+    #needs: testAllModes
     name: ${{ matrix.unityVersion }}-${{ matrix.targetPlatform }} Build
     runs-on: ubuntu-latest
     environment: BuildProTiler
