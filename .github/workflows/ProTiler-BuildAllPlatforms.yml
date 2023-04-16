@@ -79,14 +79,14 @@ jobs:
           #- StandaloneWindows # Build a Windows standalone.
           #- StandaloneWindows64 # Build a Windows 64-bit standalone.
           - WebGL # WebGL.
-          - tvOS
-          - WSAPlayer
+          - tvOS    # requires windows
+          - WSAPlayer # requires windows
           - PS4
-          - PS5
           - XboxOne
           - Switch
           - Stadia
-          - LinuxHeadlessSimulation
+          #- PS5    # currently not supported
+          #- LinuxHeadlessSimulation    # currently not supported
     
     steps:
       # Checkout
