@@ -15,9 +15,7 @@ jobs:
         unityVersion:
           - ${{ vars.LATEST_UNITY_VERSION }}
           - ${{ vars.EARLIEST_UNITY_VERSION }}
-        testMode:
-          - ${{ vars.TEST_EDITMODE }}
-          - ${{ vars.TEST_PLAYMODE }}
+        testMode: ${{ fromJson(vars.BUILD_TESTMODES) }}
           
     steps:
       # Checkout
