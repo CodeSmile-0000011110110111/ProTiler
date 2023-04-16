@@ -1,6 +1,6 @@
 name: ProTiler - Build WebGL
 
-on: workflow_dispatch
+on: push
 
 env:
   projectPath: ${{ vars.PROJECT_PATH }}
@@ -16,7 +16,7 @@ jobs:
       fail-fast: false
       matrix:
         projectPath:
-          - ${{ secrets.PROJECT_PATH }}
+          - ${{ vars.PROJECT_PATH }}
         unityVersion:
           - 2021.2.0f1
         testMode:
