@@ -3,6 +3,7 @@ name: ProTiler - Build WebGL
 on: workflow_dispatch
 
 env:
+  PROJECT_PATH: ${{ vars.PROJECT_PATH }}
   latestUnityVersion: '2021.2.15f1'
 
 jobs:
@@ -14,7 +15,7 @@ jobs:
       fail-fast: false
       matrix:
         projectPath:
-          - ${{ vars.PROJECT_PATH }}
+          - ${{ env.PROJECT_PATH }}
         unityVersion:
           - 2021.2.0f1
         testMode:
@@ -69,9 +70,8 @@ jobs:
       fail-fast: false
       matrix:
         projectPath:
-          - ProTiler
+          - ${{ env.PROJECT_PATH }}
         unityVersion:
-          - ${{ env.latestUnityVersion }}
           - 2022.2.0f1
           - 2022.1.0f1
           - 2021.3.0f1
