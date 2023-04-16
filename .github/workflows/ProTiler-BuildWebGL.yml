@@ -22,7 +22,7 @@ jobs:
           
     steps:
       # Test
-      - uses: .github/actions/test
+      - uses: actions/test@v1
         with:
             varia: success
       
