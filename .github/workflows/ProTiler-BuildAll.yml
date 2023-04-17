@@ -56,9 +56,7 @@ jobs:
       matrix:
         projectPath:
           - ${{ vars.PROJECT_PATH }}
-        unityVersion:
-          - ${{ vars.LATEST_UNITY_VERSION }}
-          - ${{ vars.EARLIEST_UNITY_VERSION }}
+        unityVersion: ${{ fromJson(vars.BUILD_UNITYVERSIONS) }}
         targetPlatform: ${{ fromJson(vars.BUILD_TARGETPLATFORMS) }}
     
     steps:
