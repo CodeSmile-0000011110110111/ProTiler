@@ -31,10 +31,11 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ${{ matrix.projectPath }}/Library
-          key: Library-${{ matrix.projectPath }}-${{ matrix.targetPlatform }}
+          key: Library-${{ matrix.projectPath }}-${{ matrix.targetPlatform }}-${{ hashFiles('ProTiler/Assets/**', 'ProTiler/Packages/**', 'ProTiler/ProjectSettings/**') }}
           restore-keys: |
-            Library-${{ matrix.projectPath }}-${{ matrix.targetPlatform }}
-            Library-${{ matrix.projectPath }}-
+            Library-${{ matrix.projectPath }}-${{ matrix.targetPlatform }}-${{ hashFiles('ProTiler/Assets/**', 'ProTiler/Packages/**', 'ProTiler/ProjectSettings/**') }}
+            Library-${{ matrix.projectPath }}-${{ matrix.targetPlatform }}-
+            Library-${{ matrix.projectPath }}-Tests
 
       # Build
       - name: Build ${{ matrix.targetPlatform }}

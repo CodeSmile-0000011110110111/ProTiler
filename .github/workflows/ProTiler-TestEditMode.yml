@@ -28,9 +28,10 @@ jobs:
       - uses: actions/cache@v3
         with:
           path: ${{ matrix.projectPath }}/Library
-          key: Library-${{ matrix.projectPath }}-Tests-${{ matrix.unityVersion }}
+          key: Library-${{ matrix.projectPath }}-Tests-${{ matrix.unityVersion }}-${{ hashFiles('ProTiler/Assets/**', 'ProTiler/Packages/**', 'ProTiler/ProjectSettings/**') }}
           restore-keys: |
-            Library-${{ matrix.projectPath }}-Tests-${{ matrix.unityVersion }}
+            Library-${{ matrix.projectPath }}-Tests-${{ matrix.unityVersion }}-${{ hashFiles('ProTiler/Assets/**', 'ProTiler/Packages/**', 'ProTiler/ProjectSettings/**') }}
+            Library-${{ matrix.projectPath }}-Tests-${{ matrix.unityVersion }}-
             Library-${{ matrix.projectPath }}-Tests
 
       # Run Tests
