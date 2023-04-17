@@ -91,6 +91,7 @@ jobs:
           versioning: Semantic
           buildName: ${{ matrix.projectPath }}-${{ matrix.targetPlatform }}-${{ matrix.unityVersion }}
           buildsPath: build/${{ matrix.projectPath }}-${{ matrix.unityVersion }}
+          #buildMethod: CodeSmile.Editor.CI.BuildScript.Build
       
       # Output
       - name: Create Output for ${{ matrix.targetPlatform }}
@@ -98,4 +99,4 @@ jobs:
         #if: ${{ matrix.unityVersion == vars.LATEST_UNITY_VERSION }}
         with:
           name: ${{ matrix.projectPath }}-${{ matrix.targetPlatform }}-${{ matrix.unityVersion }}
-          path: build/${{ matrix.projectPath }}-${{ matrix.targetPlatform }}-${{ matrix.unityVersion }}
+          path: build/${{ matrix.projectPath }}-${{ matrix.unityVersion }}
