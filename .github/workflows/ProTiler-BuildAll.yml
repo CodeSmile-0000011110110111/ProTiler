@@ -75,7 +75,6 @@ jobs:
           key: Library-${{ matrix.projectPath }}-${{ matrix.targetPlatform }}-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
           restore-keys: |
             Library-${{ matrix.projectPath }}-${{ matrix.targetPlatform }}
-            Library-${{ matrix.projectPath }}-
 
       # Build
       - name: Build ${{ matrix.targetPlatform }}
