@@ -2,9 +2,7 @@
 // Refer to included LICENSE file for terms and conditions.
 
 using CodeSmile.Editor.InputState;
-using CodeSmile.Editor.ProTiler;
 using CodeSmile.InputState;
-using Unity.Mathematics;
 using UnityEngine;
 
 namespace CodeSmile.ProTiler.Editor
@@ -66,7 +64,7 @@ namespace CodeSmile.ProTiler.Editor
 				CancelTileDrawing();
 			else if (IsOnlyLeftMouseButtonDown())
 			{
-				if (StartTileDrawing(TileEditMode.PenDraw))
+				if (StartTileDrawing(Tile3DEditMode.PenDraw))
 					Event.current.Use();
 			}
 		}
@@ -77,7 +75,7 @@ namespace CodeSmile.ProTiler.Editor
 				CancelTileDrawing();
 			else if (button == MouseButton.LeftMouse)
 			{
-				if (FinishTileDrawing(TileEditMode.PenDraw))
+				if (FinishTileDrawing(Tile3DEditMode.PenDraw))
 					Event.current.Use();
 			}
 		}
@@ -88,7 +86,7 @@ namespace CodeSmile.ProTiler.Editor
 				CancelTileDrawing();
 			else if (IsOnlyLeftMouseButtonDown())
 			{
-				if (ContinueTileDrawing(TileEditMode.PenDraw))
+				if (ContinueTileDrawing(Tile3DEditMode.PenDraw))
 					Event.current.Use();
 			}
 		}

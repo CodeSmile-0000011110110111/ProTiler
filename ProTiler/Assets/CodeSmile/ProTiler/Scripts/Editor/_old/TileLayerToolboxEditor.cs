@@ -5,6 +5,7 @@ using CodeSmile.Editor.ProTiler.Extensions;
 using CodeSmile.Extensions;
 using CodeSmile.ProTiler;
 using CodeSmile.ProTiler.Data;
+using System;
 using Unity.Mathematics;
 using UnityEditor;
 using UnityEngine;
@@ -160,7 +161,11 @@ namespace CodeSmile.Editor.ProTiler
 		}
 
 		private void DrawLineFromStartToCursor() => Toolbox.DrawLine(m_StartSelectionCoord, m_CursorCoord);
-		private void DrawRectFromStartToCursor() => Toolbox.DrawRect(m_StartSelectionCoord.MakeRect(m_CursorCoord));
+		private void DrawRectFromStartToCursor()
+		{
+			throw new NotImplementedException("due to removal of Unity.Mathematics");
+			//Toolbox.DrawRect(m_StartSelectionCoord.MakeRect(m_CursorCoord));
+		}
 
 		private void UpdateStartSelectionCoord()
 		{

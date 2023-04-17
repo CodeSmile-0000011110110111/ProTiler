@@ -1,4 +1,17 @@
-﻿{
-  "name": "CodeSmile.ProTiler.Assets",
-  "references":[ "GUID:a51801328df84119b0c9738d8bf3e1c8", "GUID:2a1bc76c5d074cc4c839253d25f72fbc" ]
+{
+    "name": "CodeSmile.ProTiler.Assets",
+    "rootNamespace": "",
+    "references": [
+        "GUID:2a1bc76c5d074cc4c839253d25f72fbc",
+        "GUID:a51801328df84119b0c9738d8bf3e1c8"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }

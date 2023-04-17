@@ -66,7 +66,7 @@ namespace CodeSmile.ProTiler.Editor
 		private void OnRepaint()
 		{
 			if (m_HasMouseFocus && IsRightMouseButtonDown() == false)
-				DrawCursorHandle(TileEditMode.PenDraw);
+				DrawCursorHandle(Tile3DEditMode.PenDraw);
 		}
 
 		private Vector3Int GetMouseCursorCoord() => HandleUtilityExt.GUIPointToGridCoord
@@ -74,14 +74,14 @@ namespace CodeSmile.ProTiler.Editor
 			? coord
 			: Vector3Int.zero;
 
-		public bool StartTileDrawing(TileEditMode editMode)
+		public bool StartTileDrawing(Tile3DEditMode editMode)
 		{
 			var useEvent = false;
 
 			UpdateStartSelectionCoord();
 			UpdateCursorCoord();
 
-			if (editMode is TileEditMode.PenDraw or TileEditMode.RectFill)
+			if (editMode is Tile3DEditMode.PenDraw or Tile3DEditMode.RectFill)
 			{
 				m_IsDrawingTiles = true;
 				useEvent = true;
@@ -90,20 +90,20 @@ namespace CodeSmile.ProTiler.Editor
 			return useEvent;
 		}
 
-		private bool ContinueTileDrawing(TileEditMode editMode)
+		private bool ContinueTileDrawing(Tile3DEditMode editMode)
 		{
 			var useEvent = false;
 
 			UpdateCursorCoord();
 			if (m_IsDrawingTiles)
 			{
-				if (editMode == TileEditMode.PenDraw)
+				if (editMode == Tile3DEditMode.PenDraw)
 				{
 					DrawLineFromStartToCursor();
 					UpdateStartSelectionCoord();
 					useEvent = true;
 				}
-				else if (editMode == TileEditMode.RectFill)
+				else if (editMode == Tile3DEditMode.RectFill)
 					useEvent = true;
 			}
 			else
@@ -112,7 +112,7 @@ namespace CodeSmile.ProTiler.Editor
 			return useEvent;
 		}
 
-		private bool FinishTileDrawing(TileEditMode editMode)
+		private bool FinishTileDrawing(Tile3DEditMode editMode)
 		{
 			var useEvent = false;
 
@@ -120,12 +120,12 @@ namespace CodeSmile.ProTiler.Editor
 			{
 				UpdateCursorCoord();
 
-				if (editMode == TileEditMode.PenDraw)
+				if (editMode == Tile3DEditMode.PenDraw)
 				{
 					DrawLineFromStartToCursor();
 					useEvent = true;
 				}
-				else if (editMode == TileEditMode.RectFill)
+				else if (editMode == Tile3DEditMode.RectFill)
 				{
 					DrawRectFromStartToCursor();
 					useEvent = true;
@@ -187,9 +187,9 @@ namespace CodeSmile.ProTiler.Editor
 			m_SelectionRect = new RectInt(coordMin.x, coordMin.z, coordMax.x - coordMin.x + 1, coordMax.z - coordMin.z + 1);
 		}
 
-		private void DrawCursorHandle(TileEditMode editMode)
+		private void DrawCursorHandle(Tile3DEditMode editMode)
 		{
-			if (editMode is TileEditMode.PenDraw or TileEditMode.RectFill)
+			if (editMode is Tile3DEditMode.PenDraw or Tile3DEditMode.RectFill)
 			{
 				var cellSize = Tilemap.Grid.CellSize;
 				var worldRect = m_SelectionRect.ToWorldRect(cellSize);

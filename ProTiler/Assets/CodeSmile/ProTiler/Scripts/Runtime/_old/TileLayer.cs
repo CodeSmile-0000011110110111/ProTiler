@@ -66,8 +66,11 @@ namespace CodeSmile.ProTiler
 		public TileData GetTileData(GridCoord coord) => m_TileDataContainer.GetTile(coord);
 		public float3 GetTilePosition(GridCoord coord) => Grid.ToWorldPosition(coord) + TileSet.GetTileOffset() + (float3)transform.position;
 
-		internal (IReadOnlyList<GridCoord>, IReadOnlyList<TileData>) DrawLine(GridCoord start, GridCoord end, TileBrush brush) =>
-			m_TileDataContainer.SetTileIndexes(start.MakeLine(end), brush.TileSetIndex);
+		internal (IReadOnlyList<GridCoord>, IReadOnlyList<TileData>) DrawLine(GridCoord start, GridCoord end, TileBrush brush)
+		{
+			throw new NotImplementedException("due to removal of Unity.Mathematics");
+			//return m_TileDataContainer.SetTileIndexes(start.MakeLine(end), brush.TileSetIndex);
+		}
 
 		internal (IReadOnlyList<GridCoord>, IReadOnlyList<TileData>) DrawRect(RectInt rect, TileBrush brush) =>
 			m_TileDataContainer.SetTileIndexes(rect, brush.TileSetIndex);

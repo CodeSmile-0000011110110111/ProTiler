@@ -1,8 +1,6 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
-using Unity.Burst;
-using Unity.Mathematics;
 using UnityEngine;
 
 namespace CodeSmile.Extensions
@@ -12,8 +10,8 @@ namespace CodeSmile.Extensions
 		private const float MinDenominator = 0.00001f;
 
 		/// <summary>
-		/// Test intersection of ray with a virtual XZ plane with given plane height (default: 0).
-		/// "Virtual" because it does not rely on actual geometry in the world and doesn't use the Plane class. 
+		///     Test intersection of ray with a virtual XZ plane with given plane height (default: 0).
+		///     "Virtual" because it does not rely on actual geometry in the world and doesn't use the Plane class.
 		/// </summary>
 		/// <param name="ray"></param>
 		/// <param name="intersectPoint">the intersection point in world coordinates, or default if there was no intersection</param>

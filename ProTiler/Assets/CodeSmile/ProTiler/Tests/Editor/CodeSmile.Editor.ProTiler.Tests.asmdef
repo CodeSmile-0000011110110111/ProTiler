@@ -4,11 +4,9 @@
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
-        "Unity.Mathematics",
         "CodeSmile",
         "CodeSmile.Extensions",
         "CodeSmile.ProTiler",
-        "CodeSmile.ProTiler.TileData",
         "CodeSmile.ProTiler.Data"
     ],
     "includePlatforms": [

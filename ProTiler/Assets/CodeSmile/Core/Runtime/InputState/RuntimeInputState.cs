@@ -2,7 +2,6 @@
 // Refer to included LICENSE file for terms and conditions.
 
 using System;
-using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -68,8 +67,8 @@ namespace CodeSmile.InputState
 			}
 		}
 
-		public static int ToInt(MouseButton button) => math.clamp((int)button, 0, (int)MouseButton.Count);
-		public static MouseButton ToMouseButton(int button) => (MouseButton)math.clamp(button, 0, (int)MouseButton.Count);
+		public static int ToInt(MouseButton button) => Mathf.Clamp((int)button, 0, (int)MouseButton.Count);
+		public static MouseButton ToMouseButton(int button) => (MouseButton)Mathf.Clamp(button, 0, (int)MouseButton.Count);
 
 		public bool IsButtonDown(MouseButton button) => m_MouseButtonDown[ToInt(button)];
 

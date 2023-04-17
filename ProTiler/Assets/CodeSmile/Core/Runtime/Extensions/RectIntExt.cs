@@ -3,14 +3,13 @@
 
 using System;
 using System.Collections.Generic;
-using Unity.Mathematics;
 using UnityEngine;
 
 namespace CodeSmile.Extensions
 {
 	public static class RectIntExt
 	{
-		public static IReadOnlyList<int3> GetTileCoords(this RectInt gridRect)
+		public static IReadOnlyList<Vector3Int> GetTileCoords(this RectInt gridRect)
 		{
 			// FIXME: use rect.allPositionsWithin ?
 
@@ -18,7 +17,7 @@ namespace CodeSmile.Extensions
 			if (gridRect.width <= 0 || gridRect.height <= 0)
 				throw new ArgumentException($"rect {gridRect} is too small!");
 
-			var coords = new int3[gridRect.width * gridRect.height];
+			var coords = new Vector3Int[gridRect.width * gridRect.height];
 
 			try
 			{
@@ -26,7 +25,7 @@ namespace CodeSmile.Extensions
 				var endY = gridRect.y + gridRect.height;
 				for (var x = gridRect.x; x < endX; x++)
 					for (var y = gridRect.y; y < endY; y++)
-						coords[coordIndex++] = new int3(x, 0, y);
+						coords[coordIndex++] = new Vector3Int(x, 0, y);
 			}
 			catch (Exception e)
 			{
@@ -53,18 +52,18 @@ namespace CodeSmile.Extensions
 			if (r2.Overlaps(r1) == false)
 				return false;
 
-			var x1 = math.min(r1.xMax, r2.xMax);
-			var x2 = math.max(r1.xMin, r2.xMin);
-			var y1 = math.min(r1.yMax, r2.yMax);
-			var y2 = math.max(r1.yMin, r2.yMin);
-			intersection.x = math.min(x1, x2);
-			intersection.y = math.min(y1, y2);
-			intersection.width = math.max(0, x1 - x2);
-			intersection.height = math.max(0, y1 - y2);
+			var x1 = Mathf.Min(r1.xMax, r2.xMax);
+			var x2 = Mathf.Max(r1.xMin, r2.xMin);
+			var y1 = Mathf.Min(r1.yMax, r2.yMax);
+			var y2 = Mathf.Max(r1.yMin, r2.yMin);
+			intersection.x = Mathf.Min(x1, x2);
+			intersection.y = Mathf.Min(y1, y2);
+			intersection.width = Mathf.Max(0, x1 - x2);
+			intersection.height = Mathf.Max(0, y1 - y2);
 			return true;
 		}
 
-		public static bool IsInside(this RectInt rect, int3 coord) => coord.x >= rect.x && coord.x < rect.x + rect.width &&
-		                                                              coord.z >= rect.y && coord.z < rect.y + rect.height;
+		public static bool IsInside(this RectInt rect, Vector3Int coord) => coord.x >= rect.x && coord.x < rect.x + rect.width &&
+		                                                                    coord.z >= rect.y && coord.z < rect.y + rect.height;
 	}
 }

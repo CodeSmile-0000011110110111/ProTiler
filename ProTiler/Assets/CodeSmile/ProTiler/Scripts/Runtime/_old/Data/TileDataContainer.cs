@@ -28,8 +28,11 @@ namespace CodeSmile.ProTiler.Data
 		//public TileData this[GridCoord coord] => GetTile(coord);
 		public TileData GetTile(GridCoord coord) => m_Tiles.TryGetValue(coord, out var tile) ? tile : TileData.InvalidTileData;
 
-		public (IReadOnlyList<GridCoord>, IReadOnlyList<TileData>) SetTileIndexes(GridRect rect, int tileSetIndex) =>
-			SetTileIndexes(rect.GetTileCoords(), tileSetIndex);
+		public (IReadOnlyList<GridCoord>, IReadOnlyList<TileData>) SetTileIndexes(GridRect rect, int tileSetIndex)
+		{
+			throw new NotImplementedException();
+			//return SetTileIndexes(rect.GetTileCoords(), tileSetIndex);
+		}
 
 		public (IReadOnlyList<GridCoord>, IReadOnlyList<TileData>) SetTileIndexes(IReadOnlyList<GridCoord> coords, int tileSetIndex)
 		{
@@ -85,11 +88,14 @@ namespace CodeSmile.ProTiler.Data
 			var dict = new Dictionary<GridCoord, TileData>();
 			foreach (var coord in rect.GetTileCoords())
 			{
+				throw new NotImplementedException();
+				/*
 				var tile = GetTile(coord);
 				if (tile.IsInvalid)
 					continue;
 
 				dict.Add(coord, tile);
+			*/
 			}
 			return dict;
 		}

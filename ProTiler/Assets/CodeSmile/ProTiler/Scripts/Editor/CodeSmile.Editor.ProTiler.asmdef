@@ -3,14 +3,13 @@
     "rootNamespace": "",
     "references": [
         "GUID:0de177a875028db4d97efebe9a09aa5a",
-        "GUID:4f940526aaebaa547a5dafc2a02498ea",
         "GUID:2a1bc76c5d074cc4c839253d25f72fbc",
+        "GUID:cb64fb9dbcd8c5b4aa9b9c91473fcc29",
+        "GUID:4f940526aaebaa547a5dafc2a02498ea",
+        "GUID:97b0642e72f864e42af93fb8a20dd72e",
         "GUID:778dc1ae943a97647b34617c263c224d",
-        "GUID:b8f654bab7c7aa94d9a89d638c2f26d3",
-        "GUID:d8b63aba1907145bea998dd612889d6b",
-        "GUID:efa8fb04f93eb1f4c9bcad70c99e9591",
         "GUID:a51801328df84119b0c9738d8bf3e1c8",
-        "GUID:1deaf3980e5e70f4f8440f0359c9b8c8"
+        "GUID:efa8fb04f93eb1f4c9bcad70c99e9591"
     ],
     "includePlatforms": [
         "Editor"

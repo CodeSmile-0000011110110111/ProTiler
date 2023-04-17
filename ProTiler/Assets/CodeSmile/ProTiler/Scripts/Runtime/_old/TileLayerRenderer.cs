@@ -192,8 +192,11 @@ namespace CodeSmile.ProTiler
 			var visibleTileDatas = m_Layer.GetTilesInRect(dirtyRect);
 			foreach (var coord in visibleTileDatas.Keys)
 			{
+				throw new NotImplementedException("due to removal of Unity.Mathematics");
+				/*
 				if (unchangedRect.Contains(coord.ToCoord2()))
 					continue;
+					*/
 
 				var tileProxy = m_TilePool.GetFromPool();
 				tileProxy.Layer = m_Layer;
@@ -213,11 +216,14 @@ namespace CodeSmile.ProTiler
 				if (tileProxy.gameObject.activeSelf == false)
 					continue;
 
+				throw new NotImplementedException("due to removal of Unity.Mathematics");
+				/*
 				if (dirtyRect.Contains(tileProxy.Coord.ToCoord2()) == tilesInRectAreDirty)
 				{
 					m_TilePool.ReturnToPool(tileProxy);
 					m_VisibleTileProxies.Remove(tileProxy.Coord);
 				}
+			*/
 			}
 		}
 
@@ -238,15 +244,21 @@ namespace CodeSmile.ProTiler
 		internal void OnSetTile(GridCoord coord, TileData tileData)
 		{
 			// FIXME: access and change that tile instance directly
+			throw new NotImplementedException("due to removal of Unity.Mathematics");
+			/*
 			var dirtyRect = new GridRect(coord.ToCoord2(), new Vector2Int(1, 1));
 			UpdateTilesInDirtyRect(dirtyRect);
+		*/
 		}
 
 		internal void UpdateTileFlagsAndRedraw(GridCoord coord, TileFlagsOld flags)
 		{
 			//Debug.LogWarning("SetTileFlags not implemented");
+			throw new NotImplementedException("due to removal of Unity.Mathematics");
+			/*
 			var dirtyRect = new GridRect(coord.ToCoord2(), new Vector2Int(1, 1));
 			UpdateTilesInDirtyRect(dirtyRect);
+		*/
 		}
 
 		public void SetTileActive(bool active, GridCoord coord)
