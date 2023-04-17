@@ -34,7 +34,7 @@ jobs:
           key: Library-${{ matrix.projectPath }}-${{ matrix.targetPlatform }}-${{ hashFiles('ProTiler/Assets/**', 'ProTiler/Packages/**', 'ProTiler/ProjectSettings/**') }}
           restore-keys: |
             Library-${{ matrix.projectPath }}-${{ matrix.targetPlatform }}-${{ hashFiles('ProTiler/Assets/**', 'ProTiler/Packages/**', 'ProTiler/ProjectSettings/**') }}
-            Library-${{ matrix.projectPath }}-${{ matrix.targetPlatform }}-
+            Library-${{ matrix.projectPath }}-${{ matrix.targetPlatform }}
             Library-${{ matrix.projectPath }}-Tests
 
       # Build
