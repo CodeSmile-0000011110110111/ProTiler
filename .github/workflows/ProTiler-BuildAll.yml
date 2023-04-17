@@ -1,4 +1,4 @@
-name: ProTiler - Build All
+name: Build All - ProTiler
 
 on: push
 

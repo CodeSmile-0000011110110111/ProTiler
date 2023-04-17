@@ -1,4 +1,4 @@
-name: ProTiler - Build Single
+name: Build Single - ProTiler
 
 on: workflow_dispatch
 
