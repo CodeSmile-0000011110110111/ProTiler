@@ -118,7 +118,7 @@ namespace CodeSmile.ProTiler
 			if (m_TilePrefab == null || m_TilePrefab.IsMissing())
 				throw new Exception("Tile prefab null or missing");
 
-			m_TilePool = new ComponentPool<TileDataProxy>(m_TilePrefab, m_TilePoolParent.transform, poolSize);
+			m_TilePool = new ComponentPool<TileDataProxy>(m_TilePrefab, m_TilePoolParent, poolSize);
 
 			m_PrevVisibleRect = new GridRect();
 			m_PrevDrawDistance = m_DrawDistance;
@@ -195,7 +195,7 @@ namespace CodeSmile.ProTiler
 				if (unchangedRect.Contains(coord.ToCoord2()))
 					continue;
 
-				var tileProxy = m_TilePool.GetPooledObject();
+				var tileProxy = m_TilePool.GetFromPool();
 				tileProxy.Layer = m_Layer;
 				tileProxy.SetCoordAndTile(coord, visibleTileDatas[coord]);
 				m_VisibleTileProxies.TryAdd(coord, tileProxy);
