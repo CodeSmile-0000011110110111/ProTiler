@@ -90,7 +90,7 @@ jobs:
           unityVersion: ${{ matrix.unityVersion }}
           versioning: Semantic
           buildName: ${{ matrix.projectPath }}-${{ matrix.targetPlatform }}-${{ matrix.unityVersion }}
-          buildsPath: build/${{ matrix.projectPath }}-${{ matrix.targetPlatform }}-${{ matrix.unityVersion }}
+          buildsPath: build/${{ matrix.projectPath }}-${{ matrix.unityVersion }}
       
       # Output
       - name: Create Output for ${{ matrix.targetPlatform }}

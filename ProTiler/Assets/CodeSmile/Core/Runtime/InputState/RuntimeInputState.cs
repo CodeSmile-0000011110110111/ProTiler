@@ -3,7 +3,6 @@
 
 using System;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 namespace CodeSmile.InputState
 {
@@ -221,8 +220,8 @@ namespace CodeSmile.InputState
 
 		public void Update()
 		{
-#if ENABLE_INPUT_SYSTEM && ENABLE_LEGACY_INPUT_MANAGER // New input system backends are enabled.
-			var anyKeyDown = Keyboard.current.anyKey.wasPressedThisFrame;
+#if ENABLE_INPUT_SYSTEM && !ENABLE_LEGACY_INPUT_MANAGER // New input system backends are enabled.
+			var anyKeyDown = UnityEngine.InputSystem.Keyboard.current.anyKey.wasPressedThisFrame;
 			if (anyKeyDown)
 				throw new NotImplementedException("any key down new input system (runtime support)");
 #endif
