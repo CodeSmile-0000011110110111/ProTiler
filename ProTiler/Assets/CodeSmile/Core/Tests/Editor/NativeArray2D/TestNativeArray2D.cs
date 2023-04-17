@@ -446,6 +446,15 @@ namespace JacksonDunstan.NativeCollections.Tests
 		}
 
 		[Test]
+		public void NotEqualsNullObject()
+		{
+			using (var a1 = CreateArray(2, 3))
+			{
+				Assert.That(a1.Equals((object)null), Is.False);
+			}
+		}
+
+		[Test]
 		public void GetHashCodeReturnsUniqueValue()
 		{
 			using (var a1 = CreateArray(2, 3))

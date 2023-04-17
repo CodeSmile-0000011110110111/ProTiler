@@ -9,7 +9,7 @@ namespace CodeSmile.Editor.ProTiler.Tests
 	public class Grid3DUtilityTests
 	{
 		[Test]
-		public void ToIndexTests()
+		public void ToIndex()
 		{
 			Assert.AreEqual(0, Grid3DUtility.ToIndex(0, 0, 0));
 			Assert.AreEqual(0, Grid3DUtility.ToIndex(0, 0, 10));

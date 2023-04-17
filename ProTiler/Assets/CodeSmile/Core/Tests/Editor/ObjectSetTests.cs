@@ -39,7 +39,7 @@ namespace CodeSmile.Editor.Tests
 		}
 
 		[Test]
-		public void CreateTests()
+		public void CreateSet()
 		{
 			var set = new ObjectSet<GameObject>();
 			Assert.AreEqual(null, set.DefaultObject);
@@ -57,7 +57,7 @@ namespace CodeSmile.Editor.Tests
 		}
 
 		[Test]
-		public void AddAndRemoveTests()
+		public void AddAndRemove()
 		{
 			var set = m_Set;
 
@@ -102,15 +102,20 @@ namespace CodeSmile.Editor.Tests
 			Assert.IsFalse(set.Contains(m_GO2));
 			Assert.IsTrue(set.Contains(m_GO3));
 
+			Assert.IsFalse(set.Contains(0));
+			Assert.IsFalse(set.Contains(1));
+			Assert.IsTrue(set.Contains(2));
+
 			set.Clear();
 			Assert.AreEqual(0, set.Count);
 			Assert.IsFalse(set.Contains(m_GO3));
+			Assert.IsFalse(set.Contains(2));
 
 			Assert.IsFalse(set.Contains(null));
 		}
 
 		[Test]
-		public void IndexerTests()
+		public void Indexer()
 		{
 			var set = m_Set;
 
@@ -131,7 +136,7 @@ namespace CodeSmile.Editor.Tests
 		}
 
 		[Test]
-		public void ReplaceTests()
+		public void ReplaceObject()
 		{
 			var set = m_Set;
 			set.Add(m_GO1);

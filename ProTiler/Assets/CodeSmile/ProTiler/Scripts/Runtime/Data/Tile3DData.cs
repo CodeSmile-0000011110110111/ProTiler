@@ -3,7 +3,6 @@
 
 using CodeSmile.ProTiler.Data;
 using System;
-using UnityEngine;
 
 namespace CodeSmile.ProTiler
 {
@@ -37,14 +36,5 @@ namespace CodeSmile.ProTiler
 
 		public static Tile3DData New(int tileIndex = 0, Tile3DFlags flags = Tile3DFlags.DirectionNorth) =>
 			new() { TileIndex = tileIndex, Flags = flags };
-	}
-
-	[Serializable]
-	public struct Tile3DCoordData
-	{
-		public Vector3Int Coord;
-		public Tile3DData TileData;
-
-		public static Tile3DCoordData New(Vector3Int coord, Tile3DData tileData) => new() { Coord = coord, TileData = tileData };
 	}
 }

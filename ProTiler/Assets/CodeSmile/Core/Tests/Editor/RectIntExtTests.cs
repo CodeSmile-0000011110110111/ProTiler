@@ -10,7 +10,7 @@ namespace CodeSmile.ProTiler.Tests.Editor.old
 	public class RectIntExtTests
 	{
 		[Test]
-		public void IntersectsTest()
+		public void Intersects()
 		{
 			{
 				var rect1 = new RectInt(0, 0, 1, 1);

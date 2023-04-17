@@ -10,7 +10,7 @@ namespace CodeSmile.Editor.ProTiler.Tests
 	public class Tile3DDataTests
 	{
 		[Test]
-		public void CreateTileTests()
+		public void CreateTile()
 		{
 			var tile = new Tile3DData();
 			Assert.IsTrue(tile.IsEmpty);
@@ -49,7 +49,7 @@ namespace CodeSmile.Editor.ProTiler.Tests
 		}
 
 		[Test]
-		public void DirectionTests()
+		public void GetDirection()
 		{
 			var tile = new Tile3DData();
 			Assert.AreEqual(Tile3DFlags.DirectionNorth, tile.Direction);
