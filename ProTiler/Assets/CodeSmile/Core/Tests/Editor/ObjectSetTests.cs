@@ -48,6 +48,12 @@ namespace CodeSmile.Editor.Tests
 			set = new ObjectSet<GameObject>(m_DefaultGO);
 			Assert.AreEqual(m_DefaultGO, set.DefaultObject);
 			Assert.AreEqual(0, set.Count);
+
+			set = new ObjectSet<GameObject>(null, 1);
+			set.Add(m_GO1, out var index);
+			Assert.AreEqual(1, index);
+			Assert.AreEqual(null, set.DefaultObject);
+			Assert.AreEqual(1, set.Count);
 		}
 
 		[Test]

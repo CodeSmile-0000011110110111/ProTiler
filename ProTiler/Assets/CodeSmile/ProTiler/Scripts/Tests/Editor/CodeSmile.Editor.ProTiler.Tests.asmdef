@@ -8,7 +8,8 @@
         "CodeSmile",
         "CodeSmile.Extensions",
         "CodeSmile.ProTiler",
-        "CodeSmile.ProTiler.TileData"
+        "CodeSmile.ProTiler.TileData",
+        "CodeSmile.ProTiler.Data"
     ],
     "includePlatforms": [
         "Editor"

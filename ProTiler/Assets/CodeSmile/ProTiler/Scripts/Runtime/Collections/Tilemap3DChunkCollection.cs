@@ -86,7 +86,7 @@ namespace CodeSmile.ProTiler.Collections
 					continue;
 
 				var layer = chunk[coord.y];
-				tileDatas[index++] = new Tile3DCoordData(coord, layer[coord.x, coord.z]);
+				tileDatas[index++] = Tile3DCoordData.New(coord, layer[coord.x, coord.z]);
 
 				//layer[coord.x, coord.z] = changeData.TileData;
 			}

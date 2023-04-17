@@ -45,16 +45,14 @@ namespace CodeSmile.Collections
 		public int Count => m_IndexedObjects.Count;
 
 		/// <summary>
-		/// Creates ObjectSet with DefaultObject null.
-		/// </summary>
-		public ObjectSet()
-			: this(null) {}
-
-		/// <summary>
 		/// Creates ObjectSet with specified DefaultObject.
 		/// </summary>
 		/// <param name="defaultObject"></param>
-		public ObjectSet(T defaultObject) => DefaultObject = defaultObject;
+		public ObjectSet(T defaultObject = null, int startIndex = 0)
+		{
+			DefaultObject = defaultObject;
+			m_NextIndex = startIndex;
+		}
 
 		/// <summary>
 		/// Adds an object to the set. Does nothing if the object already exists.
