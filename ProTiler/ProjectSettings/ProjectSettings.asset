@@ -878,6 +878,8 @@ PlayerSettings:
     Standalone: 0
     WebGL: 1
   il2cppCodeGeneration:
+    WebGL: 1
+    Windows Store Apps: 1
     iPhone: 1
     tvOS: 1
   managedStrippingLevel:
@@ -892,7 +894,7 @@ PlayerSettings:
   suppressCommonWarnings: 1
   allowUnsafeCode: 0
   useDeterministicCompilation: 1
-  selectedPlatform: 3
+  selectedPlatform: 0
   additionalIl2CppArgs: 
   scriptingRuntimeVersion: 1
   gcIncremental: 1

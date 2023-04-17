@@ -28,10 +28,11 @@ jobs:
       - uses: actions/cache@v3
         with:
           path: ${{ matrix.projectPath }}/Library
-          key: Library-${{ matrix.projectPath }}-Tests
+          key: Library-${{ matrix.projectPath }}-Tests-${{ matrix.unityVersion }}
           restore-keys: |
+            Library-${{ matrix.projectPath }}-Tests-${{ matrix.unityVersion }}
             Library-${{ matrix.projectPath }}-Tests
-
+            
       # Run Tests
       - uses: game-ci/unity-test-runner@v2
         id: tests
