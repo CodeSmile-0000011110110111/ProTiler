@@ -95,7 +95,7 @@ jobs:
       # Output
       - name: Create Output for ${{ matrix.targetPlatform }}
         uses: actions/upload-artifact@v3
-        if: ${{ matrix.unityVersion == vars.LATEST_UNITY_VERSION }}
+        #if: ${{ matrix.unityVersion == vars.LATEST_UNITY_VERSION }}
         with:
           name: ${{ matrix.projectPath }}-${{ matrix.targetPlatform }}-${{ matrix.unityVersion }}
           path: build/${{ matrix.projectPath }}-${{ matrix.targetPlatform }}-${{ matrix.unityVersion }}
