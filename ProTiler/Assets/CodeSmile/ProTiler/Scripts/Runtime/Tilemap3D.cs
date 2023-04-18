@@ -40,7 +40,8 @@ namespace CodeSmile.ProTiler
 			if (m_ChunkSize != m_LastChunkSize)
 			{
 				ClampChunkSize();
-				Chunks.ChangeChunkSize(m_ChunkSize);
+				if (Chunks != null)
+					Chunks.ChangeChunkSize(m_ChunkSize);
 				m_LastChunkSize = m_ChunkSize;
 			}
 		}
