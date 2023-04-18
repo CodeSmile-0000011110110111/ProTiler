@@ -52,7 +52,7 @@ namespace CodeSmile.ProTiler
 			if (m_Chunks == null)
 			{
 				m_Chunks = new Tilemap3DChunkCollection(m_ChunkSize);
-				m_TileCount = m_Chunks.Count;
+				m_TileCount = m_Chunks.TileCount;
 				m_LastChunkSize = m_ChunkSize;
 			}
 		}

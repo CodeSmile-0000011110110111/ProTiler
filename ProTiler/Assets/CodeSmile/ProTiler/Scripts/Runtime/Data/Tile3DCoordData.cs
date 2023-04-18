@@ -7,7 +7,7 @@ using UnityEngine;
 namespace CodeSmile.ProTiler
 {
 	/// <summary>
-	/// TileData for a specific coordinate.
+	///     TileData for a specific coordinate.
 	/// </summary>
 	[Serializable]
 	public struct Tile3DCoordData
@@ -16,5 +16,7 @@ namespace CodeSmile.ProTiler
 		public Tile3DData TileData;
 
 		public static Tile3DCoordData New(Vector3Int coord, Tile3DData tileData) => new() { Coord = coord, TileData = tileData };
+
+		public override string ToString() => $"{Coord}, {TileData}";
 	}
 }

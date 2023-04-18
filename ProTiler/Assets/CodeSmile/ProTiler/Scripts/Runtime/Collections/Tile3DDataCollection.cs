@@ -12,8 +12,10 @@ namespace CodeSmile.ProTiler.Collections
 	[Serializable]
 	public class Tile3DDataCollection
 	{
+		// TODO: change to Vector2Int
 		private int m_Width;
 		private int m_Height;
+		//private Vector2Int m_Size;
 		private Tile3DData[] m_Tiles;
 
 		public Tile3DData this[int index]
@@ -24,8 +26,8 @@ namespace CodeSmile.ProTiler.Collections
 
 		public Tile3DData this[int x, int y]
 		{
-			get => m_Tiles[Grid3DUtility.ToIndex(x, y, m_Width)];
-			set => m_Tiles[Grid3DUtility.ToIndex(x, y, m_Width)] = value;
+			get => m_Tiles[Grid3DUtility.ToIndex2D(x, y, m_Width)];
+			set => m_Tiles[Grid3DUtility.ToIndex2D(x, y, m_Width)] = value;
 		}
 		public int Width => m_Width;
 		public int Height => m_Height;
@@ -56,10 +58,10 @@ namespace CodeSmile.ProTiler.Collections
 			m_Tiles = new Tile3DData[width * height];
 		}
 
-		public void SetTiles(Tile3DCoordData[] tileChangeData)
+		public void SetTiles(Tile3DCoordData[] tileCoordDatas)
 		{
-			foreach (var changeData in tileChangeData)
-				this[changeData.Coord.x, changeData.Coord.z] = changeData.TileData;
+			foreach (var coordData in tileCoordDatas)
+				this[coordData.Coord.x, coordData.Coord.z] = coordData.TileData;
 		}
 	}
 }

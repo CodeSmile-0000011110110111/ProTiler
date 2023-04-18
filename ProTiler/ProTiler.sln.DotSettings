@@ -1,4 +1,5 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:Boolean x:Key="/Default/Environment/Filtering/ExcludeCoverageFilters/=CodeSmile_002EEditor_002ECI_003B_002A_003B_002A_003B_002A/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/Environment/Filtering/ExcludeCoverageFilters/=CodeSmile_002EEditor_002EProTiler_002EOld_003B_002A_003B_002A_003B_002A/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/Environment/Filtering/ExcludeCoverageFilters/=CodeSmile_002EEditor_002ETests_003B_002A_003B_002A_003B_002A/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/Environment/Filtering/ExcludeCoverageFilters/=CodeSmile_002EExtensions_003B_002A_003BUnitySourceGeneratedAssemblyMonoScriptTypes_005Fv1_003B_002A/@EntryIndexedValue">True</s:Boolean>
@@ -8,6 +9,8 @@
 	<s:Boolean x:Key="/Default/Environment/Filtering/ExcludeCoverageFilters/=CodeSmile_002EProTiler_002ERendering_003B_002A_003BUnitySourceGeneratedAssemblyMonoScriptTypes_005Fv1_003B_002A/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/Environment/Filtering/ExcludeCoverageFilters/=CodeSmile_003B_002A_003BCodeSmile_002ECollections_002ENativeArray2DDebugView_00601_003B_002A/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/Environment/Filtering/ExcludeCoverageFilters/=CodeSmile_003B_002A_003BCodeSmile_002ECollections_002ENativeArray2D_00601_003BSystem_002ECollections_002EGeneric_002EIEnumerable_003CT_003E_002EGetEnumerator/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/Environment/Filtering/ExcludeCoverageFilters/=CodeSmile_003B_002A_003BCodeSmile_002EDropToGround_003B_002A/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/Environment/Filtering/ExcludeCoverageFilters/=CodeSmile_003B_002A_003BCodeSmile_002EPressEscapeToQuit_003B_002A/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/Environment/Filtering/ExcludeCoverageFilters/=CodeSmile_003B_002A_003BCodeSmile_002EReadOnlyFieldAttribute_003B_002A/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/Environment/Filtering/ExcludeCoverageFilters/=UnityEngine_002ETestRunner_003B_002A_003B_002A_003B_002A/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/Environment/Filtering/ExcludeCoverageFilters/=UnityEditor_002ETestRunner_003B_002A_003B_002A_003B_002A/@EntryIndexedValue">True</s:Boolean>

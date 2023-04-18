@@ -64,7 +64,7 @@ namespace CodeSmile.ProTiler.Rendering
 			{
 				for (var y = 0; y < 20; y++)
 				{
-					var index = Grid3DUtility.ToIndex(x, y, 20);
+					var index = Grid3DUtility.ToIndex2D(x, y, 20);
 					coords[index].x = x;
 					coords[index].y = 0;
 					coords[index].z = y;

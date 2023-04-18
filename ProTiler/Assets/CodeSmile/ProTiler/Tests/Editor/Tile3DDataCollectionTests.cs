@@ -24,7 +24,7 @@ namespace CodeSmile.Editor.ProTiler.Tests
 		}
 
 		[Test]
-		public void SetTile()
+		public void SetAndGetTile()
 		{
 			var width = 3;
 			var height = 7;
@@ -36,12 +36,33 @@ namespace CodeSmile.Editor.ProTiler.Tests
 			tile.TileIndex = 1;
 			tiles[0] = tile;
 			Assert.AreEqual(1, tiles.Count);
+			Assert.AreEqual(1, tiles[0].TileIndex);
 
 			tiles[1] = tile;
 			Assert.AreEqual(2, tiles.Count);
+			Assert.AreEqual(1, tiles[1].TileIndex);
 
 			tiles[width * height - 1] = tile;
 			Assert.AreEqual(3, tiles.Count);
+		}
+
+		[Test]
+		public void SetAndGetTileByCoord()
+		{
+			var width = 5;
+			var height = 9;
+			var tiles = new Tile3DDataCollection(new Vector2Int(width, height));
+
+			for (var x = 0; x < width; x++)
+			{
+				for (var y = 0; y < height; y++)
+				{
+					var index = Grid3DUtility.ToIndex2D(x, y, width);
+					var tileData = Tile3DData.New(index + 1);
+					tiles[x, y] = tileData;
+					Assert.AreEqual(tileData.TileIndex, tiles[x, y].TileIndex);
+				}
+			}
 		}
 
 		[Test]
@@ -51,15 +72,15 @@ namespace CodeSmile.Editor.ProTiler.Tests
 			var height = 8;
 			var tiles = new Tile3DDataCollection(new Vector2Int(width, height));
 
-			var coordDataCount = width*height;
-			Tile3DCoordData[] tileCoordDatas = new Tile3DCoordData[coordDataCount];
-			for (int x = 0; x < width; x++)
+			var coordDataCount = width * height;
+			var tileCoordDatas = new Tile3DCoordData[coordDataCount];
+			for (var x = 0; x < width; x++)
 			{
-				for (int y = 0; y < height; y++)
+				for (var y = 0; y < height; y++)
 				{
 					var coord = new Vector3Int(x, 0, y);
-					var index = Grid3DUtility.ToIndex(x, y, width);
-					var flags = x % 2 == 0 ? Tile3DFlags.DirectionWest:Tile3DFlags.DirectionEast;
+					var index = Grid3DUtility.ToIndex2D(x, y, width);
+					var flags = x % 2 == 0 ? Tile3DFlags.DirectionWest : Tile3DFlags.DirectionEast;
 					flags |= y % 2 == 0 ? Tile3DFlags.FlipHorizontal : Tile3DFlags.FlipVertical;
 
 					var tileData = Tile3DData.New(index + 1, flags);
@@ -75,7 +96,7 @@ namespace CodeSmile.Editor.ProTiler.Tests
 			Assert.AreEqual(coordDataCount, tiles.Count);
 
 			var prevFlags = Tile3DFlags.None;
-			for (int i = 0; i < tiles.Count; i++)
+			for (var i = 0; i < tiles.Count; i++)
 			{
 				Assert.AreEqual(i + 1, tiles[i].TileIndex);
 				Assert.AreNotEqual(Tile3DFlags.None, tiles[i].Flags);

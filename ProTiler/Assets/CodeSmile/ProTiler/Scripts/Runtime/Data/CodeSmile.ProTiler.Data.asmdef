@@ -1,3 +1,4 @@
 ﻿{
-  "name": "CodeSmile.ProTiler.Data"
+  "name": "CodeSmile.ProTiler.Data",
+  "references":[ "GUID:0de177a875028db4d97efebe9a09aa5a" ]
 }

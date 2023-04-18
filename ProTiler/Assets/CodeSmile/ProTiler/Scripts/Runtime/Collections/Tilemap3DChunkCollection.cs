@@ -13,11 +13,12 @@ namespace CodeSmile.ProTiler.Collections
 	[Serializable]
 	public class Tilemap3DChunkCollection
 	{
-		private Vector2Int m_ChunkSize;
+		private Vector2Int m_Size;
 		private Dictionary<long, Dictionary<int, Tile3DDataCollection>> m_Chunks;
 		private int m_Count;
-		public Vector2Int ChunkSize => m_ChunkSize;
-		public int Count
+
+		public Vector2Int Size => m_Size;
+		public int TileCount
 		{
 			get
 			{
@@ -30,47 +31,60 @@ namespace CodeSmile.ProTiler.Collections
 				return m_Count;
 			}
 		}
+
+		public int Count => m_Chunks.Count;
+
 		public Tilemap3DChunkCollection(Vector2Int chunkSize) => ChangeChunkSize(chunkSize);
 
 		public void ChangeChunkSize(Vector2Int newChunkSize)
 		{
-			if (newChunkSize == m_ChunkSize)
+			if (newChunkSize == m_Size)
 				return;
 
-			m_ChunkSize = newChunkSize;
+			m_Size = newChunkSize;
 
 			// TODO: recreate chunks without destroying data
 			m_Chunks = new Dictionary<long, Dictionary<int, Tile3DDataCollection>>();
-			m_Chunks.Add(HashUtility.GetHash(0, 0), new Dictionary<int, Tile3DDataCollection>());
-
-			// TODO: dummy create one tile
-			/*
-			var newTiles = new[] { new Tile3DCoordData { Coord = Vector3Int.zero, TileData = new Tile3DData { Tile = Tile3D.Create() } } };
-			newTiles[0].TileData.Tile.Prefab = AssetDatabase.LoadAssetAtPath(
-				"Assets/Art/kenney/Tower Defense (Classic)/Prefabs/tile_005.prefab",
-				typeof(GameObject)) as GameObject;
-				*/
-			throw new NotImplementedException("create new dummy tiledata");
-
-			var newTiles = new[] { new Tile3DCoordData() };
-			SetTiles(newTiles);
 		}
 
-		public void SetTiles(Tile3DCoordData[] tileChangeData)
+		public void SetTiles(Tile3DCoordData[] tileCoordData)
 		{
-			foreach (var changeData in tileChangeData)
+			foreach (var coordData in tileCoordData)
 			{
-				var coord = changeData.Coord;
-				var coordHash = HashUtility.GetHash(coord.x, coord.z);
-				var chunk = m_Chunks[coordHash];
+				var coord = coordData.Coord;
+				var chunkCoord = ToChunkCoord(coord);
+				var chunk = GetOrCreateChunk(chunkCoord);
 
-				if (chunk.ContainsKey(coord.y) == false)
-					chunk.Add(coord.y, new Tile3DDataCollection(20, 20));
-
-				var layer = chunk[coord.y];
-				layer[coord.x, coord.z] = changeData.TileData;
+				var layer = GetOrCreateChunkLayer(chunk, coord.y);
+				var layerCoord = ToLayerCoord(chunkCoord, coord);
+				layer[layerCoord.x, layerCoord.z] = coordData.TileData;
 			}
 		}
+
+		private Vector3Int ToLayerCoord(Vector3Int chunkCoord, Vector3Int coord) => coord - chunkCoord;
+
+		private Vector3Int ToChunkCoord(Vector3Int coord) => new(coord.x / m_Size.x, coord.y, coord.z / m_Size.y);
+
+		private Tile3DDataCollection GetOrCreateChunkLayer(Dictionary<int, Tile3DDataCollection> chunk, int y)
+		{
+			if (chunk.TryGetValue(y, out var layer))
+				return layer;
+
+			chunk[y] = layer = new Tile3DDataCollection(m_Size);
+			return layer;
+		}
+
+		private Dictionary<int, Tile3DDataCollection> GetOrCreateChunk(Vector3Int chunkCoord)
+		{
+			var coordHash = GetChunkHash(chunkCoord);
+			if (m_Chunks.TryGetValue(coordHash, out var chunk))
+				return chunk;
+
+			m_Chunks[coordHash] = chunk = new Dictionary<int, Tile3DDataCollection>();
+			return chunk;
+		}
+
+		private long GetChunkHash(Vector3Int chunkCoord) => HashUtility.GetHash(chunkCoord.x, chunkCoord.z);
 
 		public void GetTileData(Vector3Int[] coords, ref Tile3DCoordData[] tileDatas)
 		{

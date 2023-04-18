@@ -36,5 +36,7 @@ namespace CodeSmile.ProTiler
 
 		public static Tile3DData New(int tileIndex = 0, Tile3DFlags flags = Tile3DFlags.DirectionNorth) =>
 			new() { TileIndex = tileIndex, Flags = flags };
+
+		public override string ToString() => $"Tile({TileIndex}: {Flags})";
 	}
 }
