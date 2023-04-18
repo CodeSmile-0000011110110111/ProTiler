@@ -90,12 +90,14 @@ namespace Tayx.Graphy.Advanced
                 // Update screen window resolution
                 m_sb.Length = 0;
 
+                #pragma warning disable 0618
                 m_sb.Append(m_windowStrings[0]).Append(Screen.width.ToStringNonAlloc())
                     .Append(m_windowStrings[1]).Append(Screen.height.ToStringNonAlloc())
                     .Append(m_windowStrings[2]).Append(Screen.currentResolution.refreshRate.ToStringNonAlloc())
                     .Append(m_windowStrings[3])
                     .Append(m_windowStrings[4]).Append(((int)Screen.dpi).ToStringNonAlloc())
                     .Append(m_windowStrings[5]);
+                #pragma warning restore 0618
 
                 m_gameWindowResolutionText.text = m_sb.ToString();
 
@@ -120,8 +122,8 @@ namespace Tayx.Graphy.Advanced
                     m_rectTransform.anchorMax                               = Vector2.one;
                     m_rectTransform.anchorMin                               = Vector2.up;
                     m_rectTransform.anchoredPosition                        = new Vector2(0, -ySideOffset);
-                    
-                    
+
+
                     m_backgroundImages[0].rectTransform.anchorMax           = Vector2.up;
                     m_backgroundImages[0].rectTransform.anchorMin           = Vector2.zero;
                     m_backgroundImages[0].rectTransform.anchoredPosition    = new Vector2(xSideOffsetBackgroundImage, 0);
@@ -137,7 +139,7 @@ namespace Tayx.Graphy.Advanced
                     m_backgroundImages[0].rectTransform.anchorMax           = Vector2.one;
                     m_backgroundImages[0].rectTransform.anchorMin           = Vector2.right;
                     m_backgroundImages[0].rectTransform.anchoredPosition    = new Vector2(-xSideOffsetBackgroundImage, 0);
-                    
+
                     break;
 
                 case GraphyManager.ModulePosition.BOTTOM_LEFT:
@@ -149,7 +151,7 @@ namespace Tayx.Graphy.Advanced
                     m_backgroundImages[0].rectTransform.anchorMax           = Vector2.up;
                     m_backgroundImages[0].rectTransform.anchorMin           = Vector2.zero;
                     m_backgroundImages[0].rectTransform.anchoredPosition    = new Vector2(xSideOffsetBackgroundImage, 0);
-                    
+
                     break;
 
                 case GraphyManager.ModulePosition.BOTTOM_RIGHT:
@@ -161,7 +163,7 @@ namespace Tayx.Graphy.Advanced
                     m_backgroundImages[0].rectTransform.anchorMax           = Vector2.one;
                     m_backgroundImages[0].rectTransform.anchorMin           = Vector2.right;
                     m_backgroundImages[0].rectTransform.anchoredPosition    = new Vector2(-xSideOffsetBackgroundImage, 0);
-                    
+
                     break;
 
                 case GraphyManager.ModulePosition.FREE:
@@ -195,7 +197,7 @@ namespace Tayx.Graphy.Advanced
                     m_screenResolutionText          .alignment = TextAnchor.UpperRight;
                     m_gameWindowResolutionText      .alignment = TextAnchor.UpperRight;
                     m_operatingSystemText           .alignment = TextAnchor.UpperRight;
-                    
+
                     break;
 
                 case GraphyManager.ModulePosition.FREE:
@@ -228,14 +230,14 @@ namespace Tayx.Graphy.Advanced
         {
             SetState(m_previousModuleState);
         }
-        
+
         public void UpdateParameters()
         {
             foreach (var image in m_backgroundImages)
             {
                 image.color = m_graphyManager.BackgroundColor;
             }
-            
+
             SetPosition(m_graphyManager.AdvancedModulePosition);
             SetState(m_graphyManager.AdvancedModuleState);
         }
@@ -297,6 +299,7 @@ namespace Tayx.Graphy.Advanced
 
             Resolution res = Screen.currentResolution;
 
+#pragma warning disable 0618
             m_screenResolutionText.text
                 = "Screen: "
                 + res.width
@@ -305,6 +308,7 @@ namespace Tayx.Graphy.Advanced
                 + "@"
                 + res.refreshRate
                 + "Hz";
+#pragma warning restore 0618
 
             m_operatingSystemText.text
                 = "OS: "
@@ -314,9 +318,9 @@ namespace Tayx.Graphy.Advanced
                 + "]";
 
             float preferredWidth = 0;
-            
+
             // Resize the background overlay
-            
+
             List<Text> texts = new List<Text>()
             {
                 m_graphicsDeviceVersionText,
