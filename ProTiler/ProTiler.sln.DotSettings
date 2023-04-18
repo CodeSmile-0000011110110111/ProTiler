@@ -5,8 +5,11 @@
 	<s:Boolean x:Key="/Default/Environment/Filtering/ExcludeCoverageFilters/=CodeSmile_002EExtensions_003B_002A_003BUnitySourceGeneratedAssemblyMonoScriptTypes_005Fv1_003B_002A/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/Environment/Filtering/ExcludeCoverageFilters/=CodeSmile_002EProTiler_002EAssets_003B_002A_003BUnitySourceGeneratedAssemblyMonoScriptTypes_005Fv1_003B_002A/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/Environment/Filtering/ExcludeCoverageFilters/=CodeSmile_002EProTiler_002EData_003B_002A_003BCodeSmile_002EProTiler_002EColors_003B_002A/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/Environment/Filtering/ExcludeCoverageFilters/=CodeSmile_002EProTiler_002EData_003B_002A_003BCodeSmile_002EProTiler_002ETile3DCoordData_003BToString/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/Environment/Filtering/ExcludeCoverageFilters/=CodeSmile_002EProTiler_002EData_003B_002A_003BCodeSmile_002EProTiler_002ETile3DData_003BToString/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/Environment/Filtering/ExcludeCoverageFilters/=CodeSmile_002EProTiler_002EData_003B_002A_003BUnitySourceGeneratedAssemblyMonoScriptTypes_005Fv1_003B_002A/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/Environment/Filtering/ExcludeCoverageFilters/=CodeSmile_002EProTiler_002ERendering_003B_002A_003BUnitySourceGeneratedAssemblyMonoScriptTypes_005Fv1_003B_002A/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/Environment/Filtering/ExcludeCoverageFilters/=CodeSmile_002EProTiler_003B_002A_003BCodeSmile_002EProTiler_002ECollections_002ETilemap3DChunkCollection_003B_002Ector/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/Environment/Filtering/ExcludeCoverageFilters/=CodeSmile_003B_002A_003BCodeSmile_002ECollections_002ENativeArray2DDebugView_00601_003B_002A/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/Environment/Filtering/ExcludeCoverageFilters/=CodeSmile_003B_002A_003BCodeSmile_002ECollections_002ENativeArray2D_00601_003BSystem_002ECollections_002EGeneric_002EIEnumerable_003CT_003E_002EGetEnumerator/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/Environment/Filtering/ExcludeCoverageFilters/=CodeSmile_003B_002A_003BCodeSmile_002EDropToGround_003B_002A/@EntryIndexedValue">True</s:Boolean>

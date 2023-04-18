@@ -10,7 +10,7 @@ namespace CodeSmile.ProTiler
 	[ExecuteAlways]
 	public class Tilemap3D : MonoBehaviour
 	{
-		[SerializeField] private Vector3 m_TileAnchor;
+		//[SerializeField] private Vector3 m_TileAnchor;
 		[SerializeField] private Vector2Int m_ChunkSize = new(32, 32);
 
 		[Header("Info")]
@@ -18,14 +18,7 @@ namespace CodeSmile.ProTiler
 
 		private Vector2Int m_LastChunkSize;
 		private Tilemap3DChunkCollection m_Chunks;
-		internal Tilemap3DChunkCollection Chunks
-		{
-			get
-			{
-				InitChunks();
-				return m_Chunks;
-			}
-		}
+		public Tilemap3DChunkCollection Chunks => m_Chunks;
 
 		public Grid3D Grid
 		{
@@ -38,13 +31,24 @@ namespace CodeSmile.ProTiler
 			}
 		}
 
+		private void Awake() => InitChunks();
+
+		private void Reset() => InitChunks();
+
 		private void OnValidate()
 		{
 			if (m_ChunkSize != m_LastChunkSize)
 			{
+				ClampChunkSize();
 				Chunks.ChangeChunkSize(m_ChunkSize);
-				m_ChunkSize = m_LastChunkSize;
+				m_LastChunkSize = m_ChunkSize;
 			}
+		}
+
+		private void ClampChunkSize()
+		{
+			m_ChunkSize.x = Mathf.Max(1, m_ChunkSize.x);
+			m_ChunkSize.y = Mathf.Max(1, m_ChunkSize.y);
 		}
 
 		private void InitChunks()

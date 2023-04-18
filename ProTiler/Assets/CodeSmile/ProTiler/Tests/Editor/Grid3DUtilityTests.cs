@@ -27,10 +27,10 @@ namespace CodeSmile.Editor.ProTiler.Tests
 		public void ToCoord()
 		{
 			var width = 7;
-			Assert.AreEqual(Vector3Int.zero, Grid3DUtility.ToCoord(0, 7));
-			Assert.AreEqual(new Vector3Int(0,3,0), Grid3DUtility.ToCoord(0, 7, 3));
-			Assert.AreEqual(new Vector3Int(0,5,7), Grid3DUtility.ToCoord(49, 7, 5));
-			Assert.AreEqual(new Vector3Int(5,9,8), Grid3DUtility.ToCoord(61, 7, 9));
+			Assert.AreEqual(Vector3Int.zero, Grid3DUtility.ToCoord(0, width));
+			Assert.AreEqual(new Vector3Int(0,3,0), Grid3DUtility.ToCoord(0, width, 3));
+			Assert.AreEqual(new Vector3Int(0,5,7), Grid3DUtility.ToCoord(49, width, 5));
+			Assert.AreEqual(new Vector3Int(5,9,8), Grid3DUtility.ToCoord(61, width, 9));
 		}
 	}
 }

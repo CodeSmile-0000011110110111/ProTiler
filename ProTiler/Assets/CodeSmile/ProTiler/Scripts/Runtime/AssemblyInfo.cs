@@ -5,10 +5,3 @@ using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("CodeSmile.Editor.ProTiler.Tests")]
-
-[assembly: SuppressMessage("NDepend", "ND1901:AvoidNonReadOnlyStaticFields",
-	Target = "CodeSmile.ProTiler.TileLayer.s_ExampleTileSet", Justification = "TODO")]
-[assembly: SuppressMessage("NDepend", "ND1901:AvoidNonReadOnlyStaticFields",
-	Target = "CodeSmile.ProTiler.TileSet.s_MissingTilePrefab", Justification = "TODO")]
-[assembly: SuppressMessage("NDepend", "ND1901:AvoidNonReadOnlyStaticFields",
-	Target = "CodeSmile.ProTiler.TileSet.s_ClearingTilePrefab", Justification = "TODO")]

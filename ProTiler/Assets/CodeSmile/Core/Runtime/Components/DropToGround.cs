@@ -3,7 +3,7 @@
 
 using UnityEngine;
 
-namespace CodeSmile
+namespace CodeSmile.Components
 {
 	[ExecuteInEditMode]
 	public class DropToGround : MonoBehaviour

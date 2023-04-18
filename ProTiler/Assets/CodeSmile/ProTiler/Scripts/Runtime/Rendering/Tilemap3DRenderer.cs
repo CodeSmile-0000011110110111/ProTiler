@@ -43,7 +43,7 @@ namespace CodeSmile.ProTiler.Rendering
 
 			foreach (var tile3DCoordData in m_TileCoordDatas)
 			{
-				throw new NotImplementedException("get prefab from tiledata");
+				Debug.LogWarning("TODO: get prefab from tiledata");
 				/*
 				var tile = tile3DCoordData.TileData.Tile;
 				if (tile == null || tile.Prefab == null)

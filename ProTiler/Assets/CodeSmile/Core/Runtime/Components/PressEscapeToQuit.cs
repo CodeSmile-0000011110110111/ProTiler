@@ -3,7 +3,7 @@
 
 using UnityEngine;
 
-namespace CodeSmile
+namespace CodeSmile.Components
 {
 	public class PressEscapeToQuit : MonoBehaviour
 	{

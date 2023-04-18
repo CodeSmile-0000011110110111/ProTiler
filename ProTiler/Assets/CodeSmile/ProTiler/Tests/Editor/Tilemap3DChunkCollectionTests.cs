@@ -114,7 +114,6 @@ namespace CodeSmile.Editor.ProTiler.Tests
 		{
 			var width = 3;
 			var height = 4;
-			var layers = 2;
 
 			var chunkSize = new Vector2Int(width, height);
 			var chunks = new Tilemap3DChunkCollection(chunkSize);
@@ -125,6 +124,29 @@ namespace CodeSmile.Editor.ProTiler.Tests
 			chunks.GetTiles(null, ref tileCoordDatas);
 			tileCoordDatas = null;
 			chunks.GetTiles(coords, ref tileCoordDatas);
+		}
+
+		[Test]
+		public void GetTilesOutsideBounds()
+		{
+			var width = 3;
+			var height = 4;
+
+			var chunkSize = new Vector2Int(width, height);
+			var chunks = new Tilemap3DChunkCollection(chunkSize);
+
+			var coords = new Vector3Int[] { new(100, 0, 100) };
+			var tileCoordDatas = new Tile3DCoordData[10];
+			chunks.GetTiles(coords, ref tileCoordDatas);
+			Assert.AreEqual(0, tileCoordDatas[0].TileData.TileIndex);
+
+			coords = new Vector3Int[] { new(3, 100, 2) };
+			chunks.SetTiles(new[]
+			{
+				Tile3DCoordData.New(new Vector3Int(3, 0, 2), Tile3DData.New(13)),
+			});
+			chunks.GetTiles(coords, ref tileCoordDatas);
+			Assert.AreEqual(0, tileCoordDatas[0].TileData.TileIndex);
 		}
 	}
 }
