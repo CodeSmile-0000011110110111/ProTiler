@@ -72,6 +72,6 @@ namespace CodeSmile.ProTiler
 
 		public void DrawRect(object makeRect) => throw new NotImplementedException();
 
-		public void GetTileData(Vector3Int[] coords, ref Tile3DCoordData[] tileCoordDatas) => m_Chunks.GetTileData(coords, ref tileCoordDatas);
+		public void GetTileData(Vector3Int[] coords, ref Tile3DCoordData[] tileCoordDatas) => m_Chunks.GetTiles(coords, ref tileCoordDatas);
 	}
 }

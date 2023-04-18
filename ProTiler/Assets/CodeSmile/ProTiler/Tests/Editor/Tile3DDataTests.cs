@@ -19,7 +19,7 @@ namespace CodeSmile.Editor.ProTiler.Tests
 			Assert.AreEqual(Tile3DFlags.None, tile.Flags);
 
 			var flags = Tile3DFlags.DirectionNorth | Tile3DFlags.FlipVertical;
-			tile = new Tile3DData { TileIndex = 1, Flags = flags };
+			tile = Tile3DData.New(1, flags);
 			Assert.IsFalse(tile.IsEmpty);
 			Assert.IsTrue(tile.IsValid);
 			Assert.AreEqual(1, tile.TileIndex);
@@ -59,6 +59,30 @@ namespace CodeSmile.Editor.ProTiler.Tests
 
 			tile = Tile3DData.New(1, Tile3DFlags.AllDirections);
 			Assert.AreEqual(Tile3DFlags.AllDirections, tile.Direction);
+		}
+
+
+		[Test]
+		public void Equality()
+		{
+			var tile1East = new Tile3DData { TileIndex = 1, Flags = Tile3DFlags.DirectionEast };
+			var tile1South = new Tile3DData { TileIndex = 1, Flags = Tile3DFlags.DirectionSouth };
+			var tile2a = new Tile3DData { TileIndex = 2, Flags = Tile3DFlags.DirectionWest | Tile3DFlags.FlipHorizontal};
+			var tile2b = new Tile3DData { TileIndex = 2,Flags = Tile3DFlags.DirectionWest | Tile3DFlags.FlipHorizontal };
+
+			Assert.IsFalse(tile1East == tile1South);
+			Assert.IsTrue(tile1East != tile1South);
+			Assert.IsFalse(tile1East.Equals(tile1South));
+			Assert.IsFalse(tile1East.Equals((object)tile1South));
+
+			Assert.IsTrue(tile2a == tile2b);
+			Assert.IsFalse(tile2a != tile2b);
+			Assert.IsTrue(tile2a.Equals(tile2b));
+			Assert.IsTrue(tile2a.Equals((object)tile2b));
+
+			Assert.IsTrue(tile2a.GetHashCode() == tile2b.GetHashCode());
+			Assert.IsFalse(tile1East.GetHashCode() == tile2b.GetHashCode());
+			Assert.IsFalse(tile1East.GetHashCode() == tile1South.GetHashCode());
 		}
 	}
 }

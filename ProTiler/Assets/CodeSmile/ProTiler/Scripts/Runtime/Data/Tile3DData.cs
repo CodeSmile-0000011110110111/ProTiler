@@ -11,7 +11,7 @@ namespace CodeSmile.ProTiler
 	///     Note: a TileIndex of 0 indicates an "empty" tile.
 	/// </summary>
 	[Serializable]
-	public struct Tile3DData
+	public struct Tile3DData : IEquatable<Tile3DData>
 	{
 		public int TileIndex;
 		public Tile3DFlags Flags;
@@ -38,5 +38,14 @@ namespace CodeSmile.ProTiler
 			new() { TileIndex = tileIndex, Flags = flags };
 
 		public override string ToString() => $"Tile({TileIndex}: {Flags})";
+
+		public bool Equals(Tile3DData other) => TileIndex == other.TileIndex && Flags == other.Flags;
+
+		public override bool Equals(object obj) => obj is Tile3DData other && Equals(other);
+
+		public override int GetHashCode() => HashCode.Combine(TileIndex, (int)Flags);
+
+		public static bool operator ==(Tile3DData left, Tile3DData right) => left.Equals(right);
+		public static bool operator !=(Tile3DData left, Tile3DData right) => !left.Equals(right);
 	}
 }

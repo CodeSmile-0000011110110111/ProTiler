@@ -106,5 +106,6 @@ namespace CodeSmile.Editor.ProTiler.Tests
 				//Debug.Log($"[{i}] = {tiles[i].Flags}");
 			}
 		}
+
 	}
 }
