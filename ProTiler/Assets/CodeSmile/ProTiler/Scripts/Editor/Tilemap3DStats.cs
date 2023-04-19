@@ -40,8 +40,6 @@ namespace CodeSmile.Editor.ProTiler
 		}
 		public int TilemapCreatedCount { get { return m_TilemapCreatedCount; } set { m_TilemapCreatedCount = value; Save(true); } }
 
-		private void OnEnable() => Save(true);
-
 		private void OnDisable() => Save(true);
 	}
 }
