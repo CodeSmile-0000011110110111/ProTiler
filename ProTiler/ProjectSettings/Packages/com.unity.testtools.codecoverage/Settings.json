@@ -1,5 +1,46 @@
 {
     "m_Dictionary": {
-        "m_DictionaryValues": []
+        "m_DictionaryValues": [
+            {
+                "type": "System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+                "key": "IncludeAssemblies",
+                "value": "{\"m_Value\":\"CodeSmile,CodeSmile.Collections,CodeSmile.Collections.Native,CodeSmile.Components,CodeSmile.Coroutines,CodeSmile.Editor,CodeSmile.Editor.CI,CodeSmile.Editor.InputState,CodeSmile.Editor.ProTiler,CodeSmile.Extensions,CodeSmile.InputState,CodeSmile.ProTiler,CodeSmile.ProTiler.Assets,CodeSmile.ProTiler.Data,CodeSmile.ProTiler.Rendering\"}"
+            },
+            {
+                "type": "System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+                "key": "Path",
+                "value": "{\"m_Value\":\"{ProjectPath}\"}"
+            },
+            {
+                "type": "System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+                "key": "HistoryPath",
+                "value": "{\"m_Value\":\"{ProjectPath}\"}"
+            },
+            {
+                "type": "System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+                "key": "VerbosityLevel",
+                "value": "{\"m_Value\":2}"
+            },
+            {
+                "type": "System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+                "key": "GenerateHTMLReport",
+                "value": "{\"m_Value\":false}"
+            },
+            {
+                "type": "System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+                "key": "GenerateBadge",
+                "value": "{\"m_Value\":false}"
+            },
+            {
+                "type": "System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+                "key": "AutoGenerateReport",
+                "value": "{\"m_Value\":false}"
+            },
+            {
+                "type": "System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+                "key": "OpenReportWhenGenerated",
+                "value": "{\"m_Value\":false}"
+            }
+        ]
     }
 }

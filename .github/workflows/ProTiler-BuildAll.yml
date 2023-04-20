@@ -45,7 +45,7 @@ jobs:
           artifactsPath: artifacts-${{ matrix.unityVersion }}-${{ matrix.testMode }}
           githubToken: ${{ secrets.GITHUB_TOKEN }}
           checkName: ${{ matrix.unityVersion }}-${{ matrix.testMode }} Test Results
-          coverageOptions: ''
+          coverageOptions: 'assemblyFilters:-<all>'
 
   buildAllSupportedPlatforms:
     needs: testAllModes
