@@ -46,7 +46,7 @@ jobs:
           artifactsPath: artifacts-${{ matrix.unityVersion }}-${{ matrix.testMode }}
           githubToken: ${{ secrets.GITHUB_TOKEN }}
           checkName: ${{ matrix.unityVersion }}-${{ matrix.testMode }} Test Results
-          coverageOptions: 'useProjectSettings;generateHtmlReport;generateBadgeReport;generateAdditionalMetrics'
+          coverageOptions: ''
     
       # Artifacts
       - uses: actions/upload-artifact@v3
