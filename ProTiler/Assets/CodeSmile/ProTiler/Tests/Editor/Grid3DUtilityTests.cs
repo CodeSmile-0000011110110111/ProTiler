@@ -18,6 +18,10 @@ namespace CodeSmile.Editor.ProTiler.Tests
 			Assert.AreEqual(35, Grid3DUtility.ToIndex2D(5, 10, 3));
 			Assert.AreEqual(53, Grid3DUtility.ToIndex2D(3, 5, 10));
 
+			Assert.AreEqual(-1, Grid3DUtility.ToIndex2D(-1, 0, 10));
+			Assert.AreEqual(-10, Grid3DUtility.ToIndex2D(0, -1, 10));
+			Assert.AreEqual(-11, Grid3DUtility.ToIndex2D(-1, -1, 10));
+
 			Assert.AreEqual(0, Grid3DUtility.ToIndex2D(Vector3Int.zero, 0));
 			Assert.AreEqual(35, Grid3DUtility.ToIndex2D(new Vector3Int(5, 0, 10), 3));
 			Assert.AreEqual(53, Grid3DUtility.ToIndex2D(new Vector3Int(3, 0, 5), 10));

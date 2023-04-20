@@ -4,9 +4,9 @@
 using NUnit.Framework;
 using NUnit.Framework.Interfaces;
 using System.Collections;
+using System.IO;
 using UnityEditor;
 using UnityEditor.SceneManagement;
-using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 
@@ -16,12 +16,10 @@ namespace CodeSmile.ProTiler.Tests.Utilities
 	{
 		private readonly string m_SceneName;
 
-		public LoadSceneAttribute(string sceneName) => m_SceneName = sceneName;
+		public LoadSceneAttribute(string sceneName) => m_SceneName = Path.ChangeExtension(sceneName, ".unity");
 
 		IEnumerator IOuterUnityTestAction.BeforeTest(ITest test)
 		{
-			Debug.Assert(m_SceneName.EndsWith(".unity"));
-
 			var loadSceneParams = new LoadSceneParameters(LoadSceneMode.Single);
 			if (EditorApplication.isPlaying == false)
 			{

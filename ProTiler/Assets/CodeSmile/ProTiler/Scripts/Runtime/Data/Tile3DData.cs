@@ -13,14 +13,14 @@ namespace CodeSmile.ProTiler
 	[Serializable]
 	public struct Tile3DData : IEquatable<Tile3DData>
 	{
-		public int TileIndex;
+		public int Index;
 		public Tile3DFlags Flags;
 
 		/// <summary>
 		/// Checks if the tile is "empty". A TileIndex of 0 indicates an "empty" tile.
 		/// </summary>
-		public bool IsEmpty => TileIndex == 0;
-		public bool IsValid => TileIndex >= 0;
+		public bool IsEmpty => Index == 0;
+		public bool IsValid => Index >= 0;
 
 		/// <summary>
 		/// Returns direction flags from Flags. Returns DirectionNorth even if flags is 0 to ensure a default rotation.
@@ -35,15 +35,15 @@ namespace CodeSmile.ProTiler
 		}
 
 		public static Tile3DData New(int tileIndex = 0, Tile3DFlags flags = Tile3DFlags.DirectionNorth) =>
-			new() { TileIndex = tileIndex, Flags = flags };
+			new() { Index = tileIndex, Flags = flags };
 
-		public override string ToString() => $"Tile({TileIndex}: {Flags})";
+		public override string ToString() => $"{nameof(Tile3DData)}(Index: {Index}, Flags: {Flags})";
 
-		public bool Equals(Tile3DData other) => TileIndex == other.TileIndex && Flags == other.Flags;
+		public bool Equals(Tile3DData other) => Index == other.Index && Flags == other.Flags;
 
 		public override bool Equals(object obj) => obj is Tile3DData other && Equals(other);
 
-		public override int GetHashCode() => HashCode.Combine(TileIndex, (int)Flags);
+		public override int GetHashCode() => HashCode.Combine(Index, (int)Flags);
 
 		public static bool operator ==(Tile3DData left, Tile3DData right) => left.Equals(right);
 		public static bool operator !=(Tile3DData left, Tile3DData right) => !left.Equals(right);

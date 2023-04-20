@@ -13,10 +13,10 @@ namespace CodeSmile.ProTiler.Collections
 	public class Tile3DDataCollection
 	{
 		// TODO: change to Vector2Int
-		private int m_Width;
-		private int m_Height;
+		[SerializeField] private int m_Width;
+		[SerializeField] private int m_Height;
 		//private Vector2Int m_Size;
-		private Tile3DData[] m_Tiles;
+		[SerializeField] private Tile3DData[] m_Tiles;
 
 		public Tile3DData this[int index]
 		{
@@ -57,6 +57,9 @@ namespace CodeSmile.ProTiler.Collections
 			m_Height = height;
 			m_Tiles = new Tile3DData[width * height];
 		}
+
+		public override string ToString() =>
+			$"{nameof(Tile3DDataCollection)}(Size: {new Vector2Int(m_Width, m_Height)}, Capacity: {Capacity}, Count: {Count})";
 
 		public void SetTiles(Tile3DCoordData[] tileCoordDatas)
 		{

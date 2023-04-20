@@ -15,32 +15,32 @@ namespace CodeSmile.Editor.ProTiler.Tests
 			var tile = new Tile3DData();
 			Assert.IsTrue(tile.IsEmpty);
 			Assert.IsTrue(tile.IsValid);
-			Assert.AreEqual(0, tile.TileIndex);
+			Assert.AreEqual(0, tile.Index);
 			Assert.AreEqual(Tile3DFlags.None, tile.Flags);
 
 			var flags = Tile3DFlags.DirectionNorth | Tile3DFlags.FlipVertical;
 			tile = Tile3DData.New(1, flags);
 			Assert.IsFalse(tile.IsEmpty);
 			Assert.IsTrue(tile.IsValid);
-			Assert.AreEqual(1, tile.TileIndex);
+			Assert.AreEqual(1, tile.Index);
 			Assert.AreEqual(flags, tile.Flags);
 
 			tile = Tile3DData.New(2);
 			Assert.IsFalse(tile.IsEmpty);
 			Assert.IsTrue(tile.IsValid);
-			Assert.AreEqual(2, tile.TileIndex);
+			Assert.AreEqual(2, tile.Index);
 			Assert.AreEqual(Tile3DFlags.DirectionNorth, tile.Flags);
 
 			tile = Tile3DData.New(3, flags);
 			Assert.IsFalse(tile.IsEmpty);
 			Assert.IsTrue(tile.IsValid);
-			Assert.AreEqual(3, tile.TileIndex);
+			Assert.AreEqual(3, tile.Index);
 			Assert.AreEqual(flags, tile.Flags);
 
 			tile = Tile3DData.New();
 			Assert.IsTrue(tile.IsEmpty);
 			Assert.IsTrue(tile.IsValid);
-			Assert.AreEqual(0, tile.TileIndex);
+			Assert.AreEqual(0, tile.Index);
 			Assert.AreEqual(Tile3DFlags.DirectionNorth, tile.Flags);
 
 			tile = Tile3DData.New(-1);
@@ -65,10 +65,10 @@ namespace CodeSmile.Editor.ProTiler.Tests
 		[Test]
 		public void Equality()
 		{
-			var tile1East = new Tile3DData { TileIndex = 1, Flags = Tile3DFlags.DirectionEast };
-			var tile1South = new Tile3DData { TileIndex = 1, Flags = Tile3DFlags.DirectionSouth };
-			var tile2a = new Tile3DData { TileIndex = 2, Flags = Tile3DFlags.DirectionWest | Tile3DFlags.FlipHorizontal};
-			var tile2b = new Tile3DData { TileIndex = 2,Flags = Tile3DFlags.DirectionWest | Tile3DFlags.FlipHorizontal };
+			var tile1East = new Tile3DData { Index = 1, Flags = Tile3DFlags.DirectionEast };
+			var tile1South = new Tile3DData { Index = 1, Flags = Tile3DFlags.DirectionSouth };
+			var tile2a = new Tile3DData { Index = 2, Flags = Tile3DFlags.DirectionWest | Tile3DFlags.FlipHorizontal};
+			var tile2b = new Tile3DData { Index = 2,Flags = Tile3DFlags.DirectionWest | Tile3DFlags.FlipHorizontal };
 
 			Assert.IsFalse(tile1East == tile1South);
 			Assert.IsTrue(tile1East != tile1South);

@@ -33,14 +33,14 @@ namespace CodeSmile.Editor.ProTiler.Tests
 			Assert.AreEqual(0, tiles.Count);
 
 			var tile = tiles[0];
-			tile.TileIndex = 1;
+			tile.Index = 1;
 			tiles[0] = tile;
 			Assert.AreEqual(1, tiles.Count);
-			Assert.AreEqual(1, tiles[0].TileIndex);
+			Assert.AreEqual(1, tiles[0].Index);
 
 			tiles[1] = tile;
 			Assert.AreEqual(2, tiles.Count);
-			Assert.AreEqual(1, tiles[1].TileIndex);
+			Assert.AreEqual(1, tiles[1].Index);
 
 			tiles[width * height - 1] = tile;
 			Assert.AreEqual(3, tiles.Count);
@@ -60,7 +60,7 @@ namespace CodeSmile.Editor.ProTiler.Tests
 					var index = Grid3DUtility.ToIndex2D(x, y, width);
 					var tileData = Tile3DData.New(index + 1);
 					tiles[x, y] = tileData;
-					Assert.AreEqual(tileData.TileIndex, tiles[x, y].TileIndex);
+					Assert.AreEqual(tileData.Index, tiles[x, y].Index);
 				}
 			}
 		}
@@ -98,7 +98,7 @@ namespace CodeSmile.Editor.ProTiler.Tests
 			var prevFlags = Tile3DFlags.None;
 			for (var i = 0; i < tiles.Count; i++)
 			{
-				Assert.AreEqual(i + 1, tiles[i].TileIndex);
+				Assert.AreEqual(i + 1, tiles[i].Index);
 				Assert.AreNotEqual(Tile3DFlags.None, tiles[i].Flags);
 				Assert.AreNotEqual(Tile3DFlags.DirectionNorth, tiles[i].Flags);
 				Assert.AreNotEqual(prevFlags, tiles[i].Flags);

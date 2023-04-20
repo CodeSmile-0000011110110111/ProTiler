@@ -34,16 +34,16 @@ namespace CodeSmile.ProTiler.Rendering
 
 		private void UpdateVisibleTiles()
 		{
-			Tilemap.GetTileData(m_VisibleCoords, ref m_TileCoordDatas);
+			Tilemap.GetTiles(m_VisibleCoords, ref m_TileCoordDatas);
 
 			// TODO dont destroy children, implement pooling
 			transform.DestroyAllChildren();
 
 			GameObject instance = null;
 
+			Debug.LogWarning("TODO: get prefab from tiledata");
 			foreach (var tile3DCoordData in m_TileCoordDatas)
 			{
-				Debug.LogWarning("TODO: get prefab from tiledata");
 				/*
 				var tile = tile3DCoordData.TileData.Tile;
 				if (tile == null || tile.Prefab == null)

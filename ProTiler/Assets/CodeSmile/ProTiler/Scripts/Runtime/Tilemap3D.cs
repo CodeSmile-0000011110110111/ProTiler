@@ -1,6 +1,7 @@
 // Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
+using CodeSmile.Extensions;
 using CodeSmile.ProTiler.Collections;
 using System;
 using UnityEngine;
@@ -11,13 +12,15 @@ namespace CodeSmile.ProTiler
 	public class Tilemap3D : MonoBehaviour
 	{
 		//[SerializeField] private Vector3 m_TileAnchor;
-		[SerializeField] private Vector2Int m_ChunkSize = new(32, 32);
+		[SerializeField] private Vector2Int m_ChunkSize = new(16, 16);
+		[SerializeField] private Tilemap3DChunkCollection m_Chunks;
 
-		[Header("Info")]
-		[SerializeField] [ReadOnlyField] private int m_TileCount;
-
-		private Vector2Int m_LastChunkSize;
-		private Tilemap3DChunkCollection m_Chunks;
+		private Vector2Int m_CurrentChunkSize;
+		public Vector2Int ChunkSize
+		{
+			get => m_ChunkSize;
+			set => SetChunkSize(value);
+		}
 		public Tilemap3DChunkCollection Chunks => m_Chunks;
 
 		public Grid3D Grid
@@ -31,25 +34,22 @@ namespace CodeSmile.ProTiler
 			}
 		}
 
-		private void Awake() => InitChunks();
+		private void Awake() => SetChunkSize(m_ChunkSize);
 
-		private void Reset() => InitChunks();
+		private void Reset() => SetChunkSize(m_ChunkSize);
 
-		private void OnValidate()
+		private void OnValidate() => SetChunkSize(m_ChunkSize);
+
+		public void SetChunkSize(Vector2Int chunkSize)
 		{
-			if (m_ChunkSize != m_LastChunkSize)
+			Tilemap3DChunkCollection.ClampChunkSize(ref chunkSize);
+			if (chunkSize != m_CurrentChunkSize)
 			{
-				ClampChunkSize();
-				if (Chunks != null)
-					Chunks.ChangeChunkSize(m_ChunkSize);
-				m_LastChunkSize = m_ChunkSize;
-			}
-		}
+				m_ChunkSize = m_CurrentChunkSize = chunkSize;
 
-		private void ClampChunkSize()
-		{
-			m_ChunkSize.x = Mathf.Max(1, m_ChunkSize.x);
-			m_ChunkSize.y = Mathf.Max(1, m_ChunkSize.y);
+				InitChunks();
+				Chunks.ChangeChunkSize(m_ChunkSize);
+			}
 		}
 
 		private void InitChunks()
@@ -57,26 +57,34 @@ namespace CodeSmile.ProTiler
 			if (m_Chunks == null)
 			{
 				m_Chunks = new Tilemap3DChunkCollection(m_ChunkSize);
-				m_TileCount = m_Chunks.TileCount;
-				m_LastChunkSize = m_ChunkSize;
+				m_CurrentChunkSize = m_ChunkSize;
 			}
 		}
 
-		public void SetTiles(Tile3DCoordData[] tileChangeData) => m_Chunks.SetTiles(tileChangeData);
-		public void RefreshTile(Vector3Int coord) => throw new NotImplementedException();
-
-		public void DrawLine(Vector3Int startSelectionCoord, Vector3Int cursorCoord)
+		public Tile3DData GetTile(Vector3Int coord)
 		{
-			// this.RecordUndoInEditor(DrawBrush.IsClearing ? "Clear Tiles" : "Draw Tiles");
-			// var (coords, tiles) = GraphView.Layer.DrawLine(start, end, DrawBrush);
-			// this.SetDirtyInEditor();
-			//
-			// LayerRenderer.RedrawTiles(coords, tiles);
-			//DebugUpdateTileCount();
+			var tileDatas = new Tile3DCoordData[1];
+			GetTiles(new[] { coord }, ref tileDatas);
+			return tileDatas[0].TileData;
 		}
 
-		public void DrawRect(object makeRect) => throw new NotImplementedException();
+		public void GetTiles(Vector3Int[] coords, ref Tile3DCoordData[] tileCoordDatas) => m_Chunks.GetTiles(coords, ref tileCoordDatas);
 
-		public void GetTileData(Vector3Int[] coords, ref Tile3DCoordData[] tileCoordDatas) => m_Chunks.GetTiles(coords, ref tileCoordDatas);
+		public void SetTile(Vector3Int coord, Tile3DData tileData) => SetTiles(new[] { Tile3DCoordData.New(coord, tileData) });
+
+		public void SetTiles(Tile3DCoordData[] tileCoordDatas)
+		{
+			this.RecordUndoInEditor(nameof(SetTiles));
+			SetTilesNoUndo(tileCoordDatas);
+			this.SetDirtyInEditor();
+		}
+
+		public void SetTilesNoUndo(Tile3DCoordData[] tileCoordDatas) => m_Chunks.SetTiles(tileCoordDatas);
+
+		public void RefreshTile(Vector3Int coord) => throw new NotImplementedException();
+
+		public void DrawLine(Vector3Int startSelectionCoord, Vector3Int cursorCoord) => throw new NotImplementedException();
+
+		public void DrawRect(object makeRect) => throw new NotImplementedException();
 	}
 }

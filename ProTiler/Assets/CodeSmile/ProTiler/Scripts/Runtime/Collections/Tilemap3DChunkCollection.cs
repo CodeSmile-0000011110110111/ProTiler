@@ -1,21 +1,32 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
+using CodeSmile.Collections;
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace CodeSmile.ProTiler.Collections
 {
+	[Serializable]
+	public class ChunkDictionary : SerializedDictionary<long, TileLayerDictionary> {}
+
+	[Serializable]
+	public class TileLayerDictionary : SerializedDictionary<int, Tile3DDataCollection>
+	{
+		public int Uses;
+	}
+
 	/// <summary>
 	///     Contains all chunks of a tilemap, dividing tilemap into x/z spatial chunks.
 	/// </summary>
 	[Serializable]
 	public class Tilemap3DChunkCollection
 	{
-		private Vector2Int m_Size;
-		private Dictionary<long, Dictionary<int, Tile3DDataCollection>> m_Chunks;
-		private int m_Count;
+		public const int MinChunkSize = 2;
+
+		[SerializeField] private ChunkDictionary m_Chunks;
+		[SerializeField] private Vector2Int m_Size;
+		[SerializeField] private int m_Count;
 
 		public Vector2Int Size => m_Size;
 		public int TileCount
@@ -33,24 +44,34 @@ namespace CodeSmile.ProTiler.Collections
 		}
 
 		public int Count => m_Chunks.Count;
+		//Grid3DUtility.ToIndex2D(chunkCoord.x, chunkCoord.z, m_Size.x);
+
+		public static void ClampChunkSize(ref Vector2Int chunkSize)
+		{
+			chunkSize.x = Mathf.Max(MinChunkSize, chunkSize.x);
+			chunkSize.y = Mathf.Max(MinChunkSize, chunkSize.y);
+		}
 
 		private Tilemap3DChunkCollection()
-			: this(new Vector2Int(10, 10)) {}
+			: this(16, 16) {}
+
+		public Tilemap3DChunkCollection(int x, int y)
+			: this(new Vector2Int(x, y)) {}
 
 		public Tilemap3DChunkCollection(Vector2Int chunkSize) => ChangeChunkSize(chunkSize);
 
+		public override string ToString() => $"{nameof(Tilemap3DChunkCollection)}(Size: {Size}, Count: {Count}, TileCount: {TileCount})";
+
 		public void ChangeChunkSize(Vector2Int newChunkSize)
 		{
+			ClampChunkSize(ref newChunkSize);
 			if (newChunkSize == m_Size)
 				return;
-
-			if (newChunkSize.x <= 0 || newChunkSize.y <= 0)
-				throw new ArgumentException($"invalid chunk size: {newChunkSize}");
 
 			m_Size = newChunkSize;
 
 			// TODO: recreate chunks without destroying data
-			m_Chunks = new Dictionary<long, Dictionary<int, Tile3DDataCollection>>();
+			m_Chunks = new ChunkDictionary();
 		}
 
 		public void GetTiles(Vector3Int[] coords, ref Tile3DCoordData[] tileDatas)
@@ -90,11 +111,11 @@ namespace CodeSmile.ProTiler.Collections
 			}
 		}
 
-		private Vector3Int ToLayerCoord(Vector3Int chunkCoord, Vector3Int coord) => coord - chunkCoord;
+		internal Vector3Int ToLayerCoord(Vector3Int chunkCoord, Vector3Int coord) => coord - chunkCoord;
 
-		private Vector3Int ToChunkCoord(Vector3Int coord) => new(coord.x / m_Size.x, coord.y, coord.z / m_Size.y);
+		internal Vector3Int ToChunkCoord(Vector3Int coord) => new(coord.x / m_Size.x, coord.y, coord.z / m_Size.y);
 
-		private Tile3DDataCollection GetOrCreateChunkLayer(Dictionary<int, Tile3DDataCollection> chunk, int y)
+		private Tile3DDataCollection GetOrCreateChunkLayer(TileLayerDictionary chunk, int y)
 		{
 			if (chunk.TryGetValue(y, out var layer))
 				return layer;
@@ -103,31 +124,20 @@ namespace CodeSmile.ProTiler.Collections
 			return layer;
 		}
 
-		private Dictionary<int, Tile3DDataCollection> GetOrCreateChunk(Vector3Int chunkCoord)
+		private TileLayerDictionary GetOrCreateChunk(Vector3Int chunkCoord)
 		{
-			var coordHash = GetChunkHash(chunkCoord);
-			if (TryGetChunk(coordHash, out var chunk))
+			var chunkKey = GetChunkKey(chunkCoord);
+			if (TryGetChunk(chunkKey, out var chunk))
 				return chunk;
 
-			m_Chunks[coordHash] = chunk = new Dictionary<int, Tile3DDataCollection>();
+			m_Chunks[chunkKey] = chunk = new TileLayerDictionary();
 			return chunk;
 		}
 
-		private bool TryGetChunk(Vector3Int chunkCoord, out Dictionary<int, Tile3DDataCollection> chunk) =>
-			TryGetChunk(GetChunkHash(chunkCoord), out chunk);
+		private bool TryGetChunk(Vector3Int chunkCoord, out TileLayerDictionary chunk) => TryGetChunk(GetChunkKey(chunkCoord), out chunk);
 
-		private bool TryGetChunk(long coordHash, out Dictionary<int, Tile3DDataCollection> chunk)
-		{
-			if (m_Chunks.TryGetValue(coordHash, out var gotChunk))
-			{
-				chunk = gotChunk;
-				return true;
-			}
+		private bool TryGetChunk(long key, out TileLayerDictionary chunk) => m_Chunks.TryGetValue(key, out chunk);
 
-			chunk = null;
-			return false;
-		}
-
-		private long GetChunkHash(Vector3Int chunkCoord) => HashUtility.GetHash(chunkCoord.x, chunkCoord.z);
+		private long GetChunkKey(Vector3Int chunkCoord) => HashUtility.GetHash(chunkCoord.x, chunkCoord.z);
 	}
 }
