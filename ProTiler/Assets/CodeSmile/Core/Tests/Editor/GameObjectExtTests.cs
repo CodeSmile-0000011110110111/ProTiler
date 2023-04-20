@@ -4,6 +4,7 @@
 using CodeSmile.Extensions;
 using CodeSmile.ProTiler.Tests.Utilities;
 using NUnit.Framework;
+using System;
 using UnityEditor;
 using UnityEngine;
 
@@ -79,13 +80,15 @@ namespace CodeSmile.Tests.Editor
 			var original = GameObject.Find("original");
 			Assert.NotNull(original);
 
+			Assert.Throws<ArgumentNullException>(() => { go.FindOrCreateChild("child", null); });
+
 			var child = go.FindOrCreateChild("child", original);
 			Assert.NotNull(child);
 			Assert.IsTrue(go.transform.childCount == 1);
 			Assert.AreEqual(child, go.transform.GetChild(0).gameObject);
 			Assert.NotNull(child.GetComponent<SphereCollider>());
 
-			child = go.FindOrCreateChild("child");
+			child = go.FindOrCreateChild("child", original);
 			Assert.NotNull(child);
 			Assert.IsTrue(go.transform.childCount == 1);
 			Assert.AreEqual(child, go.transform.GetChild(0).gameObject);
