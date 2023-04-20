@@ -4,6 +4,7 @@
 using CodeSmile.Editor.ProTiler.Extensions;
 using CodeSmile.Extensions;
 using CodeSmile.ProTiler;
+using System;
 using UnityEditor;
 using UnityEngine;
 
@@ -148,10 +149,15 @@ namespace CodeSmile.Editor.ProTiler
 		private void DrawLineFromStartToCursor()
 		{
 			Tilemap3DStats.instance.DrawTileCount++;
-			Tilemap.DrawLine(m_StartSelectionCoord, m_CursorCoord);
+			//Tilemap.DrawLine(m_StartSelectionCoord, m_CursorCoord);
+			throw new NotImplementedException();
 		}
 
-		private void DrawRectFromStartToCursor() => Tilemap.DrawRect(m_StartSelectionCoord.MakeRect(m_CursorCoord));
+		private void DrawRectFromStartToCursor()
+		{
+			//Tilemap.DrawRect(m_StartSelectionCoord.MakeRect(m_CursorCoord));
+			throw new NotImplementedException();
+		}
 
 		private void ShowDrawBrush(bool show = true)
 		{

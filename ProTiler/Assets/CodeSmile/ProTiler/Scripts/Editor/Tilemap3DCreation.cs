@@ -18,7 +18,7 @@ namespace CodeSmile.Editor.ProTiler
 
 		[MenuItem("GameObject/" + Names.TileEditor + "/" + Names.Tilemap3DMenu + "/" + RectangularTilemapMenuText,
 			priority = Menus.CreateGameObjectPriority + 0)]
-		public static Tilemap3D CreateRectangularTilemap3D() => CreateTilemap3D(Grid3D.Layout.Rectangular);
+		public static Tilemap3D CreateRectangularTilemap3D() => CreateTilemap3D(CellLayout.Rectangular);
 
 		[MenuItem("GameObject/" + Names.TileEditor + "/" + Names.Tilemap3DMenu + "/" + HexagonalFlatTopTilemapMenuText,
 			priority = Menus.CreateGameObjectPriority + 1)]
@@ -28,7 +28,7 @@ namespace CodeSmile.Editor.ProTiler
 			priority = Menus.CreateGameObjectPriority + 2)]
 		public static Tilemap3D CreateHexagonalPointTopTilemap3D() => throw new NotImplementedException(nameof(CreateHexagonalPointTopTilemap3D));
 
-		private static Tilemap3D CreateTilemap3D(Grid3D.Layout layout)
+		private static Tilemap3D CreateTilemap3D(CellLayout cellLayout)
 		{
 			Tilemap3DStats.instance.TilemapCreatedCount++;
 
@@ -40,12 +40,12 @@ namespace CodeSmile.Editor.ProTiler
 			tilemapGO.transform.position = Vector3.zero;
 			Selection.activeGameObject = tilemapGO;
 
-			switch (layout)
+			switch (cellLayout)
 			{
-				case Grid3D.Layout.Rectangular:
+				case CellLayout.Rectangular:
 					break;
 				default:
-					throw new NotImplementedException(layout.ToString());
+					throw new NotImplementedException(cellLayout.ToString());
 			}
 
 			Undo.SetCurrentGroupName("Create 3D Tilemap");

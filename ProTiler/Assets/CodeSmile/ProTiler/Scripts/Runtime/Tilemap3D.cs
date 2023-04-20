@@ -27,8 +27,10 @@ namespace CodeSmile.ProTiler
 		{
 			get
 			{
+#if DEBUG
 				if (transform.parent == null)
-					return null;
+					throw new NullReferenceException($"{nameof(Tilemap3D)} has no parent");
+#endif
 
 				return transform.parent.GetComponent<Grid3D>();
 			}
@@ -40,7 +42,7 @@ namespace CodeSmile.ProTiler
 
 		private void OnValidate() => SetChunkSize(m_ChunkSize);
 
-		public void SetChunkSize(Vector2Int chunkSize)
+		private void SetChunkSize(Vector2Int chunkSize)
 		{
 			Tilemap3DChunkCollection.ClampChunkSize(ref chunkSize);
 			if (chunkSize != m_CurrentChunkSize)
@@ -81,10 +83,12 @@ namespace CodeSmile.ProTiler
 
 		public void SetTilesNoUndo(Tile3DCoordData[] tileCoordDatas) => m_Chunks.SetTiles(tileCoordDatas);
 
+		/*
 		public void RefreshTile(Vector3Int coord) => throw new NotImplementedException();
 
 		public void DrawLine(Vector3Int startSelectionCoord, Vector3Int cursorCoord) => throw new NotImplementedException();
 
 		public void DrawRect(object makeRect) => throw new NotImplementedException();
+	*/
 	}
 }

@@ -1,10 +1,13 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
+using CodeSmile.Extensions;
 using CodeSmile.ProTiler;
 using CodeSmile.ProTiler.Tests.Utilities;
 using NUnit.Framework;
+using System.Net;
 using UnityEditor;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -107,7 +110,9 @@ namespace CodeSmile.Editor.ProTiler.Tests
 		public void SetTileUndoRedo()
 		{
 			var tilemap = Tilemap3DCreation.CreateRectangularTilemap3D();
-			tilemap.SetChunkSize(new Vector2Int(3, 2));
+			var chunkSize = new Vector2Int(3, 2);
+			tilemap.ChunkSize = chunkSize;
+			Assert.AreEqual(chunkSize, tilemap.ChunkSize);
 			Assert.AreEqual(0, tilemap.Chunks.TileCount);
 
 			var tileIndex = 123;
@@ -127,6 +132,42 @@ namespace CodeSmile.Editor.ProTiler.Tests
 
 			var tile = tilemap.GetTile(coord);
 			Assert.AreEqual(tileIndex, tile.Index);
+		}
+
+		[Test]
+		[NewScene]
+		public void SetTileSurvivesSaveLoadScene()
+		{
+			var tilemap = Tilemap3DCreation.CreateRectangularTilemap3D();
+			var chunkSize = new Vector2Int(3, 7);
+			tilemap.ChunkSize = chunkSize;
+			Assert.AreEqual(chunkSize, tilemap.ChunkSize);
+
+			var tileIndex = 123;
+			var coord = Vector3Int.one;
+			tilemap.SetTile(coord, Tile3DData.New(tileIndex));
+			Assert.AreEqual(tileIndex, tilemap.GetTile(coord).Index);
+
+			var scenePath = "Assets/TilemapTest.unity";
+			EditorSceneManager.SaveScene(EditorSceneManager.GetActiveScene(), scenePath);
+			var sceneAsset = AssetDatabase.LoadAssetAtPath(scenePath, typeof(SceneAsset));
+			Assert.NotNull(sceneAsset);
+
+			EditorSceneManager.OpenScene(scenePath);
+
+			var tilemaps = Object.FindObjectsOfType<Tilemap3D>();
+			Assert.NotNull(tilemaps);
+			Assert.AreEqual(1, tilemaps.Length);
+
+			tilemap = tilemaps[0];
+			Assert.NotNull(tilemap);
+			Assert.AreEqual(chunkSize, tilemap.ChunkSize);
+			Assert.AreEqual(tileIndex, tilemap.GetTile(coord).Index);
+
+			// remove test scene
+			AssetDatabase.DeleteAsset(scenePath);
+			sceneAsset = AssetDatabase.LoadAssetAtPath(scenePath, typeof(Scene));
+			Assert.Null(sceneAsset);
 		}
 	}
 }
