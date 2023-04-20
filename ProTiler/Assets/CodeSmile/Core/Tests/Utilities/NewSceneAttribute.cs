@@ -28,7 +28,7 @@ namespace CodeSmile.ProTiler.Tests.Utilities
 
 		public NewSceneAttribute(string scenePath = null, NewSceneSetup setup = NewSceneSetup.DefaultGameObjects)
 		{
-			m_ScenePath = string.IsNullOrWhiteSpace(scenePath) == false ? scenePath.Trim() : null;
+			m_ScenePath = string.IsNullOrWhiteSpace(scenePath) == false ? Defines.TestAssetsPath + scenePath.Trim() : null;
 			m_Setup = setup;
 
 			if (m_ScenePath != null)
@@ -39,15 +39,19 @@ namespace CodeSmile.ProTiler.Tests.Utilities
 		{
 			var scene = EditorSceneManager.NewScene(m_Setup, NewSceneMode.Single);
 			if (m_ScenePath != null)
-				EditorSceneManager.SaveScene(scene, Defines.TestAssetsPath + m_ScenePath);
+				EditorSceneManager.SaveScene(scene, m_ScenePath);
 
 			yield return null;
 		}
 
 		IEnumerator IOuterUnityTestAction.AfterTest(ITest test)
 		{
-			if (m_ScenePath != null && File.Exists(m_ScenePath))
-				AssetDatabase.DeleteAsset(m_ScenePath);
+			if (m_ScenePath != null)
+			{
+				if (AssetDatabase.DeleteAsset(m_ScenePath) != true)
+					Debug.LogWarning($"failed to delete NewScene named '{m_ScenePath}'");
+			}
+
 			yield return null;
 		}
 

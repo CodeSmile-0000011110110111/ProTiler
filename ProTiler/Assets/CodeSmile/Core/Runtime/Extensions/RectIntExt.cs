@@ -9,7 +9,7 @@ namespace CodeSmile.Extensions
 {
 	public static class RectIntExt
 	{
-		public static IReadOnlyList<Vector3Int> GetTileCoords(this RectInt gridRect)
+		public static IReadOnlyList<Vector3Int> GetPositions(this RectInt gridRect)
 		{
 			// FIXME: use rect.allPositionsWithin ?
 

@@ -2,6 +2,7 @@
 // Refer to included LICENSE file for terms and conditions.
 
 using CodeSmile.Extensions;
+using CodeSmile.ProTiler;
 using UnityEditor;
 using UnityEngine;
 
@@ -18,12 +19,12 @@ namespace CodeSmile.Editor.ProTiler.Extensions
 		/// <param name="coord">the 3d grid coordinate on the plane</param>
 		/// <param name="planeY">the height of the grid plane, default: 0</param>
 		/// <returns>true if the guiPoint intersected with the plane</returns>
-		public static bool GUIPointToGridCoord(Vector2 guiPoint, Vector3 cellSize, out Vector3Int coord, float planeY = 0f)
+		public static bool GUIPointToGridCoord(Vector2 guiPoint, Vector3Int cellSize, out Vector3Int coord, float planeY = 0f)
 		{
 			var ray = HandleUtility.GUIPointToWorldRay(guiPoint);
 			if (ray.IntersectsPlane(out Vector3 mouseWorldPos, planeY))
 			{
-				coord = mouseWorldPos.ToGridCoord(cellSize);
+				coord = Grid3DUtility.ToCoord(mouseWorldPos, cellSize);
 				return true;
 			}
 

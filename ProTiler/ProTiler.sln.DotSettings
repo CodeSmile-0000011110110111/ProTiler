@@ -8,6 +8,8 @@
 	<s:Boolean x:Key="/Default/Environment/Filtering/ExcludeCoverageFilters/=CodeSmile_002EEditor_002ECI_003B_002A_003B_002A_003B_002A/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/Environment/Filtering/ExcludeCoverageFilters/=CodeSmile_002EEditor_002EProTiler_002EOld_003B_002A_003B_002A_003B_002A/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/Environment/Filtering/ExcludeCoverageFilters/=CodeSmile_002EEditor_002ETests_003B_002A_003B_002A_003B_002A/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/Environment/Filtering/ExcludeCoverageFilters/=CodeSmile_002EExtensions_003B_002A_003BCodeSmile_002EExtensions_002EObjectExt_003BDestroyInAnyMode/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/Environment/Filtering/ExcludeCoverageFilters/=CodeSmile_002EExtensions_003B_002A_003BCodeSmile_002EExtensions_002EObjectExt_003BIsMissing/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/Environment/Filtering/ExcludeCoverageFilters/=CodeSmile_002EExtensions_003B_002A_003BUnitySourceGeneratedAssemblyMonoScriptTypes_005Fv1_003B_002A/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/Environment/Filtering/ExcludeCoverageFilters/=CodeSmile_002EProTiler_002EAssets_003B_002A_003BUnitySourceGeneratedAssemblyMonoScriptTypes_005Fv1_003B_002A/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/Environment/Filtering/ExcludeCoverageFilters/=CodeSmile_002EProTiler_002EData_003B_002A_003BCodeSmile_002EProTiler_002EColors_003B_002A/@EntryIndexedValue">True</s:Boolean>
