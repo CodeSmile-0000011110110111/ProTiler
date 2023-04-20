@@ -36,7 +36,7 @@ namespace CodeSmile.Editor.ProTiler.Tests
 
 		[Test]
 		[LoadScene(Defines.UnitTestScene)]
-		public void TilemapMultipleCreation()
+		public void MultipleTilemapCreation()
 		{
 			var tilemap1 = Tilemap3DCreation.CreateRectangularTilemap3D();
 			var tilemap2 = Tilemap3DCreation.CreateRectangularTilemap3D();
@@ -76,7 +76,7 @@ namespace CodeSmile.Editor.ProTiler.Tests
 
 		[Test]
 		[LoadScene(Defines.UnitTestScene)]
-		public void TilemapMultipleCreationUndoRedo()
+		public void MultipleTilemapCreationUndoRedo()
 		{
 			var tilemap1 = Tilemap3DCreation.CreateRectangularTilemap3D();
 			var tilemap2 = Tilemap3DCreation.CreateRectangularTilemap3D();
@@ -104,7 +104,7 @@ namespace CodeSmile.Editor.ProTiler.Tests
 
 		[Test]
 		[LoadScene(Defines.UnitTestScene)]
-		public void SetTilesUndoRedo()
+		public void SetTileUndoRedo()
 		{
 			var tilemap = Tilemap3DCreation.CreateRectangularTilemap3D();
 			tilemap.SetChunkSize(new Vector2Int(3, 2));

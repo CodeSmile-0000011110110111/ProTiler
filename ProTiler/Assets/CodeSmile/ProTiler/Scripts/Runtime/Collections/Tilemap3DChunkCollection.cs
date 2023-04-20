@@ -7,15 +7,6 @@ using UnityEngine;
 
 namespace CodeSmile.ProTiler.Collections
 {
-	[Serializable]
-	public class ChunkDictionary : SerializedDictionary<long, TileLayerDictionary> {}
-
-	[Serializable]
-	public class TileLayerDictionary : SerializedDictionary<int, Tile3DDataCollection>
-	{
-		public int Uses;
-	}
-
 	/// <summary>
 	///     Contains all chunks of a tilemap, dividing tilemap into x/z spatial chunks.
 	/// </summary>
@@ -24,7 +15,7 @@ namespace CodeSmile.ProTiler.Collections
 	{
 		public const int MinChunkSize = 2;
 
-		[SerializeField] private ChunkDictionary m_Chunks;
+		[SerializeField] private ChunkCollection m_Chunks;
 		[SerializeField] private Vector2Int m_Size;
 		[SerializeField] private int m_Count;
 
@@ -71,7 +62,7 @@ namespace CodeSmile.ProTiler.Collections
 			m_Size = newChunkSize;
 
 			// TODO: recreate chunks without destroying data
-			m_Chunks = new ChunkDictionary();
+			m_Chunks = new ChunkCollection();
 		}
 
 		public void GetTiles(Vector3Int[] coords, ref Tile3DCoordData[] tileDatas)
@@ -115,7 +106,7 @@ namespace CodeSmile.ProTiler.Collections
 
 		internal Vector3Int ToChunkCoord(Vector3Int coord) => new(coord.x / m_Size.x, coord.y, coord.z / m_Size.y);
 
-		private Tile3DDataCollection GetOrCreateChunkLayer(TileLayerDictionary chunk, int y)
+		private Tile3DDataCollection GetOrCreateChunkLayer(LayerCollection chunk, int y)
 		{
 			if (chunk.TryGetValue(y, out var layer))
 				return layer;
@@ -124,20 +115,23 @@ namespace CodeSmile.ProTiler.Collections
 			return layer;
 		}
 
-		private TileLayerDictionary GetOrCreateChunk(Vector3Int chunkCoord)
+		private LayerCollection GetOrCreateChunk(Vector3Int chunkCoord)
 		{
 			var chunkKey = GetChunkKey(chunkCoord);
 			if (TryGetChunk(chunkKey, out var chunk))
 				return chunk;
 
-			m_Chunks[chunkKey] = chunk = new TileLayerDictionary();
+			m_Chunks[chunkKey] = chunk = new LayerCollection();
 			return chunk;
 		}
 
-		private bool TryGetChunk(Vector3Int chunkCoord, out TileLayerDictionary chunk) => TryGetChunk(GetChunkKey(chunkCoord), out chunk);
+		private bool TryGetChunk(Vector3Int chunkCoord, out LayerCollection chunk) => TryGetChunk(GetChunkKey(chunkCoord), out chunk);
 
-		private bool TryGetChunk(long key, out TileLayerDictionary chunk) => m_Chunks.TryGetValue(key, out chunk);
+		private bool TryGetChunk(long key, out LayerCollection chunk) => m_Chunks.TryGetValue(key, out chunk);
 
 		private long GetChunkKey(Vector3Int chunkCoord) => HashUtility.GetHash(chunkCoord.x, chunkCoord.z);
+
+		[Serializable] public class ChunkCollection : SerializedDictionary<long, LayerCollection> {}
+		[Serializable] public class LayerCollection : SerializedDictionary<int, Tile3DDataCollection> {}
 	}
 }
