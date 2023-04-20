@@ -1,11 +1,9 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
-using CodeSmile.Extensions;
 using CodeSmile.ProTiler;
 using CodeSmile.ProTiler.Tests.Utilities;
 using NUnit.Framework;
-using System.Net;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
@@ -15,14 +13,8 @@ namespace CodeSmile.Editor.ProTiler.Tests
 {
 	public class Tilemap3DTests
 	{
-		[SetUp]
-		public void SetUp() {}
-
-		[TearDown]
-		public void TearDown() {}
-
 		[Test]
-		[LoadScene(Defines.UnitTestScene)]
+		[NewScene]
 		public void TilemapCreation()
 		{
 			var tilemap = Tilemap3DCreation.CreateRectangularTilemap3D();
@@ -38,7 +30,7 @@ namespace CodeSmile.Editor.ProTiler.Tests
 		}
 
 		[Test]
-		[LoadScene(Defines.UnitTestScene)]
+		[NewScene]
 		public void MultipleTilemapCreation()
 		{
 			var tilemap1 = Tilemap3DCreation.CreateRectangularTilemap3D();
@@ -56,7 +48,7 @@ namespace CodeSmile.Editor.ProTiler.Tests
 		}
 
 		[Test]
-		[LoadScene(Defines.UnitTestScene)]
+		[NewScene]
 		public void TilemapCreationUndoRedo()
 		{
 			var tilemap = Tilemap3DCreation.CreateRectangularTilemap3D();
@@ -78,7 +70,7 @@ namespace CodeSmile.Editor.ProTiler.Tests
 		}
 
 		[Test]
-		[LoadScene(Defines.UnitTestScene)]
+		[NewScene]
 		public void MultipleTilemapCreationUndoRedo()
 		{
 			var tilemap1 = Tilemap3DCreation.CreateRectangularTilemap3D();
@@ -106,7 +98,7 @@ namespace CodeSmile.Editor.ProTiler.Tests
 		}
 
 		[Test]
-		[LoadScene(Defines.UnitTestScene)]
+		[NewScene]
 		public void SetTileUndoRedo()
 		{
 			var tilemap = Tilemap3DCreation.CreateRectangularTilemap3D();
@@ -135,7 +127,7 @@ namespace CodeSmile.Editor.ProTiler.Tests
 		}
 
 		[Test]
-		[NewScene]
+		[NewScene("TilemapTest.unity")]
 		public void SetTileSurvivesSaveLoadScene()
 		{
 			var tilemap = Tilemap3DCreation.CreateRectangularTilemap3D();
@@ -148,12 +140,8 @@ namespace CodeSmile.Editor.ProTiler.Tests
 			tilemap.SetTile(coord, Tile3DData.New(tileIndex));
 			Assert.AreEqual(tileIndex, tilemap.GetTile(coord).Index);
 
-			var scenePath = "Assets/TilemapTest.unity";
-			EditorSceneManager.SaveScene(EditorSceneManager.GetActiveScene(), scenePath);
-			var sceneAsset = AssetDatabase.LoadAssetAtPath(scenePath, typeof(SceneAsset));
-			Assert.NotNull(sceneAsset);
-
-			EditorSceneManager.OpenScene(scenePath);
+			EditorSceneManager.SaveOpenScenes();
+			EditorSceneManager.OpenScene(SceneManager.GetActiveScene().path);
 
 			var tilemaps = Object.FindObjectsOfType<Tilemap3D>();
 			Assert.NotNull(tilemaps);
@@ -163,11 +151,6 @@ namespace CodeSmile.Editor.ProTiler.Tests
 			Assert.NotNull(tilemap);
 			Assert.AreEqual(chunkSize, tilemap.ChunkSize);
 			Assert.AreEqual(tileIndex, tilemap.GetTile(coord).Index);
-
-			// remove test scene
-			AssetDatabase.DeleteAsset(scenePath);
-			sceneAsset = AssetDatabase.LoadAssetAtPath(scenePath, typeof(Scene));
-			Assert.Null(sceneAsset);
 		}
 	}
 }

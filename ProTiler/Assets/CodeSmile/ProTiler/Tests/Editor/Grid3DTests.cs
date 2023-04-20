@@ -11,11 +11,11 @@ namespace CodeSmile.Editor.ProTiler.Tests
 	public class Grid3DTests
 	{
 		[Test]
-		[LoadScene(Defines.UnitTestScene)]
+		[NewScene]
+		[CreateGameObject(nameof(Grid3D), typeof(Grid3D))]
 		public void GridProperties()
 		{
-			var tilemap = Tilemap3DCreation.CreateRectangularTilemap3D();
-			var grid = tilemap.Grid;
+			var grid = GameObject.FindObjectOfType<Grid3D>();
 			Assert.NotNull(grid);
 
 			var cellLayout = CellLayout.Hexagonal;

@@ -2,105 +2,99 @@
 // Refer to included LICENSE file for terms and conditions.
 
 using CodeSmile.Collections;
+using CodeSmile.ProTiler.Tests.Utilities;
 using NUnit.Framework;
 using System;
 using UnityEngine;
-using Object = UnityEngine.Object;
 
 namespace CodeSmile.Editor.Tests
 {
 	public class ObjectSetTests
 	{
-		private GameObject m_DefaultGO;
-		private GameObject m_GO1;
-		private GameObject m_GO2;
-		private GameObject m_GO3;
-
-		private ObjectSet<GameObject> m_Set;
-		private ObjectSet<GameObject> m_FilledSet;
-
-		[SetUp]
-		public void SetUp()
-		{
-			m_DefaultGO = new GameObject("DEFAULT");
-			m_GO1 = new GameObject("one");
-			m_GO2 = new GameObject("two");
-			m_GO3 = new GameObject("three");
-			m_Set = new ObjectSet<GameObject>(m_DefaultGO);
-		}
-
-		[TearDown]
-		public void TearDown()
-		{
-			Object.DestroyImmediate(m_DefaultGO);
-			Object.DestroyImmediate(m_GO1);
-			Object.DestroyImmediate(m_GO2);
-			Object.DestroyImmediate(m_GO3);
-		}
-
 		[Test]
+		[NewEmptyScene]
+		[CreateGameObject("default")]
+		[CreateGameObject("1")]
 		public void CreateSet()
 		{
+			var defaultGO = GameObject.Find("default");
+			var GO1 = GameObject.Find("1");
+			Assert.NotNull(defaultGO);
+			Assert.NotNull(GO1);
+
 			var set = new ObjectSet<GameObject>();
 			Assert.AreEqual(null, set.DefaultObject);
 			Assert.AreEqual(0, set.Count);
 
-			set = new ObjectSet<GameObject>(m_DefaultGO);
-			Assert.AreEqual(m_DefaultGO, set.DefaultObject);
+			set = new ObjectSet<GameObject>(defaultGO);
+			Assert.AreEqual(defaultGO, set.DefaultObject);
 			Assert.AreEqual(0, set.Count);
 
 			set = new ObjectSet<GameObject>(null, 1);
-			set.Add(m_GO1, out var index);
+			set.Add(GO1, out var index);
 			Assert.AreEqual(1, index);
 			Assert.AreEqual(null, set.DefaultObject);
 			Assert.AreEqual(1, set.Count);
 		}
 
 		[Test]
+		[NewEmptyScene]
+		[CreateGameObject("default")]
+		[CreateGameObject("1")]
+		[CreateGameObject("2")]
+		[CreateGameObject("3")]
 		public void AddAndRemove()
 		{
-			var set = m_Set;
+			var defaultGO = GameObject.Find("default");
+			var GO1 = GameObject.Find("1");
+			var GO2 = GameObject.Find("2");
+			var GO3 = GameObject.Find("3");
+			Assert.NotNull(defaultGO);
+			Assert.NotNull(GO1);
+			Assert.NotNull(GO2);
+			Assert.NotNull(GO3);
 
+			var set = new ObjectSet<GameObject>();
 			Assert.Throws<ArgumentNullException>(() => { set.Add(null); });
 
-			var added = set.Add(m_GO1);
+			var added = set.Add(GO1);
 			Assert.AreEqual(true, added);
 			Assert.AreEqual(1, set.Count);
-			added = set.Add(m_GO1);
+			added = set.Add(GO1);
 			Assert.IsFalse(added);
 			Assert.AreEqual(1, set.Count);
-			Assert.IsTrue(set.Contains(m_GO1));
-			Assert.IsFalse(set.Contains(m_GO2));
+			Assert.IsTrue(set.Contains(GO1));
+			Assert.IsFalse(set.Contains(GO2));
 
-			added = set.Add(m_GO2, out var index2);
+			added = set.Add(GO2, out var index2);
 			Assert.IsTrue(added);
 			Assert.AreEqual(2, set.Count);
 			Assert.AreEqual(1, index2);
-			added = set.Add(m_GO2, out index2);
+			added = set.Add(GO2, out index2);
 			Assert.IsFalse(added);
 			Assert.AreEqual(2, set.Count);
 			Assert.AreEqual(1, index2);
-			Assert.IsTrue(set.Contains(m_GO1));
-			Assert.IsTrue(set.Contains(m_GO2));
+			Assert.IsTrue(set.Contains(GO1));
+			Assert.IsTrue(set.Contains(GO2));
 
-			var didRemove = set.Remove(m_GO1);
+			var didRemove = set.Remove(GO1);
 			Assert.IsTrue(didRemove);
 			Assert.AreEqual(1, set.Count);
-			Assert.IsFalse(set.Contains(m_GO1));
-			Assert.IsTrue(set.Contains(m_GO2));
+			Assert.IsFalse(set.Contains(GO1));
+			Assert.IsTrue(set.Contains(GO2));
 
-			didRemove = set.Remove(m_GO3);
+			didRemove = set.Remove(GO3);
 			Assert.IsFalse(didRemove);
-			set.Add(m_GO3, out var index3);
+			set.Add(GO3, out var index3);
 			Assert.AreEqual(2, set.Count);
 			Assert.AreEqual(2, index3);
 
 			set.RemoveAt(1);
 			Assert.AreEqual(1, set.Count);
 			Assert.IsFalse(set.RemoveAt(1));
-			Assert.IsFalse(set.Contains(m_GO1));
-			Assert.IsFalse(set.Contains(m_GO2));
-			Assert.IsTrue(set.Contains(m_GO3));
+			Assert.IsFalse(set.Contains(GO1));
+			Assert.IsFalse(set.Contains(GO2));
+			Assert.IsTrue(set.Contains(GO3));
 
 			Assert.IsFalse(set.Contains(0));
 			Assert.IsFalse(set.Contains(1));
@@ -108,52 +102,79 @@ namespace CodeSmile.Editor.Tests
 
 			set.Clear();
 			Assert.AreEqual(0, set.Count);
-			Assert.IsFalse(set.Contains(m_GO3));
+			Assert.IsFalse(set.Contains(GO3));
 			Assert.IsFalse(set.Contains(2));
 
 			Assert.IsFalse(set.Contains(null));
 		}
 
 		[Test]
+		[NewEmptyScene]
+		[CreateGameObject("default")]
+		[CreateGameObject("1")]
+		[CreateGameObject("2")]
+		[CreateGameObject("3")]
 		public void Indexer()
 		{
-			var set = m_Set;
+			var defaultGO = GameObject.Find("default");
+			var GO1 = GameObject.Find("1");
+			var GO2 = GameObject.Find("2");
+			var GO3 = GameObject.Find("3");
+			Assert.NotNull(defaultGO);
+			Assert.NotNull(GO1);
+			Assert.NotNull(GO2);
+			Assert.NotNull(GO3);
 
+			var set = new ObjectSet<GameObject>();
 			var obj = set[0];
 			Assert.AreEqual(set.DefaultObject, obj);
 
-			set.Add(m_GO1);
-			set.Add(m_GO2);
-			set.Add(m_GO3);
-			Assert.AreEqual(m_GO1, set[0]);
-			Assert.AreEqual(m_GO2, set[1]);
-			Assert.AreEqual(m_GO3, set[2]);
+			set.Add(GO1);
+			set.Add(GO2);
+			set.Add(GO3);
+			Assert.AreEqual(GO1, set[0]);
+			Assert.AreEqual(GO2, set[1]);
+			Assert.AreEqual(GO3, set[2]);
 
-			set.Remove(m_GO2);
+			set.Remove(GO2);
 			Assert.AreEqual(set.DefaultObject, set[1]);
-			set.Add(m_GO2);
-			Assert.AreEqual(m_GO2, set[3]);
+			set.Add(GO2);
+			Assert.AreEqual(GO2, set[3]);
 		}
 
 		[Test]
+		[NewEmptyScene]
+		[CreateGameObject("default")]
+		[CreateGameObject("1")]
+		[CreateGameObject("2")]
+		[CreateGameObject("3")]
 		public void ReplaceObject()
 		{
-			var set = m_Set;
-			set.Add(m_GO1);
-			set.Add(m_GO2);
+			var defaultGO = GameObject.Find("default");
+			var GO1 = GameObject.Find("1");
+			var GO2 = GameObject.Find("2");
+			var GO3 = GameObject.Find("3");
+			Assert.NotNull(defaultGO);
+			Assert.NotNull(GO1);
+			Assert.NotNull(GO2);
+			Assert.NotNull(GO3);
 
-			Assert.Throws<IndexOutOfRangeException>(() => { set.ReplaceAt(-1, m_GO1); });
-			Assert.Throws<IndexOutOfRangeException>(() => { set.ReplaceAt(2, m_GO1); });
-			Assert.Throws<ArgumentException>(() => { set.ReplaceAt(1, m_GO1); });
+			var set = new ObjectSet<GameObject>();
+			set.Add(GO1);
+			set.Add(GO2);
 
-			set[0] = m_GO3;
-			Assert.AreEqual(m_GO3, set[0]);
+			Assert.Throws<IndexOutOfRangeException>(() => { set.ReplaceAt(-1, GO1); });
+			Assert.Throws<IndexOutOfRangeException>(() => { set.ReplaceAt(2, GO1); });
+			Assert.Throws<ArgumentException>(() => { set.ReplaceAt(1, GO1); });
+
+			set[0] = GO3;
+			Assert.AreEqual(GO3, set[0]);
 
 			set[0] = null;
 			Assert.AreEqual(set.DefaultObject, set[0]);
 
-			set.ReplaceAt(0, m_GO1);
-			Assert.AreEqual(m_GO1, set[0]);
+			set.ReplaceAt(0, GO1);
+			Assert.AreEqual(GO1, set[0]);
 		}
 	}
 }

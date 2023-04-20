@@ -5,6 +5,7 @@ namespace CodeSmile.ProTiler.Tests.Utilities
 {
 	public static class Defines
 	{
-		//public static readonly string TestAssetsPath = "Assets/CodeSmile/ProTiler/Tests/Assets/";
+		public static readonly string TestAssetsPath = "Assets/CodeSmile/Core/Tests/Assets/";
+
 	}
 }

@@ -7,8 +7,6 @@ namespace CodeSmile.Extensions
 {
 	public static class CameraExt
 	{
-		public static bool IsCurrentCameraValid() => Camera.current != null;
-
 		public static bool IsSceneViewOrGameCamera(Camera camera) =>
 			camera != null && camera.cameraType is CameraType.Game or CameraType.SceneView;
 	}

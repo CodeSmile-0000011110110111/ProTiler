@@ -3,6 +3,7 @@
 
 using NUnit.Framework;
 using NUnit.Framework.Interfaces;
+using System;
 using System.Collections;
 using System.IO;
 using UnityEditor;
@@ -12,22 +13,23 @@ using UnityEngine.TestTools;
 
 namespace CodeSmile.ProTiler.Tests.Utilities
 {
+	[AttributeUsage(AttributeTargets.Method)]
 	public class LoadSceneAttribute : NUnitAttribute, IOuterUnityTestAction
 	{
-		private readonly string m_SceneName;
+		private readonly string m_ScenePath;
 
-		public LoadSceneAttribute(string sceneName) => m_SceneName = Path.ChangeExtension(sceneName, ".unity");
+		public LoadSceneAttribute(string sceneName) => m_ScenePath = Path.ChangeExtension(sceneName, ".unity");
 
 		IEnumerator IOuterUnityTestAction.BeforeTest(ITest test)
 		{
 			var loadSceneParams = new LoadSceneParameters(LoadSceneMode.Single);
 			if (EditorApplication.isPlaying == false)
 			{
-				EditorSceneManager.OpenScene(m_SceneName);
+				EditorSceneManager.OpenScene(m_ScenePath);
 				yield return null;
 			}
 			else
-				yield return EditorSceneManager.LoadSceneAsyncInPlayMode(m_SceneName, loadSceneParams);
+				yield return EditorSceneManager.LoadSceneAsyncInPlayMode(m_ScenePath, loadSceneParams);
 		}
 
 		IEnumerator IOuterUnityTestAction.AfterTest(ITest test)

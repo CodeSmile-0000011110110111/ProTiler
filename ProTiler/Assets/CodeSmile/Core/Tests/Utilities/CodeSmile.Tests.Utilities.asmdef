@@ -1,22 +1,12 @@
 {
-    "name": "CodeSmile.Editor.ProTiler.Tests",
+    "name": "CodeSmile.Tests.Utilities",
     "rootNamespace": "",
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
-        "CodeSmile",
-        "CodeSmile.Extensions",
-        "CodeSmile.ProTiler",
-        "CodeSmile.ProTiler.Assets",
-        "CodeSmile.ProTiler.Data",
-        "CodeSmile.ProTiler.Rendering",
-        "CodeSmile.Editor.ProTiler",
-        "CodeSmile.ProTiler.Tests.Utilities",
-        "CodeSmile.Tests.Utilities"
+        "CodeSmile.Extensions"
     ],
-    "includePlatforms": [
-        "Editor"
-    ],
+    "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": true,
