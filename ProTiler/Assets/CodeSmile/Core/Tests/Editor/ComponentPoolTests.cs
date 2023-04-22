@@ -17,6 +17,18 @@ namespace CodeSmile.Core.Tests.Editor
 		private GameObject m_Prefab;
 		private GameObject m_Parent;
 
+		/*
+		[DatapointSource]
+		private int[] values = { -1, 0, 1, 2, 3, 5, 7, 9, 11, 13 };
+
+		[Theory] [Test]
+		public void TestTheory(int value)
+		{
+			Assume.That(value >= 0);
+			Debug.Log(value);
+		}
+		*/
+
 		[SetUp]
 		public void SetUp()
 		{
@@ -59,6 +71,5 @@ namespace CodeSmile.Core.Tests.Editor
 
 			Assert.AreEqual(0, m_Parent.transform.childCount);
 		}
-
 	}
 }

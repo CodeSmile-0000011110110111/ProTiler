@@ -1,7 +1,6 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
-using CodeSmile.Extensions;
 using NUnit.Framework;
 using NUnit.Framework.Interfaces;
 using System;
@@ -10,25 +9,37 @@ using System.IO;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 
 namespace CodeSmile.ProTiler.Tests.Utilities
 {
+	/// <summary>
+	/// Creates a new empty scene for a unit test method.
+	/// </summary>
 	[AttributeUsage(AttributeTargets.Method)]
 	public class EmptySceneAttribute : CreateSceneAttribute
 	{
+		/// <summary>
+		/// Creates a new empty scene for a unit test method.
+		/// </summary>
+		/// <param name="scenePath">if non-empty, the scene will be saved as an asset for tests that verify correctness of save/load of a scene's contents. The saved scene asset is deleted after the test ran.</param>
 		public EmptySceneAttribute(string scenePath = null)
-			: base(scenePath, NewSceneSetup.EmptyScene) {}
+			: base(scenePath) {}
 	}
 
+	/// <summary>
+	/// Creates a new default scene (with Camera + Direct Light) for a unit test method.
+	/// </summary>
 	[AttributeUsage(AttributeTargets.Method)]
 	public class DefaultSceneAttribute : CreateSceneAttribute
 	{
+		/// <summary>
+		/// Creates a new default scene (with Camera + Direct Light) for a unit test method.
+		/// </summary>
+		/// <param name="scenePath">if non-empty, the scene will be saved as an asset for tests that verify correctness of save/load of a scene's contents. The saved scene asset is deleted after the test ran.</param>
 		public DefaultSceneAttribute(string scenePath = null)
 			: base(scenePath, NewSceneSetup.DefaultGameObjects) {}
 	}
-
 
 	public class CreateSceneAttribute : NUnitAttribute, IOuterUnityTestAction
 	{
@@ -37,7 +48,8 @@ namespace CodeSmile.ProTiler.Tests.Utilities
 
 		public CreateSceneAttribute(string scenePath = null, NewSceneSetup setup = NewSceneSetup.EmptyScene)
 		{
-			m_ScenePath = string.IsNullOrWhiteSpace(scenePath) == false ? Defines.TestAssetsPath + scenePath.Trim() : null;
+			scenePath = scenePath.Trim();
+			m_ScenePath = string.IsNullOrWhiteSpace(scenePath) == false ? Defines.TestAssetsPath + scenePath : null;
 			m_Setup = setup;
 
 			if (m_ScenePath != null)
@@ -46,13 +58,7 @@ namespace CodeSmile.ProTiler.Tests.Utilities
 
 		IEnumerator IOuterUnityTestAction.BeforeTest(ITest test)
 		{
-			// only create new scene if the existing scene isn't already an empty scene
-			var scene = SceneManager.GetActiveScene();
-			var rootObjects = scene.GetRootGameObjects();
-			if (rootObjects != null && rootObjects.Length != 0)
-			{
-				scene = EditorSceneManager.NewScene(m_Setup);
-			}
+			var scene = EditorSceneManager.NewScene(m_Setup);
 
 			if (m_ScenePath != null)
 				EditorSceneManager.SaveScene(scene, m_ScenePath);
@@ -62,11 +68,6 @@ namespace CodeSmile.ProTiler.Tests.Utilities
 
 		IEnumerator IOuterUnityTestAction.AfterTest(ITest test)
 		{
-			var scene = SceneManager.GetActiveScene();
-			var rootObjects = scene.GetRootGameObjects();
-			foreach (var rootObject in rootObjects)
-				rootObject.DestroyInAnyMode();
-
 			if (m_ScenePath != null)
 			{
 				if (AssetDatabase.DeleteAsset(m_ScenePath) != true)

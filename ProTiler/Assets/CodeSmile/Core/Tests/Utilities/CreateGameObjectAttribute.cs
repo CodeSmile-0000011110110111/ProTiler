@@ -12,6 +12,9 @@ using UnityEngine.TestTools;
 
 namespace CodeSmile.ProTiler.Tests.Utilities
 {
+	/// <summary>
+	/// Creates a new GameObject instance in the scene for a test method.
+	/// </summary>
 	[AttributeUsage(AttributeTargets.Method, AllowMultiple = true)]
 	public class CreateGameObjectAttribute : NUnitAttribute, IOuterUnityTestAction
 	{
@@ -21,6 +24,11 @@ namespace CodeSmile.ProTiler.Tests.Utilities
 		private readonly Type[] m_Components;
 		private GameObject m_GameObject;
 
+		/// <summary>
+		/// Creates a new GameObject instance in the scene for a test method.
+		/// </summary>
+		/// <param name="name">name of the GameObject, defaults to: CreateGameObjectAttribute.DefaultName</param>
+		/// <param name="components">type(s) of components to add to the GameObject</param>
 		public CreateGameObjectAttribute(string name = DefaultName, params Type[] components)
 		{
 			m_Name = name;
