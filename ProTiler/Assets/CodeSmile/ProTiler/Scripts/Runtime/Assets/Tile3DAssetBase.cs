@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace CodeSmile.ProTiler.Assets
 {
-	public abstract class Tile3DBase : ScriptableObject
+	public abstract class Tile3DAssetBase : ScriptableObject
 	{
 		[SerializeField] private GameObject m_Prefab;
 		[SerializeField] private Tile3DFlags m_Flags;

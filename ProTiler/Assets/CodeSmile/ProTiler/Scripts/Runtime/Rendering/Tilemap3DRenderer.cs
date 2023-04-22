@@ -15,6 +15,41 @@ namespace CodeSmile.ProTiler.Rendering
 		private Vector3Int[] m_VisibleCoords;
 		private Tile3DCoordData[] m_TileCoordDatas;
 
+		/*
+		 * Todo:
+		 *
+		 * decisions:
+		 *
+		 * Prio 1:
+		 *	work on Tile3D assets and pooling
+		 *  connect Tile3DData.TileIndex with an indexed Tile3D asset from pool
+		 *  create Tile3DAsset from selected prefab(s)
+		 *
+		 * Prio 2:
+		 *	ComponentPool tests
+		 *  pooling strategies (increase, instantiate/destroy, shrink)
+		 *
+		 *
+		 * get the visible tile coords from a callback
+		 * get the tiles from the tilemap using those coordinates
+		 * instantiate/update the pooled tile proxy objects with tiledata
+		 *
+		 * needs a pool of RenderTile3D
+		 *	size equals visible coords
+		 *  if visible coord count changes, pool only expands automatically but won't shrink
+		 *	pool can be shrinked through manual set size call
+		 *
+		 * needs a pool of Tile3D prefab instances
+		 *  holds instances of previously instantiated tile instances of a given index (ie cache)
+		 *	reasonable base count, expands automatically, shrinks if called manually
+		 *
+		 *
+		 * tile proxy:
+		 * get the prefab from the objectset using TileIndex
+		 * instantiate prefab instance if it changed
+		 *
+		 */
+
 		private Tilemap3D Tilemap => GetComponent<Tilemap3D>();
 
 		private void OnRenderObject()

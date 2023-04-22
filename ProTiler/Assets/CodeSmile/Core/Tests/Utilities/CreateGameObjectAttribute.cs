@@ -15,11 +15,13 @@ namespace CodeSmile.ProTiler.Tests.Utilities
 	[AttributeUsage(AttributeTargets.Method, AllowMultiple = true)]
 	public class CreateGameObjectAttribute : NUnitAttribute, IOuterUnityTestAction
 	{
+		public const string DefaultName = "Test GameObject";
+
 		private readonly string m_Name;
 		private readonly Type[] m_Components;
 		private GameObject m_GameObject;
 
-		public CreateGameObjectAttribute(string name = "Test GameObject", params Type[] components)
+		public CreateGameObjectAttribute(string name = DefaultName, params Type[] components)
 		{
 			m_Name = name;
 			m_Components = components;

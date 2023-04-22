@@ -16,9 +16,9 @@ namespace CodeSmile.ProTiler.Tests.Utilities
 	[AttributeUsage(AttributeTargets.Method)]
 	public class LoadSceneAttribute : NUnitAttribute, IOuterUnityTestAction
 	{
-		private readonly string m_ScenePath;
+		private string m_ScenePath;
 
-		public LoadSceneAttribute(string sceneName) => m_ScenePath = Path.ChangeExtension(sceneName, ".unity");
+		public LoadSceneAttribute(string sceneName) => SetScenePath(sceneName);
 
 		IEnumerator IOuterUnityTestAction.BeforeTest(ITest test)
 		{
@@ -35,6 +35,14 @@ namespace CodeSmile.ProTiler.Tests.Utilities
 		IEnumerator IOuterUnityTestAction.AfterTest(ITest test)
 		{
 			yield return null;
+		}
+
+		private void SetScenePath(string sceneName)
+		{
+			const string sceneExtension = ".unity";
+			m_ScenePath = Path.HasExtension(sceneName) == false
+				? $"{sceneName}{sceneExtension}"
+				: Path.ChangeExtension(sceneName, sceneExtension);
 		}
 	}
 }

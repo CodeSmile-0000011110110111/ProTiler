@@ -6,7 +6,7 @@ using UnityEngine;
 namespace CodeSmile.ProTiler.Rendering
 {
 	[AddComponentMenu("")] // hide from Add Component list
-	public class RenderTile3D : MonoBehaviour
+	public class Tile3DBehaviour : MonoBehaviour
 	{
 		
 	}

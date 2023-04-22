@@ -8,12 +8,12 @@ namespace CodeSmile.ProTiler.Assets
 {
 	public static class Tile3DUtility
 	{
-		private static Tile3D s_MissingTilePrefab;
+		private static Tile3DAsset s_MissingTilePrefab;
 
-		public static Tile3D GetMissingTile()
+		public static Tile3DAsset GetMissingTile()
 		{
 			if (s_MissingTilePrefab == null || s_MissingTilePrefab.IsMissing())
-				s_MissingTilePrefab = Resources.Load<Tile3D>(Paths.TileEditorResourcePrefabs + "MissingTile");
+				s_MissingTilePrefab = Resources.Load<Tile3DAsset>(Paths.TileEditorResourcePrefabs + "MissingTile");
 			return s_MissingTilePrefab;
 		}
 	}
