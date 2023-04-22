@@ -19,7 +19,7 @@ namespace CodeSmile.ProTiler
 		/// <summary>
 		/// Checks if the tile is "empty". A TileIndex of 0 indicates an "empty" tile.
 		/// </summary>
-		public bool IsEmpty => Index == 0;
+		public bool IsEmpty => Index <= 0;
 		public bool IsValid => Index >= 0;
 
 		/// <summary>
