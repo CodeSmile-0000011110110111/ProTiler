@@ -36,7 +36,7 @@ namespace CodeSmile.Collections
 		public T this[int index]
 		{
 			get => TryGetObject(index);
-			set => ReplaceAt(index, value);
+			set => AssignAt(index, value);
 		}
 
 		/// <summary>
@@ -151,7 +151,7 @@ namespace CodeSmile.Collections
 		/// <param name="obj">the object to set</param>
 		/// <exception cref="System.IndexOutOfRangeException">Thrown when index is < 0 or>= next index.</exception>
 		/// <exception cref="System.ArgumentException">Thrown when obj already exists in set</exception>
-		private void ReplaceAt(int index, T obj)
+		private void AssignAt(int index, T obj)
 		{
 #if DEBUG
 			if (index < 0)

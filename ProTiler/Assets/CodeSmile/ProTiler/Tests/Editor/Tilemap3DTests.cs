@@ -14,7 +14,7 @@ namespace CodeSmile.Editor.ProTiler.Tests
 	public class Tilemap3DTests
 	{
 		[Test]
-		[NewScene]
+		[EmptyScene]
 		public void TilemapCreation()
 		{
 			var tilemap = Tilemap3DCreation.CreateRectangularTilemap3D();
@@ -30,7 +30,7 @@ namespace CodeSmile.Editor.ProTiler.Tests
 		}
 
 		[Test]
-		[NewScene]
+		[EmptyScene]
 		public void MultipleTilemapCreation()
 		{
 			var tilemap1 = Tilemap3DCreation.CreateRectangularTilemap3D();
@@ -48,7 +48,7 @@ namespace CodeSmile.Editor.ProTiler.Tests
 		}
 
 		[Test]
-		[NewScene]
+		[EmptyScene]
 		public void TilemapCreationUndoRedo()
 		{
 			var tilemap = Tilemap3DCreation.CreateRectangularTilemap3D();
@@ -70,7 +70,7 @@ namespace CodeSmile.Editor.ProTiler.Tests
 		}
 
 		[Test]
-		[NewScene]
+		[EmptyScene]
 		public void MultipleTilemapCreationUndoRedo()
 		{
 			var tilemap1 = Tilemap3DCreation.CreateRectangularTilemap3D();
@@ -98,7 +98,7 @@ namespace CodeSmile.Editor.ProTiler.Tests
 		}
 
 		[Test]
-		[NewScene]
+		[EmptyScene]
 		public void SetTileUndoRedo()
 		{
 			var tilemap = Tilemap3DCreation.CreateRectangularTilemap3D();
@@ -127,7 +127,7 @@ namespace CodeSmile.Editor.ProTiler.Tests
 		}
 
 		[Test]
-		[NewScene("TilemapTest.unity")]
+		[EmptyScene("TilemapTest.unity")]
 		public void SetTileSurvivesSaveLoadScene()
 		{
 			var tilemap = Tilemap3DCreation.CreateRectangularTilemap3D();

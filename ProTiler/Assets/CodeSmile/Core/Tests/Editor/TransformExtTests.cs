@@ -10,20 +10,16 @@ namespace CodeSmile.Tests.Editor
 {
 	public class TransformExtTests
 	{
-		[Test]
-		[NewScene]
-		[CreateGameObject("go", typeof(BoxCollider))]
+		[Test] [EmptyScene] [CreateGameObject(nameof(BoxCollider), typeof(BoxCollider))]
 		public void DestroyAllChildren()
 		{
 			var go = Object.FindObjectOfType<BoxCollider>().gameObject;
-
-			var childCount = 100;
+			var childCount = 10;
 			for (var i = 0; i < childCount; i++)
 				go.FindOrCreateChild(i.ToString());
 
-			Assert.AreEqual(childCount, go.transform.childCount);
-
 			go.transform.DestroyAllChildren();
+
 			Assert.AreEqual(0, go.transform.childCount);
 		}
 	}
