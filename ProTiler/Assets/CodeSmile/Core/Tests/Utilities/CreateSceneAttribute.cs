@@ -48,7 +48,6 @@ namespace CodeSmile.ProTiler.Tests.Utilities
 
 		public CreateSceneAttribute(string scenePath = null, NewSceneSetup setup = NewSceneSetup.EmptyScene)
 		{
-			scenePath = scenePath.Trim();
 			m_ScenePath = string.IsNullOrWhiteSpace(scenePath) == false ? Defines.TestAssetsPath + scenePath : null;
 			m_Setup = setup;
 
