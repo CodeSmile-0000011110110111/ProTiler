@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1927.2001
     height: 1094.4
   m_ShowMode: 4
-  m_Title: Project
+  m_Title: Console
   m_RootView: {fileID: 2}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -44,7 +44,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 1927.2
+    width: 1927.2001
     height: 1094.4
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -69,7 +69,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 1927.2
+    width: 1927.2001
     height: 30
   m_MinSize: {x: 0, y: 0}
   m_MaxSize: {x: 0, y: 0}
@@ -91,7 +91,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 1074.4
-    width: 1927.2
+    width: 1927.2001
     height: 20
   m_MinSize: {x: 0, y: 0}
   m_MaxSize: {x: 0, y: 0}
@@ -115,12 +115,12 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 30
-    width: 1927.2
+    width: 1927.2001
     height: 1044.4
   m_MinSize: {x: 300, y: 100}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 138
+  controlID: 131
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -215,7 +215,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 392
     y: 0
-    width: 358.40002
+    width: 357.59998
     height: 1044.4
   m_MinSize: {x: 100, y: 100}
   m_MaxSize: {x: 4000, y: 4000}
@@ -242,14 +242,14 @@ MonoBehaviour:
   - {fileID: 12}
   m_Position:
     serializedVersion: 2
-    x: 750.4
+    x: 749.6
     y: 0
-    width: 1176.7999
+    width: 1177.6001
     height: 1044.4
   m_MinSize: {x: 100, y: 100}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 139
+  controlID: 132
 --- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -267,7 +267,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 1176.7999
+    width: 1177.6001
     height: 664
   m_MinSize: {x: 800, y: 250}
   m_MaxSize: {x: 4000, y: 4000}
@@ -298,7 +298,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 664
-    width: 1176.7999
+    width: 1177.6001
     height: 380.40002
   m_MinSize: {x: 101, y: 121}
   m_MaxSize: {x: 4001, y: 4021}
@@ -329,7 +329,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 1449.6
     y: 80.8
-    width: 356.40002
+    width: 355.59998
     height: 1023.4
   m_SerializedDataModeController:
     m_DataMode: 0
@@ -342,7 +342,7 @@ MonoBehaviour:
     m_SaveData: []
     m_OverlaysVisible: 1
   m_Spl:
-    ID: 194
+    ID: 224
     splitterInitialOffset: 0
     currentActiveSplitter: -1
     realSizes:
@@ -403,14 +403,2648 @@ MonoBehaviour:
     m_SelectedOption: 0
   m_EditModeTestListGUI:
     m_Window: {fileID: 13}
-    m_NewResultList: []
+    m_NewResultList:
+    - id: 1000
+      uniqueId: '[ProTiler][suite]'
+      name: ProTiler
+      fullName: ProTiler
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 
+      parentUniqueId: 
+    - id: 1058
+      uniqueId: '[CodeSmile.Editor.ProTiler.Tests.dll][suite]'
+      name: CodeSmile.Editor.ProTiler.Tests.dll
+      fullName: C:/Users/CodeSmile/Projects/CodeSmile-Twitch/ProTiler/Library/ScriptAssemblies/CodeSmile.Editor.ProTiler.Tests.dll
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1000
+      parentUniqueId: '[ProTiler][suite]'
+    - id: 1059
+      uniqueId: CodeSmile.Editor.ProTiler.Tests.dll/[CodeSmile][suite]
+      name: CodeSmile
+      fullName: CodeSmile
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1058
+      parentUniqueId: '[CodeSmile.Editor.ProTiler.Tests.dll][suite]'
+    - id: 1060
+      uniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/[Editor][suite]
+      name: Editor
+      fullName: CodeSmile.Editor
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1059
+      parentUniqueId: CodeSmile.Editor.ProTiler.Tests.dll/[CodeSmile][suite]
+    - id: 1061
+      uniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/[ProTiler][suite]
+      name: ProTiler
+      fullName: CodeSmile.Editor.ProTiler
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1060
+      parentUniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/[Editor][suite]
+    - id: 1062
+      uniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests][suite]
+      name: Tests
+      fullName: CodeSmile.Editor.ProTiler.Tests
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1061
+      parentUniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/[ProTiler][suite]
+    - id: 1001
+      uniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Grid3DTests][suite]
+      name: Grid3DTests
+      fullName: CodeSmile.Editor.ProTiler.Tests.Grid3DTests
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1062
+      parentUniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests][suite]
+    - id: 1004
+      uniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/Grid3DTests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Grid3DTests.GetSetCellGap]
+      name: GetSetCellGap
+      fullName: CodeSmile.Editor.ProTiler.Tests.Grid3DTests.GetSetCellGap
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1001
+      parentUniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Grid3DTests][suite]
+    - id: 1002
+      uniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/Grid3DTests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Grid3DTests.GetSetCellLayout]
+      name: GetSetCellLayout
+      fullName: CodeSmile.Editor.ProTiler.Tests.Grid3DTests.GetSetCellLayout
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1001
+      parentUniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Grid3DTests][suite]
+    - id: 1003
+      uniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/Grid3DTests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Grid3DTests.GetSetCellSize]
+      name: GetSetCellSize
+      fullName: CodeSmile.Editor.ProTiler.Tests.Grid3DTests.GetSetCellSize
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1001
+      parentUniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Grid3DTests][suite]
+    - id: 1005
+      uniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Grid3DUtilityTests][suite]
+      name: Grid3DUtilityTests
+      fullName: CodeSmile.Editor.ProTiler.Tests.Grid3DUtilityTests
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1062
+      parentUniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests][suite]
+    - id: 1007
+      uniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/Grid3DUtilityTests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Grid3DUtilityTests.CoordToIndex2D]
+      name: CoordToIndex2D
+      fullName: CodeSmile.Editor.ProTiler.Tests.Grid3DUtilityTests.CoordToIndex2D
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1005
+      parentUniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Grid3DUtilityTests][suite]
+    - id: 1008
+      uniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/Grid3DUtilityTests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Grid3DUtilityTests.CoordToIndex2D_Negative]
+      name: CoordToIndex2D_Negative
+      fullName: CodeSmile.Editor.ProTiler.Tests.Grid3DUtilityTests.CoordToIndex2D_Negative
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1005
+      parentUniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Grid3DUtilityTests][suite]
+    - id: 1009
+      uniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/Grid3DUtilityTests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Grid3DUtilityTests.CoordToIndex2D_Vector3]
+      name: CoordToIndex2D_Vector3
+      fullName: CodeSmile.Editor.ProTiler.Tests.Grid3DUtilityTests.CoordToIndex2D_Vector3
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1005
+      parentUniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Grid3DUtilityTests][suite]
+    - id: 1006
+      uniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/Grid3DUtilityTests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Grid3DUtilityTests.CoordToIndex2D_Zero]
+      name: CoordToIndex2D_Zero
+      fullName: CodeSmile.Editor.ProTiler.Tests.Grid3DUtilityTests.CoordToIndex2D_Zero
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1005
+      parentUniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Grid3DUtilityTests][suite]
+    - id: 1011
+      uniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/Grid3DUtilityTests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Grid3DUtilityTests.Index2DToCoord]
+      name: Index2DToCoord
+      fullName: CodeSmile.Editor.ProTiler.Tests.Grid3DUtilityTests.Index2DToCoord
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1005
+      parentUniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Grid3DUtilityTests][suite]
+    - id: 1012
+      uniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/Grid3DUtilityTests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Grid3DUtilityTests.Index2DToCoord_Negative]
+      name: Index2DToCoord_Negative
+      fullName: CodeSmile.Editor.ProTiler.Tests.Grid3DUtilityTests.Index2DToCoord_Negative
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1005
+      parentUniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Grid3DUtilityTests][suite]
+    - id: 1010
+      uniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/Grid3DUtilityTests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Grid3DUtilityTests.Index2DToCoord_Zero]
+      name: Index2DToCoord_Zero
+      fullName: CodeSmile.Editor.ProTiler.Tests.Grid3DUtilityTests.Index2DToCoord_Zero
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1005
+      parentUniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Grid3DUtilityTests][suite]
+    - id: 1014
+      uniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/Grid3DUtilityTests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Grid3DUtilityTests.WorldPositionToCoord]
+      name: WorldPositionToCoord
+      fullName: CodeSmile.Editor.ProTiler.Tests.Grid3DUtilityTests.WorldPositionToCoord
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1005
+      parentUniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Grid3DUtilityTests][suite]
+    - id: 1015
+      uniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/Grid3DUtilityTests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Grid3DUtilityTests.WorldPositionToCoord_Negative]
+      name: WorldPositionToCoord_Negative
+      fullName: CodeSmile.Editor.ProTiler.Tests.Grid3DUtilityTests.WorldPositionToCoord_Negative
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1005
+      parentUniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Grid3DUtilityTests][suite]
+    - id: 1013
+      uniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/Grid3DUtilityTests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Grid3DUtilityTests.WorldPositionToCoord_Zero]
+      name: WorldPositionToCoord_Zero
+      fullName: CodeSmile.Editor.ProTiler.Tests.Grid3DUtilityTests.WorldPositionToCoord_Zero
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1005
+      parentUniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Grid3DUtilityTests][suite]
+    - id: 1016
+      uniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Tile3DAssetTests][suite]
+      name: Tile3DAssetTests
+      fullName: CodeSmile.Editor.ProTiler.Tests.Tile3DAssetTests
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1062
+      parentUniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests][suite]
+    - id: 1017
+      uniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/Tile3DAssetTests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Tile3DAssetTests.Tile3DAssetTestsSimplePasses]
+      name: Tile3DAssetTestsSimplePasses
+      fullName: CodeSmile.Editor.ProTiler.Tests.Tile3DAssetTests.Tile3DAssetTestsSimplePasses
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1016
+      parentUniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Tile3DAssetTests][suite]
+    - id: 1018
+      uniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/Tile3DAssetTests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Tile3DAssetTests.Tile3DAssetTestsWithEnumeratorPasses]
+      name: Tile3DAssetTestsWithEnumeratorPasses
+      fullName: CodeSmile.Editor.ProTiler.Tests.Tile3DAssetTests.Tile3DAssetTestsWithEnumeratorPasses
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1016
+      parentUniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Tile3DAssetTests][suite]
+    - id: 1019
+      uniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Tile3DDataCollectionTests][suite]
+      name: Tile3DDataCollectionTests
+      fullName: CodeSmile.Editor.ProTiler.Tests.Tile3DDataCollectionTests
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1062
+      parentUniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests][suite]
+    - id: 1020
+      uniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/Tile3DDataCollectionTests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Tile3DDataCollectionTests.CreateCollection]
+      name: CreateCollection
+      fullName: CodeSmile.Editor.ProTiler.Tests.Tile3DDataCollectionTests.CreateCollection
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1019
+      parentUniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Tile3DDataCollectionTests][suite]
+    - id: 1027
+      uniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/Tile3DDataCollectionTests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Tile3DDataCollectionTests.SetAllTilesWithCoordData]
+      name: SetAllTilesWithCoordData
+      fullName: CodeSmile.Editor.ProTiler.Tests.Tile3DDataCollectionTests.SetAllTilesWithCoordData
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1019
+      parentUniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Tile3DDataCollectionTests][suite]
+    - id: 1021
+      uniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/Tile3DDataCollectionTests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Tile3DDataCollectionTests.SetAndGetEmptyTileData]
+      name: SetAndGetEmptyTileData
+      fullName: CodeSmile.Editor.ProTiler.Tests.Tile3DDataCollectionTests.SetAndGetEmptyTileData
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1019
+      parentUniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Tile3DDataCollectionTests][suite]
+    - id: 1025
+      uniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/Tile3DDataCollectionTests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Tile3DDataCollectionTests.SetAndGetTileByCoord]
+      name: SetAndGetTileByCoord
+      fullName: CodeSmile.Editor.ProTiler.Tests.Tile3DDataCollectionTests.SetAndGetTileByCoord
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1019
+      parentUniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Tile3DDataCollectionTests][suite]
+    - id: 1022
+      uniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/Tile3DDataCollectionTests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Tile3DDataCollectionTests.SetAndGetTileData]
+      name: SetAndGetTileData
+      fullName: CodeSmile.Editor.ProTiler.Tests.Tile3DDataCollectionTests.SetAndGetTileData
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1019
+      parentUniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Tile3DDataCollectionTests][suite]
+    - id: 1024
+      uniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/Tile3DDataCollectionTests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Tile3DDataCollectionTests.SetAndGetTileDataLastIndex]
+      name: SetAndGetTileDataLastIndex
+      fullName: CodeSmile.Editor.ProTiler.Tests.Tile3DDataCollectionTests.SetAndGetTileDataLastIndex
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1019
+      parentUniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Tile3DDataCollectionTests][suite]
+    - id: 1023
+      uniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/Tile3DDataCollectionTests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Tile3DDataCollectionTests.SetAndGetTwoTileDatas]
+      name: SetAndGetTwoTileDatas
+      fullName: CodeSmile.Editor.ProTiler.Tests.Tile3DDataCollectionTests.SetAndGetTwoTileDatas
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1019
+      parentUniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Tile3DDataCollectionTests][suite]
+    - id: 1026
+      uniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/Tile3DDataCollectionTests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Tile3DDataCollectionTests.SetTileByCoordOutOfBoundsThrows]
+      name: SetTileByCoordOutOfBoundsThrows
+      fullName: CodeSmile.Editor.ProTiler.Tests.Tile3DDataCollectionTests.SetTileByCoordOutOfBoundsThrows
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1019
+      parentUniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Tile3DDataCollectionTests][suite]
+    - id: 1028
+      uniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Tile3DDataTests][suite]
+      name: Tile3DDataTests
+      fullName: CodeSmile.Editor.ProTiler.Tests.Tile3DDataTests
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1062
+      parentUniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests][suite]
+    - id: 1030
+      uniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/Tile3DDataTests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Tile3DDataTests.CreateEmptyTile]
+      name: CreateEmptyTile
+      fullName: CodeSmile.Editor.ProTiler.Tests.Tile3DDataTests.CreateEmptyTile
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1028
+      parentUniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Tile3DDataTests][suite]
+    - id: 1029
+      uniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/Tile3DDataTests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Tile3DDataTests.CreateEmptyTileWithNewKeyword]
+      name: CreateEmptyTileWithNewKeyword
+      fullName: CodeSmile.Editor.ProTiler.Tests.Tile3DDataTests.CreateEmptyTileWithNewKeyword
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1028
+      parentUniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Tile3DDataTests][suite]
+    - id: 1033
+      uniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/Tile3DDataTests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Tile3DDataTests.CreateInvalidTile]
+      name: CreateInvalidTile
+      fullName: CodeSmile.Editor.ProTiler.Tests.Tile3DDataTests.CreateInvalidTile
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1028
+      parentUniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Tile3DDataTests][suite]
+    - id: 1031
+      uniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/Tile3DDataTests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Tile3DDataTests.CreateNonEmptyTileWithFlags]
+      name: CreateNonEmptyTileWithFlags
+      fullName: CodeSmile.Editor.ProTiler.Tests.Tile3DDataTests.CreateNonEmptyTileWithFlags
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1028
+      parentUniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Tile3DDataTests][suite]
+    - id: 1032
+      uniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/Tile3DDataTests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Tile3DDataTests.CreateTileWithDefaultFlags]
+      name: CreateTileWithDefaultFlags
+      fullName: CodeSmile.Editor.ProTiler.Tests.Tile3DDataTests.CreateTileWithDefaultFlags
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1028
+      parentUniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Tile3DDataTests][suite]
+    - id: 1035
+      uniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/Tile3DDataTests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Tile3DDataTests.GetDirectionCustom]
+      name: GetDirectionCustom
+      fullName: CodeSmile.Editor.ProTiler.Tests.Tile3DDataTests.GetDirectionCustom
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1028
+      parentUniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Tile3DDataTests][suite]
+    - id: 1034
+      uniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/Tile3DDataTests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Tile3DDataTests.GetDirectionDefault]
+      name: GetDirectionDefault
+      fullName: CodeSmile.Editor.ProTiler.Tests.Tile3DDataTests.GetDirectionDefault
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1028
+      parentUniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Tile3DDataTests][suite]
+    - id: 1036
+      uniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/Tile3DDataTests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Tile3DDataTests.TilesWithDifferentIndexAndSameFlagsAreNotEqual]
+      name: TilesWithDifferentIndexAndSameFlagsAreNotEqual
+      fullName: CodeSmile.Editor.ProTiler.Tests.Tile3DDataTests.TilesWithDifferentIndexAndSameFlagsAreNotEqual
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1028
+      parentUniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Tile3DDataTests][suite]
+    - id: 1039
+      uniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/Tile3DDataTests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Tile3DDataTests.TilesWithDifferentIndexHaveNonEqualHashcodes]
+      name: TilesWithDifferentIndexHaveNonEqualHashcodes
+      fullName: CodeSmile.Editor.ProTiler.Tests.Tile3DDataTests.TilesWithDifferentIndexHaveNonEqualHashcodes
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1028
+      parentUniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Tile3DDataTests][suite]
+    - id: 1037
+      uniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/Tile3DDataTests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Tile3DDataTests.TilesWithSameIndexAndDifferentFlagsAreNotEqual]
+      name: TilesWithSameIndexAndDifferentFlagsAreNotEqual
+      fullName: CodeSmile.Editor.ProTiler.Tests.Tile3DDataTests.TilesWithSameIndexAndDifferentFlagsAreNotEqual
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1028
+      parentUniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Tile3DDataTests][suite]
+    - id: 1040
+      uniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/Tile3DDataTests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Tile3DDataTests.TilesWithSameIndexAndDifferentFlagsHaveNonEqualHashcodes]
+      name: TilesWithSameIndexAndDifferentFlagsHaveNonEqualHashcodes
+      fullName: CodeSmile.Editor.ProTiler.Tests.Tile3DDataTests.TilesWithSameIndexAndDifferentFlagsHaveNonEqualHashcodes
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1028
+      parentUniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Tile3DDataTests][suite]
+    - id: 1038
+      uniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/Tile3DDataTests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Tile3DDataTests.TilesWithSameIndexAndFlagsAreEqual]
+      name: TilesWithSameIndexAndFlagsAreEqual
+      fullName: CodeSmile.Editor.ProTiler.Tests.Tile3DDataTests.TilesWithSameIndexAndFlagsAreEqual
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1028
+      parentUniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Tile3DDataTests][suite]
+    - id: 1041
+      uniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/Tile3DDataTests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Tile3DDataTests.TilesWithSameIndexAndFlagsHaveEqualHashcodes]
+      name: TilesWithSameIndexAndFlagsHaveEqualHashcodes
+      fullName: CodeSmile.Editor.ProTiler.Tests.Tile3DDataTests.TilesWithSameIndexAndFlagsHaveEqualHashcodes
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1028
+      parentUniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Tile3DDataTests][suite]
+    - id: 1042
+      uniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Tilemap3DChunkCollectionTests][suite]
+      name: Tilemap3DChunkCollectionTests
+      fullName: CodeSmile.Editor.ProTiler.Tests.Tilemap3DChunkCollectionTests
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1062
+      parentUniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests][suite]
+    - id: 1045
+      uniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/Tilemap3DChunkCollectionTests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Tilemap3DChunkCollectionTests.ChangeChunkSize]
+      name: ChangeChunkSize
+      fullName: CodeSmile.Editor.ProTiler.Tests.Tilemap3DChunkCollectionTests.ChangeChunkSize
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1042
+      parentUniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Tilemap3DChunkCollectionTests][suite]
+    - id: 1043
+      uniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/Tilemap3DChunkCollectionTests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Tilemap3DChunkCollectionTests.CreateChunk]
+      name: CreateChunk
+      fullName: CodeSmile.Editor.ProTiler.Tests.Tilemap3DChunkCollectionTests.CreateChunk
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1042
+      parentUniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Tilemap3DChunkCollectionTests][suite]
+    - id: 1044
+      uniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/Tilemap3DChunkCollectionTests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Tilemap3DChunkCollectionTests.CreateIllegalChunkSize]
+      name: CreateIllegalChunkSize
+      fullName: CodeSmile.Editor.ProTiler.Tests.Tilemap3DChunkCollectionTests.CreateIllegalChunkSize
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1042
+      parentUniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Tilemap3DChunkCollectionTests][suite]
+    - id: 1047
+      uniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/Tilemap3DChunkCollectionTests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Tilemap3DChunkCollectionTests.GetTilesInvalidParams]
+      name: GetTilesInvalidParams
+      fullName: CodeSmile.Editor.ProTiler.Tests.Tilemap3DChunkCollectionTests.GetTilesInvalidParams
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1042
+      parentUniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Tilemap3DChunkCollectionTests][suite]
+    - id: 1048
+      uniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/Tilemap3DChunkCollectionTests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Tilemap3DChunkCollectionTests.GetTilesOutsideBounds]
+      name: GetTilesOutsideBounds
+      fullName: CodeSmile.Editor.ProTiler.Tests.Tilemap3DChunkCollectionTests.GetTilesOutsideBounds
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1042
+      parentUniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Tilemap3DChunkCollectionTests][suite]
+    - id: 1046
+      uniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/Tilemap3DChunkCollectionTests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Tilemap3DChunkCollectionTests.SetAndGetTiles]
+      name: SetAndGetTiles
+      fullName: CodeSmile.Editor.ProTiler.Tests.Tilemap3DChunkCollectionTests.SetAndGetTiles
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1042
+      parentUniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Tilemap3DChunkCollectionTests][suite]
+    - id: 1049
+      uniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/Tilemap3DChunkCollectionTests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Tilemap3DChunkCollectionTests.ToChunkCoord]
+      name: ToChunkCoord
+      fullName: CodeSmile.Editor.ProTiler.Tests.Tilemap3DChunkCollectionTests.ToChunkCoord
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1042
+      parentUniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Tilemap3DChunkCollectionTests][suite]
+    - id: 1050
+      uniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/Tilemap3DChunkCollectionTests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Tilemap3DChunkCollectionTests.ToLayerCoord]
+      name: ToLayerCoord
+      fullName: CodeSmile.Editor.ProTiler.Tests.Tilemap3DChunkCollectionTests.ToLayerCoord
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1042
+      parentUniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Tilemap3DChunkCollectionTests][suite]
+    - id: 1051
+      uniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Tilemap3DTests][suite]
+      name: Tilemap3DTests
+      fullName: CodeSmile.Editor.ProTiler.Tests.Tilemap3DTests
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1062
+      parentUniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests][suite]
+    - id: 1053
+      uniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/Tilemap3DTests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Tilemap3DTests.MultipleTilemapCreation]
+      name: MultipleTilemapCreation
+      fullName: CodeSmile.Editor.ProTiler.Tests.Tilemap3DTests.MultipleTilemapCreation
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1051
+      parentUniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Tilemap3DTests][suite]
+    - id: 1055
+      uniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/Tilemap3DTests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Tilemap3DTests.MultipleTilemapCreationUndoRedo]
+      name: MultipleTilemapCreationUndoRedo
+      fullName: CodeSmile.Editor.ProTiler.Tests.Tilemap3DTests.MultipleTilemapCreationUndoRedo
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1051
+      parentUniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Tilemap3DTests][suite]
+    - id: 1057
+      uniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/Tilemap3DTests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Tilemap3DTests.SetTileSurvivesSaveLoadScene]
+      name: SetTileSurvivesSaveLoadScene
+      fullName: CodeSmile.Editor.ProTiler.Tests.Tilemap3DTests.SetTileSurvivesSaveLoadScene
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1051
+      parentUniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Tilemap3DTests][suite]
+    - id: 1056
+      uniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/Tilemap3DTests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Tilemap3DTests.SetTileUndoRedo]
+      name: SetTileUndoRedo
+      fullName: CodeSmile.Editor.ProTiler.Tests.Tilemap3DTests.SetTileUndoRedo
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1051
+      parentUniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Tilemap3DTests][suite]
+    - id: 1052
+      uniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/Tilemap3DTests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Tilemap3DTests.TilemapCreation]
+      name: TilemapCreation
+      fullName: CodeSmile.Editor.ProTiler.Tests.Tilemap3DTests.TilemapCreation
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1051
+      parentUniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Tilemap3DTests][suite]
+    - id: 1054
+      uniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/Tilemap3DTests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Tilemap3DTests.TilemapCreationUndoRedo]
+      name: TilemapCreationUndoRedo
+      fullName: CodeSmile.Editor.ProTiler.Tests.Tilemap3DTests.TilemapCreationUndoRedo
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1051
+      parentUniqueId: CodeSmile.Editor.ProTiler.Tests.dll/CodeSmile/Editor/ProTiler/Tests/[CodeSmile.Editor.ProTiler.Tests][CodeSmile.Editor.ProTiler.Tests.Tilemap3DTests][suite]
+    - id: 1141
+      uniqueId: '[CodeSmile.Editor.Tests.dll][suite]'
+      name: CodeSmile.Editor.Tests.dll
+      fullName: C:/Users/CodeSmile/Projects/CodeSmile-Twitch/ProTiler/Library/ScriptAssemblies/CodeSmile.Editor.Tests.dll
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1000
+      parentUniqueId: '[ProTiler][suite]'
+    - id: 1145
+      uniqueId: CodeSmile.Editor.Tests.dll/[CodeSmile][suite]
+      name: CodeSmile
+      fullName: CodeSmile
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1141
+      parentUniqueId: '[CodeSmile.Editor.Tests.dll][suite]'
+    - id: 1154
+      uniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/[Core][suite]
+      name: Core
+      fullName: CodeSmile.Core
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1145
+      parentUniqueId: CodeSmile.Editor.Tests.dll/[CodeSmile][suite]
+    - id: 1155
+      uniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/Core/[Tests][suite]
+      name: Tests
+      fullName: CodeSmile.Core.Tests
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1154
+      parentUniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/[Core][suite]
+    - id: 1156
+      uniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/Core/Tests/[CodeSmile.Editor.Tests][CodeSmile.Core.Tests.Editor][suite]
+      name: Editor
+      fullName: CodeSmile.Core.Tests.Editor
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1155
+      parentUniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/Core/[Tests][suite]
+    - id: 1138
+      uniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/Core/Tests/Editor/[CodeSmile.Editor.Tests][CodeSmile.Core.Tests.Editor.ComponentPoolTests][suite]
+      name: ComponentPoolTests
+      fullName: CodeSmile.Core.Tests.Editor.ComponentPoolTests
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1156
+      parentUniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/Core/Tests/[CodeSmile.Editor.Tests][CodeSmile.Core.Tests.Editor][suite]
+    - id: 1140
+      uniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/Core/Tests/Editor/ComponentPoolTests/[CodeSmile.Editor.Tests][CodeSmile.Core.Tests.Editor.ComponentPoolTests.CreateAndDispose]
+      name: CreateAndDispose
+      fullName: CodeSmile.Core.Tests.Editor.ComponentPoolTests.CreateAndDispose
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1138
+      parentUniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/Core/Tests/Editor/[CodeSmile.Editor.Tests][CodeSmile.Core.Tests.Editor.ComponentPoolTests][suite]
+    - id: 1139
+      uniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/Core/Tests/Editor/ComponentPoolTests/[CodeSmile.Editor.Tests][CodeSmile.Core.Tests.Editor.ComponentPoolTests.NewThrowsOnInvalidParams]
+      name: NewThrowsOnInvalidParams
+      fullName: CodeSmile.Core.Tests.Editor.ComponentPoolTests.NewThrowsOnInvalidParams
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1138
+      parentUniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/Core/Tests/Editor/[CodeSmile.Editor.Tests][CodeSmile.Core.Tests.Editor.ComponentPoolTests][suite]
+    - id: 1150
+      uniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/[Editor][suite]
+      name: Editor
+      fullName: CodeSmile.Editor
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1145
+      parentUniqueId: CodeSmile.Editor.Tests.dll/[CodeSmile][suite]
+    - id: 1151
+      uniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/Editor/[CodeSmile.Editor.Tests][CodeSmile.Editor.Tests][suite]
+      name: Tests
+      fullName: CodeSmile.Editor.Tests
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1150
+      parentUniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/[Editor][suite]
+    - id: 1101
+      uniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/Editor/Tests/[CodeSmile.Editor.Tests][CodeSmile.Editor.Tests.ObjectSetTests][suite]
+      name: ObjectSetTests
+      fullName: CodeSmile.Editor.Tests.ObjectSetTests
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1151
+      parentUniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/Editor/[CodeSmile.Editor.Tests][CodeSmile.Editor.Tests][suite]
+    - id: 1111
+      uniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/Editor/Tests/ObjectSetTests/[CodeSmile.Editor.Tests][CodeSmile.Editor.Tests.ObjectSetTests.AddMultipleObjects]
+      name: AddMultipleObjects
+      fullName: CodeSmile.Editor.Tests.ObjectSetTests.AddMultipleObjects
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1101
+      parentUniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/Editor/Tests/[CodeSmile.Editor.Tests][CodeSmile.Editor.Tests.ObjectSetTests][suite]
+    - id: 1105
+      uniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/Editor/Tests/ObjectSetTests/[CodeSmile.Editor.Tests][CodeSmile.Editor.Tests.ObjectSetTests.AddMultipleObjectsToSetWithStartIndex]
+      name: AddMultipleObjectsToSetWithStartIndex
+      fullName: CodeSmile.Editor.Tests.ObjectSetTests.AddMultipleObjectsToSetWithStartIndex
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1101
+      parentUniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/Editor/Tests/[CodeSmile.Editor.Tests][CodeSmile.Editor.Tests.ObjectSetTests][suite]
+    - id: 1106
+      uniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/Editor/Tests/ObjectSetTests/[CodeSmile.Editor.Tests][CodeSmile.Editor.Tests.ObjectSetTests.AddNullObjectThrows]
+      name: AddNullObjectThrows
+      fullName: CodeSmile.Editor.Tests.ObjectSetTests.AddNullObjectThrows
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1101
+      parentUniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/Editor/Tests/[CodeSmile.Editor.Tests][CodeSmile.Editor.Tests.ObjectSetTests][suite]
+    - id: 1108
+      uniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/Editor/Tests/ObjectSetTests/[CodeSmile.Editor.Tests][CodeSmile.Editor.Tests.ObjectSetTests.AddObject]
+      name: AddObject
+      fullName: CodeSmile.Editor.Tests.ObjectSetTests.AddObject
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1101
+      parentUniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/Editor/Tests/[CodeSmile.Editor.Tests][CodeSmile.Editor.Tests.ObjectSetTests][suite]
+    - id: 1110
+      uniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/Editor/Tests/ObjectSetTests/[CodeSmile.Editor.Tests][CodeSmile.Editor.Tests.ObjectSetTests.AddObjectsWithIndex]
+      name: AddObjectsWithIndex
+      fullName: CodeSmile.Editor.Tests.ObjectSetTests.AddObjectsWithIndex
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1101
+      parentUniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/Editor/Tests/[CodeSmile.Editor.Tests][CodeSmile.Editor.Tests.ObjectSetTests][suite]
+    - id: 1104
+      uniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/Editor/Tests/ObjectSetTests/[CodeSmile.Editor.Tests][CodeSmile.Editor.Tests.ObjectSetTests.AddObjectToSetWithStartIndex]
+      name: AddObjectToSetWithStartIndex
+      fullName: CodeSmile.Editor.Tests.ObjectSetTests.AddObjectToSetWithStartIndex
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1101
+      parentUniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/Editor/Tests/[CodeSmile.Editor.Tests][CodeSmile.Editor.Tests.ObjectSetTests][suite]
+    - id: 1109
+      uniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/Editor/Tests/ObjectSetTests/[CodeSmile.Editor.Tests][CodeSmile.Editor.Tests.ObjectSetTests.AddSameObjectTwice]
+      name: AddSameObjectTwice
+      fullName: CodeSmile.Editor.Tests.ObjectSetTests.AddSameObjectTwice
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1101
+      parentUniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/Editor/Tests/[CodeSmile.Editor.Tests][CodeSmile.Editor.Tests.ObjectSetTests][suite]
+    - id: 1124
+      uniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/Editor/Tests/ObjectSetTests/[CodeSmile.Editor.Tests][CodeSmile.Editor.Tests.ObjectSetTests.AssignNullRemovesObject]
+      name: AssignNullRemovesObject
+      fullName: CodeSmile.Editor.Tests.ObjectSetTests.AssignNullRemovesObject
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1101
+      parentUniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/Editor/Tests/[CodeSmile.Editor.Tests][CodeSmile.Editor.Tests.ObjectSetTests][suite]
+    - id: 1120
+      uniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/Editor/Tests/ObjectSetTests/[CodeSmile.Editor.Tests][CodeSmile.Editor.Tests.ObjectSetTests.AssignObject]
+      name: AssignObject
+      fullName: CodeSmile.Editor.Tests.ObjectSetTests.AssignObject
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1101
+      parentUniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/Editor/Tests/[CodeSmile.Editor.Tests][CodeSmile.Editor.Tests.ObjectSetTests][suite]
+    - id: 1123
+      uniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/Editor/Tests/ObjectSetTests/[CodeSmile.Editor.Tests][CodeSmile.Editor.Tests.ObjectSetTests.AssignObjectAlreadyInSetThrows]
+      name: AssignObjectAlreadyInSetThrows
+      fullName: CodeSmile.Editor.Tests.ObjectSetTests.AssignObjectAlreadyInSetThrows
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1101
+      parentUniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/Editor/Tests/[CodeSmile.Editor.Tests][CodeSmile.Editor.Tests.ObjectSetTests][suite]
+    - id: 1122
+      uniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/Editor/Tests/ObjectSetTests/[CodeSmile.Editor.Tests][CodeSmile.Editor.Tests.ObjectSetTests.AssignObjectOutOfBoundsThrows]
+      name: AssignObjectOutOfBoundsThrows
+      fullName: CodeSmile.Editor.Tests.ObjectSetTests.AssignObjectOutOfBoundsThrows
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1101
+      parentUniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/Editor/Tests/[CodeSmile.Editor.Tests][CodeSmile.Editor.Tests.ObjectSetTests][suite]
+    - id: 1121
+      uniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/Editor/Tests/ObjectSetTests/[CodeSmile.Editor.Tests][CodeSmile.Editor.Tests.ObjectSetTests.AssignObjectReplaceExisting]
+      name: AssignObjectReplaceExisting
+      fullName: CodeSmile.Editor.Tests.ObjectSetTests.AssignObjectReplaceExisting
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1101
+      parentUniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/Editor/Tests/[CodeSmile.Editor.Tests][CodeSmile.Editor.Tests.ObjectSetTests][suite]
+    - id: 1117
+      uniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/Editor/Tests/ObjectSetTests/[CodeSmile.Editor.Tests][CodeSmile.Editor.Tests.ObjectSetTests.ClearSet]
+      name: ClearSet
+      fullName: CodeSmile.Editor.Tests.ObjectSetTests.ClearSet
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1101
+      parentUniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/Editor/Tests/[CodeSmile.Editor.Tests][CodeSmile.Editor.Tests.ObjectSetTests][suite]
+    - id: 1102
+      uniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/Editor/Tests/ObjectSetTests/[CodeSmile.Editor.Tests][CodeSmile.Editor.Tests.ObjectSetTests.CreateEmptySet]
+      name: CreateEmptySet
+      fullName: CodeSmile.Editor.Tests.ObjectSetTests.CreateEmptySet
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1101
+      parentUniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/Editor/Tests/[CodeSmile.Editor.Tests][CodeSmile.Editor.Tests.ObjectSetTests][suite]
+    - id: 1103
+      uniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/Editor/Tests/ObjectSetTests/[CodeSmile.Editor.Tests][CodeSmile.Editor.Tests.ObjectSetTests.CreateEmptySetWithDefaultObject]
+      name: CreateEmptySetWithDefaultObject
+      fullName: CodeSmile.Editor.Tests.ObjectSetTests.CreateEmptySetWithDefaultObject
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1101
+      parentUniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/Editor/Tests/[CodeSmile.Editor.Tests][CodeSmile.Editor.Tests.ObjectSetTests][suite]
+    - id: 1107
+      uniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/Editor/Tests/ObjectSetTests/[CodeSmile.Editor.Tests][CodeSmile.Editor.Tests.ObjectSetTests.DoesNotContainNull]
+      name: DoesNotContainNull
+      fullName: CodeSmile.Editor.Tests.ObjectSetTests.DoesNotContainNull
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1101
+      parentUniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/Editor/Tests/[CodeSmile.Editor.Tests][CodeSmile.Editor.Tests.ObjectSetTests][suite]
+    - id: 1119
+      uniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/Editor/Tests/ObjectSetTests/[CodeSmile.Editor.Tests][CodeSmile.Editor.Tests.ObjectSetTests.GetOutOfBoundsReturnsDefaultObject]
+      name: GetOutOfBoundsReturnsDefaultObject
+      fullName: CodeSmile.Editor.Tests.ObjectSetTests.GetOutOfBoundsReturnsDefaultObject
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1101
+      parentUniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/Editor/Tests/[CodeSmile.Editor.Tests][CodeSmile.Editor.Tests.ObjectSetTests][suite]
+    - id: 1118
+      uniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/Editor/Tests/ObjectSetTests/[CodeSmile.Editor.Tests][CodeSmile.Editor.Tests.ObjectSetTests.GetReturnsObjectAtIndex]
+      name: GetReturnsObjectAtIndex
+      fullName: CodeSmile.Editor.Tests.ObjectSetTests.GetReturnsObjectAtIndex
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1101
+      parentUniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/Editor/Tests/[CodeSmile.Editor.Tests][CodeSmile.Editor.Tests.ObjectSetTests][suite]
+    - id: 1113
+      uniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/Editor/Tests/ObjectSetTests/[CodeSmile.Editor.Tests][CodeSmile.Editor.Tests.ObjectSetTests.RemoveLastOne]
+      name: RemoveLastOne
+      fullName: CodeSmile.Editor.Tests.ObjectSetTests.RemoveLastOne
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1101
+      parentUniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/Editor/Tests/[CodeSmile.Editor.Tests][CodeSmile.Editor.Tests.ObjectSetTests][suite]
+    - id: 1114
+      uniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/Editor/Tests/ObjectSetTests/[CodeSmile.Editor.Tests][CodeSmile.Editor.Tests.ObjectSetTests.RemoveNotExisting]
+      name: RemoveNotExisting
+      fullName: CodeSmile.Editor.Tests.ObjectSetTests.RemoveNotExisting
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1101
+      parentUniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/Editor/Tests/[CodeSmile.Editor.Tests][CodeSmile.Editor.Tests.ObjectSetTests][suite]
+    - id: 1112
+      uniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/Editor/Tests/ObjectSetTests/[CodeSmile.Editor.Tests][CodeSmile.Editor.Tests.ObjectSetTests.RemoveNull]
+      name: RemoveNull
+      fullName: CodeSmile.Editor.Tests.ObjectSetTests.RemoveNull
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1101
+      parentUniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/Editor/Tests/[CodeSmile.Editor.Tests][CodeSmile.Editor.Tests.ObjectSetTests][suite]
+    - id: 1115
+      uniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/Editor/Tests/ObjectSetTests/[CodeSmile.Editor.Tests][CodeSmile.Editor.Tests.ObjectSetTests.RemoveOne]
+      name: RemoveOne
+      fullName: CodeSmile.Editor.Tests.ObjectSetTests.RemoveOne
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1101
+      parentUniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/Editor/Tests/[CodeSmile.Editor.Tests][CodeSmile.Editor.Tests.ObjectSetTests][suite]
+    - id: 1116
+      uniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/Editor/Tests/ObjectSetTests/[CodeSmile.Editor.Tests][CodeSmile.Editor.Tests.ObjectSetTests.RemoveOneByIndex]
+      name: RemoveOneByIndex
+      fullName: CodeSmile.Editor.Tests.ObjectSetTests.RemoveOneByIndex
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1101
+      parentUniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/Editor/Tests/[CodeSmile.Editor.Tests][CodeSmile.Editor.Tests.ObjectSetTests][suite]
+    - id: 1146
+      uniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/[ProTiler][suite]
+      name: ProTiler
+      fullName: CodeSmile.ProTiler
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1145
+      parentUniqueId: CodeSmile.Editor.Tests.dll/[CodeSmile][suite]
+    - id: 1147
+      uniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/ProTiler/[Tests][suite]
+      name: Tests
+      fullName: CodeSmile.ProTiler.Tests
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1146
+      parentUniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/[ProTiler][suite]
+    - id: 1148
+      uniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/ProTiler/Tests/[Editor][suite]
+      name: Editor
+      fullName: CodeSmile.ProTiler.Tests.Editor
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1147
+      parentUniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/ProTiler/[Tests][suite]
+    - id: 1149
+      uniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/ProTiler/Tests/Editor/[CodeSmile.Editor.Tests][CodeSmile.ProTiler.Tests.Editor.old][suite]
+      name: old
+      fullName: CodeSmile.ProTiler.Tests.Editor.old
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1148
+      parentUniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/ProTiler/Tests/[Editor][suite]
+    - id: 1096
+      uniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/ProTiler/Tests/Editor/old/[CodeSmile.Editor.Tests][CodeSmile.ProTiler.Tests.Editor.old.RectIntExtTests][suite]
+      name: RectIntExtTests
+      fullName: CodeSmile.ProTiler.Tests.Editor.old.RectIntExtTests
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1149
+      parentUniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/ProTiler/Tests/Editor/[CodeSmile.Editor.Tests][CodeSmile.ProTiler.Tests.Editor.old][suite]
+    - id: 1097
+      uniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/ProTiler/Tests/Editor/old/RectIntExtTests/[CodeSmile.Editor.Tests][CodeSmile.ProTiler.Tests.Editor.old.RectIntExtTests.DoesNotIntersect]
+      name: DoesNotIntersect
+      fullName: CodeSmile.ProTiler.Tests.Editor.old.RectIntExtTests.DoesNotIntersect
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1096
+      parentUniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/ProTiler/Tests/Editor/old/[CodeSmile.Editor.Tests][CodeSmile.ProTiler.Tests.Editor.old.RectIntExtTests][suite]
+    - id: 1100
+      uniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/ProTiler/Tests/Editor/old/RectIntExtTests/[CodeSmile.Editor.Tests][CodeSmile.ProTiler.Tests.Editor.old.RectIntExtTests.IntersectsNegativePosition]
+      name: IntersectsNegativePosition
+      fullName: CodeSmile.ProTiler.Tests.Editor.old.RectIntExtTests.IntersectsNegativePosition
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1096
+      parentUniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/ProTiler/Tests/Editor/old/[CodeSmile.Editor.Tests][CodeSmile.ProTiler.Tests.Editor.old.RectIntExtTests][suite]
+    - id: 1098
+      uniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/ProTiler/Tests/Editor/old/RectIntExtTests/[CodeSmile.Editor.Tests][CodeSmile.ProTiler.Tests.Editor.old.RectIntExtTests.LargerIntersectsSmaller]
+      name: LargerIntersectsSmaller
+      fullName: CodeSmile.ProTiler.Tests.Editor.old.RectIntExtTests.LargerIntersectsSmaller
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1096
+      parentUniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/ProTiler/Tests/Editor/old/[CodeSmile.Editor.Tests][CodeSmile.ProTiler.Tests.Editor.old.RectIntExtTests][suite]
+    - id: 1099
+      uniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/ProTiler/Tests/Editor/old/RectIntExtTests/[CodeSmile.Editor.Tests][CodeSmile.ProTiler.Tests.Editor.old.RectIntExtTests.SmallerIntersectsLarger]
+      name: SmallerIntersectsLarger
+      fullName: CodeSmile.ProTiler.Tests.Editor.old.RectIntExtTests.SmallerIntersectsLarger
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1096
+      parentUniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/ProTiler/Tests/Editor/old/[CodeSmile.Editor.Tests][CodeSmile.ProTiler.Tests.Editor.old.RectIntExtTests][suite]
+    - id: 1152
+      uniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/[Tests][suite]
+      name: Tests
+      fullName: CodeSmile.Tests
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1145
+      parentUniqueId: CodeSmile.Editor.Tests.dll/[CodeSmile][suite]
+    - id: 1153
+      uniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/Tests/[CodeSmile.Editor.Tests][CodeSmile.Tests.Editor][suite]
+      name: Editor
+      fullName: CodeSmile.Tests.Editor
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1152
+      parentUniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/[Tests][suite]
+    - id: 1125
+      uniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/Tests/Editor/[CodeSmile.Editor.Tests][CodeSmile.Tests.Editor.GameObjectExtTests][suite]
+      name: GameObjectExtTests
+      fullName: CodeSmile.Tests.Editor.GameObjectExtTests
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1153
+      parentUniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/Tests/[CodeSmile.Editor.Tests][CodeSmile.Tests.Editor][suite]
+    - id: 1131
+      uniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/Tests/Editor/GameObjectExtTests/[CodeSmile.Editor.Tests][CodeSmile.Tests.Editor.GameObjectExtTests.FindOrCreateChildOnce]
+      name: FindOrCreateChildOnce
+      fullName: CodeSmile.Tests.Editor.GameObjectExtTests.FindOrCreateChildOnce
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1125
+      parentUniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/Tests/Editor/[CodeSmile.Editor.Tests][CodeSmile.Tests.Editor.GameObjectExtTests][suite]
+    - id: 1132
+      uniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/Tests/Editor/GameObjectExtTests/[CodeSmile.Editor.Tests][CodeSmile.Tests.Editor.GameObjectExtTests.FindOrCreateChildTwice]
+      name: FindOrCreateChildTwice
+      fullName: CodeSmile.Tests.Editor.GameObjectExtTests.FindOrCreateChildTwice
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1125
+      parentUniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/Tests/Editor/[CodeSmile.Editor.Tests][CodeSmile.Tests.Editor.GameObjectExtTests][suite]
+    - id: 1133
+      uniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/Tests/Editor/GameObjectExtTests/[CodeSmile.Editor.Tests][CodeSmile.Tests.Editor.GameObjectExtTests.FindOrCreateChildWithNullOriginalThrows]
+      name: FindOrCreateChildWithNullOriginalThrows
+      fullName: CodeSmile.Tests.Editor.GameObjectExtTests.FindOrCreateChildWithNullOriginalThrows
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1125
+      parentUniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/Tests/Editor/[CodeSmile.Editor.Tests][CodeSmile.Tests.Editor.GameObjectExtTests][suite]
+    - id: 1134
+      uniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/Tests/Editor/GameObjectExtTests/[CodeSmile.Editor.Tests][CodeSmile.Tests.Editor.GameObjectExtTests.FindOrCreateChildWithOriginalOnce]
+      name: FindOrCreateChildWithOriginalOnce
+      fullName: CodeSmile.Tests.Editor.GameObjectExtTests.FindOrCreateChildWithOriginalOnce
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1125
+      parentUniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/Tests/Editor/[CodeSmile.Editor.Tests][CodeSmile.Tests.Editor.GameObjectExtTests][suite]
+    - id: 1135
+      uniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/Tests/Editor/GameObjectExtTests/[CodeSmile.Editor.Tests][CodeSmile.Tests.Editor.GameObjectExtTests.FindOrCreateChildWithOriginalTwice]
+      name: FindOrCreateChildWithOriginalTwice
+      fullName: CodeSmile.Tests.Editor.GameObjectExtTests.FindOrCreateChildWithOriginalTwice
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1125
+      parentUniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/Tests/Editor/[CodeSmile.Editor.Tests][CodeSmile.Tests.Editor.GameObjectExtTests][suite]
+    - id: 1126
+      uniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/Tests/Editor/GameObjectExtTests/[CodeSmile.Editor.Tests][CodeSmile.Tests.Editor.GameObjectExtTests.GetOrAddComponentOnce]
+      name: GetOrAddComponentOnce
+      fullName: CodeSmile.Tests.Editor.GameObjectExtTests.GetOrAddComponentOnce
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1125
+      parentUniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/Tests/Editor/[CodeSmile.Editor.Tests][CodeSmile.Tests.Editor.GameObjectExtTests][suite]
+    - id: 1128
+      uniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/Tests/Editor/GameObjectExtTests/[CodeSmile.Editor.Tests][CodeSmile.Tests.Editor.GameObjectExtTests.GetOrAddSameComponentAfterDestroy]
+      name: GetOrAddSameComponentAfterDestroy
+      fullName: CodeSmile.Tests.Editor.GameObjectExtTests.GetOrAddSameComponentAfterDestroy
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1125
+      parentUniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/Tests/Editor/[CodeSmile.Editor.Tests][CodeSmile.Tests.Editor.GameObjectExtTests][suite]
+    - id: 1127
+      uniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/Tests/Editor/GameObjectExtTests/[CodeSmile.Editor.Tests][CodeSmile.Tests.Editor.GameObjectExtTests.GetOrAddSameComponentTwice]
+      name: GetOrAddSameComponentTwice
+      fullName: CodeSmile.Tests.Editor.GameObjectExtTests.GetOrAddSameComponentTwice
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1125
+      parentUniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/Tests/Editor/[CodeSmile.Editor.Tests][CodeSmile.Tests.Editor.GameObjectExtTests][suite]
+    - id: 1129
+      uniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/Tests/Editor/GameObjectExtTests/[CodeSmile.Editor.Tests][CodeSmile.Tests.Editor.GameObjectExtTests.IsNotPrefab]
+      name: IsNotPrefab
+      fullName: CodeSmile.Tests.Editor.GameObjectExtTests.IsNotPrefab
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1125
+      parentUniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/Tests/Editor/[CodeSmile.Editor.Tests][CodeSmile.Tests.Editor.GameObjectExtTests][suite]
+    - id: 1130
+      uniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/Tests/Editor/GameObjectExtTests/[CodeSmile.Editor.Tests][CodeSmile.Tests.Editor.GameObjectExtTests.IsPrefab]
+      name: IsPrefab
+      fullName: CodeSmile.Tests.Editor.GameObjectExtTests.IsPrefab
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1125
+      parentUniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/Tests/Editor/[CodeSmile.Editor.Tests][CodeSmile.Tests.Editor.GameObjectExtTests][suite]
+    - id: 1136
+      uniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/Tests/Editor/[CodeSmile.Editor.Tests][CodeSmile.Tests.Editor.TransformExtTests][suite]
+      name: TransformExtTests
+      fullName: CodeSmile.Tests.Editor.TransformExtTests
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1153
+      parentUniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/Tests/[CodeSmile.Editor.Tests][CodeSmile.Tests.Editor][suite]
+    - id: 1137
+      uniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/Tests/Editor/TransformExtTests/[CodeSmile.Editor.Tests][CodeSmile.Tests.Editor.TransformExtTests.DestroyAllChildren]
+      name: DestroyAllChildren
+      fullName: CodeSmile.Tests.Editor.TransformExtTests.DestroyAllChildren
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1136
+      parentUniqueId: CodeSmile.Editor.Tests.dll/CodeSmile/Tests/Editor/[CodeSmile.Editor.Tests][CodeSmile.Tests.Editor.TransformExtTests][suite]
+    - id: 1142
+      uniqueId: CodeSmile.Editor.Tests.dll/[JacksonDunstan][suite]
+      name: JacksonDunstan
+      fullName: JacksonDunstan
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1141
+      parentUniqueId: '[CodeSmile.Editor.Tests.dll][suite]'
+    - id: 1143
+      uniqueId: CodeSmile.Editor.Tests.dll/JacksonDunstan/[NativeCollections][suite]
+      name: NativeCollections
+      fullName: JacksonDunstan.NativeCollections
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1142
+      parentUniqueId: CodeSmile.Editor.Tests.dll/[JacksonDunstan][suite]
+    - id: 1144
+      uniqueId: CodeSmile.Editor.Tests.dll/JacksonDunstan/NativeCollections/[CodeSmile.Editor.Tests][JacksonDunstan.NativeCollections.Tests][suite]
+      name: Tests
+      fullName: JacksonDunstan.NativeCollections.Tests
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1143
+      parentUniqueId: CodeSmile.Editor.Tests.dll/JacksonDunstan/[NativeCollections][suite]
+    - id: 1063
+      uniqueId: CodeSmile.Editor.Tests.dll/JacksonDunstan/NativeCollections/Tests/[CodeSmile.Editor.Tests][JacksonDunstan.NativeCollections.Tests.TestNativeArray2D][suite]
+      name: TestNativeArray2D
+      fullName: JacksonDunstan.NativeCollections.Tests.TestNativeArray2D
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1144
+      parentUniqueId: CodeSmile.Editor.Tests.dll/JacksonDunstan/NativeCollections/[CodeSmile.Editor.Tests][JacksonDunstan.NativeCollections.Tests][suite]
+    - id: 1067
+      uniqueId: CodeSmile.Editor.Tests.dll/JacksonDunstan/NativeCollections/Tests/TestNativeArray2D/[CodeSmile.Editor.Tests][JacksonDunstan.NativeCollections.Tests.TestNativeArray2D.ConstructorCopiesManagedArray]
+      name: ConstructorCopiesManagedArray
+      fullName: JacksonDunstan.NativeCollections.Tests.TestNativeArray2D.ConstructorCopiesManagedArray
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1063
+      parentUniqueId: CodeSmile.Editor.Tests.dll/JacksonDunstan/NativeCollections/Tests/[CodeSmile.Editor.Tests][JacksonDunstan.NativeCollections.Tests.TestNativeArray2D][suite]
+    - id: 1068
+      uniqueId: CodeSmile.Editor.Tests.dll/JacksonDunstan/NativeCollections/Tests/TestNativeArray2D/[CodeSmile.Editor.Tests][JacksonDunstan.NativeCollections.Tests.TestNativeArray2D.ConstructorCopiesNativeArray]
+      name: ConstructorCopiesNativeArray
+      fullName: JacksonDunstan.NativeCollections.Tests.TestNativeArray2D.ConstructorCopiesNativeArray
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1063
+      parentUniqueId: CodeSmile.Editor.Tests.dll/JacksonDunstan/NativeCollections/Tests/[CodeSmile.Editor.Tests][JacksonDunstan.NativeCollections.Tests.TestNativeArray2D][suite]
+    - id: 1064
+      uniqueId: CodeSmile.Editor.Tests.dll/JacksonDunstan/NativeCollections/Tests/TestNativeArray2D/[CodeSmile.Editor.Tests][JacksonDunstan.NativeCollections.Tests.TestNativeArray2D.ConstructorCreatesEmptyArray]
+      name: ConstructorCreatesEmptyArray
+      fullName: JacksonDunstan.NativeCollections.Tests.TestNativeArray2D.ConstructorCreatesEmptyArray
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1063
+      parentUniqueId: CodeSmile.Editor.Tests.dll/JacksonDunstan/NativeCollections/Tests/[CodeSmile.Editor.Tests][JacksonDunstan.NativeCollections.Tests.TestNativeArray2D][suite]
+    - id: 1066
+      uniqueId: CodeSmile.Editor.Tests.dll/JacksonDunstan/NativeCollections/Tests/TestNativeArray2D/[CodeSmile.Editor.Tests][JacksonDunstan.NativeCollections.Tests.TestNativeArray2D.ConstructorThrowsForInvalidAllocator]
+      name: ConstructorThrowsForInvalidAllocator
+      fullName: JacksonDunstan.NativeCollections.Tests.TestNativeArray2D.ConstructorThrowsForInvalidAllocator
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1063
+      parentUniqueId: CodeSmile.Editor.Tests.dll/JacksonDunstan/NativeCollections/Tests/[CodeSmile.Editor.Tests][JacksonDunstan.NativeCollections.Tests.TestNativeArray2D][suite]
+    - id: 1065
+      uniqueId: CodeSmile.Editor.Tests.dll/JacksonDunstan/NativeCollections/Tests/TestNativeArray2D/[CodeSmile.Editor.Tests][JacksonDunstan.NativeCollections.Tests.TestNativeArray2D.ConstructorThrowsForNonPositiveLength]
+      name: ConstructorThrowsForNonPositiveLength
+      fullName: JacksonDunstan.NativeCollections.Tests.TestNativeArray2D.ConstructorThrowsForNonPositiveLength
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1063
+      parentUniqueId: CodeSmile.Editor.Tests.dll/JacksonDunstan/NativeCollections/Tests/[CodeSmile.Editor.Tests][JacksonDunstan.NativeCollections.Tests.TestNativeArray2D][suite]
+    - id: 1077
+      uniqueId: CodeSmile.Editor.Tests.dll/JacksonDunstan/NativeCollections/Tests/TestNativeArray2D/[CodeSmile.Editor.Tests][JacksonDunstan.NativeCollections.Tests.TestNativeArray2D.CopyFromManagedArrayCopiesElements]
+      name: CopyFromManagedArrayCopiesElements
+      fullName: JacksonDunstan.NativeCollections.Tests.TestNativeArray2D.CopyFromManagedArrayCopiesElements
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1063
+      parentUniqueId: CodeSmile.Editor.Tests.dll/JacksonDunstan/NativeCollections/Tests/[CodeSmile.Editor.Tests][JacksonDunstan.NativeCollections.Tests.TestNativeArray2D][suite]
+    - id: 1078
+      uniqueId: CodeSmile.Editor.Tests.dll/JacksonDunstan/NativeCollections/Tests/TestNativeArray2D/[CodeSmile.Editor.Tests][JacksonDunstan.NativeCollections.Tests.TestNativeArray2D.CopyFromManagedArrayThrowsWhenDifferentSize]
+      name: CopyFromManagedArrayThrowsWhenDifferentSize
+      fullName: JacksonDunstan.NativeCollections.Tests.TestNativeArray2D.CopyFromManagedArrayThrowsWhenDifferentSize
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1063
+      parentUniqueId: CodeSmile.Editor.Tests.dll/JacksonDunstan/NativeCollections/Tests/[CodeSmile.Editor.Tests][JacksonDunstan.NativeCollections.Tests.TestNativeArray2D][suite]
+    - id: 1079
+      uniqueId: CodeSmile.Editor.Tests.dll/JacksonDunstan/NativeCollections/Tests/TestNativeArray2D/[CodeSmile.Editor.Tests][JacksonDunstan.NativeCollections.Tests.TestNativeArray2D.CopyFromNativeArrayCopiesElements]
+      name: CopyFromNativeArrayCopiesElements
+      fullName: JacksonDunstan.NativeCollections.Tests.TestNativeArray2D.CopyFromNativeArrayCopiesElements
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1063
+      parentUniqueId: CodeSmile.Editor.Tests.dll/JacksonDunstan/NativeCollections/Tests/[CodeSmile.Editor.Tests][JacksonDunstan.NativeCollections.Tests.TestNativeArray2D][suite]
+    - id: 1080
+      uniqueId: CodeSmile.Editor.Tests.dll/JacksonDunstan/NativeCollections/Tests/TestNativeArray2D/[CodeSmile.Editor.Tests][JacksonDunstan.NativeCollections.Tests.TestNativeArray2D.CopyFromNativeArrayThrowsWhenDifferentSize]
+      name: CopyFromNativeArrayThrowsWhenDifferentSize
+      fullName: JacksonDunstan.NativeCollections.Tests.TestNativeArray2D.CopyFromNativeArrayThrowsWhenDifferentSize
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1063
+      parentUniqueId: CodeSmile.Editor.Tests.dll/JacksonDunstan/NativeCollections/Tests/[CodeSmile.Editor.Tests][JacksonDunstan.NativeCollections.Tests.TestNativeArray2D][suite]
+    - id: 1081
+      uniqueId: CodeSmile.Editor.Tests.dll/JacksonDunstan/NativeCollections/Tests/TestNativeArray2D/[CodeSmile.Editor.Tests][JacksonDunstan.NativeCollections.Tests.TestNativeArray2D.CopyToManagedArrayCopiesElements]
+      name: CopyToManagedArrayCopiesElements
+      fullName: JacksonDunstan.NativeCollections.Tests.TestNativeArray2D.CopyToManagedArrayCopiesElements
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1063
+      parentUniqueId: CodeSmile.Editor.Tests.dll/JacksonDunstan/NativeCollections/Tests/[CodeSmile.Editor.Tests][JacksonDunstan.NativeCollections.Tests.TestNativeArray2D][suite]
+    - id: 1082
+      uniqueId: CodeSmile.Editor.Tests.dll/JacksonDunstan/NativeCollections/Tests/TestNativeArray2D/[CodeSmile.Editor.Tests][JacksonDunstan.NativeCollections.Tests.TestNativeArray2D.CopyToManagedArrayThrowsWhenDifferentSize]
+      name: CopyToManagedArrayThrowsWhenDifferentSize
+      fullName: JacksonDunstan.NativeCollections.Tests.TestNativeArray2D.CopyToManagedArrayThrowsWhenDifferentSize
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1063
+      parentUniqueId: CodeSmile.Editor.Tests.dll/JacksonDunstan/NativeCollections/Tests/[CodeSmile.Editor.Tests][JacksonDunstan.NativeCollections.Tests.TestNativeArray2D][suite]
+    - id: 1083
+      uniqueId: CodeSmile.Editor.Tests.dll/JacksonDunstan/NativeCollections/Tests/TestNativeArray2D/[CodeSmile.Editor.Tests][JacksonDunstan.NativeCollections.Tests.TestNativeArray2D.CopyToNativeArrayCopiesElements]
+      name: CopyToNativeArrayCopiesElements
+      fullName: JacksonDunstan.NativeCollections.Tests.TestNativeArray2D.CopyToNativeArrayCopiesElements
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1063
+      parentUniqueId: CodeSmile.Editor.Tests.dll/JacksonDunstan/NativeCollections/Tests/[CodeSmile.Editor.Tests][JacksonDunstan.NativeCollections.Tests.TestNativeArray2D][suite]
+    - id: 1084
+      uniqueId: CodeSmile.Editor.Tests.dll/JacksonDunstan/NativeCollections/Tests/TestNativeArray2D/[CodeSmile.Editor.Tests][JacksonDunstan.NativeCollections.Tests.TestNativeArray2D.CopyToNativeArrayThrowsWhenDifferentSize]
+      name: CopyToNativeArrayThrowsWhenDifferentSize
+      fullName: JacksonDunstan.NativeCollections.Tests.TestNativeArray2D.CopyToNativeArrayThrowsWhenDifferentSize
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1063
+      parentUniqueId: CodeSmile.Editor.Tests.dll/JacksonDunstan/NativeCollections/Tests/[CodeSmile.Editor.Tests][JacksonDunstan.NativeCollections.Tests.TestNativeArray2D][suite]
+    - id: 1076
+      uniqueId: CodeSmile.Editor.Tests.dll/JacksonDunstan/NativeCollections/Tests/TestNativeArray2D/[CodeSmile.Editor.Tests][JacksonDunstan.NativeCollections.Tests.TestNativeArray2D.DisposeMakesArrayUnusable]
+      name: DisposeMakesArrayUnusable
+      fullName: JacksonDunstan.NativeCollections.Tests.TestNativeArray2D.DisposeMakesArrayUnusable
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1063
+      parentUniqueId: CodeSmile.Editor.Tests.dll/JacksonDunstan/NativeCollections/Tests/[CodeSmile.Editor.Tests][JacksonDunstan.NativeCollections.Tests.TestNativeArray2D][suite]
+    - id: 1095
+      uniqueId: CodeSmile.Editor.Tests.dll/JacksonDunstan/NativeCollections/Tests/TestNativeArray2D/[CodeSmile.Editor.Tests][JacksonDunstan.NativeCollections.Tests.TestNativeArray2D.EnumeratorCurrentReturnsCurrentElementAsObject]
+      name: EnumeratorCurrentReturnsCurrentElementAsObject
+      fullName: JacksonDunstan.NativeCollections.Tests.TestNativeArray2D.EnumeratorCurrentReturnsCurrentElementAsObject
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1063
+      parentUniqueId: CodeSmile.Editor.Tests.dll/JacksonDunstan/NativeCollections/Tests/[CodeSmile.Editor.Tests][JacksonDunstan.NativeCollections.Tests.TestNativeArray2D][suite]
+    - id: 1094
+      uniqueId: CodeSmile.Editor.Tests.dll/JacksonDunstan/NativeCollections/Tests/TestNativeArray2D/[CodeSmile.Editor.Tests][JacksonDunstan.NativeCollections.Tests.TestNativeArray2D.EnumeratorResetReturnsToFirstElement]
+      name: EnumeratorResetReturnsToFirstElement
+      fullName: JacksonDunstan.NativeCollections.Tests.TestNativeArray2D.EnumeratorResetReturnsToFirstElement
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1063
+      parentUniqueId: CodeSmile.Editor.Tests.dll/JacksonDunstan/NativeCollections/Tests/[CodeSmile.Editor.Tests][JacksonDunstan.NativeCollections.Tests.TestNativeArray2D][suite]
+    - id: 1092
+      uniqueId: CodeSmile.Editor.Tests.dll/JacksonDunstan/NativeCollections/Tests/TestNativeArray2D/[CodeSmile.Editor.Tests][JacksonDunstan.NativeCollections.Tests.TestNativeArray2D.EqualityOperatorReturnsTrueOnlyForSameArray]
+      name: EqualityOperatorReturnsTrueOnlyForSameArray
+      fullName: JacksonDunstan.NativeCollections.Tests.TestNativeArray2D.EqualityOperatorReturnsTrueOnlyForSameArray
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1063
+      parentUniqueId: CodeSmile.Editor.Tests.dll/JacksonDunstan/NativeCollections/Tests/[CodeSmile.Editor.Tests][JacksonDunstan.NativeCollections.Tests.TestNativeArray2D][suite]
+    - id: 1089
+      uniqueId: CodeSmile.Editor.Tests.dll/JacksonDunstan/NativeCollections/Tests/TestNativeArray2D/[CodeSmile.Editor.Tests][JacksonDunstan.NativeCollections.Tests.TestNativeArray2D.EqualsObjectReturnsTrueOnlyForSameArray]
+      name: EqualsObjectReturnsTrueOnlyForSameArray
+      fullName: JacksonDunstan.NativeCollections.Tests.TestNativeArray2D.EqualsObjectReturnsTrueOnlyForSameArray
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1063
+      parentUniqueId: CodeSmile.Editor.Tests.dll/JacksonDunstan/NativeCollections/Tests/[CodeSmile.Editor.Tests][JacksonDunstan.NativeCollections.Tests.TestNativeArray2D][suite]
+    - id: 1088
+      uniqueId: CodeSmile.Editor.Tests.dll/JacksonDunstan/NativeCollections/Tests/TestNativeArray2D/[CodeSmile.Editor.Tests][JacksonDunstan.NativeCollections.Tests.TestNativeArray2D.EqualsReturnsTrueOnlyForSameArray]
+      name: EqualsReturnsTrueOnlyForSameArray
+      fullName: JacksonDunstan.NativeCollections.Tests.TestNativeArray2D.EqualsReturnsTrueOnlyForSameArray
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1063
+      parentUniqueId: CodeSmile.Editor.Tests.dll/JacksonDunstan/NativeCollections/Tests/[CodeSmile.Editor.Tests][JacksonDunstan.NativeCollections.Tests.TestNativeArray2D][suite]
+    - id: 1086
+      uniqueId: CodeSmile.Editor.Tests.dll/JacksonDunstan/NativeCollections/Tests/TestNativeArray2D/[CodeSmile.Editor.Tests][JacksonDunstan.NativeCollections.Tests.TestNativeArray2D.GetEnumeratorIteratesElementsInCorrectOrder]
+      name: GetEnumeratorIteratesElementsInCorrectOrder
+      fullName: JacksonDunstan.NativeCollections.Tests.TestNativeArray2D.GetEnumeratorIteratesElementsInCorrectOrder
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1063
+      parentUniqueId: CodeSmile.Editor.Tests.dll/JacksonDunstan/NativeCollections/Tests/[CodeSmile.Editor.Tests][JacksonDunstan.NativeCollections.Tests.TestNativeArray2D][suite]
+    - id: 1087
+      uniqueId: CodeSmile.Editor.Tests.dll/JacksonDunstan/NativeCollections/Tests/TestNativeArray2D/[CodeSmile.Editor.Tests][JacksonDunstan.NativeCollections.Tests.TestNativeArray2D.GetEnumeratorNonGenericIteratesElementsInCorrectOrder]
+      name: GetEnumeratorNonGenericIteratesElementsInCorrectOrder
+      fullName: JacksonDunstan.NativeCollections.Tests.TestNativeArray2D.GetEnumeratorNonGenericIteratesElementsInCorrectOrder
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1063
+      parentUniqueId: CodeSmile.Editor.Tests.dll/JacksonDunstan/NativeCollections/Tests/[CodeSmile.Editor.Tests][JacksonDunstan.NativeCollections.Tests.TestNativeArray2D][suite]
+    - id: 1091
+      uniqueId: CodeSmile.Editor.Tests.dll/JacksonDunstan/NativeCollections/Tests/TestNativeArray2D/[CodeSmile.Editor.Tests][JacksonDunstan.NativeCollections.Tests.TestNativeArray2D.GetHashCodeReturnsUniqueValue]
+      name: GetHashCodeReturnsUniqueValue
+      fullName: JacksonDunstan.NativeCollections.Tests.TestNativeArray2D.GetHashCodeReturnsUniqueValue
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1063
+      parentUniqueId: CodeSmile.Editor.Tests.dll/JacksonDunstan/NativeCollections/Tests/[CodeSmile.Editor.Tests][JacksonDunstan.NativeCollections.Tests.TestNativeArray2D][suite]
+    - id: 1072
+      uniqueId: CodeSmile.Editor.Tests.dll/JacksonDunstan/NativeCollections/Tests/TestNativeArray2D/[CodeSmile.Editor.Tests][JacksonDunstan.NativeCollections.Tests.TestNativeArray2D.IndexGetsAndSetsElementAtGivenIndex]
+      name: IndexGetsAndSetsElementAtGivenIndex
+      fullName: JacksonDunstan.NativeCollections.Tests.TestNativeArray2D.IndexGetsAndSetsElementAtGivenIndex
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1063
+      parentUniqueId: CodeSmile.Editor.Tests.dll/JacksonDunstan/NativeCollections/Tests/[CodeSmile.Editor.Tests][JacksonDunstan.NativeCollections.Tests.TestNativeArray2D][suite]
+    - id: 1073
+      uniqueId: CodeSmile.Editor.Tests.dll/JacksonDunstan/NativeCollections/Tests/TestNativeArray2D/[CodeSmile.Editor.Tests][JacksonDunstan.NativeCollections.Tests.TestNativeArray2D.IndexOutOfBoundsThrows]
+      name: IndexOutOfBoundsThrows
+      fullName: JacksonDunstan.NativeCollections.Tests.TestNativeArray2D.IndexOutOfBoundsThrows
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1063
+      parentUniqueId: CodeSmile.Editor.Tests.dll/JacksonDunstan/NativeCollections/Tests/[CodeSmile.Editor.Tests][JacksonDunstan.NativeCollections.Tests.TestNativeArray2D][suite]
+    - id: 1093
+      uniqueId: CodeSmile.Editor.Tests.dll/JacksonDunstan/NativeCollections/Tests/TestNativeArray2D/[CodeSmile.Editor.Tests][JacksonDunstan.NativeCollections.Tests.TestNativeArray2D.InequalityOperatorReturnsTrueOnlyForDifferentArray]
+      name: InequalityOperatorReturnsTrueOnlyForDifferentArray
+      fullName: JacksonDunstan.NativeCollections.Tests.TestNativeArray2D.InequalityOperatorReturnsTrueOnlyForDifferentArray
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1063
+      parentUniqueId: CodeSmile.Editor.Tests.dll/JacksonDunstan/NativeCollections/Tests/[CodeSmile.Editor.Tests][JacksonDunstan.NativeCollections.Tests.TestNativeArray2D][suite]
+    - id: 1075
+      uniqueId: CodeSmile.Editor.Tests.dll/JacksonDunstan/NativeCollections/Tests/TestNativeArray2D/[CodeSmile.Editor.Tests][JacksonDunstan.NativeCollections.Tests.TestNativeArray2D.IsCreatedReturnsTrueAfterConstructor]
+      name: IsCreatedReturnsTrueAfterConstructor
+      fullName: JacksonDunstan.NativeCollections.Tests.TestNativeArray2D.IsCreatedReturnsTrueAfterConstructor
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1063
+      parentUniqueId: CodeSmile.Editor.Tests.dll/JacksonDunstan/NativeCollections/Tests/[CodeSmile.Editor.Tests][JacksonDunstan.NativeCollections.Tests.TestNativeArray2D][suite]
+    - id: 1074
+      uniqueId: CodeSmile.Editor.Tests.dll/JacksonDunstan/NativeCollections/Tests/TestNativeArray2D/[CodeSmile.Editor.Tests][JacksonDunstan.NativeCollections.Tests.TestNativeArray2D.IsCreatedReturnsTrueForDefaultStruct]
+      name: IsCreatedReturnsTrueForDefaultStruct
+      fullName: JacksonDunstan.NativeCollections.Tests.TestNativeArray2D.IsCreatedReturnsTrueForDefaultStruct
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1063
+      parentUniqueId: CodeSmile.Editor.Tests.dll/JacksonDunstan/NativeCollections/Tests/[CodeSmile.Editor.Tests][JacksonDunstan.NativeCollections.Tests.TestNativeArray2D][suite]
+    - id: 1070
+      uniqueId: CodeSmile.Editor.Tests.dll/JacksonDunstan/NativeCollections/Tests/TestNativeArray2D/[CodeSmile.Editor.Tests][JacksonDunstan.NativeCollections.Tests.TestNativeArray2D.Length0ReturnsTotalNumberOfElements]
+      name: Length0ReturnsTotalNumberOfElements
+      fullName: JacksonDunstan.NativeCollections.Tests.TestNativeArray2D.Length0ReturnsTotalNumberOfElements
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1063
+      parentUniqueId: CodeSmile.Editor.Tests.dll/JacksonDunstan/NativeCollections/Tests/[CodeSmile.Editor.Tests][JacksonDunstan.NativeCollections.Tests.TestNativeArray2D][suite]
+    - id: 1071
+      uniqueId: CodeSmile.Editor.Tests.dll/JacksonDunstan/NativeCollections/Tests/TestNativeArray2D/[CodeSmile.Editor.Tests][JacksonDunstan.NativeCollections.Tests.TestNativeArray2D.Length1ReturnsTotalNumberOfElements]
+      name: Length1ReturnsTotalNumberOfElements
+      fullName: JacksonDunstan.NativeCollections.Tests.TestNativeArray2D.Length1ReturnsTotalNumberOfElements
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1063
+      parentUniqueId: CodeSmile.Editor.Tests.dll/JacksonDunstan/NativeCollections/Tests/[CodeSmile.Editor.Tests][JacksonDunstan.NativeCollections.Tests.TestNativeArray2D][suite]
+    - id: 1069
+      uniqueId: CodeSmile.Editor.Tests.dll/JacksonDunstan/NativeCollections/Tests/TestNativeArray2D/[CodeSmile.Editor.Tests][JacksonDunstan.NativeCollections.Tests.TestNativeArray2D.LengthReturnsTotalNumberOfElements]
+      name: LengthReturnsTotalNumberOfElements
+      fullName: JacksonDunstan.NativeCollections.Tests.TestNativeArray2D.LengthReturnsTotalNumberOfElements
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1063
+      parentUniqueId: CodeSmile.Editor.Tests.dll/JacksonDunstan/NativeCollections/Tests/[CodeSmile.Editor.Tests][JacksonDunstan.NativeCollections.Tests.TestNativeArray2D][suite]
+    - id: 1090
+      uniqueId: CodeSmile.Editor.Tests.dll/JacksonDunstan/NativeCollections/Tests/TestNativeArray2D/[CodeSmile.Editor.Tests][JacksonDunstan.NativeCollections.Tests.TestNativeArray2D.NotEqualsNullObject]
+      name: NotEqualsNullObject
+      fullName: JacksonDunstan.NativeCollections.Tests.TestNativeArray2D.NotEqualsNullObject
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1063
+      parentUniqueId: CodeSmile.Editor.Tests.dll/JacksonDunstan/NativeCollections/Tests/[CodeSmile.Editor.Tests][JacksonDunstan.NativeCollections.Tests.TestNativeArray2D][suite]
+    - id: 1085
+      uniqueId: CodeSmile.Editor.Tests.dll/JacksonDunstan/NativeCollections/Tests/TestNativeArray2D/[CodeSmile.Editor.Tests][JacksonDunstan.NativeCollections.Tests.TestNativeArray2D.ToArrayCreatesArrayWithSameElements]
+      name: ToArrayCreatesArrayWithSameElements
+      fullName: JacksonDunstan.NativeCollections.Tests.TestNativeArray2D.ToArrayCreatesArrayWithSameElements
+      resultStatus: 0
+      duration: 0
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1063
+      parentUniqueId: CodeSmile.Editor.Tests.dll/JacksonDunstan/NativeCollections/Tests/[CodeSmile.Editor.Tests][JacksonDunstan.NativeCollections.Tests.TestNativeArray2D][suite]
     m_ResultText: 
     m_ResultStacktrace: 
     m_TestListState:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 
+      m_ExpandedIDs: 70b40b86e1d9e88673971687b7e31d8950de5892434f3e968f08c797bb5250b5368313b67004afc830a48dcb5f738fd2671339d8e52928dac01897e576e49ffcb4c9b6018ba5780ae771d00b72bd611561e5e21a89db171b5bd5291efa7fb42405c5bd2d814dd737016c7e3c18c1d13d2c1690439365044c8d9bf64d1680ca540b5f356713e39a7065aad676ffffff7f
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -434,7 +3068,8 @@ MonoBehaviour:
       NotRunHidden: 0
       m_SearchString: 
       selectedCategoryMask: 0
-      availableCategories: []
+      availableCategories:
+      - Uncategorized
 --- !u!114 &14
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -533,9 +3168,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 32f9ffff
+      m_SelectedIDs: 00f9ffff
       m_LastClickedID: 0
-      m_ExpandedIDs: 28fbffff
+      m_ExpandedIDs: 2afbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -621,9 +3256,9 @@ MonoBehaviour:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 14.199951}
-    m_SelectedIDs: b4490000
-    m_LastClickedID: 18868
-    m_ExpandedIDs: 000000009248000090490000b6490000b849000000ca9a3bffffff7f
+    m_SelectedIDs: c0490000
+    m_LastClickedID: 18880
+    m_ExpandedIDs: 000000009248000094480000964800009a49000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -651,7 +3286,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 0000000092480000
+    m_ExpandedIDs: 00000000924800009448000096480000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -747,7 +3382,7 @@ MonoBehaviour:
     m_CachedPref: -453
     m_ControlHash: -371814159
     m_PrefName: Preview_InspectorPreview
-  m_LastInspectedObjectInstanceID: -1742
+  m_LastInspectedObjectInstanceID: -1792
   m_LastVerticalScrollValue: 0
   m_GlobalObjectId: 
   m_InspectorMode: 0
@@ -1437,9 +4072,9 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 1808
+    x: 1807.2001
     y: 80.8
-    width: 1175.7999
+    width: 1176.6001
     height: 643
   m_SerializedDataModeController:
     m_DataMode: 0
@@ -1566,9 +4201,9 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 1808
+    x: 1807.2001
     y: 744.8
-    width: 1175.7999
+    width: 1176.6001
     height: 359.40002
   m_SerializedDataModeController:
     m_DataMode: 0
