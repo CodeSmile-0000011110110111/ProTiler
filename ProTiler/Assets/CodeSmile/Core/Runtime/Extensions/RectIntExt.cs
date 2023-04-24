@@ -49,7 +49,7 @@ namespace CodeSmile.Extensions
 		public static bool Intersects(this RectInt r1, RectInt r2, out RectInt intersection)
 		{
 			intersection = new RectInt();
-			if (r2.Overlaps(r1) == false)
+			if (r1.Overlaps(r2) == false)
 				return false;
 
 			var x1 = Mathf.Min(r1.xMax, r2.xMax);

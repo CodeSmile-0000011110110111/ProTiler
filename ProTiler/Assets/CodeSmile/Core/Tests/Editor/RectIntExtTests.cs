@@ -9,48 +9,35 @@ namespace CodeSmile.ProTiler.Tests.Editor.old
 {
 	public class RectIntExtTests
 	{
-		[Test] public void DoesNotIntersect()
+		public static object[] DoesIntersectSource =
 		{
-			var rect1 = new RectInt(0, 0, 1, 1);
-			var rect2 = new RectInt(1, 1, 1, 1);
+			new[] { new RectInt(0, 0, 2, 2), new RectInt(1, 1, 1, 1) },
+			new[] { new RectInt(0, 0, 2, 2), new RectInt(1, 1, 1, 1) },
+			new[] { new RectInt(-1, -1, 2, 2), new RectInt(0, 0, 1, 1) },
+			new[] { new RectInt(0, 0, 10, 10), new RectInt(1, 1, 1, 1) },
+			new[] { new RectInt(-5, -5, 10, 10), new RectInt(-1, -1, 2, 2) },
+		};
 
-			var intersects = rect1.Intersects(rect2, out var intersection);
+		public static object[] DoesNotIntersectSource =
+		{
+			new[] { new RectInt(0, 0, 1, 2), new RectInt(1, 1, 1, 1) },
+			new[] { new RectInt(0, 0, 2, 1), new RectInt(1, 1, 1, 1) },
+			new[] { new RectInt(0, 0, 1, 1), new RectInt(1, 1, 1, 1) },
+			new[] { new RectInt(1, 1, 1, 1), new RectInt(0, 0, 1, 1) },
+		};
 
-			Assert.IsFalse(intersects);
-			Assert.AreEqual(new RectInt(), intersection);
+		[TestCaseSource(nameof(DoesIntersectSource))]
+		public void DoesIntersect(RectInt rect1, RectInt rect2)
+		{
+			Assert.That(rect1.Intersects(rect2, out var intersection1), Is.True);
+			Assert.That(rect2.Intersects(rect1, out var intersection2), Is.True);
 		}
 
-		[Test] public void LargerIntersectsSmaller()
+		[TestCaseSource(nameof(DoesNotIntersectSource))]
+		public void DoesNotIntersect(RectInt rect1, RectInt rect2)
 		{
-			var rect1 = new RectInt(0, 0, 10, 10);
-			var rect2 = new RectInt(1, 1, 1, 1);
-
-			var intersects = rect1.Intersects(rect2, out var intersection);
-
-			Assert.IsTrue(intersects);
-			Assert.AreEqual(rect2, intersection);
-		}
-
-		[Test] public void SmallerIntersectsLarger()
-		{
-			var rect1 = new RectInt(1, 1, 1, 1);
-			var rect2 = new RectInt(0, 0, 10, 10);
-
-			var intersects = rect1.Intersects(rect2, out var intersection);
-
-			Assert.IsTrue(intersects);
-			Assert.AreEqual(rect1, intersection);
-		}
-
-		[Test] public void IntersectsNegativePosition()
-		{
-			var rect1 = new RectInt(-5, -5, 10, 10);
-			var rect2 = new RectInt(-1, -1, 2, 2);
-
-			var intersects = rect1.Intersects(rect2, out var intersection);
-
-			Assert.IsTrue(intersects);
-			Assert.AreEqual(rect2, intersection);
+			Assert.That(rect1.Intersects(rect2, out var intersection1), Is.False);
+			Assert.That(rect2.Intersects(rect1, out var intersection2), Is.False);
 		}
 	}
 }

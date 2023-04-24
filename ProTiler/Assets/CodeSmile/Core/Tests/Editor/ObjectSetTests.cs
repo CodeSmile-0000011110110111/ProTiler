@@ -20,8 +20,8 @@ namespace CodeSmile.Editor.Tests
 		{
 			var set = new ObjectSet<GameObject>();
 
-			Assert.AreEqual(null, set.DefaultObject);
-			Assert.AreEqual(0, set.Count);
+			Assert.That(set.DefaultObject == null);
+			Assert.That(set.Count == 0);
 		}
 
 		[Test] [EmptyScene] [CreateGameObject]
@@ -31,8 +31,8 @@ namespace CodeSmile.Editor.Tests
 
 			var set = new ObjectSet<GameObject>(defaultGO);
 
-			Assert.AreEqual(defaultGO, set.DefaultObject);
-			Assert.AreEqual(0, set.Count);
+			Assert.That(set.Count == 0);
+			Assert.That(defaultGO, Is.EqualTo(set.DefaultObject));
 		}
 
 		[Test] [EmptyScene] [CreateGameObject(GameObjectNameOne)]
@@ -44,9 +44,9 @@ namespace CodeSmile.Editor.Tests
 
 			set.Add(GO1, out var actualIndex);
 
-			Assert.AreEqual(1, set.Count);
-			Assert.AreEqual(startIndex, actualIndex);
-			Assert.AreEqual(GO1, set[actualIndex]);
+			Assert.That(set.Count == 1);
+			Assert.That(startIndex == actualIndex);
+			Assert.That(GO1, Is.EqualTo(set[actualIndex]));
 		}
 
 		[Test] [EmptyScene]
@@ -63,10 +63,10 @@ namespace CodeSmile.Editor.Tests
 			set.Add(GO2, out var actualIndex2);
 			set.Add(GO3, out var actualIndex3);
 
-			Assert.AreEqual(3, set.Count);
-			Assert.AreEqual(GO1, set[actualIndex1]);
-			Assert.AreEqual(GO2, set[actualIndex2]);
-			Assert.AreEqual(GO3, set[actualIndex3]);
+			Assert.That(set.Count == 3);
+			Assert.That(GO1, Is.EqualTo(set[actualIndex1]));
+			Assert.That(GO2, Is.EqualTo(set[actualIndex2]));
+			Assert.That(GO3, Is.EqualTo(set[actualIndex3]));
 		}
 
 		[Test]
@@ -82,7 +82,7 @@ namespace CodeSmile.Editor.Tests
 		{
 			var set = new ObjectSet<GameObject>();
 
-			Assert.IsFalse(set.Contains(null));
+			Assert.That(set.Contains(null), Is.False);
 		}
 
 		[Test] [EmptyScene] [CreateGameObject(GameObjectNameOne)]
@@ -93,8 +93,8 @@ namespace CodeSmile.Editor.Tests
 
 			var didAdd1 = set.Add(GO1);
 
-			Assert.IsTrue(didAdd1);
-			Assert.IsTrue(set.Contains(GO1));
+			Assert.That(didAdd1, Is.True);
+			Assert.That(set.Contains(GO1), Is.True);
 		}
 
 		[Test] [EmptyScene] [CreateGameObject(GameObjectNameOne)]
@@ -106,8 +106,8 @@ namespace CodeSmile.Editor.Tests
 			var didAdd1 = set.Add(GO1);
 			var didAdd2 = set.Add(GO1);
 
-			Assert.IsTrue(didAdd1);
-			Assert.IsFalse(didAdd2);
+			Assert.That(didAdd1, Is.True);
+			Assert.That(didAdd2, Is.False);
 		}
 
 		[Test] [EmptyScene] [CreateGameObject(GameObjectNameOne)] [CreateGameObject(GameObjectNameTwo)]
@@ -121,12 +121,12 @@ namespace CodeSmile.Editor.Tests
 			set.Add(GO1, out var index1);
 			set.Add(GO2, out var index2);
 
-			Assert.IsTrue(set.Contains(GO1));
-			Assert.IsTrue(set.Contains(GO2));
-			Assert.IsTrue(set.Contains(startIndex + 0));
-			Assert.IsTrue(set.Contains(startIndex + 1));
-			Assert.AreEqual(index1, startIndex + 0);
-			Assert.AreEqual(index2, startIndex + 1);
+			Assert.That(set.Contains(GO1), Is.True);
+			Assert.That(set.Contains(GO2), Is.True);
+			Assert.That(set.Contains(startIndex + 0), Is.True);
+			Assert.That(set.Contains(startIndex + 1), Is.True);
+			Assert.That(index1, Is.EqualTo(startIndex + 0));
+			Assert.That(index2, Is.EqualTo(startIndex + 1));
 		}
 
 		[Test] [EmptyScene] [CreateGameObject]
@@ -139,19 +139,16 @@ namespace CodeSmile.Editor.Tests
 			var GO3 = GameObject.Find(GameObjectNameThree);
 			var set = new ObjectSet<GameObject>();
 
-			var didAdd1 = set.Add(GO1);
-			var didAdd2 = set.Add(GO2);
-			var didAdd3 = set.Add(GO3);
+			set.Add(GO1);
+			set.Add(GO2);
+			set.Add(GO3);
 
-			Assert.IsTrue(didAdd1);
-			Assert.IsTrue(didAdd2);
-			Assert.IsTrue(didAdd3);
-			Assert.IsTrue(set.Contains(GO1));
-			Assert.IsTrue(set.Contains(GO2));
-			Assert.IsTrue(set.Contains(GO3));
-			Assert.IsTrue(set.Contains(0));
-			Assert.IsTrue(set.Contains(1));
-			Assert.IsTrue(set.Contains(2));
+			Assert.That(set.Contains(GO1), Is.True);
+			Assert.That(set.Contains(GO2), Is.True);
+			Assert.That(set.Contains(GO3), Is.True);
+			Assert.That(set.Contains(0), Is.True);
+			Assert.That(set.Contains(1), Is.True);
+			Assert.That(set.Contains(2), Is.True);
 		}
 
 		[Test] [EmptyScene] [CreateGameObject(GameObjectNameOne)]
@@ -163,8 +160,8 @@ namespace CodeSmile.Editor.Tests
 			set.Add(GO1);
 			set.Remove(null);
 
-			Assert.IsTrue(set.Count == 1);
-			Assert.IsTrue(set.Contains(GO1));
+			Assert.That(set.Count == 1, Is.True);
+			Assert.That(set.Contains(GO1), Is.True);
 		}
 
 		[Test] [EmptyScene] [CreateGameObject(GameObjectNameOne)]
@@ -176,7 +173,7 @@ namespace CodeSmile.Editor.Tests
 			set.Add(GO1);
 			set.Remove(GO1);
 
-			Assert.IsTrue(set.Count == 0);
+			Assert.That(set.Count == 0, Is.True);
 		}
 
 		[Test] [EmptyScene] [CreateGameObject(GameObjectNameOne)] [CreateGameObject(GameObjectNameTwo)]
@@ -189,8 +186,8 @@ namespace CodeSmile.Editor.Tests
 			set.Add(GO1);
 			set.Remove(GO2);
 
-			Assert.IsTrue(set.Count == 1);
-			Assert.IsTrue(set.Contains(GO1));
+			Assert.That(set.Count == 1, Is.True);
+			Assert.That(set.Contains(GO1), Is.True);
 		}
 
 		[Test] [EmptyScene] [CreateGameObject(GameObjectNameOne)] [CreateGameObject(GameObjectNameTwo)]
@@ -207,8 +204,8 @@ namespace CodeSmile.Editor.Tests
 			set.Add(GO3);
 			set.Remove(GO2);
 
-			Assert.IsTrue(set.Count == 2);
-			Assert.IsFalse(set.Contains(GO2));
+			Assert.That(set.Count == 2, Is.True);
+			Assert.That(set.Contains(GO2), Is.False);
 		}
 
 		[Test] [EmptyScene] [CreateGameObject(GameObjectNameOne)] [CreateGameObject(GameObjectNameTwo)]
@@ -226,8 +223,8 @@ namespace CodeSmile.Editor.Tests
 			set.Add(GO3);
 			set.RemoveAt(2);
 
-			Assert.IsTrue(set.Count == 2);
-			Assert.IsFalse(set.Contains(GO2));
+			Assert.That(set.Count == 2, Is.True);
+			Assert.That(set.Contains(GO2), Is.False);
 		}
 
 		[Test] [EmptyScene] [CreateGameObject(GameObjectNameOne)] [CreateGameObject(GameObjectNameTwo)]
@@ -244,8 +241,8 @@ namespace CodeSmile.Editor.Tests
 			set.Add(GO3);
 			set.Clear();
 
-			Assert.IsTrue(set.Count == 0);
-			Assert.IsFalse(set.Contains(GO1));
+			Assert.That(set.Count == 0, Is.True);
+			Assert.That(set.Contains(GO1), Is.False);
 		}
 
 		[Test] [EmptyScene] [CreateGameObject] [CreateGameObject(GameObjectNameOne)] [CreateGameObject(GameObjectNameTwo)]
@@ -260,8 +257,8 @@ namespace CodeSmile.Editor.Tests
 			set.Add(GO1);
 			set.Add(GO2);
 
-			Assert.AreEqual(GO1, set[startIndex + 0]);
-			Assert.AreEqual(GO2, set[startIndex + 1]);
+			Assert.That(GO1, Is.EqualTo(set[startIndex + 0]));
+			Assert.That(GO2, Is.EqualTo(set[startIndex + 1]));
 		}
 
 		[Test] [EmptyScene] [CreateGameObject] [CreateGameObject(GameObjectNameOne)] [CreateGameObject(GameObjectNameTwo)]
@@ -271,7 +268,7 @@ namespace CodeSmile.Editor.Tests
 			var startIndex = 3;
 			var set = new ObjectSet<GameObject>(defaultGO, startIndex);
 
-			Assert.AreEqual(defaultGO, set[0]);
+			Assert.That(defaultGO, Is.EqualTo(set[0]));
 		}
 
 		[Test] [EmptyScene]
@@ -287,9 +284,9 @@ namespace CodeSmile.Editor.Tests
 			set[1] = GO2;
 			set[2] = GO3;
 
-			Assert.IsTrue(set.Contains(GO1));
-			Assert.IsTrue(set.Contains(GO2));
-			Assert.IsTrue(set.Contains(GO3));
+			Assert.That(set.Contains(GO1), Is.True);
+			Assert.That(set.Contains(GO2), Is.True);
+			Assert.That(set.Contains(GO3), Is.True);
 		}
 
 		[Test] [EmptyScene] [CreateGameObject(GameObjectNameOne)] [CreateGameObject(GameObjectNameTwo)]
@@ -302,8 +299,8 @@ namespace CodeSmile.Editor.Tests
 			set[0] = GO1;
 			set[0] = GO2;
 
-			Assert.IsFalse(set.Contains(GO1));
-			Assert.IsTrue(set.Contains(GO2));
+			Assert.That(set.Contains(GO1), Is.False);
+			Assert.That(set.Contains(GO2), Is.True);
 		}
 
 		[Test]
@@ -336,9 +333,9 @@ namespace CodeSmile.Editor.Tests
 			set.Add(GO1);
 			set[0] = null;
 
-			Assert.AreEqual(defaultGO, set[0]);
-			Assert.IsFalse(set.Contains(GO1));
-			Assert.IsTrue(set.Count == 0);
+			Assert.That(defaultGO, Is.EqualTo(set[0]));
+			Assert.That(set.Contains(GO1), Is.False);
+			Assert.That(set.Count == 0, Is.True);
 		}
 	}
 }

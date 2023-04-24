@@ -18,7 +18,7 @@ namespace CodeSmile.Editor.ProTiler.Tests
 
 			grid.CellLayout = cellLayout;
 
-			Assert.AreEqual(cellLayout, grid.CellLayout);
+			Assert.That(cellLayout, Is.EqualTo(grid.CellLayout));
 		}
 
 		[Test] [EmptyScene] [CreateGameObject(nameof(Grid3D), typeof(Grid3D))]
@@ -29,7 +29,7 @@ namespace CodeSmile.Editor.ProTiler.Tests
 
 			grid.CellSize = cellSize;
 
-			Assert.AreEqual(cellSize, grid.CellSize);
+			Assert.That(cellSize, Is.EqualTo(grid.CellSize));
 		}
 
 		[Test] [EmptyScene] [CreateGameObject(nameof(Grid3D), typeof(Grid3D))]
@@ -40,7 +40,7 @@ namespace CodeSmile.Editor.ProTiler.Tests
 
 			grid.CellGap = cellGap;
 
-			Assert.AreEqual(cellGap, grid.CellGap);
+			Assert.That(cellGap, Is.EqualTo(grid.CellGap));
 		}
 	}
 }

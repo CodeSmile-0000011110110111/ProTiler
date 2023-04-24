@@ -20,7 +20,7 @@ namespace CodeSmile.Tests.Editor
 
 			go.transform.DestroyAllChildren();
 
-			Assert.AreEqual(0, go.transform.childCount);
+			Assert.That(0, Is.EqualTo(go.transform.childCount));
 		}
 	}
 }

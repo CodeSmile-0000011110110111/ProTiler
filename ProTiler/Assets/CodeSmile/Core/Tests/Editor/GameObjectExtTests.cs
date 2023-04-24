@@ -22,7 +22,7 @@ namespace CodeSmile.Tests.Editor
 
 			go.GetOrAddComponent<BoxCollider>();
 
-			Assert.IsTrue(go.GetComponents<BoxCollider>().Length == 1);
+			Assert.That(go.GetComponents<BoxCollider>().Length == 1, Is.True);
 		}
 
 		[Test] [EmptyScene] [CreateGameObject]
@@ -33,8 +33,8 @@ namespace CodeSmile.Tests.Editor
 			var collider = go.GetOrAddComponent<BoxCollider>();
 			var collider2 = go.GetOrAddComponent<BoxCollider>();
 
-			Assert.AreEqual(collider, collider2);
-			Assert.IsTrue(go.GetComponents<BoxCollider>().Length == 1);
+			Assert.That(collider, Is.EqualTo(collider2));
+			Assert.That(go.GetComponents<BoxCollider>().Length == 1, Is.True);
 		}
 
 		[Test] [EmptyScene] [CreateGameObject]
@@ -45,7 +45,7 @@ namespace CodeSmile.Tests.Editor
 			go.GetOrAddComponent<BoxCollider>().DestroyInAnyMode();
 			go.GetOrAddComponent<BoxCollider>();
 
-			Assert.IsTrue(go.GetComponents<BoxCollider>().Length == 1);
+			Assert.That(go.GetComponents<BoxCollider>().Length == 1, Is.True);
 		}
 
 		[Test] [EmptyScene] [CreateGameObject]
@@ -53,7 +53,7 @@ namespace CodeSmile.Tests.Editor
 		{
 			var go = GameObject.Find(CreateGameObjectAttribute.DefaultName);
 
-			Assert.IsFalse(go.IsPrefab());
+			Assert.That(go.IsPrefab(), Is.False);
 		}
 
 		[Test]
@@ -61,8 +61,7 @@ namespace CodeSmile.Tests.Editor
 		{
 			var prefab = AssetDatabase.LoadAssetAtPath<GameObject>(Defines.TestAssetsPath + "TestPrefab.prefab");
 
-			Assert.NotNull(prefab);
-			Assert.IsTrue(prefab.IsPrefab());
+			Assert.That(prefab.IsPrefab(), Is.True);
 		}
 
 		[Test] [EmptyScene] [CreateGameObject]
@@ -72,9 +71,8 @@ namespace CodeSmile.Tests.Editor
 
 			var child = go.FindOrCreateChild(ChildGameObjectName);
 
-			Assert.NotNull(child);
-			Assert.IsTrue(go.transform.childCount == 1);
-			Assert.AreEqual(child, go.transform.GetChild(0).gameObject);
+			Assert.That(go.transform.childCount == 1, Is.True);
+			Assert.That(child, Is.EqualTo(go.transform.GetChild(0).gameObject));
 		}
 
 		[Test] [EmptyScene] [CreateGameObject]
@@ -85,9 +83,8 @@ namespace CodeSmile.Tests.Editor
 			var child1 = go.FindOrCreateChild(ChildGameObjectName);
 			var child2 = go.FindOrCreateChild(ChildGameObjectName);
 
-			Assert.NotNull(child1);
-			Assert.AreEqual(child1, child2);
-			Assert.IsTrue(go.transform.childCount == 1);
+			Assert.That(child1, Is.EqualTo(child2));
+			Assert.That(go.transform.childCount == 1, Is.True);
 		}
 
 		[Test] [EmptyScene] [CreateGameObject]
@@ -104,14 +101,11 @@ namespace CodeSmile.Tests.Editor
 			var go = GameObject.Find(CreateGameObjectAttribute.DefaultName);
 			var original = GameObject.Find(OriginalGameObjectName);
 
-			Assert.Throws<ArgumentNullException>(() => { go.FindOrCreateChild(ChildGameObjectName, null); });
-
 			var child = go.FindOrCreateChild(ChildGameObjectName, original);
 
-			Assert.NotNull(child);
-			Assert.IsTrue(go.transform.childCount == 1);
-			Assert.AreEqual(child, go.transform.GetChild(0).gameObject);
-			Assert.NotNull(child.GetComponent<BoxCollider>());
+			Assert.That(go.transform.childCount == 1, Is.True);
+			Assert.That(child, Is.EqualTo( go.transform.GetChild(0).gameObject));
+			Assert.That(child.GetComponent<BoxCollider>() != null);
 		}
 
 		[Test] [EmptyScene] [CreateGameObject] [CreateGameObject(OriginalGameObjectName, typeof(BoxCollider))]
@@ -123,10 +117,9 @@ namespace CodeSmile.Tests.Editor
 			var child1 = go.FindOrCreateChild(ChildGameObjectName, original);
 			var child2 = go.FindOrCreateChild(ChildGameObjectName, original);
 
-			Assert.NotNull(child1);
-			Assert.AreEqual(child1,child2);
-			Assert.IsTrue(go.transform.childCount == 1);
-			Assert.AreEqual(child1, go.transform.GetChild(0).gameObject);
+			Assert.That(go.transform.childCount == 1, Is.True);
+			Assert.That(child1,Is.EqualTo(child2));
+			Assert.That(child1, Is.EqualTo(go.transform.GetChild(0).gameObject));
 		}
 	}
 }

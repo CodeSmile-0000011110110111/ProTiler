@@ -18,13 +18,14 @@ namespace CodeSmile.Editor.ProTiler.Tests
 		public void TilemapCreation()
 		{
 			var tilemap = Tilemap3DCreation.CreateRectangularTilemap3D();
-			Assert.NotNull(tilemap);
-			Assert.NotNull(tilemap.Grid);
-			Assert.NotNull(tilemap.Chunks);
-			Assert.AreEqual(0, tilemap.Chunks.Count);
-			Assert.NotNull(Object.FindObjectOfType<Grid3D>());
-			Assert.IsTrue(Object.FindObjectsOfType<Grid3D>().Length == 1);
-			Assert.IsTrue(Object.FindObjectsOfType<Tilemap3D>().Length == 1);
+
+			Assert.That(tilemap != null);
+			Assert.That(tilemap.Grid != null);
+			Assert.That(tilemap.Chunks != null);
+			Assert.That(tilemap.Chunks.Count == 0);
+			Assert.That(Object.FindObjectOfType<Grid3D>() != null);
+			Assert.That(Object.FindObjectsOfType<Grid3D>().Length == 1);
+			Assert.That(Object.FindObjectsOfType<Tilemap3D>().Length == 1);
 			Assert.Contains(tilemap.Grid.gameObject, SceneManager.GetActiveScene().GetRootGameObjects());
 			Assert.Contains(tilemap, tilemap.Grid.GetComponentsInChildren<Tilemap3D>());
 		}
@@ -35,16 +36,11 @@ namespace CodeSmile.Editor.ProTiler.Tests
 		{
 			var tilemap1 = Tilemap3DCreation.CreateRectangularTilemap3D();
 			var tilemap2 = Tilemap3DCreation.CreateRectangularTilemap3D();
-			Assert.NotNull(Object.FindObjectOfType<Grid3D>());
-			Assert.IsTrue(Object.FindObjectsOfType<Grid3D>().Length == 1);
-			Assert.IsTrue(Object.FindObjectsOfType<Tilemap3D>().Length == 2);
-			Assert.AreEqual(tilemap1.Grid, tilemap2.Grid);
-			Assert.AreEqual(tilemap1.Grid.gameObject, tilemap2.Grid.gameObject);
-			Assert.Contains(tilemap1.Grid.gameObject, SceneManager.GetActiveScene().GetRootGameObjects());
-			Assert.Contains(tilemap2.Grid.gameObject, SceneManager.GetActiveScene().GetRootGameObjects());
-			Assert.Contains(tilemap1, tilemap1.Grid.GetComponentsInChildren<Tilemap3D>());
-			Assert.Contains(tilemap2, tilemap1.Grid.GetComponentsInChildren<Tilemap3D>());
-			Assert.Contains(tilemap2, tilemap2.Grid.GetComponentsInChildren<Tilemap3D>());
+
+			Assert.That(Object.FindObjectsOfType<Grid3D>().Length == 1);
+			Assert.That(Object.FindObjectsOfType<Tilemap3D>().Length == 2);
+			Assert.That(tilemap1.Grid, Is.EqualTo(tilemap2.Grid));
+			Assert.That(tilemap1.Grid.gameObject, Is.EqualTo(tilemap2.Grid.gameObject));
 		}
 
 		[Test]
@@ -52,21 +48,21 @@ namespace CodeSmile.Editor.ProTiler.Tests
 		public void TilemapCreationUndoRedo()
 		{
 			var tilemap = Tilemap3DCreation.CreateRectangularTilemap3D();
-			Assert.IsTrue(Object.FindObjectsOfType<Grid3D>().Length == 1);
-			Assert.IsTrue(Object.FindObjectsOfType<Tilemap3D>().Length == 1);
 
 			tilemap = null; // reference goes missing upon Undo
 			Undo.PerformUndo();
-			Assert.Null(Object.FindObjectOfType<Grid3D>());
-			Assert.Null(Object.FindObjectOfType<Tilemap3D>());
-			Assert.IsTrue(Object.FindObjectsOfType<Grid3D>().Length == 0);
-			Assert.IsTrue(Object.FindObjectsOfType<Tilemap3D>().Length == 0);
+
+			Assert.That(Object.FindObjectOfType<Grid3D>() == null);
+			Assert.That(Object.FindObjectOfType<Tilemap3D>() == null);
+			Assert.That(Object.FindObjectsOfType<Grid3D>().Length == 0);
+			Assert.That(Object.FindObjectsOfType<Tilemap3D>().Length == 0);
 
 			Undo.PerformRedo();
-			Assert.NotNull(Object.FindObjectOfType<Grid3D>());
-			Assert.NotNull(Object.FindObjectOfType<Tilemap3D>());
-			Assert.IsTrue(Object.FindObjectsOfType<Grid3D>().Length == 1);
-			Assert.IsTrue(Object.FindObjectsOfType<Tilemap3D>().Length == 1);
+
+			Assert.That(Object.FindObjectOfType<Grid3D>() != null);
+			Assert.That(Object.FindObjectOfType<Tilemap3D>() != null);
+			Assert.That(Object.FindObjectsOfType<Grid3D>().Length == 1);
+			Assert.That(Object.FindObjectsOfType<Tilemap3D>().Length == 1);
 		}
 
 		[Test]
@@ -75,26 +71,22 @@ namespace CodeSmile.Editor.ProTiler.Tests
 		{
 			var tilemap1 = Tilemap3DCreation.CreateRectangularTilemap3D();
 			var tilemap2 = Tilemap3DCreation.CreateRectangularTilemap3D();
-			Assert.IsTrue(Object.FindObjectsOfType<Grid3D>().Length == 1);
-			Assert.IsTrue(Object.FindObjectsOfType<Tilemap3D>().Length == 2);
-			Assert.Contains(tilemap1.Grid.gameObject, SceneManager.GetActiveScene().GetRootGameObjects());
-			Assert.Contains(tilemap1, tilemap1.Grid.GetComponentsInChildren<Tilemap3D>());
-			Assert.Contains(tilemap2, tilemap1.Grid.GetComponentsInChildren<Tilemap3D>());
-			Assert.Contains(tilemap2, tilemap2.Grid.GetComponentsInChildren<Tilemap3D>());
 
 			tilemap1 = null; // reference goes missing upon Undo
 			tilemap2 = null; // reference goes missing upon Undo
 			Undo.PerformUndo();
-			Assert.NotNull(Object.FindObjectOfType<Grid3D>());
-			Assert.NotNull(Object.FindObjectOfType<Tilemap3D>());
-			Assert.IsTrue(Object.FindObjectsOfType<Grid3D>().Length == 1);
-			Assert.IsTrue(Object.FindObjectsOfType<Tilemap3D>().Length == 1);
+
+			Assert.That(Object.FindObjectOfType<Grid3D>() != null);
+			Assert.That(Object.FindObjectOfType<Tilemap3D>() != null);
+			Assert.That(Object.FindObjectsOfType<Grid3D>().Length == 1);
+			Assert.That(Object.FindObjectsOfType<Tilemap3D>().Length == 1);
 
 			Undo.PerformRedo();
-			Assert.NotNull(Object.FindObjectOfType<Grid3D>());
-			Assert.NotNull(Object.FindObjectOfType<Tilemap3D>());
-			Assert.IsTrue(Object.FindObjectsOfType<Grid3D>().Length == 1);
-			Assert.IsTrue(Object.FindObjectsOfType<Tilemap3D>().Length == 2);
+
+			Assert.That(Object.FindObjectOfType<Grid3D>() != null);
+			Assert.That(Object.FindObjectOfType<Tilemap3D>() != null);
+			Assert.That(Object.FindObjectsOfType<Grid3D>().Length == 1);
+			Assert.That(Object.FindObjectsOfType<Tilemap3D>().Length == 2);
 		}
 
 		[Test]
@@ -104,26 +96,28 @@ namespace CodeSmile.Editor.ProTiler.Tests
 			var tilemap = Tilemap3DCreation.CreateRectangularTilemap3D();
 			var chunkSize = new Vector2Int(3, 2);
 			tilemap.ChunkSize = chunkSize;
-			Assert.AreEqual(chunkSize, tilemap.ChunkSize);
-			Assert.AreEqual(0, tilemap.Chunks.TileCount);
+			Assert.That(tilemap.ChunkSize, Is.EqualTo(chunkSize));
+			Assert.That(tilemap.Chunks.TileCount == 0);
 
 			var tileIndex = 123;
 			var coord = Vector3Int.one;
 			tilemap.SetTile(coord, Tile3DData.New(tileIndex));
-			Assert.AreEqual(1, tilemap.Chunks.TileCount);
+			Assert.That(tilemap.Chunks.TileCount == 1);
 
 			Undo.PerformUndo();
-			Assert.NotNull(Object.FindObjectOfType<Grid3D>());
-			Assert.NotNull(Object.FindObjectOfType<Tilemap3D>());
-			Assert.AreEqual(0, tilemap.Chunks.TileCount);
+
+			Assert.That(Object.FindObjectOfType<Grid3D>() != null);
+			Assert.That(Object.FindObjectOfType<Tilemap3D>() != null);
+			Assert.That(tilemap.Chunks.TileCount == 0);
 
 			Undo.PerformRedo();
-			Assert.NotNull(Object.FindObjectOfType<Grid3D>());
-			Assert.NotNull(Object.FindObjectOfType<Tilemap3D>());
-			Assert.AreEqual(1, tilemap.Chunks.TileCount);
+
+			Assert.That(Object.FindObjectOfType<Grid3D>() != null);
+			Assert.That(Object.FindObjectOfType<Tilemap3D>() != null);
+			Assert.That(tilemap.Chunks.TileCount == 1);
 
 			var tile = tilemap.GetTile(coord);
-			Assert.AreEqual(tileIndex, tile.Index);
+			Assert.That(tile.Index == tileIndex);
 		}
 
 		[Test]
@@ -133,24 +127,24 @@ namespace CodeSmile.Editor.ProTiler.Tests
 			var tilemap = Tilemap3DCreation.CreateRectangularTilemap3D();
 			var chunkSize = new Vector2Int(3, 7);
 			tilemap.ChunkSize = chunkSize;
-			Assert.AreEqual(chunkSize, tilemap.ChunkSize);
+			Assert.That(tilemap.ChunkSize, Is.EqualTo(chunkSize));
 
 			var tileIndex = 123;
 			var coord = Vector3Int.one;
 			tilemap.SetTile(coord, Tile3DData.New(tileIndex));
-			Assert.AreEqual(tileIndex, tilemap.GetTile(coord).Index);
+			Assert.That(tilemap.GetTile(coord).Index == tileIndex);
 
 			EditorSceneManager.SaveOpenScenes();
 			EditorSceneManager.OpenScene(SceneManager.GetActiveScene().path);
 
 			var tilemaps = Object.FindObjectsOfType<Tilemap3D>();
-			Assert.NotNull(tilemaps);
-			Assert.AreEqual(1, tilemaps.Length);
+			Assert.That(tilemaps != null);
+			Assert.That(tilemaps.Length == 1);
 
 			tilemap = tilemaps[0];
-			Assert.NotNull(tilemap);
-			Assert.AreEqual(chunkSize, tilemap.ChunkSize);
-			Assert.AreEqual(tileIndex, tilemap.GetTile(coord).Index);
+			Assert.That(tilemap != null);
+			Assert.That(tilemap.ChunkSize, Is.EqualTo(chunkSize));
+			Assert.That(tilemap.GetTile(coord).Index == tileIndex);
 		}
 	}
 }

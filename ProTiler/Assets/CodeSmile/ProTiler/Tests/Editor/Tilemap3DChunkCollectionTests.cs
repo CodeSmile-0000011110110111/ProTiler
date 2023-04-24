@@ -12,28 +12,31 @@ namespace CodeSmile.Editor.ProTiler.Tests
 {
 	public class Tilemap3DChunkCollectionTests
 	{
+		private static object[] IllegalChunkSizes =
+		{
+			new object[] { new Vector2Int(1, 0) },
+			new object[] { new Vector2Int(0, 1) },
+			new object[] { new Vector2Int(2, 1) },
+			new object[] { new Vector2Int(-1, 1) },
+			new object[] { new Vector2Int(1, -1) },
+		};
+
 		[Test]
 		public void CreateChunk()
 		{
 			var chunkSize = new Vector2Int(7, 4);
 			var chunks = new Tilemap3DChunkCollection(chunkSize);
-			Assert.AreEqual(chunkSize, chunks.Size);
-			Assert.AreEqual(0, chunks.Count);
-			Assert.AreEqual(0, chunks.TileCount); // should be all empty tiles
+			Assert.That(chunks.Size, Is.EqualTo(chunkSize));
+			Assert.That(chunks.Count == 0);
+			Assert.That(chunks.TileCount == 0);
 		}
 
-		[Test]
-		public void CreateIllegalChunkSize()
+		[TestCaseSource(nameof(IllegalChunkSizes))]
+		public void CreateIllegalChunkSize(Vector2Int chunkSize)
 		{
 			var min = Tilemap3DChunkCollection.MinChunkSize;
-			var chunks = new Tilemap3DChunkCollection(new Vector2Int(1, 0));
-			Assert.AreEqual(new Vector2Int(min, min), chunks.Size);
-			chunks = new Tilemap3DChunkCollection(new Vector2Int(0, 1));
-			Assert.AreEqual(new Vector2Int(min, min), chunks.Size);
-			chunks = new Tilemap3DChunkCollection(new Vector2Int(2, 1));
-			Assert.AreEqual(new Vector2Int(min, min), chunks.Size);
-			chunks = new Tilemap3DChunkCollection(new Vector2Int(-1, -1));
-			Assert.AreEqual(new Vector2Int(min, min), chunks.Size);
+			var chunks = new Tilemap3DChunkCollection(chunkSize);
+			Assert.That(chunks.Size, Is.EqualTo(new Vector2Int(min, min)));
 		}
 
 		[Test]
@@ -41,19 +44,27 @@ namespace CodeSmile.Editor.ProTiler.Tests
 		{
 			var chunkSize = new Vector2Int(7, 4);
 			var chunks = new Tilemap3DChunkCollection(chunkSize);
-			Assert.AreEqual(chunkSize, chunks.Size);
+			Assert.That(chunks.Size, Is.EqualTo(chunkSize));
 
 			var newSize = new Vector2Int(6, 9);
 			chunks.ChangeChunkSize(newSize);
-			Assert.AreEqual(newSize, chunks.Size);
+			Assert.That(chunks.Size, Is.EqualTo(newSize));
+		}
 
-			chunks.ChangeChunkSize(newSize);
-			Assert.AreEqual(newSize, chunks.Size);
+		[Test]
+		public void ChangeChunkSizeToSameSize()
+		{
+			var chunkSize = new Vector2Int(4, 5);
+			var chunks = new Tilemap3DChunkCollection(chunkSize);
+
+			chunks.ChangeChunkSize(chunkSize);
+			Assert.That(chunks.Size, Is.EqualTo(chunkSize));
 		}
 
 		[Test]
 		public void SetAndGetTiles()
 		{
+			// FIXME: this test does too many things!
 			var width = 3;
 			var height = 4;
 			var layers = 2;
@@ -83,18 +94,20 @@ namespace CodeSmile.Editor.ProTiler.Tests
 			var chunkSize = new Vector2Int(width, height);
 			var chunks = new Tilemap3DChunkCollection(chunkSize);
 			chunks.SetTiles(tileCoordDatas);
-			Assert.AreEqual(1, chunks.Count);
-			Assert.AreEqual(tileCount, chunks.TileCount);
+			Assert.That(chunks.Count == 1);
+			Assert.That(chunks.TileCount == tileCount);
+
 			chunks.GetTiles(coords, ref getTileCoordDatas);
 			for (var i = 0; i < tileCount; i++)
-				Assert.IsTrue(getTileCoordDatas[i].TileData == tileCoordDatas[i].TileData);
+				Assert.That(getTileCoordDatas[i].TileData == tileCoordDatas[i].TileData);
 
 			chunkSize = new Vector2Int(width - 1, height - 1);
 			chunks = new Tilemap3DChunkCollection(chunkSize);
 			chunks.SetTiles(tileCoordDatas);
-			Assert.AreEqual(tileCount, chunks.TileCount);
+			Assert.That(chunks.TileCount == tileCount);
+
 			for (var i = 0; i < tileCount; i++)
-				Assert.IsTrue(getTileCoordDatas[i].TileData == tileCoordDatas[i].TileData);
+				Assert.That(getTileCoordDatas[i].TileData == tileCoordDatas[i].TileData);
 
 			chunkSize = new Vector2Int(Tilemap3DChunkCollection.MinChunkSize, Tilemap3DChunkCollection.MinChunkSize);
 			chunks = new Tilemap3DChunkCollection(chunkSize);
@@ -102,24 +115,25 @@ namespace CodeSmile.Editor.ProTiler.Tests
 		}
 
 		[Test]
-		public void GetTilesInvalidParams()
+		public void GetTilesInvalidParamsDoesNotThrow()
 		{
 			var width = 3;
 			var height = 4;
-
 			var chunkSize = new Vector2Int(width, height);
 			var chunks = new Tilemap3DChunkCollection(chunkSize);
-
 			var coords = new Vector3Int[0];
 			var tileCoordDatas = new Tile3DCoordData[0];
+
 			chunks.GetTiles(coords, ref tileCoordDatas);
+
 			chunks.GetTiles(null, ref tileCoordDatas);
+
 			tileCoordDatas = null;
 			chunks.GetTiles(coords, ref tileCoordDatas);
 		}
 
 		[Test]
-		public void GetTilesOutsideBounds()
+		public void GetTilesOutsideBoundsDoesNotThrow()
 		{
 			var width = 3;
 			var height = 4;
@@ -129,7 +143,7 @@ namespace CodeSmile.Editor.ProTiler.Tests
 			var coords = new Vector3Int[] { new(100, 0, 100) };
 			var tileCoordDatas = new Tile3DCoordData[10];
 			chunks.GetTiles(coords, ref tileCoordDatas);
-			Assert.AreEqual(0, tileCoordDatas[0].TileData.Index);
+			Assert.That(tileCoordDatas[0].TileData.Index == 0);
 
 			coords = new Vector3Int[] { new(3, 100, 2) };
 			chunks.SetTiles(new[]
@@ -137,7 +151,7 @@ namespace CodeSmile.Editor.ProTiler.Tests
 				Tile3DCoordData.New(new Vector3Int(3, 0, 2), Tile3DData.New(13)),
 			});
 			chunks.GetTiles(coords, ref tileCoordDatas);
-			Assert.AreEqual(0, tileCoordDatas[0].TileData.Index);
+			Assert.That(tileCoordDatas[0].TileData.Index == 0);
 		}
 
 		[Test]
@@ -167,11 +181,11 @@ namespace CodeSmile.Editor.ProTiler.Tests
 		{
 			var chunks = new Tilemap3DChunkCollection(4, 5);
 			var chunkCoord = new Vector3Int(0, 0, 0);
-			Assert.AreEqual(new Vector3Int(0, 0, 0), chunks.ToLayerCoord(chunkCoord, new Vector3Int(0, 0, 0)));
-			Assert.AreEqual(new Vector3Int(5, 5, -5), chunks.ToLayerCoord(chunkCoord, new Vector3Int(5, 5, -5)));
+			Assert.That(chunks.ToLayerCoord(chunkCoord, new Vector3Int(0, 0, 0)), Is.EqualTo(new Vector3Int(0, 0, 0)));
+			Assert.That(chunks.ToLayerCoord(chunkCoord, new Vector3Int(5, 5, -5)), Is.EqualTo(new Vector3Int(5, 5, -5)));
 
 			chunkCoord = new Vector3Int(3, 1, 2);
-			Assert.AreEqual(new Vector3Int(3, 4, -7), chunks.ToLayerCoord(chunkCoord, new Vector3Int(6, 5, -5)));
+			Assert.That(chunks.ToLayerCoord(chunkCoord, new Vector3Int(6, 5, -5)), Is.EqualTo(new Vector3Int(3, 4, -7)));
 		}
 	}
 }

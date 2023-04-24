@@ -19,10 +19,10 @@ namespace CodeSmile.Editor.ProTiler.Tests
 
 			var tiles = new Tile3DDataCollection(new Vector2Int(width, height));
 
-			Assert.AreEqual(width, tiles.Width);
-			Assert.AreEqual(height, tiles.Height);
-			Assert.AreEqual(width * height, tiles.Capacity);
-			Assert.AreEqual(0, tiles.Count);
+			Assert.That(tiles.Width == width);
+			Assert.That(tiles.Height == height);
+			Assert.That(tiles.Capacity == width * height);
+			Assert.That(tiles.Count == 0);
 		}
 
 		[Test]
@@ -34,7 +34,7 @@ namespace CodeSmile.Editor.ProTiler.Tests
 
 			tiles[0] = new Tile3DData();
 
-			Assert.AreEqual(0, tiles.Count);
+			Assert.That(tiles.Count == 0);
 		}
 
 		[Test]
@@ -47,8 +47,8 @@ namespace CodeSmile.Editor.ProTiler.Tests
 
 			tiles[0] = Tile3DData.New(tileIndex);
 
-			Assert.AreEqual(1, tiles.Count);
-			Assert.AreEqual(tileIndex, tiles[0].Index);
+			Assert.That(tiles.Count == 1);
+			Assert.That(tiles[0].Index == tileIndex);
 		}
 
 		[Test]
@@ -61,8 +61,8 @@ namespace CodeSmile.Editor.ProTiler.Tests
 
 			tiles[0] = Tile3DData.New(tileIndex);
 			tiles[1] = tiles[0];
-			Assert.AreEqual(2, tiles.Count);
-			Assert.AreEqual(tileIndex, tiles[1].Index);
+			Assert.That(tiles.Count == 2);
+			Assert.That(tiles[1].Index == tileIndex);
 		}
 
 		[Test]
@@ -76,8 +76,8 @@ namespace CodeSmile.Editor.ProTiler.Tests
 
 			tiles[lastIndex] = Tile3DData.New(tileIndex);
 
-			Assert.AreEqual(1, tiles.Count);
-			Assert.AreEqual(tileIndex, tiles[lastIndex].Index);
+			Assert.That(tiles.Count == 1);
+			Assert.That(tiles[lastIndex].Index == tileIndex);
 		}
 
 		[Test]
@@ -93,7 +93,7 @@ namespace CodeSmile.Editor.ProTiler.Tests
 			var coordY = height - 1;
 			tiles[coordX, coordY] = tileData;
 
-			Assert.AreEqual(tileIndex, tiles[coordX, coordY].Index);
+			Assert.That(tiles[coordX, coordY].Index == tileIndex);
 		}
 
 		[Test]
@@ -134,17 +134,17 @@ namespace CodeSmile.Editor.ProTiler.Tests
 
 			tiles.SetTiles(tileCoordDatas);
 
-			Assert.AreEqual(tiles.Capacity, tiles.Count);
-			Assert.AreEqual(coordDataCount, tiles.Capacity);
-			Assert.AreEqual(coordDataCount, tiles.Count);
+			Assert.That(tiles.Count == tiles.Capacity);
+			Assert.That(tiles.Capacity == coordDataCount);
+			Assert.That(tiles.Count == coordDataCount);
 
 			var prevFlags = Tile3DFlags.None;
 			for (var i = 0; i < tiles.Count; i++)
 			{
-				Assert.AreEqual(i + 1, tiles[i].Index);
-				Assert.AreNotEqual(Tile3DFlags.None, tiles[i].Flags);
-				Assert.AreNotEqual(Tile3DFlags.DirectionNorth, tiles[i].Flags);
-				Assert.AreNotEqual(prevFlags, tiles[i].Flags);
+				Assert.That(tiles[i].Index == i + 1);
+				Assert.That(tiles[i].Flags != Tile3DFlags.None);
+				Assert.That(tiles[i].Flags != Tile3DFlags.DirectionNorth);
+				Assert.That(tiles[i].Flags != prevFlags);
 				prevFlags = tiles[i].Flags;
 			}
 		}

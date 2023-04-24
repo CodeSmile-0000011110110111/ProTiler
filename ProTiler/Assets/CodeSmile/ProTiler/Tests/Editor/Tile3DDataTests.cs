@@ -14,9 +14,9 @@ namespace CodeSmile.Editor.ProTiler.Tests
 		{
 			var tile = new Tile3DData();
 
-			Assert.IsTrue(tile.IsEmpty);
-			Assert.IsTrue(tile.IsValid);
-			Assert.AreEqual(Tile3DFlags.None, tile.Flags);
+			Assert.That(tile.IsEmpty, Is.True);
+			Assert.That(tile.IsValid, Is.True);
+			Assert.That(tile.Flags == Tile3DFlags.None);
 		}
 
 		[Test]
@@ -24,9 +24,9 @@ namespace CodeSmile.Editor.ProTiler.Tests
 		{
 			var tile = Tile3DData.New();
 
-			Assert.IsTrue(tile.IsEmpty);
-			Assert.IsTrue(tile.IsValid);
-			Assert.AreEqual(0, tile.Index);
+			Assert.That(tile.IsEmpty, Is.True);
+			Assert.That(tile.IsValid, Is.True);
+			Assert.That(tile.Index == 0);
 		}
 
 		[Test]
@@ -37,9 +37,9 @@ namespace CodeSmile.Editor.ProTiler.Tests
 
 			var tile = Tile3DData.New(tileIndex, flags);
 
-			Assert.IsFalse(tile.IsEmpty);
-			Assert.AreEqual(tileIndex, tile.Index);
-			Assert.AreEqual(flags, tile.Flags);
+			Assert.That(tile.IsEmpty, Is.False);
+			Assert.That(tile.Index == tileIndex);
+			Assert.That(tile.Flags == flags);
 		}
 
 		[Test]
@@ -49,10 +49,10 @@ namespace CodeSmile.Editor.ProTiler.Tests
 
 			var tile = Tile3DData.New(tileIndex);
 
-			Assert.IsFalse(tile.IsEmpty);
-			Assert.IsTrue(tile.IsValid);
-			Assert.AreEqual(tileIndex, tile.Index);
-			Assert.AreEqual(Tile3DFlags.DirectionNorth, tile.Flags);
+			Assert.That(tile.IsEmpty, Is.False);
+			Assert.That(tile.IsValid, Is.True);
+			Assert.That(tile.Index == tileIndex);
+			Assert.That(tile.Flags == Tile3DFlags.DirectionNorth);
 		}
 
 		[Test]
@@ -60,8 +60,8 @@ namespace CodeSmile.Editor.ProTiler.Tests
 		{
 			var tile = Tile3DData.New(-1);
 
-			Assert.IsTrue(tile.IsEmpty);
-			Assert.IsFalse(tile.IsValid);
+			Assert.That(tile.IsEmpty, Is.True);
+			Assert.That(tile.IsValid, Is.False);
 		}
 
 		[Test]
@@ -69,7 +69,7 @@ namespace CodeSmile.Editor.ProTiler.Tests
 		{
 			var tile = Tile3DData.New();
 
-			Assert.AreEqual(Tile3DFlags.DirectionNorth, tile.Direction);
+			Assert.That(tile.Direction == Tile3DFlags.DirectionNorth);
 		}
 
 		[Test]
@@ -77,7 +77,7 @@ namespace CodeSmile.Editor.ProTiler.Tests
 		{
 			var tile = Tile3DData.New(1, Tile3DFlags.AllDirections);
 
-			Assert.AreEqual(Tile3DFlags.AllDirections, tile.Direction);
+			Assert.That(tile.Direction == Tile3DFlags.AllDirections);
 		}
 
 		[Test]
@@ -86,10 +86,10 @@ namespace CodeSmile.Editor.ProTiler.Tests
 			var tile1 = new Tile3DData { Index = 11, Flags = Tile3DFlags.DirectionSouth };
 			var tile2 = new Tile3DData { Index = 17, Flags = Tile3DFlags.DirectionSouth };
 
-			Assert.IsFalse(tile1 == tile2);
-			Assert.IsTrue(tile1 != tile2);
-			Assert.IsFalse(tile1.Equals(tile2));
-			Assert.IsFalse(tile1.Equals((object)tile2));
+			Assert.That(tile1 == tile2, Is.False);
+			Assert.That(tile1 != tile2, Is.True);
+			Assert.That(tile1.Equals(tile2), Is.False);
+			Assert.That(tile1.Equals((object)tile2), Is.False);
 		}
 
 		[Test]
@@ -98,10 +98,10 @@ namespace CodeSmile.Editor.ProTiler.Tests
 			var tile1 = new Tile3DData { Index = 1, Flags = Tile3DFlags.DirectionEast };
 			var tile2 = new Tile3DData { Index = 1, Flags = Tile3DFlags.DirectionSouth };
 
-			Assert.IsFalse(tile1 == tile2);
-			Assert.IsTrue(tile1 != tile2);
-			Assert.IsFalse(tile1.Equals(tile2));
-			Assert.IsFalse(tile1.Equals((object)tile2));
+			Assert.That(tile1 == tile2, Is.False);
+			Assert.That(tile1 != tile2, Is.True);
+			Assert.That(tile1.Equals(tile2), Is.False);
+			Assert.That(tile1.Equals((object)tile2), Is.False);
 		}
 
 		[Test]
@@ -110,10 +110,10 @@ namespace CodeSmile.Editor.ProTiler.Tests
 			var tile1 = new Tile3DData { Index = 7, Flags = Tile3DFlags.DirectionWest | Tile3DFlags.FlipHorizontal };
 			var tile2 = new Tile3DData { Index = 7, Flags = Tile3DFlags.DirectionWest | Tile3DFlags.FlipHorizontal };
 
-			Assert.IsTrue(tile1 == tile2);
-			Assert.IsFalse(tile1 != tile2);
-			Assert.IsTrue(tile1.Equals(tile2));
-			Assert.IsTrue(tile1.Equals((object)tile2));
+			Assert.That(tile1 == tile2, Is.True);
+			Assert.That(tile1 != tile2, Is.False);
+			Assert.That(tile1.Equals(tile2), Is.True);
+			Assert.That(tile1.Equals((object)tile2), Is.True);
 		}
 
 		[Test]
@@ -122,7 +122,7 @@ namespace CodeSmile.Editor.ProTiler.Tests
 			var tile1 = new Tile3DData { Index = 2 };
 			var tile2 = new Tile3DData { Index = 13 };
 
-			Assert.IsFalse(tile1.GetHashCode() == tile2.GetHashCode());
+			Assert.That(tile1.GetHashCode() != tile2.GetHashCode());
 		}
 
 		[Test]
@@ -131,7 +131,7 @@ namespace CodeSmile.Editor.ProTiler.Tests
 			var tile1 = new Tile3DData { Index = 2, Flags = Tile3DFlags.FlipHorizontal };
 			var tile2 = new Tile3DData { Index = 13, Flags = Tile3DFlags.FlipVertical };
 
-			Assert.IsFalse(tile1.GetHashCode() == tile2.GetHashCode());
+			Assert.That(tile1.GetHashCode() != tile2.GetHashCode());
 		}
 
 		[Test]
@@ -140,7 +140,7 @@ namespace CodeSmile.Editor.ProTiler.Tests
 			var tile1 = new Tile3DData { Index = 2, Flags = Tile3DFlags.DirectionWest | Tile3DFlags.FlipHorizontal };
 			var tile2 = new Tile3DData { Index = 2, Flags = Tile3DFlags.DirectionWest | Tile3DFlags.FlipHorizontal };
 
-			Assert.IsTrue(tile1.GetHashCode() == tile2.GetHashCode());
+			Assert.That(tile1.GetHashCode() == tile2.GetHashCode());
 		}
 	}
 }
