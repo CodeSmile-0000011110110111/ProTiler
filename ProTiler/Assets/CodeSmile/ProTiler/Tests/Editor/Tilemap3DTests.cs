@@ -1,15 +1,17 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
-using CodeSmile.ProTiler;
+using CodeSmile.ProTiler.Data;
+using CodeSmile.ProTiler.Editor.Creation;
 using CodeSmile.ProTiler.Tests.Utilities;
+using CodeSmile.Tests.Utilities;
 using NUnit.Framework;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace CodeSmile.Editor.ProTiler.Tests
+namespace CodeSmile.ProTiler.Tests.Editor
 {
 	public class Tilemap3DTests
 	{
@@ -23,8 +25,8 @@ namespace CodeSmile.Editor.ProTiler.Tests
 			Assert.That(tilemap.Grid != null);
 			Assert.That(tilemap.Chunks != null);
 			Assert.That(tilemap.Chunks.Count == 0);
-			Assert.That(Object.FindObjectOfType<Grid3D>() != null);
 			Assert.That(Object.FindObjectsOfType<Grid3D>().Length == 1);
+			Assert.That(Object.FindObjectsOfType<Tile3DAssetSet>().Length == 1);
 			Assert.That(Object.FindObjectsOfType<Tilemap3D>().Length == 1);
 			Assert.Contains(tilemap.Grid.gameObject, SceneManager.GetActiveScene().GetRootGameObjects());
 			Assert.Contains(tilemap, tilemap.Grid.GetComponentsInChildren<Tilemap3D>());
@@ -38,6 +40,7 @@ namespace CodeSmile.Editor.ProTiler.Tests
 			var tilemap2 = Tilemap3DCreation.CreateRectangularTilemap3D();
 
 			Assert.That(Object.FindObjectsOfType<Grid3D>().Length == 1);
+			Assert.That(Object.FindObjectsOfType<Tile3DAssetSet>().Length == 1);
 			Assert.That(Object.FindObjectsOfType<Tilemap3D>().Length == 2);
 			Assert.That(tilemap1.Grid, Is.EqualTo(tilemap2.Grid));
 			Assert.That(tilemap1.Grid.gameObject, Is.EqualTo(tilemap2.Grid.gameObject));
@@ -101,7 +104,7 @@ namespace CodeSmile.Editor.ProTiler.Tests
 
 			var tileIndex = 123;
 			var coord = Vector3Int.one;
-			tilemap.SetTile(coord, Tile3DData.New(tileIndex));
+			tilemap.SetTile(coord, Tile3D.New(tileIndex));
 			Assert.That(tilemap.Chunks.TileCount == 1);
 
 			Undo.PerformUndo();
@@ -131,7 +134,7 @@ namespace CodeSmile.Editor.ProTiler.Tests
 
 			var tileIndex = 123;
 			var coord = Vector3Int.one;
-			tilemap.SetTile(coord, Tile3DData.New(tileIndex));
+			tilemap.SetTile(coord, Tile3D.New(tileIndex));
 			Assert.That(tilemap.GetTile(coord).Index == tileIndex);
 
 			EditorSceneManager.SaveOpenScenes();

@@ -2,11 +2,10 @@
 // Refer to included LICENSE file for terms and conditions.
 
 using CodeSmile.Extensions;
-using CodeSmile.ProTiler;
 using UnityEditor;
 using UnityEngine;
 
-namespace CodeSmile.Editor.ProTiler.Extensions
+namespace CodeSmile.ProTiler.Editor.Extensions
 {
 	public static class HandleUtilityExt
 	{

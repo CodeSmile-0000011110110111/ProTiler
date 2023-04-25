@@ -8,7 +8,9 @@
         "CodeSmile.Collections",
         "CodeSmile.Collections.Native",
         "CodeSmile.Extensions",
-        "CodeSmile.Tests.Utilities"
+        "CodeSmile.Tests.Utilities",
+        "CodeSmile.Editor.ProTiler",
+        "CodeSmile.Editor"
     ],
     "includePlatforms": [
         "Editor"

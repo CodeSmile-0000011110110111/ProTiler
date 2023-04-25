@@ -9,7 +9,7 @@ using Unity.Collections;
 using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine.Internal;
 
-namespace CodeSmile.Collections
+namespace CodeSmile.Collections.Native.NativeArray2D
 {
 	/// <summary>
 	///     A two-dimensional array stored in native memory

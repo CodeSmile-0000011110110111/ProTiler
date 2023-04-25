@@ -1,12 +1,12 @@
 // Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
-using CodeSmile.ProTiler;
+using CodeSmile.ProTiler.Data;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace CodeSmile.Editor.ProTiler
+namespace CodeSmile.ProTiler.Editor
 {
 	public class Tile3DPaletteWindow : EditorWindow
 	{

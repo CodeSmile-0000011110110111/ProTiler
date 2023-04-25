@@ -1,12 +1,12 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
-using CodeSmile.ProTiler;
 using CodeSmile.ProTiler.Tests.Utilities;
+using CodeSmile.Tests.Utilities;
 using NUnit.Framework;
 using UnityEngine;
 
-namespace CodeSmile.Editor.ProTiler.Tests
+namespace CodeSmile.ProTiler.Tests.Editor
 {
 	public class Grid3DTests
 	{

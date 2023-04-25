@@ -4,7 +4,7 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace CodeSmile.Editor.ProTiler
+namespace CodeSmile.ProTiler.Editor
 {
 	/// <summary>
 	/// Just for fun, this class persists Tilemap3D operations for gamification purposes.

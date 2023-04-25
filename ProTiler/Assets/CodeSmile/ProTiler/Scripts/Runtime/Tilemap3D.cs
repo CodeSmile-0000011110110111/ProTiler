@@ -3,6 +3,7 @@
 
 using CodeSmile.Extensions;
 using CodeSmile.ProTiler.Collections;
+using CodeSmile.ProTiler.Data;
 using System;
 using UnityEngine;
 
@@ -63,25 +64,25 @@ namespace CodeSmile.ProTiler
 			}
 		}
 
-		public Tile3DData GetTile(Vector3Int coord)
+		public Tile3D GetTile(Vector3Int coord)
 		{
-			var tileDatas = new Tile3DCoordData[1];
+			var tileDatas = new Tile3DCoord[1];
 			GetTiles(new[] { coord }, ref tileDatas);
-			return tileDatas[0].TileData;
+			return tileDatas[0].m_Tile;
 		}
 
-		public void GetTiles(Vector3Int[] coords, ref Tile3DCoordData[] tileCoordDatas) => m_Chunks.GetTiles(coords, ref tileCoordDatas);
+		public void GetTiles(Vector3Int[] coords, ref Tile3DCoord[] tileCoordDatas) => m_Chunks.GetTiles(coords, ref tileCoordDatas);
 
-		public void SetTile(Vector3Int coord, Tile3DData tileData) => SetTiles(new[] { Tile3DCoordData.New(coord, tileData) });
+		public void SetTile(Vector3Int coord, Tile3D tile) => SetTiles(new[] { Tile3DCoord.New(coord, tile) });
 
-		public void SetTiles(Tile3DCoordData[] tileCoordDatas)
+		public void SetTiles(Tile3DCoord[] tileCoordDatas)
 		{
 			this.RecordUndoInEditor(nameof(SetTiles));
 			SetTilesNoUndo(tileCoordDatas);
 			this.SetDirtyInEditor();
 		}
 
-		public void SetTilesNoUndo(Tile3DCoordData[] tileCoordDatas) => m_Chunks.SetTiles(tileCoordDatas);
+		public void SetTilesNoUndo(Tile3DCoord[] tileCoordDatas) => m_Chunks.SetTiles(tileCoordDatas);
 
 		/*
 		public void RefreshTile(Vector3Int coord) => throw new NotImplementedException();

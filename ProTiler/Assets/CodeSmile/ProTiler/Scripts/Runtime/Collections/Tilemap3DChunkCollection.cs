@@ -2,6 +2,7 @@
 // Refer to included LICENSE file for terms and conditions.
 
 using CodeSmile.Collections;
+using CodeSmile.ProTiler.Data;
 using System;
 using UnityEngine;
 
@@ -65,7 +66,7 @@ namespace CodeSmile.ProTiler.Collections
 			m_Chunks = new ChunkCollection();
 		}
 
-		public void GetTiles(Vector3Int[] coords, ref Tile3DCoordData[] tileDatas)
+		public void GetTiles(Vector3Int[] coords, ref Tile3DCoord[] tileDatas)
 		{
 			if (coords == null || coords.Length == 0 || tileDatas == null || tileDatas.Length == 0)
 				return;
@@ -81,14 +82,14 @@ namespace CodeSmile.ProTiler.Collections
 					continue;
 
 				var layerCoord = ToLayerCoord(chunkCoord, coord);
-				tileDatas[index++] = Tile3DCoordData.New(coord, layer[layerCoord.x, layerCoord.z]);
+				tileDatas[index++] = Tile3DCoord.New(coord, layer[layerCoord.x, layerCoord.z]);
 
 				if (index == tileDatas.Length)
 					break;
 			}
 		}
 
-		public void SetTiles(Tile3DCoordData[] tileCoordData)
+		public void SetTiles(Tile3DCoord[] tileCoordData)
 		{
 			foreach (var coordData in tileCoordData)
 			{
@@ -98,7 +99,7 @@ namespace CodeSmile.ProTiler.Collections
 
 				var layer = GetOrCreateChunkLayer(chunk, coord.y);
 				var layerCoord = ToLayerCoord(chunkCoord, coord);
-				layer[layerCoord.x, layerCoord.z] = coordData.TileData;
+				layer[layerCoord.x, layerCoord.z] = coordData.m_Tile;
 			}
 		}
 
@@ -106,12 +107,12 @@ namespace CodeSmile.ProTiler.Collections
 
 		internal Vector3Int ToChunkCoord(Vector3Int coord) => new(coord.x / m_Size.x, coord.y, coord.z / m_Size.y);
 
-		private Tile3DDataCollection GetOrCreateChunkLayer(LayerCollection chunk, int y)
+		private Tile3DCollection GetOrCreateChunkLayer(LayerCollection chunk, int y)
 		{
 			if (chunk.TryGetValue(y, out var layer))
 				return layer;
 
-			chunk[y] = layer = new Tile3DDataCollection(m_Size);
+			chunk[y] = layer = new Tile3DCollection(m_Size);
 			return layer;
 		}
 
@@ -132,6 +133,6 @@ namespace CodeSmile.ProTiler.Collections
 		private long GetChunkKey(Vector3Int chunkCoord) => HashUtility.GetHash(chunkCoord.x, chunkCoord.z);
 
 		[Serializable] public class ChunkCollection : SerializedDictionary<long, LayerCollection> {}
-		[Serializable] public class LayerCollection : SerializedDictionary<int, Tile3DDataCollection> {}
+		[Serializable] public class LayerCollection : SerializedDictionary<int, Tile3DCollection> {}
 	}
 }

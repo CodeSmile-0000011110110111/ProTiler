@@ -8,7 +8,7 @@ using UnityEditor;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace CodeSmile.Core.Tests.Editor
+namespace CodeSmile.Tests.Editor
 {
 	public class ComponentPoolTests
 	{
@@ -18,13 +18,13 @@ namespace CodeSmile.Core.Tests.Editor
 		private GameObject m_Parent;
 
 		[DatapointSource]
-		private int[] values = { -1, 0, 1, 2, 3, 5, 7, 9, 11, 13 };
+		private int[] values = { 0, 1, 2, 3, 5, 7, 9, 11, 13 };
 
 		[Theory] [Test]
 		public void TestTheory(int value)
 		{
 			Assume.That(value >= 0);
-			Debug.Log(value);
+			//Debug.Log(value);
 		}
 
 		[SetUp]

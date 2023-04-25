@@ -12,7 +12,8 @@
         "CodeSmile.ProTiler.Rendering",
         "CodeSmile.Editor.ProTiler",
         "CodeSmile.ProTiler.Tests.Utilities",
-        "CodeSmile.Tests.Utilities"
+        "CodeSmile.Tests.Utilities",
+        "CodeSmile.Editor"
     ],
     "includePlatforms": [
         "Editor"

@@ -2,7 +2,6 @@
 // Refer to included LICENSE file for terms and conditions.
 
 using CodeSmile.ProTiler.Data;
-using System;
 using UnityEngine;
 
 namespace CodeSmile.ProTiler.Assets
@@ -12,6 +11,7 @@ namespace CodeSmile.ProTiler.Assets
 		[SerializeField] private GameObject m_Prefab;
 		[SerializeField] private Tile3DFlags m_Flags;
 		[SerializeField] [HideInInspector] private Matrix4x4 m_Transform;
+
 		public GameObject Prefab
 		{
 			get => m_Prefab;
@@ -27,7 +27,16 @@ namespace CodeSmile.ProTiler.Assets
 			get => m_Transform;
 			set => m_Transform = value;
 		}
+
+		private void Awake() => AddToAssetRegister();
+
 		private void Reset() => m_Flags = Tile3DFlags.DirectionNorth;
+
+		private void OnDestroy() => RemoveFromAssetRegister();
+
+		private void AddToAssetRegister() => Tile3DAssetRegister.Singleton.Add(this);
+
+		private void RemoveFromAssetRegister() => Tile3DAssetRegister.Singleton.Remove(this);
 
 		// public virtual void RefreshTile(Vector3Int coord, Tilemap3D tilemap) => tilemap.RefreshTile(coord);
 		// public virtual Tile3DData GetTileData(Vector3Int coord, Tilemap3D tilemap, ref Tile3DData tileData) => throw new NotImplementedException();

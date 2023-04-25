@@ -13,7 +13,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 
-namespace CodeSmile.ProTiler.Tests.Utilities
+namespace CodeSmile.Tests.Utilities
 {
 	/// <summary>
 	///     Creates a new empty scene for a unit test method.
@@ -59,7 +59,7 @@ namespace CodeSmile.ProTiler.Tests.Utilities
 
 		public CreateSceneAttribute(string scenePath = null, NewSceneSetup setup = NewSceneSetup.EmptyScene)
 		{
-			m_ScenePath = string.IsNullOrWhiteSpace(scenePath) == false ? Defines.TestAssetsPath + scenePath : null;
+			m_ScenePath = string.IsNullOrWhiteSpace(scenePath) == false ? TestPaths.TestAssets + scenePath : null;
 			m_Setup = setup;
 
 			CreateScenePathDirectoryIfNeeded();

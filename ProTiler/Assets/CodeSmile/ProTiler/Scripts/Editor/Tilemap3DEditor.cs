@@ -1,14 +1,14 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
-using CodeSmile.Editor.ProTiler.Extensions;
 using CodeSmile.Extensions;
-using CodeSmile.ProTiler;
+using CodeSmile.ProTiler.Data;
+using CodeSmile.ProTiler.Editor.Extensions;
 using System;
 using UnityEditor;
 using UnityEngine;
 
-namespace CodeSmile.Editor.ProTiler
+namespace CodeSmile.ProTiler.Editor
 {
 	[CustomEditor(typeof(Tilemap3D))]
 	public partial class Tilemap3DEditor : UnityEditor.Editor

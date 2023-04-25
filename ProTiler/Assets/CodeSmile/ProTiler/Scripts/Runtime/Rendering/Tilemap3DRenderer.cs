@@ -2,6 +2,7 @@
 // Refer to included LICENSE file for terms and conditions.
 
 using CodeSmile.Extensions;
+using CodeSmile.ProTiler.Data;
 using System;
 using UnityEngine;
 
@@ -13,7 +14,7 @@ namespace CodeSmile.ProTiler.Rendering
 	{
 		[SerializeField] private int m_DrawDistance = 20;
 		private Vector3Int[] m_VisibleCoords;
-		private Tile3DCoordData[] m_TileCoordDatas;
+		private Tile3DCoord[] m_TileCoordDatas;
 
 		/*
 		 * Todo:
@@ -60,7 +61,7 @@ namespace CodeSmile.ProTiler.Rendering
 			if (m_VisibleCoords == null)
 			{
 				m_VisibleCoords = new Vector3Int[20 * 20];
-				m_TileCoordDatas = new Tile3DCoordData[m_VisibleCoords.Length];
+				m_TileCoordDatas = new Tile3DCoord[m_VisibleCoords.Length];
 			}
 
 			UpdateVisibleTileCoordinates(ref m_VisibleCoords);

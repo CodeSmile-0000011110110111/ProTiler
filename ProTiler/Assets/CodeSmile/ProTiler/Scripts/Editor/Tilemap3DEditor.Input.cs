@@ -5,7 +5,7 @@ using CodeSmile.Editor.InputState;
 using CodeSmile.InputState;
 using UnityEngine;
 
-namespace CodeSmile.Editor.ProTiler
+namespace CodeSmile.ProTiler.Editor
 {
 	public partial class Tilemap3DEditor
 	{

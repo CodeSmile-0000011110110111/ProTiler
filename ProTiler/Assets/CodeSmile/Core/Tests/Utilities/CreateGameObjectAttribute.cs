@@ -10,7 +10,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.TestTools;
 
-namespace CodeSmile.ProTiler.Tests.Utilities
+namespace CodeSmile.Tests.Utilities
 {
 	/// <summary>
 	/// Creates a new GameObject instance in the scene for a test method.
