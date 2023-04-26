@@ -148,7 +148,6 @@ namespace CodeSmile.ProTiler.Editor
 
 		private void DrawLineFromStartToCursor()
 		{
-			Tilemap3DStats.instance.DrawTileCount++;
 			//Tilemap.DrawLine(m_StartSelectionCoord, m_CursorCoord);
 			throw new NotImplementedException();
 		}

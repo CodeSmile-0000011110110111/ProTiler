@@ -30,8 +30,6 @@ namespace CodeSmile.ProTiler.Editor.Creation
 
 		private static Tilemap3D CreateTilemap3D(CellLayout cellLayout)
 		{
-			Tilemap3DStats.instance.TilemapCreatedCount++;
-
 			var root = FindOrCreateRootGrid3D();
 			var uniqueName = GameObjectUtility.GetUniqueNameForSibling(root.transform, "Tilemap3D");
 			var tilemapGO = ObjectFactory.CreateGameObject(uniqueName, typeof(Tilemap3D), typeof(Tilemap3DRenderer));
