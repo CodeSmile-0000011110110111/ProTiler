@@ -74,6 +74,7 @@ namespace CodeSmile.Tests.Utilities
 
 				if (IsScenePathValid())
 				{
+					CreateScenePathDirectoryIfNotExists();
 					if (EditorSceneManager.SaveScene(scene, m_ScenePath) == false)
 						throw new UnityException($"EditorSceneManager failed to save test scene to: '{m_ScenePath}'");
 				}
@@ -112,7 +113,6 @@ namespace CodeSmile.Tests.Utilities
 			{
 				EnsureScenePathStartWithAssets();
 				EnsureScenePathExtensionIsUnity();
-				CreateScenePathDirectoryIfNotExists();
 			}
 		}
 
@@ -131,7 +131,9 @@ namespace CodeSmile.Tests.Utilities
 		private void CreateScenePathDirectoryIfNotExists()
 		{
 			var path = Application.dataPath.Replace("/Assets", "/") + m_ScenePath;
-			AssetDatabaseExt.CreateDirectoryIfNotExists(Path.GetDirectoryName(path));
+			path = Path.GetDirectoryName(path);
+			Debug.Log("Try create test scene path: " + path);
+			AssetDatabaseExt.CreateDirectoryIfNotExists(path);
 		}
 
 		private bool IsScenePathValid() => string.IsNullOrWhiteSpace(m_ScenePath) == false;
