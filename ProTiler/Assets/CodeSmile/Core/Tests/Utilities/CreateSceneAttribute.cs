@@ -59,9 +59,14 @@ namespace CodeSmile.Tests.Utilities
 
 		public CreateSceneAttribute(string scenePath = null, NewSceneSetup setup = NewSceneSetup.EmptyScene)
 		{
-			m_ScenePath = string.IsNullOrWhiteSpace(scenePath) == false ? TestPaths.TestAssets + scenePath : null;
-			if (m_ScenePath != null && m_ScenePath.StartsWith("Assets") == false)
-				m_ScenePath += "Assets/" + m_ScenePath;
+			m_ScenePath = string.IsNullOrWhiteSpace(scenePath) == false ? TestPaths.TempTestAssets + scenePath : null;
+			if (m_ScenePath != null)
+			{
+				if (m_ScenePath.StartsWith("Assets") == false)
+					m_ScenePath = "Assets/" + m_ScenePath;
+				if (m_ScenePath.EndsWith(".unity") == false)
+					m_ScenePath += ".unity";
+			}
 
 			m_Setup = setup;
 
@@ -71,14 +76,22 @@ namespace CodeSmile.Tests.Utilities
 		IEnumerator IOuterUnityTestAction.BeforeTest(ITest test)
 		{
 			var activeScene = SceneManager.GetActiveScene();
-			var sceneName = GetSceneName();
+			var sceneName = GetSceneFileName();
+			Debug.Log("active scene name: " + sceneName);
 			if (activeScene.name != sceneName)
 			{
+				Debug.Log("closing scene: " + activeScene.name);
+				EditorSceneManager.CloseScene(activeScene, false);
+				Debug.Log("new scene: " + m_Setup);
 				var scene = EditorSceneManager.NewScene(m_Setup);
 				scene.name = sceneName;
 
-				if (m_ScenePath != null)
-					EditorSceneManager.SaveScene(scene, m_ScenePath);
+				if (string.IsNullOrWhiteSpace(m_ScenePath) == false)
+				{
+					Debug.Log("saving new scene to: " + m_ScenePath);
+					if (EditorSceneManager.SaveScene(scene, m_ScenePath) == false)
+						throw new Exception($"failed to save test scene to: {m_ScenePath}");
+				}
 			}
 
 			yield return null;
@@ -98,7 +111,7 @@ namespace CodeSmile.Tests.Utilities
 				rootGameObject.DestroyInAnyMode();
 			}
 
-			if (m_ScenePath != null)
+			if (string.IsNullOrWhiteSpace(m_ScenePath) == false)
 			{
 				if (AssetDatabase.DeleteAsset(m_ScenePath) != true)
 					Debug.LogWarning($"failed to delete NewScene named '{m_ScenePath}'");
@@ -107,7 +120,7 @@ namespace CodeSmile.Tests.Utilities
 			yield return null;
 		}
 
-		private string GetSceneName()
+		private string GetSceneFileName()
 		{
 			var name = m_ScenePath != null ? Path.GetFileName(m_ScenePath) : m_Setup.ToString();
 			return $"Test [CreateScene] {name}";
@@ -119,7 +132,7 @@ namespace CodeSmile.Tests.Utilities
 				return;
 
 			var path = Application.dataPath.Replace("/Assets", "/") + m_ScenePath;
-			AssetDatabaseExt.CreateDirectoryIfNotExists(path);
+			AssetDatabaseExt.CreateDirectoryIfNotExists(Path.GetDirectoryName(path));
 		}
 	}
 }
