@@ -30,7 +30,9 @@ namespace CodeSmile.Tests.Editor
 
 		[TestCase(TestPaths.TempTestAssets + nameof(AssetDatabaseExtTestSO))]
 		[TestCase(TestPaths.TempTestAssets + nameof(AssetDatabaseExtTestSO) + "/")]
+#if UNITY_EDITOR_WIN
 		[TestCase(TestPaths.TempTestAssets + nameof(AssetDatabaseExtTestSO) + @"\")]
+#endif
 		public void CreateDirectoryIfNotExists(string path)
 		{
 			DeleteDirectoryIfExists(path);
@@ -43,9 +45,11 @@ namespace CodeSmile.Tests.Editor
 			DeleteTestAsset(path);
 		}
 
+#if UNITY_EDITOR_WIN
 		[TestCase(TestPaths.TempTestAssets + "*?<>/\\")]
 		public void CreateDirectoryWithInvalidFilePathThrows(string path) =>
 			Assert.Throws<ArgumentException>(() => AssetDatabaseExt.CreateDirectoryIfNotExists(path));
+#endif
 
 		[TestCase(TestPaths.TempTestAssets + "CreateTest/" + nameof(AssetDatabaseExtTestSO) + ".asset")]
 		public void CreateAssetAndDirectory(string path)
@@ -97,6 +101,7 @@ namespace CodeSmile.Tests.Editor
 
 			DeleteTestAsset(AssetDatabaseExtTestSO.TestPath);
 		}
+
 		[Test] public void LoadAssetByType()
 		{
 			AssetDatabaseExt.CreateAssetAndDirectory<AssetDatabaseExtTestSO>(AssetDatabaseExtTestSO.TestPath);

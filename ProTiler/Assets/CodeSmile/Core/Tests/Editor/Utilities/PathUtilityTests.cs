@@ -10,9 +10,11 @@ namespace CodeSmile.Tests.Editor.Utilities
 	public class PathUtilityTests
 	{
 		[TestCase("/")]
-		[TestCase(@"\")]
 		[TestCase("Assets/SomeFolder/")]
+#if UNITY_EDITOR_WIN
+		[TestCase(@"\")]
 		[TestCase(@"Assets\SomeFolder\")]
+#endif
 		public void PathEnsureSeparatorNotAdded(string path)
 		{
 			var modifiedPath = PathUtility.EnsurePathEndsWithSeparator(path);
