@@ -55,42 +55,27 @@ namespace CodeSmile.Tests.Utilities
 	public class CreateSceneAttribute : NUnitAttribute, IOuterUnityTestAction
 	{
 		private readonly NewSceneSetup m_Setup;
-		private readonly string m_ScenePath;
+		private string m_ScenePath;
 
 		public CreateSceneAttribute(string scenePath = null, NewSceneSetup setup = NewSceneSetup.EmptyScene)
 		{
-			m_ScenePath = string.IsNullOrWhiteSpace(scenePath) == false ? TestPaths.TempTestAssets + scenePath : null;
-			if (m_ScenePath != null)
-			{
-				if (m_ScenePath.StartsWith("Assets") == false)
-					m_ScenePath = "Assets/" + m_ScenePath;
-				if (m_ScenePath.EndsWith(".unity") == false)
-					m_ScenePath += ".unity";
-			}
-
 			m_Setup = setup;
-
-			CreateScenePathDirectoryIfNeeded();
+			SetupAndVerifyScenePath(scenePath);
 		}
 
 		IEnumerator IOuterUnityTestAction.BeforeTest(ITest test)
 		{
 			var activeScene = SceneManager.GetActiveScene();
-			var sceneName = GetSceneFileName();
-			Debug.Log("active scene name: " + sceneName);
+			var sceneName = CreateTestSceneName();
 			if (activeScene.name != sceneName)
 			{
-				Debug.Log("closing scene: " + activeScene.name);
-				EditorSceneManager.CloseScene(activeScene, false);
-				Debug.Log("new scene: " + m_Setup);
 				var scene = EditorSceneManager.NewScene(m_Setup);
 				scene.name = sceneName;
 
-				if (string.IsNullOrWhiteSpace(m_ScenePath) == false)
+				if (IsScenePathValid())
 				{
-					Debug.Log("saving new scene to: " + m_ScenePath);
 					if (EditorSceneManager.SaveScene(scene, m_ScenePath) == false)
-						throw new Exception($"failed to save test scene to: {m_ScenePath}");
+						throw new UnityException($"EditorSceneManager failed to save test scene to: '{m_ScenePath}'");
 				}
 			}
 
@@ -111,28 +96,50 @@ namespace CodeSmile.Tests.Utilities
 				rootGameObject.DestroyInAnyMode();
 			}
 
-			if (string.IsNullOrWhiteSpace(m_ScenePath) == false)
+			if (IsScenePathValid())
 			{
 				if (AssetDatabase.DeleteAsset(m_ScenePath) != true)
-					Debug.LogWarning($"failed to delete NewScene named '{m_ScenePath}'");
+					throw new UnityException($"AssetDatabase failed to delete test scene in: '{m_ScenePath}'");
 			}
 
 			yield return null;
 		}
 
-		private string GetSceneFileName()
+		private void SetupAndVerifyScenePath(string scenePath)
+		{
+			m_ScenePath = string.IsNullOrWhiteSpace(scenePath) == false ? TestPaths.TempTestAssets + scenePath : null;
+			if (m_ScenePath != null)
+			{
+				EnsureScenePathStartWithAssets();
+				EnsureScenePathExtensionIsUnity();
+				CreateScenePathDirectoryIfNotExists();
+			}
+		}
+
+		private void EnsureScenePathStartWithAssets()
+		{
+			if (m_ScenePath.StartsWith("Assets") == false)
+				m_ScenePath = "Assets/" + m_ScenePath;
+		}
+
+		private void EnsureScenePathExtensionIsUnity()
+		{
+			if (m_ScenePath.EndsWith(".unity") == false)
+				m_ScenePath += ".unity";
+		}
+
+		private void CreateScenePathDirectoryIfNotExists()
+		{
+			var path = Application.dataPath.Replace("/Assets", "/") + m_ScenePath;
+			AssetDatabaseExt.CreateDirectoryIfNotExists(Path.GetDirectoryName(path));
+		}
+
+		private bool IsScenePathValid() => string.IsNullOrWhiteSpace(m_ScenePath) == false;
+
+		private string CreateTestSceneName()
 		{
 			var name = m_ScenePath != null ? Path.GetFileName(m_ScenePath) : m_Setup.ToString();
 			return $"Test [CreateScene] {name}";
-		}
-
-		private void CreateScenePathDirectoryIfNeeded()
-		{
-			if (m_ScenePath == null)
-				return;
-
-			var path = Application.dataPath.Replace("/Assets", "/") + m_ScenePath;
-			AssetDatabaseExt.CreateDirectoryIfNotExists(Path.GetDirectoryName(path));
 		}
 	}
 }
