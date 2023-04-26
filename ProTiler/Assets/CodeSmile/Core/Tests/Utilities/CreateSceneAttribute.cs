@@ -60,6 +60,9 @@ namespace CodeSmile.Tests.Utilities
 		public CreateSceneAttribute(string scenePath = null, NewSceneSetup setup = NewSceneSetup.EmptyScene)
 		{
 			m_ScenePath = string.IsNullOrWhiteSpace(scenePath) == false ? TestPaths.TestAssets + scenePath : null;
+			if (m_ScenePath != null && m_ScenePath.StartsWith("Assets") == false)
+				m_ScenePath += "Assets/" + m_ScenePath;
+
 			m_Setup = setup;
 
 			CreateScenePathDirectoryIfNeeded();
@@ -115,16 +118,8 @@ namespace CodeSmile.Tests.Utilities
 			if (m_ScenePath == null)
 				return;
 
-			var path = Application.dataPath.Replace("/Assets", "") + m_ScenePath;
-			path = Path.GetFullPath(path);
-			if (Directory.Exists(path) == false)
-			{
-				Directory.CreateDirectory(path);
-
-				// Refresh is needed because "Assets" contents were modified WITHOUT using AssetDatabase methods
-				// See: https://forum.unity.com/threads/calling-assetdatabase-refresh-mandatory-reading-or-face-the-consequences.1330947/
-				AssetDatabase.Refresh();
-			}
+			var path = Application.dataPath.Replace("/Assets", "/") + m_ScenePath;
+			AssetDatabaseExt.CreateDirectoryIfNotExists(path);
 		}
 	}
 }
