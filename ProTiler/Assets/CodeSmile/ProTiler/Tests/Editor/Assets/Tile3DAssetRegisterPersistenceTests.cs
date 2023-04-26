@@ -7,11 +7,10 @@ using NUnit.Framework;
 using System.IO;
 using System.Linq;
 using UnityEditor;
-using UnityEngine.TestTools;
 
 namespace CodeSmile.ProTiler.Tests.Editor.Assets
 {
-	public class Tile3DAssetRegisterAssetDatabaseTests
+	public class Tile3DAssetRegisterPersistenceTests
 	{
 		private static string GetRegisterAssetPath() => AssetDatabaseExt.FindAssetPaths<Tile3DAssetRegister>().First();
 
@@ -21,7 +20,6 @@ namespace CodeSmile.ProTiler.Tests.Editor.Assets
 		{
 			var path = GetRegisterAssetPath();
 
-			LogAssert.ignoreFailingMessages = true;
 			Assert.That(AssetDatabase.DeleteAsset(path) == false);
 		}
 
@@ -29,7 +27,6 @@ namespace CodeSmile.ProTiler.Tests.Editor.Assets
 		{
 			var path = GetRegisterAssetPath();
 
-			LogAssert.ignoreFailingMessages = true;
 			Assert.That(AssetDatabase.MoveAssetToTrash(path) == false);
 		}
 
@@ -37,7 +34,6 @@ namespace CodeSmile.ProTiler.Tests.Editor.Assets
 		{
 			var path = GetRegisterAssetPath();
 
-			LogAssert.ignoreFailingMessages = true;
 			Assert.That(AssetDatabase.DeleteAsset(Path.GetDirectoryName(path)) == false);
 		}
 
@@ -46,7 +42,6 @@ namespace CodeSmile.ProTiler.Tests.Editor.Assets
 			var path = GetRegisterAssetPath();
 			var newName = path.Replace($"{nameof(Tile3DAssetRegister)}.asset", "XXX.asset");
 
-			LogAssert.ignoreFailingMessages = true;
 			Assert.That(AssetDatabase.RenameAsset(path, newName).Length != 0);
 		}
 

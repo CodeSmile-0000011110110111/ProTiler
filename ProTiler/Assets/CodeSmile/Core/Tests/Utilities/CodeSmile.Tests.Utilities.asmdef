@@ -4,7 +4,8 @@
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
-        "CodeSmile.Extensions"
+        "CodeSmile.Extensions",
+        "CodeSmile.Editor"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
