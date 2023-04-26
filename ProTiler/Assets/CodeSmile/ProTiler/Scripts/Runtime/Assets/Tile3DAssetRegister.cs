@@ -3,6 +3,7 @@
 
 using CodeSmile.Collections;
 using CodeSmile.Extensions;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
@@ -18,10 +19,12 @@ namespace CodeSmile.ProTiler.Assets
 		public static Tile3DAssetRegister Singleton => s_Singleton;
 
 #if UNITY_EDITOR
+		[ExcludeFromCodeCoverage]
 		[InitializeOnLoadMethod] [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
 		private static void OnLoad() => s_Singleton = AssetDatabaseExt.LoadAssets<Tile3DAssetRegister>().First();
 #endif
 
+		[ExcludeFromCodeCoverage]
 		private void Awake() => s_Singleton = this;
 
 		public void Add(Tile3DAssetBase tileAsset)

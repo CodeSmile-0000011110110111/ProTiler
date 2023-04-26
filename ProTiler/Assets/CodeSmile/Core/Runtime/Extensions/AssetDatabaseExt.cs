@@ -43,10 +43,13 @@ namespace CodeSmile.Extensions
 
 		public static void CreateDirectoryIfNotExists(string path)
 		{
+			path = PathUtility.TrimTrailingDirectorySeparatorChar(path);
+
+			//Debug.Log("CreateDirectoryIfNotExists: " + path);
 			if (Directory.Exists(path) == false)
 			{
 				Directory.CreateDirectory(path);
-				AssetDatabase.Refresh();
+				AssetDatabase.Refresh(ImportAssetOptions.ForceSynchronousImport);
 			}
 		}
 

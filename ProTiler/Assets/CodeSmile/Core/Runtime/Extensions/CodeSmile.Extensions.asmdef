@@ -1,7 +1,7 @@
 {
     "name": "CodeSmile.Extensions",
     "rootNamespace": "",
-    "references": [],
+    "references": ["GUID:7daae6931833bce4b92556593b023dab"],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

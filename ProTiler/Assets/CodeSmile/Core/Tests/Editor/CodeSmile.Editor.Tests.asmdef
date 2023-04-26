@@ -10,7 +10,8 @@
         "CodeSmile.Extensions",
         "CodeSmile.Tests.Utilities",
         "CodeSmile.Editor.ProTiler",
-        "CodeSmile.Editor"
+        "CodeSmile.Editor",
+        "CodeSmile.Utilities"
     ],
     "includePlatforms": [
         "Editor"

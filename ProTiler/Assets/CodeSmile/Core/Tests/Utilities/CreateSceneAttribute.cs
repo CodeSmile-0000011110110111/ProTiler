@@ -132,7 +132,6 @@ namespace CodeSmile.Tests.Utilities
 		{
 			var path = Application.dataPath.Replace("/Assets", "/") + m_ScenePath;
 			path = Path.GetDirectoryName(path);
-			Debug.Log("Try create test scene path: " + path);
 			AssetDatabaseExt.CreateDirectoryIfNotExists(path);
 		}
 

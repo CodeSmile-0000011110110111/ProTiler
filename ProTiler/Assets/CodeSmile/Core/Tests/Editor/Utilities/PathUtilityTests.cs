@@ -32,6 +32,20 @@ namespace CodeSmile.Tests.Editor.Utilities
 			Assert.That(modifiedPath.EndsWith(Path.DirectorySeparatorChar));
 		}
 
+		[TestCase("")]
+		[TestCase("Assets/SomeFolder")]
+		[TestCase("/")]
+		[TestCase(@"\")]
+		[TestCase("Assets/SomeFolder/")]
+		[TestCase(@"Assets\SomeFolder\")]
+		public void PathTrimTrailingDirectorySeparator(string path)
+		{
+			var modifiedPath = PathUtility.TrimTrailingDirectorySeparatorChar(path);
+
+			Assert.That(modifiedPath.EndsWith(Path.DirectorySeparatorChar) == false);
+			Assert.That(modifiedPath.EndsWith(Path.AltDirectorySeparatorChar) == false);
+		}
+
 		[Test] public void PathEnsurePathEndsThrowsIfPathNull() =>
 			Assert.Throws<NullReferenceException>(() => PathUtility.EnsurePathEndsWithSeparator(null));
 	}
