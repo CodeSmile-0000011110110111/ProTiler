@@ -10,13 +10,44 @@ namespace CodeSmile.ProTiler.Tests.Editor.Assets
 {
 	public class Tile3DAssetRegisterTests
 	{
-		[Test] public void EnsureTile3DRegisterSingletonNotNull() => Assert.That(Tile3DAssetRegister.Singleton != null);
+		[Test] public void VerifySingletonNotNull() => Assert.That(Tile3DAssetRegister.Singleton != null);
+
+		[Test] public void VerifyRegisterContainsMissingTile()
+		{
+			var register = Tile3DAssetRegister.Singleton;
+
+			Assert.That(register.Contains(register.m_MissingTileAsset));
+			Assert.That(register[0] == register.m_MissingTileAsset);
+		}
 
 		[Test] public void AddTileAsset()
 		{
 			var tileAsset = Tile3DAssetCreation.CreateInstance<Tile3DAsset>();
 
 			Tile3DAssetRegister.Singleton.Add(tileAsset);
+
+			Assert.That(Tile3DAssetRegister.Singleton.Contains(tileAsset));
+		}
+
+
+		[Test] public void AddTileAssetWithIndex()
+		{
+			var tileAsset = Tile3DAssetCreation.CreateInstance<Tile3DAsset>();
+
+			Tile3DAssetRegister.Singleton.Add(tileAsset, out var index);
+
+			Assert.That(index > 0);
+			Assert.That(Tile3DAssetRegister.Singleton.Contains(tileAsset));
+		}
+
+		[Test] public void RemoveTileAsset()
+		{
+			var tileAsset = Tile3DAssetCreation.CreateInstance<Tile3DAsset>();
+
+			Tile3DAssetRegister.Singleton.Add(tileAsset);
+			Tile3DAssetRegister.Singleton.Remove(tileAsset);
+
+			Assert.That(Tile3DAssetRegister.Singleton.Contains(tileAsset) == false);
 		}
 	}
 }

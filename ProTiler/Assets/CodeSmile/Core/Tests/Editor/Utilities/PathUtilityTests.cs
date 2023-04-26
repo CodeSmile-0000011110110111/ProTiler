@@ -17,7 +17,7 @@ namespace CodeSmile.Tests.Editor.Utilities
 #endif
 		public void PathEnsureSeparatorNotAdded(string path)
 		{
-			var modifiedPath = PathUtility.EnsurePathEndsWithSeparator(path);
+			var modifiedPath = PathUtility.AppendDirectorySeparatorChar(path);
 
 			Assert.That(path.Equals(modifiedPath));
 		}
@@ -29,7 +29,7 @@ namespace CodeSmile.Tests.Editor.Utilities
 		[TestCase("file.name")]
 		public void PathEnsureSeparatorAdded(string path)
 		{
-			var modifiedPath = PathUtility.EnsurePathEndsWithSeparator(path);
+			var modifiedPath = PathUtility.AppendDirectorySeparatorChar(path);
 
 			Assert.That(modifiedPath.EndsWith(Path.DirectorySeparatorChar));
 		}
@@ -49,6 +49,6 @@ namespace CodeSmile.Tests.Editor.Utilities
 		}
 
 		[Test] public void PathEnsurePathEndsThrowsIfPathNull() =>
-			Assert.Throws<NullReferenceException>(() => PathUtility.EnsurePathEndsWithSeparator(null));
+			Assert.Throws<NullReferenceException>(() => PathUtility.AppendDirectorySeparatorChar(null));
 	}
 }

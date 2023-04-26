@@ -12,3 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4c3c3a4c4cd4852a85d151f58e3b50f, type: 3}
   m_Name: Tile3DAssetRegister
   m_EditorClassIdentifier: 
+  m_MissingTileAsset: {fileID: 0}
+  m_EmptyTileAsset: {fileID: 0}
+  m_TileAssetSet:
+    DefaultObject: {fileID: 0}

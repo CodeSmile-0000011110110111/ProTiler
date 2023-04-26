@@ -56,8 +56,9 @@ namespace CodeSmile.Tests.Editor
 		{
 			DeleteDirectoryIfExists(Path.GetDirectoryName(path));
 
-			AssetDatabaseExt.CreateAssetAndDirectory<AssetDatabaseExtTestSO>(path);
+			var asset = AssetDatabaseExt.CreateAssetAndDirectory<AssetDatabaseExtTestSO>(path);
 
+			Assert.That(asset != null);
 			Assert.That(AssetDatabaseExt.AssetExists<AssetDatabaseExtTestSO>());
 
 			DeleteTestAsset(path);

@@ -16,15 +16,15 @@ namespace CodeSmile.ProTiler.Editor.Creation
 		private const string HexagonalFlatTopTilemapMenuText = "Hexagonal - Flat Top";
 		private const string HexagonalPointTopTilemapMenuText = "Hexagonal - Pointed Top";
 
-		[MenuItem("GameObject/" + Names.TileEditor + "/" + Names.Tilemap3DMenu + "/" + RectangularTilemapMenuText,
+		[MenuItem("GameObject/" + Names.TileEditor + "/" + Menus.TilemapMenuText + "/" + RectangularTilemapMenuText,
 			priority = Menus.CreateGameObjectPriority + 0)]
 		public static Tilemap3D CreateRectangularTilemap3D() => CreateTilemap3D(CellLayout.Rectangular);
 
-		[MenuItem("GameObject/" + Names.TileEditor + "/" + Names.Tilemap3DMenu + "/" + HexagonalFlatTopTilemapMenuText,
+		[MenuItem("GameObject/" + Names.TileEditor + "/" + Menus.TilemapMenuText + "/" + HexagonalFlatTopTilemapMenuText,
 			priority = Menus.CreateGameObjectPriority + 1)]
 		public static Tilemap3D CreateHexagonalFlatTopTilemap3D() => throw new NotImplementedException(nameof(CreateHexagonalFlatTopTilemap3D));
 
-		[MenuItem("GameObject/" + Names.TileEditor + "/" + Names.Tilemap3DMenu + "/" + HexagonalPointTopTilemapMenuText,
+		[MenuItem("GameObject/" + Names.TileEditor + "/" + Menus.TilemapMenuText + "/" + HexagonalPointTopTilemapMenuText,
 			priority = Menus.CreateGameObjectPriority + 2)]
 		public static Tilemap3D CreateHexagonalPointTopTilemap3D() => throw new NotImplementedException(nameof(CreateHexagonalPointTopTilemap3D));
 

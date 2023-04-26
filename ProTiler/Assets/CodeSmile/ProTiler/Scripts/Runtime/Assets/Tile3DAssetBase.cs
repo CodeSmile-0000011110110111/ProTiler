@@ -17,6 +17,7 @@ namespace CodeSmile.ProTiler.Assets
 			get => m_Prefab;
 			set => m_Prefab = value;
 		}
+
 		public Tile3DFlags Flags
 		{
 			get => m_Flags;
@@ -28,15 +29,13 @@ namespace CodeSmile.ProTiler.Assets
 			set => m_Transform = value;
 		}
 
-		private void Awake() => AddToAssetRegister();
+		private void Init() => SetDefaultFlags();
 
-		private void Reset() => m_Flags = Tile3DFlags.DirectionNorth;
+		private void Awake() => Init();
 
-		private void OnDestroy() => RemoveFromAssetRegister();
+		private void Reset() => Init();
 
-		private void AddToAssetRegister() => Tile3DAssetRegister.Singleton.Add(this);
-
-		private void RemoveFromAssetRegister() => Tile3DAssetRegister.Singleton.Remove(this);
+		private void SetDefaultFlags() => m_Flags = Tile3DFlags.DirectionNorth;
 
 		// public virtual void RefreshTile(Vector3Int coord, Tilemap3D tilemap) => tilemap.RefreshTile(coord);
 		// public virtual Tile3DData GetTileData(Vector3Int coord, Tilemap3D tilemap, ref Tile3DData tileData) => throw new NotImplementedException();

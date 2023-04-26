@@ -45,7 +45,6 @@ namespace CodeSmile.Extensions
 		{
 			path = PathUtility.TrimTrailingDirectorySeparatorChar(path);
 
-			//Debug.Log("CreateDirectoryIfNotExists: " + path);
 			if (Directory.Exists(path) == false)
 			{
 				Directory.CreateDirectory(path);
@@ -53,11 +52,14 @@ namespace CodeSmile.Extensions
 			}
 		}
 
-		public static void CreateAssetAndDirectory<T>(string assetPath) where T : ScriptableObject
+		public static T CreateAssetAndDirectory<T>(string assetPath) where T : ScriptableObject
 		{
 			assetPath = Path.ChangeExtension(assetPath, ".asset");
 			CreateDirectoryIfNotExists(Path.GetDirectoryName(assetPath));
-			AssetDatabase.CreateAsset(ScriptableObject.CreateInstance<T>(), assetPath);
+
+			var instance = ScriptableObject.CreateInstance<T>();
+			AssetDatabase.CreateAsset(instance, assetPath);
+			return instance;
 		}
 #endif
 	}

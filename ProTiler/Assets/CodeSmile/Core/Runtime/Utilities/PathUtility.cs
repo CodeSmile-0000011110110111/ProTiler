@@ -7,18 +7,12 @@ namespace CodeSmile
 {
 	public static class PathUtility
 	{
-		public static string TrimTrailingDirectorySeparatorChar(string path)
-		{
-			if (path.EndsWith(Path.DirectorySeparatorChar) || path.EndsWith(Path.AltDirectorySeparatorChar) || path.EndsWith(@"\"))
-				return path.Substring(0, path.Length - 1);
+		public static string TrimTrailingDirectorySeparatorChar(string path) =>
+			path.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
 
-			return path;
-		}
-
-		public static string EnsurePathEndsWithSeparator(string path)
+		public static string AppendDirectorySeparatorChar(string path)
 		{
-			if (path.EndsWith(Path.DirectorySeparatorChar) == false &&
-			    path.EndsWith(Path.AltDirectorySeparatorChar) == false)
+			if (path.EndsWith(Path.DirectorySeparatorChar) == false && path.EndsWith(Path.AltDirectorySeparatorChar) == false)
 				path += Path.DirectorySeparatorChar;
 			return path;
 		}

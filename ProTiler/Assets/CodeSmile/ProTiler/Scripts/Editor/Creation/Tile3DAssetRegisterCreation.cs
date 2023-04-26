@@ -3,6 +3,7 @@
 
 using CodeSmile.Extensions;
 using CodeSmile.ProTiler.Assets;
+using CodeSmile.ProTiler.Editor.Data;
 using UnityEditor;
 using UnityEngine;
 
@@ -15,8 +16,9 @@ namespace CodeSmile.ProTiler.Editor.Creation
 		{
 			if (AssetDatabaseExt.AssetExists<Tile3DAssetRegister>() == false)
 			{
-				var assetPath = $"{Paths.Tile3DAssetRegisterPath}/{nameof(Tile3DAssetRegister)}.asset";
-				AssetDatabaseExt.CreateAssetAndDirectory<Tile3DAssetRegister>(assetPath);
+				var assetPath = $"{Paths.Tile3DAssetRegister}/{nameof(Tile3DAssetRegister)}.asset";
+				var register = AssetDatabaseExt.CreateAssetAndDirectory<Tile3DAssetRegister>(assetPath);
+				register.OnCreated();
 			}
 		}
 

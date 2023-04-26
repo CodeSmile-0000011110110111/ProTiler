@@ -12,7 +12,7 @@ namespace CodeSmile.ProTiler.Editor
 	{
 		[SerializeField] private VisualTreeAsset m_VisualTreeAsset;
 
-		[MenuItem(Names.RootMenu + "/" + Names.TileEditor + "/" + Names.Tile3DPaletteWindow)]
+		[MenuItem(Menus.RootMenu + "/" + Names.TileEditor + "/" + Names.Tile3DPaletteWindow)]
 		public static void ShowWindow()
 		{
 			var wnd = GetWindow<Tile3DPaletteWindow>();
