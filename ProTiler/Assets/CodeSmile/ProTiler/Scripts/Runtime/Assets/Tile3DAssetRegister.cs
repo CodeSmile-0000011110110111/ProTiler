@@ -19,42 +19,45 @@ namespace CodeSmile.ProTiler.Assets
 		[SerializeField] private Tile3DAssetBase m_MissingTileAsset;
 		[SerializeField] private ObjectSet<Tile3DAssetBase> m_TileAssetSet;
 
-		public Tile3DAssetBase this[int index]
+		public Tile3DAssetBase this[int index] => index <= 0 ? EmptyTileAsset : m_TileAssetSet[index];
+		public Tile3DAssetBase MissingTileAsset
 		{
 			get
 			{
-				if (index <= 0)
-					return m_EmptyTileAsset;
-
-				var tileAsset = m_TileAssetSet[index];
-				return tileAsset != null ? tileAsset : MissingTileAsset;
+				if (m_MissingTileAsset == null)
+					LoadMissingTileAsset();
+				return m_MissingTileAsset;
 			}
 		}
-		public Tile3DAssetBase MissingTileAsset => m_MissingTileAsset;
-		public Tile3DAssetBase EmptyTileAsset => m_EmptyTileAsset;
+		public Tile3DAssetBase EmptyTileAsset
+		{
+			get
+			{
+				if (m_EmptyTileAsset == null)
+					LoadEmptyTileAsset();
+				return m_EmptyTileAsset;
+			}
+		}
 
 		public static Tile3DAssetRegister Singleton => s_Singleton;
 
 		[ExcludeFromCodeCoverage] private void Reset() => OnCreated();
 
-		private void OnValidate() =>
-			// in case the user re-assigned the special tile
-			m_TileAssetSet.DefaultObject = m_MissingTileAsset;
+		private void OnValidate() => m_TileAssetSet.DefaultObject = m_MissingTileAsset;
 
-		private void LoadMissingTileAsset() => m_MissingTileAsset = Tile3DAssetCreation.LoadMissingTile();
+		private void LoadMissingTileAsset()
+		{
+			m_MissingTileAsset = Tile3DAssetCreation.LoadMissingTile();
+			m_TileAssetSet.DefaultObject = m_MissingTileAsset;
+		}
 
 		private void LoadEmptyTileAsset() => m_EmptyTileAsset = Tile3DAssetCreation.LoadEmptyTile();
 
-		private void CreateTileAssetSet()
-		{
-			m_TileAssetSet = new ObjectSet<Tile3DAssetBase>(m_MissingTileAsset, startIndex: 1);
-		}
+		private void CreateTileAssetSet() => m_TileAssetSet = new ObjectSet<Tile3DAssetBase>(m_MissingTileAsset, 1);
 
 		internal void OnCreated()
 		{
 			s_Singleton = this;
-			LoadEmptyTileAsset();
-			LoadMissingTileAsset();
 			CreateTileAssetSet();
 		}
 
