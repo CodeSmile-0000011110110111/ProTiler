@@ -23,7 +23,23 @@ namespace CodeSmile.ProTiler.Tests.Editor.Assets
 			Assert.That(tileAsset != null);
 			Assert.That(AssetDatabase.LoadAssetAtPath<Tile3DAsset>(path) != null);
 			Assert.That(Tile3DAssetRegister.Singleton.Contains(tileAsset));
+
 			Tile3DAssetRegister.Singleton.Remove(tileAsset);
+		}
+
+
+		[TestCase(TestPaths.TempTestAssets + "TestTile3DAsset.asset")]
+		public void CreateRegisteredTile3DAssetFromSelection(string path)
+		{
+			var tileAsset = Tile3DAssetCreation.CreateRegisteredAsset<Tile3DAsset>(path);
+			Selection.activeObject = tileAsset.Prefab;
+
+			Assert.That(tileAsset != null);
+			Assert.That(AssetDatabase.LoadAssetAtPath<Tile3DAsset>(path) != null);
+			Assert.That(Tile3DAssetRegister.Singleton.Contains(tileAsset));
+
+			Tile3DAssetRegister.Singleton.Remove(tileAsset);
+			AssetDatabase.DeleteAsset(AssetDatabase.GetAssetPath(tileAsset));
 		}
 
 		[Test] public void LoadEmptyTileInstance()
