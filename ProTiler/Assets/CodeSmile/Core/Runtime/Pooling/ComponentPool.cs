@@ -85,7 +85,7 @@ namespace CodeSmile.Pooling
 		/// </summary>
 		/// <param name="setActive">If true (default), calls SetActive(true) on the component's gameObject.</param>
 		/// <returns>An instance or null if there are no more inactive instances.</returns>
-		public T GetFromPool(bool setActive = true)
+		public T Pop(bool setActive = true)
 		{
 			if (m_InactiveInstances.Count == 0)
 				return null;
@@ -106,7 +106,7 @@ namespace CodeSmile.Pooling
 		/// <param name="instance">The instance to return to the pool. Must not be null.</param>
 		/// <param name="setInactive">If true (default), will call SetActive(false) on the gameObject instance.</param>
 		/// <exception cref="ArgumentNullException">thrown when instance is null</exception>
-		public void ReturnToPool(T instance, bool setInactive = true)
+		public void Push(T instance, bool setInactive = true)
 		{
 #if DEBUG
 			if (instance == null)

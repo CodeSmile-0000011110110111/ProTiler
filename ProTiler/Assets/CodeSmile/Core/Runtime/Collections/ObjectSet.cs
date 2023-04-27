@@ -18,12 +18,10 @@ namespace CodeSmile.Collections
 	[Serializable]
 	public class ObjectSet<T> where T : Object
 	{
-		//private HashSet<ObjectIndexPair> m_ObjectIndexPairs;
-
 		/// <summary>
 		///     The default object that is returned for non-existing indexes. Defaults to null.
 		/// </summary>
-		public T DefaultObject;
+		[SerializeField] [HideInInspector] public T DefaultObject;
 		[SerializeField] private int m_NextIndex;
 		//[SerializeField] private Dictionary<int, T> m_IndexedObjects = new();
 		[SerializeField] private IndexedObjectsDictionary m_IndexedObjects = new();

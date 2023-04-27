@@ -5,6 +5,7 @@ using CodeSmile.ProTiler.Assets;
 using CodeSmile.ProTiler.Editor.Creation;
 using CodeSmile.Tests.Utilities;
 using NUnit.Framework;
+using System;
 using UnityEditor;
 
 namespace CodeSmile.ProTiler.Tests.Editor.Assets
@@ -38,5 +39,8 @@ namespace CodeSmile.ProTiler.Tests.Editor.Assets
 			Assert.That(missing != null);
 			Assert.That(missing.Prefab != null);
 		}
+
+		[Test] public void LoadNonExistingTileResourceThrows() =>
+			Assert.Throws<ArgumentNullException>(() => Tile3DAssetCreation.LoadTile3DAssetResource("this path is invalid"));
 	}
 }

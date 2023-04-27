@@ -5,6 +5,7 @@ using CodeSmile.Editor;
 using CodeSmile.Extensions;
 using CodeSmile.ProTiler.Assets;
 using CodeSmile.ProTiler.Data;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
@@ -44,6 +45,7 @@ namespace CodeSmile.ProTiler.Editor.Creation
 		private static bool IsInDirectoryTree(string registerPath, string assetPath) =>
 			AssetDatabase.IsValidFolder(assetPath) && registerPath.StartsWith(assetPath);
 
+		[ExcludeFromCodeCoverage]
 		private static void LogFailureMessage()
 		{
 			// don't log during tests

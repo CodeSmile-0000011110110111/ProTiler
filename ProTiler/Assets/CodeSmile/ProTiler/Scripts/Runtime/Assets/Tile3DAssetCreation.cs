@@ -26,11 +26,11 @@ namespace CodeSmile.ProTiler.Editor.Creation
 
 		public static Tile3DAsset LoadEmptyTile() => LoadTile3DAssetResource(Paths.ResourcesEmptyTileAsset);
 
-		private static Tile3DAsset LoadTile3DAssetResource(string resourcePath)
+		internal static Tile3DAsset LoadTile3DAssetResource(string resourcePath)
 		{
 			var prefab = Resources.Load<Tile3DAsset>(resourcePath);
 			if (prefab == null)
-				throw new Exception($"failed to load tile prefab from resources: '{resourcePath}'");
+				throw new ArgumentNullException($"failed to load tile prefab from resources: '{resourcePath}'");
 
 			return prefab;
 		}

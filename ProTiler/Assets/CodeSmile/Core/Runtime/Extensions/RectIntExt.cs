@@ -9,7 +9,7 @@ namespace CodeSmile.Extensions
 {
 	public static class RectIntExt
 	{
-		public static IReadOnlyList<Vector3Int> GetPositions(this RectInt gridRect)
+		/*public static IReadOnlyList<Vector3Int> GetPositions(this RectInt gridRect)
 		{
 			// FIXME: use rect.allPositionsWithin ?
 
@@ -44,7 +44,7 @@ namespace CodeSmile.Extensions
 		{
 			min = Vector2Int.Min(RA.min, RB.min),
 			max = Vector2Int.Max(RA.max, RB.max),
-		};
+		};*/
 
 		public static bool Intersects(this RectInt r1, RectInt r2, out RectInt intersection)
 		{
@@ -63,7 +63,7 @@ namespace CodeSmile.Extensions
 			return true;
 		}
 
-		public static bool IsInside(this RectInt rect, Vector3Int coord) => coord.x >= rect.x && coord.x < rect.x + rect.width &&
-		                                                                    coord.z >= rect.y && coord.z < rect.y + rect.height;
+		// public static bool IsInside(this RectInt rect, Vector3Int coord) => coord.x >= rect.x && coord.x < rect.x + rect.width &&
+		//                                                                     coord.z >= rect.y && coord.z < rect.y + rect.height;
 	}
 }

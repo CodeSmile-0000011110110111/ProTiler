@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using UnityEngine;
 
 namespace CodeSmile.Collections
@@ -13,6 +14,7 @@ namespace CodeSmile.Collections
 		[SerializeField] private List<TKey> m_Keys = new();
 		[SerializeField] private List<TValue> m_Values = new();
 
+		[ExcludeFromCodeCoverage]
 		public void OnBeforeSerialize()
 		{
 			m_Keys.Clear();
@@ -25,6 +27,7 @@ namespace CodeSmile.Collections
 			}
 		}
 
+		[ExcludeFromCodeCoverage]
 		public void OnAfterDeserialize()
 		{
 			Clear();

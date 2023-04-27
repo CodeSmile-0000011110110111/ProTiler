@@ -10,7 +10,14 @@ namespace CodeSmile.ProTiler.Tests.Editor.Assets
 {
 	public class Tile3DAssetRegisterTests
 	{
-		[Test] public void SingletonIsNotNull() => Assert.That(Tile3DAssetRegister.Singleton != null);
+		[Test] public void PersistentAssetSingletonIsNotNull() => Assert.That(Tile3DAssetRegister.Singleton != null);
+
+		[Test] public void IsEmptyAfterCreation()
+		{
+			var register = ScriptableObject.CreateInstance<Tile3DAssetRegister>();
+
+			Assert.That(register.Count == 0);
+		}
 
 		[Test] public void MissingTileIsLoaded()
 		{

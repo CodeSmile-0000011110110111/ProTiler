@@ -16,7 +16,7 @@ namespace CodeSmile.ProTiler.Assets
 		private static Tile3DAssetRegister s_Singleton;
 
 		[SerializeField] [HideInInspector] private Tile3DAssetBase m_EmptyTileAsset;
-		[SerializeField] private Tile3DAssetBase m_MissingTileAsset;
+		[SerializeField] [HideInInspector] private Tile3DAssetBase m_MissingTileAsset;
 		[SerializeField] private ObjectSet<Tile3DAssetBase> m_TileAssetSet;
 
 		public Tile3DAssetBase this[int index] => index <= 0 ? EmptyTileAsset : m_TileAssetSet[index];
@@ -46,7 +46,7 @@ namespace CodeSmile.ProTiler.Assets
 
 		[ExcludeFromCodeCoverage] private void Reset() => OnCreated();
 
-		private void OnValidate() => m_TileAssetSet.DefaultObject = m_MissingTileAsset;
+		[ExcludeFromCodeCoverage] private void OnValidate() => m_TileAssetSet.DefaultObject = m_MissingTileAsset;
 
 		private void LoadMissingTileAsset() => m_MissingTileAsset = Tile3DAssetCreation.LoadMissingTile();
 
@@ -72,6 +72,7 @@ namespace CodeSmile.ProTiler.Assets
 		[InitializeOnLoadMethod] [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
 		private static void OnLoad() => LoadSingletonInstance();
 
+		[ExcludeFromCodeCoverage]
 		private static void LoadSingletonInstance() => s_Singleton = AssetDatabaseExt.LoadAssets<Tile3DAssetRegister>().First();
 #endif
 	}

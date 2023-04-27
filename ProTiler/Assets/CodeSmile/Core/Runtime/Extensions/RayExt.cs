@@ -7,7 +7,7 @@ namespace CodeSmile.Extensions
 {
 	public static class RayExt
 	{
-		private const float MinDenominator = 0.00001f;
+		/*private const float MinDenominator = 0.00001f;
 
 		/// <summary>
 		///     Test intersection of ray with a virtual XZ plane with given plane height (default: 0).
@@ -34,6 +34,6 @@ namespace CodeSmile.Extensions
 				intersectPoint = default;
 
 			return intersects;
-		}
+		}*/
 	}
 }

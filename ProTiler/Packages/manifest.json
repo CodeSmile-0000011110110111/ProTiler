@@ -5,6 +5,7 @@
     "com.unity.ide.rider": "3.0.21",
     "com.unity.memoryprofiler": "1.0.0",
     "com.unity.test-framework": "1.1.33",
+    "com.unity.test-framework.performance": "3.0.0-pre.2",
     "com.unity.toolchain.win-x86_64-linux-x86_64": "2.0.4",
     "com.unity.ugui": "1.0.0",
     "com.unity.modules.ai": "1.0.0",
