@@ -15,8 +15,7 @@ namespace CodeSmile.ProTiler.Tests.Editor
 {
 	public class Tilemap3DTests
 	{
-		[Test]
-		[EmptyScene]
+		[Test] [EmptyScene]
 		public void TilemapCreation()
 		{
 			var tilemap = Tilemap3DCreation.CreateRectangularTilemap3D();
@@ -32,8 +31,7 @@ namespace CodeSmile.ProTiler.Tests.Editor
 			Assert.Contains(tilemap, tilemap.Grid.GetComponentsInChildren<Tilemap3D>());
 		}
 
-		[Test]
-		[EmptyScene]
+		[Test] [EmptyScene]
 		public void MultipleTilemapCreation()
 		{
 			var tilemap1 = Tilemap3DCreation.CreateRectangularTilemap3D();
@@ -46,15 +44,16 @@ namespace CodeSmile.ProTiler.Tests.Editor
 			Assert.That(tilemap1.Grid.gameObject, Is.EqualTo(tilemap2.Grid.gameObject));
 		}
 
-		[Test]
-		[EmptyScene]
+		[Test] [EmptyScene]
 		public void TilemapCreationUndoRedo()
 		{
 			var tilemap = Tilemap3DCreation.CreateRectangularTilemap3D();
+			Assert.That(tilemap != null);
 
 			tilemap = null; // reference goes missing upon Undo
 			Undo.PerformUndo();
 
+			var rootObject = EditorSceneManager.GetActiveScene().GetRootGameObjects();
 			Assert.That(Object.FindObjectOfType<Grid3D>() == null);
 			Assert.That(Object.FindObjectOfType<Tilemap3D>() == null);
 			Assert.That(Object.FindObjectsOfType<Grid3D>().Length == 0);
@@ -68,12 +67,13 @@ namespace CodeSmile.ProTiler.Tests.Editor
 			Assert.That(Object.FindObjectsOfType<Tilemap3D>().Length == 1);
 		}
 
-		[Test]
-		[EmptyScene]
+		[Test] [EmptyScene]
 		public void MultipleTilemapCreationUndoRedo()
 		{
 			var tilemap1 = Tilemap3DCreation.CreateRectangularTilemap3D();
 			var tilemap2 = Tilemap3DCreation.CreateRectangularTilemap3D();
+			Assert.That(tilemap1 != null);
+			Assert.That(tilemap2 != null);
 
 			tilemap1 = null; // reference goes missing upon Undo
 			tilemap2 = null; // reference goes missing upon Undo
@@ -92,8 +92,7 @@ namespace CodeSmile.ProTiler.Tests.Editor
 			Assert.That(Object.FindObjectsOfType<Tilemap3D>().Length == 2);
 		}
 
-		[Test]
-		[EmptyScene]
+		[Test] [EmptyScene]
 		public void SetTileUndoRedo()
 		{
 			var tilemap = Tilemap3DCreation.CreateRectangularTilemap3D();
@@ -123,8 +122,7 @@ namespace CodeSmile.ProTiler.Tests.Editor
 			Assert.That(tile.Index == tileIndex);
 		}
 
-		[Test]
-		[EmptyScene("TilemapTest.unity")]
+		[Test] [EmptyScene("TilemapTest.unity")]
 		public void SetTileSurvivesSaveLoadScene()
 		{
 			var tilemap = Tilemap3DCreation.CreateRectangularTilemap3D();

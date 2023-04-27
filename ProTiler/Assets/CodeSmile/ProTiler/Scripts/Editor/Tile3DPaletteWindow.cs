@@ -8,7 +8,7 @@ using UnityEngine.UIElements;
 
 namespace CodeSmile.ProTiler.Editor
 {
-	public class Tile3DPaletteWindow : EditorWindow
+	/*public class Tile3DPaletteWindow : EditorWindow
 	{
 		[SerializeField] private VisualTreeAsset m_VisualTreeAsset;
 
@@ -25,5 +25,5 @@ namespace CodeSmile.ProTiler.Editor
 			VisualElement labelFromUXML = m_VisualTreeAsset.Instantiate();
 			root.Add(labelFromUXML);
 		}
-	}
+	}*/
 }

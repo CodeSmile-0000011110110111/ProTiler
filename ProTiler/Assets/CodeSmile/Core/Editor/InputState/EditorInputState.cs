@@ -8,6 +8,7 @@ using UnityEngine;
 
 namespace CodeSmile.Editor.InputState
 {
+	/*
 	public sealed class EditorInputState : IInputState
 	{
 		public event Action<MouseButton> OnMouseButtonDown;
@@ -107,4 +108,5 @@ namespace CodeSmile.Editor.InputState
 		// ReSharper disable once PossibleNullReferenceException
 		private void SetKeyDownState(KeyCode keyCode, bool pressed) => m_IsKeyDown[keyCode] = pressed;
 	}
+*/
 }

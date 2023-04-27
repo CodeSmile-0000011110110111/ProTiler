@@ -30,10 +30,12 @@ namespace CodeSmile.ProTiler.Editor.Creation
 
 		private static Tilemap3D CreateTilemap3D(CellLayout cellLayout)
 		{
+			Undo.SetCurrentGroupName("Create 3D Tilemap");
+
 			var root = FindOrCreateRootGrid3D();
 			var uniqueName = GameObjectUtility.GetUniqueNameForSibling(root.transform, "Tilemap3D");
 			var tilemapGO = ObjectFactory.CreateGameObject(uniqueName, typeof(Tilemap3D), typeof(Tilemap3DRenderer));
-			Undo.RegisterCreatedObjectUndo(tilemapGO, "Create 3D Tilemap");
+			Undo.RegisterCreatedObjectUndo(tilemapGO, "Create Tilemap");
 			Undo.SetTransformParent(tilemapGO.transform, root.transform, "");
 			tilemapGO.transform.position = Vector3.zero;
 			Selection.activeGameObject = tilemapGO;
@@ -46,7 +48,6 @@ namespace CodeSmile.ProTiler.Editor.Creation
 					throw new NotImplementedException(cellLayout.ToString());
 			}
 
-			Undo.SetCurrentGroupName("Create 3D Tilemap");
 			Undo.IncrementCurrentGroup();
 
 			return tilemapGO.GetComponent<Tilemap3D>();
@@ -68,7 +69,8 @@ namespace CodeSmile.ProTiler.Editor.Creation
 			if (gridGO == null)
 			{
 				gridGO = ObjectFactory.CreateGameObject("Grid3D", typeof(Grid3D), typeof(Tile3DAssetSet));
-				Undo.SetCurrentGroupName("Create 3D Grid");
+				Undo.RegisterCreatedObjectUndo (gridGO, "Create 3D Grid");
+
 			}
 
 			return gridGO;

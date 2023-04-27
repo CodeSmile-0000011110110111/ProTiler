@@ -8,7 +8,7 @@ using UnityEngine;
 namespace CodeSmile.Collections
 {
 	[Serializable]
-	public class SerializedDictionary<TKey, TValue> : Dictionary<TKey,TValue>, ISerializationCallbackReceiver
+	public class SerializedDictionary<TKey, TValue> : Dictionary<TKey, TValue>, ISerializationCallbackReceiver
 	{
 		[SerializeField] private List<TKey> m_Keys = new();
 		[SerializeField] private List<TValue> m_Values = new();

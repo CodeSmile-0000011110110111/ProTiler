@@ -16,7 +16,7 @@ namespace CodeSmile.ProTiler.Rendering
 		private Vector3Int[] m_VisibleCoords;
 		private Tile3DCoord[] m_TileCoordDatas;
 
-		private Tilemap3D Tilemap => GetComponent<Tilemap3D>();
+		//private Tilemap3D Tilemap => GetComponent<Tilemap3D>();
 
 		/*
 		 * Todo:

@@ -10,6 +10,7 @@ using UnityEngine;
 
 namespace CodeSmile.ProTiler.Editor
 {
+	/*
 	[CustomEditor(typeof(Tilemap3D))]
 	public partial class Tilemap3DEditor : UnityEditor.Editor
 	{
@@ -210,7 +211,6 @@ namespace CodeSmile.ProTiler.Editor
 				//Handles.DrawAAPolyLine();
 
 				// FIXME: get the preview objects from the toolbox instead
-				/*
 				var renderer = Tilemap.GetComponent<TileLayerPreviewRenderer>();
 				var cursor = renderer.transform.Find("Cursor");
 				if (cursor != null)
@@ -226,8 +226,8 @@ namespace CodeSmile.ProTiler.Editor
 					if (meshRenderer != null)
 						Handles.DrawOutline(new[] { meshRenderer.gameObject }, Global.OutlineColor);
 				}
-			*/
 			}
 		}
 	}
+*/
 }

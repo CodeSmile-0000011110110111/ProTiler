@@ -7,6 +7,7 @@ using UnityEngine;
 
 namespace CodeSmile.ProTiler.Editor.Extensions
 {
+	/*
 	public static class HandleUtilityExt
 	{
 		/// <summary>
@@ -44,4 +45,5 @@ namespace CodeSmile.ProTiler.Editor.Extensions
 			return controlId;
 		}
 	}
+*/
 }

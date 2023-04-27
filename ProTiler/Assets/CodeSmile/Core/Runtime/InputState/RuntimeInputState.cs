@@ -6,6 +6,7 @@ using UnityEngine;
 
 namespace CodeSmile.InputState
 {
+	/*
 	public class RuntimeInputState : IInputState
 	{
 		private readonly bool[] m_MouseButtonDown = new bool[(int)MouseButton.Count];
@@ -268,4 +269,5 @@ namespace CodeSmile.InputState
 		public event Action<IInputState, float> OnScrollWheel;
 #pragma warning restore 0067
 	}
+*/
 }
