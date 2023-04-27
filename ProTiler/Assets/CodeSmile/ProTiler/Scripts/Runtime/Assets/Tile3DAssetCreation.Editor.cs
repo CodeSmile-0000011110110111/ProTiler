@@ -1,6 +1,8 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
+#if UNITY_EDITOR
+
 using CodeSmile.Extensions;
 using CodeSmile.ProTiler.Assets;
 using CodeSmile.ProTiler.Data;
@@ -15,7 +17,6 @@ namespace CodeSmile.ProTiler.Editor.Creation
 {
 	public static partial class Tile3DAssetCreation
 	{
-#if UNITY_EDITOR
 		[MenuItem(Menus.CreateTilesFromSelectedPrefabs)]
 		public static void CreateTilesFromSelectedPrefabs()
 		{
@@ -35,17 +36,6 @@ namespace CodeSmile.ProTiler.Editor.Creation
 
 		[MenuItem(Menus.CreateTilesFromSelectedPrefabs, true)]
 		public static bool ValidateCreateTilesFromSelectedPrefabs() => IsPrefabInSelection();
-
-		private static bool IsPrefabInSelection()
-		{
-			foreach (var gameObject in Selection.gameObjects)
-			{
-				if (gameObject.IsPrefab())
-					return true;
-			}
-
-			return false;
-		}
 
 		public static T CreateRegisteredAsset<T>(string path) where T : Tile3DAssetBase
 		{
@@ -67,6 +57,17 @@ namespace CodeSmile.ProTiler.Editor.Creation
 
 			ProjectWindowUtil.StartNameEditingIfProjectWindowExists(tileAsset.GetInstanceID(), endAction, assetName,
 				AssetPreview.GetMiniThumbnail(tileAsset), null);
+		}
+
+		private static bool IsPrefabInSelection()
+		{
+			foreach (var gameObject in Selection.gameObjects)
+			{
+				if (gameObject.IsPrefab())
+					return true;
+			}
+
+			return false;
 		}
 
 		private static string NicifyProposedAssetName<T>(string proposedAssetName, string extension) where T : Tile3DAsset
@@ -111,6 +112,6 @@ namespace CodeSmile.ProTiler.Editor.Creation
 				CanceledCallback?.Invoke();
 			}
 		}
-#endif
 	}
 }
+#endif
