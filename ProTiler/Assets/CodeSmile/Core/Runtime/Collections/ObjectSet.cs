@@ -142,8 +142,11 @@ namespace CodeSmile.Collections
 		/// </summary>
 		/// <param name="index"></param>
 		/// <returns>The object at the index, or DefaultObject if there is no object for the given index.</returns>
-		private T TryGetObject(int index) =>
-			m_IndexedObjects.TryGetValue(index, out var existingObject) ? existingObject : DefaultObject;
+		private T TryGetObject(int index)
+		{
+			var obj = m_IndexedObjects.TryGetValue(index, out var existingObject) ? existingObject : DefaultObject;
+			return obj != null ? obj : DefaultObject;
+		}
 
 		/// <summary>
 		///     Tries to replace an object at the index.

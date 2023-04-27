@@ -2,6 +2,7 @@
 // Refer to included LICENSE file for terms and conditions.
 
 using CodeSmile.ProTiler.Data;
+using System.Diagnostics.CodeAnalysis;
 using UnityEngine;
 
 namespace CodeSmile.ProTiler.Assets
@@ -12,17 +13,21 @@ namespace CodeSmile.ProTiler.Assets
 		[SerializeField] private Tile3DFlags m_Flags;
 		[SerializeField] [HideInInspector] private Matrix4x4 m_Transform;
 
+		[ExcludeFromCodeCoverage]
 		public GameObject Prefab
 		{
 			get => m_Prefab;
 			set => m_Prefab = value;
 		}
 
+		[ExcludeFromCodeCoverage]
 		public Tile3DFlags Flags
 		{
 			get => m_Flags;
 			set => m_Flags = value;
 		}
+
+		[ExcludeFromCodeCoverage]
 		public Matrix4x4 Transform
 		{
 			get => m_Transform;

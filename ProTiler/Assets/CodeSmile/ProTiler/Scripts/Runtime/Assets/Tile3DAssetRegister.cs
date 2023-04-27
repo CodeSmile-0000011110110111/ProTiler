@@ -20,6 +20,9 @@ namespace CodeSmile.ProTiler.Assets
 		[SerializeField] private ObjectSet<Tile3DAssetBase> m_TileAssetSet;
 
 		public Tile3DAssetBase this[int index] => index <= 0 ? EmptyTileAsset : m_TileAssetSet[index];
+
+		public int Count => m_TileAssetSet.Count;
+
 		public Tile3DAssetBase MissingTileAsset
 		{
 			get
@@ -45,15 +48,11 @@ namespace CodeSmile.ProTiler.Assets
 
 		private void OnValidate() => m_TileAssetSet.DefaultObject = m_MissingTileAsset;
 
-		private void LoadMissingTileAsset()
-		{
-			m_MissingTileAsset = Tile3DAssetCreation.LoadMissingTile();
-			m_TileAssetSet.DefaultObject = m_MissingTileAsset;
-		}
+		private void LoadMissingTileAsset() => m_MissingTileAsset = Tile3DAssetCreation.LoadMissingTile();
 
 		private void LoadEmptyTileAsset() => m_EmptyTileAsset = Tile3DAssetCreation.LoadEmptyTile();
 
-		private void CreateTileAssetSet() => m_TileAssetSet = new ObjectSet<Tile3DAssetBase>(m_MissingTileAsset, 1);
+		private void CreateTileAssetSet() => m_TileAssetSet = new ObjectSet<Tile3DAssetBase>(MissingTileAsset, 1);
 
 		internal void OnCreated()
 		{

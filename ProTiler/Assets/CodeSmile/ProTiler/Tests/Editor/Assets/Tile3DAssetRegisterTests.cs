@@ -10,52 +10,73 @@ namespace CodeSmile.ProTiler.Tests.Editor.Assets
 {
 	public class Tile3DAssetRegisterTests
 	{
-		[Test] public void VerifySingletonNotNull() => Assert.That(Tile3DAssetRegister.Singleton != null);
+		[Test] public void SingletonIsNotNull() => Assert.That(Tile3DAssetRegister.Singleton != null);
 
-		[Test] public void VerifyRegisterContainsMissingTile()
+		[Test] public void MissingTileIsLoaded()
 		{
-			var register = Tile3DAssetRegister.Singleton;
+			var register = ScriptableObject.CreateInstance<Tile3DAssetRegister>();
 
 			Assert.That(register.MissingTileAsset != null);
 			Assert.That(register.MissingTileAsset == Tile3DAssetCreation.LoadMissingTile());
 		}
 
-		[Test] public void VerifyRegisterContainsEmptyTile()
+		[Test] public void EmptyTileIsLoaded()
 		{
-			var register = Tile3DAssetRegister.Singleton;
+			var register = ScriptableObject.CreateInstance<Tile3DAssetRegister>();
 
 			Assert.That(register[0] == register.EmptyTileAsset);
 			Assert.That(register.EmptyTileAsset == Tile3DAssetCreation.LoadEmptyTile());
 		}
 
+		[TestCase(0)] [TestCase(-1)] [TestCase(int.MinValue)]
+		public void ZeroOrNegativeIndexReturnsEmptyTile(int index)
+		{
+			var register = ScriptableObject.CreateInstance<Tile3DAssetRegister>();
+
+			Assert.That(register[index] != null);
+			Assert.That(register[index] == register.EmptyTileAsset);
+		}
+
+		[TestCase(1)] [TestCase(int.MaxValue)]
+		public void InvalidIndexReturnsMissingTile(int index)
+		{
+			var register = ScriptableObject.CreateInstance<Tile3DAssetRegister>();
+
+			Assert.That(register[index] != null);
+			Assert.That(register[index] == register.MissingTileAsset);
+		}
+
 		[Test] public void AddTileAsset()
 		{
+			var register = ScriptableObject.CreateInstance<Tile3DAssetRegister>();
 			var tileAsset = Tile3DAssetCreation.CreateInstance<Tile3DAsset>();
 
-			Tile3DAssetRegister.Singleton.Add(tileAsset);
+			register.Add(tileAsset);
 
-			Assert.That(Tile3DAssetRegister.Singleton.Contains(tileAsset));
+			Assert.That(register.Contains(tileAsset));
 		}
 
 
 		[Test] public void AddTileAssetWithIndex()
 		{
+			var register = ScriptableObject.CreateInstance<Tile3DAssetRegister>();
 			var tileAsset = Tile3DAssetCreation.CreateInstance<Tile3DAsset>();
 
-			Tile3DAssetRegister.Singleton.Add(tileAsset, out var index);
+			register.Add(tileAsset, out var index);
 
 			Assert.That(index > 0);
-			Assert.That(Tile3DAssetRegister.Singleton.Contains(tileAsset));
+			Assert.That(register.Contains(tileAsset));
 		}
 
 		[Test] public void RemoveTileAsset()
 		{
+			var register = ScriptableObject.CreateInstance<Tile3DAssetRegister>();
 			var tileAsset = Tile3DAssetCreation.CreateInstance<Tile3DAsset>();
 
-			Tile3DAssetRegister.Singleton.Add(tileAsset);
-			Tile3DAssetRegister.Singleton.Remove(tileAsset);
+			register.Add(tileAsset);
+			register.Remove(tileAsset);
 
-			Assert.That(Tile3DAssetRegister.Singleton.Contains(tileAsset) == false);
+			Assert.That(register.Contains(tileAsset) == false);
 		}
 	}
 }

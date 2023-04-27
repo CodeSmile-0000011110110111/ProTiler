@@ -20,6 +20,7 @@ namespace CodeSmile.ProTiler.Editor.Creation
 			priority = Menus.CreateGameObjectPriority + 0)]
 		public static Tilemap3D CreateRectangularTilemap3D() => CreateTilemap3D(CellLayout.Rectangular);
 
+		/*
 		[MenuItem("GameObject/" + Names.TileEditor + "/" + Menus.TilemapMenuText + "/" + HexagonalFlatTopTilemapMenuText,
 			priority = Menus.CreateGameObjectPriority + 1)]
 		public static Tilemap3D CreateHexagonalFlatTopTilemap3D() => throw new NotImplementedException(nameof(CreateHexagonalFlatTopTilemap3D));
@@ -27,6 +28,7 @@ namespace CodeSmile.ProTiler.Editor.Creation
 		[MenuItem("GameObject/" + Names.TileEditor + "/" + Menus.TilemapMenuText + "/" + HexagonalPointTopTilemapMenuText,
 			priority = Menus.CreateGameObjectPriority + 2)]
 		public static Tilemap3D CreateHexagonalPointTopTilemap3D() => throw new NotImplementedException(nameof(CreateHexagonalPointTopTilemap3D));
+		*/
 
 		private static Tilemap3D CreateTilemap3D(CellLayout cellLayout)
 		{
@@ -40,6 +42,7 @@ namespace CodeSmile.ProTiler.Editor.Creation
 			tilemapGO.transform.position = Vector3.zero;
 			Selection.activeGameObject = tilemapGO;
 
+			/*
 			switch (cellLayout)
 			{
 				case CellLayout.Rectangular:
@@ -47,6 +50,7 @@ namespace CodeSmile.ProTiler.Editor.Creation
 				default:
 					throw new NotImplementedException(cellLayout.ToString());
 			}
+			*/
 
 			Undo.IncrementCurrentGroup();
 
