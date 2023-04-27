@@ -1,6 +1,7 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
+using CodeSmile.Extensions;
 using System;
 using System.Linq;
 using UnityEngine;
@@ -143,7 +144,7 @@ namespace CodeSmile.Collections
 		private T TryGetObject(int index)
 		{
 			var obj = m_IndexedObjects.TryGetValue(index, out var existingObject) ? existingObject : DefaultObject;
-			return obj != null ? obj : DefaultObject;
+			return obj == null || obj.IsMissing() ? DefaultObject : obj;
 		}
 
 		/// <summary>

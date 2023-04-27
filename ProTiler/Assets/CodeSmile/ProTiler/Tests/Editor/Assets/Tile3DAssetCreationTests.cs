@@ -16,12 +16,14 @@ namespace CodeSmile.ProTiler.Tests.Editor.Assets
 			Assert.That(Tile3DAssetCreation.CreateInstance<Tile3DAsset>() != null);
 
 		[TestCase(TestPaths.TempTestAssets + "TestTile3DAsset.asset")]
-		public void CreateTile3DAssetAtPath(string path)
+		public void CreateRegisteredTile3DAssetAtPath(string path)
 		{
-			var tileAsset = Tile3DAssetCreation.CreateAsset<Tile3DAsset>(path);
+			var tileAsset = Tile3DAssetCreation.CreateRegisteredAsset<Tile3DAsset>(path);
 
 			Assert.That(tileAsset != null);
 			Assert.That(AssetDatabase.LoadAssetAtPath<Tile3DAsset>(path) != null);
+			Assert.That(Tile3DAssetRegister.Singleton.Contains(tileAsset));
+			Tile3DAssetRegister.Singleton.Remove(tileAsset);
 		}
 
 		[Test] public void LoadEmptyTileInstance()

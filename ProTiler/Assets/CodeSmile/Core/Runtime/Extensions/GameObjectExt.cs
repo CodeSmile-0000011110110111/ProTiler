@@ -48,6 +48,6 @@ namespace CodeSmile.Extensions
 			return child;
 		}
 
-		public static bool IsPrefab(this GameObject go) => go.scene.rootCount == 0;
+		public static bool IsPrefab(this GameObject go) => go.GetInstanceID() > 0;
 	}
 }

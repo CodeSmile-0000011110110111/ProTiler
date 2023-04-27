@@ -1,3 +1,16 @@
 {
-	"name": "CodeSmile.Collections"
+    "name": "CodeSmile.Collections",
+    "rootNamespace": "",
+    "references": [
+        "GUID:2a1bc76c5d074cc4c839253d25f72fbc"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }

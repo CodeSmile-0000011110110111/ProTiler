@@ -3,6 +3,7 @@
 
 using CodeSmile.ProTiler.Data;
 using System.Diagnostics.CodeAnalysis;
+using UnityEditor;
 using UnityEngine;
 
 namespace CodeSmile.ProTiler.Assets
@@ -34,7 +35,22 @@ namespace CodeSmile.ProTiler.Assets
 			set => m_Transform = value;
 		}
 
-		private void Reset() => SetDefaultFlags();
+		private void Reset()
+		{
+			SetPrefabFromSelection();
+			SetDefaultFlags();
+		}
+
+		private void SetPrefabFromSelection()
+		{
+#if UNITY_EDITOR
+			if (m_Prefab == null)
+			{
+				if (Selection.activeObject is GameObject prefab && prefab.GetInstanceID() > 0)
+					m_Prefab = prefab;
+			}
+#endif
+		}
 
 		private void SetDefaultFlags() => m_Flags = Tile3DFlags.DirectionNorth;
 
