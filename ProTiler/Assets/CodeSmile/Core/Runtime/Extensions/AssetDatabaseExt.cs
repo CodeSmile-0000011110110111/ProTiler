@@ -52,7 +52,7 @@ namespace CodeSmile.Extensions
 			}
 		}
 
-		public static T CreateAssetAndDirectory<T>(string assetPath) where T : ScriptableObject
+		public static T CreateScriptableObjectAssetAndDirectory<T>(string assetPath) where T : ScriptableObject
 		{
 			assetPath = Path.ChangeExtension(assetPath, ".asset");
 			CreateDirectoryIfNotExists(Path.GetDirectoryName(assetPath));

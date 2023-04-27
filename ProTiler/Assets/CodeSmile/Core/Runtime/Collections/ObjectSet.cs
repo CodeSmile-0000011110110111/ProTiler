@@ -2,8 +2,8 @@
 // Refer to included LICENSE file for terms and conditions.
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 using Object = UnityEngine.Object;
 
 namespace CodeSmile.Collections
@@ -24,8 +24,9 @@ namespace CodeSmile.Collections
 		///     The default object that is returned for non-existing indexes. Defaults to null.
 		/// </summary>
 		public T DefaultObject;
-		private int m_NextIndex;
-		private Dictionary<int, T> m_IndexedObjects = new();
+		[SerializeField] private int m_NextIndex;
+		//[SerializeField] private Dictionary<int, T> m_IndexedObjects = new();
+		[SerializeField] private IndexedObjectsDictionary m_IndexedObjects = new();
 
 		/// <summary>
 		///     Get or set object at index.
@@ -141,7 +142,8 @@ namespace CodeSmile.Collections
 		/// </summary>
 		/// <param name="index"></param>
 		/// <returns>The object at the index, or DefaultObject if there is no object for the given index.</returns>
-		private T TryGetObject(int index) => m_IndexedObjects.TryGetValue(index, out var existingObject) ? existingObject : DefaultObject;
+		private T TryGetObject(int index) =>
+			m_IndexedObjects.TryGetValue(index, out var existingObject) ? existingObject : DefaultObject;
 
 		/// <summary>
 		///     Tries to replace an object at the index.
@@ -169,6 +171,8 @@ namespace CodeSmile.Collections
 			else
 				m_IndexedObjects[index] = obj;
 		}
+
+		[Serializable] private class IndexedObjectsDictionary : SerializedDictionary<int, T> {}
 
 		/*
 		private sealed class ObjectIndexPair : IEquatable<T>

@@ -29,11 +29,7 @@ namespace CodeSmile.ProTiler.Assets
 			set => m_Transform = value;
 		}
 
-		private void Init() => SetDefaultFlags();
-
-		private void Awake() => Init();
-
-		private void Reset() => Init();
+		private void Reset() => SetDefaultFlags();
 
 		private void SetDefaultFlags() => m_Flags = Tile3DFlags.DirectionNorth;
 

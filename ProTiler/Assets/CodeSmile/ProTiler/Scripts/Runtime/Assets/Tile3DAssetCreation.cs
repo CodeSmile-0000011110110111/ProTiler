@@ -3,11 +3,8 @@
 
 using CodeSmile.Extensions;
 using CodeSmile.ProTiler.Assets;
-using CodeSmile.ProTiler.Data;
 using CodeSmile.ProTiler.Editor.Data;
 using System;
-using System.IO;
-using UnityEditor;
 using UnityEngine;
 
 namespace CodeSmile.ProTiler.Editor.Creation
@@ -19,36 +16,21 @@ namespace CodeSmile.ProTiler.Editor.Creation
 		public static T CreateAsset<T>(string path) where T : Tile3DAssetBase
 		{
 #if UNITY_EDITOR
-			var tileAsset = AssetDatabaseExt.CreateAssetAndDirectory<T>(path);
-			Undo.RegisterCreatedObjectUndo(tileAsset, Path.GetFileNameWithoutExtension(path));
-			return tileAsset;
-
+			return AssetDatabaseExt.CreateScriptableObjectAssetAndDirectory<T>(path);
 #else
 			throw new NotImplementedException("cannot create assets at runtime");
 #endif
 		}
 
-		public static Tile3DAsset CreateMissingTile()
-		{
-			var tileAsset = CreateInstance<Tile3DAsset>();
-			tileAsset.name = Names.MissingTile;
-			tileAsset.Prefab = LoadTilePrefab(Paths.ResourcesMissingTilePrefab);
-			return tileAsset;
-		}
+		public static Tile3DAsset LoadMissingTile() => LoadTile3DAssetResource(Paths.ResourcesMissingTileAsset);
 
-		public static Tile3DAsset CreateEmptyTile()
-		{
-			var tileAsset = CreateInstance<Tile3DAsset>();
-			tileAsset.name = Names.EmptyTile;
-			tileAsset.Prefab = LoadTilePrefab(Paths.ResourcesEmptyTilePrefab);
-			return tileAsset;
-		}
+		public static Tile3DAsset LoadEmptyTile() => LoadTile3DAssetResource(Paths.ResourcesEmptyTileAsset);
 
-		private static GameObject LoadTilePrefab(string resourcePath)
+		private static Tile3DAsset LoadTile3DAssetResource(string resourcePath)
 		{
-			var prefab = Resources.Load<GameObject>(resourcePath);
+			var prefab = Resources.Load<Tile3DAsset>(resourcePath);
 			if (prefab == null)
-				throw new Exception("MissingTile.prefab not found");
+				throw new Exception($"failed to load tile prefab from resources: '{resourcePath}'");
 
 			return prefab;
 		}

@@ -12,7 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4c3c3a4c4cd4852a85d151f58e3b50f, type: 3}
   m_Name: Tile3DAssetRegister
   m_EditorClassIdentifier: 
-  m_MissingTileAsset: {fileID: 0}
-  m_EmptyTileAsset: {fileID: 0}
+  m_EmptyTileAsset: {fileID: 11400000, guid: 0d8d38bcdd24fd543a5a6350621df911, type: 2}
+  m_MissingTileAsset: {fileID: 11400000, guid: c1e5280904371ea46a4e5d0b00892ff8, type: 2}
   m_TileAssetSet:
-    DefaultObject: {fileID: 0}
+    DefaultObject: {fileID: 11400000, guid: c1e5280904371ea46a4e5d0b00892ff8, type: 2}
+    m_NextIndex: 1
+    m_IndexedObjects:
+      m_Keys: 00000000
+      m_Values:
+      - {fileID: 11400000, guid: 0d8d38bcdd24fd543a5a6350621df911, type: 2}

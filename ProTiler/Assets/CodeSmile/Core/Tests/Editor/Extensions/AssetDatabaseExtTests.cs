@@ -56,7 +56,7 @@ namespace CodeSmile.Tests.Editor
 		{
 			DeleteDirectoryIfExists(Path.GetDirectoryName(path));
 
-			var asset = AssetDatabaseExt.CreateAssetAndDirectory<AssetDatabaseExtTestSO>(path);
+			var asset = AssetDatabaseExt.CreateScriptableObjectAssetAndDirectory<AssetDatabaseExtTestSO>(path);
 
 			Assert.That(asset != null);
 			Assert.That(AssetDatabaseExt.AssetExists<AssetDatabaseExtTestSO>());
@@ -68,7 +68,7 @@ namespace CodeSmile.Tests.Editor
 
 		[Test] public void FindAssetGuidByType()
 		{
-			AssetDatabaseExt.CreateAssetAndDirectory<AssetDatabaseExtTestSO>(AssetDatabaseExtTestSO.TestPath);
+			AssetDatabaseExt.CreateScriptableObjectAssetAndDirectory<AssetDatabaseExtTestSO>(AssetDatabaseExtTestSO.TestPath);
 
 			var found = AssetDatabaseExt.FindAssets<AssetDatabaseExtTestSO>();
 
@@ -80,7 +80,7 @@ namespace CodeSmile.Tests.Editor
 
 		[Test] public void FindAssetPathByType()
 		{
-			AssetDatabaseExt.CreateAssetAndDirectory<AssetDatabaseExtTestSO>(AssetDatabaseExtTestSO.TestPath);
+			AssetDatabaseExt.CreateScriptableObjectAssetAndDirectory<AssetDatabaseExtTestSO>(AssetDatabaseExtTestSO.TestPath);
 
 			var paths = AssetDatabaseExt.FindAssetPaths<AssetDatabaseExtTestSO>();
 
@@ -92,7 +92,7 @@ namespace CodeSmile.Tests.Editor
 
 		[Test] public void LoadAssetsByType()
 		{
-			AssetDatabaseExt.CreateAssetAndDirectory<AssetDatabaseExtTestSO>(AssetDatabaseExtTestSO.TestPath);
+			AssetDatabaseExt.CreateScriptableObjectAssetAndDirectory<AssetDatabaseExtTestSO>(AssetDatabaseExtTestSO.TestPath);
 
 			var instances = AssetDatabaseExt.LoadAssets<AssetDatabaseExtTestSO>();
 
@@ -105,7 +105,7 @@ namespace CodeSmile.Tests.Editor
 
 		[Test] public void LoadAssetByType()
 		{
-			AssetDatabaseExt.CreateAssetAndDirectory<AssetDatabaseExtTestSO>(AssetDatabaseExtTestSO.TestPath);
+			AssetDatabaseExt.CreateScriptableObjectAssetAndDirectory<AssetDatabaseExtTestSO>(AssetDatabaseExtTestSO.TestPath);
 
 			var instance = AssetDatabaseExt.LoadAsset<AssetDatabaseExtTestSO>();
 

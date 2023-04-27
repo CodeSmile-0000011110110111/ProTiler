@@ -5,7 +5,6 @@ using CodeSmile.ProTiler.Assets;
 using CodeSmile.ProTiler.Editor.Creation;
 using CodeSmile.Tests.Utilities;
 using NUnit.Framework;
-using System.IO;
 using UnityEditor;
 
 namespace CodeSmile.ProTiler.Tests.Editor.Assets
@@ -16,7 +15,7 @@ namespace CodeSmile.ProTiler.Tests.Editor.Assets
 			Assert.That(Tile3DAssetCreation.CreateInstance<Tile3DAsset>() != null);
 
 		[TestCase(TestPaths.TempTestAssets + "TestTile3DAsset.asset")]
-		public void CreateTile3DAsset(string path)
+		public void CreateTile3DAssetAtPath(string path)
 		{
 			var tileAsset = Tile3DAssetCreation.CreateAsset<Tile3DAsset>(path);
 
@@ -24,26 +23,20 @@ namespace CodeSmile.ProTiler.Tests.Editor.Assets
 			Assert.That(AssetDatabase.LoadAssetAtPath<Tile3DAsset>(path) != null);
 		}
 
-		[TestCase(TestPaths.TempTestAssets + "TestTile3DAsset.asset")]
-		public void CreateTile3DAssetUndo(string path)
+		[Test] public void LoadEmptyTileInstance()
 		{
-			Tile3DAssetCreation.CreateAsset<Tile3DAsset>(path);
+			var empty = Tile3DAssetCreation.LoadEmptyTile();
 
-			Undo.PerformUndo();
-
-			Assert.That(File.Exists(path) == false);
-			Assert.That(AssetDatabase.LoadAssetAtPath<Tile3DAsset>(path) == null);
+			Assert.That(empty != null);
+			Assert.That(empty.Prefab != null);
 		}
 
-		[TestCase(TestPaths.TempTestAssets + "TestTile3DAsset.asset")]
-		public void CreateTile3DAssetUndoRedo(string path)
+		[Test] public void LoadMissingTileInstance()
 		{
-			Tile3DAssetCreation.CreateAsset<Tile3DAsset>(path);
+			var missing = Tile3DAssetCreation.LoadMissingTile();
 
-			Undo.PerformUndo();
-			Undo.PerformRedo();
-
-			Assert.That(AssetDatabase.LoadAssetAtPath<Tile3DAsset>(path) != null);
+			Assert.That(missing != null);
+			Assert.That(missing.Prefab != null);
 		}
 	}
 }

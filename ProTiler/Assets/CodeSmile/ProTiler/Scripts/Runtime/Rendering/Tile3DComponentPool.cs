@@ -3,7 +3,7 @@
 
 namespace CodeSmile.ProTiler.Rendering
 {
-	public class Tile3DBehaviourPool
+	public class Tile3DComponentPool
 	{
 
 	}

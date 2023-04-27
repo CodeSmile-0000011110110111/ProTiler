@@ -11,9 +11,10 @@ namespace CodeSmile.ProTiler.Editor.Data
 
 		private const string ResourcesRoot = Names.TileEditor + "/";
 		private const string ResourcesPrefabs = ResourcesRoot + "Prefabs/";
+		private const string ResourcesTiles = ResourcesRoot + "Tiles/";
 
-		public const string ResourcesMissingTilePrefab = ResourcesPrefabs + "MissingTile3D";
-		public const string ResourcesEmptyTilePrefab = ResourcesPrefabs + "EmptyTile3D";
+		public const string ResourcesMissingTileAsset = ResourcesTiles + "MissingTile3DAsset";
+		public const string ResourcesEmptyTileAsset = ResourcesTiles + "EmptyTile3DAsset";
 
 		// old ...
 		public const string TileEditorIconRoot = "Assets/Gizmos/CodeSmile/TileEditor/";

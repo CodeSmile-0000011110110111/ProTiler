@@ -12,9 +12,11 @@ namespace CodeSmile.ProTiler.Rendering
 	[RequireComponent(typeof(Tilemap3D))]
 	public class Tilemap3DRenderer : MonoBehaviour
 	{
-		[SerializeField] private int m_DrawDistance = 20;
+		//[SerializeField] private int m_DrawDistance = 20;
 		private Vector3Int[] m_VisibleCoords;
 		private Tile3DCoord[] m_TileCoordDatas;
+
+		private Tilemap3D Tilemap => GetComponent<Tilemap3D>();
 
 		/*
 		 * Todo:
@@ -51,8 +53,8 @@ namespace CodeSmile.ProTiler.Rendering
 		 *
 		 */
 
-		private Tilemap3D Tilemap => GetComponent<Tilemap3D>();
 
+		/*
 		private void OnRenderObject()
 		{
 			if (CameraExt.IsSceneViewOrGameCamera(Camera.current) == false)
@@ -80,7 +82,6 @@ namespace CodeSmile.ProTiler.Rendering
 			Debug.LogWarning("TODO: get prefab from tiledata");
 			foreach (var tile3DCoordData in m_TileCoordDatas)
 			{
-				/*
 				var tile = tile3DCoordData.TileData.Tile;
 				if (tile == null || tile.Prefab == null)
 					continue;
@@ -89,7 +90,6 @@ namespace CodeSmile.ProTiler.Rendering
 					DestroyImmediate(instance);
 
 				instance = Instantiate(tile.Prefab, transform);
-				*/
 
 			}
 		}
@@ -107,5 +107,6 @@ namespace CodeSmile.ProTiler.Rendering
 				}
 			}
 		}
+	*/
 	}
 }

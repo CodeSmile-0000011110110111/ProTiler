@@ -17,8 +17,7 @@ namespace CodeSmile.ProTiler.Editor.Creation
 			if (AssetDatabaseExt.AssetExists<Tile3DAssetRegister>() == false)
 			{
 				var assetPath = $"{Paths.Tile3DAssetRegister}/{nameof(Tile3DAssetRegister)}.asset";
-				var register = AssetDatabaseExt.CreateAssetAndDirectory<Tile3DAssetRegister>(assetPath);
-				register.OnCreated();
+				AssetDatabaseExt.CreateScriptableObjectAssetAndDirectory<Tile3DAssetRegister>(assetPath);
 			}
 		}
 

@@ -16,8 +16,16 @@ namespace CodeSmile.ProTiler.Tests.Editor.Assets
 		{
 			var register = Tile3DAssetRegister.Singleton;
 
-			Assert.That(register.Contains(register.m_MissingTileAsset));
-			Assert.That(register[0] == register.m_MissingTileAsset);
+			Assert.That(register.MissingTileAsset != null);
+			Assert.That(register.MissingTileAsset == Tile3DAssetCreation.LoadMissingTile());
+		}
+
+		[Test] public void VerifyRegisterContainsEmptyTile()
+		{
+			var register = Tile3DAssetRegister.Singleton;
+
+			Assert.That(register[0] == register.EmptyTileAsset);
+			Assert.That(register.EmptyTileAsset == Tile3DAssetCreation.LoadEmptyTile());
 		}
 
 		[Test] public void AddTileAsset()

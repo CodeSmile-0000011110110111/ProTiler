@@ -15,66 +15,46 @@ namespace CodeSmile.ProTiler.Assets
 	{
 		private static Tile3DAssetRegister s_Singleton;
 
-		[SerializeField] internal Tile3DAsset m_MissingTileAsset;
-		[SerializeField] internal Tile3DAsset m_EmptyTileAsset;
+		[SerializeField] [HideInInspector] private Tile3DAssetBase m_EmptyTileAsset;
+		[SerializeField] private Tile3DAssetBase m_MissingTileAsset;
 		[SerializeField] private ObjectSet<Tile3DAssetBase> m_TileAssetSet;
 
-		public Tile3DAssetBase this[int index] => m_TileAssetSet[index];
+		public Tile3DAssetBase this[int index]
+		{
+			get
+			{
+				if (index <= 0)
+					return m_EmptyTileAsset;
+
+				var tileAsset = m_TileAssetSet[index];
+				return tileAsset != null ? tileAsset : MissingTileAsset;
+			}
+		}
+		public Tile3DAssetBase MissingTileAsset => m_MissingTileAsset;
+		public Tile3DAssetBase EmptyTileAsset => m_EmptyTileAsset;
 
 		public static Tile3DAssetRegister Singleton => s_Singleton;
 
-#if UNITY_EDITOR
-		[ExcludeFromCodeCoverage]
-		[InitializeOnLoadMethod] [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
-#endif
-		private static void OnLoad()
-		{
-			Debug.LogWarning("OnLoad register");
-			if (s_Singleton == null)
-				Debug.Log("singleton is actually null");
-			if (s_Singleton != null && s_Singleton.IsMissing())
-				Debug.Log("singleton is MISSING");
-
-			LoadSingletonInstance();
-		}
-
-		private static void LoadSingletonInstance()
-		{
-			s_Singleton = AssetDatabaseExt.LoadAssets<Tile3DAssetRegister>().First();
-			Debug.LogWarning("load singleton instance with ID: " + s_Singleton.GetInstanceID());
-		}
-
-		[ExcludeFromCodeCoverage] private void Awake() => OnCreated();
 		[ExcludeFromCodeCoverage] private void Reset() => OnCreated();
 
-		private void CreateMissingTileAsset()
-		{
-			if (m_MissingTileAsset == null)
-				m_MissingTileAsset = Tile3DAssetCreation.CreateMissingTile();
-		}
+		private void OnValidate() =>
+			// in case the user re-assigned the special tile
+			m_TileAssetSet.DefaultObject = m_MissingTileAsset;
 
-		private void CreateEmptyTileAsset()
-		{
-			if (m_EmptyTileAsset == null)
-				m_EmptyTileAsset = Tile3DAssetCreation.CreateEmptyTile();
-		}
+		private void LoadMissingTileAsset() => m_MissingTileAsset = Tile3DAssetCreation.LoadMissingTile();
+
+		private void LoadEmptyTileAsset() => m_EmptyTileAsset = Tile3DAssetCreation.LoadEmptyTile();
 
 		private void CreateTileAssetSet()
 		{
-			if (m_TileAssetSet == null)
-			{
-				// index 0 == "empty tile"
-				m_TileAssetSet = new ObjectSet<Tile3DAssetBase>(Singleton.m_MissingTileAsset);
-				m_TileAssetSet.Add(Singleton.m_EmptyTileAsset);
-			}
+			m_TileAssetSet = new ObjectSet<Tile3DAssetBase>(m_MissingTileAsset, startIndex: 1);
 		}
 
 		internal void OnCreated()
 		{
 			s_Singleton = this;
-			Debug.LogWarning("OnCreated register, singleton: " + s_Singleton.GetInstanceID());
-			CreateEmptyTileAsset();
-			CreateMissingTileAsset();
+			LoadEmptyTileAsset();
+			LoadMissingTileAsset();
 			CreateTileAssetSet();
 		}
 
@@ -83,6 +63,14 @@ namespace CodeSmile.ProTiler.Assets
 
 		public void Remove(Tile3DAssetBase tileAsset) => m_TileAssetSet.Remove(tileAsset);
 
-		public bool Contains(Tile3DAsset tileAsset) => m_TileAssetSet.Contains(tileAsset);
+		public bool Contains(Tile3DAssetBase tileAsset) => m_TileAssetSet.Contains(tileAsset);
+
+#if UNITY_EDITOR
+		[ExcludeFromCodeCoverage]
+		[InitializeOnLoadMethod] [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+		private static void OnLoad() => LoadSingletonInstance();
+
+		private static void LoadSingletonInstance() => s_Singleton = AssetDatabaseExt.LoadAssets<Tile3DAssetRegister>().First();
+#endif
 	}
 }
