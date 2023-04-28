@@ -3,7 +3,6 @@
 
 using CodeSmile.ProTiler.Data;
 using System.Diagnostics.CodeAnalysis;
-using UnityEditor;
 using UnityEngine;
 
 namespace CodeSmile.ProTiler.Assets
@@ -14,47 +13,27 @@ namespace CodeSmile.ProTiler.Assets
 		[SerializeField] private Tile3DFlags m_Flags;
 		[SerializeField] [HideInInspector] private Matrix4x4 m_Transform;
 
-		[ExcludeFromCodeCoverage]
 		public GameObject Prefab
 		{
 			get => m_Prefab;
 			set => m_Prefab = value;
 		}
 
-		[ExcludeFromCodeCoverage]
 		public Tile3DFlags Flags
 		{
 			get => m_Flags;
 			set => m_Flags = value;
 		}
 
-		[ExcludeFromCodeCoverage]
 		public Matrix4x4 Transform
 		{
 			get => m_Transform;
 			set => m_Transform = value;
 		}
 
-		private void Reset()
-		{
-			SetPrefabFromSelection();
-			SetDefaultFlags();
-		}
+		[ExcludeFromCodeCoverage]
+		private void Reset() => SetDefaultFlags();
 
-		private void SetPrefabFromSelection()
-		{
-#if UNITY_EDITOR
-			if (m_Prefab == null)
-			{
-				if (Selection.activeObject is GameObject prefab && prefab.GetInstanceID() > 0)
-					m_Prefab = prefab;
-			}
-#endif
-		}
-
-		private void SetDefaultFlags() => m_Flags = Tile3DFlags.DirectionNorth;
-
-		// public virtual void RefreshTile(Vector3Int coord, Tilemap3D tilemap) => tilemap.RefreshTile(coord);
-		// public virtual Tile3DData GetTileData(Vector3Int coord, Tilemap3D tilemap, ref Tile3DData tileData) => throw new NotImplementedException();
+		internal void SetDefaultFlags() => m_Flags = Tile3DFlags.DirectionNorth;
 	}
 }

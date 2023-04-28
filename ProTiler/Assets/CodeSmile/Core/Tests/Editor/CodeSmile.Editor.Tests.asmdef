@@ -11,8 +11,7 @@
         "CodeSmile.Tests.Utilities",
         "CodeSmile.Editor.ProTiler",
         "CodeSmile.Editor",
-        "CodeSmile.Utilities",
-        "CodeSmile.Coroutines"
+        "CodeSmile.Utilities"
     ],
     "includePlatforms": [
         "Editor"

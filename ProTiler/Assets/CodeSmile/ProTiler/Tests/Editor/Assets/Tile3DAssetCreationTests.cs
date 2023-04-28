@@ -1,6 +1,7 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
+using CodeSmile.Extensions;
 using CodeSmile.ProTiler.Assets;
 using CodeSmile.ProTiler.Editor.Creation;
 using CodeSmile.Tests.Utilities;
@@ -15,6 +16,16 @@ namespace CodeSmile.ProTiler.Tests.Editor.Assets
 		[Test] public void CreateTile3DAssetInstance() =>
 			Assert.That(Tile3DAssetCreation.CreateInstance<Tile3DAsset>() != null);
 
+		[Test] public void CreateTile3DAssetInstanceWithPrefab()
+		{
+			var prefab = TestAssets.LoadTestPrefab();
+			var tileAsset = Tile3DAssetCreation.CreateInstance<Tile3DAsset>(prefab);
+
+			Assert.That(prefab.IsPrefab());
+			Assert.That(tileAsset.Prefab != null);
+			Assert.That(tileAsset.Prefab, Is.EqualTo(prefab));
+		}
+
 		[TestCase(TestPaths.TempTestAssets + "TestTile3DAsset.asset")]
 		public void CreateRegisteredTile3DAssetAtPath(string path)
 		{
@@ -26,7 +37,6 @@ namespace CodeSmile.ProTiler.Tests.Editor.Assets
 
 			Tile3DAssetRegister.Singleton.Remove(tileAsset);
 		}
-
 
 		/*[TestCase(TestPaths.TempTestAssets + "TestTile3DAsset.asset")]
 		public void CreateRegisteredTile3DAssetWithSelection(string path)

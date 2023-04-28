@@ -52,7 +52,7 @@ namespace CodeSmile.Tests.Editor
 #endif
 
 		[TestCase(TestPaths.TempTestAssets + "CreateTest/" + nameof(AssetDatabaseExtTestSO) + ".asset")]
-		public void CreateAssetAndDirectory(string path)
+		public void CreateScriptableObjectAssetAndDirectory(string path)
 		{
 			DeleteDirectoryIfExists(Path.GetDirectoryName(path));
 

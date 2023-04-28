@@ -19,6 +19,13 @@ namespace CodeSmile.ProTiler.Editor.Creation
 {
 	public static partial class Tile3DAssetCreation
 	{
+		public static T CreateRegisteredAsset<T>(string path) where T : Tile3DAssetBase
+		{
+			var tileAsset = AssetDatabaseExt.CreateScriptableObjectAssetAndDirectory<T>(path);
+			Tile3DAssetRegister.Singleton.Add(tileAsset);
+			return tileAsset;
+		}
+
 		[ExcludeFromCodeCoverage] [MenuItem(Menus.CreateTilesFromSelectedPrefabs)]
 		public static void CreateMultipleRegisteredAssetsWithSelection()
 		{
@@ -31,13 +38,9 @@ namespace CodeSmile.ProTiler.Editor.Creation
 					var tilePath = Path.ChangeExtension(prefabPath, "Tile3D.asset");
 					var tileAsset = CreateRegisteredAsset<Tile3DAsset>(tilePath);
 					tileAsset.Prefab = gameObject;
-					EditorUtility.SetDirty(tileAsset);
-					AssetDatabase.SaveAssetIfDirty(tileAsset);
-
-					Debug.Log($"Create {tilePath} {tileAsset.GetInstanceID()} with " +
-					          $"{tileAsset.Prefab.name} {tileAsset.Prefab.GetInstanceID()}");
-
 					createdTiles.Add(tileAsset);
+
+					AssetDatabaseExt.ForceSaveAsset(tileAsset);
 				}
 			}
 
@@ -45,28 +48,23 @@ namespace CodeSmile.ProTiler.Editor.Creation
 		}
 
 		[ExcludeFromCodeCoverage] [MenuItem(Menus.CreateTilesFromSelectedPrefabs, true)]
-		public static bool ValidateCreateTilesFromSelectedPrefabs() => CountPrefabsInSelection() > 0;
+		public static bool ValidateCreateTilesFromSelectedPrefabs() => SelectionExt.PrefabCount() > 0;
 
-		public static T CreateRegisteredAsset<T>(string path) where T : Tile3DAssetBase
-		{
-			var tileAsset = AssetDatabaseExt.CreateScriptableObjectAssetAndDirectory<T>(path);
-			Tile3DAssetRegister.Singleton.Add(tileAsset);
-			return tileAsset;
-		}
-
+		[ExcludeFromCodeCoverage]
 		public static void CreateRegisteredAssetWithSelection<T>(string proposedAssetName,
-			Action<T> createdCallback = null, Action canceledCallback = null) where T : Tile3DAsset
+			Action<T> createdCallback = null, Action canceledCallback = null) where T : Tile3DAssetBase
 		{
-			if (CountPrefabsInSelection() > 1)
+			if (SelectionExt.PrefabCount() > 1)
 				CreateMultipleRegisteredAssetsWithSelection();
 			else
 				CreateRegisteredAssetWithCallbacks(proposedAssetName, createdCallback, canceledCallback);
 		}
 
+		[ExcludeFromCodeCoverage]
 		private static void CreateRegisteredAssetWithCallbacks<T>(string proposedAssetName,
-			Action<T> createdCallback, Action canceledCallback) where T : Tile3DAsset
+			Action<T> createdCallback, Action canceledCallback) where T : Tile3DAssetBase
 		{
-			var tileAsset = CreateInstance<T>();
+			var tileAsset = CreateInstance<T>(SelectionExt.GetSelectedPrefab());
 			var endAction = CreateEndActionObject(createdCallback, canceledCallback);
 			var assetName = NicifyProposedAssetName<T>(proposedAssetName, ".asset");
 			var thumbnail = AssetPreview.GetMiniThumbnail(tileAsset);
@@ -74,30 +72,18 @@ namespace CodeSmile.ProTiler.Editor.Creation
 				endAction, assetName, thumbnail, null);
 		}
 
+		[ExcludeFromCodeCoverage]
 		private static CreateTile3DAssetEndAction CreateEndActionObject<T>(Action<T> createdCallback, Action canceledCallback)
-			where T : Tile3DAsset
+			where T : Tile3DAssetBase
 		{
 			var endAction = ScriptableObject.CreateInstance<CreateTile3DAssetEndAction>();
 			endAction.CreatedCallback = createdCallback != null ? tileAsset => createdCallback((T)tileAsset) : null;
 			endAction.CanceledCallback = canceledCallback;
-			if (Selection.activeObject is GameObject go && go.IsPrefab())
-				endAction.SelectedPrefab = go;
 			return endAction;
 		}
 
-		private static int CountPrefabsInSelection()
-		{
-			var prefabCount = 0;
-			foreach (var gameObject in Selection.gameObjects)
-			{
-				if (gameObject.IsPrefab())
-					prefabCount++;
-			}
-
-			return prefabCount;
-		}
-
-		private static string NicifyProposedAssetName<T>(string proposedAssetName, string extension) where T : Tile3DAsset
+		[ExcludeFromCodeCoverage]
+		private static string NicifyProposedAssetName<T>(string proposedAssetName, string extension) where T : Tile3DAssetBase
 		{
 			if (Selection.activeObject is GameObject gameObject && gameObject.IsPrefab())
 				return gameObject.name + ".Tile3D.asset";
@@ -110,28 +96,27 @@ namespace CodeSmile.ProTiler.Editor.Creation
 			return assetName;
 		}
 
+		[ExcludeFromCodeCoverage]
 		private class CreateTile3DAssetEndAction : EndNameEditAction
 		{
 			public Tile3DAssetBase TileAsset;
-			public GameObject SelectedPrefab;
 			public Action<Object> CreatedCallback;
 			public Action CanceledCallback;
 
 			public override void Action(int instanceId, string pathName, string resourceFile)
 			{
-				var obj = EditorUtility.InstanceIDToObject(instanceId);
-				TileAsset = obj as Tile3DAssetBase;
+				TileAsset = EditorUtility.InstanceIDToObject(instanceId) as Tile3DAssetBase;
 
-				AssetDatabase.CreateAsset(TileAsset, AssetDatabase.GenerateUniqueAssetPath(pathName));
+				CreateRegisteredAsset(pathName);
+
 				Selection.activeObject = TileAsset;
-
-				Tile3DAssetRegister.Singleton.Add(TileAsset);
-
-				TileAsset.Prefab = SelectedPrefab;
 				CreatedCallback?.Invoke(TileAsset);
+			}
 
-				EditorUtility.SetDirty(TileAsset);
-				AssetDatabase.SaveAssetIfDirty(TileAsset);
+			private void CreateRegisteredAsset(string pathName)
+			{
+				AssetDatabase.CreateAsset(TileAsset, AssetDatabase.GenerateUniqueAssetPath(pathName));
+				Tile3DAssetRegister.Singleton.Add(TileAsset);
 			}
 
 			public override void Cancelled(int instanceId, string pathName, string resourceFile)

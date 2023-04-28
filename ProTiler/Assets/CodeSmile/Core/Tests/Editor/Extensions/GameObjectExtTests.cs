@@ -2,6 +2,7 @@
 // Refer to included LICENSE file for terms and conditions.
 
 using CodeSmile.Extensions;
+using CodeSmile.Tests.Editor.Utilities;
 using CodeSmile.Tests.Utilities;
 using NUnit.Framework;
 using System;
@@ -59,7 +60,7 @@ namespace CodeSmile.Tests.Editor
 		[Test]
 		public void IsPrefab()
 		{
-			var prefab = AssetDatabase.LoadAssetAtPath<GameObject>(TestPaths.TestAssets + "TestPrefab.prefab");
+			var prefab = TestAssets.LoadTestPrefab();
 
 			Assert.That(prefab.IsPrefab(), Is.True);
 		}
@@ -104,7 +105,7 @@ namespace CodeSmile.Tests.Editor
 			var child = go.FindOrCreateChild(ChildGameObjectName, original);
 
 			Assert.That(go.transform.childCount == 1, Is.True);
-			Assert.That(child, Is.EqualTo( go.transform.GetChild(0).gameObject));
+			Assert.That(child, Is.EqualTo(go.transform.GetChild(0).gameObject));
 			Assert.That(child.GetComponent<BoxCollider>() != null);
 		}
 
@@ -118,7 +119,7 @@ namespace CodeSmile.Tests.Editor
 			var child2 = go.FindOrCreateChild(ChildGameObjectName, original);
 
 			Assert.That(go.transform.childCount == 1, Is.True);
-			Assert.That(child1,Is.EqualTo(child2));
+			Assert.That(child1, Is.EqualTo(child2));
 			Assert.That(child1, Is.EqualTo(go.transform.GetChild(0).gameObject));
 		}
 	}

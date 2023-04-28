@@ -19,6 +19,13 @@ namespace CodeSmile.ProTiler.Tests.Editor.Assets
 			Assert.That(register.Count == 0);
 		}
 
+		[Test] public void CreatedWithPrefabHasPrefabAssigned()
+		{
+			var register = ScriptableObject.CreateInstance<Tile3DAssetRegister>();
+
+			Assert.That(register.Count == 0);
+		}
+
 		[Test] public void MissingTileIsLoaded()
 		{
 			var register = ScriptableObject.CreateInstance<Tile3DAssetRegister>();

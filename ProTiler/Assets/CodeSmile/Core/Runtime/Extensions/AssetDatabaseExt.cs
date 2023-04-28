@@ -1,12 +1,11 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
-using System;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
-using Object = UnityEngine.Object;
 
 namespace CodeSmile.Extensions
 {
@@ -60,15 +59,15 @@ namespace CodeSmile.Extensions
 			CreateDirectoryIfNotExists(Path.GetDirectoryName(assetPath));
 
 			var instance = ScriptableObject.CreateInstance<T>();
-			try
-			{
-				AssetDatabase.CreateAsset(instance, assetPath);
-			}
-			catch (ArgumentException e)
-			{
-				Debug.LogError($"{e.Message}: {assetPath}");
-			}
+			AssetDatabase.CreateAsset(instance, AssetDatabase.GenerateUniqueAssetPath(assetPath));
 			return instance;
+		}
+
+		[ExcludeFromCodeCoverage]
+		public static void ForceSaveAsset(Object obj)
+		{
+			EditorUtility.SetDirty(obj);
+			AssetDatabase.SaveAssetIfDirty(obj);
 		}
 #endif
 	}
