@@ -10,21 +10,36 @@ namespace CodeSmile.Extensions
 	public static class SelectionExt
 	{
 		[ExcludeFromCodeCoverage]
-		public static GameObject GetSelectedPrefab() => IsPrefabSelected() ? Selection.activeObject as GameObject : null;
+		public static GameObject GetSelectedPrefab()
+		{
+#if UNITY_EDITOR
+			return IsPrefabSelected() ? Selection.activeObject as GameObject : null;
+#else
+			return null;
+#endif
+		}
 
 		[ExcludeFromCodeCoverage]
-		public static bool IsPrefabSelected() => Selection.activeObject is GameObject go && go.IsPrefab();
+		public static bool IsPrefabSelected()
+		{
+#if UNITY_EDITOR
+			return Selection.activeObject is GameObject go && go.IsPrefab();
+#else
+			return false;
+#endif
+		}
 
 		[ExcludeFromCodeCoverage]
 		public static int PrefabCount()
 		{
 			var prefabCount = 0;
+#if UNITY_EDITOR
 			foreach (var gameObject in Selection.gameObjects)
 			{
 				if (gameObject.IsPrefab())
 					prefabCount++;
 			}
-
+#endif
 			return prefabCount;
 		}
 	}
