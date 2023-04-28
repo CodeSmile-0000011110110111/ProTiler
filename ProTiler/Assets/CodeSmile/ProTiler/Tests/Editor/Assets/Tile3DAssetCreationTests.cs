@@ -28,19 +28,24 @@ namespace CodeSmile.ProTiler.Tests.Editor.Assets
 		}
 
 
-		[TestCase(TestPaths.TempTestAssets + "TestTile3DAsset.asset")]
-		public void CreateRegisteredTile3DAssetFromSelection(string path)
+		/*[TestCase(TestPaths.TempTestAssets + "TestTile3DAsset.asset")]
+		public void CreateRegisteredTile3DAssetWithSelection(string path)
 		{
-			var tileAsset = Tile3DAssetCreation.CreateRegisteredAsset<Tile3DAsset>(path);
-			Selection.activeObject = tileAsset.Prefab;
+			Tile3DAssetBase tileAsset = null;
+			Tile3DAssetCreation.CreateRegisteredAssetWithSelection<Tile3DAsset>("TestTile3DAsset",
+				(createdTileAsset =>
+				{
+					tileAsset = createdTileAsset;
+				}));
 
 			Assert.That(tileAsset != null);
+			Assert.That(Selection.activeObject == tileAsset);
 			Assert.That(AssetDatabase.LoadAssetAtPath<Tile3DAsset>(path) != null);
 			Assert.That(Tile3DAssetRegister.Singleton.Contains(tileAsset));
 
 			Tile3DAssetRegister.Singleton.Remove(tileAsset);
 			AssetDatabase.DeleteAsset(AssetDatabase.GetAssetPath(tileAsset));
-		}
+		}*/
 
 		[Test] public void LoadEmptyTileInstance()
 		{

@@ -10,6 +10,7 @@ namespace CodeSmile.ProTiler.Rendering
 {
 	[ExecuteAlways]
 	[RequireComponent(typeof(Tilemap3D))]
+	[DisallowMultipleComponent]
 	public class Tilemap3DRenderer : MonoBehaviour
 	{
 		//[SerializeField] private int m_DrawDistance = 20;

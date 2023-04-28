@@ -10,6 +10,7 @@ using UnityEngine;
 namespace CodeSmile.ProTiler
 {
 	[ExecuteAlways]
+	[DisallowMultipleComponent]
 	public class Tilemap3D : MonoBehaviour
 	{
 		//[SerializeField] private Vector3 m_TileAnchor;

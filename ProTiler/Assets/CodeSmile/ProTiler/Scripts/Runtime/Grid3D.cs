@@ -6,6 +6,7 @@ using UnityEngine;
 namespace CodeSmile.ProTiler
 {
 	[RequireComponent(typeof(Transform))]
+	[DisallowMultipleComponent]
 	public class Grid3D : MonoBehaviour
 	{
 		[SerializeField] private Vector3Int m_CellSize = new(1, 1, 1);
