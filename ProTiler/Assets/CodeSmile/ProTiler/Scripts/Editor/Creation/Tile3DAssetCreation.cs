@@ -1,8 +1,6 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
-#if UNITY_EDITOR
-
 using CodeSmile.Extensions;
 using CodeSmile.ProTiler.Assets;
 using CodeSmile.ProTiler.Data;
@@ -17,8 +15,16 @@ using Object = UnityEngine.Object;
 
 namespace CodeSmile.ProTiler.Editor.Creation
 {
-	public static partial class Tile3DAssetCreation
+	public static class Tile3DAssetCreation
 	{
+		public static T CreateInstance<T>(GameObject prefab = null) where T : Tile3DAssetBase
+		{
+			var instance = ScriptableObject.CreateInstance<T>();
+			if (prefab != null && prefab.IsPrefab())
+				instance.Prefab = prefab;
+			return instance;
+		}
+
 		public static T CreateRegisteredAsset<T>(string path) where T : Tile3DAssetBase
 		{
 			var tileAsset = AssetDatabaseExt.CreateScriptableObjectAssetAndDirectory<T>(path);
@@ -26,7 +32,11 @@ namespace CodeSmile.ProTiler.Editor.Creation
 			return tileAsset;
 		}
 
-		[ExcludeFromCodeCoverage] [MenuItem(Menus.CreateTilesFromSelectedPrefabs)]
+		[MenuItem(Menus.CreateTileAssetMenuText)] [ExcludeFromCodeCoverage]
+		public static void CreateTileAssetWithSelection() =>
+			CreateRegisteredAssetWithSelection<Tile3DAsset>(nameof(Tile3DAsset));
+
+		[MenuItem(Menus.CreateTilesFromSelectedPrefabs)] [ExcludeFromCodeCoverage]
 		public static void CreateMultipleRegisteredAssetsWithSelection()
 		{
 			var createdTiles = new List<Tile3DAssetBase>();
@@ -47,7 +57,7 @@ namespace CodeSmile.ProTiler.Editor.Creation
 			Selection.objects = createdTiles.ToArray();
 		}
 
-		[ExcludeFromCodeCoverage] [MenuItem(Menus.CreateTilesFromSelectedPrefabs, true)]
+		[MenuItem(Menus.CreateTilesFromSelectedPrefabs, true)] [ExcludeFromCodeCoverage]
 		public static bool ValidateCreateTilesFromSelectedPrefabs() => SelectionExt.PrefabCount() > 0;
 
 		[ExcludeFromCodeCoverage]
@@ -127,4 +137,3 @@ namespace CodeSmile.ProTiler.Editor.Creation
 		}
 	}
 }
-#endif

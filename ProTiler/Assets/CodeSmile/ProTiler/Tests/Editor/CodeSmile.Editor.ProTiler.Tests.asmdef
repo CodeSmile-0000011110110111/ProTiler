@@ -13,7 +13,8 @@
         "CodeSmile.Editor.ProTiler",
         "CodeSmile.ProTiler.Tests.Utilities",
         "CodeSmile.Tests.Utilities",
-        "CodeSmile.Editor"
+        "CodeSmile.Editor",
+        "CodeSmile.Collections"
     ],
     "includePlatforms": [
         "Editor"

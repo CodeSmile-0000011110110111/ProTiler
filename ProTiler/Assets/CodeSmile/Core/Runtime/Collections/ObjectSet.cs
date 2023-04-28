@@ -22,10 +22,10 @@ namespace CodeSmile.Collections
 		/// <summary>
 		///     The default object that is returned for non-existing indexes. Defaults to null.
 		/// </summary>
-		[SerializeField] [HideInInspector] public T DefaultObject;
-		[SerializeField] private int m_NextIndex;
+		[SerializeField] [ReadOnlyField] private int m_NextIndex;
+		[SerializeField] [ReadOnlyField] public T DefaultObject;
 		//[SerializeField] private Dictionary<int, T> m_IndexedObjects = new();
-		[SerializeField] private IndexedObjectsDictionary m_IndexedObjects = new();
+		[SerializeField] [HideInInspector] private IndexedObjectsDictionary m_IndexedObjects = new();
 
 		/// <summary>
 		///     Get or set object at index.

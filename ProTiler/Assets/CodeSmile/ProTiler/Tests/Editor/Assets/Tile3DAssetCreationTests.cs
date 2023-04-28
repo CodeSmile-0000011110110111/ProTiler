@@ -4,6 +4,7 @@
 using CodeSmile.Extensions;
 using CodeSmile.ProTiler.Assets;
 using CodeSmile.ProTiler.Editor.Creation;
+using CodeSmile.ProTiler.Editor.Data;
 using CodeSmile.Tests.Utilities;
 using NUnit.Framework;
 using System;
@@ -57,23 +58,5 @@ namespace CodeSmile.ProTiler.Tests.Editor.Assets
 			AssetDatabase.DeleteAsset(AssetDatabase.GetAssetPath(tileAsset));
 		}*/
 
-		[Test] public void LoadEmptyTileInstance()
-		{
-			var empty = Tile3DAssetCreation.LoadEmptyTile();
-
-			Assert.That(empty != null);
-			Assert.That(empty.Prefab != null);
-		}
-
-		[Test] public void LoadMissingTileInstance()
-		{
-			var missing = Tile3DAssetCreation.LoadMissingTile();
-
-			Assert.That(missing != null);
-			Assert.That(missing.Prefab != null);
-		}
-
-		[Test] public void LoadNonExistingTileResourceThrows() =>
-			Assert.Throws<ArgumentNullException>(() => Tile3DAssetCreation.LoadTile3DAssetResource("this path is invalid"));
 	}
 }

@@ -1,9 +1,12 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
+using CodeSmile.Extensions;
+using CodeSmile.ProTiler.Assets;
 using CodeSmile.ProTiler.Data;
 using CodeSmile.ProTiler.Rendering;
 using System;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
@@ -61,20 +64,19 @@ namespace CodeSmile.ProTiler.Editor.Creation
 		{
 			GameObject gridGO = null;
 
-			var active = Selection.activeGameObject;
-			if (active is GameObject)
+			var activeSelection = Selection.activeGameObject;
+			if (activeSelection is GameObject)
 			{
 				// check for it being grid3d or parent being grid3d
-				var parentGrid = active.GetComponentInParent<Grid3D>();
+				var parentGrid = activeSelection.GetComponentInParent<Grid3D>();
 				if (parentGrid != null)
 					gridGO = parentGrid.gameObject;
 			}
 
 			if (gridGO == null)
 			{
-				gridGO = ObjectFactory.CreateGameObject("Grid3D", typeof(Grid3D), typeof(Tile3DAssetSet));
+				gridGO = ObjectFactory.CreateGameObject("Grid3D", typeof(Grid3D), typeof(Tile3DSet));
 				Undo.RegisterCreatedObjectUndo (gridGO, "Create 3D Grid");
-
 			}
 
 			return gridGO;

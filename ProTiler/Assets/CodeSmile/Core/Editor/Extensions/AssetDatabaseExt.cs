@@ -11,7 +11,6 @@ namespace CodeSmile.Extensions
 {
 	public static class AssetDatabaseExt
 	{
-#if UNITY_EDITOR
 		public static T LoadAsset<T>() where T : Object => LoadAssets<T>().FirstOrDefault();
 
 		public static T[] LoadAssets<T>() where T : Object
@@ -69,6 +68,5 @@ namespace CodeSmile.Extensions
 			EditorUtility.SetDirty(obj);
 			AssetDatabase.SaveAssetIfDirty(obj);
 		}
-#endif
 	}
 }

@@ -3,6 +3,7 @@
 
 using CodeSmile.ProTiler.Assets;
 using CodeSmile.ProTiler.Editor.Creation;
+using CodeSmile.ProTiler.Editor.Data;
 using NUnit.Framework;
 using UnityEngine;
 
@@ -26,21 +27,7 @@ namespace CodeSmile.ProTiler.Tests.Editor.Assets
 			Assert.That(register.Count == 0);
 		}
 
-		[Test] public void MissingTileIsLoaded()
-		{
-			var register = ScriptableObject.CreateInstance<Tile3DAssetRegister>();
 
-			Assert.That(register.MissingTileAsset != null);
-			Assert.That(register.MissingTileAsset == Tile3DAssetCreation.LoadMissingTile());
-		}
-
-		[Test] public void EmptyTileIsLoaded()
-		{
-			var register = ScriptableObject.CreateInstance<Tile3DAssetRegister>();
-
-			Assert.That(register[0] == register.EmptyTileAsset);
-			Assert.That(register.EmptyTileAsset == Tile3DAssetCreation.LoadEmptyTile());
-		}
 
 		[TestCase(0)] [TestCase(-1)] [TestCase(int.MinValue)]
 		public void ZeroOrNegativeIndexReturnsEmptyTile(int index)
@@ -60,7 +47,7 @@ namespace CodeSmile.ProTiler.Tests.Editor.Assets
 			Assert.That(register[index] == register.MissingTileAsset);
 		}
 
-		[Test] public void AddTileAsset()
+		[Test] public void AddAndContainsTileAsset()
 		{
 			var register = ScriptableObject.CreateInstance<Tile3DAssetRegister>();
 			var tileAsset = Tile3DAssetCreation.CreateInstance<Tile3DAsset>();
@@ -69,7 +56,6 @@ namespace CodeSmile.ProTiler.Tests.Editor.Assets
 
 			Assert.That(register.Contains(tileAsset));
 		}
-
 
 		[Test] public void AddTileAssetWithIndex()
 		{
@@ -82,7 +68,7 @@ namespace CodeSmile.ProTiler.Tests.Editor.Assets
 			Assert.That(register.Contains(tileAsset));
 		}
 
-		[Test] public void RemoveTileAsset()
+		[Test] public void RemoveAndDoesNotContainTileAsset()
 		{
 			var register = ScriptableObject.CreateInstance<Tile3DAssetRegister>();
 			var tileAsset = Tile3DAssetCreation.CreateInstance<Tile3DAsset>();

@@ -25,7 +25,7 @@ namespace CodeSmile.ProTiler.Tests.Editor
 			Assert.That(tilemap.Chunks != null);
 			Assert.That(tilemap.Chunks.Count == 0);
 			Assert.That(Object.FindObjectsOfType<Grid3D>().Length == 1);
-			Assert.That(Object.FindObjectsOfType<Tile3DAssetSet>().Length == 1);
+			Assert.That(Object.FindObjectsOfType<Tile3DSet>().Length == 1);
 			Assert.That(Object.FindObjectsOfType<Tilemap3D>().Length == 1);
 			Assert.Contains(tilemap.Grid.gameObject, SceneManager.GetActiveScene().GetRootGameObjects());
 			Assert.Contains(tilemap, tilemap.Grid.GetComponentsInChildren<Tilemap3D>());
@@ -38,7 +38,7 @@ namespace CodeSmile.ProTiler.Tests.Editor
 			var tilemap2 = Tilemap3DCreation.CreateRectangularTilemap3D();
 
 			Assert.That(Object.FindObjectsOfType<Grid3D>().Length == 1);
-			Assert.That(Object.FindObjectsOfType<Tile3DAssetSet>().Length == 1);
+			Assert.That(Object.FindObjectsOfType<Tile3DSet>().Length == 1);
 			Assert.That(Object.FindObjectsOfType<Tilemap3D>().Length == 2);
 			Assert.That(tilemap1.Grid, Is.EqualTo(tilemap2.Grid));
 			Assert.That(tilemap1.Grid.gameObject, Is.EqualTo(tilemap2.Grid.gameObject));
