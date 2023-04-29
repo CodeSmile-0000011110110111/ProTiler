@@ -19,6 +19,12 @@ namespace CodeSmile.ProTiler.Editor.Creation
 				var assetPath = $"{Paths.Tile3DAssetRegister}/{nameof(Tile3DAssetRegister)}.asset";
 				AssetDatabaseExt.CreateScriptableObjectAssetAndDirectory<Tile3DAssetRegister>(assetPath);
 			}
+			else
+			{
+				// assign singleton on load otherwise tests may fail
+				var register = AssetDatabaseExt.LoadAsset<Tile3DAssetRegister>();
+				register.AssignSingletonInstance(register);
+			}
 		}
 
 		static Tile3DAssetRegisterCreation() => CreateTile3DAssetRegisterIfNotExists();

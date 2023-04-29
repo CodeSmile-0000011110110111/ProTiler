@@ -4,18 +4,18 @@
 using CodeSmile.Extensions;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
 namespace CodeSmile.Pooling
 {
 	/// <summary>
-	/// Pools a component of a prefab. This also works with GameObject instances except that
-	/// you will have to pool Transform component instead and access GO via gameObject property.
-	///
-	/// CAUTION: remember to call Dispose() or use a using() statement to ensure pooled instances
-	/// get destroyed. Failure to do so will lead to stray objects in the pool's parent
-	/// or throw an exception if the finalizer runs.
+	///     Pools a component of a prefab. This also works with GameObject instances except that
+	///     you will have to pool Transform component instead and access GO via gameObject property.
+	///     CAUTION: remember to call Dispose() or use a using() statement to ensure pooled instances
+	///     get destroyed. Failure to do so will lead to stray objects in the pool's parent
+	///     or throw an exception if the finalizer runs.
 	/// </summary>
 	/// <typeparam name="T"></typeparam>
 	public sealed class ComponentPool<T> : IDisposable where T : Component
@@ -27,16 +27,16 @@ namespace CodeSmile.Pooling
 		private readonly GameObject m_Prefab;
 
 		/// <summary>
-		/// Number of pooled instances.
+		///     Number of pooled instances.
 		/// </summary>
 		public int Count => m_AllInstances.Count;
 		/// <summary>
-		/// Enumerable list of pooled instances, both active and inactive.
+		///     Enumerable list of pooled instances, both active and inactive.
 		/// </summary>
 		public IReadOnlyList<T> AllInstances => m_AllInstances.AsReadOnly();
 
 		/// <summary>
-		/// Creates a new component pool.
+		///     Creates a new component pool.
 		/// </summary>
 		/// <param name="prefab">A prefab asset reference. Must not be null.</param>
 		/// <param name="parent">The parent object instances will be parented to. Must not be null. Must be a scene object.</param>
@@ -63,12 +63,12 @@ namespace CodeSmile.Pooling
 		}
 
 		/// <summary>
-		/// Clears the pool and destroys all pooled instances, including active ones.
+		///     Clears the pool and destroys all pooled instances, including active ones.
 		/// </summary>
 		public void Dispose() => Clear();
 
 #if DEBUG
-		~ComponentPool()
+		[ExcludeFromCodeCoverage] ~ComponentPool()
 		{
 			if (Count != 0)
 				throw new Exception($"a {nameof(ComponentPool<T>)} has not been disposed!");
@@ -76,12 +76,12 @@ namespace CodeSmile.Pooling
 #endif
 
 		/// <summary>
-		/// Clears the pool and destroys all pooled instances, including active ones.
+		///     Clears the pool and destroys all pooled instances, including active ones.
 		/// </summary>
 		public void Clear() => UpdatePoolSize(0);
 
 		/// <summary>
-		/// Get an inactive instance from the pool.
+		///     Get an inactive instance from the pool.
 		/// </summary>
 		/// <param name="setActive">If true (default), calls SetActive(true) on the component's gameObject.</param>
 		/// <returns>An instance or null if there are no more inactive instances.</returns>
@@ -101,7 +101,7 @@ namespace CodeSmile.Pooling
 		}
 
 		/// <summary>
-		/// Puts an active instance back into the pool.
+		///     Puts an active instance back into the pool.
 		/// </summary>
 		/// <param name="instance">The instance to return to the pool. Must not be null.</param>
 		/// <param name="setInactive">If true (default), will call SetActive(false) on the gameObject instance.</param>
@@ -158,6 +158,5 @@ namespace CodeSmile.Pooling
 			foreach (var remove in toRemove)
 				remove.gameObject.DestroyInAnyMode();
 		}
-
 	}
 }
