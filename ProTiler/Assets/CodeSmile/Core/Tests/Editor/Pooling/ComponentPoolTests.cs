@@ -27,7 +27,7 @@ namespace CodeSmile.Tests.Editor
 
 
 		[Test] [EmptyScene()][CreateGameObject("Parent")]
-		public void PoolSizeZero()
+		public void CreateEmptyPool()
 		{
 			var parent = GameObject.Find("Parent");
 			var prefab = TestAssets.LoadTestPrefab();
@@ -35,6 +35,7 @@ namespace CodeSmile.Tests.Editor
 
 			using (var pool = new ComponentPool<Transform>(prefab, parent, poolSize))
 			{
+				Assert.That(pool.Count, Is.EqualTo(poolSize));
 			}
 		}
 
@@ -47,9 +48,9 @@ namespace CodeSmile.Tests.Editor
 
 			using (var pool = new ComponentPool<Transform>(prefab, parent, poolSize))
 			{
-				Assert.That(poolSize == pool.Count);
-				Assert.That(poolSize == pool.AllInstances.Count);
-				Assert.That(poolSize == parent.transform.childCount);
+				Assert.That(pool.Count, Is.EqualTo(poolSize));
+				Assert.That(pool.Count, Is.EqualTo(pool.AllInstances.Count));
+				Assert.That(pool.Count, Is.EqualTo(parent.transform.childCount));
 			}
 
 			Assert.AreEqual(0, parent.transform.childCount);
