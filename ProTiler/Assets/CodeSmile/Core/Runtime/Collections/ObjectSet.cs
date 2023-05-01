@@ -24,7 +24,6 @@ namespace CodeSmile.Collections
 		/// </summary>
 		[SerializeField] [ReadOnlyField] private int m_NextIndex;
 		[SerializeField] [ReadOnlyField] public T DefaultObject;
-		//[SerializeField] private Dictionary<int, T> m_IndexedObjects = new();
 		[SerializeField] [HideInInspector] private IndexedObjectsDictionary m_IndexedObjects = new();
 
 		/// <summary>
