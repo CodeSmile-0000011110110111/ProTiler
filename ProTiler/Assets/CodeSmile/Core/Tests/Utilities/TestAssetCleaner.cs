@@ -13,11 +13,11 @@ namespace CodeSmile.Tests.Utilities
 	///     Handles TestRunner callbacks mainly to set the running status of the TestRunner to EditorPrefs.
 	/// </summary>
 	[InitializeOnLoad]
-	public class TestObserver
+	public class TestAssetCleaner
 	{
-		static TestObserver() => ScriptableObject.CreateInstance<TestRunnerApi>().RegisterCallbacks(new TestCallbacks());
+		static TestAssetCleaner() => ScriptableObject.CreateInstance<TestRunnerApi>().RegisterCallbacks(new Callbacks());
 
-		private class TestCallbacks : ICallbacks
+		private class Callbacks : ICallbacks
 		{
 			private static void SynchronizeAssetDatabase() => AssetDatabase.Refresh(ImportAssetOptions.ForceSynchronousImport);
 
