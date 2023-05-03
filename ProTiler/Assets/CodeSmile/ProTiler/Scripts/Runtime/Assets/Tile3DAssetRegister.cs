@@ -21,21 +21,31 @@ namespace CodeSmile.ProTiler.Assets
 		public Tile3DAssetBase MissingTileAsset => m_TileAssets.MissingTileAsset;
 		public Tile3DAssetBase EmptyTileAsset => m_TileAssets.EmptyTileAsset;
 
-		// assigns singleton when created and at runtime (builds)
-		[ExcludeFromCodeCoverage] private void Awake() => AssignSingletonInstance(this);
+		/// <summary>
+		///     assigns singleton when created and at runtime (builds)
+		/// </summary>
+		/// <returns></returns>
+		[ExcludeFromCodeCoverage] private void Awake() => AssignSingletonInstance();
 
 		[ExcludeFromCodeCoverage] private void Reset() => CreateTileAssetSet();
 
-		// assigns singleton after domain reload (script compile)
+		/// <summary>
+		///     assigns singleton after domain reload (script compile)
+		/// </summary>
+		/// <returns></returns>
 		[ExcludeFromCodeCoverage] private void OnEnable()
 		{
-			AssignSingletonInstance(this);
-			m_TileAssets.SetMissingTileAsDefault();
+			AssignSingletonInstance();
+			m_TileAssets.Init();
 		}
 
-		internal void AssignSingletonInstance(Tile3DAssetRegister register) => s_Singleton = register;
+		internal void AssignSingletonInstance() => s_Singleton = this;
 
-		private void CreateTileAssetSet() => m_TileAssets = new Tile3DAssetBaseSet();
+		private void CreateTileAssetSet()
+		{
+			m_TileAssets = new Tile3DAssetBaseSet();
+			m_TileAssets.Init();
+		}
 
 		public void Add(Tile3DAssetBase tileAsset) => m_TileAssets.Add(tileAsset);
 		public void Add(Tile3DAssetBase tileAsset, out int index) => m_TileAssets.Add(tileAsset, out index);

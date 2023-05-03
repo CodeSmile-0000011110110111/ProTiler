@@ -15,7 +15,7 @@ namespace CodeSmile.ProTiler
 		[ExcludeFromCodeCoverage] private void Reset()
 		{
 			m_TileAssets = new Tile3DAssetBaseSet();
-			m_TileAssets.SetMissingTileAsDefault();
+			m_TileAssets.Init();
 		}
 
 		public void Add(Tile3DAssetBase tileAsset) => m_TileAssets.Add(tileAsset);

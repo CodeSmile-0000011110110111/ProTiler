@@ -22,7 +22,10 @@ namespace CodeSmile.ProTiler.Collections
 			get
 			{
 				if (m_MissingTileAsset == null)
-					m_MissingTileAsset = LoadTile3DAssetResource(Paths.ResourcesMissingTileAsset);
+				{
+					LoadMissingTileAsset();
+					SetMissingTileAsDefault();
+				}
 				return m_MissingTileAsset;
 			}
 		}
@@ -31,7 +34,7 @@ namespace CodeSmile.ProTiler.Collections
 			get
 			{
 				if (m_EmptyTileAsset == null)
-					m_EmptyTileAsset = LoadTile3DAssetResource(Paths.ResourcesEmptyTileAsset);
+					LoadEmptyTileAsset();
 				return m_EmptyTileAsset;
 			}
 		}
@@ -40,7 +43,7 @@ namespace CodeSmile.ProTiler.Collections
 		{
 			var prefab = Resources.Load<Tile3DAsset>(resourcePath);
 			if (prefab == null)
-				throw new ArgumentNullException($"failed to load tile prefab from resources: '{resourcePath}'");
+				throw new ArgumentNullException($"failed to load tile prefab from Resources: '{resourcePath}'");
 
 			return prefab;
 		}
@@ -48,6 +51,16 @@ namespace CodeSmile.ProTiler.Collections
 		public Tile3DAssetBaseSet()
 			: base(null, 1) {}
 
-		public void SetMissingTileAsDefault() => DefaultObject = MissingTileAsset;
+		public void Init()
+		{
+			LoadEmptyTileAsset();
+			LoadMissingTileAsset();
+			SetMissingTileAsDefault();
+		}
+
+		internal void LoadMissingTileAsset() => m_MissingTileAsset = LoadTile3DAssetResource(Paths.ResourcesMissingTileAsset);
+		internal void LoadEmptyTileAsset() => m_EmptyTileAsset = LoadTile3DAssetResource(Paths.ResourcesEmptyTileAsset);
+
+		internal void SetMissingTileAsDefault() => DefaultObject = MissingTileAsset;
 	}
 }
