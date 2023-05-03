@@ -5,11 +5,9 @@ using CodeSmile.Pooling;
 using CodeSmile.Tests.Utilities;
 using NUnit.Framework;
 using System;
-using UnityEditor;
 using UnityEngine;
-using Object = UnityEngine.Object;
 
-namespace CodeSmile.Tests.Editor
+namespace CodeSmile.Tests.Editor.Pooling
 {
 	public class ComponentPoolTests
 	{

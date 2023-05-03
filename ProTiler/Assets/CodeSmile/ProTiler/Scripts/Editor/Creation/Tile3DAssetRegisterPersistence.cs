@@ -2,7 +2,7 @@
 // Refer to included LICENSE file for terms and conditions.
 
 using CodeSmile.Editor;
-using CodeSmile.Extensions;
+using CodeSmile.Editor.Extensions;
 using CodeSmile.ProTiler.Assets;
 using CodeSmile.ProTiler.Data;
 using System.Diagnostics.CodeAnalysis;

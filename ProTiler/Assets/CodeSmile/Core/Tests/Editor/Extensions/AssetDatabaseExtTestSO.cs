@@ -4,7 +4,7 @@
 using CodeSmile.Tests.Utilities;
 using UnityEngine;
 
-namespace CodeSmile.Tests.Editor
+namespace CodeSmile.Tests.Editor.Extensions
 {
 	public class AssetDatabaseExtTestSO : ScriptableObject
 	{

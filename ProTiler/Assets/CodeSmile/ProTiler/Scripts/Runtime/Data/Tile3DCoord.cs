@@ -2,6 +2,7 @@
 // Refer to included LICENSE file for terms and conditions.
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 using UnityEngine;
 
 namespace CodeSmile.ProTiler.Data
@@ -17,6 +18,6 @@ namespace CodeSmile.ProTiler.Data
 
 		public static Tile3DCoord New(Vector3Int coord, Tile3D tile) => new() { Coord = coord, m_Tile = tile };
 
-		public override string ToString() => $"{Coord}, {m_Tile}";
+		[ExcludeFromCodeCoverage] public override string ToString() => $"{Coord}, {m_Tile}";
 	}
 }

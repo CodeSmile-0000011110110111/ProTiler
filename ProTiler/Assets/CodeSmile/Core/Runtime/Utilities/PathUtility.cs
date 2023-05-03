@@ -3,7 +3,7 @@
 
 using System.IO;
 
-namespace CodeSmile
+namespace CodeSmile.Utilities
 {
 	public static class PathUtility
 	{

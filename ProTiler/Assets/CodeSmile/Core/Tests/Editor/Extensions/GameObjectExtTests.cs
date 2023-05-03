@@ -2,14 +2,12 @@
 // Refer to included LICENSE file for terms and conditions.
 
 using CodeSmile.Extensions;
-using CodeSmile.Tests.Editor.Utilities;
 using CodeSmile.Tests.Utilities;
 using NUnit.Framework;
 using System;
-using UnityEditor;
 using UnityEngine;
 
-namespace CodeSmile.Tests.Editor
+namespace CodeSmile.Tests.Editor.Extensions
 {
 	public class GameObjectExtTests
 	{

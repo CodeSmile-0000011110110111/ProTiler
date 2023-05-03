@@ -6,7 +6,7 @@ using CodeSmile.Tests.Utilities;
 using NUnit.Framework;
 using UnityEngine;
 
-namespace CodeSmile.Tests.Editor
+namespace CodeSmile.Tests.Editor.Extensions
 {
 	public class TransformExtTests
 	{

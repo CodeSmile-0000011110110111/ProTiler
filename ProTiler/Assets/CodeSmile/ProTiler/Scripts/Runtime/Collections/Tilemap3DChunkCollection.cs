@@ -3,6 +3,7 @@
 
 using CodeSmile.Collections;
 using CodeSmile.ProTiler.Data;
+using CodeSmile.Utilities;
 using System;
 using UnityEngine;
 

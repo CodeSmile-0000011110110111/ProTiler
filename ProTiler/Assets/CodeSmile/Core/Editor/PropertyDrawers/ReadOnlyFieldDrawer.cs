@@ -1,4 +1,6 @@
 using CodeSmile;
+using CodeSmile.Attributes;
+using System.Diagnostics.CodeAnalysis;
 using UnityEditor;
 using UnityEngine;
 
@@ -7,6 +9,7 @@ namespace CodeSmile.Editor.PropertyDrawers
 	/// <summary>
 	/// Displays a field with ReadOnlyFieldAttribute as readonly in Inspector.
 	/// </summary>
+	[ExcludeFromCodeCoverage]
 	[CustomPropertyDrawer(typeof(ReadOnlyFieldAttribute))]
 	public sealed class ReadOnlyFieldDrawer : PropertyDrawer
 	{

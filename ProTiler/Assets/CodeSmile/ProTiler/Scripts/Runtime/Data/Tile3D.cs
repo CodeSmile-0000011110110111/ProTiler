@@ -2,6 +2,7 @@
 // Refer to included LICENSE file for terms and conditions.
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace CodeSmile.ProTiler.Data
 {
@@ -41,7 +42,7 @@ namespace CodeSmile.ProTiler.Data
 
 		public bool Equals(Tile3D other) => Index == other.Index && Flags == other.Flags;
 
-		public override string ToString() => $"{nameof(Tile3D)}(Index: {Index}, Flags: {Flags})";
+		[ExcludeFromCodeCoverage] public override string ToString() => $"{nameof(Tile3D)}(Index: {Index}, Flags: {Flags})";
 
 		public override bool Equals(object obj) => obj is Tile3D other && Equals(other);
 

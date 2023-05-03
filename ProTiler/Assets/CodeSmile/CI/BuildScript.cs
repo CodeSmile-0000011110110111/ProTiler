@@ -3,13 +3,15 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using UnityEditor;
 using UnityEditor.Build.Reporting;
 using UnityEngine;
 
-namespace CodeSmile.Editor.CI
+namespace CodeSmile.CI
 {
+	[ExcludeFromCodeCoverage]
 	public static class BuildScript
 	{
 		private static readonly string Eol = Environment.NewLine;

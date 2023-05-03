@@ -3,7 +3,6 @@
 
 using CodeSmile.ProTiler.Assets;
 using CodeSmile.ProTiler.Editor.Creation;
-using CodeSmile.ProTiler.Editor.Data;
 using NUnit.Framework;
 using UnityEngine;
 

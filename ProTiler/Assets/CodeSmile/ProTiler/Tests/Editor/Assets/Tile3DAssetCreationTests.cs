@@ -4,7 +4,6 @@
 using CodeSmile.Extensions;
 using CodeSmile.ProTiler.Assets;
 using CodeSmile.ProTiler.Editor.Creation;
-using CodeSmile.ProTiler.Editor.Data;
 using CodeSmile.Tests.Utilities;
 using NUnit.Framework;
 using System;

@@ -1,13 +1,14 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
+using CodeSmile.Utilities;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
-namespace CodeSmile.Extensions
+namespace CodeSmile.Editor.Extensions
 {
 	public static class AssetDatabaseExt
 	{

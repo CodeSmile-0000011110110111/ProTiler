@@ -3,7 +3,7 @@
 
 using System.Runtime.CompilerServices;
 
-namespace CodeSmile
+namespace CodeSmile.Utilities
 {
 	public static class HashUtility
 	{

@@ -5,6 +5,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using Unity.Collections;
 using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine.Internal;
@@ -428,7 +429,7 @@ namespace CodeSmile.Collections.Native.NativeArray2D
 		/// <returns>
 		///     An enumerator for this array.
 		/// </returns>
-		IEnumerator<T> IEnumerable<T>.GetEnumerator() => new Enumerator(ref this);
+		[ExcludeFromCodeCoverage] IEnumerator<T> IEnumerable<T>.GetEnumerator() => new Enumerator(ref this);
 
 		/// <summary>
 		///     Get an enumerator for this array
@@ -652,6 +653,7 @@ namespace CodeSmile.Collections.Native.NativeArray2D
 	/// <typeparam name="T">
 	///     Type of elements in the array
 	/// </typeparam>
+	[ExcludeFromCodeCoverage]
 	internal sealed class NativeArray2DDebugView<T> where T : unmanaged
 	{
 		/// <summary>

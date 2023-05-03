@@ -2,12 +2,11 @@
 // Refer to included LICENSE file for terms and conditions.
 
 using CodeSmile.Collections;
-using CodeSmile.ProTiler.Assets;
-using CodeSmile.ProTiler.Editor.Data;
+using CodeSmile.ProTiler.Data;
 using System;
 using UnityEngine;
 
-namespace CodeSmile.ProTiler.Collections
+namespace CodeSmile.ProTiler.Assets
 {
 	[Serializable]
 	public class Tile3DAssetBaseSet : ObjectSet<Tile3DAssetBase>

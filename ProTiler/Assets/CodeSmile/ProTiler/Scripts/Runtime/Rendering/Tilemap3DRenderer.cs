@@ -1,9 +1,7 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
-using CodeSmile.Extensions;
 using CodeSmile.ProTiler.Data;
-using System;
 using UnityEngine;
 
 namespace CodeSmile.ProTiler.Rendering
