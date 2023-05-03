@@ -53,15 +53,6 @@
       },
       "url": "https://packages.unity.com"
     },
-    "com.unity.ide.visualstudio": {
-      "version": "2.0.17",
-      "depth": 1,
-      "source": "registry",
-      "dependencies": {
-        "com.unity.test-framework": "1.1.9"
-      },
-      "url": "https://packages.unity.com"
-    },
     "com.unity.memoryprofiler": {
       "version": "1.0.0",
       "depth": 0,
@@ -69,13 +60,6 @@
       "dependencies": {
         "com.unity.editorcoroutines": "1.0.0"
       },
-      "url": "https://packages.unity.com"
-    },
-    "com.unity.performance.profile-analyzer": {
-      "version": "1.2.2",
-      "depth": 1,
-      "source": "registry",
-      "dependencies": {},
       "url": "https://packages.unity.com"
     },
     "com.unity.settings-manager": {
@@ -119,16 +103,6 @@
       "dependencies": {
         "com.unity.test-framework": "1.1.31",
         "com.unity.modules.jsonserialize": "1.0.0"
-      },
-      "url": "https://packages.unity.com"
-    },
-    "com.unity.testtools.codecoverage": {
-      "version": "1.2.3",
-      "depth": 1,
-      "source": "registry",
-      "dependencies": {
-        "com.unity.test-framework": "1.0.16",
-        "com.unity.settings-manager": "1.0.1"
       },
       "url": "https://packages.unity.com"
     },

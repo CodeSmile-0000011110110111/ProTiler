@@ -2,7 +2,7 @@
   "dependencies": {
     "com.github-glitchenzo.nugetforunity": "https://github.com/GlitchEnzo/NuGetForUnity.git?path=/src/NuGetForUnity",
     "com.unity.connect.share": "4.2.3",
-    "com.unity.feature.development": "1.0.2",
+    "com.unity.feature.development": "1.0.1",
     "com.unity.ide.rider": "3.0.21",
     "com.unity.memoryprofiler": "1.0.0",
     "com.unity.test-framework": "1.3.3",
