@@ -10,7 +10,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.TestTools;
 
-namespace CodeSmile.Tests.Utilities
+namespace CodeSmile.Tests.Utilities.Attributes
 {
 	/// <summary>
 	/// Creates a new GameObject instance in the scene for a test method.
@@ -22,7 +22,7 @@ namespace CodeSmile.Tests.Utilities
 
 		private readonly string m_Name;
 		private readonly Type[] m_Components;
-		private GameObject m_GameObject;
+		private UnityEngine.GameObject m_GameObject;
 
 		/// <summary>
 		/// Creates a new GameObject instance in the scene for a test method.

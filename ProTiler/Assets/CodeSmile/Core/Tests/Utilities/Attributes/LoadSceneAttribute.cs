@@ -11,7 +11,7 @@ using UnityEditor.SceneManagement;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 
-namespace CodeSmile.Tests.Utilities
+namespace CodeSmile.Tests.Utilities.Attributes
 {
 	[AttributeUsage(AttributeTargets.Method)]
 	public class LoadSceneAttribute : NUnitAttribute, IOuterUnityTestAction

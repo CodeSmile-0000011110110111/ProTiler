@@ -1,9 +1,7 @@
 {
     "name": "CodeSmile",
     "rootNamespace": "",
-    "references": [
-        "GUID:2a1bc76c5d074cc4c839253d25f72fbc"
-    ],
+    "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": true,

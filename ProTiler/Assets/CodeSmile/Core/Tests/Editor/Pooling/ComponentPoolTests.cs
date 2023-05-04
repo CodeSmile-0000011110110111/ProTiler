@@ -3,6 +3,7 @@
 
 using CodeSmile.Pooling;
 using CodeSmile.Tests.Utilities;
+using CodeSmile.Tests.Utilities.Attributes;
 using NUnit.Framework;
 using System;
 using UnityEngine;
@@ -11,7 +12,7 @@ namespace CodeSmile.Tests.Editor.Pooling
 {
 	public class ComponentPoolTests
 	{
-		[Test] [EmptyScene()][CreateGameObject("Parent")]
+		[Test] [CreateEmptyScene()][CreateGameObject("Parent")]
 		public void NewThrowsOnInvalidParams()
 		{
 			var instance = GameObject.Find("Parent");
@@ -24,7 +25,7 @@ namespace CodeSmile.Tests.Editor.Pooling
 		}
 
 
-		[Test] [EmptyScene()][CreateGameObject("Parent")]
+		[Test] [CreateEmptyScene()][CreateGameObject("Parent")]
 		public void CreateEmptyPool()
 		{
 			var parent = GameObject.Find("Parent");
@@ -37,7 +38,7 @@ namespace CodeSmile.Tests.Editor.Pooling
 			}
 		}
 
-		[Test] [EmptyScene()][CreateGameObject("Parent")]
+		[Test] [CreateEmptyScene()][CreateGameObject("Parent")]
 		public void CreateAndDispose()
 		{
 			var parent = GameObject.Find("Parent");
@@ -54,7 +55,7 @@ namespace CodeSmile.Tests.Editor.Pooling
 			Assert.AreEqual(0, parent.transform.childCount);
 		}
 
-		[Test] [EmptyScene()][CreateGameObject("Parent")]
+		[Test] [CreateEmptyScene()][CreateGameObject("Parent")]
 		public void TakeAndReturnPooledObject()
 		{
 			var parent = GameObject.Find("Parent");

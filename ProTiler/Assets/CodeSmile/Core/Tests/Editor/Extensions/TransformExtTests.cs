@@ -3,6 +3,7 @@
 
 using CodeSmile.Extensions;
 using CodeSmile.Tests.Utilities;
+using CodeSmile.Tests.Utilities.Attributes;
 using NUnit.Framework;
 using UnityEngine;
 
@@ -10,10 +11,10 @@ namespace CodeSmile.Tests.Editor.Extensions
 {
 	public class TransformExtTests
 	{
-		[Test] [EmptyScene] [CreateGameObject(nameof(BoxCollider), typeof(BoxCollider))]
+		[Test] [CreateEmptyScene] [CreateGameObject(nameof(BoxCollider), typeof(BoxCollider))]
 		public void DestroyAllChildren()
 		{
-			var go = Object.FindObjectOfType<BoxCollider>().gameObject;
+			var go = ObjectExt.FindObjectByTypeFast<BoxCollider>().gameObject;
 			var childCount = 10;
 			for (var i = 0; i < childCount; i++)
 				go.FindOrCreateChild(i.ToString());

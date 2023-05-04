@@ -6,7 +6,7 @@ using UnityEditor;
 using UnityEditor.TestTools.TestRunner.Api;
 using UnityEngine;
 
-namespace CodeSmile.Tests.Utilities
+namespace CodeSmile.Tests.Utilities.Callbacks
 {
 	[InitializeOnLoad]
 	public class FasterTests

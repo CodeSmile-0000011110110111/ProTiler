@@ -5,13 +5,9 @@
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
         "CodeSmile",
-        "CodeSmile.Collections",
-        "CodeSmile.Collections.Native",
-        "CodeSmile.Extensions",
-        "CodeSmile.Tests.Utilities",
-        "CodeSmile.Editor.ProTiler",
         "CodeSmile.Editor",
-        "CodeSmile.Utilities"
+        "CodeSmile.Editor.ProTiler",
+        "CodeSmile.Tests.Utilities"
     ],
     "includePlatforms": [
         "Editor"

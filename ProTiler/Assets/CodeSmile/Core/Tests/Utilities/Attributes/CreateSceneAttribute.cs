@@ -5,7 +5,6 @@ using CodeSmile.Editor.Extensions;
 using CodeSmile.Extensions;
 using NUnit.Framework;
 using NUnit.Framework.Interfaces;
-using System;
 using System.Collections;
 using System.IO;
 using UnityEditor;
@@ -14,45 +13,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 
-namespace CodeSmile.Tests.Utilities
+namespace CodeSmile.Tests.Utilities.Attributes
 {
-	/// <summary>
-	///     Creates a new empty scene for a unit test method.
-	/// </summary>
-	[AttributeUsage(AttributeTargets.Method)]
-	public class EmptySceneAttribute : CreateSceneAttribute
-	{
-		/// <summary>
-		///     Creates a new empty scene for a unit test method.
-		/// </summary>
-		/// <param name="scenePath">
-		///     if non-empty, the scene will be saved as an asset for tests that verify correctness of
-		///     save/load of a scene's contents. The saved scene asset is deleted after the test ran.
-		/// </param>
-		public EmptySceneAttribute(string scenePath = null)
-			: base(scenePath) {}
-	}
-
-	/// <summary>
-	///     Creates a new default scene (with Camera + Direct Light) for a unit test method.
-	/// </summary>
-	[AttributeUsage(AttributeTargets.Method)]
-	public class DefaultSceneAttribute : CreateSceneAttribute
-	{
-		/// <summary>
-		///     Creates a new default scene (with Camera + Direct Light) for a unit test method.
-		///     Caution: the scene contents will be deleted with the exception of the default game objects named
-		///     "Main Camera" and "Directional Light". Any changes to these two objects will persist between tests.
-		///     If you rename these objects they will be deleted and not restored for other tests.
-		/// </summary>
-		/// <param name="scenePath">
-		///     if non-empty, the scene will be saved as an asset for tests that verify correctness of save/load of a scene's
-		///     contents. The saved scene asset is deleted after the test ran.
-		/// </param>
-		public DefaultSceneAttribute(string scenePath = null)
-			: base(scenePath, NewSceneSetup.DefaultGameObjects) {}
-	}
-
 	public class CreateSceneAttribute : NUnitAttribute, IOuterUnityTestAction
 	{
 		private readonly NewSceneSetup m_Setup;

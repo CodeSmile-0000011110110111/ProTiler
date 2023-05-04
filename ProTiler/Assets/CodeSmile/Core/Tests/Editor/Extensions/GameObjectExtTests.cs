@@ -3,6 +3,7 @@
 
 using CodeSmile.Extensions;
 using CodeSmile.Tests.Utilities;
+using CodeSmile.Tests.Utilities.Attributes;
 using NUnit.Framework;
 using System;
 using UnityEngine;
@@ -14,7 +15,7 @@ namespace CodeSmile.Tests.Editor.Extensions
 		private const string ChildGameObjectName = "Child GameObject";
 		private const string OriginalGameObjectName = "Original GameObject";
 
-		[Test] [EmptyScene] [CreateGameObject]
+		[Test] [CreateEmptyScene] [CreateGameObject]
 		public void GetOrAddComponentOnce()
 		{
 			var go = GameObject.Find(CreateGameObjectAttribute.DefaultName);
@@ -24,7 +25,7 @@ namespace CodeSmile.Tests.Editor.Extensions
 			Assert.That(go.GetComponents<BoxCollider>().Length == 1, Is.True);
 		}
 
-		[Test] [EmptyScene] [CreateGameObject]
+		[Test] [CreateEmptyScene] [CreateGameObject]
 		public void GetOrAddSameComponentTwice()
 		{
 			var go = GameObject.Find(CreateGameObjectAttribute.DefaultName);
@@ -36,7 +37,7 @@ namespace CodeSmile.Tests.Editor.Extensions
 			Assert.That(go.GetComponents<BoxCollider>().Length == 1, Is.True);
 		}
 
-		[Test] [EmptyScene] [CreateGameObject]
+		[Test] [CreateEmptyScene] [CreateGameObject]
 		public void GetOrAddSameComponentAfterDestroy()
 		{
 			var go = GameObject.Find(CreateGameObjectAttribute.DefaultName);
@@ -47,7 +48,7 @@ namespace CodeSmile.Tests.Editor.Extensions
 			Assert.That(go.GetComponents<BoxCollider>().Length == 1, Is.True);
 		}
 
-		[Test] [EmptyScene] [CreateGameObject]
+		[Test] [CreateEmptyScene] [CreateGameObject]
 		public void IsNotPrefab()
 		{
 			var go = GameObject.Find(CreateGameObjectAttribute.DefaultName);
@@ -63,7 +64,7 @@ namespace CodeSmile.Tests.Editor.Extensions
 			Assert.That(prefab.IsPrefab(), Is.True);
 		}
 
-		[Test] [EmptyScene] [CreateGameObject]
+		[Test] [CreateEmptyScene] [CreateGameObject]
 		public void FindOrCreateChildOnce()
 		{
 			var go = GameObject.Find(CreateGameObjectAttribute.DefaultName);
@@ -74,7 +75,7 @@ namespace CodeSmile.Tests.Editor.Extensions
 			Assert.That(child, Is.EqualTo(go.transform.GetChild(0).gameObject));
 		}
 
-		[Test] [EmptyScene] [CreateGameObject]
+		[Test] [CreateEmptyScene] [CreateGameObject]
 		public void FindOrCreateChildTwice()
 		{
 			var go = GameObject.Find(CreateGameObjectAttribute.DefaultName);
@@ -86,7 +87,7 @@ namespace CodeSmile.Tests.Editor.Extensions
 			Assert.That(go.transform.childCount == 1, Is.True);
 		}
 
-		[Test] [EmptyScene] [CreateGameObject]
+		[Test] [CreateEmptyScene] [CreateGameObject]
 		public void FindOrCreateChildWithNullOriginalThrows()
 		{
 			var go = GameObject.Find(CreateGameObjectAttribute.DefaultName);
@@ -94,7 +95,7 @@ namespace CodeSmile.Tests.Editor.Extensions
 			Assert.Throws<ArgumentNullException>(() => { go.FindOrCreateChild(ChildGameObjectName, null); });
 		}
 
-		[Test] [EmptyScene] [CreateGameObject] [CreateGameObject(OriginalGameObjectName, typeof(BoxCollider))]
+		[Test] [CreateEmptyScene] [CreateGameObject] [CreateGameObject(OriginalGameObjectName, typeof(BoxCollider))]
 		public void FindOrCreateChildWithOriginalOnce()
 		{
 			var go = GameObject.Find(CreateGameObjectAttribute.DefaultName);
@@ -107,7 +108,7 @@ namespace CodeSmile.Tests.Editor.Extensions
 			Assert.That(child.GetComponent<BoxCollider>() != null);
 		}
 
-		[Test] [EmptyScene] [CreateGameObject] [CreateGameObject(OriginalGameObjectName, typeof(BoxCollider))]
+		[Test] [CreateEmptyScene] [CreateGameObject] [CreateGameObject(OriginalGameObjectName, typeof(BoxCollider))]
 		public void FindOrCreateChildWithOriginalTwice()
 		{
 			var go = GameObject.Find(CreateGameObjectAttribute.DefaultName);

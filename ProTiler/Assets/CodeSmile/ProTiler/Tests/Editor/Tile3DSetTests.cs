@@ -1,9 +1,11 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
+using CodeSmile.Extensions;
 using CodeSmile.ProTiler.Assets;
 using CodeSmile.ProTiler.Editor.Creation;
 using CodeSmile.Tests.Utilities;
+using CodeSmile.Tests.Utilities.Attributes;
 using NUnit.Framework;
 using UnityEngine;
 
@@ -11,10 +13,10 @@ namespace CodeSmile.ProTiler.Tests.Editor
 {
 	public class Tile3DSetTests
 	{
-		[Test] [EmptyScene] [CreateGameObject(nameof(Tile3DSet), typeof(Tile3DSet))]
+		[Test] [CreateEmptyScene] [CreateGameObject(nameof(Tile3DSet), typeof(Tile3DSet))]
 		public void AddAndContainsTileAsset()
 		{
-			var tileSet = Object.FindObjectOfType<Tile3DSet>();
+			var tileSet = ObjectExt.FindObjectByTypeFast<Tile3DSet>();
 			var tileAsset = Tile3DAssetCreation.CreateInstance<Tile3DAsset>();
 
 			tileSet.Add(tileAsset);
@@ -22,10 +24,10 @@ namespace CodeSmile.ProTiler.Tests.Editor
 			Assert.That(tileSet.Contains(tileAsset));
 		}
 
-		[Test] [EmptyScene] [CreateGameObject(nameof(Tile3DSet), typeof(Tile3DSet))]
+		[Test] [CreateEmptyScene] [CreateGameObject(nameof(Tile3DSet), typeof(Tile3DSet))]
 		public void AddTileAssetWithIndex()
 		{
-			var tileSet = Object.FindObjectOfType<Tile3DSet>();
+			var tileSet = ObjectExt.FindObjectByTypeFast<Tile3DSet>();
 			var tileAsset = Tile3DAssetCreation.CreateInstance<Tile3DAsset>();
 
 			tileSet.Add(tileAsset, out var index);
@@ -34,10 +36,10 @@ namespace CodeSmile.ProTiler.Tests.Editor
 			Assert.That(tileSet.Contains(tileAsset));
 		}
 
-		[Test] [EmptyScene] [CreateGameObject(nameof(Tile3DSet), typeof(Tile3DSet))]
+		[Test] [CreateEmptyScene] [CreateGameObject(nameof(Tile3DSet), typeof(Tile3DSet))]
 		public void RemoveAndDoesNotContainTileAsset()
 		{
-			var tileSet = Object.FindObjectOfType<Tile3DSet>();
+			var tileSet = ObjectExt.FindObjectByTypeFast<Tile3DSet>();
 			var tileAsset = Tile3DAssetCreation.CreateInstance<Tile3DAsset>();
 
 			tileSet.Add(tileAsset);

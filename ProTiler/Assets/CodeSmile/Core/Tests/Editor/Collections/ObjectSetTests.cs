@@ -3,6 +3,7 @@
 
 using CodeSmile.Collections;
 using CodeSmile.Tests.Utilities;
+using CodeSmile.Tests.Utilities.Attributes;
 using NUnit.Framework;
 using System;
 using UnityEngine;
@@ -15,7 +16,7 @@ namespace CodeSmile.Tests.Editor.Collections
 		private const string GameObjectNameTwo = "2";
 		private const string GameObjectNameThree = "3";
 
-		[Test] [EmptyScene]
+		[Test] [CreateEmptyScene]
 		public void CreateEmptySet()
 		{
 			var set = new ObjectSet<GameObject>();
@@ -24,7 +25,7 @@ namespace CodeSmile.Tests.Editor.Collections
 			Assert.That(set.Count == 0);
 		}
 
-		[Test] [EmptyScene] [CreateGameObject]
+		[Test] [CreateEmptyScene] [CreateGameObject]
 		public void CreateEmptySetWithDefaultObject()
 		{
 			var defaultGO = GameObject.Find(CreateGameObjectAttribute.DefaultName);
@@ -35,7 +36,7 @@ namespace CodeSmile.Tests.Editor.Collections
 			Assert.That(defaultGO, Is.EqualTo(set.DefaultObject));
 		}
 
-		[Test] [EmptyScene] [CreateGameObject(GameObjectNameOne)]
+		[Test] [CreateEmptyScene] [CreateGameObject(GameObjectNameOne)]
 		public void AddObjectToSetWithStartIndex()
 		{
 			var GO1 = GameObject.Find(GameObjectNameOne);
@@ -49,7 +50,7 @@ namespace CodeSmile.Tests.Editor.Collections
 			Assert.That(GO1, Is.EqualTo(set[actualIndex]));
 		}
 
-		[Test] [EmptyScene]
+		[Test] [CreateEmptyScene]
 		[CreateGameObject(GameObjectNameOne)] [CreateGameObject(GameObjectNameTwo)] [CreateGameObject(GameObjectNameThree)]
 		public void AddMultipleObjectsToSetWithStartIndex()
 		{
@@ -85,7 +86,7 @@ namespace CodeSmile.Tests.Editor.Collections
 			Assert.That(set.Contains(null), Is.False);
 		}
 
-		[Test] [EmptyScene] [CreateGameObject(GameObjectNameOne)]
+		[Test] [CreateEmptyScene] [CreateGameObject(GameObjectNameOne)]
 		public void AddObject()
 		{
 			var GO1 = GameObject.Find(GameObjectNameOne);
@@ -97,7 +98,7 @@ namespace CodeSmile.Tests.Editor.Collections
 			Assert.That(set.Contains(GO1), Is.True);
 		}
 
-		[Test] [EmptyScene] [CreateGameObject(GameObjectNameOne)]
+		[Test] [CreateEmptyScene] [CreateGameObject(GameObjectNameOne)]
 		public void AddSameObjectTwice()
 		{
 			var GO1 = GameObject.Find(GameObjectNameOne);
@@ -110,7 +111,7 @@ namespace CodeSmile.Tests.Editor.Collections
 			Assert.That(didAdd2, Is.False);
 		}
 
-		[Test] [EmptyScene] [CreateGameObject(GameObjectNameOne)] [CreateGameObject(GameObjectNameTwo)]
+		[Test] [CreateEmptyScene] [CreateGameObject(GameObjectNameOne)] [CreateGameObject(GameObjectNameTwo)]
 		public void AddObjectsWithIndex()
 		{
 			var GO1 = GameObject.Find(GameObjectNameOne);
@@ -129,7 +130,7 @@ namespace CodeSmile.Tests.Editor.Collections
 			Assert.That(index2, Is.EqualTo(startIndex + 1));
 		}
 
-		[Test] [EmptyScene] [CreateGameObject]
+		[Test] [CreateEmptyScene] [CreateGameObject]
 		[CreateGameObject(GameObjectNameOne)] [CreateGameObject(GameObjectNameTwo)] [CreateGameObject(GameObjectNameThree)]
 		public void AddMultipleObjects()
 		{
@@ -151,7 +152,7 @@ namespace CodeSmile.Tests.Editor.Collections
 			Assert.That(set.Contains(2), Is.True);
 		}
 
-		[Test] [EmptyScene] [CreateGameObject(GameObjectNameOne)]
+		[Test] [CreateEmptyScene] [CreateGameObject(GameObjectNameOne)]
 		public void RemoveNull()
 		{
 			var GO1 = GameObject.Find(GameObjectNameOne);
@@ -164,7 +165,7 @@ namespace CodeSmile.Tests.Editor.Collections
 			Assert.That(set.Contains(GO1), Is.True);
 		}
 
-		[Test] [EmptyScene] [CreateGameObject(GameObjectNameOne)]
+		[Test] [CreateEmptyScene] [CreateGameObject(GameObjectNameOne)]
 		public void RemoveLastOne()
 		{
 			var GO1 = GameObject.Find(GameObjectNameOne);
@@ -176,7 +177,7 @@ namespace CodeSmile.Tests.Editor.Collections
 			Assert.That(set.Count == 0, Is.True);
 		}
 
-		[Test] [EmptyScene] [CreateGameObject(GameObjectNameOne)] [CreateGameObject(GameObjectNameTwo)]
+		[Test] [CreateEmptyScene] [CreateGameObject(GameObjectNameOne)] [CreateGameObject(GameObjectNameTwo)]
 		public void RemoveNotExisting()
 		{
 			var GO1 = GameObject.Find(GameObjectNameOne);
@@ -190,7 +191,7 @@ namespace CodeSmile.Tests.Editor.Collections
 			Assert.That(set.Contains(GO1), Is.True);
 		}
 
-		[Test] [EmptyScene] [CreateGameObject(GameObjectNameOne)] [CreateGameObject(GameObjectNameTwo)]
+		[Test] [CreateEmptyScene] [CreateGameObject(GameObjectNameOne)] [CreateGameObject(GameObjectNameTwo)]
 		[CreateGameObject(GameObjectNameThree)]
 		public void RemoveOne()
 		{
@@ -208,7 +209,7 @@ namespace CodeSmile.Tests.Editor.Collections
 			Assert.That(set.Contains(GO2), Is.False);
 		}
 
-		[Test] [EmptyScene] [CreateGameObject(GameObjectNameOne)] [CreateGameObject(GameObjectNameTwo)]
+		[Test] [CreateEmptyScene] [CreateGameObject(GameObjectNameOne)] [CreateGameObject(GameObjectNameTwo)]
 		[CreateGameObject(GameObjectNameThree)]
 		public void RemoveOneByIndex()
 		{
@@ -227,7 +228,7 @@ namespace CodeSmile.Tests.Editor.Collections
 			Assert.That(set.Contains(GO2), Is.False);
 		}
 
-		[Test] [EmptyScene] [CreateGameObject(GameObjectNameOne)] [CreateGameObject(GameObjectNameTwo)]
+		[Test] [CreateEmptyScene] [CreateGameObject(GameObjectNameOne)] [CreateGameObject(GameObjectNameTwo)]
 		[CreateGameObject(GameObjectNameThree)]
 		public void ClearSet()
 		{
@@ -245,7 +246,7 @@ namespace CodeSmile.Tests.Editor.Collections
 			Assert.That(set.Contains(GO1), Is.False);
 		}
 
-		[Test] [EmptyScene] [CreateGameObject] [CreateGameObject(GameObjectNameOne)] [CreateGameObject(GameObjectNameTwo)]
+		[Test] [CreateEmptyScene] [CreateGameObject] [CreateGameObject(GameObjectNameOne)] [CreateGameObject(GameObjectNameTwo)]
 		public void GetReturnsObjectAtIndex()
 		{
 			var defaultGO = GameObject.Find(CreateGameObjectAttribute.DefaultName);
@@ -261,7 +262,7 @@ namespace CodeSmile.Tests.Editor.Collections
 			Assert.That(GO2, Is.EqualTo(set[startIndex + 1]));
 		}
 
-		[Test] [EmptyScene] [CreateGameObject] [CreateGameObject(GameObjectNameOne)] [CreateGameObject(GameObjectNameTwo)]
+		[Test] [CreateEmptyScene] [CreateGameObject] [CreateGameObject(GameObjectNameOne)] [CreateGameObject(GameObjectNameTwo)]
 		public void GetOutOfBoundsReturnsDefaultObject()
 		{
 			var defaultGO = GameObject.Find(CreateGameObjectAttribute.DefaultName);
@@ -271,7 +272,7 @@ namespace CodeSmile.Tests.Editor.Collections
 			Assert.That(defaultGO, Is.EqualTo(set[0]));
 		}
 
-		[Test] [EmptyScene]
+		[Test] [CreateEmptyScene]
 		[CreateGameObject(GameObjectNameOne)] [CreateGameObject(GameObjectNameTwo)] [CreateGameObject(GameObjectNameThree)]
 		public void AssignObject()
 		{
@@ -289,7 +290,7 @@ namespace CodeSmile.Tests.Editor.Collections
 			Assert.That(set.Contains(GO3), Is.True);
 		}
 
-		[Test] [EmptyScene] [CreateGameObject(GameObjectNameOne)] [CreateGameObject(GameObjectNameTwo)]
+		[Test] [CreateEmptyScene] [CreateGameObject(GameObjectNameOne)] [CreateGameObject(GameObjectNameTwo)]
 		public void AssignObjectReplaceExisting()
 		{
 			var GO1 = GameObject.Find(GameObjectNameOne);
@@ -311,7 +312,7 @@ namespace CodeSmile.Tests.Editor.Collections
 			Assert.Throws<IndexOutOfRangeException>(() => { set[1] = null; });
 		}
 
-		[Test] [EmptyScene] [CreateGameObject(GameObjectNameOne)]
+		[Test] [CreateEmptyScene] [CreateGameObject(GameObjectNameOne)]
 		public void AssignObjectAlreadyInSetThrows()
 		{
 			var GO1 = GameObject.Find(GameObjectNameOne);
@@ -322,7 +323,7 @@ namespace CodeSmile.Tests.Editor.Collections
 			Assert.Throws<ArgumentException>(() => { set[0] = GO1; });
 		}
 
-		[Test] [EmptyScene] [CreateGameObject] [CreateGameObject(GameObjectNameOne)]
+		[Test] [CreateEmptyScene] [CreateGameObject] [CreateGameObject(GameObjectNameOne)]
 		public void AssignNullRemovesObject()
 		{
 			var defaultGO = GameObject.Find(CreateGameObjectAttribute.DefaultName);

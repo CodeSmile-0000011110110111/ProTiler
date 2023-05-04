@@ -1,7 +1,6 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
-using System.Diagnostics.CodeAnalysis;
 using UnityEditor;
 using UnityEngine;
 
@@ -48,6 +47,25 @@ namespace CodeSmile.Extensions
 #if UNITY_EDITOR
 			EditorUtility.SetDirty(obj);
 #endif
+		}
+
+		public static T[] FindObjectsByTypeFast<T>(bool findInactive = false) where T : Object
+		{
+#if UNITY_2021_3_OR_NEWER
+			return Object.FindObjectsByType<T>(
+				findInactive ? FindObjectsInactive.Include : FindObjectsInactive.Exclude, FindObjectsSortMode.None);
+#else
+			return Object.FindObjectsOfType<T>(findInactive);
+#endif
+		}
+
+		public static T FindObjectByTypeFast<T>(bool findInactive = false) where T : Object
+		{
+			var objects = FindObjectsByTypeFast<T>();
+			if (objects.Length > 0)
+				return objects[0];
+
+			return null;
 		}
 	}
 }
