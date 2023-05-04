@@ -4,5 +4,5 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 
-[assembly: InternalsVisibleTo("CodeSmile.Editor.ProTiler.Tests")]
-[assembly: InternalsVisibleTo("CodeSmile.Editor.ProTiler")]
+[assembly: InternalsVisibleTo("CodeSmile.ProTiler.Editor")]
+[assembly: InternalsVisibleTo("CodeSmile.Tests.ProTiler.Editor")]

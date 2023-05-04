@@ -3,8 +3,6 @@
 
 using CodeSmile.ProTiler.Data;
 using CodeSmile.ProTiler.Rendering;
-using System;
-using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
