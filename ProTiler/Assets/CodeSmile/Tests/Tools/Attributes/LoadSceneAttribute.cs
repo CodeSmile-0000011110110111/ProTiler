@@ -14,7 +14,7 @@ using UnityEngine.TestTools;
 namespace CodeSmile.Tests.Tools.Attributes
 {
 	[AttributeUsage(AttributeTargets.Method)]
-	public class LoadSceneAttribute : NUnitAttribute, IOuterUnityTestAction
+	public sealed class LoadSceneAttribute : NUnitAttribute, IOuterUnityTestAction
 	{
 		private string m_ScenePath;
 

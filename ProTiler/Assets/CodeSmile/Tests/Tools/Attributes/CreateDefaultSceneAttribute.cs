@@ -10,7 +10,7 @@ namespace CodeSmile.Tests.Tools.Attributes
 	///     Creates a new default scene (with Camera + Direct Light) for a unit test method.
 	/// </summary>
 	[AttributeUsage(AttributeTargets.Method)]
-	public class CreateDefaultSceneAttribute : CreateSceneAttribute
+	public sealed class CreateDefaultSceneAttribute : CreateSceneAttribute
 	{
 		/// <summary>
 		///     Creates a new default scene (with Camera + Direct Light) for a unit test method.

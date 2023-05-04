@@ -15,7 +15,7 @@ using UnityEngine.TestTools;
 
 namespace CodeSmile.Tests.Tools.Attributes
 {
-	public class CreateSceneAttribute : NUnitAttribute, IOuterUnityTestAction
+	public abstract class CreateSceneAttribute : NUnitAttribute, IOuterUnityTestAction
 	{
 		private readonly NewSceneSetup m_Setup;
 		private string m_ScenePath;
@@ -28,25 +28,24 @@ namespace CodeSmile.Tests.Tools.Attributes
 
 		IEnumerator IOuterUnityTestAction.BeforeTest(ITest test)
 		{
-			var activeScene = SceneManager.GetActiveScene();
-			var sceneName = CreateTestSceneName();
-			if (activeScene.name != sceneName)
-			{
-				var scene = EditorSceneManager.NewScene(m_Setup);
-				scene.name = sceneName;
-
-				if (IsScenePathValid())
-				{
-					CreateScenePathDirectoryIfNotExists();
-					if (EditorSceneManager.SaveScene(scene, m_ScenePath) == false)
-						throw new UnityException($"EditorSceneManager failed to save test scene to: '{m_ScenePath}'");
-				}
-			}
+			if (Application.isPlaying)
+				RuntimeLoadScene();
+			else
+				EditorLoadScene();
 
 			yield return null;
 		}
 
 		IEnumerator IOuterUnityTestAction.AfterTest(ITest test)
+		{
+			if (Application.isPlaying) {}
+			else
+				EditorCleanupScene();
+
+			yield return null;
+		}
+
+		private void EditorCleanupScene()
 		{
 			var activeScene = SceneManager.GetActiveScene();
 			foreach (var rootGameObject in activeScene.GetRootGameObjects())
@@ -61,12 +60,42 @@ namespace CodeSmile.Tests.Tools.Attributes
 			}
 
 			if (IsScenePathValid())
-			{
-				if (AssetDatabase.DeleteAsset(m_ScenePath) != true)
-					throw new UnityException($"AssetDatabase failed to delete test scene in: '{m_ScenePath}'");
-			}
+				DeleteTestScene();
+		}
 
-			yield return null;
+		private void DeleteTestScene()
+		{
+			Debug.Log($"Deleting test scene from: {m_ScenePath}");
+			if (AssetDatabase.DeleteAsset(m_ScenePath) != true)
+				throw new UnityException($"AssetDatabase failed to delete test scene in: '{m_ScenePath}'");
+		}
+
+		private void EditorLoadScene()
+		{
+			var activeScene = SceneManager.GetActiveScene();
+			var sceneName = CreateTestSceneName();
+			if (activeScene.name != sceneName)
+			{
+				var scene = EditorSceneManager.NewScene(m_Setup);
+				scene.name = sceneName;
+
+				if (IsScenePathValid())
+					SaveTestScene(scene);
+			}
+		}
+
+		private void SaveTestScene(Scene scene)
+		{
+			Debug.Log($"Saving '{scene.name}' to {m_ScenePath} ...");
+			CreateScenePathDirectoryIfNotExists();
+			if (EditorSceneManager.SaveScene(scene, m_ScenePath) == false)
+				throw new UnityException($"EditorSceneManager failed to save test scene to: '{m_ScenePath}'");
+		}
+
+		private void RuntimeLoadScene()
+		{
+			var sceneName = m_Setup == NewSceneSetup.EmptyScene ? TestNames.EmptyTestScene : TestNames.DefaultObjectsTestScene;
+			SceneManager.LoadScene(sceneName);
 		}
 
 		private void SetupAndVerifyScenePath(string scenePath)
@@ -74,18 +103,18 @@ namespace CodeSmile.Tests.Tools.Attributes
 			m_ScenePath = string.IsNullOrWhiteSpace(scenePath) == false ? TestPaths.TempTestAssets + scenePath : null;
 			if (m_ScenePath != null)
 			{
-				EnsureScenePathStartWithAssets();
-				EnsureScenePathExtensionIsUnity();
+				PrefixAssetsPathIfNeeded();
+				AppendSceneExtensionIfNeeded();
 			}
 		}
 
-		private void EnsureScenePathStartWithAssets()
+		private void PrefixAssetsPathIfNeeded()
 		{
 			if (m_ScenePath.StartsWith("Assets") == false)
 				m_ScenePath = "Assets/" + m_ScenePath;
 		}
 
-		private void EnsureScenePathExtensionIsUnity()
+		private void AppendSceneExtensionIfNeeded()
 		{
 			if (m_ScenePath.EndsWith(".unity") == false)
 				m_ScenePath += ".unity";

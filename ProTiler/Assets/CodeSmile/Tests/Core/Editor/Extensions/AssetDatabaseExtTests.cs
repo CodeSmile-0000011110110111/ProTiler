@@ -9,7 +9,7 @@ using System.IO;
 using UnityEditor;
 using UnityEngine;
 
-namespace CodeSmile.Tests.Core.Editor.Extensions
+namespace CodeSmile.Tests.Editor.Extensions
 {
 	public class AssetDatabaseExtTests
 	{

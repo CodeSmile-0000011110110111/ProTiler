@@ -2,7 +2,6 @@
 // Refer to included LICENSE file for terms and conditions.
 
 using CodeSmile.Extensions;
-using CodeSmile.ProTiler.Collections;
 using CodeSmile.ProTiler.Data;
 using UnityEngine;
 
@@ -57,13 +56,13 @@ namespace CodeSmile.ProTiler
 		{
 			var tileDatas = new Tile3DCoord[1];
 			GetTiles(new[] { coord }, ref tileDatas);
-			return tileDatas[0].m_Tile;
+			return tileDatas[0].Tile;
 		}
 
 		public void GetTiles(Vector3Int[] coords, ref Tile3DCoord[] tileCoordDatas) =>
 			m_Chunks.GetTiles(coords, ref tileCoordDatas);
 
-		public void SetTile(Vector3Int coord, Tile3D tile) => SetTiles(new[] { Tile3DCoord.New(coord, tile) });
+		public void SetTile(Vector3Int coord, Tile3D tile) => SetTiles(new[] { new Tile3DCoord(coord, tile) });
 
 		public void SetTiles(Tile3DCoord[] tileCoordDatas)
 		{

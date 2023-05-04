@@ -8,5 +8,8 @@ namespace CodeSmile.Tests.Tools
 		public const string TestAssets = "Assets/CodeSmile/Tests/Core/Assets/";
 		public const string TempTestAssets = TestAssets + "Temp/";
 		public const string TestPrefabFile = TestAssets + "TestPrefab.prefab";
+
+		public const string EmptyTestScene = TestAssets + "EmptyTestScene.unity";
+		public const string DefaultObjectsTestScene = TestAssets + "DefaultObjectsTestScene.unity";
 	}
 }

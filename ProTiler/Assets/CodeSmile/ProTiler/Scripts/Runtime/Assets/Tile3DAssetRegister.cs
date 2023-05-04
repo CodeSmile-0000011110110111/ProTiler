@@ -8,6 +8,8 @@ namespace CodeSmile.ProTiler.Assets
 {
 	public sealed class Tile3DAssetRegister : ScriptableObject
 	{
+		[SuppressMessage("NDepend", "ND1901:AvoidNonReadOnlyStaticFields", Justification="cannot be readonly")]
+		[SuppressMessage("NDepend", "ND1902:AvoidStaticFieldsWithAMutableFieldType", Justification="cannot be readonly")]
 		private static Tile3DAssetRegister s_Singleton;
 
 		[SerializeField] private Tile3DAssetBaseSet m_TileAssets;

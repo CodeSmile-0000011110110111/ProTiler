@@ -11,13 +11,26 @@ namespace CodeSmile.ProTiler.Data
 	///     TileData for a specific coordinate.
 	/// </summary>
 	[Serializable]
-	public struct Tile3DCoord
+	public struct Tile3DCoord : IEquatable<Tile3DCoord>
 	{
 		public Vector3Int Coord;
-		public Tile3D m_Tile;
+		public Tile3D Tile;
 
-		public static Tile3DCoord New(Vector3Int coord, Tile3D tile) => new() { Coord = coord, m_Tile = tile };
+		public static bool operator ==(Tile3DCoord left, Tile3DCoord right) => left.Equals(right);
+		public static bool operator !=(Tile3DCoord left, Tile3DCoord right) => !left.Equals(right);
 
-		[ExcludeFromCodeCoverage] public override string ToString() => $"{Coord}, {m_Tile}";
+		public Tile3DCoord(Vector3Int coord, Tile3D tile)
+		{
+			Coord = coord;
+			Tile = tile;
+		}
+
+		public bool Equals(Tile3DCoord other) => Coord.Equals(other.Coord) && Tile.Equals(other.Tile);
+
+		[ExcludeFromCodeCoverage] public override string ToString() => $"{Coord}, {Tile}";
+
+		public override bool Equals(object obj) => obj is Tile3DCoord other && Equals(other);
+
+		public override int GetHashCode() => HashCode.Combine(Coord, Tile);
 	}
 }

@@ -19,7 +19,18 @@ namespace CodeSmile.Components
 		private Vector3 m_EditorPosition;
 		private Quaternion m_EditorRotation;
 
-		private void Update()
+		[ExcludeFromCodeCoverage]
+		private void Update() => TryDropToGround();
+
+		[ExcludeFromCodeCoverage]
+		private void OnEnable()
+		{
+			m_EditorPosition = transform.position;
+			m_EditorRotation = transform.rotation;
+		}
+
+		[ExcludeFromCodeCoverage]
+		private void TryDropToGround()
 		{
 			var offset = 1000f;
 			var rayOrigin = transform.position + Vector3.up * offset;
@@ -50,12 +61,6 @@ namespace CodeSmile.Components
 
 				break;
 			}
-		}
-
-		private void OnEnable()
-		{
-			m_EditorPosition = transform.position;
-			m_EditorRotation = transform.rotation;
 		}
 	}
 }

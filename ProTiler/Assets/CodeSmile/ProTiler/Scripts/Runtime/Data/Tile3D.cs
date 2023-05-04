@@ -34,11 +34,14 @@ namespace CodeSmile.ProTiler.Data
 			}
 		}
 
-		public static Tile3D New(int tileIndex = 0, Tile3DFlags flags = Tile3DFlags.DirectionNorth) =>
-			new() { Index = tileIndex, Flags = flags };
-
 		public static bool operator ==(Tile3D left, Tile3D right) => left.Equals(right);
 		public static bool operator !=(Tile3D left, Tile3D right) => !left.Equals(right);
+
+		public Tile3D(int tileIndex, Tile3DFlags flags = Tile3DFlags.DirectionNorth)
+		{
+			Index = tileIndex;
+			Flags = flags;
+		}
 
 		public bool Equals(Tile3D other) => Index == other.Index && Flags == other.Flags;
 

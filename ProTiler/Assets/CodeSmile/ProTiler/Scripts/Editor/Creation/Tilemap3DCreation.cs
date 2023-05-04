@@ -2,7 +2,6 @@
 // Refer to included LICENSE file for terms and conditions.
 
 using CodeSmile.ProTiler.Data;
-using CodeSmile.ProTiler.Rendering;
 using UnityEditor;
 using UnityEngine;
 

@@ -1,5 +1,4 @@
 using CodeSmile;
-using CodeSmile.Attributes;
 using System.Diagnostics.CodeAnalysis;
 using UnityEditor;
 using UnityEngine;

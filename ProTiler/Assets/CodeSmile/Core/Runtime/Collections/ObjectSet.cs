@@ -1,7 +1,6 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
-using CodeSmile.Attributes;
 using CodeSmile.Extensions;
 using System;
 using System.Linq;
@@ -24,7 +23,7 @@ namespace CodeSmile.Collections
 		///     The default object that is returned for non-existing indexes. Defaults to null.
 		/// </summary>
 		[SerializeField] [ReadOnlyField] private int m_NextIndex;
-		[SerializeField] [ReadOnlyField] public T DefaultObject;
+		[SerializeField] [ReadOnlyField] private T m_DefaultObject;
 		[SerializeField] [HideInInspector] private IndexedObjectsDictionary m_IndexedObjects = new();
 
 		/// <summary>
@@ -33,11 +32,12 @@ namespace CodeSmile.Collections
 		///     Setter calls ReplaceAt.
 		/// </summary>
 		/// <param name="index"></param>
-		public T this[int index]
-		{
-			get => TryGetObject(index);
-			set => AssignAt(index, value);
-		}
+		public T this[int index] { get => TryGetObject(index); set => AssignAt(index, value); }
+
+		/// <summary>
+		///     Default object is returned when trying to get an object with an index that is out of bounds.
+		/// </summary>
+		public T DefaultObject { get => m_DefaultObject; set => m_DefaultObject = value; }
 
 		/// <summary>
 		///     How many unique objects are in the set.
@@ -45,12 +45,27 @@ namespace CodeSmile.Collections
 		public int Count => m_IndexedObjects.Count;
 
 		/// <summary>
+		///     Creates ObjectSet.
+		/// </summary>
+		/// <param name="defaultObject"></param>
+		public ObjectSet()
+			: this(null, 0) {}
+
+		/// <summary>
 		///     Creates ObjectSet with specified DefaultObject.
 		/// </summary>
 		/// <param name="defaultObject"></param>
-		public ObjectSet(T defaultObject = null, int startIndex = 0)
+		public ObjectSet(T defaultObject)
+			: this(defaultObject, 0) {}
+
+		/// <summary>
+		///     Creates ObjectSet with specified DefaultObject and start index.
+		/// </summary>
+		/// <param name="defaultObject"></param>
+		/// <param name="startIndex"></param>
+		public ObjectSet(T defaultObject, int startIndex)
 		{
-			DefaultObject = defaultObject;
+			m_DefaultObject = defaultObject;
 			m_NextIndex = startIndex;
 		}
 
@@ -143,8 +158,8 @@ namespace CodeSmile.Collections
 		/// <returns>The object at the index, or DefaultObject if there is no object for the given index.</returns>
 		private T TryGetObject(int index)
 		{
-			var obj = m_IndexedObjects.TryGetValue(index, out var existingObject) ? existingObject : DefaultObject;
-			return obj == null || obj.IsMissing() ? DefaultObject : obj;
+			var obj = m_IndexedObjects.TryGetValue(index, out var existingObject) ? existingObject : m_DefaultObject;
+			return obj == null || obj.IsMissing() ? m_DefaultObject : obj;
 		}
 
 		/// <summary>
@@ -159,9 +174,9 @@ namespace CodeSmile.Collections
 		{
 #if DEBUG
 			if (index < 0)
-				throw new IndexOutOfRangeException("index is negative");
+				throw new ArgumentException("index must not be negative");
 			if (index > m_NextIndex)
-				throw new IndexOutOfRangeException($"index {index} is greater or equal than next index {m_NextIndex}");
+				throw new ArgumentException($"index {index} is greater or equal than next index: {m_NextIndex}");
 			if (Contains(obj))
 				throw new ArgumentException("object already exists in set!");
 #endif

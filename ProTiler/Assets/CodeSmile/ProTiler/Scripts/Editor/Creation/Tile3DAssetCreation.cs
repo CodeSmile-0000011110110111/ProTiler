@@ -110,9 +110,9 @@ namespace CodeSmile.ProTiler.Editor.Creation
 		[ExcludeFromCodeCoverage]
 		private class CreateTile3DAssetEndAction : EndNameEditAction
 		{
-			public Tile3DAssetBase TileAsset;
-			public Action<Object> CreatedCallback;
-			public Action CanceledCallback;
+			public Tile3DAssetBase TileAsset { get; set; }
+			public Action<Object> CreatedCallback { get; set; }
+			public Action CanceledCallback { get; set; }
 
 			public override void Action(int instanceId, string pathName, string resourceFile)
 			{

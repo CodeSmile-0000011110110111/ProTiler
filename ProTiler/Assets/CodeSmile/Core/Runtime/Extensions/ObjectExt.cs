@@ -1,6 +1,7 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
+using System.Diagnostics.CodeAnalysis;
 using UnityEditor;
 using UnityEngine;
 
@@ -26,12 +27,12 @@ namespace CodeSmile.Extensions
 		public static void DestroyInAnyMode(this Object self)
 		{
 			if (Application.isPlaying == false)
-				Object.DestroyImmediate(self);
+				self.EditorDestroy();
 			else
-				Object.Destroy(self);
+				self.RuntimeDestroy();
 		}
 #else
-		public static void DestroyInAnyMode(this Object self) => Object.Destroy(self);
+		public static void DestroyInAnyMode(this Object self) => self.RuntimeDestroy();
 #endif
 
 		public static void RecordUndoInEditor(this Object obj, string undoActionName)
@@ -67,5 +68,9 @@ namespace CodeSmile.Extensions
 
 			return null;
 		}
+
+		private static void EditorDestroy(this Object self) => Object.DestroyImmediate(self);
+
+		private static void RuntimeDestroy(this Object self) => Object.Destroy(self);
 	}
 }

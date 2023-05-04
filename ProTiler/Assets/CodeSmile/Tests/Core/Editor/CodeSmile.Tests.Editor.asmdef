@@ -6,7 +6,6 @@
         "UnityEditor.TestRunner",
         "CodeSmile",
         "CodeSmile.Editor",
-        "CodeSmile.Editor.ProTiler",
         "CodeSmile.Tests.Tools"
     ],
     "includePlatforms": [

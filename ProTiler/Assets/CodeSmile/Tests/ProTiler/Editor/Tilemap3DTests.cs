@@ -104,7 +104,7 @@ namespace CodeSmile.Tests.ProTiler.Editor
 
 			var tileIndex = 123;
 			var coord = Vector3Int.one;
-			tilemap.SetTile(coord, Tile3D.New(tileIndex));
+			tilemap.SetTile(coord, new Tile3D(tileIndex));
 			Assert.That(tilemap.Chunks.TileCount == 1);
 
 			Undo.PerformUndo();
@@ -133,7 +133,7 @@ namespace CodeSmile.Tests.ProTiler.Editor
 
 			var tileIndex = 123;
 			var coord = Vector3Int.one;
-			tilemap.SetTile(coord, Tile3D.New(tileIndex));
+			tilemap.SetTile(coord, new Tile3D(tileIndex));
 			Assert.That(tilemap.GetTile(coord).Index == tileIndex);
 
 			EditorSceneManager.SaveOpenScenes();

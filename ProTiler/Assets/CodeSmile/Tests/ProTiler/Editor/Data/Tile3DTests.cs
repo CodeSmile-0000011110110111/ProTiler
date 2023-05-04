@@ -8,138 +8,76 @@ namespace CodeSmile.Tests.ProTiler.Editor.Data
 {
 	public class Tile3DTests
 	{
-		[Test]
-		public void CreateEmptyTileWithNewKeyword()
-		{
-			var tile = new Tile3D();
+		[Test] public void TileCreatedWithNewKeywordIsEmpty() => Assert.That(new Tile3D().IsEmpty, Is.True);
+		[Test] public void TileCreatedWithNewKeywordIsValid() => Assert.That(new Tile3D().IsValid, Is.True);
+		[Test] public void TileCreatedWithNewKeywordHasNoFlags() => Assert.That(new Tile3D().Flags, Is.EqualTo(Tile3DFlags.None));
 
-			Assert.That(tile.IsEmpty, Is.True);
-			Assert.That(tile.IsValid, Is.True);
-			Assert.That(tile.Flags == Tile3DFlags.None);
+		[Test] public void NewTileIsEmpty() => Assert.That(new Tile3D().IsEmpty, Is.True);
+		[Test] public void NewTileIsValid() => Assert.That(new Tile3D().IsValid, Is.True);
+		[Test] public void NewTileHasDefaultDirectionNorth() => Assert.That(new Tile3D().Direction == Tile3DFlags.DirectionNorth);
+
+		[TestCaseSource(typeof(Tile3DTestCaseSource), nameof(Tile3DTestCaseSource.EmptyIndexes))]
+		public void NewTileWithNegativeOrZeroIndexIsEmpty(int index) => Assert.That(new Tile3D(index).IsEmpty, Is.True);
+
+		[TestCaseSource(typeof(Tile3DTestCaseSource), nameof(Tile3DTestCaseSource.NonEmptyIndexes))]
+		public void NewTileWithNonZeroIndexIsNotEmpty(int index) => Assert.That(new Tile3D(index).IsEmpty, Is.False);
+
+		[TestCaseSource(typeof(Tile3DTestCaseSource), nameof(Tile3DTestCaseSource.ValidIndexes))]
+		public void NewTileWithZeroOrPositiveIndexIsValid(int index) => Assert.That(new Tile3D(index).IsValid, Is.True);
+
+		[TestCaseSource(typeof(Tile3DTestCaseSource), nameof(Tile3DTestCaseSource.InvalidIndexes))]
+		public void NewTileWithNegativeIndexIsNotValid(int index) => Assert.That(new Tile3D(index).IsValid, Is.False);
+
+		[TestCaseSource(typeof(Tile3DTestCaseSource), nameof(Tile3DTestCaseSource.InvalidIndexes))]
+		[TestCaseSource(typeof(Tile3DTestCaseSource), nameof(Tile3DTestCaseSource.ValidIndexes))]
+		public void NewTileWithIndexReturnsIndex(int index) => Assert.That(new Tile3D(index).Index == index);
+
+		[TestCaseSource(typeof(Tile3DTestCaseSource), nameof(Tile3DTestCaseSource.ValidIndexesWithFlags))]
+		public void NewTileWithIndexAndFlagsReturnsBothUnaltered(int index, Tile3DFlags flags)
+		{
+			Assert.That(new Tile3D(index, flags).Index == index);
+			Assert.That(new Tile3D(index, flags).Flags == flags);
 		}
 
-		[Test]
-		public void CreateEmptyTile()
+		[TestCaseSource(typeof(Tile3DTestCaseSource), nameof(Tile3DTestCaseSource.DirectionFlags))]
+		public void NewTileWithDirectionFlagsReturnsDirectionUnaltered(Tile3DFlags flags) =>
+			Assert.That(new Tile3D(123, flags).Direction == flags);
+
+		[TestCase(Tile3DFlags.None)]
+		public void NewTileWithDirectionNoneReturnsDirectionNorth(Tile3DFlags flags) =>
+			Assert.That(new Tile3D(234, flags).Direction == Tile3DFlags.DirectionNorth);
+
+		[TestCaseSource(typeof(Tile3DTestCaseSource), nameof(Tile3DTestCaseSource.NonEqualTilePairs))]
+		public void TilesWithDifferentIndexAndSameFlagsAreNotEqual(Tile3D tile1, Tile3D tile2)
 		{
-			var tile = Tile3D.New();
-
-			Assert.That(tile.IsEmpty, Is.True);
-			Assert.That(tile.IsValid, Is.True);
-			Assert.That(tile.Index == 0);
-		}
-
-		[Test]
-		public void CreateNonEmptyTileWithFlags()
-		{
-			var tileIndex = 3;
-			var flags = Tile3DFlags.DirectionNorth | Tile3DFlags.FlipVertical;
-
-			var tile = Tile3D.New(tileIndex, flags);
-
-			Assert.That(tile.IsEmpty, Is.False);
-			Assert.That(tile.Index == tileIndex);
-			Assert.That(tile.Flags == flags);
-		}
-
-		[Test]
-		public void CreateTileWithDefaultFlags()
-		{
-			var tileIndex = 5;
-
-			var tile = Tile3D.New(tileIndex);
-
-			Assert.That(tile.IsEmpty, Is.False);
-			Assert.That(tile.IsValid, Is.True);
-			Assert.That(tile.Index == tileIndex);
-			Assert.That(tile.Flags == Tile3DFlags.DirectionNorth);
-		}
-
-		[Test]
-		public void CreateInvalidTile()
-		{
-			var tile = Tile3D.New(-1);
-
-			Assert.That(tile.IsEmpty, Is.True);
-			Assert.That(tile.IsValid, Is.False);
-		}
-
-		[Test]
-		public void GetDirectionDefault()
-		{
-			var tile = Tile3D.New();
-
-			Assert.That(tile.Direction == Tile3DFlags.DirectionNorth);
-		}
-
-		[Test]
-		public void GetDirectionCustom()
-		{
-			var tile = Tile3D.New(1, Tile3DFlags.AllDirections);
-
-			Assert.That(tile.Direction == Tile3DFlags.AllDirections);
-		}
-
-		[Test]
-		public void TilesWithDifferentIndexAndSameFlagsAreNotEqual()
-		{
-			var tile1 = new Tile3D { Index = 11, Flags = Tile3DFlags.DirectionSouth };
-			var tile2 = new Tile3D { Index = 17, Flags = Tile3DFlags.DirectionSouth };
-
 			Assert.That(tile1 == tile2, Is.False);
 			Assert.That(tile1 != tile2, Is.True);
 			Assert.That(tile1.Equals(tile2), Is.False);
+			Assert.That(tile2.Equals(tile1), Is.False);
 			Assert.That(tile1.Equals((object)tile2), Is.False);
+			Assert.That(tile2.Equals((object)tile1), Is.False);
 		}
 
-		[Test]
-		public void TilesWithSameIndexAndDifferentFlagsAreNotEqual()
+		[TestCaseSource(typeof(Tile3DTestCaseSource), nameof(Tile3DTestCaseSource.EqualTilePairs))]
+		public void TilesWithSameIndexAndFlagsAreEqual(Tile3D tile1, Tile3D tile2)
 		{
-			var tile1 = new Tile3D { Index = 1, Flags = Tile3DFlags.DirectionEast };
-			var tile2 = new Tile3D { Index = 1, Flags = Tile3DFlags.DirectionSouth };
-
-			Assert.That(tile1 == tile2, Is.False);
-			Assert.That(tile1 != tile2, Is.True);
-			Assert.That(tile1.Equals(tile2), Is.False);
-			Assert.That(tile1.Equals((object)tile2), Is.False);
-		}
-
-		[Test]
-		public void TilesWithSameIndexAndFlagsAreEqual()
-		{
-			var tile1 = new Tile3D { Index = 7, Flags = Tile3DFlags.DirectionWest | Tile3DFlags.FlipHorizontal };
-			var tile2 = new Tile3D { Index = 7, Flags = Tile3DFlags.DirectionWest | Tile3DFlags.FlipHorizontal };
-
 			Assert.That(tile1 == tile2, Is.True);
 			Assert.That(tile1 != tile2, Is.False);
 			Assert.That(tile1.Equals(tile2), Is.True);
+			Assert.That(tile2.Equals(tile1), Is.True);
 			Assert.That(tile1.Equals((object)tile2), Is.True);
+			Assert.That(tile2.Equals((object)tile1), Is.True);
 		}
 
-		[Test]
-		public void TilesWithDifferentIndexHaveNonEqualHashcodes()
-		{
-			var tile1 = new Tile3D { Index = 2 };
-			var tile2 = new Tile3D { Index = 13 };
+		[Test] public void TilesWithDifferentIndexHaveNonEqualHashcodes() =>
+			Assert.That(new Tile3D(2).GetHashCode() != new Tile3D(13).GetHashCode());
 
-			Assert.That(tile1.GetHashCode() != tile2.GetHashCode());
-		}
+		[Test] public void TilesWithSameIndexAndDifferentFlagsHaveNonEqualHashcodes() => Assert.That(
+			new Tile3D(2, Tile3DFlags.FlipHorizontal).GetHashCode() !=
+			new Tile3D(2, Tile3DFlags.FlipVertical).GetHashCode());
 
-		[Test]
-		public void TilesWithSameIndexAndDifferentFlagsHaveNonEqualHashcodes()
-		{
-			var tile1 = new Tile3D { Index = 2, Flags = Tile3DFlags.FlipHorizontal };
-			var tile2 = new Tile3D { Index = 13, Flags = Tile3DFlags.FlipVertical };
-
-			Assert.That(tile1.GetHashCode() != tile2.GetHashCode());
-		}
-
-		[Test]
-		public void TilesWithSameIndexAndFlagsHaveEqualHashcodes()
-		{
-			var tile1 = new Tile3D { Index = 2, Flags = Tile3DFlags.DirectionWest | Tile3DFlags.FlipHorizontal };
-			var tile2 = new Tile3D { Index = 2, Flags = Tile3DFlags.DirectionWest | Tile3DFlags.FlipHorizontal };
-
-			Assert.That(tile1.GetHashCode() == tile2.GetHashCode());
-		}
+		[Test] public void TilesWithSameIndexAndFlagsHaveEqualHashcodes() => Assert.That(
+			new Tile3D(2, Tile3DFlags.DirectionWest | Tile3DFlags.FlipHorizontal).GetHashCode() ==
+			new Tile3D(2, Tile3DFlags.DirectionWest | Tile3DFlags.FlipHorizontal).GetHashCode());
 	}
 }

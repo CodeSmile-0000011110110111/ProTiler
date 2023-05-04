@@ -1,12 +1,12 @@
 // Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
-using CodeSmile.Collections.Native.NativeArray2D;
+using CodeSmile.Collections;
 using NUnit.Framework;
 using System.Collections;
 using Unity.Collections;
 
-namespace CodeSmile.Tests.Core.Editor.Collections.NativeArray2D
+namespace CodeSmile.Tests.Editor.Collections.NativeArray2D
 {
     /// <summary>
     ///     Unit tests for <see cref="NativeArray2D{T}" /> and

@@ -6,26 +6,25 @@ using NUnit.Framework;
 using NUnit.Framework.Interfaces;
 using System;
 using System.Collections;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.TestTools;
 
 namespace CodeSmile.Tests.Tools.Attributes
 {
 	/// <summary>
-	/// Creates a new GameObject instance in the scene for a test method.
+	///     Creates a new GameObject instance in the scene for a test method.
 	/// </summary>
 	[AttributeUsage(AttributeTargets.Method, AllowMultiple = true)]
-	public class CreateGameObjectAttribute : NUnitAttribute, IOuterUnityTestAction
+	public sealed class CreateGameObjectAttribute : NUnitAttribute, IOuterUnityTestAction
 	{
 		public const string DefaultName = "Test GameObject";
 
 		private readonly string m_Name;
 		private readonly Type[] m_Components;
-		private UnityEngine.GameObject m_GameObject;
+		private GameObject m_GameObject;
 
 		/// <summary>
-		/// Creates a new GameObject instance in the scene for a test method.
+		///     Creates a new GameObject instance in the scene for a test method.
 		/// </summary>
 		/// <param name="name">name of the GameObject, defaults to: CreateGameObjectAttribute.DefaultName</param>
 		/// <param name="components">type(s) of components to add to the GameObject</param>
@@ -37,7 +36,7 @@ namespace CodeSmile.Tests.Tools.Attributes
 
 		IEnumerator IOuterUnityTestAction.BeforeTest(ITest test)
 		{
-			m_GameObject = EditorUtility.CreateGameObjectWithHideFlags(m_Name, HideFlags.None, m_Components);
+			m_GameObject = new GameObject(m_Name, m_Components);
 			yield return null;
 		}
 

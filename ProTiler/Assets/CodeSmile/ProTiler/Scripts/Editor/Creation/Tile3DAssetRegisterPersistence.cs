@@ -18,7 +18,7 @@ namespace CodeSmile.ProTiler.Editor.Creation
 
 		private static AssetMoveResult OnWillMoveAsset(string sourcePath, string destinationPath)
 		{
-			if (WillRenameAsset(sourcePath, destinationPath, TileRegisterAssetFilename))
+			if (IsAssetGoingToBeRenamed(sourcePath, destinationPath, TileRegisterAssetFilename))
 			{
 				LogFailureMessage();
 				return AssetMoveResult.FailedMove;
@@ -45,8 +45,10 @@ namespace CodeSmile.ProTiler.Editor.Creation
 		private static bool IsInDirectoryTree(string registerPath, string assetPath) =>
 			AssetDatabase.IsValidFolder(assetPath) && registerPath.StartsWith(assetPath);
 
-		[ExcludeFromCodeCoverage]
-		private static void LogFailureMessage()
+		private static bool IsAssetGoingToBeRenamed(string sourcePath, string destinationPath, string assetFilename) =>
+			sourcePath.EndsWith(assetFilename) && destinationPath.EndsWith(assetFilename) == false;
+
+		[ExcludeFromCodeCoverage] private static void LogFailureMessage()
 		{
 			// don't log during tests
 			if (EditorPref.TestRunnerRunning)
@@ -58,7 +60,6 @@ namespace CodeSmile.ProTiler.Editor.Creation
 			               $"To modify the asset anyway you have to first uninstall {Names.TileEditor}.");
 		}
 
-		private static bool WillRenameAsset(string sourcePath, string destinationPath, string assetFilename) =>
-			sourcePath.EndsWith(assetFilename) && destinationPath.EndsWith(assetFilename) == false;
+		[ExcludeFromCodeCoverage] public Tile3DAssetRegisterPersistence() {}
 	}
 }

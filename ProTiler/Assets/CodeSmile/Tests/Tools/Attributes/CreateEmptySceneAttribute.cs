@@ -9,7 +9,7 @@ namespace CodeSmile.Tests.Tools.Attributes
 	///     Creates a new empty scene for a unit test method.
 	/// </summary>
 	[AttributeUsage(AttributeTargets.Method)]
-	public class CreateEmptySceneAttribute : CreateSceneAttribute
+	public sealed class CreateEmptySceneAttribute : CreateSceneAttribute
 	{
 		/// <summary>
 		///     Creates a new empty scene for a unit test method.

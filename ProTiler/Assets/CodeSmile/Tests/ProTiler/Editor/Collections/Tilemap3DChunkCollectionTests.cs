@@ -1,9 +1,8 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
-using CodeSmile.ProTiler.Collections;
+using CodeSmile.ProTiler;
 using CodeSmile.ProTiler.Data;
-using CodeSmile.ProTiler.Utilities;
 using NUnit.Framework;
 using System;
 using UnityEngine;
@@ -81,8 +80,8 @@ namespace CodeSmile.Tests.ProTiler.Editor.Collections
 					{
 						var coord = new Vector3Int(x, layerY, y);
 						var index = Grid3DUtility.ToIndex2D(x, y, width);
-						var tileData = Tile3D.New(index + 1, (Tile3DFlags)(1 << index % 6));
-						var coordData = Tile3DCoord.New(coord, tileData);
+						var tileData = new Tile3D(index + 1, (Tile3DFlags)(1 << index % 6));
+						var coordData = new Tile3DCoord(coord, tileData);
 						tileCoordDatas[arrayIndex] = coordData;
 						coords[arrayIndex] = coord;
 						arrayIndex++;
@@ -99,7 +98,7 @@ namespace CodeSmile.Tests.ProTiler.Editor.Collections
 
 			chunks.GetTiles(coords, ref getTileCoordDatas);
 			for (var i = 0; i < tileCount; i++)
-				Assert.That(getTileCoordDatas[i].m_Tile == tileCoordDatas[i].m_Tile);
+				Assert.That(getTileCoordDatas[i].Tile == tileCoordDatas[i].Tile);
 
 			chunkSize = new Vector2Int(width - 1, height - 1);
 			chunks = new Tilemap3DChunkCollection(chunkSize);
@@ -107,7 +106,7 @@ namespace CodeSmile.Tests.ProTiler.Editor.Collections
 			Assert.That(chunks.TileCount == tileCount);
 
 			for (var i = 0; i < tileCount; i++)
-				Assert.That(getTileCoordDatas[i].m_Tile == tileCoordDatas[i].m_Tile);
+				Assert.That(getTileCoordDatas[i].Tile == tileCoordDatas[i].Tile);
 
 			chunkSize = new Vector2Int(Tilemap3DChunkCollection.MinChunkSize, Tilemap3DChunkCollection.MinChunkSize);
 			chunks = new Tilemap3DChunkCollection(chunkSize);
@@ -143,15 +142,15 @@ namespace CodeSmile.Tests.ProTiler.Editor.Collections
 			var coords = new Vector3Int[] { new(100, 0, 100) };
 			var tileCoordDatas = new Tile3DCoord[10];
 			chunks.GetTiles(coords, ref tileCoordDatas);
-			Assert.That(tileCoordDatas[0].m_Tile.Index == 0);
+			Assert.That(tileCoordDatas[0].Tile.Index == 0);
 
 			coords = new Vector3Int[] { new(3, 100, 2) };
 			chunks.SetTiles(new[]
 			{
-				Tile3DCoord.New(new Vector3Int(3, 0, 2), Tile3D.New(13)),
+				new Tile3DCoord(new Vector3Int(3, 0, 2), new Tile3D(13)),
 			});
 			chunks.GetTiles(coords, ref tileCoordDatas);
-			Assert.That(tileCoordDatas[0].m_Tile.Index == 0);
+			Assert.That(tileCoordDatas[0].Tile.Index == 0);
 		}
 
 		[Test]

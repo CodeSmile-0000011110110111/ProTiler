@@ -1,12 +1,11 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
-using CodeSmile.Utilities;
 using NUnit.Framework;
 using System;
 using System.IO;
 
-namespace CodeSmile.Tests.Core.Editor.Utilities
+namespace CodeSmile.Tests.Editor.Utilities
 {
 	public class PathUtilityTests
 	{

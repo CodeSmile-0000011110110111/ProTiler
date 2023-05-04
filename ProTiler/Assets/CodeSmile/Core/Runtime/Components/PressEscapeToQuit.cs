@@ -9,6 +9,7 @@ namespace CodeSmile.Components
 	[ExcludeFromCodeCoverage]
 	public class PressEscapeToQuit : MonoBehaviour
 	{
+		[ExcludeFromCodeCoverage]
 		private void Update()
 		{
 			if (Input.GetKeyDown(KeyCode.Escape))

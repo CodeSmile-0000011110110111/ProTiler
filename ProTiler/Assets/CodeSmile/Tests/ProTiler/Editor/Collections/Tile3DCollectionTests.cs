@@ -1,9 +1,8 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
-using CodeSmile.ProTiler.Collections;
+using CodeSmile.ProTiler;
 using CodeSmile.ProTiler.Data;
-using CodeSmile.ProTiler.Utilities;
 using NUnit.Framework;
 using System;
 using UnityEngine;
@@ -45,7 +44,7 @@ namespace CodeSmile.Tests.ProTiler.Editor.Collections
 			var tiles = new Tile3DCollection(new Vector2Int(width, height));
 			var tileIndex = 9;
 
-			tiles[0] = Tile3D.New(tileIndex);
+			tiles[0] = new Tile3D(tileIndex);
 
 			Assert.That(tiles.Count == 1);
 			Assert.That(tiles[0].Index == tileIndex);
@@ -59,7 +58,7 @@ namespace CodeSmile.Tests.ProTiler.Editor.Collections
 			var tiles = new Tile3DCollection(new Vector2Int(width, height));
 			var tileIndex = 11;
 
-			tiles[0] = Tile3D.New(tileIndex);
+			tiles[0] = new Tile3D(tileIndex);
 			tiles[1] = tiles[0];
 			Assert.That(tiles.Count == 2);
 			Assert.That(tiles[1].Index == tileIndex);
@@ -74,7 +73,7 @@ namespace CodeSmile.Tests.ProTiler.Editor.Collections
 			var tileIndex = 13;
 			var lastIndex = width * height - 1;
 
-			tiles[lastIndex] = Tile3D.New(tileIndex);
+			tiles[lastIndex] = new Tile3D(tileIndex);
 
 			Assert.That(tiles.Count == 1);
 			Assert.That(tiles[lastIndex].Index == tileIndex);
@@ -87,7 +86,7 @@ namespace CodeSmile.Tests.ProTiler.Editor.Collections
 			var height = 9;
 			var tiles = new Tile3DCollection(new Vector2Int(width, height));
 			var tileIndex = 17;
-			var tileData = Tile3D.New(tileIndex);
+			var tileData = new Tile3D(tileIndex);
 
 			var coordX = width - 1;
 			var coordY = height - 1;
@@ -103,7 +102,7 @@ namespace CodeSmile.Tests.ProTiler.Editor.Collections
 			var height = 9;
 			var tiles = new Tile3DCollection(new Vector2Int(width, height));
 			var tileIndex = 17;
-			var tileData = Tile3D.New(tileIndex);
+			var tileData = new Tile3D(tileIndex);
 
 			Assert.Throws<IndexOutOfRangeException>(() => tiles[width, height] = tileData);
 		}
@@ -126,8 +125,8 @@ namespace CodeSmile.Tests.ProTiler.Editor.Collections
 					var flags = x % 2 == 0 ? Tile3DFlags.DirectionWest : Tile3DFlags.DirectionEast;
 					flags |= y % 2 == 0 ? Tile3DFlags.FlipHorizontal : Tile3DFlags.FlipVertical;
 
-					var tileData = Tile3D.New(index + 1, flags);
-					var coordData = Tile3DCoord.New(coord, tileData);
+					var tileData = new Tile3D(index + 1, flags);
+					var coordData = new Tile3DCoord(coord, tileData);
 					tileCoordDatas[index] = coordData;
 				}
 			}
