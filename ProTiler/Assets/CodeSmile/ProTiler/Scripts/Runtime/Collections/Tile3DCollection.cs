@@ -2,7 +2,9 @@
 // Refer to included LICENSE file for terms and conditions.
 
 using CodeSmile.ProTiler.Data;
+using CodeSmile.ProTiler.Utilities;
 using System;
+using System.Diagnostics.CodeAnalysis;
 using UnityEngine;
 
 namespace CodeSmile.ProTiler.Collections
@@ -59,6 +61,7 @@ namespace CodeSmile.ProTiler.Collections
 			m_Tiles = new Tile3D[width * height];
 		}
 
+		[ExcludeFromCodeCoverage]
 		public override string ToString() =>
 			$"{nameof(Tile3DCollection)}(Size: {new Vector2Int(m_Width, m_Height)}, Capacity: {Capacity}, Count: {Count})";
 

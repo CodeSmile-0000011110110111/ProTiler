@@ -5,6 +5,7 @@ using CodeSmile.Collections;
 using CodeSmile.ProTiler.Data;
 using CodeSmile.Utilities;
 using System;
+using System.Diagnostics.CodeAnalysis;
 using UnityEngine;
 
 namespace CodeSmile.ProTiler.Collections
@@ -53,6 +54,7 @@ namespace CodeSmile.ProTiler.Collections
 
 		public Tilemap3DChunkCollection(Vector2Int chunkSize) => ChangeChunkSize(chunkSize);
 
+		[ExcludeFromCodeCoverage]
 		public override string ToString() => $"{nameof(Tilemap3DChunkCollection)}(Size: {Size}, Count: {Count}, TileCount: {TileCount})";
 
 		public void ChangeChunkSize(Vector2Int newChunkSize)

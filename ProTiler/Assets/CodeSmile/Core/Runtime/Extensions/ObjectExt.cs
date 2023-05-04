@@ -1,6 +1,7 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
+using System.Diagnostics.CodeAnalysis;
 using UnityEditor;
 using UnityEngine;
 
@@ -22,15 +23,17 @@ namespace CodeSmile.Extensions
 		///     Depending on the mode (editor vs playmode/player) it calls either DestroyImmediate or Destroy.
 		/// </summary>
 		/// <param name="self"></param>
+#if UNITY_EDITOR
 		public static void DestroyInAnyMode(this Object self)
 		{
-#if UNITY_EDITOR
-			if (Application.isEditor && Application.isPlaying == false)
+			if (Application.isPlaying == false)
 				Object.DestroyImmediate(self);
 			else
-#endif
 				Object.Destroy(self);
 		}
+#else
+		public static void DestroyInAnyMode(this Object self) => Object.Destroy(self);
+#endif
 
 		public static void RecordUndoInEditor(this Object obj, string undoActionName)
 		{

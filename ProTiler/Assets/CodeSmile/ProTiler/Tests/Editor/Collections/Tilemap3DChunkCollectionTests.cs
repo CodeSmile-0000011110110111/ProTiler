@@ -3,6 +3,7 @@
 
 using CodeSmile.ProTiler.Collections;
 using CodeSmile.ProTiler.Data;
+using CodeSmile.ProTiler.Utilities;
 using NUnit.Framework;
 using System;
 using UnityEngine;

@@ -4,7 +4,7 @@
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
-namespace CodeSmile.ProTiler
+namespace CodeSmile.ProTiler.Utilities
 {
 	public static class Grid3DUtility
 	{

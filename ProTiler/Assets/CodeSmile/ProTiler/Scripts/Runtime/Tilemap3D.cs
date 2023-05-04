@@ -4,7 +4,6 @@
 using CodeSmile.Extensions;
 using CodeSmile.ProTiler.Collections;
 using CodeSmile.ProTiler.Data;
-using System;
 using UnityEngine;
 
 namespace CodeSmile.ProTiler
@@ -25,18 +24,7 @@ namespace CodeSmile.ProTiler
 		}
 		public Tilemap3DChunkCollection Chunks => m_Chunks;
 
-		public Grid3D Grid
-		{
-			get
-			{
-#if DEBUG
-				if (transform.parent == null)
-					throw new NullReferenceException($"{nameof(Tilemap3D)} has no parent");
-#endif
-
-				return transform.parent.GetComponent<Grid3D>();
-			}
-		}
+		public Grid3D Grid => transform.parent.GetComponent<Grid3D>();
 
 		private void Awake() => SetChunkSize(m_ChunkSize);
 
@@ -72,7 +60,8 @@ namespace CodeSmile.ProTiler
 			return tileDatas[0].m_Tile;
 		}
 
-		public void GetTiles(Vector3Int[] coords, ref Tile3DCoord[] tileCoordDatas) => m_Chunks.GetTiles(coords, ref tileCoordDatas);
+		public void GetTiles(Vector3Int[] coords, ref Tile3DCoord[] tileCoordDatas) =>
+			m_Chunks.GetTiles(coords, ref tileCoordDatas);
 
 		public void SetTile(Vector3Int coord, Tile3D tile) => SetTiles(new[] { Tile3DCoord.New(coord, tile) });
 
