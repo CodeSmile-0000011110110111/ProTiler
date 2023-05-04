@@ -3,7 +3,6 @@
 
 using CodeSmile.ProTiler.Data;
 using CodeSmile.ProTiler.Editor.Creation;
-using CodeSmile.ProTiler.Tests.Utilities;
 using CodeSmile.Tests.Utilities;
 using NUnit.Framework;
 using UnityEditor;
@@ -53,7 +52,7 @@ namespace CodeSmile.ProTiler.Tests.Editor
 			tilemap = null; // reference goes missing upon Undo
 			Undo.PerformUndo();
 
-			var rootObject = EditorSceneManager.GetActiveScene().GetRootGameObjects();
+			var rootObject = SceneManager.GetActiveScene().GetRootGameObjects();
 			Assert.That(Object.FindObjectOfType<Grid3D>() == null);
 			Assert.That(Object.FindObjectOfType<Tilemap3D>() == null);
 			Assert.That(Object.FindObjectsOfType<Grid3D>().Length == 0);
@@ -138,7 +137,7 @@ namespace CodeSmile.ProTiler.Tests.Editor
 			EditorSceneManager.SaveOpenScenes();
 			EditorSceneManager.OpenScene(SceneManager.GetActiveScene().path);
 
-			var tilemaps = Object.FindObjectsOfType<Tilemap3D>();
+			var tilemaps = Object.FindObjectsByType<Tilemap3D>(FindObjectsSortMode.None);
 			Assert.That(tilemaps != null);
 			Assert.That(tilemaps.Length == 1);
 
