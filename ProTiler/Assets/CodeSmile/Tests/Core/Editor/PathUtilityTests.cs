@@ -5,7 +5,7 @@ using NUnit.Framework;
 using System;
 using System.IO;
 
-namespace CodeSmile.Tests.Editor.Utilities
+namespace CodeSmile.Tests.Editor
 {
 	public class PathUtilityTests
 	{

@@ -1,18 +1,20 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using UnityEditor;
 using UnityEditor.TestTools.TestRunner.Api;
 using UnityEngine;
 
-namespace CodeSmile.Tests.Tools
+namespace CodeSmile.Tests.Tools.TestRunnerApi
 {
-	[InitializeOnLoad]
+	[InitializeOnLoad] [ExcludeFromCodeCoverage]
 	public class FasterTests
 	{
-		static FasterTests() => ScriptableObject.CreateInstance<TestRunnerApi>().RegisterCallbacks(new Callbacks());
+		static FasterTests() => ScriptableObject.CreateInstance<UnityEditor.TestTools.TestRunner.Api.TestRunnerApi>().RegisterCallbacks(new Callbacks());
 
+		[ExcludeFromCodeCoverage]
 		private class Callbacks : ICallbacks
 		{
 			private const string ApplicationIdleTimeKey = "ApplicationIdleTime";
@@ -39,6 +41,7 @@ namespace CodeSmile.Tests.Tools
 			private void SpeedUpTestRunner()
 			{
 				Debug.Log("Set Interaction Mode to 'No Throttling' during tests.");
+				GetUserInteractionModeSettings();
 				SetInteractionModeToNoThrottling();
 				UpdateInteractionModeSettings();
 			}
@@ -46,19 +49,23 @@ namespace CodeSmile.Tests.Tools
 			private void ResetInteractionMode()
 			{
 				Debug.Log("Reset Interaction Mode to user settings.");
-				SetInteractionModeToUserSetting();
+				SetInteractionModeToUserSettings();
 				UpdateInteractionModeSettings();
 			}
 
 			private void SetInteractionModeToNoThrottling()
 			{
-				m_UserApplicationIdleTime = EditorPrefs.GetInt(ApplicationIdleTimeKey);
-				m_UserInteractionMode = EditorPrefs.GetInt(InteractionModeKey);
 				EditorPrefs.SetInt(ApplicationIdleTimeKey, 0);
 				EditorPrefs.SetInt(InteractionModeKey, 1);
 			}
 
-			private void SetInteractionModeToUserSetting()
+			private void GetUserInteractionModeSettings()
+			{
+				m_UserApplicationIdleTime = EditorPrefs.GetInt(ApplicationIdleTimeKey);
+				m_UserInteractionMode = EditorPrefs.GetInt(InteractionModeKey);
+			}
+
+			private void SetInteractionModeToUserSettings()
 			{
 				EditorPrefs.SetInt(ApplicationIdleTimeKey, m_UserApplicationIdleTime);
 				EditorPrefs.SetInt(InteractionModeKey, m_UserInteractionMode);

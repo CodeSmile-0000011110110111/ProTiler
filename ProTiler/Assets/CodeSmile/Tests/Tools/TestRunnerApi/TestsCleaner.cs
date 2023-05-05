@@ -2,22 +2,23 @@
 // Refer to included LICENSE file for terms and conditions.
 
 using CodeSmile.Editor;
-using System;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using UnityEditor;
 using UnityEditor.TestTools.TestRunner.Api;
 using UnityEngine;
 
-namespace CodeSmile.Tests.Tools
+namespace CodeSmile.Tests.Tools.TestRunnerApi
 {
 	/// <summary>
 	///     Handles TestRunner callbacks mainly to set the running status of the TestRunner to EditorPrefs.
 	/// </summary>
-	[InitializeOnLoad]
-	public class BeforeAndAfterTestsCleaner
+	[InitializeOnLoad] [ExcludeFromCodeCoverage]
+	public class TestsCleaner
 	{
-		static BeforeAndAfterTestsCleaner() => ScriptableObject.CreateInstance<TestRunnerApi>().RegisterCallbacks(new Callbacks());
+		static TestsCleaner() => ScriptableObject.CreateInstance<UnityEditor.TestTools.TestRunner.Api.TestRunnerApi>().RegisterCallbacks(new Callbacks());
 
+		[ExcludeFromCodeCoverage]
 		private class Callbacks : ICallbacks
 		{
 			/// <summary>
@@ -32,7 +33,7 @@ namespace CodeSmile.Tests.Tools
 			private static void DeleteTempTestAssetsDirectoryAndContents()
 			{
 				if (Directory.Exists(TestPaths.TempTestAssets) && AssetDatabase.DeleteAsset(TestPaths.TempTestAssets) == false)
-					throw new Exception($"failed to delete temp test assets dir: '{TestPaths.TempTestAssets}'");
+					throw new UnityException($"failed to delete temp test assets dir: '{TestPaths.TempTestAssets}'");
 			}
 
 			/// <summary>

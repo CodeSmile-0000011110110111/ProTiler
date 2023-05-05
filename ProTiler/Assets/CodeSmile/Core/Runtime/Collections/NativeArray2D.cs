@@ -25,96 +25,6 @@ namespace CodeSmile.Collections
 	public unsafe struct NativeArray2D<T> : IDisposable, IEnumerable<T>, IEquatable<NativeArray2D<T>> where T : unmanaged
 	{
 		/// <summary>
-		///     An enumerator for this type of array. It enumerates from (0,0) to
-		///     (Length0-1,Length1-1) in rows of the first dimension then the second
-		///     dimension. For example, an array with Length0=2 and Length1=3 is
-		///     enumerated as follows:
-		///     (0, 0)
-		///     (1, 0)
-		///     (0, 1)
-		///     (1, 1)
-		///     (0, 2)
-		///     (1, 3)
-		/// </summary>
-		[ExcludeFromDocs]
-		public struct Enumerator : IEnumerator<T>
-		{
-			/// <summary>
-			///     Array to enumerate
-			/// </summary>
-			private NativeArray2D<T> m_Array;
-
-			/// <summary>
-			///     Current index in the first dimension
-			/// </summary>
-			private int m_Index0;
-
-			/// <summary>
-			///     Current index in the second dimension
-			/// </summary>
-			private int m_Index1;
-
-			/// <summary>
-			///     Create the enumerator. It's initially just before the first
-			///     element of both dimensions.
-			/// </summary>
-			/// <param name="array">
-			///     Array to enumerate
-			/// </param>
-			public Enumerator(ref NativeArray2D<T> array)
-			{
-				m_Array = array;
-				m_Index0 = -1;
-				m_Index1 = 0;
-			}
-
-			/// <summary>
-			///     Dispose of the enumerator. This is a no-op.
-			/// </summary>
-			public void Dispose() {}
-
-			/// <summary>
-			///     Move to the next element of the array. This moves along the
-			///     first dimension until the end is hit, at which time the first
-			///     dimension index is reset to zero and the second dimension index
-			///     is incremented.
-			/// </summary>
-			/// <returns>
-			///     If the new indices are within the bounds of the array.
-			/// </returns>
-			public bool MoveNext()
-			{
-				m_Index0++;
-				if (m_Index0 >= m_Array.Length0)
-				{
-					m_Index0 = 0;
-					m_Index1++;
-					return m_Index1 < m_Array.Length1;
-				}
-				return true;
-			}
-
-			/// <summary>
-			///     Reset to just before the first element in both dimensions
-			/// </summary>
-			public void Reset()
-			{
-				m_Index0 = -1;
-				m_Index1 = 0;
-			}
-
-			/// <summary>
-			///     Get the currently-enumerated element
-			/// </summary>
-			public T Current => m_Array[m_Index0, m_Index1];
-
-			/// <summary>
-			///     Get the currently-enumerated element
-			/// </summary>
-			object IEnumerator.Current => Current;
-		}
-
-		/// <summary>
 		///     Pointer to the memory the array is stored in.
 		/// </summary>
 		[NativeDisableUnsafePtrRestriction]
@@ -130,167 +40,10 @@ namespace CodeSmile.Collections
 		/// </summary>
 		private int m_Length1;
 
-		// These fields are all required when safety checks are enabled
-		// They must have these exact types, names, and order
-#if ENABLE_UNITY_COLLECTIONS_CHECKS
-		/// <summary>
-		///     A handle to information about what operations can be safely
-		///     performed on the list at any given time.
-		/// </summary>
-		private AtomicSafetyHandle m_Safety;
-
-		/// <summary>
-		///     A handle that can be used to tell if the list has been disposed yet
-		///     or not, which allows for error-checking double disposal.
-		/// </summary>
-		[NativeSetClassTypeToNullOnSchedule]
-		private DisposeSentinel m_DisposeSentinel;
-#endif
-
 		/// <summary>
 		///     Allocator used to create <see cref="m_Buffer" />.
 		/// </summary>
-		internal Allocator m_Allocator;
-
-		/// <summary>
-		///     Create the array and optionally clear it
-		/// </summary>
-		/// <param name="length0">
-		///     Length of the array's first dimension. Must be positive.
-		/// </param>
-		/// <param name="length1">
-		///     Length of the array's second dimension. Must be positive.
-		/// </param>
-		/// <param name="allocator">
-		///     Allocator to allocate native memory with. Must be valid as defined
-		///     by <see cref="UnsafeUtility.IsValidAllocator" />.
-		/// </param>
-		/// <param name="options">
-		///     Whether the array should be cleared or not
-		/// </param>
-		public NativeArray2D(
-			int length0,
-			int length1,
-			Allocator allocator,
-			NativeArrayOptions options = NativeArrayOptions.ClearMemory)
-		{
-			Allocate(length0, length1, allocator, out this);
-			if ((options & NativeArrayOptions.ClearMemory)
-			    == NativeArrayOptions.ClearMemory)
-			{
-				UnsafeUtility.MemClear(
-					m_Buffer,
-					Length * (long)UnsafeUtility.SizeOf<T>());
-			}
-		}
-
-		/// <summary>
-		///     Create a copy of the given managed array
-		/// </summary>
-		/// <param name="array">
-		///     Managed array to copy. Must not be null.
-		/// </param>
-		/// <param name="allocator">
-		///     Allocator to allocate native memory with. Must be valid as defined
-		///     by <see cref="UnsafeUtility.IsValidAllocator" />.
-		/// </param>
-		public NativeArray2D(T[,] array, Allocator allocator)
-		{
-			var length0 = array.GetLength(0);
-			var length1 = array.GetLength(1);
-			Allocate(length0, length1, allocator, out this);
-			Copy(array, this);
-		}
-
-		/// <summary>
-		///     Create a copy of the given native array
-		/// </summary>
-		/// <param name="array">
-		///     Native array to copy
-		/// </param>
-		/// <param name="allocator">
-		///     Allocator to allocate native memory with. Must be valid as defined
-		///     by <see cref="UnsafeUtility.IsValidAllocator" />.
-		/// </param>
-		public NativeArray2D(NativeArray2D<T> array, Allocator allocator)
-		{
-			Allocate(array.Length0, array.Length1, allocator, out this);
-			Copy(array, this);
-		}
-
-		/// <summary>
-		///     Get the total number of elements in the array
-		/// </summary>
-		public int Length => m_Length0 * m_Length1;
-
-		/// <summary>
-		///     Get the length of the array's first dimension
-		/// </summary>
-		public int Length0 => m_Length0;
-
-		/// <summary>
-		///     Get the length of the array's second dimension
-		/// </summary>
-		public int Length1 => m_Length1;
-
-		/// <summary>
-		///     Throw an exception if the array isn't readable
-		/// </summary>
-		[Conditional("ENABLE_UNITY_COLLECTIONS_CHECKS")]
-		private void RequireReadAccess()
-		{
-#if ENABLE_UNITY_COLLECTIONS_CHECKS
-			AtomicSafetyHandle.CheckReadAndThrow(m_Safety);
-#endif
-		}
-
-		/// <summary>
-		///     Throw an exception if the list isn't writable
-		/// </summary>
-		[Conditional("ENABLE_UNITY_COLLECTIONS_CHECKS")]
-		private void RequireWriteAccess()
-		{
-#if ENABLE_UNITY_COLLECTIONS_CHECKS
-			AtomicSafetyHandle.CheckWriteAndThrow(m_Safety);
-#endif
-		}
-
-		/// <summary>
-		///     Throw an exception if an index is out of bounds
-		/// </summary>
-		[Conditional("ENABLE_UNITY_COLLECTIONS_CHECKS")]
-		private void RequireIndexInBounds(int index0, int index1)
-		{
-#if ENABLE_UNITY_COLLECTIONS_CHECKS
-			if (index0 < 0 || index0 >= m_Length0)
-				throw new ArgumentException("index0 out of bounds");
-			if (index1 < 0 || index1 >= m_Length1)
-				throw new ArgumentException("index1 out of bounds");
-#endif
-		}
-
-		/// <summary>
-		///     Throw an exception when the given allocator is invalid as defined
-		///     by <see cref="UnsafeUtility.IsValidAllocator" />.
-		/// </summary>
-		/// <param name="allocator">
-		///     Allocator to check.
-		/// </param>
-		/// <exception cref="InvalidOperationException">
-		///     If the given allocator is invalid.
-		/// </exception>
-		[Conditional("ENABLE_UNITY_COLLECTIONS_CHECKS")]
-		private static void RequireValidAllocator(Allocator allocator)
-		{
-#if ENABLE_UNITY_COLLECTIONS_CHECKS
-			if (!UnsafeUtility.IsValidAllocator(allocator))
-			{
-				throw new InvalidOperationException(
-					"The NativeArray2D can not be Disposed because it was " +
-					"not allocated with a valid allocator.");
-			}
-#endif
-		}
+		private Allocator m_Allocator;
 
 		/// <summary>
 		///     Index into the array to read or write an element
@@ -324,6 +77,21 @@ namespace CodeSmile.Collections
 		}
 
 		/// <summary>
+		///     Get the total number of elements in the array
+		/// </summary>
+		public int Length => m_Length0 * m_Length1;
+
+		/// <summary>
+		///     Get the length of the array's first dimension
+		/// </summary>
+		public int Length0 => m_Length0;
+
+		/// <summary>
+		///     Get the length of the array's second dimension
+		/// </summary>
+		public int Length1 => m_Length1;
+
+		/// <summary>
 		///     Check if the underlying unmanaged memory has been created and not
 		///     freed via a call to <see cref="Dispose" />.
 		///     This operation has no access requirements.
@@ -339,150 +107,6 @@ namespace CodeSmile.Collections
 		///     is usable, only to check whether it was <i>ever</i> usable.
 		/// </value>
 		public bool IsCreated => (IntPtr)m_Buffer != IntPtr.Zero;
-
-		/// <summary>
-		///     Release the object's unmanaged memory. Do not use it after this. Do
-		///     not call <see cref="Dispose" /> on copies of the object either.
-		///     This operation requires write access.
-		///     This complexity of this operation is O(1) plus the allocator's
-		///     deallocation complexity.
-		/// </summary>
-		[WriteAccessRequired]
-		public void Dispose()
-		{
-			RequireWriteAccess();
-			RequireValidAllocator(m_Allocator);
-
-// Make sure we're not double-disposing
-#if ENABLE_UNITY_COLLECTIONS_CHECKS
-			DisposeSentinel.Dispose(ref m_Safety, ref m_DisposeSentinel);
-#endif
-
-			UnsafeUtility.Free(m_Buffer, m_Allocator);
-			m_Buffer = null;
-			m_Length0 = 0;
-			m_Length1 = 0;
-		}
-
-		/// <summary>
-		///     Copy the elements of a managed array to this array
-		/// </summary>
-		/// <param name="array">
-		///     Array to copy from. Must not be null. Must have the same dimensions
-		///     as this array.
-		/// </param>
-		[WriteAccessRequired]
-		public void CopyFrom(T[,] array) => Copy(array, this);
-
-		/// <summary>
-		///     Copy the elements of a native array to this array
-		/// </summary>
-		/// <param name="array">
-		///     Array to copy from. Must have the same dimensions as this array.
-		/// </param>
-		[WriteAccessRequired]
-		public void CopyFrom(NativeArray2D<T> array) => Copy(array, this);
-
-		/// <summary>
-		///     Copy the elements of this array to a managed array
-		/// </summary>
-		/// <param name="array">
-		///     Array to copy to. Must not be null. Must have the same dimensions
-		///     as this array.
-		/// </param>
-		public void CopyTo(T[,] array) => Copy(this, array);
-
-		/// <summary>
-		///     Copy the elements of this array to a native array
-		/// </summary>
-		/// <param name="array">
-		///     Array to copy to. Must have the same dimensions
-		///     as this array.
-		/// </param>
-		public void CopyTo(NativeArray2D<T> array) => Copy(this, array);
-
-		/// <summary>
-		///     Copy the elements of this array to a newly-created managed array
-		/// </summary>
-		/// <returns>
-		///     A newly-created managed array with the elements of this array.
-		/// </returns>
-		public T[,] ToArray()
-		{
-			var dst = new T[m_Length0, m_Length1];
-			Copy(this, dst);
-			return dst;
-		}
-
-		/// <summary>
-		///     Get an enumerator for this array
-		/// </summary>
-		/// <returns>
-		///     An enumerator for this array.
-		/// </returns>
-		public Enumerator GetEnumerator() => new(ref this);
-
-		/// <summary>
-		///     Get an enumerator for this array
-		/// </summary>
-		/// <returns>
-		///     An enumerator for this array.
-		/// </returns>
-		[ExcludeFromCodeCoverage] IEnumerator<T> IEnumerable<T>.GetEnumerator() => new Enumerator(ref this);
-
-		/// <summary>
-		///     Get an enumerator for this array
-		/// </summary>
-		/// <returns>
-		///     An enumerator for this array.
-		/// </returns>
-		IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
-
-		/// <summary>
-		///     Check if this array points to the same native memory as another
-		///     array.
-		/// </summary>
-		/// <param name="other">
-		///     Array to check against.
-		/// </param>
-		/// <returns>
-		///     If this array points to the same native memory as the given array.
-		/// </returns>
-		public bool Equals(NativeArray2D<T> other) => m_Buffer == other.m_Buffer
-		                                              && m_Length0 == other.m_Length0
-		                                              && m_Length1 == other.m_Length1;
-
-		/// <summary>
-		///     Check if this array points to the same native memory as another
-		///     array.
-		/// </summary>
-		/// <param name="other">
-		///     Array to check against.
-		/// </param>
-		/// <returns>
-		///     If this array points to the same native memory as the given array.
-		/// </returns>
-		public override bool Equals(object other)
-		{
-			if (ReferenceEquals(null, other))
-				return false;
-
-			return other is NativeArray2D<T> && Equals((NativeArray2D<T>)other);
-		}
-
-		/// <summary>
-		///     Get a hash code for this array
-		/// </summary>
-		/// <returns>
-		///     A hash code for this array
-		/// </returns>
-		public override int GetHashCode()
-		{
-			var result = (int)m_Buffer;
-			result = result * 397 ^ m_Length0;
-			result = result * 397 ^ m_Length1;
-			return result;
-		}
 
 		/// <summary>
 		///     Check if two arrays point to the same native memory.
@@ -511,6 +135,29 @@ namespace CodeSmile.Collections
 		///     If the given arrays don't point to the same native memory.
 		/// </returns>
 		public static bool operator !=(NativeArray2D<T> a, NativeArray2D<T> b) => !a.Equals(b);
+
+		/// <summary>
+		///     Throw an exception when the given allocator is invalid as defined
+		///     by <see cref="UnsafeUtility.IsValidAllocator" />.
+		/// </summary>
+		/// <param name="allocator">
+		///     Allocator to check.
+		/// </param>
+		/// <exception cref="InvalidOperationException">
+		///     If the given allocator is invalid.
+		/// </exception>
+		[Conditional("ENABLE_UNITY_COLLECTIONS_CHECKS")]
+		private static void RequireValidAllocator(Allocator allocator)
+		{
+#if ENABLE_UNITY_COLLECTIONS_CHECKS
+			if (!UnsafeUtility.IsValidAllocator(allocator))
+			{
+				throw new InvalidOperationException(
+					"The NativeArray2D can not be Disposed because it was " +
+					"not allocated with a valid allocator.");
+			}
+#endif
+		}
 
 		/// <summary>
 		///     Allocate memory for the array
@@ -644,6 +291,359 @@ namespace CodeSmile.Collections
 					dest[index0, index1] = src[index0, index1];
 			}
 		}
+
+		/// <summary>
+		///     Create the array and optionally clear it
+		/// </summary>
+		/// <param name="length0">
+		///     Length of the array's first dimension. Must be positive.
+		/// </param>
+		/// <param name="length1">
+		///     Length of the array's second dimension. Must be positive.
+		/// </param>
+		/// <param name="allocator">
+		///     Allocator to allocate native memory with. Must be valid as defined
+		///     by <see cref="UnsafeUtility.IsValidAllocator" />.
+		/// </param>
+		/// <param name="options">
+		///     Whether the array should be cleared or not
+		/// </param>
+		public NativeArray2D(
+			int length0,
+			int length1,
+			Allocator allocator,
+			NativeArrayOptions options = NativeArrayOptions.ClearMemory)
+		{
+			Allocate(length0, length1, allocator, out this);
+			if ((options & NativeArrayOptions.ClearMemory)
+			    == NativeArrayOptions.ClearMemory)
+			{
+				UnsafeUtility.MemClear(
+					m_Buffer,
+					Length * (long)UnsafeUtility.SizeOf<T>());
+			}
+		}
+
+		/// <summary>
+		///     Create a copy of the given managed array
+		/// </summary>
+		/// <param name="array">
+		///     Managed array to copy. Must not be null.
+		/// </param>
+		/// <param name="allocator">
+		///     Allocator to allocate native memory with. Must be valid as defined
+		///     by <see cref="UnsafeUtility.IsValidAllocator" />.
+		/// </param>
+		public NativeArray2D(T[,] array, Allocator allocator)
+		{
+			var length0 = array.GetLength(0);
+			var length1 = array.GetLength(1);
+			Allocate(length0, length1, allocator, out this);
+			Copy(array, this);
+		}
+
+		/// <summary>
+		///     Create a copy of the given native array
+		/// </summary>
+		/// <param name="array">
+		///     Native array to copy
+		/// </param>
+		/// <param name="allocator">
+		///     Allocator to allocate native memory with. Must be valid as defined
+		///     by <see cref="UnsafeUtility.IsValidAllocator" />.
+		/// </param>
+		public NativeArray2D(NativeArray2D<T> array, Allocator allocator)
+		{
+			Allocate(array.Length0, array.Length1, allocator, out this);
+			Copy(array, this);
+		}
+
+		/// <summary>
+		///     Release the object's unmanaged memory. Do not use it after this. Do
+		///     not call <see cref="Dispose" /> on copies of the object either.
+		///     This operation requires write access.
+		///     This complexity of this operation is O(1) plus the allocator's
+		///     deallocation complexity.
+		/// </summary>
+		[WriteAccessRequired]
+		public void Dispose()
+		{
+			RequireWriteAccess();
+			RequireValidAllocator(m_Allocator);
+
+// Make sure we're not double-disposing
+#if ENABLE_UNITY_COLLECTIONS_CHECKS
+			DisposeSentinel.Dispose(ref m_Safety, ref m_DisposeSentinel);
+#endif
+
+			UnsafeUtility.Free(m_Buffer, m_Allocator);
+			m_Buffer = null;
+			m_Length0 = 0;
+			m_Length1 = 0;
+		}
+
+		/// <summary>
+		///     Get an enumerator for this array
+		/// </summary>
+		/// <returns>
+		///     An enumerator for this array.
+		/// </returns>
+		[ExcludeFromCodeCoverage] IEnumerator<T> IEnumerable<T>.GetEnumerator() => new Enumerator(ref this);
+
+		/// <summary>
+		///     Get an enumerator for this array
+		/// </summary>
+		/// <returns>
+		///     An enumerator for this array.
+		/// </returns>
+		IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+
+		/// <summary>
+		///     Check if this array points to the same native memory as another
+		///     array.
+		/// </summary>
+		/// <param name="other">
+		///     Array to check against.
+		/// </param>
+		/// <returns>
+		///     If this array points to the same native memory as the given array.
+		/// </returns>
+		public bool Equals(NativeArray2D<T> other) => m_Buffer == other.m_Buffer
+		                                              && m_Length0 == other.m_Length0
+		                                              && m_Length1 == other.m_Length1;
+
+		/// <summary>
+		///     Throw an exception if the array isn't readable
+		/// </summary>
+		[Conditional("ENABLE_UNITY_COLLECTIONS_CHECKS")]
+		private void RequireReadAccess()
+		{
+#if ENABLE_UNITY_COLLECTIONS_CHECKS
+			AtomicSafetyHandle.CheckReadAndThrow(m_Safety);
+#endif
+		}
+
+		/// <summary>
+		///     Throw an exception if the list isn't writable
+		/// </summary>
+		[Conditional("ENABLE_UNITY_COLLECTIONS_CHECKS")]
+		private void RequireWriteAccess()
+		{
+#if ENABLE_UNITY_COLLECTIONS_CHECKS
+			AtomicSafetyHandle.CheckWriteAndThrow(m_Safety);
+#endif
+		}
+
+		/// <summary>
+		///     Throw an exception if an index is out of bounds
+		/// </summary>
+		[Conditional("ENABLE_UNITY_COLLECTIONS_CHECKS")]
+		private void RequireIndexInBounds(int index0, int index1)
+		{
+#if ENABLE_UNITY_COLLECTIONS_CHECKS
+			if (index0 < 0 || index0 >= m_Length0)
+				throw new ArgumentException("index0 out of bounds");
+			if (index1 < 0 || index1 >= m_Length1)
+				throw new ArgumentException("index1 out of bounds");
+#endif
+		}
+
+		/// <summary>
+		///     Copy the elements of a managed array to this array
+		/// </summary>
+		/// <param name="array">
+		///     Array to copy from. Must not be null. Must have the same dimensions
+		///     as this array.
+		/// </param>
+		[WriteAccessRequired]
+		public void CopyFrom(T[,] array) => Copy(array, this);
+
+		/// <summary>
+		///     Copy the elements of a native array to this array
+		/// </summary>
+		/// <param name="array">
+		///     Array to copy from. Must have the same dimensions as this array.
+		/// </param>
+		[WriteAccessRequired]
+		public void CopyFrom(NativeArray2D<T> array) => Copy(array, this);
+
+		/// <summary>
+		///     Copy the elements of this array to a managed array
+		/// </summary>
+		/// <param name="array">
+		///     Array to copy to. Must not be null. Must have the same dimensions
+		///     as this array.
+		/// </param>
+		public void CopyTo(T[,] array) => Copy(this, array);
+
+		/// <summary>
+		///     Copy the elements of this array to a native array
+		/// </summary>
+		/// <param name="array">
+		///     Array to copy to. Must have the same dimensions
+		///     as this array.
+		/// </param>
+		public void CopyTo(NativeArray2D<T> array) => Copy(this, array);
+
+		/// <summary>
+		///     Copy the elements of this array to a newly-created managed array
+		/// </summary>
+		/// <returns>
+		///     A newly-created managed array with the elements of this array.
+		/// </returns>
+		public T[,] ToArray()
+		{
+			var dst = new T[m_Length0, m_Length1];
+			Copy(this, dst);
+			return dst;
+		}
+
+		/// <summary>
+		///     Get an enumerator for this array
+		/// </summary>
+		/// <returns>
+		///     An enumerator for this array.
+		/// </returns>
+		public Enumerator GetEnumerator() => new(ref this);
+
+		/// <summary>
+		///     Check if this array points to the same native memory as another
+		///     array.
+		/// </summary>
+		/// <param name="other">
+		///     Array to check against.
+		/// </param>
+		/// <returns>
+		///     If this array points to the same native memory as the given array.
+		/// </returns>
+		public override bool Equals(object other)
+		{
+			if (ReferenceEquals(null, other))
+				return false;
+
+			return other is NativeArray2D<T> && Equals((NativeArray2D<T>)other);
+		}
+
+		/// <summary>
+		///     Get a hash code for this array
+		/// </summary>
+		/// <returns>
+		///     A hash code for this array
+		/// </returns>
+		public override int GetHashCode()
+		{
+			var result = (int)m_Buffer;
+			result = result * 397 ^ m_Length0;
+			result = result * 397 ^ m_Length1;
+			return result;
+		}
+
+		/// <summary>
+		///     An enumerator for this type of array. It enumerates from (0,0) to
+		///     (Length0-1,Length1-1) in rows of the first dimension then the second
+		///     dimension. For example, an array with Length0=2 and Length1=3 is
+		///     enumerated as follows:
+		///     (0, 0)
+		///     (1, 0)
+		///     (0, 1)
+		///     (1, 1)
+		///     (0, 2)
+		///     (1, 3)
+		/// </summary>
+		[ExcludeFromDocs]
+		public struct Enumerator : IEnumerator<T>
+		{
+			/// <summary>
+			///     Array to enumerate
+			/// </summary>
+			private NativeArray2D<T> m_Array;
+
+			/// <summary>
+			///     Current index in the first dimension
+			/// </summary>
+			private int m_Index0;
+
+			/// <summary>
+			///     Current index in the second dimension
+			/// </summary>
+			private int m_Index1;
+
+			/// <summary>
+			///     Get the currently-enumerated element
+			/// </summary>
+			public T Current => m_Array[m_Index0, m_Index1];
+
+			/// <summary>
+			///     Get the currently-enumerated element
+			/// </summary>
+			object IEnumerator.Current => Current;
+
+			/// <summary>
+			///     Create the enumerator. It's initially just before the first
+			///     element of both dimensions.
+			/// </summary>
+			/// <param name="array">
+			///     Array to enumerate
+			/// </param>
+			public Enumerator(ref NativeArray2D<T> array)
+			{
+				m_Array = array;
+				m_Index0 = -1;
+				m_Index1 = 0;
+			}
+
+			/// <summary>
+			///     Dispose of the enumerator. This is a no-op.
+			/// </summary>
+			public void Dispose() {}
+
+			/// <summary>
+			///     Move to the next element of the array. This moves along the
+			///     first dimension until the end is hit, at which time the first
+			///     dimension index is reset to zero and the second dimension index
+			///     is incremented.
+			/// </summary>
+			/// <returns>
+			///     If the new indices are within the bounds of the array.
+			/// </returns>
+			public bool MoveNext()
+			{
+				m_Index0++;
+				if (m_Index0 >= m_Array.Length0)
+				{
+					m_Index0 = 0;
+					m_Index1++;
+					return m_Index1 < m_Array.Length1;
+				}
+				return true;
+			}
+
+			/// <summary>
+			///     Reset to just before the first element in both dimensions
+			/// </summary>
+			public void Reset()
+			{
+				m_Index0 = -1;
+				m_Index1 = 0;
+			}
+		}
+
+		// These fields are all required when safety checks are enabled
+		// They must have these exact types, names, and order
+#if ENABLE_UNITY_COLLECTIONS_CHECKS
+		/// <summary>
+		///     A handle to information about what operations can be safely
+		///     performed on the list at any given time.
+		/// </summary>
+		private AtomicSafetyHandle m_Safety;
+
+		/// <summary>
+		///     A handle that can be used to tell if the list has been disposed yet
+		///     or not, which allows for error-checking double disposal.
+		/// </summary>
+		[NativeSetClassTypeToNullOnSchedule]
+		private DisposeSentinel m_DisposeSentinel;
+#endif
 	}
 
 	/// <summary>

@@ -4,6 +4,7 @@
 using CodeSmile.Collections;
 using CodeSmile.ProTiler.Data;
 using System;
+using System.Diagnostics.CodeAnalysis;
 using UnityEngine;
 
 namespace CodeSmile.ProTiler.Assets
@@ -61,5 +62,12 @@ namespace CodeSmile.ProTiler.Assets
 		internal void LoadEmptyTileAsset() => m_EmptyTileAsset = LoadTile3DAssetResource(Paths.ResourcesEmptyTileAsset);
 
 		internal void SetMissingTileAsDefault() => DefaultObject = MissingTileAsset;
+
+		[ExcludeFromCodeCoverage]
+		internal void LoadMissingTileAssetAndSetAsDefault()
+		{
+			LoadMissingTileAsset();
+			SetMissingTileAsDefault();
+		}
 	}
 }

@@ -41,15 +41,15 @@ namespace CodeSmile.Editor.Extensions
 
 		public static bool AssetExists<T>() where T : Object => FindAssets<T>().Length > 0;
 
-		public static void CreateDirectoryIfNotExists(string path)
+		public static bool CreateDirectoryIfNotExists(string path)
 		{
 			path = PathUtility.TrimTrailingDirectorySeparatorChar(path);
+			if (Directory.Exists(path))
+				return false;
 
-			if (Directory.Exists(path) == false)
-			{
-				Directory.CreateDirectory(path);
-				AssetDatabase.Refresh(ImportAssetOptions.ForceSynchronousImport);
-			}
+			Directory.CreateDirectory(path);
+			AssetDatabase.Refresh(ImportAssetOptions.ForceSynchronousImport);
+			return true;
 		}
 
 		public static T CreateScriptableObjectAssetAndDirectory<T>(string assetPath) where T : ScriptableObject

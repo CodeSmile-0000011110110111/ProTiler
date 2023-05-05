@@ -6,13 +6,13 @@ using NUnit.Framework;
 using System.Collections;
 using Unity.Collections;
 
-namespace CodeSmile.Tests.Editor.Collections.NativeArray2D
+namespace CodeSmile.Tests.Editor.Collections
 {
     /// <summary>
     ///     Unit tests for <see cref="NativeArray2D{T}" /> and
     ///     <see cref="NativeArray2D{T}.Enumerator" />
     /// </summary>
-    public class TestNativeArray2D
+    public class NativeArray2DTests
 	{
 		private static NativeArray2D<int> CreateArray(int width, int height) => new NativeArray2D<int>(width, height, Allocator.Temp);
 

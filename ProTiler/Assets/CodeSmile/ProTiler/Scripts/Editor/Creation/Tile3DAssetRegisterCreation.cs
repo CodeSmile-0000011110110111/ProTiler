@@ -13,30 +13,29 @@ namespace CodeSmile.ProTiler.Editor.Creation
 	[InitializeOnLoad]
 	public sealed class Tile3DAssetRegisterCreation : ScriptableObject
 	{
-		/// <summary>
-		/// Creates a Tile3DAssetRegister asset if one does not exist.
-		/// </summary>
-		[ExcludeFromCodeCoverage]
-		public static void CreateTile3DAssetRegisterIfNotExists()
-		{
-			if (AssetDatabaseExt.AssetExists<Tile3DAssetRegister>() == false)
-			{
-				var assetPath = $"{Paths.Tile3DAssetRegister}/{nameof(Tile3DAssetRegister)}.asset";
-				AssetDatabaseExt.CreateScriptableObjectAssetAndDirectory<Tile3DAssetRegister>(assetPath);
-			}
-			else
-			{
-				// assign singleton by loading the asset otherwise tests may fail
-				var register = AssetDatabaseExt.LoadAsset<Tile3DAssetRegister>();
-				register.AssignSingletonInstance();
-			}
-		}
+		private const string RegisterAssetFilePath = Paths.Tile3DAssetRegister + "/" + nameof(Tile3DAssetRegister) + ".asset";
 
 		/// <summary>
-		/// Initialization must be delayed because if the Library is deleted, the AssetDatabase won't find the Tile3DAssetRegister
-		/// asset even if it exists due to running this from an InitializeOnLoad static ctor.
+		///     Initialization must be delayed because if the Library is deleted, the AssetDatabase won't find the
+		///     Tile3DAssetRegister asset even if it exists due to running this from an InitializeOnLoad static ctor.
 		/// </summary>
 		[ExcludeFromCodeCoverage]
-		static Tile3DAssetRegisterCreation() => EditorApplication.delayCall += CreateTile3DAssetRegisterIfNotExists;
+		static Tile3DAssetRegisterCreation() => EditorApplication.delayCall += InitializeTileAssetRegister;
+
+		/// <summary>
+		///     Creates a Tile3DAssetRegister asset if one does not exist.
+		/// </summary>
+		[ExcludeFromCodeCoverage]
+		public static void InitializeTileAssetRegister()
+		{
+			var register = LoadOrCreateTileAssetRegister();
+			register.AssignSingletonInstance();
+			register.LoadMissingTileAssetAndSetAsDefault();
+		}
+
+		[ExcludeFromCodeCoverage]
+		private static Tile3DAssetRegister LoadOrCreateTileAssetRegister() => AssetDatabaseExt.AssetExists<Tile3DAssetRegister>()
+			? AssetDatabaseExt.LoadAsset<Tile3DAssetRegister>()
+			: AssetDatabaseExt.CreateScriptableObjectAssetAndDirectory<Tile3DAssetRegister>(RegisterAssetFilePath);
 	}
 }

@@ -11,7 +11,7 @@ namespace CodeSmile.Tests.ProTiler.Editor.Collections
 {
 	public class Tilemap3DChunkCollectionTests
 	{
-		private static object[] IllegalChunkSizes =
+		private readonly static object[] IllegalChunkSizes =
 		{
 			new object[] { new Vector2Int(1, 0) },
 			new object[] { new Vector2Int(0, 1) },

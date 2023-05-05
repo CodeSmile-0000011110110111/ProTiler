@@ -7,11 +7,12 @@ using NUnit.Framework;
 using System;
 using UnityEngine;
 
-namespace CodeSmile.Tests.Editor.Pooling
+namespace CodeSmile.Tests.Editor
 {
+	[TestFixture(TestOf = typeof(ComponentPool<>))]
 	public class ComponentPoolTests
 	{
-		[Test] [CreateEmptyScene()][CreateGameObject("Parent")]
+		[Test] [CreateEmptyScene] [CreateGameObject("Parent")]
 		public void NewThrowsOnInvalidParams()
 		{
 			var instance = GameObject.Find("Parent");
@@ -23,8 +24,7 @@ namespace CodeSmile.Tests.Editor.Pooling
 			Assert.Throws<ArgumentException>(() => { new ComponentPool<Transform>(prefab, prefab, 4); });
 		}
 
-
-		[Test] [CreateEmptyScene()][CreateGameObject("Parent")]
+		[Test] [CreateEmptyScene] [CreateGameObject("Parent")]
 		public void CreateEmptyPool()
 		{
 			var parent = GameObject.Find("Parent");
@@ -32,12 +32,10 @@ namespace CodeSmile.Tests.Editor.Pooling
 			var poolSize = 0;
 
 			using (var pool = new ComponentPool<Transform>(prefab, parent, poolSize))
-			{
 				Assert.That(pool.Count, Is.EqualTo(poolSize));
-			}
 		}
 
-		[Test] [CreateEmptyScene()][CreateGameObject("Parent")]
+		[Test] [CreateEmptyScene] [CreateGameObject("Parent")]
 		public void CreateAndDispose()
 		{
 			var parent = GameObject.Find("Parent");
@@ -54,7 +52,7 @@ namespace CodeSmile.Tests.Editor.Pooling
 			Assert.AreEqual(0, parent.transform.childCount);
 		}
 
-		[Test] [CreateEmptyScene()][CreateGameObject("Parent")]
+		[Test] [CreateEmptyScene] [CreateGameObject("Parent")]
 		public void TakeAndReturnPooledObject()
 		{
 			var parent = GameObject.Find("Parent");
@@ -70,6 +68,5 @@ namespace CodeSmile.Tests.Editor.Pooling
 
 			Assert.AreEqual(0, parent.transform.childCount);
 		}
-
 	}
 }

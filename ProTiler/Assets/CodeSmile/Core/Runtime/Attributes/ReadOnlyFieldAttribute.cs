@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace CodeSmile
+namespace CodeSmile.Attributes
 {
 	/// <summary>
 	/// Displays a field as readonly in Inspector.

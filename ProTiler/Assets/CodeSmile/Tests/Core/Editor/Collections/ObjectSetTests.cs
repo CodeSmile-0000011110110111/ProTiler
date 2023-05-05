@@ -35,7 +35,6 @@ namespace CodeSmile.Tests.Editor.Collections
 			Assert.That(set.Count == 0);
 		}
 
-
 		[Test] [CreateEmptyScene] [CreateGameObject]
 		public void FirstObjectAddedReturnsCountOne()
 		{
@@ -44,7 +43,7 @@ namespace CodeSmile.Tests.Editor.Collections
 
 			set.Add(go);
 
-			Assert.That(set.Count , Is.EqualTo(1));
+			Assert.That(set.Count == 1);
 		}
 
 		[Test] [CreateEmptyScene] [CreateGameObject]
@@ -107,7 +106,7 @@ namespace CodeSmile.Tests.Editor.Collections
 		}
 
 		[Test]
-		public void TryAddNullObjectThrows()
+		public void AddNullObjectThrows()
 		{
 			var set = new ObjectSet<GameObject>();
 
@@ -171,6 +170,7 @@ namespace CodeSmile.Tests.Editor.Collections
 			Assert.That(set.Contains(GO1), Is.True);
 			Assert.That(set.Contains(GO2), Is.True);
 		}
+
 		[Test] [CreateEmptyScene] [CreateGameObject(GameObjectNameOne)] [CreateGameObject(GameObjectNameTwo)]
 		public void AddObjectsWithStartIndexContainsIndexes()
 		{
@@ -187,7 +187,7 @@ namespace CodeSmile.Tests.Editor.Collections
 		}
 
 		[Test] [CreateEmptyScene] [CreateGameObject(GameObjectNameOne)]
-		public void TryRemoveNullDoesNotRemoveAnExistingObject()
+		public void RemoveNullDoesNotRemoveAnExistingObject()
 		{
 			var GO1 = GameObject.Find(GameObjectNameOne);
 			var set = new ObjectSet<GameObject>();
@@ -212,7 +212,7 @@ namespace CodeSmile.Tests.Editor.Collections
 		}
 
 		[Test] [CreateEmptyScene] [CreateGameObject(GameObjectNameOne)] [CreateGameObject(GameObjectNameTwo)]
-		public void TryRemoveNotExistingObjectDoesNothing()
+		public void RemoveNotExistingObjectDoesNothing()
 		{
 			var GO1 = GameObject.Find(GameObjectNameOne);
 			var GO2 = GameObject.Find(GameObjectNameTwo);
@@ -328,9 +328,9 @@ namespace CodeSmile.Tests.Editor.Collections
 			Assert.That(set[startIndex + 1], Is.EqualTo(GO2));
 		}
 
-		[TestCase(int.MinValue)][TestCase(int.MaxValue)]
+		[TestCase(int.MinValue)] [TestCase(int.MaxValue)]
 		[CreateEmptyScene] [CreateGameObject] [CreateGameObject(GameObjectNameOne)] [CreateGameObject(GameObjectNameTwo)]
-		public void TryGetOutOfBoundsIndexReturnsDefaultObject(int indexOutOfBounds)
+		public void GetOutOfBoundsIndexReturnsDefaultObject(int indexOutOfBounds)
 		{
 			var defaultGO = GameObject.Find(CreateGameObjectAttribute.DefaultName);
 			var set = new ObjectSet<GameObject>(defaultGO);
@@ -370,7 +370,7 @@ namespace CodeSmile.Tests.Editor.Collections
 			Assert.That(set.Contains(GO2), Is.True);
 		}
 
-		[TestCase(int.MinValue)][TestCase(int.MaxValue)]
+		[TestCase(int.MinValue)] [TestCase(int.MaxValue)]
 		public void AssignObjectOutOfBoundsThrows(int indexOutOfBounds)
 		{
 			var set = new ObjectSet<GameObject>();

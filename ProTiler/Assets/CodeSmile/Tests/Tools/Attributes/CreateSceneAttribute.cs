@@ -1,11 +1,11 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
-using CodeSmile.Editor.Extensions;
 using CodeSmile.Extensions;
 using NUnit.Framework;
 using NUnit.Framework.Interfaces;
 using System.Collections;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using UnityEditor;
 using UnityEditor.SceneManagement;
@@ -20,29 +20,36 @@ namespace CodeSmile.Tests.Tools.Attributes
 		private readonly NewSceneSetup m_Setup;
 		private string m_ScenePath;
 
+		private static bool IsObjectNamedLikeADefaultObject(GameObject rootGameObject) =>
+			rootGameObject.name == "Main Camera" || rootGameObject.name == "Directional Light";
+
 		public CreateSceneAttribute(string scenePath = null, NewSceneSetup setup = NewSceneSetup.EmptyScene)
 		{
 			m_Setup = setup;
 			SetupAndVerifyScenePath(scenePath);
 		}
 
-		IEnumerator IOuterUnityTestAction.BeforeTest(ITest test)
+		[ExcludeFromCodeCoverage] IEnumerator IOuterUnityTestAction.BeforeTest(ITest test) { yield return OnBeforeTest(); }
+		[ExcludeFromCodeCoverage] IEnumerator IOuterUnityTestAction.AfterTest(ITest test) { yield return OnAfterTest(); }
+
+		[ExcludeFromCodeCoverage]
+		private object OnBeforeTest()
 		{
 			if (Application.isPlaying)
 				RuntimeLoadScene();
 			else
-				EditorLoadScene();
+				EditorCreateNewScene();
 
-			yield return null;
+			return null;
 		}
 
-		IEnumerator IOuterUnityTestAction.AfterTest(ITest test)
+		[ExcludeFromCodeCoverage]
+		private object OnAfterTest()
 		{
-			if (Application.isPlaying) {}
-			else
+			if (Application.isPlaying == false)
 				EditorCleanupScene();
 
-			yield return null;
+			return null;
 		}
 
 		private void EditorCleanupScene()
@@ -50,11 +57,8 @@ namespace CodeSmile.Tests.Tools.Attributes
 			var activeScene = SceneManager.GetActiveScene();
 			foreach (var rootGameObject in activeScene.GetRootGameObjects())
 			{
-				if (m_Setup == NewSceneSetup.DefaultGameObjects)
-				{
-					if (rootGameObject.name == "Main Camera" || rootGameObject.name == "Directional Light")
-						continue;
-				}
+				if (ShouldSkipDefaultObjects(rootGameObject))
+					continue;
 
 				rootGameObject.DestroyInAnyMode();
 			}
@@ -63,6 +67,10 @@ namespace CodeSmile.Tests.Tools.Attributes
 				DeleteTestScene();
 		}
 
+		private bool ShouldSkipDefaultObjects(GameObject rootGameObject) => m_Setup == NewSceneSetup.DefaultGameObjects &&
+		                                                                    IsObjectNamedLikeADefaultObject(rootGameObject);
+
+		[ExcludeFromCodeCoverage]
 		private void DeleteTestScene()
 		{
 			Debug.Log($"Deleting test scene from: {m_ScenePath}");
@@ -70,7 +78,7 @@ namespace CodeSmile.Tests.Tools.Attributes
 				throw new UnityException($"AssetDatabase failed to delete test scene in: '{m_ScenePath}'");
 		}
 
-		private void EditorLoadScene()
+		private void EditorCreateNewScene()
 		{
 			var activeScene = SceneManager.GetActiveScene();
 			var sceneName = CreateTestSceneName();
@@ -84,14 +92,15 @@ namespace CodeSmile.Tests.Tools.Attributes
 			}
 		}
 
+		[ExcludeFromCodeCoverage]
 		private void SaveTestScene(Scene scene)
 		{
 			Debug.Log($"Saving '{scene.name}' to {m_ScenePath} ...");
-			CreateScenePathDirectoryIfNotExists();
 			if (EditorSceneManager.SaveScene(scene, m_ScenePath) == false)
 				throw new UnityException($"EditorSceneManager failed to save test scene to: '{m_ScenePath}'");
 		}
 
+		[ExcludeFromCodeCoverage]
 		private void RuntimeLoadScene()
 		{
 			var sceneName = m_Setup == NewSceneSetup.EmptyScene ? TestNames.EmptyTestScene : TestNames.DefaultObjectsTestScene;
@@ -100,7 +109,7 @@ namespace CodeSmile.Tests.Tools.Attributes
 
 		private void SetupAndVerifyScenePath(string scenePath)
 		{
-			m_ScenePath = string.IsNullOrWhiteSpace(scenePath) == false ? TestPaths.TempTestAssets + scenePath : null;
+			m_ScenePath = string.IsNullOrWhiteSpace(scenePath) == false ? scenePath : null;
 			if (m_ScenePath != null)
 			{
 				PrefixAssetsPathIfNeeded();
@@ -120,19 +129,12 @@ namespace CodeSmile.Tests.Tools.Attributes
 				m_ScenePath += ".unity";
 		}
 
-		private void CreateScenePathDirectoryIfNotExists()
-		{
-			var path = Application.dataPath.Replace("/Assets", "/") + m_ScenePath;
-			path = Path.GetDirectoryName(path);
-			AssetDatabaseExt.CreateDirectoryIfNotExists(path);
-		}
-
 		private bool IsScenePathValid() => string.IsNullOrWhiteSpace(m_ScenePath) == false;
 
 		private string CreateTestSceneName()
 		{
 			var name = m_ScenePath != null ? Path.GetFileName(m_ScenePath) : m_Setup.ToString();
-			return $"Test [CreateScene] {name}";
+			return $"Test [{GetType().Name.Replace("Attribute", "")}] {name}";
 		}
 	}
 }

@@ -9,7 +9,7 @@ namespace CodeSmile.Tests.Editor.Extensions
 {
 	public class RectIntExtTests
 	{
-		public static object[] DoesIntersectSource =
+		public readonly static object[] DoesIntersectSource =
 		{
 			new[] { new RectInt(0, 0, 2, 2), new RectInt(1, 1, 1, 1) },
 			new[] { new RectInt(0, 0, 2, 2), new RectInt(1, 1, 1, 1) },
@@ -18,7 +18,7 @@ namespace CodeSmile.Tests.Editor.Extensions
 			new[] { new RectInt(-5, -5, 10, 10), new RectInt(-1, -1, 2, 2) },
 		};
 
-		public static object[] DoesNotIntersectSource =
+		public readonly static object[] DoesNotIntersectSource =
 		{
 			new[] { new RectInt(0, 0, 1, 2), new RectInt(1, 1, 1, 1) },
 			new[] { new RectInt(0, 0, 2, 1), new RectInt(1, 1, 1, 1) },

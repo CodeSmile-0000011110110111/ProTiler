@@ -10,6 +10,7 @@ namespace CodeSmile.Components
 	[ExecuteInEditMode]
 	public class DropToGround : MonoBehaviour
 	{
+		private const float RaycastDistance = 1000f;
 		[SerializeField] private bool m_SnapPosition;
 		[SerializeField] private Vector3 m_PositionOffset;
 		[SerializeField] private bool m_SnapPositionToBounds;
@@ -20,7 +21,7 @@ namespace CodeSmile.Components
 		private Quaternion m_EditorRotation;
 
 		[ExcludeFromCodeCoverage]
-		private void Update() => TryDropToGround();
+		private void Update() => DoDropToGround();
 
 		[ExcludeFromCodeCoverage]
 		private void OnEnable()
@@ -30,37 +31,50 @@ namespace CodeSmile.Components
 		}
 
 		[ExcludeFromCodeCoverage]
-		private void TryDropToGround()
+		private void DoDropToGround()
 		{
-			var offset = 1000f;
-			var rayOrigin = transform.position + Vector3.up * offset;
-
-			var hits = Physics.RaycastAll(rayOrigin, Vector3.down, offset * 2f, Physics.AllLayers);
+			var rayOrigin = transform.position + Vector3.up * RaycastDistance;
+			var hits = Physics.RaycastAll(rayOrigin, Vector3.down, RaycastDistance * 2f, Physics.AllLayers);
 			foreach (var hit in hits)
 			{
-				if (hit.transform == transform)
+				if (IsSelf(hit))
 					continue;
 
-				var posOffset = Vector3.zero;
-				if (m_SnapPositionToBounds)
-				{
-					var collider = GetComponent<Collider>();
-					if (collider != null)
-						posOffset.y = collider.bounds.size.y / 2f;
-				}
-
-				if (m_SnapPosition)
-					transform.position = hit.point + posOffset + m_PositionOffset;
-				if (m_SnapRotation)
-				{
-					var rotation = Quaternion.FromToRotation(Vector3.up, hit.normal);
-					var angles = rotation.eulerAngles;
-					angles.y = m_EditorRotation.y;
-					transform.rotation = Quaternion.Euler(angles);
-				}
-
+				var posOffset = SnapPositionToBounds(Vector3.zero);
+				SnapPosition(hit, posOffset);
+				SnapRotation(hit);
 				break;
 			}
+		}
+
+		private bool IsSelf(RaycastHit hit) => hit.transform == transform;
+
+		private void SnapRotation(RaycastHit hit)
+		{
+			if (m_SnapRotation)
+			{
+				var rotation = Quaternion.FromToRotation(Vector3.up, hit.normal);
+				var angles = rotation.eulerAngles;
+				angles.y = m_EditorRotation.y;
+				transform.rotation = Quaternion.Euler(angles);
+			}
+		}
+
+		private void SnapPosition(RaycastHit hit, Vector3 posOffset)
+		{
+			if (m_SnapPosition)
+				transform.position = hit.point + posOffset + m_PositionOffset;
+		}
+
+		private Vector3 SnapPositionToBounds(Vector3 posOffset)
+		{
+			if (m_SnapPositionToBounds)
+			{
+				var collider = GetComponent<Collider>();
+				if (collider != null)
+					posOffset.y = collider.bounds.size.y / 2f;
+			}
+			return posOffset;
 		}
 	}
 }

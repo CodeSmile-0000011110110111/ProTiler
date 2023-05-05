@@ -5,6 +5,7 @@ using NUnit.Framework;
 using NUnit.Framework.Interfaces;
 using System;
 using System.Collections;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using UnityEditor;
 using UnityEditor.SceneManagement;
@@ -20,21 +21,17 @@ namespace CodeSmile.Tests.Tools.Attributes
 
 		public LoadSceneAttribute(string sceneName) => SetScenePath(sceneName);
 
-		IEnumerator IOuterUnityTestAction.BeforeTest(ITest test)
-		{
-			var loadSceneParams = new LoadSceneParameters(LoadSceneMode.Single);
-			if (EditorApplication.isPlaying == false)
-			{
-				EditorSceneManager.OpenScene(m_ScenePath);
-				yield return null;
-			}
-			else
-				yield return EditorSceneManager.LoadSceneAsyncInPlayMode(m_ScenePath, loadSceneParams);
-		}
+		[ExcludeFromCodeCoverage] IEnumerator IOuterUnityTestAction.BeforeTest(ITest test) { yield return OnBeforeTest(); }
+		[ExcludeFromCodeCoverage] IEnumerator IOuterUnityTestAction.AfterTest(ITest test) { yield return null; }
 
-		IEnumerator IOuterUnityTestAction.AfterTest(ITest test)
+		[ExcludeFromCodeCoverage]
+		private object OnBeforeTest()
 		{
-			yield return null;
+			if (EditorApplication.isPlaying)
+				return EditorSceneManager.LoadSceneAsyncInPlayMode(m_ScenePath, new LoadSceneParameters(LoadSceneMode.Single));
+
+			EditorSceneManager.OpenScene(m_ScenePath);
+			return null;
 		}
 
 		private void SetScenePath(string sceneName)

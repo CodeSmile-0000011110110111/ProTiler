@@ -9,13 +9,15 @@ namespace CodeSmile.ProTiler.Assets
 	public sealed class Tile3DAssetRegister : ScriptableObject
 	{
 		[SuppressMessage("NDepend", "ND1901:AvoidNonReadOnlyStaticFields", Justification="cannot be readonly")]
-		[SuppressMessage("NDepend", "ND1902:AvoidStaticFieldsWithAMutableFieldType", Justification="cannot be readonly")]
+		[SuppressMessage("NDepend", "ND1902:AvoidStaticFieldsWithAMutableFieldType", Justification = "cannot be readonly")]
 		private static Tile3DAssetRegister s_Singleton;
 
 		[SerializeField] private Tile3DAssetBaseSet m_TileAssets;
 
 		public Tile3DAssetBase this[int index] => m_TileAssets[index];
 
+		[SuppressMessage("NDepend", "ND1901:AvoidNonReadOnlyStaticFields", Justification="cannot be readonly")]
+		[SuppressMessage("NDepend", "ND1902:AvoidStaticFieldsWithAMutableFieldType", Justification = "cannot be readonly")]
 		public static Tile3DAssetRegister Singleton => s_Singleton;
 
 		public int Count => m_TileAssets.Count;
@@ -34,11 +36,7 @@ namespace CodeSmile.ProTiler.Assets
 		///     assigns singleton after domain reload (script compile)
 		/// </summary>
 		/// <returns></returns>
-		[ExcludeFromCodeCoverage] private void OnEnable()
-		{
-			AssignSingletonInstance();
-			m_TileAssets.Init();
-		}
+		[ExcludeFromCodeCoverage] private void OnEnable() => AssignSingletonInstance();
 
 		internal void AssignSingletonInstance() => s_Singleton = this;
 
@@ -52,5 +50,8 @@ namespace CodeSmile.ProTiler.Assets
 		public void Add(Tile3DAssetBase tileAsset, out int index) => m_TileAssets.Add(tileAsset, out index);
 		public void Remove(Tile3DAssetBase tileAsset) => m_TileAssets.Remove(tileAsset);
 		public bool Contains(Tile3DAssetBase tileAsset) => m_TileAssets.Contains(tileAsset);
+
+		[ExcludeFromCodeCoverage]
+		internal void LoadMissingTileAssetAndSetAsDefault() => m_TileAssets.LoadMissingTileAssetAndSetAsDefault();
 	}
 }

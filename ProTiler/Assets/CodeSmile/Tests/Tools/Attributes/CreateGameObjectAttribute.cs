@@ -6,6 +6,7 @@ using NUnit.Framework;
 using NUnit.Framework.Interfaces;
 using System;
 using System.Collections;
+using System.Diagnostics.CodeAnalysis;
 using UnityEngine;
 using UnityEngine.TestTools;
 
@@ -34,17 +35,19 @@ namespace CodeSmile.Tests.Tools.Attributes
 			m_Components = components;
 		}
 
-		IEnumerator IOuterUnityTestAction.BeforeTest(ITest test)
+		[ExcludeFromCodeCoverage] IEnumerator IOuterUnityTestAction.BeforeTest(ITest test) { yield return OnBeforeTest(); }
+		[ExcludeFromCodeCoverage] IEnumerator IOuterUnityTestAction.AfterTest(ITest test) { yield return OnAfterTest(); }
+
+		private object OnBeforeTest()
 		{
 			m_GameObject = new GameObject(m_Name, m_Components);
-			yield return null;
+			return null;
 		}
 
-		IEnumerator IOuterUnityTestAction.AfterTest(ITest test)
+		private object OnAfterTest()
 		{
-			if (m_GameObject != null)
-				m_GameObject.DestroyInAnyMode();
-			yield return null;
+			m_GameObject.DestroyInAnyMode();
+			return null;
 		}
 	}
 }

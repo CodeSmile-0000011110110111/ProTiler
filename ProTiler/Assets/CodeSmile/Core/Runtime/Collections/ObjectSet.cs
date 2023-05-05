@@ -1,6 +1,7 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
+using CodeSmile.Attributes;
 using CodeSmile.Extensions;
 using System;
 using System.Linq;
@@ -190,16 +191,5 @@ namespace CodeSmile.Collections
 		}
 
 		[Serializable] private class IndexedObjectsDictionary : SerializedDictionary<int, T> {}
-
-		/*
-		private sealed class ObjectIndexPair : IEquatable<T>
-		{
-			public T Object;
-			public int Index;
-			public bool Equals(T other) => EqualityComparer<T>.Default.Equals(Object, other);
-			public override bool Equals(object obj) => obj is T other && Equals(other);
-			public override int GetHashCode() => Object != null ? Object.GetHashCode() : 0;
-		}
-		*/
 	}
 }

@@ -12,7 +12,7 @@ using UnityEngine;
 
 namespace CodeSmile.ProTiler.Editor.Creation
 {
-	public class Tile3DAssetRegisterPersistence : AssetModificationProcessor
+	public sealed class Tile3DAssetRegisterPersistence : AssetModificationProcessor
 	{
 		private static readonly string TileRegisterAssetFilename = $"{nameof(Tile3DAssetRegister)}.asset";
 

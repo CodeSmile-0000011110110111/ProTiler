@@ -8,31 +8,31 @@ namespace CodeSmile.Tests.ProTiler.Editor.Data
 {
 	public class Tile3DTestCaseSource
 	{
-		public static object[] InvalidIndexes =
+		public readonly static object[] InvalidIndexes =
 		{
 			new object[] { int.MinValue },
 			new object[] { -1 },
 		};
-		public static object[] ValidIndexes =
+		public readonly static object[] ValidIndexes =
 		{
 			new object[] { 0 },
 			new object[] { 1 },
 			new object[] { int.MaxValue },
 		};
 
-		public static object[] EmptyIndexes =
+		public readonly static object[] EmptyIndexes =
 		{
 			new object[] { int.MinValue },
 			new object[] { -1 },
 			new object[] { 0 },
 		};
-		public static object[] NonEmptyIndexes =
+		public readonly static object[] NonEmptyIndexes =
 		{
 			new object[] { 1 },
 			new object[] { int.MaxValue },
 		};
 
-		public static object[] ValidIndexesWithFlags =
+		public readonly static object[] ValidIndexesWithFlags =
 		{
 			new object[] { 0, Tile3DFlags.None },
 			new object[] { 1, Tile3DFlags.AllDirections },
@@ -41,7 +41,7 @@ namespace CodeSmile.Tests.ProTiler.Editor.Data
 			new object[] { int.MaxValue, Tile3DFlags.AllFlips | Tile3DFlags.AllDirections },
 		};
 
-		public static object[] DirectionFlags =
+		public readonly static object[] DirectionFlags =
 		{
 			new object[] { Tile3DFlags.DirectionNorth },
 			new object[] { Tile3DFlags.DirectionEast },
@@ -50,7 +50,7 @@ namespace CodeSmile.Tests.ProTiler.Editor.Data
 			new object[] { Tile3DFlags.AllDirections },
 		};
 
-		public static object[] NonEqualTilePairs =
+		public readonly static object[] NonEqualTilePairs =
 		{
 			new object[]
 			{
@@ -74,7 +74,7 @@ namespace CodeSmile.Tests.ProTiler.Editor.Data
 			},
 		};
 
-		public static object[] EqualTilePairs =
+		public readonly static object[] EqualTilePairs =
 		{
 			new object[]
 			{
@@ -98,7 +98,7 @@ namespace CodeSmile.Tests.ProTiler.Editor.Data
 			},
 		};
 
-		public static object[] NonEqualTileCoordPairs =
+		public readonly static object[] NonEqualTileCoordPairs =
 		{
 			new object[]
 			{
@@ -112,7 +112,7 @@ namespace CodeSmile.Tests.ProTiler.Editor.Data
 			},
 		};
 
-		public static object[] EqualTileCoordPairs =
+		public readonly static object[] EqualTileCoordPairs =
 		{
 			new object[]
 			{

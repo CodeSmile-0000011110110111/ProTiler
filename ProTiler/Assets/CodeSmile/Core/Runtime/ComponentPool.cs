@@ -85,7 +85,7 @@ namespace CodeSmile
 		/// </summary>
 		/// <param name="setActive">If true (default), calls SetActive(true) on the component's gameObject.</param>
 		/// <returns>An instance or null if there are no more inactive instances.</returns>
-		public T GetFromPool(bool setActive = true)
+		/*public T GetFromPool(bool setActive = true)
 		{
 			if (m_InactiveInstances.Count == 0)
 				return null;
@@ -98,7 +98,7 @@ namespace CodeSmile
 				instance.gameObject.SetActive(true);
 
 			return instance;
-		}
+		}*/
 
 		/// <summary>
 		///     Puts an active instance back into the pool.
@@ -106,7 +106,7 @@ namespace CodeSmile
 		/// <param name="instance">The instance to return to the pool. Must not be null.</param>
 		/// <param name="setInactive">If true (default), will call SetActive(false) on the gameObject instance.</param>
 		/// <exception cref="ArgumentNullException">thrown when instance is null</exception>
-		public void ReturnToPool(T instance, bool setInactive = true)
+		/*public void ReturnToPool(T instance, bool setInactive = true)
 		{
 #if DEBUG
 			if (instance == null)
@@ -117,7 +117,7 @@ namespace CodeSmile
 				instance.gameObject.SetActive(false);
 
 			m_InactiveInstances.Add(instance);
-		}
+		}*/
 
 		private void UpdatePoolSize(int poolSize)
 		{
@@ -134,16 +134,13 @@ namespace CodeSmile
 
 		private void InstantiatePrefabs(int newCount)
 		{
-			if (m_Prefab == null)
-				throw new ArgumentNullException("ComponentPool m_Prefab is null");
-
 			for (var i = 0; i < newCount; i++)
 			{
 				var go = Object.Instantiate(m_Prefab, Vector3.zero, Quaternion.identity, m_ParentTransform);
 				go.hideFlags = m_HideFlags;
 				go.SetActive(false);
 
-				// FIXME: this won't work with anything but components
+				// TODO: (maybe) this won't work with anything but components
 				m_AllInstances.Add(go.GetComponent<T>());
 				m_InactiveInstances.Add(go.GetComponent<T>());
 			}
