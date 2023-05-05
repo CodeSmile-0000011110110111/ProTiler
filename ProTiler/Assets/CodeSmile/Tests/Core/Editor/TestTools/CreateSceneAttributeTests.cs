@@ -22,8 +22,8 @@ namespace CodeSmile.Tests.Editor.TestTools
 		{
 			var rootObjects = SceneManager.GetActiveScene().GetRootGameObjects();
 
-			Assert.That(rootObjects.Select(o => o.name == "Main Camera").FirstOrDefault() != null);
-			Assert.That(rootObjects.Select(o => o.name == "Directional Light").FirstOrDefault() != null);
+			Assert.That(rootObjects.Select(o => o.name == "Main Camera").Count() == 1);
+			Assert.That(rootObjects.Select(o => o.name == "Directional Light").Count() == 1);
 		}
 
 		[Test] [CreateDefaultScene(TestSceneName)]
