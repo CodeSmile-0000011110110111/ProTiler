@@ -5,6 +5,7 @@ using CodeSmile.Tests.Tools.Attributes;
 using NUnit.Framework;
 using System.Linq;
 using UnityEditor;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace CodeSmile.Tests.Editor.TestTools
@@ -22,8 +23,9 @@ namespace CodeSmile.Tests.Editor.TestTools
 		{
 			var rootObjects = SceneManager.GetActiveScene().GetRootGameObjects();
 
-			Assert.That(rootObjects.Select(o => o.name == "Main Camera").Count() == 1);
-			Assert.That(rootObjects.Select(o => o.name == "Directional Light").Count() == 1);
+			Assert.That(rootObjects.Length == 2);
+			Assert.That(GameObject.Find("Main Camera") != null);
+			Assert.That(GameObject.Find("Directional Light") != null);
 		}
 
 		[Test] [CreateDefaultScene(TestSceneName)]
