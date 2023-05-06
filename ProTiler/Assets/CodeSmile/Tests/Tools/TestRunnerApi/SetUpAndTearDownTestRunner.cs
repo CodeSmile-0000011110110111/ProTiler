@@ -5,8 +5,10 @@ using CodeSmile.Editor;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using UnityEditor;
+using UnityEditor.SceneManagement;
 using UnityEditor.TestTools.TestRunner.Api;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace CodeSmile.Tests.Tools.TestRunnerApi
 {
@@ -14,9 +16,10 @@ namespace CodeSmile.Tests.Tools.TestRunnerApi
 	///     Handles TestRunner callbacks mainly to set the running status of the TestRunner to EditorPrefs.
 	/// </summary>
 	[InitializeOnLoad] [ExcludeFromCodeCoverage]
-	public class TestsCleaner
+	public class SetUpAndTearDownTestRunner
 	{
-		static TestsCleaner() => ScriptableObject.CreateInstance<UnityEditor.TestTools.TestRunner.Api.TestRunnerApi>().RegisterCallbacks(new Callbacks());
+		static SetUpAndTearDownTestRunner() => ScriptableObject.CreateInstance<UnityEditor.TestTools.TestRunner.Api.TestRunnerApi>()
+			.RegisterCallbacks(new Callbacks());
 
 		[ExcludeFromCodeCoverage]
 		private class Callbacks : ICallbacks
@@ -47,9 +50,12 @@ namespace CodeSmile.Tests.Tools.TestRunnerApi
 			/// </summary>
 			private static void ClearUndoRedoStack() => Undo.ClearAll();
 
+			private static void CloseActiveScene() => EditorSceneManager.CloseScene(SceneManager.GetActiveScene(), false);
+
 			public void RunStarted(ITestAdaptor testsToRun)
 			{
 				// safety: ensure we have the AssetDatabase up-to-date before testing
+				CloseActiveScene();
 				DeleteTempTestAssetsDirectoryAndContents();
 				SynchronizeAssetDatabase();
 				ClearUndoRedoStack();
