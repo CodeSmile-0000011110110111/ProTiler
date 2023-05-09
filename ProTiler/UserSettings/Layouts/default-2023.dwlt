@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_PixelRect:
     serializedVersion: 2
-    x: 0.8
-    y: 50.4
+    x: 866.4
+    y: 51.2
     width: 2575.2
-    height: 1100.8
+    height: 1094.4
   m_ShowMode: 4
-  m_Title: Hierarchy
+  m_Title: Console
   m_RootView: {fileID: 2}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -45,7 +45,7 @@ MonoBehaviour:
     x: 0
     y: 0
     width: 2575.2
-    height: 1100.8
+    height: 1094.4
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
   m_UseTopView: 1
@@ -90,7 +90,7 @@ MonoBehaviour:
   m_Position:
     serializedVersion: 2
     x: 0
-    y: 1080.8
+    y: 1074.4
     width: 2575.2
     height: 20
   m_MinSize: {x: 0, y: 0}
@@ -116,11 +116,11 @@ MonoBehaviour:
     x: 0
     y: 30
     width: 2575.2
-    height: 1050.8
+    height: 1044.4
   m_MinSize: {x: 300, y: 100}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 127
+  controlID: 125
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -141,11 +141,11 @@ MonoBehaviour:
     x: 0
     y: 0
     width: 596.8
-    height: 1050.8
+    height: 1044.4
   m_MinSize: {x: 100, y: 100}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 37
+  controlID: 40
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -164,7 +164,7 @@ MonoBehaviour:
     x: 0
     y: 0
     width: 596.8
-    height: 500.8
+    height: 497.6
   m_MinSize: {x: 200, y: 200}
   m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 15}
@@ -188,9 +188,9 @@ MonoBehaviour:
   m_Position:
     serializedVersion: 2
     x: 0
-    y: 500.8
+    y: 497.6
     width: 596.8
-    height: 550.00006
+    height: 546.80005
   m_MinSize: {x: 231, y: 271}
   m_MaxSize: {x: 10001, y: 10021}
   m_ActualView: {fileID: 16}
@@ -208,7 +208,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 12006, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: TestRunnerWindow
+  m_Name: InspectorWindow
   m_EditorClassIdentifier: 
   m_Children: []
   m_Position:
@@ -216,15 +216,15 @@ MonoBehaviour:
     x: 596.8
     y: 0
     width: 600.8
-    height: 1050.8
-  m_MinSize: {x: 100, y: 100}
+    height: 1044.4
+  m_MinSize: {x: 275, y: 50}
   m_MaxSize: {x: 4000, y: 4000}
-  m_ActualView: {fileID: 13}
+  m_ActualView: {fileID: 17}
   m_Panes:
   - {fileID: 17}
   - {fileID: 13}
-  m_Selected: 1
-  m_LastSelected: 0
+  m_Selected: 0
+  m_LastSelected: 1
 --- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -245,11 +245,11 @@ MonoBehaviour:
     x: 1197.6
     y: 0
     width: 1377.6
-    height: 1050.8
+    height: 1044.4
   m_MinSize: {x: 100, y: 100}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 128
+  controlID: 126
 --- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -260,7 +260,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 1
   m_Script: {fileID: 12006, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: GameView
+  m_Name: ProjectSettingsWindow
   m_EditorClassIdentifier: 
   m_Children: []
   m_Position:
@@ -268,10 +268,10 @@ MonoBehaviour:
     x: 0
     y: 0
     width: 1377.6
-    height: 667.2
-  m_MinSize: {x: 201, y: 221}
+    height: 663.2
+  m_MinSize: {x: 311, y: 221}
   m_MaxSize: {x: 4001, y: 4021}
-  m_ActualView: {fileID: 19}
+  m_ActualView: {fileID: 14}
   m_Panes:
   - {fileID: 18}
   - {fileID: 19}
@@ -279,8 +279,8 @@ MonoBehaviour:
   - {fileID: 21}
   - {fileID: 14}
   - {fileID: 22}
-  m_Selected: 1
-  m_LastSelected: 4
+  m_Selected: 4
+  m_LastSelected: 1
 --- !u!114 &12
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -297,9 +297,9 @@ MonoBehaviour:
   m_Position:
     serializedVersion: 2
     x: 0
-    y: 667.2
+    y: 663.2
     width: 1377.6
-    height: 383.60004
+    height: 381.2
   m_MinSize: {x: 101, y: 121}
   m_MaxSize: {x: 4001, y: 4021}
   m_ActualView: {fileID: 23}
@@ -328,10 +328,10 @@ MonoBehaviour:
     m_TextWithWhitespace: "UnityEditor.TestTools.TestRunner.TestRunnerWindow\u200B"
   m_Pos:
     serializedVersion: 2
-    x: 597.60004
-    y: 80.8
+    x: 1463.2001
+    y: 81.6
     width: 598.8
-    height: 1029.8
+    height: 1023.4
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
@@ -344,12 +344,12 @@ MonoBehaviour:
     m_ContainerData: []
     m_OverlaysVisible: 1
   m_Spl:
-    ID: 209
+    ID: 312
     splitterInitialOffset: 0
     currentActiveSplitter: -1
     realSizes:
-    - 720
-    - 240
+    - 714.4
+    - 238.4
     relativeSizes:
     - 0.75
     - 0.25
@@ -359,7 +359,7 @@ MonoBehaviour:
     maxSizes:
     - 0
     - 0
-    lastTotalSize: 960
+    lastTotalSize: 952.8
     splitSize: 6
     xOffset: 0
     m_Version: 1
@@ -5823,7 +5823,7 @@ MonoBehaviour:
       name: ProTiler
       fullName: ProTiler
       resultStatus: 1
-      duration: 0.0004139
+      duration: 3.8097003
       messages: 
       output: 
       stacktrace: 
@@ -5839,7 +5839,7 @@ MonoBehaviour:
       name: CodeSmile.Tests.Editor.dll
       fullName: C:/Users/CodeSmile/Projects/CodeSmile-Twitch/ProTiler/Library/ScriptAssemblies/CodeSmile.Tests.Editor.dll
       resultStatus: 1
-      duration: 21.874065
+      duration: 2.653906
       messages: 
       output: 
       stacktrace: 
@@ -5855,7 +5855,7 @@ MonoBehaviour:
       name: CodeSmile
       fullName: CodeSmile
       resultStatus: 1
-      duration: 21.87338
+      duration: 2.6532195
       messages: 
       output: 
       stacktrace: 
@@ -5871,7 +5871,7 @@ MonoBehaviour:
       name: Tests
       fullName: CodeSmile.Tests
       resultStatus: 1
-      duration: 21.873075
+      duration: 2.6520834
       messages: 
       output: 
       stacktrace: 
@@ -5887,7 +5887,7 @@ MonoBehaviour:
       name: Editor
       fullName: CodeSmile.Tests.Editor
       resultStatus: 1
-      duration: 21.872475
+      duration: 2.6518114
       messages: 
       output: 
       stacktrace: 
@@ -5903,7 +5903,7 @@ MonoBehaviour:
       name: Collections
       fullName: CodeSmile.Tests.Editor.Collections
       resultStatus: 1
-      duration: 10.614259
+      duration: 0.3375954
       messages: 
       output: 
       stacktrace: 
@@ -5919,7 +5919,7 @@ MonoBehaviour:
       name: NativeArray2DTests
       fullName: CodeSmile.Tests.Editor.Collections.NativeArray2DTests
       resultStatus: 1
-      duration: 4.986594
+      duration: 0.0460363
       messages: 
       output: 
       stacktrace: 
@@ -5935,7 +5935,7 @@ MonoBehaviour:
       name: ConstructorCopiesManagedArray
       fullName: CodeSmile.Tests.Editor.Collections.NativeArray2DTests.ConstructorCopiesManagedArray
       resultStatus: 1
-      duration: 0.0152239
+      duration: 0.0123919
       messages: 
       output: 
       stacktrace: 
@@ -5952,7 +5952,7 @@ MonoBehaviour:
       name: ConstructorCopiesNativeArray
       fullName: CodeSmile.Tests.Editor.Collections.NativeArray2DTests.ConstructorCopiesNativeArray
       resultStatus: 1
-      duration: 0.001033
+      duration: 0.000788
       messages: 
       output: 
       stacktrace: 
@@ -5969,7 +5969,7 @@ MonoBehaviour:
       name: ConstructorCreatesEmptyArray
       fullName: CodeSmile.Tests.Editor.Collections.NativeArray2DTests.ConstructorCreatesEmptyArray
       resultStatus: 1
-      duration: 0.0004562
+      duration: 0.0002682
       messages: 
       output: 
       stacktrace: 
@@ -5986,7 +5986,7 @@ MonoBehaviour:
       name: ConstructorThrowsForInvalidAllocator
       fullName: CodeSmile.Tests.Editor.Collections.NativeArray2DTests.ConstructorThrowsForInvalidAllocator
       resultStatus: 1
-      duration: 0.0028369
+      duration: 0.0021186
       messages: 
       output: 
       stacktrace: 
@@ -6003,7 +6003,7 @@ MonoBehaviour:
       name: ConstructorThrowsForNonPositiveLength
       fullName: CodeSmile.Tests.Editor.Collections.NativeArray2DTests.ConstructorThrowsForNonPositiveLength
       resultStatus: 1
-      duration: 0.0007181
+      duration: 0.0004855
       messages: 
       output: 
       stacktrace: 
@@ -6020,7 +6020,7 @@ MonoBehaviour:
       name: CopyFromManagedArrayCopiesElements
       fullName: CodeSmile.Tests.Editor.Collections.NativeArray2DTests.CopyFromManagedArrayCopiesElements
       resultStatus: 1
-      duration: 0.0005807
+      duration: 0.0003676
       messages: 
       output: 
       stacktrace: 
@@ -6037,7 +6037,7 @@ MonoBehaviour:
       name: CopyFromManagedArrayThrowsWhenDifferentSize
       fullName: CodeSmile.Tests.Editor.Collections.NativeArray2DTests.CopyFromManagedArrayThrowsWhenDifferentSize
       resultStatus: 1
-      duration: 0.0007327
+      duration: 0.0004132
       messages: 
       output: 
       stacktrace: 
@@ -6054,7 +6054,7 @@ MonoBehaviour:
       name: CopyFromNativeArrayCopiesElements
       fullName: CodeSmile.Tests.Editor.Collections.NativeArray2DTests.CopyFromNativeArrayCopiesElements
       resultStatus: 1
-      duration: 0.0006955
+      duration: 0.0004869
       messages: 
       output: 
       stacktrace: 
@@ -6071,7 +6071,7 @@ MonoBehaviour:
       name: CopyFromNativeArrayThrowsWhenDifferentSize
       fullName: CodeSmile.Tests.Editor.Collections.NativeArray2DTests.CopyFromNativeArrayThrowsWhenDifferentSize
       resultStatus: 1
-      duration: 0.0005473
+      duration: 0.0002916
       messages: 
       output: 
       stacktrace: 
@@ -6088,7 +6088,7 @@ MonoBehaviour:
       name: CopyToManagedArrayCopiesElements
       fullName: CodeSmile.Tests.Editor.Collections.NativeArray2DTests.CopyToManagedArrayCopiesElements
       resultStatus: 1
-      duration: 0.0007616
+      duration: 0.00052
       messages: 
       output: 
       stacktrace: 
@@ -6105,7 +6105,7 @@ MonoBehaviour:
       name: CopyToManagedArrayThrowsWhenDifferentSize
       fullName: CodeSmile.Tests.Editor.Collections.NativeArray2DTests.CopyToManagedArrayThrowsWhenDifferentSize
       resultStatus: 1
-      duration: 0.0006092
+      duration: 0.0002732
       messages: 
       output: 
       stacktrace: 
@@ -6122,7 +6122,7 @@ MonoBehaviour:
       name: CopyToNativeArrayCopiesElements
       fullName: CodeSmile.Tests.Editor.Collections.NativeArray2DTests.CopyToNativeArrayCopiesElements
       resultStatus: 1
-      duration: 0.0007894
+      duration: 0.0003944
       messages: 
       output: 
       stacktrace: 
@@ -6139,7 +6139,7 @@ MonoBehaviour:
       name: CopyToNativeArrayThrowsWhenDifferentSize
       fullName: CodeSmile.Tests.Editor.Collections.NativeArray2DTests.CopyToNativeArrayThrowsWhenDifferentSize
       resultStatus: 1
-      duration: 0.0004888
+      duration: 0.0002765
       messages: 
       output: 
       stacktrace: 
@@ -6156,7 +6156,7 @@ MonoBehaviour:
       name: DisposeMakesArrayUnusable
       fullName: CodeSmile.Tests.Editor.Collections.NativeArray2DTests.DisposeMakesArrayUnusable
       resultStatus: 1
-      duration: 0.0010464
+      duration: 0.0007327
       messages: 
       output: 
       stacktrace: 
@@ -6173,7 +6173,7 @@ MonoBehaviour:
       name: EnumeratorCurrentReturnsCurrentElementAsObject
       fullName: CodeSmile.Tests.Editor.Collections.NativeArray2DTests.EnumeratorCurrentReturnsCurrentElementAsObject
       resultStatus: 1
-      duration: 0.0011977
+      duration: 0.0005102
       messages: 
       output: 
       stacktrace: 
@@ -6190,7 +6190,7 @@ MonoBehaviour:
       name: EnumeratorResetReturnsToFirstElement
       fullName: CodeSmile.Tests.Editor.Collections.NativeArray2DTests.EnumeratorResetReturnsToFirstElement
       resultStatus: 1
-      duration: 0.0007447
+      duration: 0.0004387
       messages: 
       output: 
       stacktrace: 
@@ -6207,7 +6207,7 @@ MonoBehaviour:
       name: EqualityOperatorReturnsTrueOnlyForSameArray
       fullName: CodeSmile.Tests.Editor.Collections.NativeArray2DTests.EqualityOperatorReturnsTrueOnlyForSameArray
       resultStatus: 1
-      duration: 0.0006734
+      duration: 0.0004255
       messages: 
       output: 
       stacktrace: 
@@ -6224,7 +6224,7 @@ MonoBehaviour:
       name: EqualsObjectReturnsTrueOnlyForSameArray
       fullName: CodeSmile.Tests.Editor.Collections.NativeArray2DTests.EqualsObjectReturnsTrueOnlyForSameArray
       resultStatus: 1
-      duration: 0.000517
+      duration: 0.0003002
       messages: 
       output: 
       stacktrace: 
@@ -6241,7 +6241,7 @@ MonoBehaviour:
       name: EqualsReturnsTrueOnlyForSameArray
       fullName: CodeSmile.Tests.Editor.Collections.NativeArray2DTests.EqualsReturnsTrueOnlyForSameArray
       resultStatus: 1
-      duration: 0.0003852
+      duration: 0.0002046
       messages: 
       output: 
       stacktrace: 
@@ -6258,7 +6258,7 @@ MonoBehaviour:
       name: GetEnumeratorIteratesElementsInCorrectOrder
       fullName: CodeSmile.Tests.Editor.Collections.NativeArray2DTests.GetEnumeratorIteratesElementsInCorrectOrder
       resultStatus: 1
-      duration: 0.0007151
+      duration: 0.0006423
       messages: 
       output: 
       stacktrace: 
@@ -6275,7 +6275,7 @@ MonoBehaviour:
       name: GetEnumeratorNonGenericIteratesElementsInCorrectOrder
       fullName: CodeSmile.Tests.Editor.Collections.NativeArray2DTests.GetEnumeratorNonGenericIteratesElementsInCorrectOrder
       resultStatus: 1
-      duration: 0.0006916
+      duration: 0.0006036
       messages: 
       output: 
       stacktrace: 
@@ -6292,7 +6292,7 @@ MonoBehaviour:
       name: GetHashCodeReturnsUniqueValue
       fullName: CodeSmile.Tests.Editor.Collections.NativeArray2DTests.GetHashCodeReturnsUniqueValue
       resultStatus: 1
-      duration: 0.0012383
+      duration: 0.0008841
       messages: 
       output: 
       stacktrace: 
@@ -6309,7 +6309,7 @@ MonoBehaviour:
       name: IndexGetsAndSetsElementAtGivenIndex
       fullName: CodeSmile.Tests.Editor.Collections.NativeArray2DTests.IndexGetsAndSetsElementAtGivenIndex
       resultStatus: 1
-      duration: 0.0006617
+      duration: 0.0003105
       messages: 
       output: 
       stacktrace: 
@@ -6326,7 +6326,7 @@ MonoBehaviour:
       name: IndexOutOfBoundsThrows
       fullName: CodeSmile.Tests.Editor.Collections.NativeArray2DTests.IndexOutOfBoundsThrows
       resultStatus: 1
-      duration: 0.0009457
+      duration: 0.0005378
       messages: 
       output: 
       stacktrace: 
@@ -6343,7 +6343,7 @@ MonoBehaviour:
       name: InequalityOperatorReturnsTrueOnlyForDifferentArray
       fullName: CodeSmile.Tests.Editor.Collections.NativeArray2DTests.InequalityOperatorReturnsTrueOnlyForDifferentArray
       resultStatus: 1
-      duration: 0.0005353
+      duration: 0.0002745
       messages: 
       output: 
       stacktrace: 
@@ -6360,7 +6360,7 @@ MonoBehaviour:
       name: IsCreatedReturnsTrueAfterConstructor
       fullName: CodeSmile.Tests.Editor.Collections.NativeArray2DTests.IsCreatedReturnsTrueAfterConstructor
       resultStatus: 1
-      duration: 0.0003882
+      duration: 0.0002047
       messages: 
       output: 
       stacktrace: 
@@ -6377,7 +6377,7 @@ MonoBehaviour:
       name: IsCreatedReturnsTrueForDefaultStruct
       fullName: CodeSmile.Tests.Editor.Collections.NativeArray2DTests.IsCreatedReturnsTrueForDefaultStruct
       resultStatus: 1
-      duration: 0.0002758
+      duration: 0.0001296
       messages: 
       output: 
       stacktrace: 
@@ -6394,7 +6394,7 @@ MonoBehaviour:
       name: Length0ReturnsTotalNumberOfElements
       fullName: CodeSmile.Tests.Editor.Collections.NativeArray2DTests.Length0ReturnsTotalNumberOfElements
       resultStatus: 1
-      duration: 0.0003171
+      duration: 0.0001657
       messages: 
       output: 
       stacktrace: 
@@ -6411,7 +6411,7 @@ MonoBehaviour:
       name: Length1ReturnsTotalNumberOfElements
       fullName: CodeSmile.Tests.Editor.Collections.NativeArray2DTests.Length1ReturnsTotalNumberOfElements
       resultStatus: 1
-      duration: 0.0003461
+      duration: 0.0001569
       messages: 
       output: 
       stacktrace: 
@@ -6428,7 +6428,7 @@ MonoBehaviour:
       name: LengthReturnsTotalNumberOfElements
       fullName: CodeSmile.Tests.Editor.Collections.NativeArray2DTests.LengthReturnsTotalNumberOfElements
       resultStatus: 1
-      duration: 0.000328
+      duration: 0.0001618
       messages: 
       output: 
       stacktrace: 
@@ -6445,7 +6445,7 @@ MonoBehaviour:
       name: NotEqualsNullObject
       fullName: CodeSmile.Tests.Editor.Collections.NativeArray2DTests.NotEqualsNullObject
       resultStatus: 1
-      duration: 0.0003214
+      duration: 0.0001539
       messages: 
       output: 
       stacktrace: 
@@ -6462,7 +6462,7 @@ MonoBehaviour:
       name: ToArrayCreatesArrayWithSameElements
       fullName: CodeSmile.Tests.Editor.Collections.NativeArray2DTests.ToArrayCreatesArrayWithSameElements
       resultStatus: 1
-      duration: 0.0006941
+      duration: 0.0003999
       messages: 
       output: 
       stacktrace: 
@@ -6479,7 +6479,7 @@ MonoBehaviour:
       name: ObjectSetTests
       fullName: CodeSmile.Tests.Editor.Collections.ObjectSetTests
       resultStatus: 1
-      duration: 5.621887
+      duration: 0.2896062
       messages: 
       output: 
       stacktrace: 
@@ -6495,7 +6495,7 @@ MonoBehaviour:
       name: AddMultipleObjectsHasCorrectCount
       fullName: CodeSmile.Tests.Editor.Collections.ObjectSetTests.AddMultipleObjectsHasCorrectCount
       resultStatus: 1
-      duration: 0.1395372
+      duration: 0.0730501
       messages: 
       output: 
       stacktrace: 
@@ -6512,7 +6512,7 @@ MonoBehaviour:
       name: AddMultipleObjectsHasObjectsAtCorrectIndexes
       fullName: CodeSmile.Tests.Editor.Collections.ObjectSetTests.AddMultipleObjectsHasObjectsAtCorrectIndexes
       resultStatus: 1
-      duration: 0.0351619
+      duration: 0.0071051
       messages: 
       output: 
       stacktrace: 
@@ -6529,7 +6529,7 @@ MonoBehaviour:
       name: AddNullObjectThrows
       fullName: CodeSmile.Tests.Editor.Collections.ObjectSetTests.AddNullObjectThrows
       resultStatus: 1
-      duration: 0.0029621
+      duration: 0.0021427
       messages: 
       output: 
       stacktrace: 
@@ -6546,7 +6546,7 @@ MonoBehaviour:
       name: AddObjectContainsThatObject
       fullName: CodeSmile.Tests.Editor.Collections.ObjectSetTests.AddObjectContainsThatObject
       resultStatus: 1
-      duration: 0.0412016
+      duration: 0.0062221
       messages: 
       output: 
       stacktrace: 
@@ -6563,7 +6563,7 @@ MonoBehaviour:
       name: AddObjectReturnsTrue
       fullName: CodeSmile.Tests.Editor.Collections.ObjectSetTests.AddObjectReturnsTrue
       resultStatus: 1
-      duration: 0.0254528
+      duration: 0.0070459
       messages: 
       output: 
       stacktrace: 
@@ -6580,7 +6580,7 @@ MonoBehaviour:
       name: AddObjectsWithStartIndexContainsIndexes
       fullName: CodeSmile.Tests.Editor.Collections.ObjectSetTests.AddObjectsWithStartIndexContainsIndexes
       resultStatus: 1
-      duration: 0.0237493
+      duration: 0.0065684
       messages: 
       output: 
       stacktrace: 
@@ -6597,7 +6597,7 @@ MonoBehaviour:
       name: AddObjectsWithStartIndexContainsObjects
       fullName: CodeSmile.Tests.Editor.Collections.ObjectSetTests.AddObjectsWithStartIndexContainsObjects
       resultStatus: 1
-      duration: 0.0235688
+      duration: 0.0085638
       messages: 
       output: 
       stacktrace: 
@@ -6614,7 +6614,7 @@ MonoBehaviour:
       name: AddSameObjectTwiceReturnsFalseForSecondAdd
       fullName: CodeSmile.Tests.Editor.Collections.ObjectSetTests.AddSameObjectTwiceReturnsFalseForSecondAdd
       resultStatus: 1
-      duration: 0.019732
+      duration: 0.0091387
       messages: 
       output: 
       stacktrace: 
@@ -6631,7 +6631,7 @@ MonoBehaviour:
       name: AssignNullToIndexerRemovesExistingObject
       fullName: CodeSmile.Tests.Editor.Collections.ObjectSetTests.AssignNullToIndexerRemovesExistingObject
       resultStatus: 1
-      duration: 0.0297901
+      duration: 0.0079833
       messages: 
       output: 
       stacktrace: 
@@ -6648,7 +6648,7 @@ MonoBehaviour:
       name: AssignObjectAlreadyInSetThrows
       fullName: CodeSmile.Tests.Editor.Collections.ObjectSetTests.AssignObjectAlreadyInSetThrows
       resultStatus: 1
-      duration: 0.0205207
+      duration: 0.0071673
       messages: 
       output: 
       stacktrace: 
@@ -6665,7 +6665,7 @@ MonoBehaviour:
       name: AssignObjectOutOfBoundsThrows
       fullName: CodeSmile.Tests.Editor.Collections.ObjectSetTests.AssignObjectOutOfBoundsThrows
       resultStatus: 1
-      duration: 0.3075308
+      duration: 0.0064879
       messages: 
       output: 
       stacktrace: 
@@ -6681,7 +6681,7 @@ MonoBehaviour:
       name: AssignObjectOutOfBoundsThrows(int.MinValue)
       fullName: CodeSmile.Tests.Editor.Collections.ObjectSetTests.AssignObjectOutOfBoundsThrows(int.MinValue)
       resultStatus: 1
-      duration: 0.000596
+      duration: 0.0004762
       messages: 
       output: 
       stacktrace: 
@@ -6698,7 +6698,7 @@ MonoBehaviour:
       name: AssignObjectOutOfBoundsThrows(int.MaxValue)
       fullName: CodeSmile.Tests.Editor.Collections.ObjectSetTests.AssignObjectOutOfBoundsThrows(int.MaxValue)
       resultStatus: 1
-      duration: 0.0002174
+      duration: 0.000123
       messages: 
       output: 
       stacktrace: 
@@ -6715,7 +6715,7 @@ MonoBehaviour:
       name: AssignObjectsWithIndexersContainsObjects
       fullName: CodeSmile.Tests.Editor.Collections.ObjectSetTests.AssignObjectsWithIndexersContainsObjects
       resultStatus: 1
-      duration: 0.0297179
+      duration: 0.0069769
       messages: 
       output: 
       stacktrace: 
@@ -6732,7 +6732,7 @@ MonoBehaviour:
       name: AssignObjectToExistingIndexReplacesExistingObject
       fullName: CodeSmile.Tests.Editor.Collections.ObjectSetTests.AssignObjectToExistingIndexReplacesExistingObject
       resultStatus: 1
-      duration: 0.0245721
+      duration: 0.0066572
       messages: 
       output: 
       stacktrace: 
@@ -6749,7 +6749,7 @@ MonoBehaviour:
       name: ClearSetWithObjectsHasCountZero
       fullName: CodeSmile.Tests.Editor.Collections.ObjectSetTests.ClearSetWithObjectsHasCountZero
       resultStatus: 1
-      duration: 0.0272445
+      duration: 0.0074249
       messages: 
       output: 
       stacktrace: 
@@ -6766,7 +6766,7 @@ MonoBehaviour:
       name: CreateEmptySet
       fullName: CodeSmile.Tests.Editor.Collections.ObjectSetTests.CreateEmptySet
       resultStatus: 1
-      duration: 0.0106005
+      duration: 0.0067914
       messages: 
       output: 
       stacktrace: 
@@ -6783,7 +6783,7 @@ MonoBehaviour:
       name: CreateEmptySetWithDefaultObject
       fullName: CodeSmile.Tests.Editor.Collections.ObjectSetTests.CreateEmptySetWithDefaultObject
       resultStatus: 1
-      duration: 0.0155236
+      duration: 0.0063247
       messages: 
       output: 
       stacktrace: 
@@ -6800,7 +6800,7 @@ MonoBehaviour:
       name: EmptySetDoesNotContainNull
       fullName: CodeSmile.Tests.Editor.Collections.ObjectSetTests.EmptySetDoesNotContainNull
       resultStatus: 1
-      duration: 0.000305
+      duration: 0.0001573
       messages: 
       output: 
       stacktrace: 
@@ -6817,7 +6817,7 @@ MonoBehaviour:
       name: FirstAddObjectReturnsStartIndex
       fullName: CodeSmile.Tests.Editor.Collections.ObjectSetTests.FirstAddObjectReturnsStartIndex
       resultStatus: 1
-      duration: 0.0190706
+      duration: 0.0071064
       messages: 
       output: 
       stacktrace: 
@@ -6834,7 +6834,7 @@ MonoBehaviour:
       name: FirstObjectAddedIsFoundAtCustomStartIndex
       fullName: CodeSmile.Tests.Editor.Collections.ObjectSetTests.FirstObjectAddedIsFoundAtCustomStartIndex
       resultStatus: 1
-      duration: 0.0188499
+      duration: 0.0073545
       messages: 
       output: 
       stacktrace: 
@@ -6851,7 +6851,7 @@ MonoBehaviour:
       name: FirstObjectAddedReturnsCountOne
       fullName: CodeSmile.Tests.Editor.Collections.ObjectSetTests.FirstObjectAddedReturnsCountOne
       resultStatus: 1
-      duration: 0.0192586
+      duration: 0.0071463
       messages: 
       output: 
       stacktrace: 
@@ -6868,7 +6868,7 @@ MonoBehaviour:
       name: GetOutOfBoundsIndexReturnsDefaultObject
       fullName: CodeSmile.Tests.Editor.Collections.ObjectSetTests.GetOutOfBoundsIndexReturnsDefaultObject
       resultStatus: 1
-      duration: 0.3491022
+      duration: 0.0204776
       messages: 
       output: 
       stacktrace: 
@@ -6884,7 +6884,7 @@ MonoBehaviour:
       name: GetOutOfBoundsIndexReturnsDefaultObject(int.MinValue)
       fullName: CodeSmile.Tests.Editor.Collections.ObjectSetTests.GetOutOfBoundsIndexReturnsDefaultObject(int.MinValue)
       resultStatus: 1
-      duration: 0.0212794
+      duration: 0.00205
       messages: 
       output: 
       stacktrace: 
@@ -6901,7 +6901,7 @@ MonoBehaviour:
       name: GetOutOfBoundsIndexReturnsDefaultObject(int.MaxValue)
       fullName: CodeSmile.Tests.Editor.Collections.ObjectSetTests.GetOutOfBoundsIndexReturnsDefaultObject(int.MaxValue)
       resultStatus: 1
-      duration: 0.0269333
+      duration: 0.0117498
       messages: 
       output: 
       stacktrace: 
@@ -6918,7 +6918,7 @@ MonoBehaviour:
       name: GetReturnsObjectAtIndex
       fullName: CodeSmile.Tests.Editor.Collections.ObjectSetTests.GetReturnsObjectAtIndex
       resultStatus: 1
-      duration: 0.0283318
+      duration: 0.0076898
       messages: 
       output: 
       stacktrace: 
@@ -6935,7 +6935,7 @@ MonoBehaviour:
       name: RemoveAnInbetweenObjectDoesNotContainThatObjectAnymore
       fullName: CodeSmile.Tests.Editor.Collections.ObjectSetTests.RemoveAnInbetweenObjectDoesNotContainThatObjectAnymore
       resultStatus: 1
-      duration: 0.0288912
+      duration: 0.0074591
       messages: 
       output: 
       stacktrace: 
@@ -6952,7 +6952,7 @@ MonoBehaviour:
       name: RemoveAnInbetweenObjectHasCorrectCount
       fullName: CodeSmile.Tests.Editor.Collections.ObjectSetTests.RemoveAnInbetweenObjectHasCorrectCount
       resultStatus: 1
-      duration: 0.0265815
+      duration: 0.0065126
       messages: 
       output: 
       stacktrace: 
@@ -6969,7 +6969,7 @@ MonoBehaviour:
       name: RemoveLastObjectHasCountZero
       fullName: CodeSmile.Tests.Editor.Collections.ObjectSetTests.RemoveLastObjectHasCountZero
       resultStatus: 1
-      duration: 0.0188692
+      duration: 0.0057342
       messages: 
       output: 
       stacktrace: 
@@ -6986,7 +6986,7 @@ MonoBehaviour:
       name: RemoveNotExistingObjectDoesNothing
       fullName: CodeSmile.Tests.Editor.Collections.ObjectSetTests.RemoveNotExistingObjectDoesNothing
       resultStatus: 1
-      duration: 0.0258174
+      duration: 0.0067741
       messages: 
       output: 
       stacktrace: 
@@ -7003,7 +7003,7 @@ MonoBehaviour:
       name: RemoveNullDoesNotRemoveAnExistingObject
       fullName: CodeSmile.Tests.Editor.Collections.ObjectSetTests.RemoveNullDoesNotRemoveAnExistingObject
       resultStatus: 1
-      duration: 0.0219972
+      duration: 0.0069597
       messages: 
       output: 
       stacktrace: 
@@ -7020,7 +7020,7 @@ MonoBehaviour:
       name: RemoveOneObjectByIndexDoesNotContainThatObject
       fullName: CodeSmile.Tests.Editor.Collections.ObjectSetTests.RemoveOneObjectByIndexDoesNotContainThatObject
       resultStatus: 1
-      duration: 0.0290362
+      duration: 0.0076124
       messages: 
       output: 
       stacktrace: 
@@ -7037,7 +7037,7 @@ MonoBehaviour:
       name: RemoveOneObjectByIndexHasCorrectCount
       fullName: CodeSmile.Tests.Editor.Collections.ObjectSetTests.RemoveOneObjectByIndexHasCorrectCount
       resultStatus: 1
-      duration: 0.0276748
+      duration: 0.0075696
       messages: 
       output: 
       stacktrace: 
@@ -7054,7 +7054,7 @@ MonoBehaviour:
       name: ComponentPoolTests
       fullName: CodeSmile.Tests.Editor.ComponentPoolTests
       resultStatus: 1
-      duration: 0.6927244
+      duration: 0.0374063
       messages: 
       output: 
       stacktrace: 
@@ -7070,7 +7070,7 @@ MonoBehaviour:
       name: CreateAndDispose
       fullName: CodeSmile.Tests.Editor.ComponentPoolTests.CreateAndDispose
       resultStatus: 1
-      duration: 0.0158535
+      duration: 0.0022514
       messages: 
       output: 
       stacktrace: 
@@ -7087,7 +7087,7 @@ MonoBehaviour:
       name: CreateEmptyPool
       fullName: CodeSmile.Tests.Editor.ComponentPoolTests.CreateEmptyPool
       resultStatus: 1
-      duration: 0.0186839
+      duration: 0.0059742
       messages: 
       output: 
       stacktrace: 
@@ -7104,7 +7104,7 @@ MonoBehaviour:
       name: NewThrowsOnInvalidParams
       fullName: CodeSmile.Tests.Editor.ComponentPoolTests.NewThrowsOnInvalidParams
       resultStatus: 1
-      duration: 0.0182921
+      duration: 0.015086
       messages: 
       output: 
       stacktrace: 
@@ -7121,7 +7121,7 @@ MonoBehaviour:
       name: TakeAndReturnPooledObject
       fullName: CodeSmile.Tests.Editor.ComponentPoolTests.TakeAndReturnPooledObject
       resultStatus: 1
-      duration: 0.0221087
+      duration: 0.0074498
       messages: 
       output: 
       stacktrace: 
@@ -7138,7 +7138,7 @@ MonoBehaviour:
       name: Extensions
       fullName: CodeSmile.Tests.Editor.Extensions
       resultStatus: 1
-      duration: 5.220433
+      duration: 1.1589592
       messages: 
       output: 
       stacktrace: 
@@ -7154,7 +7154,7 @@ MonoBehaviour:
       name: AssetDatabaseExtTests
       fullName: CodeSmile.Tests.Editor.Extensions.AssetDatabaseExtTests
       resultStatus: 1
-      duration: 2.4174075
+      duration: 0.7542431
       messages: 
       output: 
       stacktrace: 
@@ -7170,7 +7170,7 @@ MonoBehaviour:
       name: AssetDoesNotExist
       fullName: CodeSmile.Tests.Editor.Extensions.AssetDatabaseExtTests.AssetDoesNotExist
       resultStatus: 1
-      duration: 0.0026419
+      duration: 0.0021713
       messages: 
       output: 
       stacktrace: 
@@ -7187,7 +7187,7 @@ MonoBehaviour:
       name: CreateDirectoryIfNotExists
       fullName: CodeSmile.Tests.Editor.Extensions.AssetDatabaseExtTests.CreateDirectoryIfNotExists
       resultStatus: 1
-      duration: 0.7968158
+      duration: 0.2596566
       messages: 
       output: 
       stacktrace: 
@@ -7203,7 +7203,7 @@ MonoBehaviour:
       name: CreateDirectoryIfNotExists("Assets/CodeSmile/Tests/Core/Assets/Temp/AssetDatabaseExtTestSO")
       fullName: CodeSmile.Tests.Editor.Extensions.AssetDatabaseExtTests.CreateDirectoryIfNotExists("Assets/CodeSmile/Tests/Core/Assets/Temp/AssetDatabaseExtTestSO")
       resultStatus: 1
-      duration: 0.1380353
+      duration: 0.0903771
       messages: 
       output: 
       stacktrace: 
@@ -7220,7 +7220,7 @@ MonoBehaviour:
       name: CreateDirectoryIfNotExists("Assets/CodeSmile/Tests/Core/Assets/Temp/AssetDatabaseExtTestSO/")
       fullName: CodeSmile.Tests.Editor.Extensions.AssetDatabaseExtTests.CreateDirectoryIfNotExists("Assets/CodeSmile/Tests/Core/Assets/Temp/AssetDatabaseExtTestSO/")
       resultStatus: 1
-      duration: 0.0671549
+      duration: 0.0694526
       messages: 
       output: 
       stacktrace: 
@@ -7237,7 +7237,7 @@ MonoBehaviour:
       name: CreateDirectoryIfNotExists("Assets/CodeSmile/Tests/Core/Assets/Temp/AssetDatabaseExtTestSO\\")
       fullName: CodeSmile.Tests.Editor.Extensions.AssetDatabaseExtTests.CreateDirectoryIfNotExists("Assets/CodeSmile/Tests/Core/Assets/Temp/AssetDatabaseExtTestSO\\")
       resultStatus: 1
-      duration: 0.096904
+      duration: 0.0937957
       messages: 
       output: 
       stacktrace: 
@@ -7254,7 +7254,7 @@ MonoBehaviour:
       name: CreateDirectoryWithInvalidFilePathThrows
       fullName: CodeSmile.Tests.Editor.Extensions.AssetDatabaseExtTests.CreateDirectoryWithInvalidFilePathThrows
       resultStatus: 1
-      duration: 0.3488893
+      duration: 0.1906545
       messages: 
       output: 
       stacktrace: 
@@ -7270,7 +7270,7 @@ MonoBehaviour:
       name: CreateDirectoryWithInvalidFilePathThrows("Assets/CodeSmile/Tests/Core/Assets/Temp/*?<>/\\")
       fullName: CodeSmile.Tests.Editor.Extensions.AssetDatabaseExtTests.CreateDirectoryWithInvalidFilePathThrows("Assets/CodeSmile/Tests/Core/Assets/Temp/*?<>/\\")
       resultStatus: 1
-      duration: 0.0004159
+      duration: 0.0003965
       messages: 
       output: 
       stacktrace: 
@@ -7287,7 +7287,7 @@ MonoBehaviour:
       name: CreateScriptableObjectAssetAndDirectory
       fullName: CodeSmile.Tests.Editor.Extensions.AssetDatabaseExtTests.CreateScriptableObjectAssetAndDirectory
       resultStatus: 1
-      duration: 0.2738289
+      duration: 0.1138614
       messages: 
       output: 
       stacktrace: 
@@ -7303,7 +7303,7 @@ MonoBehaviour:
       name: CreateScriptableObjectAssetAndDirectory("Assets/CodeSmile/Tests/Core/Assets/Temp/CreateTest/AssetDatabaseExtTestSO.asset")
       fullName: CodeSmile.Tests.Editor.Extensions.AssetDatabaseExtTests.CreateScriptableObjectAssetAndDirectory("Assets/CodeSmile/Tests/Core/Assets/Temp/CreateTest/AssetDatabaseExtTestSO.asset")
       resultStatus: 1
-      duration: 0.1057436
+      duration: 0.1030479
       messages: 
       output: 
       stacktrace: 
@@ -7320,7 +7320,7 @@ MonoBehaviour:
       name: FindAssetGuidByType
       fullName: CodeSmile.Tests.Editor.Extensions.AssetDatabaseExtTests.FindAssetGuidByType
       resultStatus: 1
-      duration: 0.0436314
+      duration: 0.0454978
       messages: 
       output: 
       stacktrace: 
@@ -7337,7 +7337,7 @@ MonoBehaviour:
       name: FindAssetPathByType
       fullName: CodeSmile.Tests.Editor.Extensions.AssetDatabaseExtTests.FindAssetPathByType
       resultStatus: 1
-      duration: 0.0435301
+      duration: 0.0459544
       messages: 
       output: 
       stacktrace: 
@@ -7354,7 +7354,7 @@ MonoBehaviour:
       name: LoadAssetByType
       fullName: CodeSmile.Tests.Editor.Extensions.AssetDatabaseExtTests.LoadAssetByType
       resultStatus: 1
-      duration: 0.057343
+      duration: 0.0465137
       messages: 
       output: 
       stacktrace: 
@@ -7371,7 +7371,7 @@ MonoBehaviour:
       name: LoadAssetsByType
       fullName: CodeSmile.Tests.Editor.Extensions.AssetDatabaseExtTests.LoadAssetsByType
       resultStatus: 1
-      duration: 0.0602346
+      duration: 0.0466543
       messages: 
       output: 
       stacktrace: 
@@ -7388,7 +7388,7 @@ MonoBehaviour:
       name: GameObjectExtTests
       fullName: CodeSmile.Tests.Editor.Extensions.GameObjectExtTests
       resultStatus: 1
-      duration: 1.9759504
+      duration: 0.3722834
       messages: 
       output: 
       stacktrace: 
@@ -7404,7 +7404,7 @@ MonoBehaviour:
       name: FindOrCreateChildOnce
       fullName: CodeSmile.Tests.Editor.Extensions.GameObjectExtTests.FindOrCreateChildOnce
       resultStatus: 1
-      duration: 0.0103743
+      duration: 0.0285507
       messages: 
       output: 
       stacktrace: 
@@ -7421,7 +7421,7 @@ MonoBehaviour:
       name: FindOrCreateChildTwice
       fullName: CodeSmile.Tests.Editor.Extensions.GameObjectExtTests.FindOrCreateChildTwice
       resultStatus: 1
-      duration: 0.0200772
+      duration: 0.006169
       messages: 
       output: 
       stacktrace: 
@@ -7438,7 +7438,7 @@ MonoBehaviour:
       name: FindOrCreateChildWithNullOriginalThrows
       fullName: CodeSmile.Tests.Editor.Extensions.GameObjectExtTests.FindOrCreateChildWithNullOriginalThrows
       resultStatus: 1
-      duration: 0.0208649
+      duration: 0.0072097
       messages: 
       output: 
       stacktrace: 
@@ -7455,7 +7455,7 @@ MonoBehaviour:
       name: FindOrCreateChildWithOriginalOnce
       fullName: CodeSmile.Tests.Editor.Extensions.GameObjectExtTests.FindOrCreateChildWithOriginalOnce
       resultStatus: 1
-      duration: 0.0236004
+      duration: 0.0090496
       messages: 
       output: 
       stacktrace: 
@@ -7472,7 +7472,7 @@ MonoBehaviour:
       name: FindOrCreateChildWithOriginalTwice
       fullName: CodeSmile.Tests.Editor.Extensions.GameObjectExtTests.FindOrCreateChildWithOriginalTwice
       resultStatus: 1
-      duration: 0.0251258
+      duration: 0.0076921
       messages: 
       output: 
       stacktrace: 
@@ -7489,7 +7489,7 @@ MonoBehaviour:
       name: GetOrAddComponentOnce
       fullName: CodeSmile.Tests.Editor.Extensions.GameObjectExtTests.GetOrAddComponentOnce
       resultStatus: 1
-      duration: 0.0204667
+      duration: 0.0065406
       messages: 
       output: 
       stacktrace: 
@@ -7506,7 +7506,7 @@ MonoBehaviour:
       name: GetOrAddSameComponentAfterDestroy
       fullName: CodeSmile.Tests.Editor.Extensions.GameObjectExtTests.GetOrAddSameComponentAfterDestroy
       resultStatus: 1
-      duration: 0.0198586
+      duration: 0.0062299
       messages: 
       output: 
       stacktrace: 
@@ -7523,7 +7523,7 @@ MonoBehaviour:
       name: GetOrAddSameComponentTwice
       fullName: CodeSmile.Tests.Editor.Extensions.GameObjectExtTests.GetOrAddSameComponentTwice
       resultStatus: 1
-      duration: 0.0207065
+      duration: 0.006468
       messages: 
       output: 
       stacktrace: 
@@ -7540,7 +7540,7 @@ MonoBehaviour:
       name: IsNotPrefab
       fullName: CodeSmile.Tests.Editor.Extensions.GameObjectExtTests.IsNotPrefab
       resultStatus: 1
-      duration: 0.0209235
+      duration: 0.0062757
       messages: 
       output: 
       stacktrace: 
@@ -7557,7 +7557,7 @@ MonoBehaviour:
       name: IsPrefab
       fullName: CodeSmile.Tests.Editor.Extensions.GameObjectExtTests.IsPrefab
       resultStatus: 1
-      duration: 0.0002823
+      duration: 0.0002332
       messages: 
       output: 
       stacktrace: 
@@ -7574,7 +7574,7 @@ MonoBehaviour:
       name: RectIntExtTests
       fullName: CodeSmile.Tests.Editor.Extensions.RectIntExtTests
       resultStatus: 1
-      duration: 0.6328139
+      duration: 0.0189847
       messages: 
       output: 
       stacktrace: 
@@ -7590,7 +7590,7 @@ MonoBehaviour:
       name: DoesIntersect
       fullName: CodeSmile.Tests.Editor.Extensions.RectIntExtTests.DoesIntersect
       resultStatus: 1
-      duration: 0.7794811
+      duration: 0.0062029
       messages: 
       output: 
       stacktrace: 
@@ -7608,7 +7608,7 @@ MonoBehaviour:
       fullName: CodeSmile.Tests.Editor.Extensions.RectIntExtTests.DoesIntersect((x:0,
         y:0, width:2, height:2),(x:1, y:1, width:1, height:1))
       resultStatus: 1
-      duration: 0.0007184
+      duration: 0.0005037
       messages: 
       output: 
       stacktrace: 
@@ -7627,7 +7627,7 @@ MonoBehaviour:
       fullName: CodeSmile.Tests.Editor.Extensions.RectIntExtTests.DoesIntersect((x:0,
         y:0, width:2, height:2),(x:1, y:1, width:1, height:1) GeneratedTestCase2)
       resultStatus: 1
-      duration: 0.000113
+      duration: 0.000107
       messages: 
       output: 
       stacktrace: 
@@ -7646,7 +7646,7 @@ MonoBehaviour:
       fullName: CodeSmile.Tests.Editor.Extensions.RectIntExtTests.DoesIntersect((x:-1,
         y:-1, width:2, height:2),(x:0, y:0, width:1, height:1))
       resultStatus: 1
-      duration: 0.0001132
+      duration: 0.0001038
       messages: 
       output: 
       stacktrace: 
@@ -7665,7 +7665,7 @@ MonoBehaviour:
       fullName: CodeSmile.Tests.Editor.Extensions.RectIntExtTests.DoesIntersect((x:0,
         y:0, width:10, height:10),(x:1, y:1, width:1, height:1))
       resultStatus: 1
-      duration: 0.0001307
+      duration: 0.0000691
       messages: 
       output: 
       stacktrace: 
@@ -7685,7 +7685,7 @@ MonoBehaviour:
       fullName: CodeSmile.Tests.Editor.Extensions.RectIntExtTests.DoesIntersect((x:-5,
         y:-5, width:10, height:10),(x:-1, y:-1, width:2, height:2))
       resultStatus: 1
-      duration: 0.0001164
+      duration: 0.0000695
       messages: 
       output: 
       stacktrace: 
@@ -7702,7 +7702,7 @@ MonoBehaviour:
       name: DoesNotIntersect
       fullName: CodeSmile.Tests.Editor.Extensions.RectIntExtTests.DoesNotIntersect
       resultStatus: 1
-      duration: 0.6215539
+      duration: 0.0069141
       messages: 
       output: 
       stacktrace: 
@@ -7720,7 +7720,7 @@ MonoBehaviour:
       fullName: CodeSmile.Tests.Editor.Extensions.RectIntExtTests.DoesNotIntersect((x:0,
         y:0, width:1, height:2),(x:1, y:1, width:1, height:1))
       resultStatus: 1
-      duration: 0.000796
+      duration: 0.0002949
       messages: 
       output: 
       stacktrace: 
@@ -7739,7 +7739,7 @@ MonoBehaviour:
       fullName: CodeSmile.Tests.Editor.Extensions.RectIntExtTests.DoesNotIntersect((x:0,
         y:0, width:2, height:1),(x:1, y:1, width:1, height:1))
       resultStatus: 1
-      duration: 0.0001465
+      duration: 0.0000768
       messages: 
       output: 
       stacktrace: 
@@ -7758,7 +7758,7 @@ MonoBehaviour:
       fullName: CodeSmile.Tests.Editor.Extensions.RectIntExtTests.DoesNotIntersect((x:0,
         y:0, width:1, height:1),(x:1, y:1, width:1, height:1))
       resultStatus: 1
-      duration: 0.0001415
+      duration: 0.0000705
       messages: 
       output: 
       stacktrace: 
@@ -7777,7 +7777,7 @@ MonoBehaviour:
       fullName: CodeSmile.Tests.Editor.Extensions.RectIntExtTests.DoesNotIntersect((x:1,
         y:1, width:1, height:1),(x:0, y:0, width:1, height:1))
       resultStatus: 1
-      duration: 0.0001182
+      duration: 0.000069
       messages: 
       output: 
       stacktrace: 
@@ -7794,7 +7794,7 @@ MonoBehaviour:
       name: TransformExtTests
       fullName: CodeSmile.Tests.Editor.Extensions.TransformExtTests
       resultStatus: 1
-      duration: 0.1838497
+      duration: 0.0073274
       messages: 
       output: 
       stacktrace: 
@@ -7810,7 +7810,7 @@ MonoBehaviour:
       name: DestroyAllChildren
       fullName: CodeSmile.Tests.Editor.Extensions.TransformExtTests.DestroyAllChildren
       resultStatus: 1
-      duration: 0.0111055
+      duration: 0.0016558
       messages: 
       output: 
       stacktrace: 
@@ -7827,7 +7827,7 @@ MonoBehaviour:
       name: PathUtilityTests
       fullName: CodeSmile.Tests.Editor.PathUtilityTests
       resultStatus: 1
-      duration: 2.5752103
+      duration: 0.0268978
       messages: 
       output: 
       stacktrace: 
@@ -7843,7 +7843,7 @@ MonoBehaviour:
       name: PathEnsurePathEndsThrowsIfPathNull
       fullName: CodeSmile.Tests.Editor.PathUtilityTests.PathEnsurePathEndsThrowsIfPathNull
       resultStatus: 1
-      duration: 0.0007926
+      duration: 0.0005366
       messages: 
       output: 
       stacktrace: 
@@ -7860,7 +7860,7 @@ MonoBehaviour:
       name: PathEnsureSeparatorAdded
       fullName: CodeSmile.Tests.Editor.PathUtilityTests.PathEnsureSeparatorAdded
       resultStatus: 1
-      duration: 0.7795094
+      duration: 0.0066149
       messages: 
       output: 
       stacktrace: 
@@ -7876,7 +7876,7 @@ MonoBehaviour:
       name: PathEnsureSeparatorAdded("")
       fullName: CodeSmile.Tests.Editor.PathUtilityTests.PathEnsureSeparatorAdded("")
       resultStatus: 1
-      duration: 0.0003118
+      duration: 0.0002541
       messages: 
       output: 
       stacktrace: 
@@ -7893,7 +7893,7 @@ MonoBehaviour:
       name: PathEnsureSeparatorAdded("Assets/SomeFolder")
       fullName: CodeSmile.Tests.Editor.PathUtilityTests.PathEnsureSeparatorAdded("Assets/SomeFolder")
       resultStatus: 1
-      duration: 0.0001181
+      duration: 0.0000731
       messages: 
       output: 
       stacktrace: 
@@ -7910,7 +7910,7 @@ MonoBehaviour:
       name: PathEnsureSeparatorAdded("Assets\\SomeFolder")
       fullName: CodeSmile.Tests.Editor.PathUtilityTests.PathEnsureSeparatorAdded("Assets\\SomeFolder")
       resultStatus: 1
-      duration: 0.0001265
+      duration: 0.000069
       messages: 
       output: 
       stacktrace: 
@@ -7927,7 +7927,7 @@ MonoBehaviour:
       name: PathEnsureSeparatorAdded(".hidden-folder")
       fullName: CodeSmile.Tests.Editor.PathUtilityTests.PathEnsureSeparatorAdded(".hidden-folder")
       resultStatus: 1
-      duration: 0.0001096
+      duration: 0.0000677
       messages: 
       output: 
       stacktrace: 
@@ -7944,7 +7944,7 @@ MonoBehaviour:
       name: PathEnsureSeparatorAdded("file.name")
       fullName: CodeSmile.Tests.Editor.PathUtilityTests.PathEnsureSeparatorAdded("file.name")
       resultStatus: 1
-      duration: 0.0001155
+      duration: 0.0000675
       messages: 
       output: 
       stacktrace: 
@@ -7961,7 +7961,7 @@ MonoBehaviour:
       name: PathEnsureSeparatorNotAdded
       fullName: CodeSmile.Tests.Editor.PathUtilityTests.PathEnsureSeparatorNotAdded
       resultStatus: 1
-      duration: 0.6837189
+      duration: 0.0065638
       messages: 
       output: 
       stacktrace: 
@@ -7977,7 +7977,7 @@ MonoBehaviour:
       name: PathEnsureSeparatorNotAdded("/")
       fullName: CodeSmile.Tests.Editor.PathUtilityTests.PathEnsureSeparatorNotAdded("/")
       resultStatus: 1
-      duration: 0.0002437
+      duration: 0.0002327
       messages: 
       output: 
       stacktrace: 
@@ -7994,7 +7994,7 @@ MonoBehaviour:
       name: PathEnsureSeparatorNotAdded("Assets/SomeFolder/")
       fullName: CodeSmile.Tests.Editor.PathUtilityTests.PathEnsureSeparatorNotAdded("Assets/SomeFolder/")
       resultStatus: 1
-      duration: 0.0001128
+      duration: 0.0000705
       messages: 
       output: 
       stacktrace: 
@@ -8011,7 +8011,7 @@ MonoBehaviour:
       name: PathEnsureSeparatorNotAdded("\\")
       fullName: CodeSmile.Tests.Editor.PathUtilityTests.PathEnsureSeparatorNotAdded("\\")
       resultStatus: 1
-      duration: 0.0001093
+      duration: 0.0000684
       messages: 
       output: 
       stacktrace: 
@@ -8028,7 +8028,7 @@ MonoBehaviour:
       name: PathEnsureSeparatorNotAdded("Assets\\SomeFolder\\")
       fullName: CodeSmile.Tests.Editor.PathUtilityTests.PathEnsureSeparatorNotAdded("Assets\\SomeFolder\\")
       resultStatus: 1
-      duration: 0.0001102
+      duration: 0.0000667
       messages: 
       output: 
       stacktrace: 
@@ -8045,7 +8045,7 @@ MonoBehaviour:
       name: PathTrimTrailingDirectorySeparator
       fullName: CodeSmile.Tests.Editor.PathUtilityTests.PathTrimTrailingDirectorySeparator
       resultStatus: 1
-      duration: 0.9426143
+      duration: 0.0068512
       messages: 
       output: 
       stacktrace: 
@@ -8061,7 +8061,7 @@ MonoBehaviour:
       name: PathTrimTrailingDirectorySeparator("")
       fullName: CodeSmile.Tests.Editor.PathUtilityTests.PathTrimTrailingDirectorySeparator("")
       resultStatus: 1
-      duration: 0.0003302
+      duration: 0.0002304
       messages: 
       output: 
       stacktrace: 
@@ -8078,7 +8078,7 @@ MonoBehaviour:
       name: PathTrimTrailingDirectorySeparator("Assets/SomeFolder")
       fullName: CodeSmile.Tests.Editor.PathUtilityTests.PathTrimTrailingDirectorySeparator("Assets/SomeFolder")
       resultStatus: 1
-      duration: 0.0001182
+      duration: 0.0000736
       messages: 
       output: 
       stacktrace: 
@@ -8095,7 +8095,7 @@ MonoBehaviour:
       name: PathTrimTrailingDirectorySeparator("/")
       fullName: CodeSmile.Tests.Editor.PathUtilityTests.PathTrimTrailingDirectorySeparator("/")
       resultStatus: 1
-      duration: 0.0001286
+      duration: 0.0000716
       messages: 
       output: 
       stacktrace: 
@@ -8112,7 +8112,7 @@ MonoBehaviour:
       name: PathTrimTrailingDirectorySeparator("\\")
       fullName: CodeSmile.Tests.Editor.PathUtilityTests.PathTrimTrailingDirectorySeparator("\\")
       resultStatus: 1
-      duration: 0.0001234
+      duration: 0.0000689
       messages: 
       output: 
       stacktrace: 
@@ -8129,7 +8129,7 @@ MonoBehaviour:
       name: PathTrimTrailingDirectorySeparator("Assets/SomeFolder/")
       fullName: CodeSmile.Tests.Editor.PathUtilityTests.PathTrimTrailingDirectorySeparator("Assets/SomeFolder/")
       resultStatus: 1
-      duration: 0.0001229
+      duration: 0.0000681
       messages: 
       output: 
       stacktrace: 
@@ -8146,7 +8146,7 @@ MonoBehaviour:
       name: PathTrimTrailingDirectorySeparator("Assets\\SomeFolder\\")
       fullName: CodeSmile.Tests.Editor.PathUtilityTests.PathTrimTrailingDirectorySeparator("Assets\\SomeFolder\\")
       resultStatus: 1
-      duration: 0.0001293
+      duration: 0.00007
       messages: 
       output: 
       stacktrace: 
@@ -8163,7 +8163,7 @@ MonoBehaviour:
       name: TestTools
       fullName: CodeSmile.Tests.Editor.TestTools
       resultStatus: 1
-      duration: 2.767673
+      duration: 1.0897999
       messages: 
       output: 
       stacktrace: 
@@ -8179,7 +8179,7 @@ MonoBehaviour:
       name: CreateGameObjectAttributeTests
       fullName: CodeSmile.Tests.Editor.TestTools.CreateGameObjectAttributeTests
       resultStatus: 1
-      duration: 0.2200129
+      duration: 0.0019031
       messages: 
       output: 
       stacktrace: 
@@ -8195,7 +8195,7 @@ MonoBehaviour:
       name: CreateGameObjectCanBeFoundByName
       fullName: CodeSmile.Tests.Editor.TestTools.CreateGameObjectAttributeTests.CreateGameObjectCanBeFoundByName
       resultStatus: 1
-      duration: 0.0266301
+      duration: 0.0011608
       messages: 
       output: 
       stacktrace: 
@@ -8212,7 +8212,7 @@ MonoBehaviour:
       name: CreateSceneAttributeTests
       fullName: CodeSmile.Tests.Editor.TestTools.CreateSceneAttributeTests
       resultStatus: 1
-      duration: 1.956498
+      duration: 0.906046
       messages: 
       output: 
       stacktrace: 
@@ -8228,7 +8228,7 @@ MonoBehaviour:
       name: CreateDefaultSceneContainsDefaultObjects
       fullName: CodeSmile.Tests.Editor.TestTools.CreateSceneAttributeTests.CreateDefaultSceneContainsDefaultObjects
       resultStatus: 1
-      duration: 0.0838579
+      duration: 0.0531632
       messages: 
       output: 
       stacktrace: 
@@ -8245,7 +8245,7 @@ MonoBehaviour:
       name: CreateDefaultSceneWithoutPathAndExtensionCanBeLoadedAsAsset
       fullName: CodeSmile.Tests.Editor.TestTools.CreateSceneAttributeTests.CreateDefaultSceneWithoutPathAndExtensionCanBeLoadedAsAsset
       resultStatus: 1
-      duration: 0.2305537
+      duration: 0.1604354
       messages: 
       output: 'Saving ''Test [CreateDefaultScene] TestScene.unity'' to Assets/TestScene.unity
         ...
@@ -8267,7 +8267,7 @@ MonoBehaviour:
       name: CreateEmptySceneIsEmpty
       fullName: CodeSmile.Tests.Editor.TestTools.CreateSceneAttributeTests.CreateEmptySceneIsEmpty
       resultStatus: 1
-      duration: 0.0959973
+      duration: 0.1047728
       messages: 
       output: 
       stacktrace: 
@@ -8284,7 +8284,7 @@ MonoBehaviour:
       name: CreateEmptySceneWithoutPathAndExtensionCanBeLoadedAsAsset
       fullName: CodeSmile.Tests.Editor.TestTools.CreateSceneAttributeTests.CreateEmptySceneWithoutPathAndExtensionCanBeLoadedAsAsset
       resultStatus: 1
-      duration: 0.1778406
+      duration: 0.2109261
       messages: 
       output: 'Saving ''Test [CreateEmptyScene] TestScene.unity'' to Assets/TestScene.unity
         ...
@@ -8306,7 +8306,7 @@ MonoBehaviour:
       name: CreateSceneWithPathAndExtensionCanBeLoadedAsAsset
       fullName: CodeSmile.Tests.Editor.TestTools.CreateSceneAttributeTests.CreateSceneWithPathAndExtensionCanBeLoadedAsAsset
       resultStatus: 1
-      duration: 0.2212464
+      duration: 0.1730574
       messages: 
       output: 'Saving ''Test [CreateEmptyScene] TestScene.unity'' to Assets/TestScene.unity
         ...
@@ -8328,7 +8328,7 @@ MonoBehaviour:
       name: CreateSceneWithPathWithoutExtensionCanBeLoadedAsAsset
       fullName: CodeSmile.Tests.Editor.TestTools.CreateSceneAttributeTests.CreateSceneWithPathWithoutExtensionCanBeLoadedAsAsset
       resultStatus: 1
-      duration: 0.212911
+      duration: 0.1962031
       messages: 
       output: 'Saving ''Test [CreateEmptyScene] TestScene.unity'' to Assets/TestScene.unity
         ...
@@ -8350,7 +8350,7 @@ MonoBehaviour:
       name: LoadSceneAttributeTests
       fullName: CodeSmile.Tests.Editor.TestTools.LoadSceneAttributeTests
       resultStatus: 1
-      duration: 0.5202195
+      duration: 0.1760961
       messages: 
       output: 
       stacktrace: 
@@ -8366,7 +8366,7 @@ MonoBehaviour:
       name: LoadDefaultObjectsTestSceneIsNotEmpty
       fullName: CodeSmile.Tests.Editor.TestTools.LoadSceneAttributeTests.LoadDefaultObjectsTestSceneIsNotEmpty
       resultStatus: 1
-      duration: 0.0874829
+      duration: 0.0990396
       messages: 
       output: 
       stacktrace: 
@@ -8383,7 +8383,7 @@ MonoBehaviour:
       name: LoadEmptyTestSceneIsEmpty
       fullName: CodeSmile.Tests.Editor.TestTools.LoadSceneAttributeTests.LoadEmptyTestSceneIsEmpty
       resultStatus: 1
-      duration: 0.0742704
+      duration: 0.0708424
       messages: 
       output: 
       stacktrace: 
@@ -8400,7 +8400,7 @@ MonoBehaviour:
       name: CodeSmile.Tests.ProTiler.Editor.dll
       fullName: C:/Users/CodeSmile/Projects/CodeSmile-Twitch/ProTiler/Library/ScriptAssemblies/CodeSmile.Tests.ProTiler.Editor.dll
       resultStatus: 1
-      duration: 21.95893
+      duration: 1.1497744
       messages: 
       output: 
       stacktrace: 
@@ -8416,7 +8416,7 @@ MonoBehaviour:
       name: CodeSmile
       fullName: CodeSmile
       resultStatus: 1
-      duration: 21.951696
+      duration: 1.1446106
       messages: 
       output: 
       stacktrace: 
@@ -8432,7 +8432,7 @@ MonoBehaviour:
       name: Tests
       fullName: CodeSmile.Tests
       resultStatus: 1
-      duration: 21.943476
+      duration: 1.1442584
       messages: 
       output: 
       stacktrace: 
@@ -8448,7 +8448,7 @@ MonoBehaviour:
       name: ProTiler
       fullName: CodeSmile.Tests.ProTiler
       resultStatus: 1
-      duration: 21.943157
+      duration: 1.1440282
       messages: 
       output: 
       stacktrace: 
@@ -8464,7 +8464,7 @@ MonoBehaviour:
       name: Editor
       fullName: CodeSmile.Tests.ProTiler.Editor
       resultStatus: 1
-      duration: 21.94281
+      duration: 1.1437087
       messages: 
       output: 
       stacktrace: 
@@ -8480,7 +8480,7 @@ MonoBehaviour:
       name: Assets
       fullName: CodeSmile.Tests.ProTiler.Editor.Assets
       resultStatus: 1
-      duration: 5.027643
+      duration: 0.138513
       messages: 
       output: 
       stacktrace: 
@@ -8496,7 +8496,7 @@ MonoBehaviour:
       name: Tile3DAssetBaseSetTests
       fullName: CodeSmile.Tests.ProTiler.Editor.Assets.Tile3DAssetBaseSetTests
       resultStatus: 1
-      duration: 1.0203347
+      duration: 0.0071024
       messages: 
       output: 
       stacktrace: 
@@ -8512,7 +8512,7 @@ MonoBehaviour:
       name: AddAndContainsTileAsset
       fullName: CodeSmile.Tests.ProTiler.Editor.Assets.Tile3DAssetBaseSetTests.AddAndContainsTileAsset
       resultStatus: 1
-      duration: 0.0001867
+      duration: 0.0014887
       messages: 
       output: 
       stacktrace: 
@@ -8529,7 +8529,7 @@ MonoBehaviour:
       name: AddTileAssetWithIndex
       fullName: CodeSmile.Tests.ProTiler.Editor.Assets.Tile3DAssetBaseSetTests.AddTileAssetWithIndex
       resultStatus: 1
-      duration: 0.0002011
+      duration: 0.0002091
       messages: 
       output: 
       stacktrace: 
@@ -8546,7 +8546,7 @@ MonoBehaviour:
       name: EmptyTileIsLoaded
       fullName: CodeSmile.Tests.ProTiler.Editor.Assets.Tile3DAssetBaseSetTests.EmptyTileIsLoaded
       resultStatus: 1
-      duration: 0.0021238
+      duration: 0.0021564
       messages: 
       output: 
       stacktrace: 
@@ -8563,7 +8563,7 @@ MonoBehaviour:
       name: LoadNonExistingTileResourceThrows
       fullName: CodeSmile.Tests.ProTiler.Editor.Assets.Tile3DAssetBaseSetTests.LoadNonExistingTileResourceThrows
       resultStatus: 1
-      duration: 0.0001654
+      duration: 0.0003341
       messages: 
       output: 
       stacktrace: 
@@ -8580,7 +8580,7 @@ MonoBehaviour:
       name: MissingTileIsLoaded
       fullName: CodeSmile.Tests.ProTiler.Editor.Assets.Tile3DAssetBaseSetTests.MissingTileIsLoaded
       resultStatus: 1
-      duration: 0.0001198
+      duration: 0.00016
       messages: 
       output: 
       stacktrace: 
@@ -8597,7 +8597,7 @@ MonoBehaviour:
       name: RemoveAndDoesNotContainTileAsset
       fullName: CodeSmile.Tests.ProTiler.Editor.Assets.Tile3DAssetBaseSetTests.RemoveAndDoesNotContainTileAsset
       resultStatus: 1
-      duration: 0.0001992
+      duration: 0.0007412
       messages: 
       output: 
       stacktrace: 
@@ -8614,7 +8614,7 @@ MonoBehaviour:
       name: Tile3DAssetCreationTests
       fullName: CodeSmile.Tests.ProTiler.Editor.Assets.Tile3DAssetCreationTests
       resultStatus: 1
-      duration: 0.5407835
+      duration: 0.0346144
       messages: 
       output: 
       stacktrace: 
@@ -8630,7 +8630,7 @@ MonoBehaviour:
       name: CreateRegisteredTile3DAssetAtPath
       fullName: CodeSmile.Tests.ProTiler.Editor.Assets.Tile3DAssetCreationTests.CreateRegisteredTile3DAssetAtPath
       resultStatus: 1
-      duration: 0.1836469
+      duration: 0.0270917
       messages: 
       output: 
       stacktrace: 
@@ -8646,7 +8646,7 @@ MonoBehaviour:
       name: CreateRegisteredTile3DAssetAtPath("Assets/CodeSmile/Tests/Core/Assets/Temp/TestTile3DAsset.asset")
       fullName: CodeSmile.Tests.ProTiler.Editor.Assets.Tile3DAssetCreationTests.CreateRegisteredTile3DAssetAtPath("Assets/CodeSmile/Tests/Core/Assets/Temp/TestTile3DAsset.asset")
       resultStatus: 1
-      duration: 0.0290616
+      duration: 0.0248623
       messages: 
       output: 
       stacktrace: 
@@ -8663,7 +8663,7 @@ MonoBehaviour:
       name: CreateTile3DAssetInstance
       fullName: CodeSmile.Tests.ProTiler.Editor.Assets.Tile3DAssetCreationTests.CreateTile3DAssetInstance
       resultStatus: 1
-      duration: 0.0002263
+      duration: 0.0003386
       messages: 
       output: 
       stacktrace: 
@@ -8680,7 +8680,7 @@ MonoBehaviour:
       name: CreateTile3DAssetInstanceWithPrefab
       fullName: CodeSmile.Tests.ProTiler.Editor.Assets.Tile3DAssetCreationTests.CreateTile3DAssetInstanceWithPrefab
       resultStatus: 1
-      duration: 0.0004735
+      duration: 0.0005267
       messages: 
       output: 
       stacktrace: 
@@ -8697,7 +8697,7 @@ MonoBehaviour:
       name: Tile3DAssetRegisterPersistenceTests
       fullName: CodeSmile.Tests.ProTiler.Editor.Assets.Tile3DAssetRegisterPersistenceTests
       resultStatus: 1
-      duration: 1.0015559
+      duration: 0.0605511
       messages: 
       output: 
       stacktrace: 
@@ -8713,7 +8713,7 @@ MonoBehaviour:
       name: EnsureTile3DRegisterCanBeMoved
       fullName: CodeSmile.Tests.ProTiler.Editor.Assets.Tile3DAssetRegisterPersistenceTests.EnsureTile3DRegisterCanBeMoved
       resultStatus: 1
-      duration: 0.0032237
+      duration: 0.0078299
       messages: 
       output: 
       stacktrace: 
@@ -8730,7 +8730,7 @@ MonoBehaviour:
       name: EnsureTile3DRegisterCannotBeDeleted
       fullName: CodeSmile.Tests.ProTiler.Editor.Assets.Tile3DAssetRegisterPersistenceTests.EnsureTile3DRegisterCannotBeDeleted
       resultStatus: 1
-      duration: 0.0060743
+      duration: 0.00506
       messages: 
       output: 
       stacktrace: 
@@ -8747,7 +8747,7 @@ MonoBehaviour:
       name: EnsureTile3DRegisterCannotBeMovedToTrash
       fullName: CodeSmile.Tests.ProTiler.Editor.Assets.Tile3DAssetRegisterPersistenceTests.EnsureTile3DRegisterCannotBeMovedToTrash
       resultStatus: 1
-      duration: 0.0054193
+      duration: 0.0046526
       messages: 
       output: 
       stacktrace: 
@@ -8764,7 +8764,7 @@ MonoBehaviour:
       name: EnsureTile3DRegisterCannotBeRenamed
       fullName: CodeSmile.Tests.ProTiler.Editor.Assets.Tile3DAssetRegisterPersistenceTests.EnsureTile3DRegisterCannotBeRenamed
       resultStatus: 1
-      duration: 0.0026308
+      duration: 0.0022413
       messages: 
       output: 
       stacktrace: 
@@ -8781,7 +8781,7 @@ MonoBehaviour:
       name: EnsureTile3DRegisterContainingFolderCannotBeDeleted
       fullName: CodeSmile.Tests.ProTiler.Editor.Assets.Tile3DAssetRegisterPersistenceTests.EnsureTile3DRegisterContainingFolderCannotBeDeleted
       resultStatus: 1
-      duration: 0.0053804
+      duration: 0.0046873
       messages: 
       output: 
       stacktrace: 
@@ -8798,7 +8798,7 @@ MonoBehaviour:
       name: EnsureTile3DRegisterExists
       fullName: CodeSmile.Tests.ProTiler.Editor.Assets.Tile3DAssetRegisterPersistenceTests.EnsureTile3DRegisterExists
       resultStatus: 1
-      duration: 0.0023698
+      duration: 0.0020504
       messages: 
       output: 
       stacktrace: 
@@ -8815,7 +8815,7 @@ MonoBehaviour:
       name: Tile3DAssetRegisterTests
       fullName: CodeSmile.Tests.ProTiler.Editor.Assets.Tile3DAssetRegisterTests
       resultStatus: 1
-      duration: 1.8095987
+      duration: 0.0256128
       messages: 
       output: 
       stacktrace: 
@@ -8831,7 +8831,7 @@ MonoBehaviour:
       name: AddAndContainsTileAsset
       fullName: CodeSmile.Tests.ProTiler.Editor.Assets.Tile3DAssetRegisterTests.AddAndContainsTileAsset
       resultStatus: 1
-      duration: 0.0023641
+      duration: 0.0024027
       messages: 
       output: 
       stacktrace: 
@@ -8848,7 +8848,7 @@ MonoBehaviour:
       name: AddTileAssetWithIndex
       fullName: CodeSmile.Tests.ProTiler.Editor.Assets.Tile3DAssetRegisterTests.AddTileAssetWithIndex
       resultStatus: 1
-      duration: 0.0002315
+      duration: 0.0002701
       messages: 
       output: 
       stacktrace: 
@@ -8865,7 +8865,7 @@ MonoBehaviour:
       name: CreatedWithPrefabHasPrefabAssigned
       fullName: CodeSmile.Tests.ProTiler.Editor.Assets.Tile3DAssetRegisterTests.CreatedWithPrefabHasPrefabAssigned
       resultStatus: 1
-      duration: 0.0001788
+      duration: 0.0002318
       messages: 
       output: 
       stacktrace: 
@@ -8882,7 +8882,7 @@ MonoBehaviour:
       name: InvalidIndexReturnsMissingTile
       fullName: CodeSmile.Tests.ProTiler.Editor.Assets.Tile3DAssetRegisterTests.InvalidIndexReturnsMissingTile
       resultStatus: 1
-      duration: 0.3405409
+      duration: 0.0070957
       messages: 
       output: 
       stacktrace: 
@@ -8898,7 +8898,7 @@ MonoBehaviour:
       name: InvalidIndexReturnsMissingTile(1)
       fullName: CodeSmile.Tests.ProTiler.Editor.Assets.Tile3DAssetRegisterTests.InvalidIndexReturnsMissingTile(1)
       resultStatus: 1
-      duration: 0.0001858
+      duration: 0.0008238
       messages: 
       output: 
       stacktrace: 
@@ -8915,7 +8915,7 @@ MonoBehaviour:
       name: InvalidIndexReturnsMissingTile(int.MaxValue)
       fullName: CodeSmile.Tests.ProTiler.Editor.Assets.Tile3DAssetRegisterTests.InvalidIndexReturnsMissingTile(int.MaxValue)
       resultStatus: 1
-      duration: 0.0001782
+      duration: 0.0001079
       messages: 
       output: 
       stacktrace: 
@@ -8932,7 +8932,7 @@ MonoBehaviour:
       name: IsEmptyAfterCreation
       fullName: CodeSmile.Tests.ProTiler.Editor.Assets.Tile3DAssetRegisterTests.IsEmptyAfterCreation
       resultStatus: 1
-      duration: 0.0001901
+      duration: 0.0001737
       messages: 
       output: 
       stacktrace: 
@@ -8949,7 +8949,7 @@ MonoBehaviour:
       name: PersistentAssetSingletonIsNotNull
       fullName: CodeSmile.Tests.ProTiler.Editor.Assets.Tile3DAssetRegisterTests.PersistentAssetSingletonIsNotNull
       resultStatus: 1
-      duration: 0.0001146
+      duration: 0.0001141
       messages: 
       output: 
       stacktrace: 
@@ -8966,7 +8966,7 @@ MonoBehaviour:
       name: RemoveAndDoesNotContainTileAsset
       fullName: CodeSmile.Tests.ProTiler.Editor.Assets.Tile3DAssetRegisterTests.RemoveAndDoesNotContainTileAsset
       resultStatus: 1
-      duration: 0.0001967
+      duration: 0.000201
       messages: 
       output: 
       stacktrace: 
@@ -8983,7 +8983,7 @@ MonoBehaviour:
       name: ZeroOrNegativeIndexReturnsEmptyTile
       fullName: CodeSmile.Tests.ProTiler.Editor.Assets.Tile3DAssetRegisterTests.ZeroOrNegativeIndexReturnsEmptyTile
       resultStatus: 1
-      duration: 0.4953464
+      duration: 0.0067619
       messages: 
       output: 
       stacktrace: 
@@ -8999,7 +8999,7 @@ MonoBehaviour:
       name: ZeroOrNegativeIndexReturnsEmptyTile(0)
       fullName: CodeSmile.Tests.ProTiler.Editor.Assets.Tile3DAssetRegisterTests.ZeroOrNegativeIndexReturnsEmptyTile(0)
       resultStatus: 1
-      duration: 0.0001859
+      duration: 0.0003569
       messages: 
       output: 
       stacktrace: 
@@ -9016,7 +9016,7 @@ MonoBehaviour:
       name: ZeroOrNegativeIndexReturnsEmptyTile(-1)
       fullName: CodeSmile.Tests.ProTiler.Editor.Assets.Tile3DAssetRegisterTests.ZeroOrNegativeIndexReturnsEmptyTile(-1)
       resultStatus: 1
-      duration: 0.0002149
+      duration: 0.0001035
       messages: 
       output: 
       stacktrace: 
@@ -9033,7 +9033,7 @@ MonoBehaviour:
       name: ZeroOrNegativeIndexReturnsEmptyTile(int.MinValue)
       fullName: CodeSmile.Tests.ProTiler.Editor.Assets.Tile3DAssetRegisterTests.ZeroOrNegativeIndexReturnsEmptyTile(int.MinValue)
       resultStatus: 1
-      duration: 0.0001899
+      duration: 0.000098
       messages: 
       output: 
       stacktrace: 
@@ -9050,7 +9050,7 @@ MonoBehaviour:
       name: Tile3DAssetTests
       fullName: CodeSmile.Tests.ProTiler.Editor.Assets.Tile3DAssetTests
       resultStatus: 1
-      duration: 0.6529664
+      duration: 0.0092356
       messages: 
       output: 
       stacktrace: 
@@ -9066,7 +9066,7 @@ MonoBehaviour:
       name: GetSetFlags
       fullName: CodeSmile.Tests.ProTiler.Editor.Assets.Tile3DAssetTests.GetSetFlags
       resultStatus: 1
-      duration: 0.0001862
+      duration: 0.0003242
       messages: 
       output: 
       stacktrace: 
@@ -9083,7 +9083,7 @@ MonoBehaviour:
       name: GetSetPrefabProperty
       fullName: CodeSmile.Tests.ProTiler.Editor.Assets.Tile3DAssetTests.GetSetPrefabProperty
       resultStatus: 1
-      duration: 0.0002112
+      duration: 0.0002076
       messages: 
       output: 
       stacktrace: 
@@ -9100,7 +9100,7 @@ MonoBehaviour:
       name: GetSetTransform
       fullName: CodeSmile.Tests.ProTiler.Editor.Assets.Tile3DAssetTests.GetSetTransform
       resultStatus: 1
-      duration: 0.0001822
+      duration: 0.0007462
       messages: 
       output: 
       stacktrace: 
@@ -9117,7 +9117,7 @@ MonoBehaviour:
       name: SetDefaultFlags
       fullName: CodeSmile.Tests.ProTiler.Editor.Assets.Tile3DAssetTests.SetDefaultFlags
       resultStatus: 1
-      duration: 0.0001616
+      duration: 0.0001658
       messages: 
       output: 
       stacktrace: 
@@ -9134,7 +9134,7 @@ MonoBehaviour:
       name: Collections
       fullName: CodeSmile.Tests.ProTiler.Editor.Collections
       resultStatus: 1
-      duration: 3.4358938
+      duration: 0.0357634
       messages: 
       output: 
       stacktrace: 
@@ -9150,7 +9150,7 @@ MonoBehaviour:
       name: Tile3DCollectionTests
       fullName: CodeSmile.Tests.ProTiler.Editor.Collections.Tile3DCollectionTests
       resultStatus: 1
-      duration: 1.2708619
+      duration: 0.0048007
       messages: 
       output: 
       stacktrace: 
@@ -9166,7 +9166,7 @@ MonoBehaviour:
       name: CreateCollection
       fullName: CodeSmile.Tests.ProTiler.Editor.Collections.Tile3DCollectionTests.CreateCollection
       resultStatus: 1
-      duration: 0.0001178
+      duration: 0.0004959
       messages: 
       output: 
       stacktrace: 
@@ -9183,7 +9183,7 @@ MonoBehaviour:
       name: SetAllTilesWithCoordData
       fullName: CodeSmile.Tests.ProTiler.Editor.Collections.Tile3DCollectionTests.SetAllTilesWithCoordData
       resultStatus: 1
-      duration: 0.0002661
+      duration: 0.0007051
       messages: 
       output: 
       stacktrace: 
@@ -9200,7 +9200,7 @@ MonoBehaviour:
       name: SetAndGetEmptyTileData
       fullName: CodeSmile.Tests.ProTiler.Editor.Collections.Tile3DCollectionTests.SetAndGetEmptyTileData
       resultStatus: 1
-      duration: 0.0001056
+      duration: 0.0001841
       messages: 
       output: 
       stacktrace: 
@@ -9217,7 +9217,7 @@ MonoBehaviour:
       name: SetAndGetTileByCoord
       fullName: CodeSmile.Tests.ProTiler.Editor.Collections.Tile3DCollectionTests.SetAndGetTileByCoord
       resultStatus: 1
-      duration: 0.0001402
+      duration: 0.0002129
       messages: 
       output: 
       stacktrace: 
@@ -9234,7 +9234,7 @@ MonoBehaviour:
       name: SetAndGetTileData
       fullName: CodeSmile.Tests.ProTiler.Editor.Collections.Tile3DCollectionTests.SetAndGetTileData
       resultStatus: 1
-      duration: 0.0001102
+      duration: 0.0001704
       messages: 
       output: 
       stacktrace: 
@@ -9251,7 +9251,7 @@ MonoBehaviour:
       name: SetAndGetTileDataLastIndex
       fullName: CodeSmile.Tests.ProTiler.Editor.Collections.Tile3DCollectionTests.SetAndGetTileDataLastIndex
       resultStatus: 1
-      duration: 0.0001157
+      duration: 0.0001676
       messages: 
       output: 
       stacktrace: 
@@ -9268,7 +9268,7 @@ MonoBehaviour:
       name: SetAndGetTwoTileDatas
       fullName: CodeSmile.Tests.ProTiler.Editor.Collections.Tile3DCollectionTests.SetAndGetTwoTileDatas
       resultStatus: 1
-      duration: 0.0001104
+      duration: 0.0001709
       messages: 
       output: 
       stacktrace: 
@@ -9285,7 +9285,7 @@ MonoBehaviour:
       name: SetTileByCoordOutOfBoundsThrows
       fullName: CodeSmile.Tests.ProTiler.Editor.Collections.Tile3DCollectionTests.SetTileByCoordOutOfBoundsThrows
       resultStatus: 1
-      duration: 0.0001606
+      duration: 0.000346
       messages: 
       output: 
       stacktrace: 
@@ -9302,7 +9302,7 @@ MonoBehaviour:
       name: Tilemap3DChunkCollectionTests
       fullName: CodeSmile.Tests.ProTiler.Editor.Collections.Tilemap3DChunkCollectionTests
       resultStatus: 1
-      duration: 2.15231
+      duration: 0.0249335
       messages: 
       output: 
       stacktrace: 
@@ -9318,7 +9318,7 @@ MonoBehaviour:
       name: ChangeChunkSize
       fullName: CodeSmile.Tests.ProTiler.Editor.Collections.Tilemap3DChunkCollectionTests.ChangeChunkSize
       resultStatus: 1
-      duration: 0.0001505
+      duration: 0.0017837
       messages: 
       output: 
       stacktrace: 
@@ -9335,7 +9335,7 @@ MonoBehaviour:
       name: ChangeChunkSizeToSameSize
       fullName: CodeSmile.Tests.ProTiler.Editor.Collections.Tilemap3DChunkCollectionTests.ChangeChunkSizeToSameSize
       resultStatus: 1
-      duration: 0.0001462
+      duration: 0.0002188
       messages: 
       output: 
       stacktrace: 
@@ -9352,7 +9352,7 @@ MonoBehaviour:
       name: CreateChunk
       fullName: CodeSmile.Tests.ProTiler.Editor.Collections.Tilemap3DChunkCollectionTests.CreateChunk
       resultStatus: 1
-      duration: 0.0001917
+      duration: 0.0007502
       messages: 
       output: 
       stacktrace: 
@@ -9369,7 +9369,7 @@ MonoBehaviour:
       name: CreateIllegalChunkSize
       fullName: CodeSmile.Tests.ProTiler.Editor.Collections.Tilemap3DChunkCollectionTests.CreateIllegalChunkSize
       resultStatus: 1
-      duration: 0.8491933
+      duration: 0.0088507
       messages: 
       output: 
       stacktrace: 
@@ -9387,7 +9387,7 @@ MonoBehaviour:
       fullName: CodeSmile.Tests.ProTiler.Editor.Collections.Tilemap3DChunkCollectionTests.CreateIllegalChunkSize((1,
         0))
       resultStatus: 1
-      duration: 0.0001446
+      duration: 0.0004309
       messages: 
       output: 
       stacktrace: 
@@ -9406,7 +9406,7 @@ MonoBehaviour:
       fullName: CodeSmile.Tests.ProTiler.Editor.Collections.Tilemap3DChunkCollectionTests.CreateIllegalChunkSize((0,
         1))
       resultStatus: 1
-      duration: 0.0001531
+      duration: 0.0000987
       messages: 
       output: 
       stacktrace: 
@@ -9425,7 +9425,7 @@ MonoBehaviour:
       fullName: CodeSmile.Tests.ProTiler.Editor.Collections.Tilemap3DChunkCollectionTests.CreateIllegalChunkSize((2,
         1))
       resultStatus: 1
-      duration: 0.0001558
+      duration: 0.0000869
       messages: 
       output: 
       stacktrace: 
@@ -9444,7 +9444,7 @@ MonoBehaviour:
       fullName: CodeSmile.Tests.ProTiler.Editor.Collections.Tilemap3DChunkCollectionTests.CreateIllegalChunkSize((-1,
         1))
       resultStatus: 1
-      duration: 0.0001438
+      duration: 0.0000868
       messages: 
       output: 
       stacktrace: 
@@ -9463,7 +9463,7 @@ MonoBehaviour:
       fullName: CodeSmile.Tests.ProTiler.Editor.Collections.Tilemap3DChunkCollectionTests.CreateIllegalChunkSize((1,
         -1))
       resultStatus: 1
-      duration: 0.0001531
+      duration: 0.0000853
       messages: 
       output: 
       stacktrace: 
@@ -9480,7 +9480,7 @@ MonoBehaviour:
       name: GetTilesInvalidParamsDoesNotThrow
       fullName: CodeSmile.Tests.ProTiler.Editor.Collections.Tilemap3DChunkCollectionTests.GetTilesInvalidParamsDoesNotThrow
       resultStatus: 1
-      duration: 0.0001212
+      duration: 0.0003961
       messages: 
       output: 
       stacktrace: 
@@ -9497,7 +9497,7 @@ MonoBehaviour:
       name: GetTilesOutsideBoundsDoesNotThrow
       fullName: CodeSmile.Tests.ProTiler.Editor.Collections.Tilemap3DChunkCollectionTests.GetTilesOutsideBoundsDoesNotThrow
       resultStatus: 1
-      duration: 0.0001243
+      duration: 0.0026275
       messages: 
       output: 
       stacktrace: 
@@ -9514,7 +9514,7 @@ MonoBehaviour:
       name: SetAndGetTiles
       fullName: CodeSmile.Tests.ProTiler.Editor.Collections.Tilemap3DChunkCollectionTests.SetAndGetTiles
       resultStatus: 1
-      duration: 0.000305
+      duration: 0.0011608
       messages: 
       output: 
       stacktrace: 
@@ -9531,7 +9531,7 @@ MonoBehaviour:
       name: ToChunkCoord
       fullName: CodeSmile.Tests.ProTiler.Editor.Collections.Tilemap3DChunkCollectionTests.ToChunkCoord
       resultStatus: 1
-      duration: 0.0002499
+      duration: 0.0009108
       messages: 
       output: 
       stacktrace: 
@@ -9548,7 +9548,7 @@ MonoBehaviour:
       name: ToLayerCoord
       fullName: CodeSmile.Tests.ProTiler.Editor.Collections.Tilemap3DChunkCollectionTests.ToLayerCoord
       resultStatus: 1
-      duration: 0.0001605
+      duration: 0.0004518
       messages: 
       output: 
       stacktrace: 
@@ -9565,7 +9565,7 @@ MonoBehaviour:
       name: Data
       fullName: CodeSmile.Tests.ProTiler.Editor.Data
       resultStatus: 1
-      duration: 8.816614
+      duration: 0.1435504
       messages: 
       output: 
       stacktrace: 
@@ -9581,7 +9581,7 @@ MonoBehaviour:
       name: Tile3DCoordTests
       fullName: CodeSmile.Tests.ProTiler.Editor.Data.Tile3DCoordTests
       resultStatus: 1
-      duration: 1.5838112
+      duration: 0.0210213
       messages: 
       output: 
       stacktrace: 
@@ -9597,7 +9597,7 @@ MonoBehaviour:
       name: NewTileReturnsParams
       fullName: CodeSmile.Tests.ProTiler.Editor.Data.Tile3DCoordTests.NewTileReturnsParams
       resultStatus: 1
-      duration: 0.0001624
+      duration: 0.0008807
       messages: 
       output: 
       stacktrace: 
@@ -9614,7 +9614,7 @@ MonoBehaviour:
       name: TileCreatedWithNewKeywordHasDefaultValues
       fullName: CodeSmile.Tests.ProTiler.Editor.Data.Tile3DCoordTests.TileCreatedWithNewKeywordHasDefaultValues
       resultStatus: 1
-      duration: 0.0001457
+      duration: 0.0002261
       messages: 
       output: 
       stacktrace: 
@@ -9631,7 +9631,7 @@ MonoBehaviour:
       name: TilesWithDifferentCoordsHaveNonEqualHashcodes
       fullName: CodeSmile.Tests.ProTiler.Editor.Data.Tile3DCoordTests.TilesWithDifferentCoordsHaveNonEqualHashcodes
       resultStatus: 1
-      duration: 0.0001102
+      duration: 0.0007132
       messages: 
       output: 
       stacktrace: 
@@ -9648,7 +9648,7 @@ MonoBehaviour:
       name: TilesWithDifferentIndexAndSameFlagsAreNotEqual
       fullName: CodeSmile.Tests.ProTiler.Editor.Data.Tile3DCoordTests.TilesWithDifferentIndexAndSameFlagsAreNotEqual
       resultStatus: 1
-      duration: 0.3546138
+      duration: 0.0070307
       messages: 
       output: 
       stacktrace: 
@@ -9667,7 +9667,7 @@ MonoBehaviour:
       fullName: 'CodeSmile.Tests.ProTiler.Editor.Data.Tile3DCoordTests.TilesWithDifferentIndexAndSameFlagsAreNotEqual((1,
         2, 3), Tile3D(Index: 0, Flags: None),(3, 2, 1), Tile3D(Index: 0, Flags: None))'
       resultStatus: 1
-      duration: 0.0001341
+      duration: 0.0009406
       messages: 
       output: 
       stacktrace: 
@@ -9689,7 +9689,7 @@ MonoBehaviour:
         2, 3), Tile3D(Index: 1, Flags: DirectionNorth),(1, 2, 3), Tile3D(Index: 2,
         Flags: DirectionNorth))'
       resultStatus: 1
-      duration: 0.0001399
+      duration: 0.000122
       messages: 
       output: 
       stacktrace: 
@@ -9706,7 +9706,7 @@ MonoBehaviour:
       name: TilesWithSameCoordsHaveEqualHashcodes
       fullName: CodeSmile.Tests.ProTiler.Editor.Data.Tile3DCoordTests.TilesWithSameCoordsHaveEqualHashcodes
       resultStatus: 1
-      duration: 0.0001636
+      duration: 0.0002511
       messages: 
       output: 
       stacktrace: 
@@ -9723,7 +9723,7 @@ MonoBehaviour:
       name: TilesWithSameIndexAndFlagsAreEqual
       fullName: CodeSmile.Tests.ProTiler.Editor.Data.Tile3DCoordTests.TilesWithSameIndexAndFlagsAreEqual
       resultStatus: 1
-      duration: 0.5287129
+      duration: 0.0074518
       messages: 
       output: 
       stacktrace: 
@@ -9742,7 +9742,7 @@ MonoBehaviour:
       fullName: 'CodeSmile.Tests.ProTiler.Editor.Data.Tile3DCoordTests.TilesWithSameIndexAndFlagsAreEqual((0,
         0, 0), Tile3D(Index: 0, Flags: None),(0, 0, 0), Tile3D(Index: 0, Flags: None))'
       resultStatus: 1
-      duration: 0.0001508
+      duration: 0.0004651
       messages: 
       output: 
       stacktrace: 
@@ -9762,7 +9762,7 @@ MonoBehaviour:
       fullName: 'CodeSmile.Tests.ProTiler.Editor.Data.Tile3DCoordTests.TilesWithSameIndexAndFlagsAreEqual((1,
         1, 1), Tile3D(Index: 0, Flags: None),(1, 1, 1), Tile3D(Index: 0, Flags: None))'
       resultStatus: 1
-      duration: 0.0001522
+      duration: 0.0001309
       messages: 
       output: 
       stacktrace: 
@@ -9784,7 +9784,7 @@ MonoBehaviour:
         2, 3), Tile3D(Index: -1, Flags: DirectionNorth),(1, 2, 3), Tile3D(Index:
         -1, Flags: DirectionNorth))'
       resultStatus: 1
-      duration: 0.0001216
+      duration: 0.0000809
       messages: 
       output: 
       stacktrace: 
@@ -9801,7 +9801,7 @@ MonoBehaviour:
       name: Tile3DTests
       fullName: CodeSmile.Tests.ProTiler.Editor.Data.Tile3DTests
       resultStatus: 1
-      duration: 7.2228036
+      duration: 0.0848466
       messages: 
       output: 
       stacktrace: 
@@ -9817,7 +9817,7 @@ MonoBehaviour:
       name: NewTileHasDefaultDirectionNorth
       fullName: CodeSmile.Tests.ProTiler.Editor.Data.Tile3DTests.NewTileHasDefaultDirectionNorth
       resultStatus: 1
-      duration: 0.0001208
+      duration: 0.0002697
       messages: 
       output: 
       stacktrace: 
@@ -9834,7 +9834,7 @@ MonoBehaviour:
       name: NewTileIsEmpty
       fullName: CodeSmile.Tests.ProTiler.Editor.Data.Tile3DTests.NewTileIsEmpty
       resultStatus: 1
-      duration: 0.0001062
+      duration: 0.0001727
       messages: 
       output: 
       stacktrace: 
@@ -9851,7 +9851,7 @@ MonoBehaviour:
       name: NewTileIsValid
       fullName: CodeSmile.Tests.ProTiler.Editor.Data.Tile3DTests.NewTileIsValid
       resultStatus: 1
-      duration: 0.0001215
+      duration: 0.0001591
       messages: 
       output: 
       stacktrace: 
@@ -9868,7 +9868,7 @@ MonoBehaviour:
       name: NewTileWithDirectionFlagsReturnsDirectionUnaltered
       fullName: CodeSmile.Tests.ProTiler.Editor.Data.Tile3DTests.NewTileWithDirectionFlagsReturnsDirectionUnaltered
       resultStatus: 1
-      duration: 0.894812
+      duration: 0.0072906
       messages: 
       output: 
       stacktrace: 
@@ -9884,7 +9884,7 @@ MonoBehaviour:
       name: NewTileWithDirectionFlagsReturnsDirectionUnaltered(DirectionNorth)
       fullName: CodeSmile.Tests.ProTiler.Editor.Data.Tile3DTests.NewTileWithDirectionFlagsReturnsDirectionUnaltered(DirectionNorth)
       resultStatus: 1
-      duration: 0.0001189
+      duration: 0.0002571
       messages: 
       output: 
       stacktrace: 
@@ -9901,7 +9901,7 @@ MonoBehaviour:
       name: NewTileWithDirectionFlagsReturnsDirectionUnaltered(DirectionEast)
       fullName: CodeSmile.Tests.ProTiler.Editor.Data.Tile3DTests.NewTileWithDirectionFlagsReturnsDirectionUnaltered(DirectionEast)
       resultStatus: 1
-      duration: 0.0001204
+      duration: 0.000075
       messages: 
       output: 
       stacktrace: 
@@ -9918,7 +9918,7 @@ MonoBehaviour:
       name: NewTileWithDirectionFlagsReturnsDirectionUnaltered(DirectionSouth)
       fullName: CodeSmile.Tests.ProTiler.Editor.Data.Tile3DTests.NewTileWithDirectionFlagsReturnsDirectionUnaltered(DirectionSouth)
       resultStatus: 1
-      duration: 0.0001246
+      duration: 0.0000782
       messages: 
       output: 
       stacktrace: 
@@ -9935,7 +9935,7 @@ MonoBehaviour:
       name: NewTileWithDirectionFlagsReturnsDirectionUnaltered(DirectionWest)
       fullName: CodeSmile.Tests.ProTiler.Editor.Data.Tile3DTests.NewTileWithDirectionFlagsReturnsDirectionUnaltered(DirectionWest)
       resultStatus: 1
-      duration: 0.0001444
+      duration: 0.0000707
       messages: 
       output: 
       stacktrace: 
@@ -9952,7 +9952,7 @@ MonoBehaviour:
       name: NewTileWithDirectionFlagsReturnsDirectionUnaltered(AllDirections)
       fullName: CodeSmile.Tests.ProTiler.Editor.Data.Tile3DTests.NewTileWithDirectionFlagsReturnsDirectionUnaltered(AllDirections)
       resultStatus: 1
-      duration: 0.0002851
+      duration: 0.00007
       messages: 
       output: 
       stacktrace: 
@@ -9969,7 +9969,7 @@ MonoBehaviour:
       name: NewTileWithDirectionNoneReturnsDirectionNorth
       fullName: CodeSmile.Tests.ProTiler.Editor.Data.Tile3DTests.NewTileWithDirectionNoneReturnsDirectionNorth
       resultStatus: 1
-      duration: 0.1701204
+      duration: 0.0056172
       messages: 
       output: 
       stacktrace: 
@@ -9985,7 +9985,7 @@ MonoBehaviour:
       name: NewTileWithDirectionNoneReturnsDirectionNorth(None)
       fullName: CodeSmile.Tests.ProTiler.Editor.Data.Tile3DTests.NewTileWithDirectionNoneReturnsDirectionNorth(None)
       resultStatus: 1
-      duration: 0.0001338
+      duration: 0.0001959
       messages: 
       output: 
       stacktrace: 
@@ -10002,7 +10002,7 @@ MonoBehaviour:
       name: NewTileWithIndexAndFlagsReturnsBothUnaltered
       fullName: CodeSmile.Tests.ProTiler.Editor.Data.Tile3DTests.NewTileWithIndexAndFlagsReturnsBothUnaltered
       resultStatus: 1
-      duration: 0.838774
+      duration: 0.0070959
       messages: 
       output: 
       stacktrace: 
@@ -10018,7 +10018,7 @@ MonoBehaviour:
       name: NewTileWithIndexAndFlagsReturnsBothUnaltered(0,None)
       fullName: CodeSmile.Tests.ProTiler.Editor.Data.Tile3DTests.NewTileWithIndexAndFlagsReturnsBothUnaltered(0,None)
       resultStatus: 1
-      duration: 0.000117
+      duration: 0.0003572
       messages: 
       output: 
       stacktrace: 
@@ -10035,7 +10035,7 @@ MonoBehaviour:
       name: NewTileWithIndexAndFlagsReturnsBothUnaltered(1,AllDirections)
       fullName: CodeSmile.Tests.ProTiler.Editor.Data.Tile3DTests.NewTileWithIndexAndFlagsReturnsBothUnaltered(1,AllDirections)
       resultStatus: 1
-      duration: 0.0001458
+      duration: 0.0000794
       messages: 
       output: 
       stacktrace: 
@@ -10052,7 +10052,7 @@ MonoBehaviour:
       name: NewTileWithIndexAndFlagsReturnsBothUnaltered(-1,AllFlips)
       fullName: CodeSmile.Tests.ProTiler.Editor.Data.Tile3DTests.NewTileWithIndexAndFlagsReturnsBothUnaltered(-1,AllFlips)
       resultStatus: 1
-      duration: 0.0001226
+      duration: 0.0000732
       messages: 
       output: 
       stacktrace: 
@@ -10072,7 +10072,7 @@ MonoBehaviour:
       fullName: CodeSmile.Tests.ProTiler.Editor.Data.Tile3DTests.NewTileWithIndexAndFlagsReturnsBothUnaltered(int.MinValue,AllDirections,
         AllFlips)
       resultStatus: 1
-      duration: 0.0001231
+      duration: 0.0000712
       messages: 
       output: 
       stacktrace: 
@@ -10092,7 +10092,7 @@ MonoBehaviour:
       fullName: CodeSmile.Tests.ProTiler.Editor.Data.Tile3DTests.NewTileWithIndexAndFlagsReturnsBothUnaltered(int.MaxValue,AllDirections,
         AllFlips)
       resultStatus: 1
-      duration: 0.0001181
+      duration: 0.0000706
       messages: 
       output: 
       stacktrace: 
@@ -10109,7 +10109,7 @@ MonoBehaviour:
       name: NewTileWithIndexReturnsIndex
       fullName: CodeSmile.Tests.ProTiler.Editor.Data.Tile3DTests.NewTileWithIndexReturnsIndex
       resultStatus: 1
-      duration: 0.8652949
+      duration: 0.0100519
       messages: 
       output: 
       stacktrace: 
@@ -10125,7 +10125,7 @@ MonoBehaviour:
       name: NewTileWithIndexReturnsIndex(int.MinValue)
       fullName: CodeSmile.Tests.ProTiler.Editor.Data.Tile3DTests.NewTileWithIndexReturnsIndex(int.MinValue)
       resultStatus: 1
-      duration: 0.0001431
+      duration: 0.00025
       messages: 
       output: 
       stacktrace: 
@@ -10142,7 +10142,7 @@ MonoBehaviour:
       name: NewTileWithIndexReturnsIndex(-1)
       fullName: CodeSmile.Tests.ProTiler.Editor.Data.Tile3DTests.NewTileWithIndexReturnsIndex(-1)
       resultStatus: 1
-      duration: 0.0031958
+      duration: 0.0000813
       messages: 
       output: 
       stacktrace: 
@@ -10159,7 +10159,7 @@ MonoBehaviour:
       name: NewTileWithIndexReturnsIndex(0)
       fullName: CodeSmile.Tests.ProTiler.Editor.Data.Tile3DTests.NewTileWithIndexReturnsIndex(0)
       resultStatus: 1
-      duration: 0.0001272
+      duration: 0.0000761
       messages: 
       output: 
       stacktrace: 
@@ -10176,7 +10176,7 @@ MonoBehaviour:
       name: NewTileWithIndexReturnsIndex(1)
       fullName: CodeSmile.Tests.ProTiler.Editor.Data.Tile3DTests.NewTileWithIndexReturnsIndex(1)
       resultStatus: 1
-      duration: 0.0001222
+      duration: 0.0000895
       messages: 
       output: 
       stacktrace: 
@@ -10193,7 +10193,7 @@ MonoBehaviour:
       name: NewTileWithIndexReturnsIndex(int.MaxValue)
       fullName: CodeSmile.Tests.ProTiler.Editor.Data.Tile3DTests.NewTileWithIndexReturnsIndex(int.MaxValue)
       resultStatus: 1
-      duration: 0.0001699
+      duration: 0.0000997
       messages: 
       output: 
       stacktrace: 
@@ -10210,7 +10210,7 @@ MonoBehaviour:
       name: NewTileWithNegativeIndexIsNotValid
       fullName: CodeSmile.Tests.ProTiler.Editor.Data.Tile3DTests.NewTileWithNegativeIndexIsNotValid
       resultStatus: 1
-      duration: 0.3399138
+      duration: 0.0060471
       messages: 
       output: 
       stacktrace: 
@@ -10226,7 +10226,7 @@ MonoBehaviour:
       name: NewTileWithNegativeIndexIsNotValid(int.MinValue)
       fullName: CodeSmile.Tests.ProTiler.Editor.Data.Tile3DTests.NewTileWithNegativeIndexIsNotValid(int.MinValue)
       resultStatus: 1
-      duration: 0.0001211
+      duration: 0.0002496
       messages: 
       output: 
       stacktrace: 
@@ -10243,7 +10243,7 @@ MonoBehaviour:
       name: NewTileWithNegativeIndexIsNotValid(-1)
       fullName: CodeSmile.Tests.ProTiler.Editor.Data.Tile3DTests.NewTileWithNegativeIndexIsNotValid(-1)
       resultStatus: 1
-      duration: 0.0001219
+      duration: 0.0000755
       messages: 
       output: 
       stacktrace: 
@@ -10260,7 +10260,7 @@ MonoBehaviour:
       name: NewTileWithNegativeOrZeroIndexIsEmpty
       fullName: CodeSmile.Tests.ProTiler.Editor.Data.Tile3DTests.NewTileWithNegativeOrZeroIndexIsEmpty
       resultStatus: 1
-      duration: 0.5386677
+      duration: 0.0062481
       messages: 
       output: 
       stacktrace: 
@@ -10276,7 +10276,7 @@ MonoBehaviour:
       name: NewTileWithNegativeOrZeroIndexIsEmpty(int.MinValue)
       fullName: CodeSmile.Tests.ProTiler.Editor.Data.Tile3DTests.NewTileWithNegativeOrZeroIndexIsEmpty(int.MinValue)
       resultStatus: 1
-      duration: 0.0001241
+      duration: 0.0003314
       messages: 
       output: 
       stacktrace: 
@@ -10293,7 +10293,7 @@ MonoBehaviour:
       name: NewTileWithNegativeOrZeroIndexIsEmpty(-1)
       fullName: CodeSmile.Tests.ProTiler.Editor.Data.Tile3DTests.NewTileWithNegativeOrZeroIndexIsEmpty(-1)
       resultStatus: 1
-      duration: 0.0002004
+      duration: 0.0000772
       messages: 
       output: 
       stacktrace: 
@@ -10310,7 +10310,7 @@ MonoBehaviour:
       name: NewTileWithNegativeOrZeroIndexIsEmpty(0)
       fullName: CodeSmile.Tests.ProTiler.Editor.Data.Tile3DTests.NewTileWithNegativeOrZeroIndexIsEmpty(0)
       resultStatus: 1
-      duration: 0.0001311
+      duration: 0.0000733
       messages: 
       output: 
       stacktrace: 
@@ -10327,7 +10327,7 @@ MonoBehaviour:
       name: NewTileWithNonZeroIndexIsNotEmpty
       fullName: CodeSmile.Tests.ProTiler.Editor.Data.Tile3DTests.NewTileWithNonZeroIndexIsNotEmpty
       resultStatus: 1
-      duration: 0.3281899
+      duration: 0.0058957
       messages: 
       output: 
       stacktrace: 
@@ -10343,7 +10343,7 @@ MonoBehaviour:
       name: NewTileWithNonZeroIndexIsNotEmpty(1)
       fullName: CodeSmile.Tests.ProTiler.Editor.Data.Tile3DTests.NewTileWithNonZeroIndexIsNotEmpty(1)
       resultStatus: 1
-      duration: 0.0001493
+      duration: 0.0002203
       messages: 
       output: 
       stacktrace: 
@@ -10360,7 +10360,7 @@ MonoBehaviour:
       name: NewTileWithNonZeroIndexIsNotEmpty(int.MaxValue)
       fullName: CodeSmile.Tests.ProTiler.Editor.Data.Tile3DTests.NewTileWithNonZeroIndexIsNotEmpty(int.MaxValue)
       resultStatus: 1
-      duration: 0.0001211
+      duration: 0.0000806
       messages: 
       output: 
       stacktrace: 
@@ -10377,7 +10377,7 @@ MonoBehaviour:
       name: NewTileWithZeroOrPositiveIndexIsValid
       fullName: CodeSmile.Tests.ProTiler.Editor.Data.Tile3DTests.NewTileWithZeroOrPositiveIndexIsValid
       resultStatus: 1
-      duration: 0.4778085
+      duration: 0.0062733
       messages: 
       output: 
       stacktrace: 
@@ -10393,7 +10393,7 @@ MonoBehaviour:
       name: NewTileWithZeroOrPositiveIndexIsValid(0)
       fullName: CodeSmile.Tests.ProTiler.Editor.Data.Tile3DTests.NewTileWithZeroOrPositiveIndexIsValid(0)
       resultStatus: 1
-      duration: 0.0001541
+      duration: 0.0002491
       messages: 
       output: 
       stacktrace: 
@@ -10410,7 +10410,7 @@ MonoBehaviour:
       name: NewTileWithZeroOrPositiveIndexIsValid(1)
       fullName: CodeSmile.Tests.ProTiler.Editor.Data.Tile3DTests.NewTileWithZeroOrPositiveIndexIsValid(1)
       resultStatus: 1
-      duration: 0.0002396
+      duration: 0.0000916
       messages: 
       output: 
       stacktrace: 
@@ -10427,7 +10427,7 @@ MonoBehaviour:
       name: NewTileWithZeroOrPositiveIndexIsValid(int.MaxValue)
       fullName: CodeSmile.Tests.ProTiler.Editor.Data.Tile3DTests.NewTileWithZeroOrPositiveIndexIsValid(int.MaxValue)
       resultStatus: 1
-      duration: 0.000118
+      duration: 0.0000705
       messages: 
       output: 
       stacktrace: 
@@ -10444,7 +10444,7 @@ MonoBehaviour:
       name: TileCreatedWithNewKeywordHasNoFlags
       fullName: CodeSmile.Tests.ProTiler.Editor.Data.Tile3DTests.TileCreatedWithNewKeywordHasNoFlags
       resultStatus: 1
-      duration: 0.0001504
+      duration: 0.0002954
       messages: 
       output: 
       stacktrace: 
@@ -10461,7 +10461,7 @@ MonoBehaviour:
       name: TileCreatedWithNewKeywordIsEmpty
       fullName: CodeSmile.Tests.ProTiler.Editor.Data.Tile3DTests.TileCreatedWithNewKeywordIsEmpty
       resultStatus: 1
-      duration: 0.0001474
+      duration: 0.0002407
       messages: 
       output: 
       stacktrace: 
@@ -10478,7 +10478,7 @@ MonoBehaviour:
       name: TileCreatedWithNewKeywordIsValid
       fullName: CodeSmile.Tests.ProTiler.Editor.Data.Tile3DTests.TileCreatedWithNewKeywordIsValid
       resultStatus: 1
-      duration: 0.0002374
+      duration: 0.0001971
       messages: 
       output: 
       stacktrace: 
@@ -10495,7 +10495,7 @@ MonoBehaviour:
       name: TilesWithDifferentIndexAndSameFlagsAreNotEqual
       fullName: CodeSmile.Tests.ProTiler.Editor.Data.Tile3DTests.TilesWithDifferentIndexAndSameFlagsAreNotEqual
       resultStatus: 1
-      duration: 0.6374304
+      duration: 0.0073509
       messages: 
       output: 
       stacktrace: 
@@ -10514,7 +10514,7 @@ MonoBehaviour:
       fullName: 'CodeSmile.Tests.ProTiler.Editor.Data.Tile3DTests.TilesWithDifferentIndexAndSameFlagsAreNotEqual(Tile3D(Index:
         0, Flags: DirectionSouth),Tile3D(Index: -1, Flags: DirectionSouth))'
       resultStatus: 1
-      duration: 0.0006116
+      duration: 0.000573
       messages: 
       output: 
       stacktrace: 
@@ -10534,7 +10534,7 @@ MonoBehaviour:
       fullName: 'CodeSmile.Tests.ProTiler.Editor.Data.Tile3DTests.TilesWithDifferentIndexAndSameFlagsAreNotEqual(Tile3D(Index:
         13, Flags: DirectionSouth),Tile3D(Index: 17, Flags: DirectionSouth))'
       resultStatus: 1
-      duration: 0.0001397
+      duration: 0.0000832
       messages: 
       output: 
       stacktrace: 
@@ -10554,7 +10554,7 @@ MonoBehaviour:
       fullName: 'CodeSmile.Tests.ProTiler.Editor.Data.Tile3DTests.TilesWithDifferentIndexAndSameFlagsAreNotEqual(Tile3D(Index:
         1, Flags: DirectionWest),Tile3D(Index: 1, Flags: DirectionSouth))'
       resultStatus: 1
-      duration: 0.000125
+      duration: 0.0000783
       messages: 
       output: 
       stacktrace: 
@@ -10574,7 +10574,7 @@ MonoBehaviour:
       fullName: 'CodeSmile.Tests.ProTiler.Editor.Data.Tile3DTests.TilesWithDifferentIndexAndSameFlagsAreNotEqual(Tile3D(Index:
         0, Flags: FlipHorizontal),Tile3D(Index: 0, Flags: AllFlips))'
       resultStatus: 1
-      duration: 0.0001306
+      duration: 0.0000768
       messages: 
       output: 
       stacktrace: 
@@ -10591,7 +10591,7 @@ MonoBehaviour:
       name: TilesWithDifferentIndexHaveNonEqualHashcodes
       fullName: CodeSmile.Tests.ProTiler.Editor.Data.Tile3DTests.TilesWithDifferentIndexHaveNonEqualHashcodes
       resultStatus: 1
-      duration: 0.0004312
+      duration: 0.0001509
       messages: 
       output: 
       stacktrace: 
@@ -10608,7 +10608,7 @@ MonoBehaviour:
       name: TilesWithSameIndexAndDifferentFlagsHaveNonEqualHashcodes
       fullName: CodeSmile.Tests.ProTiler.Editor.Data.Tile3DTests.TilesWithSameIndexAndDifferentFlagsHaveNonEqualHashcodes
       resultStatus: 1
-      duration: 0.0002795
+      duration: 0.0001434
       messages: 
       output: 
       stacktrace: 
@@ -10625,7 +10625,7 @@ MonoBehaviour:
       name: TilesWithSameIndexAndFlagsAreEqual
       fullName: CodeSmile.Tests.ProTiler.Editor.Data.Tile3DTests.TilesWithSameIndexAndFlagsAreEqual
       resultStatus: 1
-      duration: 0.6544932
+      duration: 0.0065924
       messages: 
       output: 
       stacktrace: 
@@ -10644,7 +10644,7 @@ MonoBehaviour:
       fullName: 'CodeSmile.Tests.ProTiler.Editor.Data.Tile3DTests.TilesWithSameIndexAndFlagsAreEqual(Tile3D(Index:
         0, Flags: None),Tile3D(Index: 0, Flags: None))'
       resultStatus: 1
-      duration: 0.0003712
+      duration: 0.0002961
       messages: 
       output: 
       stacktrace: 
@@ -10666,7 +10666,7 @@ MonoBehaviour:
         7, Flags: DirectionWest, FlipHorizontal),Tile3D(Index: 7, Flags: DirectionWest,
         FlipHorizontal))'
       resultStatus: 1
-      duration: 0.0001237
+      duration: 0.0000838
       messages: 
       output: 
       stacktrace: 
@@ -10686,7 +10686,7 @@ MonoBehaviour:
       fullName: 'CodeSmile.Tests.ProTiler.Editor.Data.Tile3DTests.TilesWithSameIndexAndFlagsAreEqual(Tile3D(Index:
         0, Flags: None),Tile3D(Index: 0, Flags: None) GeneratedTestCase2)'
       resultStatus: 1
-      duration: 0.0001302
+      duration: 0.0000603
       messages: 
       output: 
       stacktrace: 
@@ -10706,7 +10706,7 @@ MonoBehaviour:
       fullName: 'CodeSmile.Tests.ProTiler.Editor.Data.Tile3DTests.TilesWithSameIndexAndFlagsAreEqual(Tile3D(Index:
         -1, Flags: None),Tile3D(Index: -1, Flags: None))'
       resultStatus: 1
-      duration: 0.0001241
+      duration: 0.0000778
       messages: 
       output: 
       stacktrace: 
@@ -10723,7 +10723,7 @@ MonoBehaviour:
       name: TilesWithSameIndexAndFlagsHaveEqualHashcodes
       fullName: CodeSmile.Tests.ProTiler.Editor.Data.Tile3DTests.TilesWithSameIndexAndFlagsHaveEqualHashcodes
       resultStatus: 1
-      duration: 0.0002734
+      duration: 0.0001555
       messages: 
       output: 
       stacktrace: 
@@ -10740,7 +10740,7 @@ MonoBehaviour:
       name: Grid3DTests
       fullName: CodeSmile.Tests.ProTiler.Editor.Grid3DTests
       resultStatus: 1
-      duration: 0.5711962
+      duration: 0.0717664
       messages: 
       output: 
       stacktrace: 
@@ -10756,7 +10756,7 @@ MonoBehaviour:
       name: GetSetCellGap
       fullName: CodeSmile.Tests.ProTiler.Editor.Grid3DTests.GetSetCellGap
       resultStatus: 1
-      duration: 0.0619067
+      duration: 0.0533555
       messages: 
       output: 
       stacktrace: 
@@ -10773,7 +10773,7 @@ MonoBehaviour:
       name: GetSetCellLayout
       fullName: CodeSmile.Tests.ProTiler.Editor.Grid3DTests.GetSetCellLayout
       resultStatus: 1
-      duration: 0.0194314
+      duration: 0.00607
       messages: 
       output: 
       stacktrace: 
@@ -10790,7 +10790,7 @@ MonoBehaviour:
       name: GetSetCellSize
       fullName: CodeSmile.Tests.ProTiler.Editor.Grid3DTests.GetSetCellSize
       resultStatus: 1
-      duration: 0.0198615
+      duration: 0.0059417
       messages: 
       output: 
       stacktrace: 
@@ -10807,7 +10807,7 @@ MonoBehaviour:
       name: Grid3DUtilityTests
       fullName: CodeSmile.Tests.ProTiler.Editor.Grid3DUtilityTests
       resultStatus: 1
-      duration: 1.6598629
+      duration: 0.0099479
       messages: 
       output: 
       stacktrace: 
@@ -10823,7 +10823,7 @@ MonoBehaviour:
       name: CoordToIndex2D
       fullName: CodeSmile.Tests.ProTiler.Editor.Grid3DUtilityTests.CoordToIndex2D
       resultStatus: 1
-      duration: 0.0002608
+      duration: 0.0001955
       messages: 
       output: 
       stacktrace: 
@@ -10840,7 +10840,7 @@ MonoBehaviour:
       name: CoordToIndex2D_Negative
       fullName: CodeSmile.Tests.ProTiler.Editor.Grid3DUtilityTests.CoordToIndex2D_Negative
       resultStatus: 1
-      duration: 0.0002667
+      duration: 0.000129
       messages: 
       output: 
       stacktrace: 
@@ -10857,7 +10857,7 @@ MonoBehaviour:
       name: CoordToIndex2D_Vector3
       fullName: CodeSmile.Tests.ProTiler.Editor.Grid3DUtilityTests.CoordToIndex2D_Vector3
       resultStatus: 1
-      duration: 0.0004327
+      duration: 0.0002648
       messages: 
       output: 
       stacktrace: 
@@ -10874,7 +10874,7 @@ MonoBehaviour:
       name: CoordToIndex2D_Zero
       fullName: CodeSmile.Tests.ProTiler.Editor.Grid3DUtilityTests.CoordToIndex2D_Zero
       resultStatus: 1
-      duration: 0.0002289
+      duration: 0.0001369
       messages: 
       output: 
       stacktrace: 
@@ -10891,7 +10891,7 @@ MonoBehaviour:
       name: Index2DToCoord
       fullName: CodeSmile.Tests.ProTiler.Editor.Grid3DUtilityTests.Index2DToCoord
       resultStatus: 1
-      duration: 0.0006204
+      duration: 0.0003095
       messages: 
       output: 
       stacktrace: 
@@ -10908,7 +10908,7 @@ MonoBehaviour:
       name: Index2DToCoord_Negative
       fullName: CodeSmile.Tests.ProTiler.Editor.Grid3DUtilityTests.Index2DToCoord_Negative
       resultStatus: 1
-      duration: 0.0003666
+      duration: 0.0001989
       messages: 
       output: 
       stacktrace: 
@@ -10925,7 +10925,7 @@ MonoBehaviour:
       name: Index2DToCoord_Zero
       fullName: CodeSmile.Tests.ProTiler.Editor.Grid3DUtilityTests.Index2DToCoord_Zero
       resultStatus: 1
-      duration: 0.0002924
+      duration: 0.0001596
       messages: 
       output: 
       stacktrace: 
@@ -10942,7 +10942,7 @@ MonoBehaviour:
       name: WorldPositionToCoord
       fullName: CodeSmile.Tests.ProTiler.Editor.Grid3DUtilityTests.WorldPositionToCoord
       resultStatus: 1
-      duration: 0.0005395
+      duration: 0.0003222
       messages: 
       output: 
       stacktrace: 
@@ -10959,7 +10959,7 @@ MonoBehaviour:
       name: WorldPositionToCoord_Negative
       fullName: CodeSmile.Tests.ProTiler.Editor.Grid3DUtilityTests.WorldPositionToCoord_Negative
       resultStatus: 1
-      duration: 0.0003468
+      duration: 0.0001923
       messages: 
       output: 
       stacktrace: 
@@ -10976,7 +10976,7 @@ MonoBehaviour:
       name: WorldPositionToCoord_Zero
       fullName: CodeSmile.Tests.ProTiler.Editor.Grid3DUtilityTests.WorldPositionToCoord_Zero
       resultStatus: 1
-      duration: 0.000373
+      duration: 0.0001857
       messages: 
       output: 
       stacktrace: 
@@ -10993,7 +10993,7 @@ MonoBehaviour:
       name: Tile3DSetTests
       fullName: CodeSmile.Tests.ProTiler.Editor.Tile3DSetTests
       resultStatus: 1
-      duration: 0.5691929
+      duration: 0.019564
       messages: 
       output: 
       stacktrace: 
@@ -11009,7 +11009,7 @@ MonoBehaviour:
       name: AddAndContainsTileAsset
       fullName: CodeSmile.Tests.ProTiler.Editor.Tile3DSetTests.AddAndContainsTileAsset
       resultStatus: 1
-      duration: 0.0127173
+      duration: 0.001221
       messages: 
       output: 
       stacktrace: 
@@ -11026,7 +11026,7 @@ MonoBehaviour:
       name: AddTileAssetWithIndex
       fullName: CodeSmile.Tests.ProTiler.Editor.Tile3DSetTests.AddTileAssetWithIndex
       resultStatus: 1
-      duration: 0.021277
+      duration: 0.0060777
       messages: 
       output: 
       stacktrace: 
@@ -11043,7 +11043,7 @@ MonoBehaviour:
       name: RemoveAndDoesNotContainTileAsset
       fullName: CodeSmile.Tests.ProTiler.Editor.Tile3DSetTests.RemoveAndDoesNotContainTileAsset
       resultStatus: 1
-      duration: 0.0245894
+      duration: 0.0059438
       messages: 
       output: 
       stacktrace: 
@@ -11060,7 +11060,7 @@ MonoBehaviour:
       name: Tilemap3DTests
       fullName: CodeSmile.Tests.ProTiler.Editor.Tilemap3DTests
       resultStatus: 1
-      duration: 1.8598156
+      duration: 0.7228814
       messages: 
       output: 
       stacktrace: 
@@ -11076,7 +11076,7 @@ MonoBehaviour:
       name: MultipleTilemapCreation
       fullName: CodeSmile.Tests.ProTiler.Editor.Tilemap3DTests.MultipleTilemapCreation
       resultStatus: 1
-      duration: 0.0248002
+      duration: 0.0211968
       messages: 
       output: 
       stacktrace: 
@@ -11093,7 +11093,7 @@ MonoBehaviour:
       name: MultipleTilemapCreationUndoRedo
       fullName: CodeSmile.Tests.ProTiler.Editor.Tilemap3DTests.MultipleTilemapCreationUndoRedo
       resultStatus: 1
-      duration: 0.1726983
+      duration: 0.1445738
       messages: 
       output: 
       stacktrace: 
@@ -11110,7 +11110,7 @@ MonoBehaviour:
       name: SetTileSurvivesSaveLoadScene
       fullName: CodeSmile.Tests.ProTiler.Editor.Tilemap3DTests.SetTileSurvivesSaveLoadScene
       resultStatus: 1
-      duration: 0.3625059
+      duration: 0.3179318
       messages: 
       output: 'Saving ''Test [CreateEmptyScene] TilemapTest.unity'' to Assets/TilemapTest.unity
         ...
@@ -11132,7 +11132,7 @@ MonoBehaviour:
       name: SetTileUndoRedo
       fullName: CodeSmile.Tests.ProTiler.Editor.Tilemap3DTests.SetTileUndoRedo
       resultStatus: 1
-      duration: 0.1395671
+      duration: 0.1338814
       messages: 
       output: 
       stacktrace: 
@@ -11149,7 +11149,7 @@ MonoBehaviour:
       name: TilemapCreation
       fullName: CodeSmile.Tests.ProTiler.Editor.Tilemap3DTests.TilemapCreation
       resultStatus: 1
-      duration: 0.0186925
+      duration: 0.0088601
       messages: 
       output: 
       stacktrace: 
@@ -11166,7 +11166,7 @@ MonoBehaviour:
       name: TilemapCreationUndoRedo
       fullName: CodeSmile.Tests.ProTiler.Editor.Tilemap3DTests.TilemapCreationUndoRedo
       resultStatus: 1
-      duration: 0.077882
+      duration: 0.0888439
       messages: 
       output: 
       stacktrace: 
@@ -11269,10 +11269,10 @@ MonoBehaviour:
     m_TextWithWhitespace: "Project Settings\u200B"
   m_Pos:
     serializedVersion: 2
-    x: 2929.6
-    y: 126.4
-    width: 1095.8
-    height: 594.2
+    x: 2064
+    y: 81.6
+    width: 1376.6
+    height: 642.2
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
@@ -11285,7 +11285,7 @@ MonoBehaviour:
     m_ContainerData: []
     m_OverlaysVisible: 1
   m_PosLeft: {x: 0, y: 0}
-  m_PosRight: {x: 0, y: 0}
+  m_PosRight: {x: 0, y: 300}
   m_Scope: 1
   m_SplitterFlex: 0.2
   m_SearchText: 
@@ -11332,10 +11332,10 @@ MonoBehaviour:
     m_TextWithWhitespace: "Hierarchy\u200B"
   m_Pos:
     serializedVersion: 2
-    x: 0.8
-    y: 80.8
+    x: 866.4
+    y: 81.6
     width: 595.8
-    height: 479.8
+    height: 476.6
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
@@ -11352,7 +11352,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 7accfeff34cdfeff58cdfeffc6cdfeff34cefeffa2cefeffcacefeff46cffeff80cffeffccd1feffded1feff1ed3feff88d3feffb2d3feffd4d3feff6ed4feffccd4feff68d5feffd4d5fefff8d5feff66d6feffd4d6feff42d7feff6ad7feffe6d7feff20d8feff68dafeff9edafeff0adbfeffc0dbfeffacdcfeff4eddfeff6cdefeff02dffeff26dffeff94dffeff02e0feff70e0feff98e0feff14e1feff4ee1feff88e3feff96e3feff44e4feffaee4feffd8e4fefffae4feff94e5fefff2e5feff8ee6fefffae6feff1ee7feff8ce7fefffae7feff68e8feff90e8feff0ce9feff46e9feff86ebfeff98ebfeff22eefeff76eefeffe0eefeff0aeffeff2ceffeffc6effeff24f0feffc0f0feff2cf1feff50f1feffbef1feff2cf2feff9af2feffc2f2feff3ef3feff78f3feffbaf5feffccf5feff88f6fefff2f6feff1cf7feff3ef7feffd8f7feff36f8feffd2f8feff3ef9feff62f9feffd0f9feff3efafeffacfafeffd4fafeff50fbfeff8afbfeffcafdfeffdafdfeff48fefeff2801ffff7c01ffffe601ffff1002ffff3202ffffcc02ffff2a03ffffc603ffff3204ffff5604ffffc404ffff3205ffffa005ffffc805ffff4406ffff7e06ffffbe08fffffc08ffffa209ffffd809ffff160affff520affff900affffcc0affff020bffff400bffff120cffff4c0cffff8c0cffffc80cffffec0cffff5a0dffffc80dffff360effff5e0effffda0effff140fffff4e11ffff8811ffffcc11ffff2012ffff8a12ffffb412ffffd612ffff7013ffffce13ffff7014ffff0215ffff3e15ffff7815ffffb415ffffea15ffff2816ffff1e17ffff5c17ffffa017ffffdc17ffff0018ffff6e18ffffdc18ffff4a19ffff7219ffffee19ffff281affff621cffffa01cffffe41cffff381dffffa21dffffcc1dffffee1dffff881effffe61effff881fffff1e20ffff4823ffff8623ffffc623ffff0224ffff2624ffff9424ffff0225ffff7025ffff9825ffff1426ffff4e26ffff8828ffffc628ffff0629ffff5a29ffffc429ffffee29ffff102affffaa2affff082bffffa42bffff3a2cffff822cffff2c2dffff6c2dffff082effff482effffea2effff222fffff602fffffa02fffffdc2fffff0030ffff6e30ffffdc30ffff4a31ffff7231ffffee31ffff2832ffff2a34ffff6834ffffac34ffff0035ffff6a35ffff9435ffffb635ffff5036ffffae36ffff5037ffffe637ffff2439ffff5e39ffffa239ffffde39ffff023affff703affffde3affff4c3bffff743bfffff03bffff2a3cffff643effff9e3effffe23effff363fffffa03fffffca3fffffec3fffff8640ffffe440ffff8041ffff1242ffff5a42ffff0443ffff4443ffffe043ffff2044ffffc244fffffa44ffff3445ffff7845ffffb045ffff1a46ffff4446ffff6646ffff0047ffff5e47fffffa47ffff3448ffff7848ffffe648ffff5449ffffc249ffffea49ffff664affffa04affff584cffff964cffff784dffffb64dfffff64dffff324effff564effffc44effff324fffffa04fffffc84fffff4450ffff7e50ffffb852fffff652ffff3a53ffff8e53fffff853ffff2254ffff4454ffffde54ffff3c55ffffd855ffff6a56ffffae56ffff5857ffff9857ffff3458ffff7458ffff1c59ffffee59ffff2c5affff705affff905affffb45affff225bffff905bfffffe5bffff265cffff605cffff125effff505effff945effffcc5effff365fffff605fffff825fffff1c60ffff7a60ffff1c61ffff5a61ffffce62ffff0c63ffff5063ffff8c63ffffb063ffff1e64ffff8c64fffffa64ffff2265ffff5c65ffff9667ffffd467ffff1468ffff6868ffffd268fffffc68ffff1e69ffffb869ffff166affffb26affff446bffff886bffff326cffff726cffff0e6dffff4e6dfffff66dffffbe6efffffc6effff406fffff7c6fffffa06fffff0e70ffff7c70ffffea70ffff1271ffff4c71ffff8673ffffc473ffff0874ffff5c74ffffc674fffff074ffff1275ffffac75ffff0a76ffffa676ffff3c77ffff8477ffff2e78ffff6e78ffff0a79ffff4a79fffff279ffffe07affff127bffff507bffff267cffff607cffffa47cffffe07cffff047dffff727dffffe07dffff4e7effff767effffb07effffea80ffff2481ffff6881ffffbc81ffff2682ffff5082ffff7282ffff0c83ffff6a83ffff0684ffff9c84ffffd884ffff1285ffff5685ffff9285ffffb685ffff2486ffff9286ffff0087ffff2887ffff6287ffff9c89ffffd689ffff1a8affff6e8affffd88affff028bffff248bffffbe8bffff1c8cffffbe8cffff548dffff368effff708effffb48efffff08effff148fffff828ffffff08fffff5e90ffff8690ffffc090fffffa92ffff3893ffff7c93ffffd093ffff3a94ffff6494ffff8694ffff2095ffff7e95ffff2096ffffb696ffff1a98ffff5898ffff9898ffffd498fffff898ffff6699ffffd499ffff429affff6a9affffa49affffde9cffff1c9dffff609dffffb49dffff1e9effff489effff6a9effff049fffff629ffffffe9fffff94a0ffffd8a0ffff2ca1ffff96a1ffffc0a1ffffe2a1ffff7ca2ffffdaa2ffff76a3ffffe2a3ffff06a4ffff74a4ffffe2a4ffff50a5ffff78a5ffffb2a5ffffeca7ffff2aa8ffff78a8ffffb6a8fffffaa8ffff36a9ffff5aa9ffffc8a9ffff36aaffffa4aaffffccaaffff06abffff40adffff7aadffffbaadffff0eaeffff78aeffffa2aeffffc4aeffff5eafffffbcafffff58b0ffffeeb0ffff32b1ffff52b1ffff76b1ffffe4b1ffff52b2ffffc0b2ffffe8b2ffff22b3ffff54b3ffff92b3ffffb4b5ffffdcb5ffff16b6ffff5ab6ffff82b6ffffc0b6ffff08b7ffff36b7ffff74b7ffff4eb8ffffbcb8ffff2ab9ffff98b9ffffc0b9ffffeeb9ffff24baffff62baffff60bbffff9abbffffdebbffff68bcffffd6bcffff44bdffff6cbdffffa2bffffffcbfffffacc0ffff16c1ffff40c1ffff62c1fffffcc1ffff5ac2fffffcc2ffffbac3ffff24c5ffff92c5ffff00c6ffff28c6ffff56c6ffff8cc6ffff9ac6ffff02c8ffff14c8ffff7ec9ffffecc9ffff5acaffff82caffffb0caffffe6cafffff8caffff18cdffff86cdfffff4cdffffaaceffffd8ceffff0ecfffff20cfffff60d0ffffcad0fffff4d0ffff16d1ffffb0d1ffff0ed2ffffaad2ffff64d3ffffd2d3ffff40d4ffffead4ffff12d5ffff4cd5ffff82d7ffff94d7ffffacd8ffff1ad9ffff88d9ffff3edaffff66daffff9cdaffffaedaffff12dbfffff6dbffff64dcffffd2dcffff8eddffff9cddffffeadfffffe0e0ffff1ae1ffff28e1ffff94e2ffffcee2ffff04e5ffff1ee5ffffcce5ffff36e6ffff60e6ffff82e6ffff1ce7ffff7ae7ffff1ce8ffff88e8ffff82e9ffff44f2ffffaef2ffffd8f2fffffaf2ffff94f3fffff2f3ffff8ef4fffffef4ffff7cf7ffff8af7ffffacf7ffffe6f7ffff96f8ffff46f9ffff80f9ffff34faffff16fbffff
+      m_ExpandedIDs: 7cbeffff1abfffffc2bfffff02c0fffff8c0ffff78c1fffff8c1ffff86c2ffff28c3ffff6ec7ffff2ac8ffffd2c8ffff12c9ffff08caffff88caffff08cbffff96cbffff30ccffff50cdffffe8cdffff7eceffff0ccfffff4ed0ffff7cd1ffff72d2fffff2d2ffff72d3ffff00d4ffff92d4ffff40d5ffffaad5ffffdad5ffff02d6ffffa8d6ffff08d7ffffaad7ffff1cd8ffff88d9ffff22dbffffb8dcffffdedcffff5eddffffdeddffff5edeffff8cdeffff1adfffff56dfffffa2e1ffffb0e1ffffe6e2ffff50e3ffff80e3ffffa8e3ffff4ee4ffffaee4ffff50e5ffffeae5ffff34eaffff6eebffff94ebffff14ecffff94ecffff14edffff42edffffd0edffff0ceeffff62f0ffff70f0ffff66f2ffffd0f2ffff00f3ffff28f3ffffcef3ffff2ef4ffffd0f4ffff48f5ffffcefaffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -11397,10 +11397,10 @@ MonoBehaviour:
     m_TextWithWhitespace: "Project\u200B"
   m_Pos:
     serializedVersion: 2
-    x: 0.8
-    y: 581.60004
+    x: 866.4
+    y: 579.2
     width: 595.8
-    height: 529.00006
+    height: 525.80005
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
@@ -11425,7 +11425,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/CodeSmile/ProTiler/Scenes
+    - Assets/_Tests/Scripts/Editor
     m_Globs: []
     m_ProductIds: 
     m_AnyWithAssetOrigin: 0
@@ -11435,16 +11435,16 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets/CodeSmile/ProTiler/Scenes
+  - Assets/_Tests/Scripts/Editor
   m_LastFoldersGridSize: 16
   m_LastProjectPath: C:\Users\CodeSmile\Projects\CodeSmile-Twitch\ProTiler
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 180}
+    scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 3a4e0000
     m_LastClickedID: 20026
-    m_ExpandedIDs: 00000000d64b0000d84b0000da4b0000dc4b0000de4b0000e04b0000e24b0000e44b0000e64b0000ea4c000000ca9a3bffffff7f
+    m_ExpandedIDs: 00000000b24c0000b44c0000b64c0000b84c0000ba4c0000bc4c0000be4c0000c04c0000c24c0000c44c0000c04d0000324e0000364e000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -11472,7 +11472,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000d64b0000d84b0000da4b0000dc4b0000de4b0000e04b0000e24b0000e44b0000e64b0000
+    m_ExpandedIDs: 00000000b24c0000b44c0000b64c0000b84c0000ba4c0000bc4c0000be4c0000c04c0000c24c0000c44c0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -11549,10 +11549,10 @@ MonoBehaviour:
     m_TextWithWhitespace: "Inspector\u200B"
   m_Pos:
     serializedVersion: 2
-    x: 2348
-    y: 176
-    width: 515.6
-    height: 840.2
+    x: 1463.2001
+    y: 81.6
+    width: 598.8
+    height: 1023.4
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
@@ -12231,10 +12231,10 @@ MonoBehaviour:
     m_TextWithWhitespace: "Game\u200B"
   m_Pos:
     serializedVersion: 2
-    x: 1198.4
+    x: 1204.8
     y: 80.8
     width: 1376.6
-    height: 646.2
+    height: 642.2
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
@@ -12289,9 +12289,9 @@ MonoBehaviour:
       x: 0
       y: 21
       width: 1376.6
-      height: 625.2
+      height: 621.2
     m_Scale: {x: 1.1103984, y: 1.1103984}
-    m_Translation: {x: 688.3, y: 312.6}
+    m_Translation: {x: 688.3, y: 310.6}
     m_MarginLeft: 0
     m_MarginRight: 0
     m_MarginTop: 0
@@ -12299,12 +12299,12 @@ MonoBehaviour:
     m_LastShownAreaInsideMargins:
       serializedVersion: 2
       x: -619.8676
-      y: -281.52057
+      y: -279.71942
       width: 1239.7352
-      height: 563.04114
+      height: 559.43884
     m_MinimalGUI: 1
-  m_defaultScale: 0.7236111
-  m_LastWindowPixelSize: {x: 1720.75, y: 807.75}
+  m_defaultScale: 0.7189815
+  m_LastWindowPixelSize: {x: 1720.75, y: 802.75}
   m_ClearInEditMode: 1
   m_NoCameraWarning: 1
   m_LowResolutionForAspectRatios: 01000000000000000000
@@ -12466,10 +12466,10 @@ MonoBehaviour:
     m_TextWithWhitespace: "Console\u200B"
   m_Pos:
     serializedVersion: 2
-    x: 1198.4
-    y: 748
+    x: 2064
+    y: 744.8
     width: 1376.6
-    height: 362.60004
+    height: 360.2
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
