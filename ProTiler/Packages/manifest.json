@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "com.unity.connect.share": "4.2.3",
-    "com.unity.ide.rider": "3.0.21",
+    "com.unity.ide.rider": "3.0.20",
     "com.unity.memoryprofiler": "1.0.0",
     "com.unity.properties": "2.1.0-exp.3",
     "com.unity.serialization": "3.0.0-pre.3",
