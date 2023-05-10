@@ -54,8 +54,8 @@ namespace CodeSmile.Tests.Tools.TestRunnerApi
 
 			public void RunStarted(ITestAdaptor testsToRun)
 			{
-				// safety: ensure we have the AssetDatabase up-to-date before testing
-				CloseActiveScene();
+				if (EditorApplication.isPlaying == false)
+					CloseActiveScene();
 				DeleteTempTestAssetsDirectoryAndContents();
 				SynchronizeAssetDatabase();
 				ClearUndoRedoStack();

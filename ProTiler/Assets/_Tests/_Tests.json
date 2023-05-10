@@ -1,0 +1,24 @@
+{
+    "IntValue": -1234,
+    "FloatValue": -1.23456,
+    "DoubleValue": -10.0123456789,
+    "BoolValue": true,
+    "IntArray": [
+        1,
+        23,
+        456,
+        7890
+    ],
+    "IntList": [
+        -1,
+        -23,
+        -456,
+        -7890
+    ],
+    "StringIntDict": {
+        "first": 111,
+        "second": 222,
+        "third": 333,
+        "fourth": 444
+    }
+}

@@ -8,7 +8,8 @@
         "CodeSmile.Editor",
         "CodeSmile.ProTiler",
         "CodeSmile.ProTiler.Editor",
-        "CodeSmile.Tests.Tools"
+        "CodeSmile.Tests.Tools",
+        "Unity.Serialization"
     ],
     "includePlatforms": [
         "Editor"

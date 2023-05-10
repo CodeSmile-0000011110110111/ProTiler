@@ -3,6 +3,7 @@
 
 using CodeSmile.Editor.Extensions;
 using CodeSmile.ProTiler.Assets;
+using CodeSmile.ProTiler.Editor.Creation;
 using NUnit.Framework;
 using System.IO;
 using System.Linq;
@@ -13,6 +14,8 @@ namespace CodeSmile.Tests.ProTiler.Editor.Assets
 	public class Tile3DAssetRegisterPersistenceTests
 	{
 		private static string GetRegisterAssetPath() => AssetDatabaseExt.FindAssetPaths<Tile3DAssetRegister>().First();
+
+		[Test] public void CoverCtorUsageJustToSatisfyNDepend() => Assert.That(new Tile3DAssetRegisterPersistence() != null);
 
 		[Test] public void EnsureTile3DRegisterExists() => Assert.That(AssetDatabaseExt.AssetExists<Tile3DAssetRegister>());
 

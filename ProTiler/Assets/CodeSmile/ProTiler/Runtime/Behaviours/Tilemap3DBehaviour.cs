@@ -1,0 +1,113 @@
+// Copyright (C) 2021-2023 Steffen Itterheim
+// Refer to included LICENSE file for terms and conditions.
+
+using CodeSmile.Extensions;
+using CodeSmile.ProTiler.Data;
+using System;
+using System.IO;
+using System.Text;
+using UnityEngine;
+using Random = UnityEngine.Random;
+
+namespace CodeSmile.ProTiler.Behaviours
+{
+	[ExecuteAlways]
+	[DisallowMultipleComponent]
+	public class Tilemap3DBehaviour : MonoBehaviour, ISerializationCallbackReceiver
+	{
+		private const string TestFilePath = @"F:\customfield.txt";
+		//[SerializeField] private Vector3 m_TileAnchor;
+		[SerializeField] private Vector2Int m_ChunkSize = new(16, 16);
+		[SerializeField] private Tilemap3D m_Chunks;
+
+		private Vector2Int m_CurrentChunkSize;
+
+		/*
+		public void RefreshTile(Vector3Int coord) => throw new NotImplementedException();
+
+		public void DrawLine(Vector3Int startSelectionCoord, Vector3Int cursorCoord) => throw new NotImplementedException();
+
+		public void DrawRect(object makeRect) => throw new NotImplementedException();
+	*/
+
+		private int m_CustomSerializedField;
+
+		public Vector2Int ChunkSize
+		{
+			get => m_ChunkSize;
+			set => SetChunkSize(value);
+		}
+		public Tilemap3D Chunks => m_Chunks;
+
+		public Grid3DBehaviour Grid => transform.parent.GetComponent<Grid3DBehaviour>();
+
+		public void OnBeforeSerialize()
+		{
+			//Debug.Log("saving value: " + m_CustomSerializedField);
+			//var json = JsonUtility.ToJson(m_CustomSerializedField);
+			//File.WriteAllText(TestFilePath, m_CustomSerializedField.ToString(), Encoding.ASCII);
+		}
+
+		public void OnAfterDeserialize()
+		{
+			//var text = File.ReadAllText(TestFilePath, Encoding.ASCII);
+			//m_CustomSerializedField = JsonUtility.FromJson<int>(text);
+			//m_CustomSerializedField = Convert.ToInt32(text);
+			//Debug.Log("loaded value: " + m_CustomSerializedField);
+		}
+
+		private void Awake() => SetChunkSize(m_ChunkSize);
+
+		private void Reset() => SetChunkSize(m_ChunkSize);
+
+		private void OnValidate()
+		{
+			SetChunkSize(m_ChunkSize);
+
+			m_CustomSerializedField = Random.Range(int.MinValue, int.MaxValue);
+			Debug.Log("random value: " + m_CustomSerializedField);
+		}
+
+		private void SetChunkSize(Vector2Int chunkSize)
+		{
+			Tilemap3D.ClampChunkSize(ref chunkSize);
+			if (chunkSize != m_CurrentChunkSize)
+			{
+				m_ChunkSize = m_CurrentChunkSize = chunkSize;
+
+				InitChunks();
+				Chunks.ChangeChunkSize(m_ChunkSize);
+			}
+		}
+
+		private void InitChunks()
+		{
+			if (m_Chunks == null)
+			{
+				m_Chunks = new Tilemap3D(m_ChunkSize);
+				m_CurrentChunkSize = m_ChunkSize;
+			}
+		}
+
+		public Tile3D GetTile(Vector3Int coord)
+		{
+			var tileDatas = new Tile3DCoord[1];
+			GetTiles(new[] { coord }, ref tileDatas);
+			return tileDatas[0].Tile;
+		}
+
+		public void GetTiles(Vector3Int[] coords, ref Tile3DCoord[] tileCoordDatas) =>
+			m_Chunks.GetTiles(coords, ref tileCoordDatas);
+
+		public void SetTile(Vector3Int coord, Tile3D tile) => SetTiles(new[] { new Tile3DCoord(coord, tile) });
+
+		public void SetTiles(Tile3DCoord[] tileCoordDatas)
+		{
+			this.RecordUndoInEditor(nameof(SetTiles));
+			SetTilesNoUndo(tileCoordDatas);
+			this.SetDirtyInEditor();
+		}
+
+		public void SetTilesNoUndo(Tile3DCoord[] tileCoordDatas) => m_Chunks.SetTiles(tileCoordDatas);
+	}
+}
