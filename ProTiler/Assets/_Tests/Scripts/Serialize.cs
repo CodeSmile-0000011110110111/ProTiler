@@ -18,6 +18,7 @@ using Debug = UnityEngine.Debug;
 
 public class Serialize : MonoBehaviour
 {
+#if UNITY_2023_1_OR_NEWER
 	public enum SerializationFormat
 	{
 		Json,
@@ -88,7 +89,7 @@ public class Serialize : MonoBehaviour
 				{
 					var path = GetPathFromScene(".json");
 					var fileInfo = new FileInfo(path);
-					JsonSerialization.ToJson(fileInfo, m_Data, new JsonSerializationParameters()
+					JsonSerialization.ToJson(fileInfo, m_Data, new JsonSerializationParameters
 					{
 						Minified = false,
 						Simplified = false,
@@ -224,6 +225,7 @@ public class Serialize : MonoBehaviour
 
 		public override string ToString() => $"dict: {StringIntDict}";
 	}
+#endif
 }
 
 /*

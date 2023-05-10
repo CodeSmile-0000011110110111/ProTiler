@@ -15,7 +15,6 @@ namespace CodeSmile.ProTiler.Behaviours
 	[DisallowMultipleComponent]
 	public class Tilemap3DBehaviour : MonoBehaviour, ISerializationCallbackReceiver
 	{
-		private const string TestFilePath = @"F:\customfield.txt";
 		//[SerializeField] private Vector3 m_TileAnchor;
 		[SerializeField] private Vector2Int m_ChunkSize = new(16, 16);
 		[SerializeField] private Tilemap3D m_Chunks;
@@ -30,8 +29,6 @@ namespace CodeSmile.ProTiler.Behaviours
 		public void DrawRect(object makeRect) => throw new NotImplementedException();
 	*/
 
-		private int m_CustomSerializedField;
-
 		public Vector2Int ChunkSize
 		{
 			get => m_ChunkSize;
@@ -43,17 +40,10 @@ namespace CodeSmile.ProTiler.Behaviours
 
 		public void OnBeforeSerialize()
 		{
-			//Debug.Log("saving value: " + m_CustomSerializedField);
-			//var json = JsonUtility.ToJson(m_CustomSerializedField);
-			//File.WriteAllText(TestFilePath, m_CustomSerializedField.ToString(), Encoding.ASCII);
 		}
 
 		public void OnAfterDeserialize()
 		{
-			//var text = File.ReadAllText(TestFilePath, Encoding.ASCII);
-			//m_CustomSerializedField = JsonUtility.FromJson<int>(text);
-			//m_CustomSerializedField = Convert.ToInt32(text);
-			//Debug.Log("loaded value: " + m_CustomSerializedField);
 		}
 
 		private void Awake() => SetChunkSize(m_ChunkSize);
@@ -63,9 +53,6 @@ namespace CodeSmile.ProTiler.Behaviours
 		private void OnValidate()
 		{
 			SetChunkSize(m_ChunkSize);
-
-			m_CustomSerializedField = Random.Range(int.MinValue, int.MaxValue);
-			Debug.Log("random value: " + m_CustomSerializedField);
 		}
 
 		private void SetChunkSize(Vector2Int chunkSize)
