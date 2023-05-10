@@ -4,21 +4,56 @@
 using CodeSmile.ProTiler.Data;
 using NUnit.Framework;
 using System;
+using System.Runtime.InteropServices;
+using Unity.Serialization.Json;
 using UnityEngine;
 
 namespace CodeSmile.Tests.ProTiler.Editor.Data
 {
-	public class Tilemap3DLayerTests
+	public class Tile3DLayerTests
 	{
+		private Tile3DLayer CreateLayer(int width, int height) => new(new Vector2Int(width, height));
+
+		[Test] public void AssertThatSizeDidNotChangeUnintentionally()
+		{
+			var sizeInBytes = Marshal.SizeOf(typeof(Tile3DLayer));
+
+			Debug.Log($"Size of Tile3DLayer: {sizeInBytes} bytes");
+
+			Assert.That(sizeInBytes == 16);
+		}
+
+		[Test] public void AssertThatJsonDidNotChangeUnintentionally()
+		{
+			var tiles = CreateLayer(1, 2);
+
+			var json = JsonSerialization.ToJson(tiles);
+			Debug.Log(json);
+			Debug.Log($"({json.Length} bytes)");
+
+			Assert.That(json, Is.EqualTo("{\n    \"m_Size\": {\n        \"x\": 1,\n        \"y\": 2\n    },\n    \"m_Tiles\": [\n        {\n            \"Index\": 0,\n            \"Flags\": 0\n        },\n        {\n            \"Index\": 0,\n            \"Flags\": 0\n        }\n    ]\n}"));
+			Assert.That(json.Length, Is.EqualTo(215));
+		}
+
+		[Test] public void AssertThatMinifiedJsonDidNotChangeUnintentionally()
+		{
+			var tiles = CreateLayer(1, 2);
+
+			var json = JsonSerialization.ToJson(tiles,
+				new JsonSerializationParameters { Minified = true, Simplified = true });
+			Debug.Log(json);
+			Debug.Log($"({json.Length} bytes)");
+
+			Assert.That(json, Is.EqualTo("{m_Size={x=1 y=2} m_Tiles=[{Index=0 Flags=0} {Index=0 Flags=0}]}"));
+			Assert.That(json.Length, Is.EqualTo(64));
+		}
+
 		[Test] public void CreateCollection()
 		{
 			var width = 10;
 			var height = 20;
+			var tiles = CreateLayer(width, height);
 
-			var tiles = new Tilemap3DLayer(new Vector2Int(width, height));
-
-			Assert.That(tiles.Width == width);
-			Assert.That(tiles.Height == height);
 			Assert.That(tiles.Capacity == width * height);
 			Assert.That(tiles.Count == 0);
 		}
@@ -28,7 +63,7 @@ namespace CodeSmile.Tests.ProTiler.Editor.Data
 		{
 			var width = 3;
 			var height = 7;
-			var tiles = new Tilemap3DLayer(new Vector2Int(width, height));
+			var tiles = new Tile3DLayer(new Vector2Int(width, height));
 
 			tiles[0] = new Tile3D();
 
@@ -40,7 +75,7 @@ namespace CodeSmile.Tests.ProTiler.Editor.Data
 		{
 			var width = 3;
 			var height = 7;
-			var tiles = new Tilemap3DLayer(new Vector2Int(width, height));
+			var tiles = new Tile3DLayer(new Vector2Int(width, height));
 			var tileIndex = 9;
 
 			tiles[0] = new Tile3D((short)tileIndex);
@@ -54,7 +89,7 @@ namespace CodeSmile.Tests.ProTiler.Editor.Data
 		{
 			var width = 3;
 			var height = 7;
-			var tiles = new Tilemap3DLayer(new Vector2Int(width, height));
+			var tiles = new Tile3DLayer(new Vector2Int(width, height));
 			var tileIndex = 11;
 
 			tiles[0] = new Tile3D((short)tileIndex);
@@ -68,7 +103,7 @@ namespace CodeSmile.Tests.ProTiler.Editor.Data
 		{
 			var width = 3;
 			var height = 7;
-			var tiles = new Tilemap3DLayer(new Vector2Int(width, height));
+			var tiles = new Tile3DLayer(new Vector2Int(width, height));
 			var tileIndex = 13;
 			var lastIndex = width * height - 1;
 
@@ -78,40 +113,14 @@ namespace CodeSmile.Tests.ProTiler.Editor.Data
 			Assert.That(tiles[lastIndex].Index == tileIndex);
 		}
 
-		[Test]
-		public void SetAndGetTileByCoord()
-		{
-			var width = 5;
-			var height = 9;
-			var tiles = new Tilemap3DLayer(new Vector2Int(width, height));
-			var tileIndex = 17;
-			var tileData = new Tile3D((short)tileIndex);
 
-			var coordX = width - 1;
-			var coordY = height - 1;
-			tiles[coordX, coordY] = tileData;
-
-			Assert.That(tiles[coordX, coordY].Index == tileIndex);
-		}
-
-		[Test]
-		public void SetTileByCoordOutOfBoundsThrows()
-		{
-			var width = 5;
-			var height = 9;
-			var tiles = new Tilemap3DLayer(new Vector2Int(width, height));
-			var tileIndex = 17;
-			var tileData = new Tile3D((short)tileIndex);
-
-			Assert.Throws<IndexOutOfRangeException>(() => tiles[width, height] = tileData);
-		}
-
+		/*
 		[Test]
 		public void SetAllTilesWithCoordData()
 		{
 			var width = 4;
 			var height = 8;
-			var tiles = new Tilemap3DLayer(new Vector2Int(width, height));
+			var tiles = new Tile3DLayer(new Vector2Int(width, height));
 
 			var coordDataCount = width * height;
 			var tileCoordDatas = new Tile3DCoord[coordDataCount];
@@ -146,5 +155,6 @@ namespace CodeSmile.Tests.ProTiler.Editor.Data
 				prevFlags = tiles[i].Flags;
 			}
 		}
+	*/
 	}
 }

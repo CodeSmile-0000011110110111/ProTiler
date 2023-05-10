@@ -11,15 +11,15 @@ namespace CodeSmile.Tests.ProTiler.Editor.Data
 {
 	public class Tile3DTests
 	{
-		[Test] public void AssertThatTile3DSizeDidNotChangeWithoutIntent()
+		[Test] public void AssertThatSizeDidNotChangeUnintentionally()
 		{
 			var sizeInBytes = Marshal.SizeOf(typeof(Tile3D));
-			Debug.Log($"Size of Tile3D: {Marshal.SizeOf(typeof(Tile3D))} bytes");
+			Debug.Log($"Size of Tile3D: {sizeInBytes} bytes");
 
-			Assert.That(sizeInBytes == 4);
+			Assert.That(sizeInBytes, Is.EqualTo(4));
 		}
 
-		[Test] public void AssertThatJsonSerializedStringDidNotChangeWithoutIntent()
+		[Test] public void AssertThatJsonDidNotChangeUnintentionally()
 		{
 			var tile = new Tile3D(short.MaxValue, (Tile3DFlags)short.MaxValue);
 
@@ -28,10 +28,10 @@ namespace CodeSmile.Tests.ProTiler.Editor.Data
 			Debug.Log($"({json.Length} bytes)");
 
 			Assert.That(json, Is.EqualTo("{\n    \"Index\": 32767,\n    \"Flags\": 32767\n}"));
-			Assert.That(json.Length == 42);
+			Assert.That(json.Length, Is.EqualTo(42));
 		}
 
-		[Test] public void AssertThatJsonMinifiedSerializedStringDidNotChangeWithoutIntent()
+		[Test] public void AssertThatMinifiedJsonDidNotChangeUnintentionally()
 		{
 			var tile = new Tile3D(short.MaxValue, (Tile3DFlags)short.MaxValue);
 
@@ -41,7 +41,7 @@ namespace CodeSmile.Tests.ProTiler.Editor.Data
 			Debug.Log($"({json.Length} bytes)");
 
 			Assert.That(json, Is.EqualTo("{Index=32767 Flags=32767}"));
-			Assert.That(json.Length == 25);
+			Assert.That(json.Length, Is.EqualTo(25));
 		}
 
 		[Test] public void TileCreatedWithNewKeywordIsEmpty() => Assert.That(new Tile3D().IsEmpty, Is.True);

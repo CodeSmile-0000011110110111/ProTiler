@@ -1,6 +1,7 @@
 // Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
+#if UNITY_2022_3_OR_NEWER
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -15,10 +16,11 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Debug = UnityEngine.Debug;
+#endif
 
-public class Serialize : MonoBehaviour
+public class Serialize : UnityEngine.MonoBehaviour
 {
-#if UNITY_2023_1_OR_NEWER
+#if UNITY_2022_3_OR_NEWER
 	public enum SerializationFormat
 	{
 		Json,

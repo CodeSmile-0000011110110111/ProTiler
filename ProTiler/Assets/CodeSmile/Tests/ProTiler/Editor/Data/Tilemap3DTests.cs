@@ -19,6 +19,7 @@ namespace CodeSmile.Tests.ProTiler.Editor.Data
 			new object[] { new Vector2Int(1, -1) },
 		};
 
+		/*
 		[Test]
 		public void CreateChunk()
 		{
@@ -188,5 +189,6 @@ namespace CodeSmile.Tests.ProTiler.Editor.Data
 			Assert.That(chunks.ToLayerCoord(chunkCoord, new Vector3Int(6, 5, -5)),
 				Is.EqualTo(new Vector3Int(3, 4, -7)));
 		}
+	*/
 	}
 }

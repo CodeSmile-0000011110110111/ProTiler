@@ -22,11 +22,11 @@ namespace CodeSmile.ProTiler.Data
 		//[SerializeField]
 		private ChunkCollection m_Chunks;
 		//[SerializeField]
-		private ChunkSize m_Size;
+		private ChunkSize m_ChunkSize;
 		//[SerializeField]
 		private int m_Count;
 
-		public ChunkSize Size => m_Size;
+		public ChunkSize ChunkSize => m_ChunkSize;
 		public int TileCount
 		{
 			get
@@ -55,15 +55,15 @@ namespace CodeSmile.ProTiler.Data
 		public Tilemap3D(ChunkSize chunkSize) => ChangeChunkSize(chunkSize);
 
 		[ExcludeFromCodeCoverage]
-		public override string ToString() => $"{nameof(Tilemap3D)}(Size: {Size}, Count: {Count}, TileCount: {TileCount})";
+		public override string ToString() => $"{nameof(Tilemap3D)}(Size: {ChunkSize}, Count: {Count}, TileCount: {TileCount})";
 
 		public void ChangeChunkSize(ChunkSize newChunkSize)
 		{
 			ClampChunkSize(ref newChunkSize);
-			if (newChunkSize == m_Size)
+			if (newChunkSize == m_ChunkSize)
 				return;
 
-			m_Size = newChunkSize;
+			m_ChunkSize = newChunkSize;
 
 			// TODO: recreate chunks without destroying data
 			m_Chunks = new ChunkCollection();
@@ -85,7 +85,8 @@ namespace CodeSmile.ProTiler.Data
 					continue;
 
 				var layerCoord = ToLayerCoord(chunkCoord, coord);
-				tileDatas[index++] = new Tile3DCoord(coord, layer[layerCoord.x, layerCoord.z]);
+				var tileCoordIndex = Grid3DUtility.ToIndex2D(layerCoord.x, layerCoord.z, m_ChunkSize.x);
+				tileDatas[index++] = new Tile3DCoord(coord, layer[tileCoordIndex]);
 
 				if (index == tileDatas.Length)
 					break;
@@ -102,20 +103,21 @@ namespace CodeSmile.ProTiler.Data
 
 				var layer = GetOrCreateChunkLayer(chunk, coord.y);
 				var layerCoord = ToLayerCoord(chunkCoord, coord);
-				layer[layerCoord.x, layerCoord.z] = coordData.Tile;
+				var tileCoordIndex = Grid3DUtility.ToIndex2D(layerCoord.x, layerCoord.z, m_ChunkSize.x);
+				layer[tileCoordIndex] = coordData.Tile;
 			}
 		}
 
 		internal GridCoord ToLayerCoord(GridCoord chunkCoord, GridCoord coord) => coord - chunkCoord;
 
-		internal GridCoord ToChunkCoord(GridCoord coord) => new(coord.x / m_Size.x, coord.y, coord.z / m_Size.y);
+		internal GridCoord ToChunkCoord(GridCoord coord) => new(coord.x / m_ChunkSize.x, coord.y, coord.z / m_ChunkSize.y);
 
-		private Tilemap3DLayer GetOrCreateChunkLayer(Tile3DLayerCollection chunk, int y)
+		private Tile3DLayer GetOrCreateChunkLayer(Tile3DLayerCollection chunk, int y)
 		{
 			if (chunk.TryGetValue(y, out var layer))
 				return layer;
 
-			chunk[y] = layer = new Tilemap3DLayer(m_Size);
+			chunk[y] = layer = new Tile3DLayer(m_ChunkSize);
 			return layer;
 		}
 
@@ -136,6 +138,6 @@ namespace CodeSmile.ProTiler.Data
 		private long GetChunkKey(GridCoord chunkCoord) => HashUtility.GetHash(chunkCoord.x, chunkCoord.z);
 
 		[Serializable] public class ChunkCollection : SerializedDictionary<long, Tile3DLayerCollection> {}
-		[Serializable] public class Tile3DLayerCollection : SerializedDictionary<int, Tilemap3DLayer> {}
+		[Serializable] public class Tile3DLayerCollection : SerializedDictionary<int, Tile3DLayer> {}
 	}
 }

@@ -1,15 +1,28 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
-using CodeSmile.Collections;
 using System;
+using System.Collections.Generic;
+using System.Runtime.InteropServices;
+using Unity.Properties;
+using ChunkSize = UnityEngine.Vector2Int;
 
 namespace CodeSmile.ProTiler.Data
 {
-	public class Tilemap3DChunk
+	[Serializable]
+	[StructLayout(LayoutKind.Sequential)]
+	public struct Tilemap3DChunk
 	{
-		private Tilemap3DChunkCollection m_Chunks;
+		[CreateProperty] private ChunkSize m_Size;
+		[CreateProperty] private List<Tile3DLayer> m_Layers;
+		public ChunkSize Size => m_Size;
 
-		[Serializable] public class Tilemap3DChunkCollection : SerializedDictionary<long, Tilemap3DChunk> {}
+		private Tile3DLayer GetOrCreateHeightLayer(int y)
+		{
+			//if (m_Layers.TryGetValue(y, out var layer)) return layer;
+
+			var newLayer = new Tile3DLayer();
+			return newLayer;
+		}
 	}
 }

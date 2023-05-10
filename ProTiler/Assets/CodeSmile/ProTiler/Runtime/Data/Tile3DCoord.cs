@@ -3,6 +3,7 @@
 
 using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Runtime.InteropServices;
 using GridCoord = UnityEngine.Vector3Int;
 
 namespace CodeSmile.ProTiler.Data
@@ -11,6 +12,7 @@ namespace CodeSmile.ProTiler.Data
 	///     TileData for a specific coordinate.
 	/// </summary>
 	[Serializable]
+	[StructLayout(LayoutKind.Sequential)]
 	public struct Tile3DCoord : IEquatable<Tile3DCoord>
 	{
 		public GridCoord Coord;
