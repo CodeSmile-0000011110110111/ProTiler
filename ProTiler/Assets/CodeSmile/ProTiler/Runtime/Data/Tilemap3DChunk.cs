@@ -17,6 +17,12 @@ namespace CodeSmile.ProTiler.Data
 		[CreateProperty] private List<Tile3DLayer> m_Layers;
 		public ChunkSize Size => m_Size;
 
+		public Tilemap3DChunk(ChunkSize size)
+		{
+			m_Size = size;
+			m_Layers = new();
+		}
+
 		private Tile3DLayer GetOrCreateHeightLayer(int y)
 		{
 			//if (m_Layers.TryGetValue(y, out var layer)) return layer;

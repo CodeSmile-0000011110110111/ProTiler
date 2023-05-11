@@ -1,7 +1,10 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
+using CodeSmile.ProTiler.Data;
 using NUnit.Framework;
+using UnityEngine;
+using ChunkSize = UnityEngine.Vector2Int;
 
 namespace CodeSmile.Tests.Editor.ProTiler.Data
 {
@@ -9,7 +12,13 @@ namespace CodeSmile.Tests.Editor.ProTiler.Data
 	{
 		[Test] public void CreateTilemap3DChunkIsNotNull()
 		{
-			//Assert.That(new Tilemap3DChunk() != null);
+			CreateChunk(5, 5);
+			//Assert.That();
+		}
+
+		private static void CreateChunk(int width, int height)
+		{
+			var chunk = new Tilemap3DChunk(new ChunkSize(width, height));
 		}
 	}
 }

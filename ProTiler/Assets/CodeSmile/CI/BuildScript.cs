@@ -76,21 +76,27 @@ namespace CodeSmile.CI
 					PlayerSettings.SetScriptingBackend(NamedBuildTarget.Standalone, ScriptingImplementation.Mono2x);
 					break;
 				case BuildTarget.WebGL:
-					PlayerSettings.SetUseDefaultGraphicsAPIs(buildTarget, false);
-					var apis = PlayerSettings.GetGraphicsAPIs(buildTarget);
-					for (var index = 0; index < apis.Length; index++)
-					{
-						var api = apis[index];
-						Debug.Log($"WEBGL API for index #{index} is '{api}'");
-					}
-					var lastApi = apis.LastOrDefault();
-					Debug.Log($"USING this API: {lastApi}");
-					PlayerSettings.SetGraphicsAPIs(buildTarget, new[] { lastApi });
+
+					ForceWebGLGraphicsApiToWebGLv2(buildTarget);
 					break;
 			}
 
 			// Custom build
 			Build(buildTarget, options["customBuildPath"], options);
+		}
+
+		/// <summary>
+		/// Since Unity 2023 deprecated AND removed WebGL v1 it will not write the Graphics API settings to
+		/// PlayerSettings.asset anymore *at all*. This leads to the odd situation where opening the project in
+		/// Unity 2023 will subsequently cause Unity 2021/2022 to assume that one wants to use the "default"
+		/// graphics API - thus switching it to WebGL v1. But this will not compile because the Color Space
+		/// is set to Linear. Therefore we manually force the use of WebGL v2 (OpenGLES3) for builds.
+		/// </summary>
+		/// <param name="buildTarget"></param>
+		private static void ForceWebGLGraphicsApiToWebGLv2(BuildTarget buildTarget)
+		{
+			PlayerSettings.SetUseDefaultGraphicsAPIs(buildTarget, false);
+			PlayerSettings.SetGraphicsAPIs(buildTarget, new[] { GraphicsDeviceType.OpenGLES3 });
 		}
 
 		private static Dictionary<string, string> GetValidatedOptions()

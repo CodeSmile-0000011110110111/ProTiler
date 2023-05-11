@@ -149,21 +149,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6d3672331d24e34a8b139fbaa5b22cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_New: 0
-  m_Save: 0
-  m_Load: 0
-  m_SaveAndLoad: 0
-  m_Format: 0
-  m_BinaryCopyStrategy: 1
-  m_Json: '{}'
-  m_Binary: 
-  m_Data:
-    IntValue: -1234
-    FloatValue: -1.23456
-    DoubleValue: -10.0123456789
-    BoolValue: 1
-    IntArray: 0100000017000000c8010000d21e0000
-    IntList: ffffffffe9ffffff38feffff2ee1ffff
 --- !u!4 &335623267
 Transform:
   m_ObjectHideFlags: 0
@@ -365,3 +350,48 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &1278018795
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1278018797}
+  - component: {fileID: 1278018796}
+  m_Layer: 0
+  m_Name: LogGraphicsApi
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1278018796
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1278018795}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9269fff54c1f4f2c856f1be6de7ae4a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_BuildTarget: 20
+--- !u!4 &1278018797
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1278018795}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

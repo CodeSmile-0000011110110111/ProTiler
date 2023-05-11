@@ -56,9 +56,9 @@ namespace CodeSmile.ProTiler.Data
 			m_Tiles = capacity > 0 ? new Tile3D[capacity] : null;
 		}
 
-		public void SetTiles(Tile3DCoord[] tileCoordDatas, int width)
+		public void SetTiles(Tile3DCoord[] tileCoords, int width)
 		{
-			foreach (var coordData in tileCoordDatas)
+			foreach (var coordData in tileCoords)
 				this[Grid3DUtility.ToIndex2D(coordData.Coord.x, coordData.Coord.z, width)] = coordData.Tile;
 		}
 
