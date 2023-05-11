@@ -20,7 +20,7 @@ namespace CodeSmile.Tests.ProTiler.Editor.Data
 
 			Debug.Log($"Size of Tile3DLayer: {sizeInBytes} bytes");
 
-			Assert.That(sizeInBytes == 16);
+			Assert.That(sizeInBytes == 8);
 		}
 
 		[Test] public void AssertThatJsonDidNotChangeUnintentionally()
@@ -28,11 +28,10 @@ namespace CodeSmile.Tests.ProTiler.Editor.Data
 			var tiles = CreateLayer(1, 2);
 
 			var json = JsonSerialization.ToJson(tiles);
+			Debug.Log($"ToJson() => {json.Length} bytes:");
 			Debug.Log(json);
-			Debug.Log($"({json.Length} bytes)");
 
-			Assert.That(json, Is.EqualTo("{\n    \"m_Size\": {\n        \"x\": 1,\n        \"y\": 2\n    },\n    \"m_Tiles\": [\n        {\n            \"Index\": 0,\n            \"Flags\": 0\n        },\n        {\n            \"Index\": 0,\n            \"Flags\": 0\n        }\n    ]\n}"));
-			Assert.That(json.Length, Is.EqualTo(215));
+			Assert.That(json.Length, Is.EqualTo(161));
 		}
 
 		[Test] public void AssertThatMinifiedJsonDidNotChangeUnintentionally()
@@ -41,11 +40,11 @@ namespace CodeSmile.Tests.ProTiler.Editor.Data
 
 			var json = JsonSerialization.ToJson(tiles,
 				new JsonSerializationParameters { Minified = true, Simplified = true });
+			Debug.Log($"ToJson() (minified) => {json.Length} bytes:");
 			Debug.Log(json);
-			Debug.Log($"({json.Length} bytes)");
 
-			Assert.That(json, Is.EqualTo("{m_Size={x=1 y=2} m_Tiles=[{Index=0 Flags=0} {Index=0 Flags=0}]}"));
-			Assert.That(json.Length, Is.EqualTo(64));
+			Assert.That(json, Is.EqualTo("{m_Tiles=[{Index=0 Flags=0} {Index=0 Flags=0}]}"));
+			Assert.That(json.Length, Is.EqualTo(47));
 		}
 
 		[Test] public void CreateCollection()
