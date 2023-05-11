@@ -7,7 +7,7 @@ using NUnit.Framework;
 using System;
 using UnityEngine;
 
-namespace CodeSmile.Tests.Editor
+namespace CodeSmile.Tests.Core.Editor
 {
 	[TestFixture(TestOf = typeof(ComponentPool<>))]
 	public class ComponentPoolTests

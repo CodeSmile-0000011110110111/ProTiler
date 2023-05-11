@@ -5,7 +5,7 @@ using CodeSmile.Tests.Tools.Attributes;
 using NUnit.Framework;
 using UnityEngine;
 
-namespace CodeSmile.Tests.Editor.TestTools
+namespace CodeSmile.Tests.Core.Editor.TestTools
 {
 	public class CreateGameObjectAttributeTests
 	{

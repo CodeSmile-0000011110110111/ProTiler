@@ -5,7 +5,7 @@ using CodeSmile.Extensions;
 using NUnit.Framework;
 using UnityEngine;
 
-namespace CodeSmile.Tests.Editor.Extensions
+namespace CodeSmile.Tests.Core.Editor.Extensions
 {
 	public class RectIntExtTests
 	{

@@ -8,7 +8,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.TestTools;
 
-namespace CodeSmile.Tests
+namespace CodeSmile.Tests.Core.Runtime
 {
 	public class ObjectExtTests
 	{

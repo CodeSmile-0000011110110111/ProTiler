@@ -3,7 +3,7 @@
 
 using NUnit.Framework;
 
-namespace CodeSmile.ProTiler.Tests.Runtime
+namespace CodeSmile.Tests.ProTiler.Runtime
 {
 	public class DummyRuntimeTest
 	{

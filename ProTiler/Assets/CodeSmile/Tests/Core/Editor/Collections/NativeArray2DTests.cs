@@ -6,7 +6,7 @@ using NUnit.Framework;
 using System.Collections;
 using Unity.Collections;
 
-namespace CodeSmile.Tests.Editor.Collections
+namespace CodeSmile.Tests.Core.Editor.Collections
 {
     /// <summary>
     ///     Unit tests for <see cref="NativeArray2D{T}" /> and

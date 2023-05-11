@@ -1,16 +1,14 @@
 {
-    "name": "CodeSmile.Tests.Editor",
+    "name": "CodeSmile.Tests.Core.Runtime",
     "rootNamespace": "",
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
         "CodeSmile",
-        "CodeSmile.Editor",
+        "CodeSmile.ProTiler",
         "CodeSmile.Tests.Tools"
     ],
-    "includePlatforms": [
-        "Editor"
-    ],
+    "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": true,

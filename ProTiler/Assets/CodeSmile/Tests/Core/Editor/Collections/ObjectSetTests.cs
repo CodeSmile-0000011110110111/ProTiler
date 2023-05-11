@@ -7,7 +7,7 @@ using NUnit.Framework;
 using System;
 using UnityEngine;
 
-namespace CodeSmile.Tests.Editor.Collections
+namespace CodeSmile.Tests.Core.Editor.Collections
 {
 	public class ObjectSetTests
 	{
