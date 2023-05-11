@@ -6,6 +6,6 @@ using System;
 namespace CodeSmile.ProTiler.Data
 {
 #if !UNITY_PROPERTIES_EXISTS
-	class CreatePropertyAttribute : Attribute { }
+	internal class CreatePropertyAttribute : Attribute {}
 #endif
 }
