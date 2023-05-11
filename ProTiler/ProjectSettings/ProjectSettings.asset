@@ -876,7 +876,7 @@ PlayerSettings:
   webGLPowerPreference: 2
   scriptingDefineSymbols:
     Standalone: CODE_ANALYSIS
-    WebGL: CODE_ANALYSIS;XXXENABLE_ASSET_PROCESS_LOGGING;UNITY_PROPERTIES_EXISTS
+    WebGL: CODE_ANALYSIS;UNITY_PROPERTIES_EXISTS;XXXENABLE_ASSET_PROCESS_LOGGING
   additionalCompilerArguments:
     WebGL: []
   platformArchitecture: {}
