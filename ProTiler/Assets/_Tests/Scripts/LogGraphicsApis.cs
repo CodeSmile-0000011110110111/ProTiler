@@ -9,11 +9,10 @@ namespace _Tests.Scripts
 {
 	public class LogGraphicsApis : MonoBehaviour
 	{
-		[SerializeField] private BuildTarget m_BuildTarget;
 		private void OnValidate()
 		{
 			#if UNITY_EDITOR
-			var apis = PlayerSettings.GetGraphicsAPIs(m_BuildTarget);
+			var apis = PlayerSettings.GetGraphicsAPIs(BuildTarget.WebGL);
 			for (var index = 0; index < apis.Length; index++)
 			{
 				var api = apis[index];
