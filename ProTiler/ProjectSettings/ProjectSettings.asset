@@ -875,8 +875,8 @@ PlayerSettings:
   webGLMemoryGeometricGrowthCap: 48
   webGLPowerPreference: 2
   scriptingDefineSymbols:
-    Standalone: CODE_ANALYSIS
-    WebGL: CODE_ANALYSIS;UNITY_PROPERTIES_EXISTS;XXXENABLE_ASSET_PROCESS_LOGGING
+    Standalone: CODE_ANALYSIS;UNITY_PROPERTIES_EXISTS
+    WebGL: CODE_ANALYSIS;UNITY_PROPERTIES_EXISTS
   additionalCompilerArguments:
     WebGL: []
   platformArchitecture: {}
@@ -903,7 +903,7 @@ PlayerSettings:
   suppressCommonWarnings: 1
   allowUnsafeCode: 0
   useDeterministicCompilation: 1
-  selectedPlatform: 1
+  selectedPlatform: 0
   additionalIl2CppArgs: 
   scriptingRuntimeVersion: 1
   gcIncremental: 1
