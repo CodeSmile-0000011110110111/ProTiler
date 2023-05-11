@@ -14,41 +14,12 @@ namespace CodeSmile.Tests.Editor.ProTiler.Data
 {
 	public class Tile3DLayerTests
 	{
-		private static void SetAllTilesWithIncrementingIndex(ref Tile3DLayer tiles, int width, int height)
-		{
-			for (var i = 0; i < width * height; i++)
-				tiles[i] = new Tile3D((short)(i + 1));
-		}
-
-		private static Tile3DCoord[] CreateTileCoordsWithIncrementingIndex(int width, int height)
-		{
-			var coordDataCount = width * height;
-			var tileCoordDatas = new Tile3DCoord[coordDataCount];
-			for (var x = 0; x < width; x++)
-			{
-				for (var y = 0; y < height; y++)
-				{
-					var coord = new GridCoord(x, 0, y);
-					var index = Grid3DUtility.ToIndex2D(x, y, width);
-					tileCoordDatas[index] = new Tile3DCoord(coord, new Tile3D((short)(index + 1)));
-				}
-			}
-			return tileCoordDatas;
-		}
-
-		private static void AssertThatAllTilesHaveIncrementingIndex(int width, int height, Tile3DLayer tiles)
-		{
-			for (var i = 0; i < width * height; i++)
-				Assert.That(tiles[i].Index, Is.EqualTo((short)(i + 1)));
-		}
-
 		private Tile3DLayer CreateLayer(int width, int height) => new(new LayerSize(width, height));
 
 		[Test] public void AssertThatSizeDidNotChangeUnintentionally()
 		{
 			var sizeInBytes = Marshal.SizeOf(typeof(Tile3DLayer));
-
-			Debug.Log($"Size of Tile3DLayer type: {sizeInBytes} bytes");
+			Debug.Log($"Size of {nameof(Tile3DLayer)} type: {sizeInBytes} bytes");
 
 			Assert.That(sizeInBytes == 8);
 		}
@@ -88,7 +59,7 @@ namespace CodeSmile.Tests.Editor.ProTiler.Data
 		{
 			var tiles = CreateLayer(width, height);
 
-			Assert.That(tiles.Count, Is.EqualTo(0));
+			Assert.That(tiles.TileCount, Is.EqualTo(0));
 		}
 
 		[TestCase(0, 0)] [TestCase(1, 0)] [TestCase(0, 1)]
@@ -112,7 +83,7 @@ namespace CodeSmile.Tests.Editor.ProTiler.Data
 		{
 			var tiles = CreateLayer(width, height);
 
-			Assert.That(tiles.Count, Is.EqualTo(0));
+			Assert.That(tiles.TileCount, Is.EqualTo(0));
 		}
 
 		[TestCase(0, 1)] [TestCase(1, 1)] [TestCase(13, 17)]
@@ -160,7 +131,7 @@ namespace CodeSmile.Tests.Editor.ProTiler.Data
 
 			tiles[0] = new Tile3D();
 
-			Assert.That(tiles.Count == 0);
+			Assert.That(tiles.TileCount == 0);
 		}
 
 		[TestCase(3, 2)]
@@ -171,7 +142,7 @@ namespace CodeSmile.Tests.Editor.ProTiler.Data
 			var tileIndex = (short)9;
 			tiles[0] = new Tile3D(tileIndex);
 
-			Assert.That(tiles.Count == 1);
+			Assert.That(tiles.TileCount == 1);
 			Assert.That(tiles[0].Index == tileIndex);
 		}
 
@@ -180,9 +151,9 @@ namespace CodeSmile.Tests.Editor.ProTiler.Data
 		{
 			var tiles = CreateLayer(width, height);
 
-			SetAllTilesWithIncrementingIndex(ref tiles, width, height);
+			Tile3DTestUtility.SetAllTilesWithIncrementingIndex(ref tiles, width, height);
 
-			Assert.That(tiles.Count, Is.EqualTo(tiles.Capacity));
+			Assert.That(tiles.TileCount, Is.EqualTo(tiles.Capacity));
 		}
 
 		[TestCase(4, 7)]
@@ -190,21 +161,21 @@ namespace CodeSmile.Tests.Editor.ProTiler.Data
 		{
 			var tiles = CreateLayer(width, height);
 
-			SetAllTilesWithIncrementingIndex(ref tiles, width, height);
+			Tile3DTestUtility.SetAllTilesWithIncrementingIndex(ref tiles, width, height);
 
-			AssertThatAllTilesHaveIncrementingIndex(width, height, tiles);
+			Tile3DTestUtility.AssertThatAllTilesHaveIncrementingIndex(width, height, tiles);
 		}
 
 		[TestCase(7, 4)]
 		public void SetAllTilesWithCoordData(int width, int height)
 		{
 			var tiles = CreateLayer(width, height);
-			var tileCoords = CreateTileCoordsWithIncrementingIndex(width, height);
+			var tileCoords = Tile3DTestUtility.CreateTileCoordsWithIncrementingIndex(width, height);
 
 			tiles.SetTiles(tileCoords, width);
 
-			Assert.That(tiles.Count == width * height);
-			AssertThatAllTilesHaveIncrementingIndex(width, height, tiles);
+			Assert.That(tiles.TileCount == width * height);
+			Tile3DTestUtility.AssertThatAllTilesHaveIncrementingIndex(width, height, tiles);
 		}
 	}
 }

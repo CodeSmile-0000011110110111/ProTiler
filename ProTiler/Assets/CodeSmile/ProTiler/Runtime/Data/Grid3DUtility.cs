@@ -12,7 +12,7 @@ namespace CodeSmile.ProTiler.Data
 	public static class Grid3DUtility
 	{
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static int ToIndex2D(int x, int y, int width) => y * width + x;
+		public static int ToIndex2D(int x, int z, int width) => z * width + x;
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static int ToIndex2D(GridCoord coord, int width) => coord.z * width + coord.x;

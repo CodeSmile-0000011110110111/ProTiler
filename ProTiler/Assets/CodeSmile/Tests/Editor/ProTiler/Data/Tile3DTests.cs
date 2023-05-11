@@ -14,7 +14,7 @@ namespace CodeSmile.Tests.Editor.ProTiler.Data
 		[Test] public void AssertThatSizeDidNotChangeUnintentionally()
 		{
 			var sizeInBytes = Marshal.SizeOf(typeof(Tile3D));
-			Debug.Log($"Size of Tile3D: {sizeInBytes} bytes");
+			Debug.Log($"Size of {nameof(Tile3D)}: {sizeInBytes} bytes");
 
 			Assert.That(sizeInBytes, Is.EqualTo(4));
 		}

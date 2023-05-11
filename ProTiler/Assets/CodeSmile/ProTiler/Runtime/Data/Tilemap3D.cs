@@ -35,7 +35,7 @@ namespace CodeSmile.ProTiler.Data
 				foreach (var layers in m_Chunks.Values)
 				{
 					foreach (var layer in layers.Values)
-						m_Count += layer.Count;
+						m_Count += layer.TileCount;
 				}
 				return m_Count;
 			}
