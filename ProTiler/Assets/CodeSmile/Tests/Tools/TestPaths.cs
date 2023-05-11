@@ -5,7 +5,7 @@ namespace CodeSmile.Tests.Tools
 {
 	public static class TestPaths
 	{
-		public const string TestAssets = "Assets/CodeSmile/Tests/Core/Assets/";
+		public const string TestAssets = "Assets/CodeSmile/Tests/Assets/";
 		public const string TempTestAssets = TestAssets + "Temp/";
 		public const string TestPrefabFile = TestAssets + "TestPrefab.prefab";
 

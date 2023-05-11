@@ -8,7 +8,7 @@ using System.Runtime.CompilerServices;
 // This assembly is required to be fully covered by tests
 [assembly: FullCovered]
 
-[assembly: InternalsVisibleTo("CodeSmile.Tests.ProTiler.Editor")]
+[assembly: InternalsVisibleTo("CodeSmile.Tests.Editor.ProTiler")]
 
 // ********************************************************************************
 // NDepend: Suppressed Messages
