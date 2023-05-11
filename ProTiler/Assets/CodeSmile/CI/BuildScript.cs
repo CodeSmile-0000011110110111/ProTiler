@@ -9,6 +9,7 @@ using UnityEditor;
 using UnityEditor.Build;
 using UnityEditor.Build.Reporting;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 namespace CodeSmile.CI
 {
@@ -73,6 +74,18 @@ namespace CodeSmile.CI
 				}
 				case BuildTarget.StandaloneOSX:
 					PlayerSettings.SetScriptingBackend(NamedBuildTarget.Standalone, ScriptingImplementation.Mono2x);
+					break;
+				case BuildTarget.WebGL:
+					PlayerSettings.SetUseDefaultGraphicsAPIs(buildTarget, false);
+					var apis = PlayerSettings.GetGraphicsAPIs(buildTarget);
+					for (var index = 0; index < apis.Length; index++)
+					{
+						var api = apis[index];
+						Debug.Log($"WEBGL API for index #{index} is '{api}'");
+					}
+					var lastApi = apis.LastOrDefault();
+					Debug.Log($"USING this API: {lastApi}");
+					PlayerSettings.SetGraphicsAPIs(buildTarget, new[] { lastApi });
 					break;
 			}
 
@@ -162,7 +175,8 @@ namespace CodeSmile.CI
 #if UNITY_2021_2_OR_NEWER
 			// Determine subtarget
 			StandaloneBuildSubtarget buildSubtarget;
-			if (!options.TryGetValue("standaloneBuildSubtarget", out var subtargetValue) || !Enum.TryParse(subtargetValue, out buildSubtarget))
+			if (!options.TryGetValue("standaloneBuildSubtarget", out var subtargetValue) ||
+			    !Enum.TryParse(subtargetValue, out buildSubtarget))
 				buildSubtarget = default;
 #endif
 			var scenes = EditorBuildSettings.scenes.Where(scene => scene.enabled).Select(s => s.path).ToArray();
