@@ -28,19 +28,33 @@ namespace CodeSmile.ProTiler.Data
 		{
 			get
 			{
+				if (IsInitialized == false)
+					return 0;
+
 				var count = 0;
-				foreach (var tileData in m_Tiles)
-				{
-					if (tileData.IsEmpty == false)
-						count++;
-				}
+				for (var index = 0; index < m_Tiles.Length; index++)
+					count += m_Tiles[index].IsEmpty ? 0 : 1;
 				return count;
 			}
 		}
 
-		public int Capacity => m_Tiles.Length;
+		public int Capacity => IsInitialized ? m_Tiles.Length : 0;
+		public bool IsInitialized => m_Tiles != null;
 
-		public Tile3DLayer(LayerSize size) => m_Tiles = new Tile3D[size.x * size.y];
+		public Tile3DLayer(LayerSize size)
+		{
+			m_Tiles = null;
+			AllocateTilesBuffer(size);
+		}
+
+		private void AllocateTilesBuffer(LayerSize size)
+		{
+			if (size.x < 0 || size.y < 0)
+				throw new ArgumentException($"negative size is not allowed: {size}");
+
+			var capacity = size.x * size.y;
+			m_Tiles = capacity > 0 ? new Tile3D[capacity] : null;
+		}
 
 		public void SetTiles(Tile3DCoord[] tileCoordDatas, int width)
 		{
@@ -50,5 +64,7 @@ namespace CodeSmile.ProTiler.Data
 
 		[ExcludeFromCodeCoverage]
 		public override string ToString() => $"{nameof(Tile3DLayer)}(Capacity: {Capacity}, Non-Empty: {Count})";
+
+		public void Resize(LayerSize size) => AllocateTilesBuffer(size);
 	}
 }

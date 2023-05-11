@@ -3,6 +3,7 @@
 
 using CodeSmile.ProTiler.Data;
 using NUnit.Framework;
+using System;
 using System.Runtime.InteropServices;
 using Unity.Serialization.Json;
 using UnityEngine;
@@ -17,7 +18,7 @@ namespace CodeSmile.Tests.Editor.ProTiler.Data
 		{
 			var sizeInBytes = Marshal.SizeOf(typeof(Tile3DLayer));
 
-			Debug.Log($"Size of Tile3DLayer: {sizeInBytes} bytes");
+			Debug.Log($"Size of Tile3DLayer type: {sizeInBytes} bytes");
 
 			Assert.That(sizeInBytes == 8);
 		}
@@ -46,14 +47,80 @@ namespace CodeSmile.Tests.Editor.ProTiler.Data
 			Assert.That(json.Length, Is.EqualTo(47));
 		}
 
-		[Test] public void CreateCollection()
+		[TestCase(-1, 0)] [TestCase(0, -1)]
+		public void NegativeSizeThrows(int width, int height) => Assert.Throws<ArgumentException>(() =>
 		{
-			var width = 10;
-			var height = 20;
+			new Tile3DLayer(new Vector2Int(width, height));
+		});
+
+		[TestCase(0, 0)]
+		public void ZeroSizedLayerIsAllowed(int width, int height)
+		{
 			var tiles = CreateLayer(width, height);
 
-			Assert.That(tiles.Capacity == width * height);
-			Assert.That(tiles.Count == 0);
+			Assert.That(tiles.Count, Is.EqualTo(0));
+		}
+
+		[TestCase(0, 0)] [TestCase(1, 0)] [TestCase(0, 1)]
+		public void ZeroSizedLayerIsConsideredUninitialized(int width, int height)
+		{
+			var tiles = CreateLayer(width, height);
+
+			Assert.That(tiles.IsInitialized == false);
+		}
+
+		[TestCase(1, 1)]
+		public void NonZeroSizedLayerIsConsideredInitialized(int width, int height)
+		{
+			var tiles = CreateLayer(width, height);
+
+			Assert.That(tiles.IsInitialized);
+		}
+
+		[TestCase(5, 9)]
+		public void LayerIsInitiallyEmpty(int width, int height)
+		{
+			var tiles = CreateLayer(width, height);
+
+			Assert.That(tiles.Count, Is.EqualTo(0));
+		}
+
+		[TestCase(0, 1)] [TestCase(1, 1)] [TestCase(13, 17)]
+		public void LayerCapacityMatchesSize(int width, int height)
+		{
+			var tiles = CreateLayer(width, height);
+
+			Assert.That(tiles.Capacity, Is.EqualTo(width * height));
+		}
+
+		[TestCase(0, 0)] [TestCase(2, 2)]
+		public void ResizeLayerMatchesCapacity(int width, int height)
+		{
+			var tiles = CreateLayer(width, height);
+
+			var newSize = 8;
+			tiles.Resize(new Vector2Int(newSize, newSize));
+
+			Assert.That(tiles.Capacity, Is.EqualTo(newSize * newSize));
+		}
+
+		[TestCase(0, 0)] [TestCase(0, 1)] [TestCase(1, 0)]
+		public void ResizeLayerWithZeroSizeMakesLayerUninitialized(int width, int height)
+		{
+			var tiles = CreateLayer(3, 3);
+
+			tiles.Resize(new Vector2Int(width, height));
+
+			Assert.That(tiles.IsInitialized == false);
+		}
+
+		[TestCase(4, 4)]
+		public void ResizeLayerWithNegativeSizeThrows(int width, int height)
+		{
+			var tiles = CreateLayer(width, height);
+
+			Assert.Throws<ArgumentException>(() => { tiles.Resize(new Vector2Int(-1, 0)); });
+			Assert.Throws<ArgumentException>(() => { tiles.Resize(new Vector2Int(0, -1)); });
 		}
 
 		[Test]
@@ -110,7 +177,6 @@ namespace CodeSmile.Tests.Editor.ProTiler.Data
 			Assert.That(tiles.Count == 1);
 			Assert.That(tiles[lastIndex].Index == tileIndex);
 		}
-
 
 		/*
 		[Test]
