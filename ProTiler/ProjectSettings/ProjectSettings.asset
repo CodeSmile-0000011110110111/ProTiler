@@ -249,7 +249,7 @@ PlayerSettings:
   useCustomGradlePropertiesTemplate: 0
   useCustomGradleSettingsTemplate: 0
   useCustomProguardFile: 0
-  AndroidTargetArchitectures: 1
+  AndroidTargetArchitectures: 15
   AndroidTargetDevices: 0
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
@@ -875,9 +875,15 @@ PlayerSettings:
   webGLMemoryGeometricGrowthCap: 48
   webGLPowerPreference: 2
   scriptingDefineSymbols:
+    Android: UNITY_PROPERTIES_EXISTS
+    Server: UNITY_PROPERTIES_EXISTS
     Standalone: CODE_ANALYSIS;UNITY_PROPERTIES_EXISTS
     WebGL: CODE_ANALYSIS;UNITY_PROPERTIES_EXISTS
+    Windows Store Apps: UNITY_PROPERTIES_EXISTS
+    iPhone: UNITY_PROPERTIES_EXISTS
+    tvOS: UNITY_PROPERTIES_EXISTS
   additionalCompilerArguments:
+    Android: []
     WebGL: []
   platformArchitecture: {}
   scriptingBackend:
@@ -903,7 +909,7 @@ PlayerSettings:
   suppressCommonWarnings: 1
   allowUnsafeCode: 0
   useDeterministicCompilation: 1
-  selectedPlatform: 0
+  selectedPlatform: 6
   additionalIl2CppArgs: 
   scriptingRuntimeVersion: 1
   gcIncremental: 1
