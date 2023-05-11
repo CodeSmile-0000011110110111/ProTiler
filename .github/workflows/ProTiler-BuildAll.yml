@@ -91,7 +91,7 @@ jobs:
           versioning: Semantic
           buildName: ${{ matrix.projectPath }}-${{ matrix.targetPlatform }}-${{ matrix.unityVersion }}
           buildsPath: build/${{ matrix.projectPath }}-${{ matrix.unityVersion }}
-          #buildMethod: CodeSmile.Editor.CI.BuildScript.Build
+          buildMethod: CodeSmile.CI.BuildScript.Build
       
       # Output
       - name: Create Output for ${{ matrix.targetPlatform }}
