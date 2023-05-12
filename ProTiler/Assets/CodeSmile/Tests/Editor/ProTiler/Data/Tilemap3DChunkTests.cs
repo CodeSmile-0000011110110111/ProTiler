@@ -7,6 +7,7 @@ using System.Runtime.InteropServices;
 using Unity.Serialization.Json;
 using UnityEngine;
 using ChunkSize = UnityEngine.Vector2Int;
+using GridCoord = UnityEngine.Vector3Int;
 
 namespace CodeSmile.Tests.Editor.ProTiler.Data
 {
@@ -60,6 +61,15 @@ namespace CodeSmile.Tests.Editor.ProTiler.Data
 			Assert.That(chunk.LayerCount, Is.EqualTo(0));
 		}
 
+		[TestCase(3,  2)]
+		[TestCase(4,  5)]
+		public void NewTilemap3DChunkSizeMatches(int width, int length)
+		{
+			var chunk = CreateChunk(width, length);
+
+			Assert.That(chunk.Size, Is.EqualTo(new ChunkSize(width, length)));
+		}
+
 		[TestCase(2, 0, 2)]
 		[TestCase(4, 1, 5)]
 		[TestCase(9, 7, 7)]
@@ -90,16 +100,59 @@ namespace CodeSmile.Tests.Editor.ProTiler.Data
 		}
 
 		[TestCase(4, 7)]
-		public void SetAllTiles(int width, int height)
+		public void SetAllTilesOnOneLayerReturnsAllTiles(int width, int length)
 		{
-			var chunk = CreateChunk(width, height);
-			var tileCoords = Tile3DTestUtility.CreateTileCoordsWithIncrementingIndex(width, height);
+			var chunk = CreateChunk(width, length);
+			var tileCoords = Tile3DTestUtility.CreateTileCoordsWithIncrementingIndex(width, length);
 
 			chunk.SetTiles(tileCoords);
 
-			Tile3DTestUtility.AssertThatAllTilesHaveIncrementingIndex(width, height, chunk[0]);
-
 			Assert.That(chunk.LayerCount, Is.EqualTo(1));
+			Assert.That(chunk.TileCount, Is.EqualTo(width*length));
+			Tile3DTestUtility.AssertThatAllTilesHaveIncrementingIndex(width, length, chunk[0]);
+		}
+
+		[TestCase(3, 9, 3)]
+		public void SetAllTilesAcrossLayersReturnsAllTiles(int width, int height, int length)
+		{
+			var chunk = CreateChunk(width, length);
+			var tileCoords = Tile3DTestUtility.CreateTileCoordsWithIncrementingIndexAcrossLayers(width, height, length);
+
+			chunk.SetTiles(tileCoords);
+
+			Assert.That(chunk.LayerCount, Is.EqualTo(height));
+			Assert.That(chunk.TileCount, Is.EqualTo(width*length*height));
+			for (var y = 0; y < height; y++)
+				Tile3DTestUtility.AssertThatAllTilesHaveIncrementingIndex(width, length, chunk[y]);
+		}
+
+		[TestCase(3, 4, 5)]
+		public void GetTileFromEmptyChunkShouldReturnEmptyTile(int x, int y, int z)
+		{
+			var chunk = CreateChunk(x, z);
+
+			var coords = Tile3DTestUtility.CreateOneTileCoord(x, y, z).ToCoordArray();
+			var gotTileCoords = chunk.GetTiles(coords);
+
+			Assert.That(gotTileCoords.Length, Is.EqualTo(coords.Length));
+			Assert.That(gotTileCoords[0].Tile.IsEmpty);
+		}
+
+		[TestCase(3, 4, 5)]
+		public void SetAndGetTilesAcrossLayersAreEqual(int width, int height, int length)
+		{
+			var chunk = CreateChunk(width, length);
+			var tileCoords = Tile3DTestUtility.CreateTileCoordsWithIncrementingIndexAcrossLayers(width, height, length);
+			chunk.SetTiles(tileCoords);
+
+			var gotTileCoords = chunk.GetTiles(tileCoords.ToCoordArray());
+
+			Assert.That(gotTileCoords.Length, Is.EqualTo(tileCoords.Length));
+			for (var i = 0; i < gotTileCoords.Length; i++)
+			{
+				Assert.That(gotTileCoords[i].Coord, Is.EqualTo(tileCoords[i].Coord));
+				Assert.That(gotTileCoords[i].Tile, Is.EqualTo(tileCoords[i].Tile));
+			}
 		}
 	}
 }

@@ -17,7 +17,7 @@ namespace CodeSmile.ProTiler.Behaviours
 	{
 		//[SerializeField] private Vector3 m_TileAnchor;
 		[SerializeField] private Vector2Int m_ChunkSize = new(16, 16);
-		[SerializeField] private Tilemap3D m_Chunks;
+		[SerializeField] private _OldTilemap3D m_Chunks;
 
 		private Vector2Int m_CurrentChunkSize;
 
@@ -34,7 +34,7 @@ namespace CodeSmile.ProTiler.Behaviours
 			get => m_ChunkSize;
 			set => SetChunkSize(value);
 		}
-		public Tilemap3D Chunks => m_Chunks;
+		public _OldTilemap3D Chunks => m_Chunks;
 
 		public Grid3DBehaviour Grid => transform.parent.GetComponent<Grid3DBehaviour>();
 
@@ -57,7 +57,7 @@ namespace CodeSmile.ProTiler.Behaviours
 
 		private void SetChunkSize(Vector2Int chunkSize)
 		{
-			Tilemap3D.ClampChunkSize(ref chunkSize);
+			_OldTilemap3D.ClampChunkSize(ref chunkSize);
 			if (chunkSize != m_CurrentChunkSize)
 			{
 				m_ChunkSize = m_CurrentChunkSize = chunkSize;
@@ -71,7 +71,7 @@ namespace CodeSmile.ProTiler.Behaviours
 		{
 			if (m_Chunks == null)
 			{
-				m_Chunks = new Tilemap3D(m_ChunkSize);
+				m_Chunks = new _OldTilemap3D(m_ChunkSize);
 				m_CurrentChunkSize = m_ChunkSize;
 			}
 		}

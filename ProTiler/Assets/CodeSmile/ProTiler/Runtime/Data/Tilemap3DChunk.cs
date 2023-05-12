@@ -10,8 +10,16 @@ using GridCoord = UnityEngine.Vector3Int;
 
 namespace CodeSmile.ProTiler.Data
 {
+	/// <summary>
+	///     A collection of Tile3DLayer instances.
+	/// </summary>
+	[Serializable]
 	public class Tile3DLayerCollection : List<Tile3DLayer> {}
 
+	/// <summary>
+	///     A chunk is one part of a larger tilemap at a given position offset.
+	///     It contains one or more height layers of the same size.
+	/// </summary>
 	[Serializable]
 	[StructLayout(LayoutKind.Sequential)]
 	public struct Tilemap3DChunk
@@ -24,14 +32,16 @@ namespace CodeSmile.ProTiler.Data
 		///     Caution: No bounds check is performed.
 		/// </summary>
 		/// <param name="layerIndex"></param>
-		public Tile3DLayer this[int layerIndex]
-		{
-			get => m_Layers[layerIndex];
-			set => m_Layers[layerIndex] = value;
-		}
+		internal Tile3DLayer this[int layerIndex] => m_Layers[layerIndex];
 
+		/// <summary>
+		///     The size (width, length) of the chunk.
+		/// </summary>
 		public ChunkSize Size => m_Size;
 
+		/// <summary>
+		///     The number of non-empty height layers in this chunk.
+		/// </summary>
 		public int LayerCount
 		{
 			get
@@ -43,6 +53,9 @@ namespace CodeSmile.ProTiler.Data
 			}
 		}
 
+		/// <summary>
+		///     The number of non-empty tiles in this chunk's height layers.
+		/// </summary>
 		public int TileCount
 		{
 			get
@@ -54,6 +67,10 @@ namespace CodeSmile.ProTiler.Data
 			}
 		}
 
+		/// <summary>
+		///     Creates a new chunk instance with the given size (width, length).
+		/// </summary>
+		/// <param name="size"></param>
 		public Tilemap3DChunk(ChunkSize size)
 		{
 			m_Size = size;
@@ -61,6 +78,11 @@ namespace CodeSmile.ProTiler.Data
 			m_Layers.Capacity = 1;
 		}
 
+		/// <summary>
+		///     Set tiles in the chunk's layers at the given coordinates.
+		///     Will create additional height layers as needed based on the Y coordinate.
+		/// </summary>
+		/// <param name="tileCoords"></param>
 		public void SetTiles(IEnumerable<Tile3DCoord> tileCoords)
 		{
 			foreach (var coordData in tileCoords)
@@ -72,19 +94,43 @@ namespace CodeSmile.ProTiler.Data
 			}
 		}
 
+		public Tile3DCoord[] GetTiles(GridCoord[] coords)
+		{
+			var tileCoords = new Tile3DCoord[coords.Length];
+			var tileCoordIndex = 0;
+			foreach (var coord in coords)
+			{
+				var layer = GetHeightLayerOrDefault(coord.y);
+				if (layer.IsInitialized)
+				{
+					var tileIndex = ToTileIndex(coord);
+					tileCoords[tileCoordIndex].Coord = coord;
+					tileCoords[tileCoordIndex].Tile = layer[tileIndex];
+					tileCoordIndex++;
+				}
+			}
+			return tileCoords;
+		}
+
 		private Tile3DLayer GetOrCreateHeightLayer(int height)
 		{
-			if (height < m_Layers.Count)
-				return m_Layers[height];
-
 			AddLayersUpToGivenHeight(height);
-			return m_Layers[height];
+			return GetHeightLayer(height);
 		}
+
+		private Tile3DLayer GetHeightLayerOrDefault(int height)
+		{
+			if (height < m_Layers.Count)
+				return GetHeightLayer(height);
+
+			return default;
+		}
+
+		private Tile3DLayer GetHeightLayer(int height) => m_Layers[height];
 
 		private void AddLayersUpToGivenHeight(int height)
 		{
-			var increasedLayerCount = height + 1;
-			for (var i = m_Layers.Count; i < increasedLayerCount; i++)
+			for (var i = m_Layers.Count; i < height + 1; i++)
 				m_Layers.Add(new Tile3DLayer(m_Size));
 		}
 

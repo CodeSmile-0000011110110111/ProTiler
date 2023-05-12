@@ -3,6 +3,7 @@
 
 using CodeSmile.ProTiler.Data;
 using NUnit.Framework;
+using System.Collections.Generic;
 using GridCoord = UnityEngine.Vector3Int;
 
 namespace CodeSmile.Tests.Editor.ProTiler.Data
@@ -15,26 +16,34 @@ namespace CodeSmile.Tests.Editor.ProTiler.Data
 				tiles[i] = new Tile3D((short)(i + 1));
 		}
 
-		public static Tile3DCoord[] CreateTileCoordsWithIncrementingIndex(int width, int length)
+		public static Tile3DCoord[] CreateTileCoordsWithIncrementingIndex(int width, int length, int height = 0)
 		{
 			var coordDataCount = width * length;
 			var tileCoords = new Tile3DCoord[coordDataCount];
 			for (var x = 0; x < width; x++)
 			{
-				for (var y = 0; y < length; y++)
+				for (var z = 0; z < length; z++)
 				{
-					var coord = new GridCoord(x, 0, y);
-					var index = Grid3DUtility.ToIndex2D(x, y, width);
+					var coord = new GridCoord(x, height, z);
+					var index = Grid3DUtility.ToIndex2D(x, z, width);
 					tileCoords[index] = new Tile3DCoord(coord, new Tile3D((short)(index + 1)));
 				}
 			}
 			return tileCoords;
 		}
 
-		public static Tile3DCoord[] CreateOneTileCoord(int width, int height, int length) => new[]
+		public static Tile3DCoord[] CreateTileCoordsWithIncrementingIndexAcrossLayers(int width, int height, int length)
 		{
-			new Tile3DCoord(new GridCoord(width - 1, height, length - 1),
-				new Tile3D((short)(width + height + length))),
+			var tileCoordsLayers = new List<Tile3DCoord>();
+			for (var y = 0; y < height; y++)
+				tileCoordsLayers.AddRange(CreateTileCoordsWithIncrementingIndex(width, length, y));
+			return tileCoordsLayers.ToArray();
+		}
+
+		public static Tile3DCoord[] CreateOneTileCoord(int x, int y, int z) => new[]
+		{
+			new Tile3DCoord(new GridCoord(x - 1, y, z - 1),
+				new Tile3D((short)(x + y + z))),
 		};
 
 		public static void AssertThatAllTilesHaveIncrementingIndex(int width, int length, Tile3DLayer tiles)

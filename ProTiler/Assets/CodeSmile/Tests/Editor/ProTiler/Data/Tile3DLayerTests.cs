@@ -26,9 +26,9 @@ namespace CodeSmile.Tests.Editor.ProTiler.Data
 
 		[Test] public void AssertThatJsonDidNotChangeUnintentionally()
 		{
-			var tiles = CreateLayer(1, 2);
+			var layer = CreateLayer(1, 2);
 
-			var json = JsonSerialization.ToJson(tiles);
+			var json = JsonSerialization.ToJson(layer);
 			Debug.Log($"ToJson() => {json.Length} bytes:");
 			Debug.Log(json);
 
@@ -37,9 +37,9 @@ namespace CodeSmile.Tests.Editor.ProTiler.Data
 
 		[Test] public void AssertThatMinifiedJsonDidNotChangeUnintentionally()
 		{
-			var tiles = CreateLayer(1, 2);
+			var layer = CreateLayer(1, 2);
 
-			var json = JsonSerialization.ToJson(tiles,
+			var json = JsonSerialization.ToJson(layer,
 				new JsonSerializationParameters { Minified = true, Simplified = true });
 			Debug.Log($"ToJson() (minified) => {json.Length} bytes:");
 			Debug.Log(json);
@@ -57,125 +57,125 @@ namespace CodeSmile.Tests.Editor.ProTiler.Data
 		[TestCase(0, 0)]
 		public void ZeroSizedLayerIsAllowed(int width, int height)
 		{
-			var tiles = CreateLayer(width, height);
+			var layer = CreateLayer(width, height);
 
-			Assert.That(tiles.TileCount, Is.EqualTo(0));
+			Assert.That(layer.TileCount, Is.EqualTo(0));
 		}
 
 		[TestCase(0, 0)] [TestCase(1, 0)] [TestCase(0, 1)]
 		public void ZeroSizedLayerIsConsideredUninitialized(int width, int height)
 		{
-			var tiles = CreateLayer(width, height);
+			var layer = CreateLayer(width, height);
 
-			Assert.That(tiles.IsInitialized == false);
+			Assert.That(layer.IsInitialized == false);
 		}
 
 		[TestCase(1, 1)]
 		public void NonZeroSizedLayerIsConsideredInitialized(int width, int height)
 		{
-			var tiles = CreateLayer(width, height);
+			var layer = CreateLayer(width, height);
 
-			Assert.That(tiles.IsInitialized);
+			Assert.That(layer.IsInitialized);
 		}
 
 		[TestCase(5, 9)]
 		public void LayerIsInitiallyEmpty(int width, int height)
 		{
-			var tiles = CreateLayer(width, height);
+			var layer = CreateLayer(width, height);
 
-			Assert.That(tiles.TileCount, Is.EqualTo(0));
+			Assert.That(layer.TileCount, Is.EqualTo(0));
 		}
 
 		[TestCase(0, 1)] [TestCase(1, 1)] [TestCase(13, 17)]
 		public void LayerCapacityMatchesSize(int width, int height)
 		{
-			var tiles = CreateLayer(width, height);
+			var layer = CreateLayer(width, height);
 
-			Assert.That(tiles.Capacity, Is.EqualTo(width * height));
+			Assert.That(layer.Capacity, Is.EqualTo(width * height));
 		}
 
 		[TestCase(0, 0)] [TestCase(2, 2)]
 		public void ResizeLayerMatchesCapacity(int width, int height)
 		{
-			var tiles = CreateLayer(width, height);
+			var layer = CreateLayer(width, height);
 
 			var newSize = 8;
-			tiles.Resize(new LayerSize(newSize, newSize));
+			layer.Resize(new LayerSize(newSize, newSize));
 
-			Assert.That(tiles.Capacity, Is.EqualTo(newSize * newSize));
+			Assert.That(layer.Capacity, Is.EqualTo(newSize * newSize));
 		}
 
 		[TestCase(0, 0)] [TestCase(0, 1)] [TestCase(1, 0)]
 		public void ResizeLayerWithZeroSizeMakesLayerUninitialized(int width, int height)
 		{
-			var tiles = CreateLayer(3, 3);
+			var layer = CreateLayer(3, 3);
 
-			tiles.Resize(new LayerSize(width, height));
+			layer.Resize(new LayerSize(width, height));
 
-			Assert.That(tiles.IsInitialized == false);
+			Assert.That(layer.IsInitialized == false);
 		}
 
 		[TestCase(4, 4)]
 		public void ResizeLayerWithNegativeSizeThrows(int width, int height)
 		{
-			var tiles = CreateLayer(width, height);
+			var layer = CreateLayer(width, height);
 
-			Assert.Throws<ArgumentException>(() => { tiles.Resize(new LayerSize(-1, 0)); });
-			Assert.Throws<ArgumentException>(() => { tiles.Resize(new LayerSize(0, -1)); });
+			Assert.Throws<ArgumentException>(() => { layer.Resize(new LayerSize(-1, 0)); });
+			Assert.Throws<ArgumentException>(() => { layer.Resize(new LayerSize(0, -1)); });
 		}
 
 		[TestCase(5, 3)]
 		public void SetEmptyTileDataDoesNotChangeCount(int width, int height)
 		{
-			var tiles = CreateLayer(width, height);
+			var layer = CreateLayer(width, height);
 
-			tiles[0] = new Tile3D();
+			layer[0] = new Tile3D();
 
-			Assert.That(tiles.TileCount == 0);
+			Assert.That(layer.TileCount == 0);
 		}
 
 		[TestCase(3, 2)]
 		public void SetNonEmptyTileDataIncrementsCount(int width, int height)
 		{
-			var tiles = CreateLayer(width, height);
+			var layer = CreateLayer(width, height);
 
 			var tileIndex = (short)9;
-			tiles[0] = new Tile3D(tileIndex);
+			layer[0] = new Tile3D(tileIndex);
 
-			Assert.That(tiles.TileCount == 1);
-			Assert.That(tiles[0].Index == tileIndex);
+			Assert.That(layer.TileCount == 1);
+			Assert.That(layer[0].Index == tileIndex);
 		}
 
 		[TestCase(3, 3)]
 		public void SetNonEmptyTileDataForEntireLayerHasCountEqualCapacity(int width, int height)
 		{
-			var tiles = CreateLayer(width, height);
+			var layer = CreateLayer(width, height);
 
-			Tile3DTestUtility.SetAllTilesWithIncrementingIndex(ref tiles, width, height);
+			Tile3DTestUtility.SetAllTilesWithIncrementingIndex(ref layer, width, height);
 
-			Assert.That(tiles.TileCount, Is.EqualTo(tiles.Capacity));
+			Assert.That(layer.TileCount, Is.EqualTo(layer.Capacity));
 		}
 
 		[TestCase(4, 7)]
 		public void SetAllTilesReturnTheExpectedTile(int width, int height)
 		{
-			var tiles = CreateLayer(width, height);
+			var layer = CreateLayer(width, height);
 
-			Tile3DTestUtility.SetAllTilesWithIncrementingIndex(ref tiles, width, height);
+			Tile3DTestUtility.SetAllTilesWithIncrementingIndex(ref layer, width, height);
 
-			Tile3DTestUtility.AssertThatAllTilesHaveIncrementingIndex(width, height, tiles);
+			Tile3DTestUtility.AssertThatAllTilesHaveIncrementingIndex(width, height, layer);
 		}
 
 		[TestCase(7, 4)]
 		public void SetAllTilesWithCoordData(int width, int height)
 		{
-			var tiles = CreateLayer(width, height);
+			var layer = CreateLayer(width, height);
 			var tileCoords = Tile3DTestUtility.CreateTileCoordsWithIncrementingIndex(width, height);
 
-			tiles.SetTiles(tileCoords, width);
+			layer.SetTiles(tileCoords, width);
 
-			Assert.That(tiles.TileCount == width * height);
-			Tile3DTestUtility.AssertThatAllTilesHaveIncrementingIndex(width, height, tiles);
+			Assert.That(layer.TileCount == width * height);
+			Tile3DTestUtility.AssertThatAllTilesHaveIncrementingIndex(width, height, layer);
 		}
 	}
 }

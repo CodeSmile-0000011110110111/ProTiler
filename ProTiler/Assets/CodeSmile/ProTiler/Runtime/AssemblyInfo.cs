@@ -15,9 +15,9 @@ using System.Runtime.CompilerServices;
 // NDepend: Suppressed Messages
 // ********************************************************************************
 [assembly: SuppressMessage("NDepend", "ND1903:StructuresShouldBeImmutable",
-	Target = "CodeSmile.ProTiler.Data.Tile3D", Justification = "Unity devs won't expect immutable struct")]
+	Scope = "deep", Target = "", Justification = "Unity devs won't expect immutable struct")]
 [assembly: SuppressMessage("NDepend", "ND1903:StructuresShouldBeImmutable",
-	Target = "CodeSmile.ProTiler.Data.Tile3DCoord", Justification = "Unity devs won't expect immutable struct")]
+	Scope = "deep", Target = "", Justification = "Unity devs won't expect immutable struct")]
 
 [assembly: SuppressMessage("NDepend", "ND1901:AvoidNonReadOnlyStaticFields",
 		Target = "CodeSmile.ProTiler.Assets.Tile3DAssetRegister.s_Singleton", Justification = "cannot be readonly")]

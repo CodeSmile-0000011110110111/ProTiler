@@ -16,11 +16,11 @@ namespace CodeSmile.ProTiler.Data
 	public struct Tile3D : IEquatable<Tile3D>
 	{
 		/// <summary>
-		/// Tile index used to get a tile's assed from a tile set.
+		///     Tile index used to get a tile's assed from a tile set.
 		/// </summary>
 		public short Index;
 		/// <summary>
-		/// Flags encode rotation and mirroring/flipping of a tile.
+		///     Flags encode rotation and mirroring/flipping of a tile.
 		/// </summary>
 		public Tile3DFlags Flags;
 
@@ -41,6 +41,11 @@ namespace CodeSmile.ProTiler.Data
 		public static bool operator ==(Tile3D left, Tile3D right) => left.Equals(right);
 		public static bool operator !=(Tile3D left, Tile3D right) => !left.Equals(right);
 
+		/// <summary>
+		///     Instantiates a new tile.
+		/// </summary>
+		/// <param name="tileIndex"></param>
+		/// <param name="flags"></param>
 		public Tile3D(short tileIndex, Tile3DFlags flags = Tile3DFlags.DirectionNorth)
 		{
 			Index = tileIndex;
@@ -48,13 +53,11 @@ namespace CodeSmile.ProTiler.Data
 		}
 
 		public bool Equals(Tile3D other) => Index == other.Index && Flags == other.Flags;
+		public override bool Equals(object obj) => obj is Tile3D other && Equals(other);
+		public override int GetHashCode() => HashCode.Combine(Index, (int)Flags);
 
 		[ExcludeFromCodeCoverage] public override string ToString() =>
 			$"{nameof(Tile3D)}(Index: {Index}, Flags: {Flags})";
-
-		public override bool Equals(object obj) => obj is Tile3D other && Equals(other);
-
-		public override int GetHashCode() => HashCode.Combine(Index, (int)Flags);
 
 		private Tile3DFlags GetDirectionOrDefault()
 		{
