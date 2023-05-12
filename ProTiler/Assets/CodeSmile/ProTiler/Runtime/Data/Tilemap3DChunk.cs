@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.InteropServices;
 using Unity.Properties;
 using ChunkSize = UnityEngine.Vector2Int;
@@ -22,7 +23,7 @@ namespace CodeSmile.ProTiler.Data
 	/// </summary>
 	[Serializable]
 	[StructLayout(LayoutKind.Sequential)]
-	public struct Tilemap3DChunk
+	public class Tilemap3DChunk
 	{
 		[CreateProperty] private ChunkSize m_Size;
 		[CreateProperty] private Tile3DLayerCollection m_Layers;
@@ -94,9 +95,9 @@ namespace CodeSmile.ProTiler.Data
 			}
 		}
 
-		public Tile3DCoord[] GetTiles(GridCoord[] coords)
+		public IEnumerable<Tile3DCoord> GetTiles(IEnumerable<GridCoord> coords)
 		{
-			var tileCoords = new Tile3DCoord[coords.Length];
+			var tileCoords = new Tile3DCoord[coords.Count()];
 			var tileCoordIndex = 0;
 			foreach (var coord in coords)
 			{

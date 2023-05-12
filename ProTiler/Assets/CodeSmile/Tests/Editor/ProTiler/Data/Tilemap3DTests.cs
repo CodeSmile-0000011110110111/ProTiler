@@ -19,6 +19,9 @@ namespace CodeSmile.Tests.Editor.ProTiler.Data
 			new object[] { new ChunkSize(1, -1) },
 		};
 
+
+		private static Tilemap3DChunk CreateChunk(int width, int length) => new(new ChunkSize(width, length));
+
 		[Test]
 		public void EnsureDefaultCtorUsesMinChunkSize()
 		{
@@ -29,12 +32,33 @@ namespace CodeSmile.Tests.Editor.ProTiler.Data
 		}
 
 		[TestCaseSource(nameof(IllegalChunkSizes))]
-		public void EnsureTilemapHasMinChunkSize(ChunkSize illegalChunkSize)
+		public void IllegalChunkSizesAreClampedToMinChunkSize(ChunkSize illegalChunkSize)
 		{
-			var tilemap = new Tilemap3D(illegalChunkSize);
+			var tilemap = CreateTilemap(illegalChunkSize);
 
 			Assert.That(tilemap.ChunkCount, Is.EqualTo(0));
 			Assert.That(tilemap.ChunkSize, Is.EqualTo(Tilemap3D.MinChunkSize));
 		}
+
+		[TestCase(6, 3, 11, 3)]
+		public void SetAndGetTilesAcrossLayersAreEqual(int width, int height, int length, int chunkDivider)
+		{
+			var chunkSize = new ChunkSize(width / chunkDivider, length / chunkDivider);
+			var tilemap = CreateTilemap(chunkSize);
+
+			var tileCoords = Tile3DTestUtility.CreateTileCoordsWithIncrementingIndexAcrossLayers(width, height, length);
+			tilemap.SetTiles(tileCoords);
+
+			var gotTileCoords = tilemap.GetTiles(tileCoords.ToCoordArray());
+
+			Assert.That(gotTileCoords.Length, Is.EqualTo(tileCoords.Length));
+			for (var i = 0; i < gotTileCoords.Length; i++)
+			{
+				Assert.That(gotTileCoords[i].Coord, Is.EqualTo(tileCoords[i].Coord));
+				Assert.That(gotTileCoords[i].Tile, Is.EqualTo(tileCoords[i].Tile));
+			}
+		}
+
+		private Tilemap3D CreateTilemap(ChunkSize chunkSize) => new(chunkSize);
 	}
 }

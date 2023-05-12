@@ -2,6 +2,7 @@
 // Refer to included LICENSE file for terms and conditions.
 
 using System.Runtime.CompilerServices;
+using UnityEngine;
 using WorldPos = UnityEngine.Vector3;
 using GridCoord = UnityEngine.Vector3Int;
 using CellSize = UnityEngine.Vector3Int;
@@ -65,5 +66,8 @@ namespace CodeSmile.ProTiler.Data
 				coords[i] = tileCoords[i].Coord;
 			return coords;
 		}
+
+		public static GridCoord ToChunkCoord(GridCoord coord, Vector2Int chunkSize) =>
+			new(coord.x / chunkSize.x, coord.y, coord.z / chunkSize.y);
 	}
 }
