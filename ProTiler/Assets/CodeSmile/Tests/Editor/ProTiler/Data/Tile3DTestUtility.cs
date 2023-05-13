@@ -25,8 +25,10 @@ namespace CodeSmile.Tests.Editor.ProTiler.Data
 				for (var z = 0; z < length; z++)
 				{
 					var coord = new GridCoord(x, height, z);
-					var index = Grid3DUtility.ToIndex2D(x, z, width);
-					tileCoords[index] = new Tile3DCoord(coord, new Tile3D((short)(index + 1)));
+					var tileIndex = Grid3DUtility.ToIndex2D(x, z, width);
+					var dummyTileIndex = MakeDummyTileIndex(tileIndex, height);
+					//Debug.Log($"{coord} dummyTileIndex: {dummyTileIndex}");
+					tileCoords[tileIndex] = new Tile3DCoord(coord, new Tile3D(dummyTileIndex));
 				}
 			}
 			return tileCoords;
@@ -46,10 +48,27 @@ namespace CodeSmile.Tests.Editor.ProTiler.Data
 				new Tile3D((short)(x + y + z))),
 		};
 
-		public static void AssertThatAllTilesHaveIncrementingIndex(int width, int length, Tile3DLayer tiles)
+		public static void AssertThatAllTilesHaveIncrementingIndex(int width, int length, Tile3DLayer tiles,
+			int height = 0)
 		{
-			for (var i = 0; i < width * length; i++)
-				Assert.That(tiles[i].Index, Is.EqualTo((short)(i + 1)));
+			for (var x = 0; x < width; x++)
+			{
+				for (var z = 0; z < length; z++)
+				{
+					var coord = new GridCoord(x, height, z);
+					var tileIndex = Grid3DUtility.ToIndex2D(x, z, width);
+					var expected = MakeDummyTileIndex(tileIndex, height);
+					//Debug.Log($"{coord} expected Index: {expected}");
+					Assert.That(tiles[tileIndex].Index, Is.EqualTo(expected));
+				}
+			}
+		}
+
+		private static short MakeDummyTileIndex(int tileIndex, int height)
+		{
+			var dummyIndex = (short)(tileIndex + 1 << height);
+			Assert.That(tileIndex + 1 << height, Is.EqualTo((int)dummyIndex), "dummy index overflow");
+			return dummyIndex;
 		}
 	}
 }

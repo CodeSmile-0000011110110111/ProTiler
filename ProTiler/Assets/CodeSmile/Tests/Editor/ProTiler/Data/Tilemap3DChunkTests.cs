@@ -3,6 +3,8 @@
 
 using CodeSmile.ProTiler.Data;
 using NUnit.Framework;
+using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.InteropServices;
 using Unity.Serialization.Json;
 using UnityEngine;
@@ -61,8 +63,8 @@ namespace CodeSmile.Tests.Editor.ProTiler.Data
 			Assert.That(chunk.LayerCount, Is.EqualTo(0));
 		}
 
-		[TestCase(3,  2)]
-		[TestCase(4,  5)]
+		[TestCase(3, 2)]
+		[TestCase(4, 5)]
 		public void NewTilemap3DChunkSizeMatches(int width, int length)
 		{
 			var chunk = CreateChunk(width, length);
@@ -79,7 +81,7 @@ namespace CodeSmile.Tests.Editor.ProTiler.Data
 			var chunk = CreateChunk(width, length);
 			var tileCoords = Tile3DTestUtility.CreateOneTileCoord(width, height, length);
 
-			chunk.SetTiles(tileCoords);
+			chunk.SetLayerTiles(tileCoords);
 
 			Assert.That(chunk.LayerCount, Is.EqualTo(height + 1));
 		}
@@ -92,7 +94,7 @@ namespace CodeSmile.Tests.Editor.ProTiler.Data
 			var chunk = CreateChunk(width, length);
 			var tileCoords = Tile3DTestUtility.CreateOneTileCoord(width, height, length);
 
-			chunk.SetTiles(tileCoords);
+			chunk.SetLayerTiles(tileCoords);
 
 			var coord = tileCoords[0].Coord;
 			var tileIndex = Grid3DUtility.ToIndex2D(coord.x, coord.z, width);
@@ -105,25 +107,29 @@ namespace CodeSmile.Tests.Editor.ProTiler.Data
 			var chunk = CreateChunk(width, length);
 			var tileCoords = Tile3DTestUtility.CreateTileCoordsWithIncrementingIndex(width, length);
 
-			chunk.SetTiles(tileCoords);
+			chunk.SetLayerTiles(tileCoords);
 
 			Assert.That(chunk.LayerCount, Is.EqualTo(1));
-			Assert.That(chunk.TileCount, Is.EqualTo(width*length));
+			Assert.That(chunk.TileCount, Is.EqualTo(width * length));
 			Tile3DTestUtility.AssertThatAllTilesHaveIncrementingIndex(width, length, chunk[0]);
 		}
 
+		[TestCase(1, 3, 1)]
+		[TestCase(1, 12, 1)]
 		[TestCase(3, 9, 3)]
+		[TestCase(4, 11, 4)]
+		[TestCase(5, 11, 5)]
 		public void SetAllTilesAcrossLayersReturnsAllTiles(int width, int height, int length)
 		{
 			var chunk = CreateChunk(width, length);
 			var tileCoords = Tile3DTestUtility.CreateTileCoordsWithIncrementingIndexAcrossLayers(width, height, length);
 
-			chunk.SetTiles(tileCoords);
+			chunk.SetLayerTiles(tileCoords);
 
 			Assert.That(chunk.LayerCount, Is.EqualTo(height));
-			Assert.That(chunk.TileCount, Is.EqualTo(width*length*height));
+			Assert.That(chunk.TileCount, Is.EqualTo(width * length * height));
 			for (var y = 0; y < height; y++)
-				Tile3DTestUtility.AssertThatAllTilesHaveIncrementingIndex(width, length, chunk[y]);
+				Tile3DTestUtility.AssertThatAllTilesHaveIncrementingIndex(width, length, chunk[y], y);
 		}
 
 		[TestCase(3, 4, 5)]
@@ -132,9 +138,9 @@ namespace CodeSmile.Tests.Editor.ProTiler.Data
 			var chunk = CreateChunk(x, z);
 
 			var coords = Tile3DTestUtility.CreateOneTileCoord(x, y, z).ToCoordArray();
-			var gotTileCoords = chunk.GetTiles(coords);
+			var gotTileCoords = chunk.GetLayerTiles(coords) as IList<Tile3DCoord>;
 
-			Assert.That(gotTileCoords.Length, Is.EqualTo(coords.Length));
+			Assert.That(gotTileCoords.Count, Is.EqualTo(coords.Length));
 			Assert.That(gotTileCoords[0].Tile.IsEmpty);
 		}
 
@@ -143,12 +149,12 @@ namespace CodeSmile.Tests.Editor.ProTiler.Data
 		{
 			var chunk = CreateChunk(width, length);
 			var tileCoords = Tile3DTestUtility.CreateTileCoordsWithIncrementingIndexAcrossLayers(width, height, length);
-			chunk.SetTiles(tileCoords);
+			chunk.SetLayerTiles(tileCoords);
 
-			var gotTileCoords = chunk.GetTiles(tileCoords.ToCoordArray());
+			var gotTileCoords = chunk.GetLayerTiles(tileCoords.ToCoordArray()) as IList<Tile3DCoord>;
 
-			Assert.That(gotTileCoords.Length, Is.EqualTo(tileCoords.Length));
-			for (var i = 0; i < gotTileCoords.Length; i++)
+			Assert.That(gotTileCoords.Count, Is.EqualTo(tileCoords.Length));
+			for (var i = 0; i < gotTileCoords.Count; i++)
 			{
 				Assert.That(gotTileCoords[i].Coord, Is.EqualTo(tileCoords[i].Coord));
 				Assert.That(gotTileCoords[i].Tile, Is.EqualTo(tileCoords[i].Tile));

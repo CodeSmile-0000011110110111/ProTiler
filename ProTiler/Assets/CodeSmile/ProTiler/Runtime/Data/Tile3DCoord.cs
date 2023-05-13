@@ -4,7 +4,10 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
+using UnityEngine;
+using ChunkCoord = UnityEngine.Vector2Int;
 using GridCoord = UnityEngine.Vector3Int;
+using LayerCoord = UnityEngine.Vector3Int;
 
 namespace CodeSmile.ProTiler.Data
 {
@@ -15,6 +18,9 @@ namespace CodeSmile.ProTiler.Data
 	[StructLayout(LayoutKind.Sequential)]
 	public struct Tile3DCoord : IEquatable<Tile3DCoord>
 	{
+		internal ChunkCoord ChunkCoord;
+		internal LayerCoord LayerCoord;
+
 		public GridCoord Coord;
 		public Tile3D Tile;
 
@@ -25,6 +31,16 @@ namespace CodeSmile.ProTiler.Data
 		{
 			Coord = coord;
 			Tile = tile;
+			ChunkCoord = default;
+			LayerCoord = default;
+		}
+
+		public Tile3DCoord(Tile3DCoord other)
+		{
+			Coord = other.Coord;
+			Tile = other.Tile;
+			ChunkCoord = other.ChunkCoord;
+			LayerCoord = other.LayerCoord;
 		}
 
 		public bool Equals(Tile3DCoord other) => Coord.Equals(other.Coord) && Tile.Equals(other.Tile);

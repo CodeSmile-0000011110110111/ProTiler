@@ -15,7 +15,7 @@ namespace CodeSmile.ProTiler.Data
 	///     A collection of Tile3DLayer instances.
 	/// </summary>
 	[Serializable]
-	public class Tile3DLayerCollection : List<Tile3DLayer> {}
+	internal class Tile3DLayerCollection : List<Tile3DLayer> {}
 
 	/// <summary>
 	///     A chunk is one part of a larger tilemap at a given position offset.
@@ -83,34 +83,34 @@ namespace CodeSmile.ProTiler.Data
 		///     Set tiles in the chunk's layers at the given coordinates.
 		///     Will create additional height layers as needed based on the Y coordinate.
 		/// </summary>
-		/// <param name="tileCoords"></param>
-		public void SetTiles(IEnumerable<Tile3DCoord> tileCoords)
+		/// <param name="layerCoordTiles"></param>
+		public void SetLayerTiles(IEnumerable<Tile3DCoord> layerCoordTiles)
 		{
-			foreach (var coordData in tileCoords)
+			foreach (var layerCoordTile in layerCoordTiles)
 			{
-				var coord = coordData.Coord;
+				var coord = layerCoordTile.Coord;
 				var layer = GetOrCreateHeightLayer(coord.y);
 				var tileIndex = ToTileIndex(coord);
-				layer[tileIndex] = coordData.Tile;
+				layer[tileIndex] = layerCoordTile.Tile;
 			}
 		}
 
-		public IEnumerable<Tile3DCoord> GetTiles(IEnumerable<GridCoord> coords)
+		public IEnumerable<Tile3DCoord> GetLayerTiles(IEnumerable<GridCoord> layerCoords)
 		{
-			var tileCoords = new Tile3DCoord[coords.Count()];
+			var layerTileCoords = new Tile3DCoord[layerCoords.Count()];
 			var tileCoordIndex = 0;
-			foreach (var coord in coords)
+			foreach (var layerCoord in layerCoords)
 			{
-				var layer = GetHeightLayerOrDefault(coord.y);
+				var layer = GetHeightLayerOrDefault(layerCoord.y);
 				if (layer.IsInitialized)
 				{
-					var tileIndex = ToTileIndex(coord);
-					tileCoords[tileCoordIndex].Coord = coord;
-					tileCoords[tileCoordIndex].Tile = layer[tileIndex];
+					var tileIndex = ToTileIndex(layerCoord);
+					layerTileCoords[tileCoordIndex].Coord = layerCoord;
+					layerTileCoords[tileCoordIndex].Tile = layer[tileIndex];
 					tileCoordIndex++;
 				}
 			}
-			return tileCoords;
+			return layerTileCoords;
 		}
 
 		private Tile3DLayer GetOrCreateHeightLayer(int height)
@@ -133,7 +133,15 @@ namespace CodeSmile.ProTiler.Data
 		{
 			for (var i = m_Layers.Count; i < height + 1; i++)
 				m_Layers.Add(new Tile3DLayer(m_Size));
+
+			DiscardExcessCapacityFromLayersCollection();
 		}
+
+		/// <summary>
+		/// List<> will increment capacity by doubling it, thus leaving significant unused additional capacity
+		/// while we'd rather conserve memory usage.
+		/// </summary>
+		private void DiscardExcessCapacityFromLayersCollection() => m_Layers.Capacity = m_Layers.Count;
 
 		private int ToTileIndex(GridCoord coord) => Grid3DUtility.ToIndex2D(ToLayerCoord(coord), m_Size.x);
 		private GridCoord ToLayerCoord(GridCoord coord) => coord - ToChunkCoord(coord);

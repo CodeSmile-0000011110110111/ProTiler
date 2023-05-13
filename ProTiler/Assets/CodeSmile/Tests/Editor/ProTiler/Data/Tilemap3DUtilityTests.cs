@@ -1,0 +1,52 @@
+﻿// Copyright (C) 2021-2023 Steffen Itterheim
+// Refer to included LICENSE file for terms and conditions.
+
+using NUnit.Framework;
+using GridCoord = UnityEngine.Vector3Int;
+using ChunkCoord = UnityEngine.Vector2Int;
+using ChunkSize = UnityEngine.Vector2Int;
+
+namespace CodeSmile.Tests.Editor.ProTiler.Data
+{
+	public class Tilemap3DUtilityTests
+	{
+		private static readonly object[] LayerToGridCoordParams =
+		{
+			new object[] { new GridCoord(0, 0, 0), new ChunkCoord(0, 0),new ChunkSize(2, 2), new GridCoord(0, 0, 0) },
+			new object[] { new GridCoord(0, 0, 0), new ChunkCoord(1, 1),new ChunkSize(2, 2), new GridCoord(2, 0, 2) },
+			new object[] { new GridCoord(1, 1, 1), new ChunkCoord(1, 1),new ChunkSize(2, 2), new GridCoord(3, 1, 3) },
+			new object[] { new GridCoord(2, 2, 2), new ChunkCoord(0, 0), new ChunkSize(2, 2),new GridCoord(2, 2, 2) },
+			new object[] { new GridCoord(2, 2, 2), new ChunkCoord(1, 1), new ChunkSize(2, 2),new GridCoord(4, 2, 4) },
+			new object[] { new GridCoord(2, 3, 2), new ChunkCoord(3, 4), new ChunkSize(2, 2),new GridCoord(8, 3, 10) },
+		};
+
+		private static readonly object[] GridToChunkCoordParams =
+		{
+			new object[] { new GridCoord(0, 0, 0), new ChunkSize(2, 2), new ChunkCoord(0, 0) },
+			new object[] { new GridCoord(1, 1, 1), new ChunkSize(2, 2), new ChunkCoord(0, 0) },
+			new object[] { new GridCoord(2, 2, 2), new ChunkSize(2, 2), new ChunkCoord(1, 1) },
+			new object[] { new GridCoord(4, 5, 7), new ChunkSize(3, 3), new ChunkCoord(1, 2) },
+			new object[] { new GridCoord(9, -1, 11), new ChunkSize(3, 3), new ChunkCoord(3, 3) },
+		};
+
+		private static readonly object[] GridToLayerCoordParams =
+		{
+			new object[] { new GridCoord(0, 0, 0), new ChunkCoord(2, 2), new GridCoord(0, 0, 0) },
+			new object[] { new GridCoord(3, 4, 5), new ChunkCoord(2, 2), new GridCoord(1, 4, 1) },
+			new object[] { new GridCoord(8, 8, 8), new ChunkCoord(4, 3), new GridCoord(0, 8, 2) },
+			new object[] { new GridCoord(9, 9, 9), new ChunkCoord(4, 3), new GridCoord(1, 9, 0) },
+		};
+
+		[TestCaseSource(nameof(LayerToGridCoordParams))]
+		public void LayerToGridCoordIsCorrect(GridCoord layerCoord, ChunkCoord chunkCoord, ChunkSize chunkSize, GridCoord expected) =>
+			Assert.That(Tilemap3DUtility.LayerToGridCoord(layerCoord, chunkCoord, chunkSize), Is.EqualTo(expected));
+
+		[TestCaseSource(nameof(GridToChunkCoordParams))]
+		public void GridToChunkCoordIsCorrect(GridCoord gridCoord, ChunkCoord chunkSize, ChunkCoord expected) =>
+			Assert.That(Tilemap3DUtility.GridToChunkCoord(gridCoord, chunkSize), Is.EqualTo(expected));
+
+		[TestCaseSource(nameof(GridToLayerCoordParams))]
+		public void GridToLayerCoordIsCorrect(GridCoord gridCoord, ChunkCoord chunkSize, GridCoord expected) =>
+			Assert.That(Tilemap3DUtility.GridToLayerCoord(gridCoord, chunkSize), Is.EqualTo(expected));
+	}
+}
