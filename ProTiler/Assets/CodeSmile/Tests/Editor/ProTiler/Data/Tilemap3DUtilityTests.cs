@@ -10,6 +10,16 @@ namespace CodeSmile.Tests.Editor.ProTiler.Data
 {
 	public class Tilemap3DUtilityTests
 	{
+		/*private static readonly object[] ChunkCoords =
+		{
+			new object[] {  new ChunkCoord(0, 0),new ChunkSize(2, 2), new GridCoord(0, 0, 0) },
+		};
+		[TestCaseSource(nameof(ChunkCoords))]
+		public void GetAllChunkLayerCoordsCorrectness(ChunkCoord chunkCoord, ChunkSize chunkSize)
+		{
+
+		}*/
+
 		private static readonly object[] LayerToGridCoordParams =
 		{
 			new object[] { new GridCoord(0, 0, 0), new ChunkCoord(0, 0),new ChunkSize(2, 2), new GridCoord(0, 0, 0) },
@@ -27,6 +37,11 @@ namespace CodeSmile.Tests.Editor.ProTiler.Data
 			new object[] { new GridCoord(2, 2, 2), new ChunkSize(2, 2), new ChunkCoord(1, 1) },
 			new object[] { new GridCoord(4, 5, 7), new ChunkSize(3, 3), new ChunkCoord(1, 2) },
 			new object[] { new GridCoord(9, -1, 11), new ChunkSize(3, 3), new ChunkCoord(3, 3) },
+			new object[] { new GridCoord(-1, 0, -1), new ChunkSize(2, 2), new ChunkCoord(-1, -1) },
+			new object[] { new GridCoord(-2, 0, -2), new ChunkSize(2, 2), new ChunkCoord(-1, -1) },
+			new object[] { new GridCoord(-3, 0, -3), new ChunkSize(2, 2), new ChunkCoord(-2, -2) },
+			new object[] { new GridCoord(-4, 0, -4), new ChunkSize(2, 2), new ChunkCoord(-2, -2) },
+			new object[] { new GridCoord(-16, 0, -32), new ChunkSize(4, 8), new ChunkCoord(-4, -4) },
 		};
 
 		private static readonly object[] GridToLayerCoordParams =
@@ -34,7 +49,9 @@ namespace CodeSmile.Tests.Editor.ProTiler.Data
 			new object[] { new GridCoord(0, 0, 0), new ChunkCoord(2, 2), new GridCoord(0, 0, 0) },
 			new object[] { new GridCoord(3, 4, 5), new ChunkCoord(2, 2), new GridCoord(1, 4, 1) },
 			new object[] { new GridCoord(8, 8, 8), new ChunkCoord(4, 3), new GridCoord(0, 8, 2) },
+			new object[] { new GridCoord(-8, -8, -8), new ChunkCoord(4, 3), new GridCoord(0, 0, 2) },
 			new object[] { new GridCoord(9, 9, 9), new ChunkCoord(4, 3), new GridCoord(1, 9, 0) },
+			new object[] { new GridCoord(-9, -9, -9), new ChunkCoord(4, 3), new GridCoord(1, 0, 0) },
 		};
 
 		[TestCaseSource(nameof(LayerToGridCoordParams))]

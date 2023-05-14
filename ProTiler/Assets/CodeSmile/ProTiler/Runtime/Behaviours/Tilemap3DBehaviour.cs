@@ -3,11 +3,12 @@
 
 using CodeSmile.Extensions;
 using CodeSmile.ProTiler.Data;
-using System;
-using System.IO;
-using System.Text;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
-using Random = UnityEngine.Random;
+using GridCoord = UnityEngine.Vector3Int;
+using ChunkCoord = UnityEngine.Vector2Int;
+using ChunkSize = UnityEngine.Vector2Int;
 
 namespace CodeSmile.ProTiler.Behaviours
 {
@@ -17,84 +18,59 @@ namespace CodeSmile.ProTiler.Behaviours
 	{
 		//[SerializeField] private Vector3 m_TileAnchor;
 		[SerializeField] private Vector2Int m_ChunkSize = new(16, 16);
-		[SerializeField] private _OldTilemap3D m_Chunks;
-
-		private Vector2Int m_CurrentChunkSize;
-
-		/*
-		public void RefreshTile(Vector3Int coord) => throw new NotImplementedException();
-
-		public void DrawLine(Vector3Int startSelectionCoord, Vector3Int cursorCoord) => throw new NotImplementedException();
-
-		public void DrawRect(object makeRect) => throw new NotImplementedException();
-	*/
+		private Tilemap3D m_Map;
 
 		public Vector2Int ChunkSize
 		{
-			get => m_ChunkSize;
+			get => m_Map.ChunkSize;
 			set => SetChunkSize(value);
 		}
-		public _OldTilemap3D Chunks => m_Chunks;
+
+		internal int TileCount => m_Map.TileCount;
 
 		public Grid3DBehaviour Grid => transform.parent.GetComponent<Grid3DBehaviour>();
 
-		public void OnBeforeSerialize()
-		{
-		}
+		public void OnBeforeSerialize() {}
 
-		public void OnAfterDeserialize()
-		{
-		}
+		public void OnAfterDeserialize() {}
 
 		private void Awake() => SetChunkSize(m_ChunkSize);
 
 		private void Reset() => SetChunkSize(m_ChunkSize);
 
-		private void OnValidate()
+		private void OnValidate() => SetChunkSize(m_ChunkSize);
+
+		public int GetLayerCount(ChunkCoord chunkCoord) => m_Map.GetLayerCount(chunkCoord);
+
+		private void CreateMap(ChunkSize chunkSize)
 		{
-			SetChunkSize(m_ChunkSize);
+			Debug.Log($"Creating tilemap with size {chunkSize}");
+			m_Map = new Tilemap3D(chunkSize);
 		}
 
-		private void SetChunkSize(Vector2Int chunkSize)
+		private void SetChunkSize(ChunkSize chunkSize)
 		{
-			_OldTilemap3D.ClampChunkSize(ref chunkSize);
-			if (chunkSize != m_CurrentChunkSize)
+			var clampedChunkSize = Tilemap3DUtility.ClampChunkSize(chunkSize);
+			if (m_Map == null || clampedChunkSize != m_Map.ChunkSize)
 			{
-				m_ChunkSize = m_CurrentChunkSize = chunkSize;
-
-				InitChunks();
-				Chunks.ChangeChunkSize(m_ChunkSize);
+				m_ChunkSize = clampedChunkSize;
+				CreateMap(m_ChunkSize);
 			}
 		}
 
-		private void InitChunks()
-		{
-			if (m_Chunks == null)
-			{
-				m_Chunks = new _OldTilemap3D(m_ChunkSize);
-				m_CurrentChunkSize = m_ChunkSize;
-			}
-		}
+		public Tile3D GetTile(GridCoord coord) => GetTiles(new[] { coord }).FirstOrDefault().Tile;
 
-		public Tile3D GetTile(Vector3Int coord)
-		{
-			var tileDatas = new Tile3DCoord[1];
-			GetTiles(new[] { coord }, ref tileDatas);
-			return tileDatas[0].Tile;
-		}
+		public IEnumerable<Tile3DCoord> GetTiles(IEnumerable<GridCoord> coords) => m_Map.GetTiles(coords);
 
-		public void GetTiles(Vector3Int[] coords, ref Tile3DCoord[] tileCoordDatas) =>
-			m_Chunks.GetTiles(coords, ref tileCoordDatas);
+		public void SetTile(GridCoord coord, Tile3D tile) => SetTiles(new[] { new Tile3DCoord(coord, tile) });
 
-		public void SetTile(Vector3Int coord, Tile3D tile) => SetTiles(new[] { new Tile3DCoord(coord, tile) });
-
-		public void SetTiles(Tile3DCoord[] tileCoordDatas)
+		public void SetTiles(IEnumerable<Tile3DCoord> tileCoordDatas)
 		{
 			this.RecordUndoInEditor(nameof(SetTiles));
 			SetTilesNoUndo(tileCoordDatas);
 			this.SetDirtyInEditor();
 		}
 
-		public void SetTilesNoUndo(Tile3DCoord[] tileCoordDatas) => m_Chunks.SetTiles(tileCoordDatas);
+		public void SetTilesNoUndo(IEnumerable<Tile3DCoord> tileCoordDatas) => m_Map.SetTiles(tileCoordDatas);
 	}
 }

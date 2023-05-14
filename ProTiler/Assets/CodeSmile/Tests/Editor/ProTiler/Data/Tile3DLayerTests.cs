@@ -139,7 +139,7 @@ namespace CodeSmile.Tests.Editor.ProTiler.Data
 		{
 			var layer = CreateLayer(width, height);
 
-			var tileIndex = (short)9;
+			var tileIndex = 9;
 			layer[0] = new Tile3D(tileIndex);
 
 			Assert.That(layer.TileCount == 1);

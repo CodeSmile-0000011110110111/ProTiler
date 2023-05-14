@@ -13,7 +13,7 @@ namespace CodeSmile.Tests.Editor.ProTiler.Data
 		public static void SetAllTilesWithIncrementingIndex(ref Tile3DLayer tiles, int width, int length)
 		{
 			for (var i = 0; i < width * length; i++)
-				tiles[i] = new Tile3D((short)(i + 1));
+				tiles[i] = new Tile3D(i + 1);
 		}
 
 		public static Tile3DCoord[] CreateTileCoordsWithIncrementingIndex(int width, int length, int height = 0)
@@ -45,7 +45,7 @@ namespace CodeSmile.Tests.Editor.ProTiler.Data
 		public static Tile3DCoord[] CreateOneTileCoord(int x, int y, int z) => new[]
 		{
 			new Tile3DCoord(new GridCoord(x - 1, y, z - 1),
-				new Tile3D((short)(x + y + z))),
+				new Tile3D(x + y + z)),
 		};
 
 		public static void AssertThatAllTilesHaveIncrementingIndex(int width, int length, Tile3DLayer tiles,
@@ -64,10 +64,10 @@ namespace CodeSmile.Tests.Editor.ProTiler.Data
 			}
 		}
 
-		private static short MakeDummyTileIndex(int tileIndex, int height)
+		private static int MakeDummyTileIndex(int tileIndex, int height)
 		{
-			var dummyIndex = (short)(tileIndex + 1 << height);
-			Assert.That(tileIndex + 1 << height, Is.EqualTo((int)dummyIndex), "dummy index overflow");
+			var dummyIndex = tileIndex + 1 << height;
+			Assert.That(tileIndex + 1 << height, Is.EqualTo(dummyIndex), "dummy index overflow");
 			return dummyIndex;
 		}
 	}

@@ -2,12 +2,13 @@
 // Refer to included LICENSE file for terms and conditions.
 
 using CodeSmile;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using UnityEngine;
 using GridCoord = UnityEngine.Vector3Int;
 using ChunkCoord = UnityEngine.Vector2Int;
 using ChunkSize = UnityEngine.Vector2Int;
 using LayerCoord = UnityEngine.Vector3Int;
+using Math = UnityEngine.Mathf;
 
 internal static class Tilemap3DUtility
 {
@@ -17,10 +18,25 @@ internal static class Tilemap3DUtility
 	/// </summary>
 	internal static readonly ChunkSize MinChunkSize = new(2, 2);
 
+	public static IEnumerable<GridCoord> GetAllChunkLayerCoords(ChunkCoord chunkCoord, ChunkSize chunkSize, int height)
+	{
+		var coords = new GridCoord[chunkSize.x * chunkSize.y];
+		var index = 0;
+		for (var z = 0; z < chunkSize.y; z++)
+		{
+			for (var x = 0; x < chunkSize.x; x++)
+			{
+				coords[index] = LayerToGridCoord(new LayerCoord(x, height, z), chunkCoord, chunkSize);
+				index++;
+			}
+		}
+		return coords;
+	}
+
 	internal static ChunkSize ClampChunkSize(ChunkSize chunkSize)
 	{
-		chunkSize.x = Mathf.Max(MinChunkSize.x, chunkSize.x);
-		chunkSize.y = Mathf.Max(MinChunkSize.y, chunkSize.y);
+		chunkSize.x = Math.Max(MinChunkSize.x, chunkSize.x);
+		chunkSize.y = Math.Max(MinChunkSize.y, chunkSize.y);
 		return chunkSize;
 	}
 
@@ -33,13 +49,30 @@ internal static class Tilemap3DUtility
 	internal static long GetChunkKey(ChunkCoord chunkCoord) => HashUtility.GetHash(chunkCoord.x, chunkCoord.y);
 
 	internal static GridCoord LayerToGridCoord(LayerCoord layerCoord, ChunkCoord chunkCoord, ChunkSize chunkSize) =>
-		new(chunkCoord.x * chunkSize.x + layerCoord.x, layerCoord.y, chunkCoord.y * chunkSize.y + layerCoord.z);
+		new(chunkCoord.x * chunkSize.x + layerCoord.x,
+			layerCoord.y,
+			chunkCoord.y * chunkSize.y + layerCoord.z);
 
-	internal static ChunkCoord GridToChunkCoord(GridCoord gridCoord, ChunkSize chunkSize) =>
-		new(gridCoord.x / chunkSize.x, gridCoord.z / chunkSize.y);
+	/// <summary>
+	/// Note: negative grid coordinates result in negative chunk coordinates - but offset by 1. There may
+	/// be a generic way to calculate this but the straightforward solution using ternary works just fine.
+	/// Examples for ChunkSize(2,2):
+	/// Grid(-1,0,-1) => Chunk(-1,-1)
+	/// Grid(-2,0,-2) => Chunk(-1,-1)
+	/// Grid(-3,0,-3) => Chunk(-2,-2)
+	/// Grid(-4,0,-4) => Chunk(-2,-2)
+	/// </summary>
+	/// <param name="gridCoord"></param>
+	/// <param name="chunkSize"></param>
+	/// <returns></returns>
+	internal static ChunkCoord GridToChunkCoord(GridCoord gridCoord, ChunkSize chunkSize) => new(
+		gridCoord.x < 0 ? (Math.Abs(gridCoord.x + 1) / chunkSize.x + 1) * -1 : gridCoord.x / chunkSize.x,
+		gridCoord.z < 0 ? (Math.Abs(gridCoord.z + 1) / chunkSize.y + 1) * -1 : gridCoord.z / chunkSize.y);
 
-	internal static LayerCoord GridToLayerCoord(GridCoord gridCoord, ChunkSize chunkSize) =>
-		new(gridCoord.x % chunkSize.x, gridCoord.y, gridCoord.z % chunkSize.y);
+	internal static LayerCoord GridToLayerCoord(GridCoord gridCoord, ChunkSize chunkSize) => new(
+		Math.Abs(gridCoord.x) % chunkSize.x,
+		Math.Max(0, gridCoord.y),
+		Math.Abs(gridCoord.z) % chunkSize.y);
 
 	[ExcludeFromCodeCoverage] static Tilemap3DUtility() {}
 }

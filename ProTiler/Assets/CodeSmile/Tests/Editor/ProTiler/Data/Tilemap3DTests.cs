@@ -42,6 +42,15 @@ namespace CodeSmile.Tests.Editor.ProTiler.Data
 			Assert.That(tilemap.ChunkSize, Is.EqualTo(Tilemap3DUtility.MinChunkSize));
 		}
 
+		[Test] public void GetTilesOnEmptyMapReturnsEmptyEnumerable()
+		{
+			var tilemap = CreateTilemap(new ChunkSize(2, 2));
+
+			var tiles = tilemap.GetTiles(new[] { new GridCoord() });
+			Assert.That(tiles != null);
+			Assert.That(tiles.Count(), Is.EqualTo(0));
+		}
+
 		[TestCase(1, 0, 1, 2, 2)]
 		[TestCase(2, 0, 1, 2, 2)]
 		[TestCase(1, 0, 2, 2, 2)]
@@ -95,10 +104,8 @@ namespace CodeSmile.Tests.Editor.ProTiler.Data
 
 			Assert.That(gotTileCoords.Count, Is.EqualTo(tileCoords.Length));
 			for (var i = 0; i < gotTileCoords.Count; i++)
-			{
 				// order of tiles likely differs
 				Assert.That(tileCoords.Contains(gotTileCoords[i]));
-			}
 		}
 
 		private Tilemap3D CreateTilemap(ChunkSize chunkSize) => new(chunkSize);

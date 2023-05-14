@@ -4,7 +4,6 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
-using UnityEngine;
 using ChunkCoord = UnityEngine.Vector2Int;
 using GridCoord = UnityEngine.Vector3Int;
 using LayerCoord = UnityEngine.Vector3Int;
@@ -18,11 +17,10 @@ namespace CodeSmile.ProTiler.Data
 	[StructLayout(LayoutKind.Sequential)]
 	public struct Tile3DCoord : IEquatable<Tile3DCoord>
 	{
-		internal ChunkCoord ChunkCoord;
-		internal LayerCoord LayerCoord;
-
 		public GridCoord Coord;
 		public Tile3D Tile;
+		internal ChunkCoord ChunkCoord;
+		internal LayerCoord LayerCoord;
 
 		public static bool operator ==(Tile3DCoord left, Tile3DCoord right) => left.Equals(right);
 		public static bool operator !=(Tile3DCoord left, Tile3DCoord right) => !left.Equals(right);

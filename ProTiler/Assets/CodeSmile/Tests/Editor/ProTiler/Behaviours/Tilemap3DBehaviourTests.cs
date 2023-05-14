@@ -23,8 +23,6 @@ namespace CodeSmile.Tests.Editor.ProTiler.Behaviours
 
 			Assert.That(tilemap != null);
 			Assert.That(tilemap.Grid != null);
-			Assert.That(tilemap.Chunks != null);
-			Assert.That(tilemap.Chunks.Count == 0);
 			Assert.That(ObjectExt.FindObjectsByTypeFast<Grid3DBehaviour>().Length == 1);
 			Assert.That(ObjectExt.FindObjectsByTypeFast<Tile3DSetBehaviour>().Length == 1);
 			Assert.That(ObjectExt.FindObjectsByTypeFast<Tilemap3DBehaviour>().Length == 1);
@@ -102,24 +100,24 @@ namespace CodeSmile.Tests.Editor.ProTiler.Behaviours
 			var chunkSize = new Vector2Int(3, 2);
 			tilemap.ChunkSize = chunkSize;
 			Assert.That(tilemap.ChunkSize, Is.EqualTo(chunkSize));
-			Assert.That(tilemap.Chunks.TileCount == 0);
+			Assert.That(tilemap.TileCount == 0);
 
 			var tileIndex = 123;
 			var coord = Vector3Int.one;
 			tilemap.SetTile(coord, new Tile3D((short)tileIndex));
-			Assert.That(tilemap.Chunks.TileCount == 1);
+			Assert.That(tilemap.TileCount == 1);
 
 			Undo.PerformUndo();
 
 			Assert.That(ObjectExt.FindObjectsByTypeFast<Grid3DBehaviour>() != null);
 			Assert.That(ObjectExt.FindObjectsByTypeFast<Tilemap3DBehaviour>() != null);
-			Assert.That(tilemap.Chunks.TileCount == 0);
+			Assert.That(tilemap.TileCount == 0);
 
 			Undo.PerformRedo();
 
 			Assert.That(ObjectExt.FindObjectsByTypeFast<Grid3DBehaviour>() != null);
 			Assert.That(ObjectExt.FindObjectsByTypeFast<Tilemap3DBehaviour>() != null);
-			Assert.That(tilemap.Chunks.TileCount == 1);
+			Assert.That(tilemap.TileCount == 1);
 
 			var tile = tilemap.GetTile(coord);
 			Assert.That(tile.Index == tileIndex);

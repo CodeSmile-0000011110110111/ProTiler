@@ -27,7 +27,7 @@ namespace CodeSmile.Tests.Editor.ProTiler.Behaviours
 		public void GetSetCellSize()
 		{
 			var grid = ObjectExt.FindObjectByTypeFast<Grid3DBehaviour>();
-			var cellSize = new Vector3Int(3, 4, 7);
+			var cellSize = new Vector3(3f, 4f, 7f);
 
 			grid.CellSize = cellSize;
 

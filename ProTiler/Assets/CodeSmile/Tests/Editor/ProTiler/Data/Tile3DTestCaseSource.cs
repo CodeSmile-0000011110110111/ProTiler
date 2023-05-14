@@ -8,37 +8,31 @@ namespace CodeSmile.Tests.Editor.ProTiler.Data
 {
 	public class Tile3DTestCaseSource
 	{
-		public static readonly object[] InvalidIndexes =
-		{
-			new object[] { short.MinValue },
-			new object[] { -1 },
-		};
 		public static readonly object[] ValidIndexes =
 		{
 			new object[] { 0 },
 			new object[] { 1 },
-			new object[] { short.MaxValue },
+			new object[] { ushort.MaxValue },
 		};
 
 		public static readonly object[] EmptyIndexes =
 		{
-			new object[] { short.MinValue },
-			new object[] { -1 },
+			new object[] { ushort.MinValue },
 			new object[] { 0 },
 		};
 		public static readonly object[] NonEmptyIndexes =
 		{
 			new object[] { 1 },
-			new object[] { short.MaxValue },
+			new object[] { ushort.MaxValue },
 		};
 
 		public static readonly object[] ValidIndexesWithFlags =
 		{
 			new object[] { 0, Tile3DFlags.None },
 			new object[] { 1, Tile3DFlags.AllDirections },
-			new object[] { -1, Tile3DFlags.AllFlips },
-			new object[] { short.MinValue, Tile3DFlags.AllFlips | Tile3DFlags.AllDirections },
-			new object[] { short.MaxValue, Tile3DFlags.AllFlips | Tile3DFlags.AllDirections },
+			new object[] { 2, Tile3DFlags.AllFlips },
+			new object[] { ushort.MinValue, Tile3DFlags.AllFlips | Tile3DFlags.AllDirections },
+			new object[] { ushort.MaxValue, Tile3DFlags.AllFlips | Tile3DFlags.AllDirections },
 		};
 
 		public static readonly object[] DirectionFlags =
@@ -55,7 +49,7 @@ namespace CodeSmile.Tests.Editor.ProTiler.Data
 			new object[]
 			{
 				new Tile3D(0, Tile3DFlags.DirectionSouth),
-				new Tile3D(-1, Tile3DFlags.DirectionSouth),
+				new Tile3D(1, Tile3DFlags.DirectionSouth),
 			},
 			new object[]
 			{
@@ -91,11 +85,6 @@ namespace CodeSmile.Tests.Editor.ProTiler.Data
 				new Tile3D(0, Tile3DFlags.None),
 				new Tile3D(0, Tile3DFlags.None),
 			},
-			new object[]
-			{
-				new Tile3D(-1, Tile3DFlags.None),
-				new Tile3D(-1, Tile3DFlags.None),
-			},
 		};
 
 		public static readonly object[] NonEqualTileCoordPairs =
@@ -126,8 +115,8 @@ namespace CodeSmile.Tests.Editor.ProTiler.Data
 			},
 			new object[]
 			{
-				new Tile3DCoord(new Vector3Int(1, 2, 3), new Tile3D(-1)),
-				new Tile3DCoord(new Vector3Int(1, 2, 3), new Tile3D(-1)),
+				new Tile3DCoord(new Vector3Int(1, 2, 3), new Tile3D(4)),
+				new Tile3DCoord(new Vector3Int(1, 2, 3), new Tile3D(4)),
 			},
 		};
 	}

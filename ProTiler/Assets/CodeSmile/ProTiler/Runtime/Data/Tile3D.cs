@@ -18,7 +18,7 @@ namespace CodeSmile.ProTiler.Data
 		/// <summary>
 		///     Tile index used to get a tile's assed from a tile set.
 		/// </summary>
-		public short Index;
+		public ushort Index;
 		/// <summary>
 		///     Flags encode rotation and mirroring/flipping of a tile.
 		/// </summary>
@@ -27,11 +27,7 @@ namespace CodeSmile.ProTiler.Data
 		/// <summary>
 		///     Checks if the tile is "empty". A TileIndex == 0 indicates an "empty" tile.
 		/// </summary>
-		public bool IsEmpty => Index <= 0;
-		/// <summary>
-		///     Checks if the tile index is valid. A TileIndex >= 0 is considered 'valid' as it can be used for indexing.
-		/// </summary>
-		public bool IsValid => Index >= 0;
+		public bool IsEmpty => Index == 0;
 
 		/// <summary>
 		///     Returns direction flags from Flags. Returns DirectionNorth even if flags is 0 to ensure a default rotation.
@@ -41,12 +37,23 @@ namespace CodeSmile.ProTiler.Data
 		public static bool operator ==(Tile3D left, Tile3D right) => left.Equals(right);
 		public static bool operator !=(Tile3D left, Tile3D right) => !left.Equals(right);
 
+		public Tile3D(int tileIndex, Tile3DFlags flags = Tile3DFlags.DirectionNorth)
+			: this((ushort)tileIndex, flags)
+		{
+#if DEBUG
+			if (tileIndex < 0)
+				throw new ArgumentException($"tileIndex must be positive! Is: {tileIndex}");
+			if (tileIndex > ushort.MaxValue)
+				throw new ArgumentException($"tileIndex out of Int16 bounds! Is: {tileIndex}");
+#endif
+		}
+
 		/// <summary>
 		///     Instantiates a new tile.
 		/// </summary>
 		/// <param name="tileIndex"></param>
 		/// <param name="flags"></param>
-		public Tile3D(short tileIndex, Tile3DFlags flags = Tile3DFlags.DirectionNorth)
+		public Tile3D(ushort tileIndex, Tile3DFlags flags = Tile3DFlags.DirectionNorth)
 		{
 			Index = tileIndex;
 			Flags = flags;
