@@ -3,6 +3,7 @@
 
 using CodeSmile.Attributes;
 using CodeSmile.ProTiler.Data;
+using System.Diagnostics.CodeAnalysis;
 using UnityEditor;
 using UnityEngine;
 using GridCoord = UnityEngine.Vector3Int;
@@ -44,10 +45,13 @@ namespace CodeSmile.ProTiler.Behaviours
 			return tileCoords;
 		}
 
+		[ExcludeFromCodeCoverage]
 		private void Awake() => m_Tilemap = GetComponent<Tilemap3DBehaviour>();
 
+		[ExcludeFromCodeCoverage]
 		private void OnDrawGizmosSelected() => DrawActiveChunkTileIndexes();
 
+		[ExcludeFromCodeCoverage]
 		private void OnValidate()
 		{
 			m_ActiveLayerIndex = Mathf.Max(0, m_ActiveLayerIndex);
@@ -67,6 +71,7 @@ namespace CodeSmile.ProTiler.Behaviours
 
 		private void DrawActiveChunkTileIndexes()
 		{
+			#if UNITY_EDITOR
 			var normalStyle = new GUIStyleState { textColor = Color.yellow };
 			var labelStyle = new GUIStyle { fontSize = 11, normal = normalStyle };
 
@@ -92,6 +97,7 @@ namespace CodeSmile.ProTiler.Behaviours
 						Handles.Label(pos, $"{tileCoord.Tile.Index}: {pos}", labelStyle);
 				}
 			}
+			#endif
 		}
 
 		private void FillActiveChunkLayerWithIncrementingTiles()

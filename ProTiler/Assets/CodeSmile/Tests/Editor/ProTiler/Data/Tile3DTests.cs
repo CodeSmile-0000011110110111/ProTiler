@@ -3,6 +3,7 @@
 
 using CodeSmile.ProTiler.Data;
 using NUnit.Framework;
+using System;
 using System.Runtime.InteropServices;
 using Unity.Serialization.Json;
 using UnityEngine;
@@ -51,16 +52,23 @@ namespace CodeSmile.Tests.Editor.ProTiler.Data
 
 		[Test] public void NewTileIsEmpty() => Assert.That(new Tile3D().IsEmpty, Is.True);
 
+		[Test] public void NewTileWithNegativeIndexThrows() => Assert.Throws<ArgumentException>(
+			() => { new Tile3D(-1); });
+
+		[Test] public void NewTileWithInt16MaxValueIndexIsAllowed() => Assert.DoesNotThrow(
+			() => { new Tile3D(ushort.MaxValue); });
+
+		[Test] public void NewTileWithIndexGreaterThanInt16Throws() => Assert.Throws<ArgumentException>(
+			() => { new Tile3D(ushort.MaxValue + 1); });
+
 		[Test] public void NewTileHasDefaultDirectionNorth() =>
 			Assert.That(new Tile3D().Direction == Tile3DFlags.DirectionNorth);
 
 		[TestCaseSource(typeof(Tile3DTestCaseSource), nameof(Tile3DTestCaseSource.EmptyIndexes))]
-		public void NewTileWithZeroIndexIsEmpty(int index) =>
-			Assert.That(new Tile3D(index).IsEmpty, Is.True);
+		public void NewTileWithZeroIndexIsEmpty(int index) => Assert.That(new Tile3D(index).IsEmpty, Is.True);
 
 		[TestCaseSource(typeof(Tile3DTestCaseSource), nameof(Tile3DTestCaseSource.NonEmptyIndexes))]
-		public void NewTileWithNonZeroIndexIsNotEmpty(int index) =>
-			Assert.That(new Tile3D(index).IsEmpty, Is.False);
+		public void NewTileWithNonZeroIndexIsNotEmpty(int index) => Assert.That(new Tile3D(index).IsEmpty, Is.False);
 
 		[TestCaseSource(typeof(Tile3DTestCaseSource), nameof(Tile3DTestCaseSource.ValidIndexes))]
 		public void NewTileWithIndexReturnsIndex(int index) => Assert.That(new Tile3D(index).Index == index);
