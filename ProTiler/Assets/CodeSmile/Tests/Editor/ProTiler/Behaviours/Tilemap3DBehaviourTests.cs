@@ -52,7 +52,6 @@ namespace CodeSmile.Tests.Editor.ProTiler.Behaviours
 			tilemap = null; // reference goes missing upon Undo
 			Undo.PerformUndo();
 
-			var rootObject = SceneManager.GetActiveScene().GetRootGameObjects();
 			Assert.That(ObjectExt.FindObjectByTypeFast<Grid3DBehaviour>() == null);
 			Assert.That(ObjectExt.FindObjectByTypeFast<Tilemap3DBehaviour>() == null);
 			Assert.That(ObjectExt.FindObjectsByTypeFast<Grid3DBehaviour>().Length == 0);
@@ -94,8 +93,6 @@ namespace CodeSmile.Tests.Editor.ProTiler.Behaviours
 		[Test] [CreateEmptyScene]
 		public void SetTileUndoRedo()
 		{
-			Assert.Pass(">>> TODO: implement serialization");
-
 			var tilemap = Tilemap3DCreation.CreateRectangularTilemap3D();
 			var chunkSize = new Vector2Int(3, 2);
 			tilemap.ChunkSize = chunkSize;
@@ -104,7 +101,7 @@ namespace CodeSmile.Tests.Editor.ProTiler.Behaviours
 
 			var tileIndex = 123;
 			var coord = Vector3Int.one;
-			tilemap.SetTile(coord, new Tile3D((short)tileIndex));
+			tilemap.SetTile(coord, new Tile3D(tileIndex));
 			Assert.That(tilemap.TileCount == 1);
 
 			Undo.PerformUndo();
@@ -126,9 +123,6 @@ namespace CodeSmile.Tests.Editor.ProTiler.Behaviours
 		[Test] [CreateEmptyScene("TilemapTest.unity")]
 		public void SetTileSurvivesSaveLoadScene()
 		{
-			Assert.Pass(">>> TODO: implement serialization");
-
-
 			var tilemap = Tilemap3DCreation.CreateRectangularTilemap3D();
 			var chunkSize = new Vector2Int(3, 7);
 			tilemap.ChunkSize = chunkSize;
@@ -136,7 +130,7 @@ namespace CodeSmile.Tests.Editor.ProTiler.Behaviours
 
 			var tileIndex = 123;
 			var coord = Vector3Int.one;
-			tilemap.SetTile(coord, new Tile3D((short)tileIndex));
+			tilemap.SetTile(coord, new Tile3D(tileIndex));
 			Assert.That(tilemap.GetTile(coord).Index == tileIndex);
 
 			EditorSceneManager.SaveOpenScenes();

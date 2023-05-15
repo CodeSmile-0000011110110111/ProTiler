@@ -2,7 +2,9 @@
 // Refer to included LICENSE file for terms and conditions.
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Runtime.InteropServices;
 using Unity.Properties;
@@ -15,7 +17,23 @@ namespace CodeSmile.ProTiler.Data
 	///     A collection of Tile3DLayer instances.
 	/// </summary>
 	[Serializable]
-	internal class Tile3DLayerCollection : List<Tile3DLayer> {}
+	internal class Tile3DLayerCollection : IEnumerable<Tile3DLayer>
+	{
+		[CreateProperty] private List<Tile3DLayer> m_Layers = new();
+		public Tile3DLayer this[int index] => m_Layers[index];
+		public int Count => m_Layers.Count;
+		public int Capacity
+		{
+			[ExcludeFromCodeCoverage] get => m_Layers.Capacity;
+			set => m_Layers.Capacity = value;
+		}
+
+		[ExcludeFromCodeCoverage]
+		IEnumerator<Tile3DLayer> IEnumerable<Tile3DLayer>.GetEnumerator() => m_Layers.GetEnumerator();
+
+		[ExcludeFromCodeCoverage] public IEnumerator GetEnumerator() => m_Layers.GetEnumerator();
+		public void Add(Tile3DLayer layer) => m_Layers.Add(layer);
+	}
 
 	/// <summary>
 	///     A chunk is one part of a larger tilemap at a given position offset.
@@ -48,7 +66,7 @@ namespace CodeSmile.ProTiler.Data
 			get
 			{
 				var layerCount = 0;
-				foreach (var layer in m_Layers)
+				foreach (Tile3DLayer layer in m_Layers)
 					layerCount += layer.IsInitialized ? 1 : 0;
 				return layerCount;
 			}
@@ -62,11 +80,14 @@ namespace CodeSmile.ProTiler.Data
 			get
 			{
 				var tileCount = 0;
-				foreach (var layer in m_Layers)
+				foreach (Tile3DLayer layer in m_Layers)
 					tileCount += layer.TileCount;
 				return tileCount;
 			}
 		}
+
+		// required by serialization
+		public Tilemap3DChunk() {}
 
 		/// <summary>
 		///     Creates a new chunk instance with the given size (width, length).
@@ -138,8 +159,8 @@ namespace CodeSmile.ProTiler.Data
 		}
 
 		/// <summary>
-		/// List<> will increment capacity by doubling it, thus leaving significant unused additional capacity
-		/// while we'd rather conserve memory usage.
+		///     List<> will increment capacity by doubling it, thus leaving significant unused additional capacity
+		///     while we'd rather conserve memory usage.
 		/// </summary>
 		private void DiscardExcessCapacityFromLayersCollection() => m_Layers.Capacity = m_Layers.Count;
 

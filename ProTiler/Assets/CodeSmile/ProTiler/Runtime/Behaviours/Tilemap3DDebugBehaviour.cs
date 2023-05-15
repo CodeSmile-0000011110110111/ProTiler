@@ -15,6 +15,7 @@ namespace CodeSmile.ProTiler.Behaviours
 	[RequireComponent(typeof(Tilemap3DBehaviour))]
 	[DisallowMultipleComponent]
 	[ExecuteAlways]
+	[ExcludeFromCodeCoverage]
 	public class Tilemap3DDebugBehaviour : MonoBehaviour
 	{
 		[SerializeField] private ChunkCoord m_ActiveChunkCoord;
@@ -39,19 +40,16 @@ namespace CodeSmile.ProTiler.Behaviours
 				{
 					var coord = new GridCoord(chunkOrigin.x + x, height, chunkOrigin.y + z);
 					var tileIndex = Grid3DUtility.ToIndex2D(x, z, width);
-					tileCoords[tileIndex] = new Tile3DCoord(coord, new Tile3D((short)(tileIndex + 1)));
+					tileCoords[tileIndex] = new Tile3DCoord(coord, new Tile3D(tileIndex + 1));
 				}
 			}
 			return tileCoords;
 		}
 
-		[ExcludeFromCodeCoverage]
 		private void Awake() => m_Tilemap = GetComponent<Tilemap3DBehaviour>();
 
-		[ExcludeFromCodeCoverage]
 		private void OnDrawGizmosSelected() => DrawActiveChunkTileIndexes();
 
-		[ExcludeFromCodeCoverage]
 		private void OnValidate()
 		{
 			m_ActiveLayerIndex = Mathf.Max(0, m_ActiveLayerIndex);
@@ -71,7 +69,7 @@ namespace CodeSmile.ProTiler.Behaviours
 
 		private void DrawActiveChunkTileIndexes()
 		{
-			#if UNITY_EDITOR
+#if UNITY_EDITOR
 			var normalStyle = new GUIStyleState { textColor = Color.yellow };
 			var labelStyle = new GUIStyle { fontSize = 11, normal = normalStyle };
 
@@ -97,7 +95,7 @@ namespace CodeSmile.ProTiler.Behaviours
 						Handles.Label(pos, $"{tileCoord.Tile.Index}: {pos}", labelStyle);
 				}
 			}
-			#endif
+#endif
 		}
 
 		private void FillActiveChunkLayerWithIncrementingTiles()

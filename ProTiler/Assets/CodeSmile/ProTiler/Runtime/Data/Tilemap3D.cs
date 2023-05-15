@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using Unity.Properties;
 using ChunkCoord = UnityEngine.Vector2Int;
 using ChunkSize = UnityEngine.Vector2Int;
 using GridCoord = UnityEngine.Vector3Int;
@@ -12,19 +13,25 @@ using GridCoord = UnityEngine.Vector3Int;
 namespace CodeSmile.ProTiler.Data
 {
 	[Serializable]
-	internal class Tilemap3DChunks : Dictionary<long, Tilemap3DChunk>
+	internal class Tilemap3DChunks
 	{
+		[CreateProperty] private Dictionary<long, Tilemap3DChunk> m_Chunks = new();
+		public Tilemap3DChunk this[long chunkKey] { get => m_Chunks[chunkKey]; set => m_Chunks[chunkKey] = value; }
+
 		internal int TileCount
 		{
 			get
 			{
 				var tileCount = 0;
-				foreach (var chunk in Values)
+				foreach (var chunk in m_Chunks.Values)
 					tileCount += chunk.TileCount;
 
 				return tileCount;
 			}
 		}
+		public int Count => m_Chunks.Count;
+
+		public bool TryGetValue(long key, out Tilemap3DChunk chunk) => m_Chunks.TryGetValue(key, out chunk);
 	}
 
 	/// <summary>
@@ -80,6 +87,7 @@ namespace CodeSmile.ProTiler.Data
 			foreach (var layerCoordTile in layerCoordTiles)
 			{
 				gridCoords[i] = new Tile3DCoord(layerCoordTile);
+				// FIXME: move this into the Tile3DCoord
 				gridCoords[i].Coord = Tilemap3DUtility.LayerToGridCoord(layerCoordTile.Coord, chunkCoord, chunkSize);
 				i++;
 			}
@@ -127,8 +135,8 @@ namespace CodeSmile.ProTiler.Data
 	[Serializable]
 	public class Tilemap3D
 	{
-		private Tilemap3DChunks m_Chunks;
-		private ChunkSize m_ChunkSize;
+		[CreateProperty] private ChunkSize m_ChunkSize;
+		[CreateProperty] private Tilemap3DChunks m_Chunks;
 
 		internal ChunkSize ChunkSize => m_ChunkSize;
 		internal int ChunkCount => m_Chunks.Count;

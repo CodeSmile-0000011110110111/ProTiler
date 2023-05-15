@@ -30,7 +30,13 @@ namespace CodeSmile.ProTiler.Behaviours
 
 		public Grid3DBehaviour Grid => transform.parent.GetComponent<Grid3DBehaviour>();
 
-		public void OnBeforeSerialize() {}
+		public void OnBeforeSerialize()
+		{
+			if (m_Map != null)
+			{
+
+			}
+		}
 
 		public void OnAfterDeserialize() {}
 
@@ -71,6 +77,6 @@ namespace CodeSmile.ProTiler.Behaviours
 			this.SetDirtyInEditor();
 		}
 
-		public void SetTilesNoUndo(IEnumerable<Tile3DCoord> tileCoordDatas) => m_Map.SetTiles(tileCoordDatas);
+		internal void SetTilesNoUndo(IEnumerable<Tile3DCoord> tileCoordDatas) => m_Map.SetTiles(tileCoordDatas);
 	}
 }

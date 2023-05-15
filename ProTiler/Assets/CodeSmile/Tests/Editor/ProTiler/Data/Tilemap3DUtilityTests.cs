@@ -3,6 +3,7 @@
 
 using CodeSmile.ProTiler.Data;
 using NUnit.Framework;
+using System.Linq;
 using GridCoord = UnityEngine.Vector3Int;
 using ChunkCoord = UnityEngine.Vector2Int;
 using ChunkSize = UnityEngine.Vector2Int;
@@ -11,24 +12,20 @@ namespace CodeSmile.Tests.Editor.ProTiler.Data
 {
 	public class Tilemap3DUtilityTests
 	{
-		/*private static readonly object[] ChunkCoords =
+		private static readonly object[] ChunkCoords =
 		{
-			new object[] {  new ChunkCoord(0, 0),new ChunkSize(2, 2), new GridCoord(0, 0, 0) },
+			new object[] { new ChunkCoord(0, 0), new ChunkSize(2, 2), new GridCoord(0, 0, 0) },
+			new object[] { new ChunkCoord(2, 3), new ChunkSize(8, 8), new GridCoord(16, 0, 24) },
 		};
-		[TestCaseSource(nameof(ChunkCoords))]
-		public void GetAllChunkLayerCoordsCorrectness(ChunkCoord chunkCoord, ChunkSize chunkSize)
-		{
-
-		}*/
 
 		private static readonly object[] LayerToGridCoordParams =
 		{
-			new object[] { new GridCoord(0, 0, 0), new ChunkCoord(0, 0),new ChunkSize(2, 2), new GridCoord(0, 0, 0) },
-			new object[] { new GridCoord(0, 0, 0), new ChunkCoord(1, 1),new ChunkSize(2, 2), new GridCoord(2, 0, 2) },
-			new object[] { new GridCoord(1, 1, 1), new ChunkCoord(1, 1),new ChunkSize(2, 2), new GridCoord(3, 1, 3) },
-			new object[] { new GridCoord(2, 2, 2), new ChunkCoord(0, 0), new ChunkSize(2, 2),new GridCoord(2, 2, 2) },
-			new object[] { new GridCoord(2, 2, 2), new ChunkCoord(1, 1), new ChunkSize(2, 2),new GridCoord(4, 2, 4) },
-			new object[] { new GridCoord(2, 3, 2), new ChunkCoord(3, 4), new ChunkSize(2, 2),new GridCoord(8, 3, 10) },
+			new object[] { new GridCoord(0, 0, 0), new ChunkCoord(0, 0), new ChunkSize(2, 2), new GridCoord(0, 0, 0) },
+			new object[] { new GridCoord(0, 0, 0), new ChunkCoord(1, 1), new ChunkSize(2, 2), new GridCoord(2, 0, 2) },
+			new object[] { new GridCoord(1, 1, 1), new ChunkCoord(1, 1), new ChunkSize(2, 2), new GridCoord(3, 1, 3) },
+			new object[] { new GridCoord(2, 2, 2), new ChunkCoord(0, 0), new ChunkSize(2, 2), new GridCoord(2, 2, 2) },
+			new object[] { new GridCoord(2, 2, 2), new ChunkCoord(1, 1), new ChunkSize(2, 2), new GridCoord(4, 2, 4) },
+			new object[] { new GridCoord(2, 3, 2), new ChunkCoord(3, 4), new ChunkSize(2, 2), new GridCoord(8, 3, 10) },
 		};
 
 		private static readonly object[] GridToChunkCoordParams =
@@ -55,9 +52,20 @@ namespace CodeSmile.Tests.Editor.ProTiler.Data
 			new object[] { new GridCoord(-9, -9, -9), new ChunkCoord(4, 3), new GridCoord(1, 0, 0) },
 		};
 
+		[TestCaseSource(nameof(ChunkCoords))]
+		public void GetAllChunkLayerCoordsCorrectness(ChunkCoord chunkCoord, ChunkSize chunkSize, GridCoord firstCoord)
+		{
+			var coords = Tilemap3DUtility.GetAllChunkLayerCoords(chunkCoord, chunkSize);
+
+			var expected = new GridCoord(chunkCoord.x * chunkSize.x, 0, chunkCoord.y * chunkSize.y);
+			Assert.That(coords.Count(), Is.EqualTo(chunkSize.x * chunkSize.y));
+			Assert.That(coords.First(), Is.EqualTo(firstCoord));
+		}
+
 		[TestCaseSource(nameof(LayerToGridCoordParams))]
-		public void LayerToGridCoordIsCorrect(GridCoord layerCoord, ChunkCoord chunkCoord, ChunkSize chunkSize, GridCoord expected) =>
-			Assert.That(Tilemap3DUtility.LayerToGridCoord(layerCoord, chunkCoord, chunkSize), Is.EqualTo(expected));
+		public void LayerToGridCoordIsCorrect(GridCoord layerCoord, ChunkCoord chunkCoord, ChunkSize chunkSize,
+			GridCoord expected) => Assert.That(Tilemap3DUtility.LayerToGridCoord(layerCoord, chunkCoord, chunkSize),
+			Is.EqualTo(expected));
 
 		[TestCaseSource(nameof(GridToChunkCoordParams))]
 		public void GridToChunkCoordIsCorrect(GridCoord gridCoord, ChunkCoord chunkSize, ChunkCoord expected) =>

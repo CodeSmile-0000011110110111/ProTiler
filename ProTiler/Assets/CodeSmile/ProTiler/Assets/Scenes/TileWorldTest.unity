@@ -483,7 +483,7 @@ MonoBehaviour:
   m_ActiveLayerIndex: 50
   m_FillChunkLayer: 0
   m_MaxLayerIndex: -1
-  m_TileCount: 16
+  m_TileCount: 0
 --- !u!114 &1348210621
 MonoBehaviour:
   m_ObjectHideFlags: 0

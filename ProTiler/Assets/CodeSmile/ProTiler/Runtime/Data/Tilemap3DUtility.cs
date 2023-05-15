@@ -19,7 +19,7 @@ namespace CodeSmile.ProTiler.Data
 		/// </summary>
 		internal static readonly ChunkSize MinChunkSize = new(2, 2);
 
-		public static IEnumerable<GridCoord> GetAllChunkLayerCoords(ChunkCoord chunkCoord, ChunkSize chunkSize, int height)
+		public static IEnumerable<GridCoord> GetAllChunkLayerCoords(ChunkCoord chunkCoord, ChunkSize chunkSize, int height = 0)
 		{
 			var coords = new GridCoord[chunkSize.x * chunkSize.y];
 			var index = 0;

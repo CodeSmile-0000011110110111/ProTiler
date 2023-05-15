@@ -15,6 +15,7 @@ namespace CodeSmile.ProTiler.Data
 	///     Contains all chunks of a tilemap, dividing tilemap into x/z spatial chunks.
 	/// </summary>
 	[Serializable]
+	[ExcludeFromCodeCoverage]
 	public class _OldTilemap3D
 	{
 		public const int MinChunkSize = 2;
@@ -137,7 +138,9 @@ namespace CodeSmile.ProTiler.Data
 
 		private long GetChunkKey(GridCoord chunkCoord) => HashUtility.GetHash(chunkCoord.x, chunkCoord.z);
 
+		[ExcludeFromCodeCoverage]
 		[Serializable] public class ChunkCollection : SerializedDictionary<long, Tile3DLayerCollection> {}
+		[ExcludeFromCodeCoverage]
 		[Serializable] public class Tile3DLayerCollection : SerializedDictionary<int, Tile3DLayer> {}
 	}
 }

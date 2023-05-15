@@ -14,7 +14,7 @@ namespace CodeSmile.Tests.Editor.ProTiler.Data
 {
 	public class Tile3DLayerTests
 	{
-		private Tile3DLayer CreateLayer(int width, int height) => new(new LayerSize(width, height));
+		private static Tile3DLayer CreateLayer(int width, int height) => new(new LayerSize(width, height));
 
 		[Test] public void AssertThatSizeDidNotChangeUnintentionally()
 		{

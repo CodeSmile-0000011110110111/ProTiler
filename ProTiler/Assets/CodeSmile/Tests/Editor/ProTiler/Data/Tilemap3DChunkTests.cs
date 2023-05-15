@@ -33,7 +33,7 @@ namespace CodeSmile.Tests.Editor.ProTiler.Data
 			Debug.Log($"ToJson() => {json.Length} bytes:");
 			Debug.Log(json);
 
-			Assert.That(json.Length, Is.EqualTo(76));
+			Assert.That(json.Length, Is.EqualTo(104));
 		}
 
 		[Test] public void AssertThatMinifiedJsonDidNotChangeUnintentionally()
@@ -45,8 +45,8 @@ namespace CodeSmile.Tests.Editor.ProTiler.Data
 			Debug.Log($"ToJson() (minified) => {json.Length} bytes:");
 			Debug.Log(json);
 
-			Assert.That(json, Is.EqualTo("{m_Size={x=3 y=2} m_Layers={}}"));
-			Assert.That(json.Length, Is.EqualTo(30));
+			Assert.That(json, Is.EqualTo("{m_Size={x=3 y=2} m_Layers={m_Layers=[]}}"));
+			Assert.That(json.Length, Is.EqualTo(41));
 		}
 
 		[Test] public void NewTilemap3DChunkTileCountIsZero()

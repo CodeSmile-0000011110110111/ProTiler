@@ -59,7 +59,5 @@ namespace CodeSmile.ProTiler.Editor.Creation
 			               $"It is required for {Names.TileEditor} to function properly. " +
 			               $"To modify the asset anyway you have to first uninstall {Names.TileEditor}.");
 		}
-
-		[ExcludeFromCodeCoverage] internal Tile3DAssetRegisterPersistence() {}
 	}
 }

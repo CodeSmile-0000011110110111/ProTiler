@@ -11,6 +11,7 @@ using UnityEngine;
 namespace CodeSmile.ProTiler.Editor.Creation
 {
 	[InitializeOnLoad]
+	[ExcludeFromCodeCoverage]
 	public sealed class Tile3DAssetRegisterCreation : ScriptableObject
 	{
 		private const string RegisterAssetFilePath = Paths.Tile3DAssetRegister + "/" + nameof(Tile3DAssetRegister) + ".asset";
@@ -19,13 +20,11 @@ namespace CodeSmile.ProTiler.Editor.Creation
 		///     Initialization must be delayed because if the Library is deleted, the AssetDatabase won't find the
 		///     Tile3DAssetRegister asset even if it exists due to running this from an InitializeOnLoad static ctor.
 		/// </summary>
-		[ExcludeFromCodeCoverage]
 		static Tile3DAssetRegisterCreation() => EditorApplication.delayCall += InitializeTileAssetRegister;
 
 		/// <summary>
 		///     Creates a Tile3DAssetRegister asset if one does not exist.
 		/// </summary>
-		[ExcludeFromCodeCoverage]
 		public static void InitializeTileAssetRegister()
 		{
 			var register = LoadOrCreateTileAssetRegister();
@@ -33,7 +32,6 @@ namespace CodeSmile.ProTiler.Editor.Creation
 			register.LoadMissingTileAssetAndSetAsDefault();
 		}
 
-		[ExcludeFromCodeCoverage]
 		private static Tile3DAssetRegister LoadOrCreateTileAssetRegister() => AssetDatabaseExt.AssetExists<Tile3DAssetRegister>()
 			? AssetDatabaseExt.LoadAsset<Tile3DAssetRegister>()
 			: AssetDatabaseExt.CreateScriptableObjectAssetAndDirectory<Tile3DAssetRegister>(RegisterAssetFilePath);
