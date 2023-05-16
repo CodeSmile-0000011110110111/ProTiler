@@ -1,6 +1,7 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
+using CodeSmile.Attributes;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using ChunkKey = System.Int64;
@@ -12,6 +13,7 @@ using Math = UnityEngine.Mathf;
 
 namespace CodeSmile.ProTiler.Utility
 {
+	[FullCovered]
 	internal static class Tilemap3DUtility
 	{
 		/// <summary>

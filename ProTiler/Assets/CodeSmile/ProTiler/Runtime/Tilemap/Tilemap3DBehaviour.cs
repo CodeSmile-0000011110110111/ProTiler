@@ -5,9 +5,16 @@ using CodeSmile.Extensions;
 using CodeSmile.ProTiler.Grid;
 using CodeSmile.ProTiler.Tile;
 using CodeSmile.ProTiler.Utility;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
+using System.IO;
 using System.Linq;
+using System.Text;
+using UnityEditor;
+using UnityEditor.SceneManagement;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using GridCoord = UnityEngine.Vector3Int;
 using ChunkCoord = UnityEngine.Vector2Int;
 using ChunkSize = UnityEngine.Vector2Int;
@@ -16,45 +23,116 @@ namespace CodeSmile.ProTiler.Tilemap
 {
 	[ExecuteAlways]
 	[DisallowMultipleComponent]
-	public class Tilemap3DBehaviour : MonoBehaviour, ISerializationCallbackReceiver
+	public class Tilemap3DBehaviour : MonoBehaviour
 	{
 		//[SerializeField] private Vector3 m_TileAnchor;
 		[SerializeField] private Vector2Int m_ChunkSize = new(16, 16);
+		[SerializeField] private Boolean m_SerializeAsBinary = true;
 		private Tilemap3D m_Map;
 
-		public Vector2Int ChunkSize
+		[Pure] public Vector2Int ChunkSize
 		{
 			get => m_Map.ChunkSize;
 			set => SetChunkSize(value);
 		}
 
-		internal int TileCount => m_Map.TileCount;
+		[Pure] internal Int32 TileCount => m_Map.TileCount;
 
-		public Grid3DBehaviour Grid => transform.parent.GetComponent<Grid3DBehaviour>();
+		[Pure] public Grid3DBehaviour Grid => transform.parent.GetComponent<Grid3DBehaviour>();
 
-		public void OnBeforeSerialize()
+		[Pure] private void Awake() => SetChunkSize(m_ChunkSize);
+
+		[Pure] private void Reset() => SetChunkSize(m_ChunkSize);
+
+		[Pure] private void OnEnable() => RegisterEditorSceneEvents();
+
+		[Pure] private void OnDisable() => UnregisterEditorSceneEvents();
+
+		[Pure] private void OnValidate() => SetChunkSize(m_ChunkSize);
+
+		[Pure] private void RegisterEditorSceneEvents()
 		{
+#if UNITY_EDITOR
+			UnregisterEditorSceneEvents();
+			EditorSceneManager.sceneOpened += OnSceneOpened;
+			EditorSceneManager.sceneSaving += OnSceneSaving;
+#endif
+		}
+
+		[Pure] private void UnregisterEditorSceneEvents()
+		{
+#if UNITY_EDITOR
+			EditorSceneManager.sceneOpened -= OnSceneOpened;
+			EditorSceneManager.sceneSaving -= OnSceneSaving;
+#endif
+		}
+
+		[Pure] private void OnSceneOpened(Scene scene, OpenSceneMode mode) => LoadTilemap(scene.path);
+		[Pure] private void OnSceneSaving(Scene scene, String path) => SaveTilemap(path);
+
+		private void LoadTilemap(String scenePath)
+		{
+#if UNITY_EDITOR
+			var filename = Path.ChangeExtension(scenePath,
+				m_SerializeAsBinary ? $".{name}.binary" : $".{name}.json");
+			Debug.Log($"LoadTilemap: {filename}");
+			if (m_SerializeAsBinary)
+			{
+				if (File.Exists(filename))
+				{
+					var bytes = File.ReadAllBytes(filename);
+					File.Delete(filename);
+					Debug.Log($"from binary: {bytes.Length} bytes");
+					m_Map = Tilemap3DSerializer.FromBinary(bytes);
+				}
+			}
+			else
+			{
+				if (File.Exists(scenePath))
+				{
+					var json = File.ReadAllText(filename);
+					File.Delete(filename);
+					Debug.Log($"from json:\n{json}");
+					m_Map = Tilemap3DSerializer.FromJson(json);
+				}
+			}
+#endif
+		}
+
+		[Pure] private void SaveTilemap(String scenePath)
+		{
+#if UNITY_EDITOR
 			if (m_Map != null)
 			{
+				var filename = Path.ChangeExtension(scenePath,
+					m_SerializeAsBinary ? $".{name}.binary" : $".{name}.json");
+				Debug.Log($"LoadTilemap: {filename}");
+				if (m_SerializeAsBinary)
+				{
+					var bytes = Tilemap3DSerializer.ToBinary(m_Map);
 
+					var byteStr = new StringBuilder();
+					foreach (var b in bytes)
+						byteStr.Append(b);
+					Debug.Log($"Writing Tilemap {bytes.Length} bytes:\n{byteStr}");
+
+					File.WriteAllBytes(filename, bytes);
+					AssetDatabase.Refresh(ImportAssetOptions.ForceSynchronousImport);
+				}
+				else
+				{
+					var json = Tilemap3DSerializer.ToJson(m_Map, false);
+					Debug.Log($"Writing Tilemap.json:\n{json}");
+					File.WriteAllText(filename, json);
+					AssetDatabase.Refresh(ImportAssetOptions.ForceSynchronousImport);
+				}
 			}
+#endif
 		}
 
-		public void OnAfterDeserialize() {}
+		[Pure] public Int32 GetLayerCount(ChunkCoord chunkCoord) => m_Map.GetLayerCount(chunkCoord);
 
-		private void Awake() => SetChunkSize(m_ChunkSize);
-
-		private void Reset() => SetChunkSize(m_ChunkSize);
-
-		private void OnValidate() => SetChunkSize(m_ChunkSize);
-
-		public int GetLayerCount(ChunkCoord chunkCoord) => m_Map.GetLayerCount(chunkCoord);
-
-		private void CreateMap(ChunkSize chunkSize)
-		{
-			Debug.Log($"Creating tilemap with size {chunkSize}");
-			m_Map = new Tilemap3D(chunkSize);
-		}
+		private void CreateMap(ChunkSize chunkSize) => m_Map = new Tilemap3D(chunkSize);
 
 		private void SetChunkSize(ChunkSize chunkSize)
 		{
@@ -66,19 +144,19 @@ namespace CodeSmile.ProTiler.Tilemap
 			}
 		}
 
-		public Tile3D GetTile(GridCoord coord) => GetTiles(new[] { coord }).FirstOrDefault().Tile;
+		[Pure] public Tile3D GetTile(GridCoord coord) => GetTiles(new[] { coord }).FirstOrDefault().Tile;
 
-		public IEnumerable<Tile3DCoord> GetTiles(IEnumerable<GridCoord> coords) => m_Map.GetTiles(coords);
+		[Pure] public IEnumerable<Tile3DCoord> GetTiles(IEnumerable<GridCoord> coords) => m_Map.GetTiles(coords);
 
-		public void SetTile(GridCoord coord, Tile3D tile) => SetTiles(new[] { new Tile3DCoord(coord, tile) });
+		[Pure] public void SetTile(GridCoord coord, Tile3D tile) => SetTiles(new[] { new Tile3DCoord(coord, tile) });
 
-		public void SetTiles(IEnumerable<Tile3DCoord> tileCoordDatas)
+		[Pure] public void SetTiles(IEnumerable<Tile3DCoord> tileCoordDatas)
 		{
 			this.RecordUndoInEditor(nameof(SetTiles));
 			SetTilesNoUndo(tileCoordDatas);
 			this.SetDirtyInEditor();
 		}
 
-		internal void SetTilesNoUndo(IEnumerable<Tile3DCoord> tileCoordDatas) => m_Map.SetTiles(tileCoordDatas);
+		[Pure] private void SetTilesNoUndo(IEnumerable<Tile3DCoord> tileCoordDatas) => m_Map.SetTiles(tileCoordDatas);
 	}
 }

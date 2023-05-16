@@ -22,6 +22,7 @@ namespace CodeSmile.Collections
 	[DebuggerTypeProxy(typeof(NativeArray2DDebugView<>))]
 	[NativeContainer]
 	[NativeContainerSupportsDeallocateOnJobCompletion]
+	[SuppressMessage("NDepend", "ND1409:AvoidMutuallyDependentTypes", Justification="3rd party code")]
 	public unsafe struct NativeArray2D<T> : IDisposable, IEnumerable<T>, IEquatable<NativeArray2D<T>> where T : unmanaged
 	{
 		/// <summary>

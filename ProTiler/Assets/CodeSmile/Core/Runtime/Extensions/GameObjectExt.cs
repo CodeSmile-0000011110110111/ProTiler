@@ -8,6 +8,7 @@ using Object = UnityEngine.Object;
 
 namespace CodeSmile.Extensions
 {
+	[FullCovered]
 	public static class GameObjectExt
 	{
 		public static T GetOrAddComponent<T>(this GameObject go) where T : Component

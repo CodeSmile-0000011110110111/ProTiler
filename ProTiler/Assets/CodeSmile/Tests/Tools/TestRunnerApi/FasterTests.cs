@@ -10,7 +10,7 @@ using UnityEngine;
 namespace CodeSmile.Tests.Tools.TestRunnerApi
 {
 	[InitializeOnLoad] [ExcludeFromCodeCoverage]
-	public class FasterTests
+	public static class FasterTests
 	{
 		static FasterTests() => ScriptableObject.CreateInstance<UnityEditor.TestTools.TestRunner.Api.TestRunnerApi>().RegisterCallbacks(new Callbacks());
 

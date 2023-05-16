@@ -1,10 +1,14 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
+using CodeSmile.Attributes;
 using CodeSmile.ProTiler.Tile;
 using CodeSmile.ProTiler.Utility;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Runtime.InteropServices;
 using Unity.Properties;
@@ -18,11 +22,12 @@ namespace CodeSmile.ProTiler.Chunk
 	///     A chunk is one part of a larger tilemap at a given position offset.
 	///     It contains one or more height layers of the same size.
 	/// </summary>
+	[FullCovered]
 	[Serializable]
 	[StructLayout(LayoutKind.Sequential)]
-	internal class Tilemap3DChunk
+	internal sealed class Tilemap3DChunk
 	{
-		[CreateProperty] private ChunkSize m_Size;
+		[CreateProperty] private readonly ChunkSize m_Size;
 		[CreateProperty] private Tile3DLayers m_Layers;
 
 		/// <summary>
@@ -30,17 +35,17 @@ namespace CodeSmile.ProTiler.Chunk
 		///     Caution: No bounds check is performed.
 		/// </summary>
 		/// <param name="layerIndex"></param>
-		internal Tile3DLayer this[Int32 layerIndex] => m_Layers[layerIndex];
+		[Pure] internal Tile3DLayer this[Int32 layerIndex] => m_Layers[layerIndex];
 
 		/// <summary>
 		///     The size (width, length) of the chunk.
 		/// </summary>
-		public ChunkSize Size => m_Size;
+		[Pure] internal ChunkSize Size => m_Size;
 
 		/// <summary>
 		///     The number of non-empty height layers in this chunk.
 		/// </summary>
-		public Int32 LayerCount
+		[Pure] internal Int32 LayerCount
 		{
 			get
 			{
@@ -54,7 +59,7 @@ namespace CodeSmile.ProTiler.Chunk
 		/// <summary>
 		///     The number of non-empty tiles in this chunk's height layers.
 		/// </summary>
-		public Int32 TileCount
+		[Pure] internal Int32 TileCount
 		{
 			get
 			{
@@ -65,14 +70,15 @@ namespace CodeSmile.ProTiler.Chunk
 			}
 		}
 
-		// required by serialization
-		public Tilemap3DChunk() {}
+		[SuppressMessage("NDepend", "ND1701:PotentiallyDeadMethods",
+			Justification = "required by serialization")]
+		[Pure] internal Tilemap3DChunk() {}
 
 		/// <summary>
 		///     Creates a new chunk instance with the given size (width, length).
 		/// </summary>
 		/// <param name="size"></param>
-		public Tilemap3DChunk(ChunkSize size)
+		internal Tilemap3DChunk(ChunkSize size)
 		{
 			m_Size = size;
 			m_Layers = new Tile3DLayers();
@@ -84,7 +90,7 @@ namespace CodeSmile.ProTiler.Chunk
 		///     Will create additional height layers as needed based on the Y coordinate.
 		/// </summary>
 		/// <param name="coordTiles"></param>
-		public void SetLayerTiles(IEnumerable<Tile3DCoord> coordTiles)
+		[Pure] internal void SetLayerTiles(IEnumerable<Tile3DCoord> coordTiles)
 		{
 			foreach (var coordTile in coordTiles)
 			{
@@ -95,7 +101,8 @@ namespace CodeSmile.ProTiler.Chunk
 			}
 		}
 
-		public IEnumerable<Tile3DCoord> GetLayerTiles(ChunkCoord chunkCoord, IEnumerable<GridCoord> layerCoords)
+		[Pure] internal IEnumerable<Tile3DCoord> GetLayerTiles(ChunkCoord chunkCoord,
+			IEnumerable<GridCoord> layerCoords)
 		{
 			var layerTileCoords = new Tile3DCoord[layerCoords.Count()];
 
@@ -115,13 +122,13 @@ namespace CodeSmile.ProTiler.Chunk
 			return layerTileCoords;
 		}
 
-		private Tile3DLayer GetOrCreateHeightLayer(Int32 height)
+		[Pure] private Tile3DLayer GetOrCreateHeightLayer(Int32 height)
 		{
 			AddLayersUpToGivenHeight(height);
 			return GetHeightLayer(height);
 		}
 
-		private Tile3DLayer GetHeightLayerOrDefault(Int32 height)
+		[Pure] private Tile3DLayer GetHeightLayerOrDefault(Int32 height)
 		{
 			if (height < m_Layers.Count)
 				return GetHeightLayer(height);
@@ -129,24 +136,48 @@ namespace CodeSmile.ProTiler.Chunk
 			return default;
 		}
 
-		private Tile3DLayer GetHeightLayer(Int32 height) => m_Layers[height];
+		[Pure] private Tile3DLayer GetHeightLayer(Int32 height) => m_Layers[height];
 
-		private void AddLayersUpToGivenHeight(Int32 height)
+		[Pure] private void AddLayersUpToGivenHeight(Int32 height)
 		{
 			for (var i = m_Layers.Count; i < height + 1; i++)
 				m_Layers.Add(new Tile3DLayer(m_Size));
 
-			DiscardExcessCapacityFromLayersCollection();
+			DiscardExcessLayersCapacity();
 		}
 
 		/// <summary>
 		///     List<> will increment capacity by doubling it, thus leaving significant unused additional capacity
 		///     while we'd rather conserve memory usage.
 		/// </summary>
-		private void DiscardExcessCapacityFromLayersCollection() => m_Layers.Capacity = m_Layers.Count;
+		[Pure] private void DiscardExcessLayersCapacity() => m_Layers.Capacity = m_Layers.Count;
 
-		private Int32 ToTileIndex(GridCoord coord) => Grid3DUtility.ToIndex2D(ToLayerCoord(coord), m_Size.x);
-		private GridCoord ToLayerCoord(GridCoord coord) => coord - ToChunkCoord(coord);
-		private GridCoord ToChunkCoord(GridCoord coord) => new(coord.x / m_Size.x, coord.y, coord.z / m_Size.y);
+		[Pure] private Int32 ToTileIndex(GridCoord coord) => Grid3DUtility.ToIndex2D(ToLayerCoord(coord), m_Size.x);
+		[Pure] private GridCoord ToLayerCoord(GridCoord coord) => coord - ToChunkCoord(coord);
+		[Pure] private GridCoord ToChunkCoord(GridCoord coord) => new(coord.x / m_Size.x, coord.y, coord.z / m_Size.y);
+
+		/// <summary>
+		///     A collection of Tile3DLayer instances.
+		/// </summary>
+		[Serializable]
+		private sealed class Tile3DLayers : IEnumerable<Tile3DLayer>
+		{
+			[CreateProperty] private readonly List<Tile3DLayer> m_Layers = new();
+			[Pure] internal Tile3DLayer this[Int32 index] => m_Layers[index];
+			[Pure] internal Int32 Count => m_Layers.Count;
+			[Pure] internal Int32 Capacity
+			{
+				[ExcludeFromCodeCoverage] get => m_Layers.Capacity;
+				set => m_Layers.Capacity = value;
+			}
+
+			[ExcludeFromCodeCoverage]
+			[Pure] IEnumerator<Tile3DLayer> IEnumerable<Tile3DLayer>.GetEnumerator() => m_Layers.GetEnumerator();
+
+			[ExcludeFromCodeCoverage]
+			[Pure] public IEnumerator GetEnumerator() => m_Layers.GetEnumerator();
+
+			[Pure] internal void Add(Tile3DLayer layer) => m_Layers.Add(layer);
+		}
 	}
 }

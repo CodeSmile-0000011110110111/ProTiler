@@ -16,7 +16,7 @@ namespace CodeSmile.Tests.Tools.TestRunnerApi
 	///     Handles TestRunner callbacks mainly to set the running status of the TestRunner to EditorPrefs.
 	/// </summary>
 	[InitializeOnLoad] [ExcludeFromCodeCoverage]
-	public class SetUpAndTearDownTestRunner
+	public static class SetUpAndTearDownTestRunner
 	{
 		static SetUpAndTearDownTestRunner() => ScriptableObject.CreateInstance<UnityEditor.TestTools.TestRunner.Api.TestRunnerApi>()
 			.RegisterCallbacks(new Callbacks());

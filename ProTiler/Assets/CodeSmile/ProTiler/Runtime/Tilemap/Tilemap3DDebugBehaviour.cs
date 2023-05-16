@@ -2,10 +2,11 @@
 // Refer to included LICENSE file for terms and conditions.
 
 using CodeSmile.Attributes;
-using CodeSmile.ProTiler.Grid;
 using CodeSmile.ProTiler.Tile;
 using CodeSmile.ProTiler.Utility;
+using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Diagnostics.Contracts;
 using UnityEditor;
 using UnityEngine;
 using GridCoord = UnityEngine.Vector3Int;
@@ -21,15 +22,15 @@ namespace CodeSmile.ProTiler.Tilemap
 	public class Tilemap3DDebugBehaviour : MonoBehaviour
 	{
 		[SerializeField] private ChunkCoord m_ActiveChunkCoord;
-		[SerializeField] private int m_ActiveLayerIndex;
-		[SerializeField] private bool m_FillChunkLayer;
-		[SerializeField] [ReadOnlyField] private int m_MaxLayerIndex;
-		[SerializeField] [ReadOnlyField] private int m_TileCount;
+		[SerializeField] private Int32 m_ActiveLayerIndex;
+		[SerializeField] private Boolean m_FillChunkLayer;
+		[SerializeField] [ReadOnlyField] private Int32 m_MaxLayerIndex;
+		[SerializeField] [ReadOnlyField] private Int32 m_TileCount;
 
 		private Tilemap3DBehaviour m_Tilemap;
 
-		private static Tile3DCoord[] GetChunkTileCoordsWithIncrementingIndexes(ChunkCoord chunkCoord,
-			ChunkSize chunkSize, int height)
+		[Pure] private static Tile3DCoord[] GetIncrementingIndexChunkTileCoords(ChunkCoord chunkCoord,
+			ChunkSize chunkSize, Int32 height)
 		{
 			var width = chunkSize.x;
 			var length = chunkSize.y;
@@ -50,7 +51,7 @@ namespace CodeSmile.ProTiler.Tilemap
 
 		private void Awake() => m_Tilemap = GetComponent<Tilemap3DBehaviour>();
 
-		private void OnDrawGizmosSelected() => DrawActiveChunkTileIndexes();
+		[Pure] private void OnDrawGizmosSelected() => DrawActiveChunkTileIndexes();
 
 		private void OnValidate()
 		{
@@ -63,13 +64,13 @@ namespace CodeSmile.ProTiler.Tilemap
 			if (m_FillChunkLayer)
 			{
 				m_FillChunkLayer = false;
-				FillActiveChunkLayerWithIncrementingTiles();
+				FillActiveLayerWithIncrementingTiles();
 			}
 		}
 
 		private void UpdateTileCount() => m_TileCount = m_Tilemap != null ? m_Tilemap.TileCount : -1;
 
-		private void DrawActiveChunkTileIndexes()
+		[Pure] private void DrawActiveChunkTileIndexes()
 		{
 #if UNITY_EDITOR
 			var normalStyle = new GUIStyleState { textColor = Color.yellow };
@@ -100,10 +101,10 @@ namespace CodeSmile.ProTiler.Tilemap
 #endif
 		}
 
-		private void FillActiveChunkLayerWithIncrementingTiles()
+		[Pure] private void FillActiveLayerWithIncrementingTiles()
 		{
 			var tileCoords =
-				GetChunkTileCoordsWithIncrementingIndexes(m_ActiveChunkCoord, m_Tilemap.ChunkSize, m_ActiveLayerIndex);
+				GetIncrementingIndexChunkTileCoords(m_ActiveChunkCoord, m_Tilemap.ChunkSize, m_ActiveLayerIndex);
 			m_Tilemap.SetTiles(tileCoords);
 			UpdateTileCount();
 			Debug.Log($"filled chunk {m_ActiveChunkCoord} layer {m_ActiveLayerIndex} with {tileCoords.Length} tiles");

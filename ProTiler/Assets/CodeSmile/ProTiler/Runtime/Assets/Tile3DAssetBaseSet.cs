@@ -1,22 +1,25 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
+using CodeSmile.Attributes;
 using CodeSmile.Collections;
 using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Diagnostics.Contracts;
 using UnityEngine;
 
 namespace CodeSmile.ProTiler.Assets
 {
+	[FullCovered]
 	[Serializable]
 	public class Tile3DAssetBaseSet : ObjectSet<Tile3DAssetBase>
 	{
 		[SerializeField] [HideInInspector] private Tile3DAssetBase m_EmptyTileAsset;
 		[SerializeField] [HideInInspector] private Tile3DAssetBase m_MissingTileAsset;
 
-		public new Tile3DAssetBase this[int index] => index <= 0 ? EmptyTileAsset : base[index];
+		[Pure] public new Tile3DAssetBase this[Int32 index] => index <= 0 ? EmptyTileAsset : base[index];
 
-		public Tile3DAssetBase MissingTileAsset
+		[Pure] public Tile3DAssetBase MissingTileAsset
 		{
 			get
 			{
@@ -28,7 +31,7 @@ namespace CodeSmile.ProTiler.Assets
 				return m_MissingTileAsset;
 			}
 		}
-		public Tile3DAssetBase EmptyTileAsset
+		[Pure] public Tile3DAssetBase EmptyTileAsset
 		{
 			get
 			{
@@ -38,7 +41,7 @@ namespace CodeSmile.ProTiler.Assets
 			}
 		}
 
-		internal static Tile3DAsset LoadTile3DAssetResource(string resourcePath)
+		[Pure] internal static Tile3DAsset LoadTile3DAssetResource(String resourcePath)
 		{
 			var prefab = Resources.Load<Tile3DAsset>(resourcePath);
 			if (prefab == null)
@@ -47,23 +50,25 @@ namespace CodeSmile.ProTiler.Assets
 			return prefab;
 		}
 
-		public Tile3DAssetBaseSet()
+		[Pure] public Tile3DAssetBaseSet()
 			: base(null, 1) {}
 
-		public void Init()
+		[Pure] public void Init()
 		{
 			LoadEmptyTileAsset();
 			LoadMissingTileAsset();
 			SetMissingTileAsDefault();
 		}
 
-		internal void LoadMissingTileAsset() => m_MissingTileAsset = LoadTile3DAssetResource(Paths.ResourcesMissingTileAsset);
+		internal void LoadMissingTileAsset() =>
+			m_MissingTileAsset = LoadTile3DAssetResource(Paths.ResourcesMissingTileAsset);
+
 		internal void LoadEmptyTileAsset() => m_EmptyTileAsset = LoadTile3DAssetResource(Paths.ResourcesEmptyTileAsset);
 
-		internal void SetMissingTileAsDefault() => DefaultObject = MissingTileAsset;
+		[Pure] internal void SetMissingTileAsDefault() => DefaultObject = MissingTileAsset;
 
 		[ExcludeFromCodeCoverage]
-		internal void LoadMissingTileAssetAndSetAsDefault()
+		[Pure] internal void LoadMissingTileAssetAndSetAsDefault()
 		{
 			LoadMissingTileAsset();
 			SetMissingTileAsDefault();

@@ -1,10 +1,12 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
+using CodeSmile.Attributes;
 using UnityEngine;
 
 namespace CodeSmile.Extensions
 {
+	[FullCovered]
 	public static class RectIntExt
 	{
 		/*public static IReadOnlyList<Vector3Int> GetPositions(this RectInt gridRect)

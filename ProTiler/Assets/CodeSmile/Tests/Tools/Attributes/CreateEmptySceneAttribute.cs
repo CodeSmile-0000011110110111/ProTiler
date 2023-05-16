@@ -1,6 +1,7 @@
 // Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
+using CodeSmile.Attributes;
 using System;
 
 namespace CodeSmile.Tests.Tools.Attributes
@@ -8,6 +9,7 @@ namespace CodeSmile.Tests.Tools.Attributes
 	/// <summary>
 	///     Creates a new empty scene for a unit test method.
 	/// </summary>
+	[FullCovered]
 	[AttributeUsage(AttributeTargets.Method)]
 	public sealed class CreateEmptySceneAttribute : CreateSceneAttribute
 	{

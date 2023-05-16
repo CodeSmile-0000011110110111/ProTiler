@@ -1,6 +1,7 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
+using CodeSmile.Attributes;
 using NUnit.Framework;
 using NUnit.Framework.Interfaces;
 using System;
@@ -14,6 +15,7 @@ using UnityEngine.TestTools;
 
 namespace CodeSmile.Tests.Tools.Attributes
 {
+	[FullCovered]
 	[AttributeUsage(AttributeTargets.Method)]
 	public sealed class LoadSceneAttribute : NUnitAttribute, IOuterUnityTestAction
 	{

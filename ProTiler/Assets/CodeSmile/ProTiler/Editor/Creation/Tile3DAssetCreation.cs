@@ -1,6 +1,7 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
+using CodeSmile.Attributes;
 using CodeSmile.Editor.Extensions;
 using CodeSmile.Extensions;
 using CodeSmile.ProTiler.Assets;
@@ -15,6 +16,7 @@ using Object = UnityEngine.Object;
 
 namespace CodeSmile.ProTiler.Editor.Creation
 {
+	[FullCovered]
 	public static class Tile3DAssetCreation
 	{
 		public static T CreateInstance<T>(GameObject prefab = null) where T : Tile3DAssetBase
@@ -37,7 +39,7 @@ namespace CodeSmile.ProTiler.Editor.Creation
 			CreateRegisteredAssetWithSelection<Tile3DAsset>(nameof(Tile3DAsset));
 
 		[MenuItem(Menus.CreateTilesFromSelectedPrefabs)] [ExcludeFromCodeCoverage]
-		public static void CreateMultipleRegisteredAssetsWithSelection()
+		public static void CreateRegisteredAssetsWithSelection()
 		{
 			var createdTiles = new List<Tile3DAssetBase>();
 			foreach (var gameObject in Selection.gameObjects)
@@ -65,7 +67,7 @@ namespace CodeSmile.ProTiler.Editor.Creation
 			Action<T> createdCallback = null, Action canceledCallback = null) where T : Tile3DAssetBase
 		{
 			if (SelectionExt.PrefabCount() > 1)
-				CreateMultipleRegisteredAssetsWithSelection();
+				CreateRegisteredAssetsWithSelection();
 			else
 				CreateRegisteredAssetWithCallbacks(proposedAssetName, createdCallback, canceledCallback);
 		}
@@ -109,9 +111,9 @@ namespace CodeSmile.ProTiler.Editor.Creation
 		[ExcludeFromCodeCoverage]
 		private class CreateTile3DAssetEndAction : EndNameEditAction
 		{
-			public Tile3DAssetBase TileAsset { get; set; }
-			public Action<Object> CreatedCallback { get; set; }
-			public Action CanceledCallback { get; set; }
+			private Tile3DAssetBase TileAsset { get; set; }
+			internal Action<Object> CreatedCallback { get; set; }
+			internal Action CanceledCallback { get; set; }
 
 			public override void Action(int instanceId, string pathName, string resourceFile)
 			{

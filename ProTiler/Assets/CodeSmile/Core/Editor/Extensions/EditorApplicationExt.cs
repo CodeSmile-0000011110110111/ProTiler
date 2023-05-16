@@ -3,7 +3,7 @@
 
 namespace CodeSmile.Editor.Extensions
 {
-	public class EditorApplicationExt
+	public static class EditorApplicationExt
 	{
 		
 	}

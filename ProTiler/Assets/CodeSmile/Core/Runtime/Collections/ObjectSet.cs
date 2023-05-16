@@ -18,6 +18,7 @@ namespace CodeSmile.Collections
 	///     Will not store null references (throws exception).
 	/// </summary>
 	[Serializable]
+	[FullCovered]
 	public class ObjectSet<T> where T : Object
 	{
 		/// <summary>

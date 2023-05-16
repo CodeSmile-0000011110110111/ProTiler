@@ -1,7 +1,9 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
+using CodeSmile.Attributes;
 using System;
+using System.Diagnostics.Contracts;
 using System.Runtime.CompilerServices;
 using WorldPos = UnityEngine.Vector3;
 using GridCoord = UnityEngine.Vector3Int;
@@ -10,6 +12,7 @@ using Math = UnityEngine.Mathf;
 
 namespace CodeSmile.ProTiler.Utility
 {
+	[FullCovered]
 	internal static class Grid3DUtility
 	{
 		/// <summary>
@@ -20,7 +23,7 @@ namespace CodeSmile.ProTiler.Utility
 		/// <param name="width"></param>
 		/// <returns></returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static Int32 ToIndex2D(Int32 x, Int32 z, Int32 width) => z * width + x;
+		[Pure] internal static Int32 ToIndex2D(Int32 x, Int32 z, Int32 width) => z * width + x;
 
 		/// <summary>
 		///     Converts grid coordinate to a 2D array index.
@@ -29,7 +32,7 @@ namespace CodeSmile.ProTiler.Utility
 		/// <param name="width"></param>
 		/// <returns></returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static Int32 ToIndex2D(GridCoord coord, Int32 width) => coord.z * width + coord.x;
+		[Pure] internal static Int32 ToIndex2D(GridCoord coord, Int32 width) => coord.z * width + coord.x;
 
 		/// <summary>
 		///     Converts 2D array index to grid coordinate.
@@ -39,7 +42,7 @@ namespace CodeSmile.ProTiler.Utility
 		/// <param name="y"></param>
 		/// <returns></returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static GridCoord ToCoord(Int32 index2d, Int32 width, Int32 y = 0) =>
+		[Pure] internal static GridCoord ToCoord(Int32 index2d, Int32 width, Int32 y = 0) =>
 			new(index2d % width, y, index2d / width);
 
 		/// <summary>
@@ -50,7 +53,7 @@ namespace CodeSmile.ProTiler.Utility
 		/// <param name="worldPosition"></param>
 		/// <param name="cellSize"></param>
 		/// <returns></returns>
-		public static GridCoord ToCoord(WorldPos worldPosition, CellSize cellSize) => new(
+		[Pure] internal static GridCoord ToCoord(WorldPos worldPosition, CellSize cellSize) => new(
 			Math.FloorToInt(worldPosition.x * (1f / cellSize.x)),
 			Math.FloorToInt(worldPosition.y * (1f / cellSize.y)),
 			Math.FloorToInt(worldPosition.z * (1f / cellSize.z)));

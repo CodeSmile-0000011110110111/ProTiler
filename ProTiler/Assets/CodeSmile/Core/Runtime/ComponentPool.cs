@@ -1,6 +1,7 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
+using CodeSmile.Attributes;
 using CodeSmile.Extensions;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,7 @@ namespace CodeSmile
 	///     or throw an exception if the finalizer runs.
 	/// </summary>
 	/// <typeparam name="T"></typeparam>
+	[FullCovered]
 	public sealed class ComponentPool<T> : IDisposable where T : Component
 	{
 		private readonly List<T> m_AllInstances = new();

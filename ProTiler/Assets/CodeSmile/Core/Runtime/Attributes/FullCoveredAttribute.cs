@@ -5,6 +5,7 @@ using System;
 
 namespace CodeSmile.Attributes
 {
+	[FullCovered]
 	[AttributeUsage(AttributeTargets.Assembly | AttributeTargets.Class | AttributeTargets.Struct |
 	                AttributeTargets.Constructor | AttributeTargets.Method | AttributeTargets.Property)]
 	public sealed class FullCoveredAttribute : Attribute {}

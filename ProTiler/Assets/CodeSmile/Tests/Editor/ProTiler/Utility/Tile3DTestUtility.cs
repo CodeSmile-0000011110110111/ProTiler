@@ -13,13 +13,13 @@ namespace CodeSmile.Tests.Editor.ProTiler.Utility
 {
 	internal static class Tile3DTestUtility
 	{
-		public static void SetAllTilesWithIncrementingIndex(ref Tile3DLayer tiles, Int32 width, Int32 length)
+		internal static void SetAllTilesWithIncrementingIndex(ref Tile3DLayer tiles, Int32 width, Int32 length)
 		{
 			for (var i = 0; i < width * length; i++)
 				tiles[i] = new Tile3D(i + 1);
 		}
 
-		public static Tile3DCoord[] CreateTileCoordsWithIncrementingIndex(Int32 width, Int32 length, Int32 height = 0)
+		internal static Tile3DCoord[] CreateTileCoordsWithIncrementingIndex(Int32 width, Int32 length, Int32 height = 0)
 		{
 			var coordDataCount = width * length;
 			var tileCoords = new Tile3DCoord[coordDataCount];
@@ -37,7 +37,7 @@ namespace CodeSmile.Tests.Editor.ProTiler.Utility
 			return tileCoords;
 		}
 
-		public static Tile3DCoord[] CreateTileCoordsWithIncrementingIndexAcrossLayers(Int32 width, Int32 height,
+		internal static Tile3DCoord[] CreateTileCoordsWithIncrementingIndexAcrossLayers(Int32 width, Int32 height,
 			Int32 length)
 		{
 			var tileCoordsLayers = new List<Tile3DCoord>();
@@ -46,13 +46,13 @@ namespace CodeSmile.Tests.Editor.ProTiler.Utility
 			return tileCoordsLayers.ToArray();
 		}
 
-		public static Tile3DCoord[] CreateOneTileCoord(Int32 x, Int32 y, Int32 z) => new[]
+		internal static Tile3DCoord[] CreateOneTileCoord(Int32 x, Int32 y, Int32 z) => new[]
 		{
 			new Tile3DCoord(new GridCoord(x - 1, y, z - 1),
 				new Tile3D(x + y + z)),
 		};
 
-		public static void AssertThatAllTilesHaveIncrementingIndex(Int32 width, Int32 length, Tile3DLayer tiles,
+		internal static void AssertThatAllTilesHaveIncrementingIndex(Int32 width, Int32 length, Tile3DLayer tiles,
 			Int32 height = 0)
 		{
 			for (var x = 0; x < width; x++)

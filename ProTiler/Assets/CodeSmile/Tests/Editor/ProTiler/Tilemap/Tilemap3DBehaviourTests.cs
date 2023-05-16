@@ -118,6 +118,7 @@ namespace CodeSmile.Tests.Editor.ProTiler.Tilemap
 			var coord = Vector3Int.one;
 			tilemap.SetTile(coord, new Tile3D(tileIndex));
 
+			tilemap.SetDirtyInEditor();
 			EditorSceneManager.SaveOpenScenes();
 			EditorSceneManager.OpenScene(SceneManager.GetActiveScene().path);
 

@@ -1,8 +1,10 @@
 // Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
+using CodeSmile.Attributes;
 using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Diagnostics.Contracts;
 using System.Runtime.InteropServices;
 using TileIndex = System.UInt16;
 
@@ -12,6 +14,7 @@ namespace CodeSmile.ProTiler.Tile
 	///     Represents the saved data in a tilemap.
 	///     Note: a TileIndex of 0 indicates an "empty" tile.
 	/// </summary>
+	[FullCovered]
 	[Serializable]
 	[StructLayout(LayoutKind.Sequential)]
 	public struct Tile3D : IEquatable<Tile3D>
@@ -28,23 +31,23 @@ namespace CodeSmile.ProTiler.Tile
 		/// <summary>
 		///     Checks if the tile is "empty". A TileIndex == 0 indicates an "empty" tile.
 		/// </summary>
-		public bool IsEmpty => Index == 0;
+		[Pure] public Boolean IsEmpty => Index == 0;
 
 		/// <summary>
 		///     Returns direction flags from Flags. Returns DirectionNorth even if flags is 0 to ensure a default rotation.
 		/// </summary>
-		public Tile3DFlags Direction => GetDirectionOrDefault();
+		[Pure] public Tile3DFlags Direction => GetDirectionOrDefault();
 
-		public static bool operator ==(Tile3D left, Tile3D right) => left.Equals(right);
-		public static bool operator !=(Tile3D left, Tile3D right) => !left.Equals(right);
+		[Pure] public static Boolean operator ==(Tile3D left, Tile3D right) => left.Equals(right);
+		[Pure] public static Boolean operator !=(Tile3D left, Tile3D right) => !left.Equals(right);
 
-		public Tile3D(int tileIndex, Tile3DFlags flags = Tile3DFlags.DirectionNorth)
+		[Pure] public Tile3D(Int32 tileIndex, Tile3DFlags flags = Tile3DFlags.DirectionNorth)
 			: this((TileIndex)tileIndex, flags)
 		{
 #if DEBUG
 			if (tileIndex < 0)
 				throw new ArgumentException($"tileIndex must be positive! Is: {tileIndex}");
-			if (tileIndex > ushort.MaxValue)
+			if (tileIndex > UInt16.MaxValue)
 				throw new ArgumentException($"tileIndex out of Int16 bounds! Is: {tileIndex}");
 #endif
 		}
@@ -60,14 +63,14 @@ namespace CodeSmile.ProTiler.Tile
 			Flags = flags;
 		}
 
-		public bool Equals(Tile3D other) => Index == other.Index && Flags == other.Flags;
-		public override bool Equals(object obj) => obj is Tile3D other && Equals(other);
-		public override int GetHashCode() => HashCode.Combine(Index, Flags);
+		[Pure] public Boolean Equals(Tile3D other) => Index == other.Index && Flags == other.Flags;
+		[Pure] public override Boolean Equals(Object obj) => obj is Tile3D other && Equals(other);
+		[Pure] public override Int32 GetHashCode() => HashCode.Combine(Index, Flags);
 
-		[ExcludeFromCodeCoverage] public override string ToString() =>
+		[ExcludeFromCodeCoverage] [Pure] public override String ToString() =>
 			$"{nameof(Tile3D)}(Index: {Index}, Flags: {Flags})";
 
-		private Tile3DFlags GetDirectionOrDefault()
+		[Pure] private Tile3DFlags GetDirectionOrDefault()
 		{
 			var dir = Flags & Tile3DFlags.AllDirections;
 			return dir != Tile3DFlags.None ? dir : Tile3DFlags.DirectionNorth;

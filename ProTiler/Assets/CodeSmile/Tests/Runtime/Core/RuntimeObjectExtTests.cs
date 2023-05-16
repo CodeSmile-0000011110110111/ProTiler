@@ -10,7 +10,7 @@ using UnityEngine.TestTools;
 
 namespace CodeSmile.Tests.Runtime.Core
 {
-	public class ObjectExtTests
+	public class RuntimeObjectExtTests
 	{
 		private const string ShouldGetDestroyedName = "ShouldGetDestroyed";
 

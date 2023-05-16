@@ -1,49 +1,53 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
+using CodeSmile.Attributes;
 using CodeSmile.ProTiler.Chunk;
 using CodeSmile.ProTiler.Tile;
 using CodeSmile.ProTiler.Utility;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Diagnostics.Contracts;
 using Unity.Properties;
 using ChunkKey = System.Int64;
 using ChunkCoord = UnityEngine.Vector2Int;
 using ChunkSize = UnityEngine.Vector2Int;
 using GridCoord = UnityEngine.Vector3Int;
+using LayerCoord = UnityEngine.Vector3Int;
 
 namespace CodeSmile.ProTiler.Tilemap
 {
 	/// <summary>
 	///     Container for a 3D tilemap.
 	/// </summary>
+	[FullCovered]
 	[Serializable]
 	public class Tilemap3D
 	{
 		[CreateProperty] private ChunkSize m_ChunkSize;
 		[CreateProperty] private Tilemap3DChunks m_Chunks;
 
-		internal ChunkSize ChunkSize => m_ChunkSize;
-		internal int ChunkCount => m_Chunks.Count;
-		internal int TileCount => m_Chunks.TileCount;
+		[Pure] internal ChunkSize ChunkSize => m_ChunkSize;
+		[Pure] internal Int32 ChunkCount => m_Chunks.Count;
+		[Pure] internal Int32 TileCount => m_Chunks.TileCount;
 
-		public Tilemap3D()
+		[Pure] public Tilemap3D()
 			: this(Tilemap3DUtility.MinChunkSize) {}
 
-		public Tilemap3D(ChunkSize chunkSize) => InitChunks(Tilemap3DUtility.ClampChunkSize(chunkSize));
+		[Pure] public Tilemap3D(ChunkSize chunkSize) => InitChunks(Tilemap3DUtility.ClampChunkSize(chunkSize));
 
-		public int GetLayerCount(ChunkCoord chunkCoord) =>
+		[Pure] public Int32 GetLayerCount(ChunkCoord chunkCoord) =>
 			TryGetChunk(Tilemap3DUtility.GetChunkKey(chunkCoord), out var chunk) ? chunk.LayerCount : 0;
 
 		/// <summary>
 		///     Sets tiles on affected chunks.
 		/// </summary>
 		/// <param name="gridCoordTiles"></param>
-		public void SetTiles(IEnumerable<Tile3DCoord> gridCoordTiles)
+		[Pure] public void SetTiles(IEnumerable<Tile3DCoord> gridCoordTiles)
 		{
 			var layerCoordTiles = new ChunkTileCoords(gridCoordTiles, m_ChunkSize);
-			foreach (ChunkKey chunkKey in layerCoordTiles.Keys)
+			foreach (var chunkKey in layerCoordTiles.Keys)
 			{
 				GetOrCreateChunk(chunkKey, out var chunk);
 				chunk.SetLayerTiles(layerCoordTiles[chunkKey]);
@@ -55,12 +59,12 @@ namespace CodeSmile.ProTiler.Tilemap
 		/// </summary>
 		/// <param name="gridCoords"></param>
 		/// <returns></returns>
-		public IEnumerable<Tile3DCoord> GetTiles(IEnumerable<GridCoord> gridCoords)
+		[Pure] public IEnumerable<Tile3DCoord> GetTiles(IEnumerable<GridCoord> gridCoords)
 		{
 			var tileCoords = new List<Tile3DCoord>();
 
 			var chunkLayerCoords = new ChunkCoords(gridCoords, m_ChunkSize);
-			foreach (ChunkKey chunkKey in chunkLayerCoords.Keys)
+			foreach (var chunkKey in chunkLayerCoords.Keys)
 			{
 				if (TryGetChunk(chunkKey, out var chunk) == false)
 					continue;
@@ -75,15 +79,17 @@ namespace CodeSmile.ProTiler.Tilemap
 			return tileCoords;
 		}
 
-		private void GetOrCreateChunk(ChunkKey chunkKey, out Tilemap3DChunk chunk)
+		[Pure] private void GetOrCreateChunk(ChunkKey chunkKey, out Tilemap3DChunk chunk)
 		{
 			if (TryGetChunk(chunkKey, out chunk) == false)
 				chunk = CreateChunk(chunkKey);
 		}
 
-		private Tilemap3DChunk CreateChunk(ChunkKey chunkKey) => m_Chunks[chunkKey] = new Tilemap3DChunk(m_ChunkSize);
+		[Pure] private Tilemap3DChunk CreateChunk(ChunkKey chunkKey) =>
+			m_Chunks[chunkKey] = new Tilemap3DChunk(m_ChunkSize);
 
-		private bool TryGetChunk(ChunkKey chunkKey, out Tilemap3DChunk chunk) => m_Chunks.TryGetValue(chunkKey, out chunk);
+		[Pure] private Boolean TryGetChunk(ChunkKey chunkKey, out Tilemap3DChunk chunk) =>
+			m_Chunks.TryGetValue(chunkKey, out chunk);
 
 		private void InitChunks(ChunkSize chunkSize)
 		{
@@ -92,6 +98,98 @@ namespace CodeSmile.ProTiler.Tilemap
 		}
 
 		[ExcludeFromCodeCoverage]
-		public override string ToString() => $"{nameof(Tilemap3D)}(ChunkCount: {ChunkCount}, ChunkSize: {ChunkSize})";
+		[Pure] public override String ToString() =>
+			$"{nameof(Tilemap3D)}(ChunkCount: {ChunkCount}, ChunkSize: {ChunkSize})";
+
+		/// <summary>
+		///     Container for Tile3DCoord collections that are automatically divided into chunks.
+		/// </summary>
+		private sealed class ChunkTileCoords : Dictionary<ChunkKey, IList<Tile3DCoord>>
+		{
+			[Pure] internal ChunkTileCoords(IEnumerable<Tile3DCoord> tileCoords, ChunkSize chunkSize) =>
+				SplitTileCoordsIntoChunks(tileCoords, chunkSize);
+
+			[Pure] private void SplitTileCoordsIntoChunks(IEnumerable<Tile3DCoord> tileCoords, ChunkSize chunkSize)
+			{
+				foreach (var tileCoord in tileCoords)
+				{
+					var chunkCoord = tileCoord.GetChunkCoord(chunkSize);
+					var chunkKey = Tilemap3DUtility.GetChunkKey(chunkCoord);
+					AddTileCoordToChunk(chunkKey, tileCoord);
+				}
+			}
+
+			[Pure] private void AddTileCoordToChunk(ChunkKey chunkKey, in Tile3DCoord tileCoord)
+			{
+				if (TryGetValue(chunkKey, out var coords))
+					coords.Add(tileCoord);
+				else
+					Add(chunkKey, new List<Tile3DCoord> { tileCoord });
+			}
+		}
+
+		private sealed class ChunkCoords : Dictionary<ChunkKey, IList<LayerCoord>>
+		{
+			private readonly Dictionary<ChunkKey, ChunkCoord> m_ChunkCoords = new();
+
+			[Pure] internal ChunkCoords(IEnumerable<GridCoord> gridCoords, ChunkSize chunkSize) =>
+				SplitIntoChunkLayerCoords(gridCoords, chunkSize);
+
+			[Pure] internal ChunkCoord GetChunkCoord(ChunkKey chunkKey) => m_ChunkCoords[chunkKey];
+
+			[Pure] private void SplitIntoChunkLayerCoords(IEnumerable<GridCoord> gridCoords, ChunkSize chunkSize)
+			{
+				foreach (var gridCoord in gridCoords)
+				{
+					var chunkCoord = Tilemap3DUtility.GridToChunkCoord(gridCoord, chunkSize);
+					var chunkKey = Tilemap3DUtility.GetChunkKey(chunkCoord);
+					AddChunkCoord(chunkKey, chunkCoord);
+
+					var layerCoord = Tilemap3DUtility.GridToLayerCoord(gridCoord, chunkSize);
+					AddLayerCoord(chunkKey, layerCoord);
+				}
+			}
+
+			[Pure] private void AddChunkCoord(ChunkKey chunkKey, in ChunkCoord chunkCoord)
+			{
+				if (m_ChunkCoords.ContainsKey(chunkKey) == false)
+					m_ChunkCoords[chunkKey] = chunkCoord;
+			}
+
+			[Pure] private void AddLayerCoord(ChunkKey chunkKey, in LayerCoord layerCoord)
+			{
+				if (TryGetValue(chunkKey, out var coords))
+					coords.Add(layerCoord);
+				else
+					Add(chunkKey, new List<LayerCoord> { layerCoord });
+			}
+		}
+
+		[Serializable]
+		private sealed class Tilemap3DChunks
+		{
+			[CreateProperty] private Dictionary<Int64, Tilemap3DChunk> m_Chunks = new();
+			[Pure] internal Tilemap3DChunk this[Int64 chunkKey]
+			{
+				get => m_Chunks[chunkKey];
+				set => m_Chunks[chunkKey] = value;
+			}
+
+			[Pure] internal Int32 TileCount
+			{
+				get
+				{
+					var tileCount = 0;
+					foreach (var chunk in m_Chunks.Values)
+						tileCount += chunk.TileCount;
+
+					return tileCount;
+				}
+			}
+			[Pure] internal Int32 Count => m_Chunks.Count;
+
+			[Pure] internal Boolean TryGetValue(Int64 key, out Tilemap3DChunk chunk) =>
+				m_Chunks.TryGetValue(key, out chunk);
+		}
 	}
 }

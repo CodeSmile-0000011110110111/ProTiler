@@ -4,10 +4,12 @@
 using CodeSmile.Attributes;
 using CodeSmile.ProTiler.Assets;
 using System.Diagnostics.CodeAnalysis;
+using System.Diagnostics.Contracts;
 using UnityEngine;
 
 namespace CodeSmile.ProTiler.Grid
 {
+	[FullCovered]
 	[DisallowMultipleComponent]
 	[RequireComponent(typeof(Grid3DBehaviour))]
 	public class Tile3DSetBehaviour : MonoBehaviour
@@ -20,9 +22,9 @@ namespace CodeSmile.ProTiler.Grid
 			m_TileAssets.Init();
 		}
 
-		public void Add(Tile3DAssetBase tileAsset) => m_TileAssets.Add(tileAsset);
-		public void Add(Tile3DAssetBase tileAsset, out int index) => m_TileAssets.Add(tileAsset, out index);
-		public void Remove(Tile3DAssetBase tileAsset) => m_TileAssets.Remove(tileAsset);
-		public bool Contains(Tile3DAssetBase tileAsset) => m_TileAssets.Contains(tileAsset);
+		[Pure] public void Add(Tile3DAssetBase tileAsset) => m_TileAssets.Add(tileAsset);
+		[Pure] public void Add(Tile3DAssetBase tileAsset, out int index) => m_TileAssets.Add(tileAsset, out index);
+		[Pure] public void Remove(Tile3DAssetBase tileAsset) => m_TileAssets.Remove(tileAsset);
+		[Pure] public bool Contains(Tile3DAssetBase tileAsset) => m_TileAssets.Contains(tileAsset);
 	}
 }

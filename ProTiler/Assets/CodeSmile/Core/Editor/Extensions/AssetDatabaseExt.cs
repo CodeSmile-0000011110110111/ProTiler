@@ -1,6 +1,7 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
+using CodeSmile.Attributes;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
@@ -9,6 +10,7 @@ using UnityEngine;
 
 namespace CodeSmile.Editor.Extensions
 {
+	[FullCovered]
 	public static class AssetDatabaseExt
 	{
 		public static T LoadAsset<T>() where T : Object => LoadAssets<T>().FirstOrDefault();

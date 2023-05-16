@@ -1,6 +1,7 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
+using CodeSmile.Attributes;
 using CodeSmile.Extensions;
 using NUnit.Framework;
 using NUnit.Framework.Interfaces;
@@ -15,6 +16,7 @@ using UnityEngine.TestTools;
 
 namespace CodeSmile.Tests.Tools.Attributes
 {
+	[FullCovered]
 	public abstract class CreateSceneAttribute : NUnitAttribute, IOuterUnityTestAction
 	{
 		private readonly NewSceneSetup m_Setup;
@@ -23,7 +25,7 @@ namespace CodeSmile.Tests.Tools.Attributes
 		private static bool IsObjectNamedLikeADefaultObject(GameObject rootGameObject) =>
 			rootGameObject.name == "Main Camera" || rootGameObject.name == "Directional Light";
 
-		public CreateSceneAttribute(string scenePath = null, NewSceneSetup setup = NewSceneSetup.EmptyScene)
+		protected CreateSceneAttribute(string scenePath = null, NewSceneSetup setup = NewSceneSetup.EmptyScene)
 		{
 			m_Setup = setup;
 			SetupAndVerifyScenePath(scenePath);

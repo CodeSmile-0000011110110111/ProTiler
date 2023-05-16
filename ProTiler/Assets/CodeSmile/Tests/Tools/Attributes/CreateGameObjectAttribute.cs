@@ -1,6 +1,7 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
+using CodeSmile.Attributes;
 using CodeSmile.Extensions;
 using NUnit.Framework;
 using NUnit.Framework.Interfaces;
@@ -15,6 +16,7 @@ namespace CodeSmile.Tests.Tools.Attributes
 	/// <summary>
 	///     Creates a new GameObject instance in the scene for a test method.
 	/// </summary>
+	[FullCovered]
 	[AttributeUsage(AttributeTargets.Method, AllowMultiple = true)]
 	public sealed class CreateGameObjectAttribute : NUnitAttribute, IOuterUnityTestAction
 	{
