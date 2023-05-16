@@ -3,7 +3,7 @@
 
 using System;
 
-namespace CodeSmile.ProTiler.Data
+namespace CodeSmile.ProTiler.Tilemap.Tile
 {
 	[Flags]
 	public enum Tile3DFlags : Int16

@@ -1,10 +1,9 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
-using CodeSmile.ProTiler.Data;
 using UnityEngine;
 
-namespace CodeSmile.ProTiler.Behaviours
+namespace CodeSmile.ProTiler.Tilemap.Grid
 {
 	[RequireComponent(typeof(Transform))]
 	[DisallowMultipleComponent]

@@ -1,6 +1,8 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
+using CodeSmile.ProTiler.Tilemap.Grid;
+using CodeSmile.ProTiler.Tilemap.Tile;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +12,7 @@ using ChunkCoord = UnityEngine.Vector2Int;
 using ChunkSize = UnityEngine.Vector2Int;
 using GridCoord = UnityEngine.Vector3Int;
 
-namespace CodeSmile.ProTiler.Data
+namespace CodeSmile.ProTiler.Tilemap.Chunk
 {
 	/// <summary>
 	///     A chunk is one part of a larger tilemap at a given position offset.
@@ -18,7 +20,7 @@ namespace CodeSmile.ProTiler.Data
 	/// </summary>
 	[Serializable]
 	[StructLayout(LayoutKind.Sequential)]
-	public class Tilemap3DChunk
+	internal class Tilemap3DChunk
 	{
 		[CreateProperty] private ChunkSize m_Size;
 		[CreateProperty] private Tile3DLayers m_Layers;

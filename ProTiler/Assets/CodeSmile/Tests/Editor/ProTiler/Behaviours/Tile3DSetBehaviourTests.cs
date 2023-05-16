@@ -3,8 +3,8 @@
 
 using CodeSmile.Extensions;
 using CodeSmile.ProTiler.Assets;
-using CodeSmile.ProTiler.Behaviours;
 using CodeSmile.ProTiler.Editor.Creation;
+using CodeSmile.ProTiler.Tilemap.Grid;
 using CodeSmile.Tests.Tools.Attributes;
 using NUnit.Framework;
 

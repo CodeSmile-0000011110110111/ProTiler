@@ -9,7 +9,7 @@ using ChunkSize = UnityEngine.Vector2Int;
 using GridCoord = UnityEngine.Vector3Int;
 using LayerCoord = UnityEngine.Vector3Int;
 
-namespace CodeSmile.ProTiler.Data
+namespace CodeSmile.ProTiler.Tilemap.Tile
 {
 	/// <summary>
 	///     TileData for a specific coordinate.

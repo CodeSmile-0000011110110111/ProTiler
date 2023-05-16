@@ -1,20 +1,22 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
+using CodeSmile.ProTiler.Tilemap.Tile;
 using System.Collections.Generic;
-using UnityEngine;
+using ChunkKey = System.Int64;
+using ChunkSize = UnityEngine.Vector2Int;
 
-namespace CodeSmile.ProTiler.Data
+namespace CodeSmile.ProTiler.Tilemap.Chunk
 {
 	/// <summary>
 	///     Container for Tile3DCoord collections that are automatically divided into chunks.
 	/// </summary>
-	internal class ChunkTileCoords : Dictionary<long, IList<Tile3DCoord>>
+	internal class ChunkTileCoords : Dictionary<ChunkKey, IList<Tile3DCoord>>
 	{
-		public ChunkTileCoords(IEnumerable<Tile3DCoord> tileCoords, Vector2Int chunkSize) =>
+		public ChunkTileCoords(IEnumerable<Tile3DCoord> tileCoords, ChunkSize chunkSize) =>
 			SplitTileCoordsIntoChunks(tileCoords, chunkSize);
 
-		private void SplitTileCoordsIntoChunks(IEnumerable<Tile3DCoord> tileCoords, Vector2Int chunkSize)
+		private void SplitTileCoordsIntoChunks(IEnumerable<Tile3DCoord> tileCoords, ChunkSize chunkSize)
 		{
 			foreach (var tileCoord in tileCoords)
 			{
@@ -24,7 +26,7 @@ namespace CodeSmile.ProTiler.Data
 			}
 		}
 
-		private void AddTileCoordToChunk(long chunkKey, in Tile3DCoord tileCoord)
+		private void AddTileCoordToChunk(ChunkKey chunkKey, in Tile3DCoord tileCoord)
 		{
 			if (TryGetValue(chunkKey, out var coords))
 				coords.Add(tileCoord);

@@ -4,7 +4,6 @@
 using CodeSmile.Editor;
 using CodeSmile.Editor.Extensions;
 using CodeSmile.ProTiler.Assets;
-using CodeSmile.ProTiler.Data;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using UnityEditor;

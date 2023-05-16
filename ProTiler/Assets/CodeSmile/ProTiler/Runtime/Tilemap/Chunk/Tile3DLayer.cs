@@ -1,6 +1,8 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
+using CodeSmile.ProTiler.Tilemap.Grid;
+using CodeSmile.ProTiler.Tilemap.Tile;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -8,14 +10,14 @@ using System.Runtime.InteropServices;
 using Unity.Properties;
 using LayerSize = UnityEngine.Vector2Int;
 
-namespace CodeSmile.ProTiler.Data
+namespace CodeSmile.ProTiler.Tilemap.Chunk
 {
 	/// <summary>
 	///     Represents a single, flat layer of tiles. Essentially a 2D array.
 	/// </summary>
 	[Serializable]
 	[StructLayout(LayoutKind.Sequential)]
-	public struct Tile3DLayer
+	internal struct Tile3DLayer
 	{
 		[CreateProperty] private Tile3D[] m_Tiles;
 

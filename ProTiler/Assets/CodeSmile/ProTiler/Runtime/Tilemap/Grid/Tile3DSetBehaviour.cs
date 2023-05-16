@@ -6,7 +6,7 @@ using CodeSmile.ProTiler.Assets;
 using System.Diagnostics.CodeAnalysis;
 using UnityEngine;
 
-namespace CodeSmile.ProTiler.Behaviours
+namespace CodeSmile.ProTiler.Tilemap.Grid
 {
 	[DisallowMultipleComponent]
 	[RequireComponent(typeof(Grid3DBehaviour))]

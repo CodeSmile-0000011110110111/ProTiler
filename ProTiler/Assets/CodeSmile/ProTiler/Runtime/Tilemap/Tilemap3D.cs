@@ -1,15 +1,18 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
+using CodeSmile.ProTiler.Tilemap.Chunk;
+using CodeSmile.ProTiler.Tilemap.Tile;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using Unity.Properties;
+using ChunkKey = System.Int64;
 using ChunkCoord = UnityEngine.Vector2Int;
 using ChunkSize = UnityEngine.Vector2Int;
 using GridCoord = UnityEngine.Vector3Int;
 
-namespace CodeSmile.ProTiler.Data
+namespace CodeSmile.ProTiler.Tilemap
 {
 	/// <summary>
 	///     Container for a 3D tilemap.
@@ -39,7 +42,7 @@ namespace CodeSmile.ProTiler.Data
 		public void SetTiles(IEnumerable<Tile3DCoord> gridCoordTiles)
 		{
 			var layerCoordTiles = new ChunkTileCoords(gridCoordTiles, m_ChunkSize);
-			foreach (var chunkKey in layerCoordTiles.Keys)
+			foreach (ChunkKey chunkKey in layerCoordTiles.Keys)
 			{
 				GetOrCreateChunk(chunkKey, out var chunk);
 				chunk.SetLayerTiles(layerCoordTiles[chunkKey]);
@@ -56,7 +59,7 @@ namespace CodeSmile.ProTiler.Data
 			var tileCoords = new List<Tile3DCoord>();
 
 			var chunkLayerCoords = new ChunkCoords(gridCoords, m_ChunkSize);
-			foreach (var chunkKey in chunkLayerCoords.Keys)
+			foreach (ChunkKey chunkKey in chunkLayerCoords.Keys)
 			{
 				if (TryGetChunk(chunkKey, out var chunk) == false)
 					continue;
@@ -71,15 +74,15 @@ namespace CodeSmile.ProTiler.Data
 			return tileCoords;
 		}
 
-		private void GetOrCreateChunk(long chunkKey, out Tilemap3DChunk chunk)
+		private void GetOrCreateChunk(ChunkKey chunkKey, out Tilemap3DChunk chunk)
 		{
 			if (TryGetChunk(chunkKey, out chunk) == false)
 				chunk = CreateChunk(chunkKey);
 		}
 
-		private Tilemap3DChunk CreateChunk(long chunkKey) => m_Chunks[chunkKey] = new Tilemap3DChunk(m_ChunkSize);
+		private Tilemap3DChunk CreateChunk(ChunkKey chunkKey) => m_Chunks[chunkKey] = new Tilemap3DChunk(m_ChunkSize);
 
-		private bool TryGetChunk(long chunkKey, out Tilemap3DChunk chunk) => m_Chunks.TryGetValue(chunkKey, out chunk);
+		private bool TryGetChunk(ChunkKey chunkKey, out Tilemap3DChunk chunk) => m_Chunks.TryGetValue(chunkKey, out chunk);
 
 		private void InitChunks(ChunkSize chunkSize)
 		{

@@ -3,13 +3,14 @@
 
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using ChunkKey = System.Int64;
 using GridCoord = UnityEngine.Vector3Int;
 using ChunkCoord = UnityEngine.Vector2Int;
 using ChunkSize = UnityEngine.Vector2Int;
 using LayerCoord = UnityEngine.Vector3Int;
 using Math = UnityEngine.Mathf;
 
-namespace CodeSmile.ProTiler.Data
+namespace CodeSmile.ProTiler.Tilemap
 {
 	internal static class Tilemap3DUtility
 	{
@@ -19,7 +20,7 @@ namespace CodeSmile.ProTiler.Data
 		/// </summary>
 		internal static readonly ChunkSize MinChunkSize = new(2, 2);
 
-		public static IEnumerable<GridCoord> GetAllChunkLayerCoords(ChunkCoord chunkCoord, ChunkSize chunkSize, int height = 0)
+		internal static IEnumerable<GridCoord> GetAllChunkLayerCoords(ChunkCoord chunkCoord, ChunkSize chunkSize, int height = 0)
 		{
 			var coords = new GridCoord[chunkSize.x * chunkSize.y];
 			var index = 0;
@@ -47,7 +48,7 @@ namespace CodeSmile.ProTiler.Data
 		return GetChunkKey(chunkCoord);
 	}*/
 
-		internal static long GetChunkKey(ChunkCoord chunkCoord) => HashUtility.GetHash(chunkCoord.x, chunkCoord.y);
+		internal static ChunkKey GetChunkKey(ChunkCoord chunkCoord) => HashUtility.GetHash(chunkCoord.x, chunkCoord.y);
 
 		internal static GridCoord LayerToGridCoord(LayerCoord layerCoord, ChunkCoord chunkCoord, ChunkSize chunkSize) =>
 			new(chunkCoord.x * chunkSize.x + layerCoord.x,

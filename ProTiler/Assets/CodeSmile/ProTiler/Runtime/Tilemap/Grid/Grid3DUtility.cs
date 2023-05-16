@@ -1,16 +1,16 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
+using CodeSmile.ProTiler.Tilemap.Tile;
 using System.Runtime.CompilerServices;
 using WorldPos = UnityEngine.Vector3;
 using GridCoord = UnityEngine.Vector3Int;
 using CellSize = UnityEngine.Vector3Int;
-using ChunkSize = UnityEngine.Vector2Int;
 using Math = UnityEngine.Mathf;
 
-namespace CodeSmile.ProTiler.Data
+namespace CodeSmile.ProTiler.Tilemap.Grid
 {
-	public static class Grid3DUtility
+	internal static class Grid3DUtility
 	{
 		/// <summary>
 		///     Converts x/z coordinate to a 2D array index.
@@ -59,7 +59,7 @@ namespace CodeSmile.ProTiler.Data
 		/// </summary>
 		/// <param name="tileCoords"></param>
 		/// <returns></returns>
-		public static GridCoord[] ToCoordArray(this Tile3DCoord[] tileCoords)
+		internal static GridCoord[] ToCoordArray(this Tile3DCoord[] tileCoords)
 		{
 			var coords = new GridCoord[tileCoords.Length];
 			for (var i = 0; i < tileCoords.Length; i++)

@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using Unity.Properties;
 
-namespace CodeSmile.ProTiler.Data
+namespace CodeSmile.ProTiler.Tilemap.Chunk
 {
 	/// <summary>
 	///     A collection of Tile3DLayer instances.

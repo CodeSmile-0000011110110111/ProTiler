@@ -1,7 +1,8 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
-using CodeSmile.ProTiler.Data;
+using CodeSmile.ProTiler.Tilemap;
+using CodeSmile.ProTiler.Tilemap.Tile;
 using System.Diagnostics.CodeAnalysis;
 using UnityEngine;
 

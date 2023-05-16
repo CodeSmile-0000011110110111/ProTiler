@@ -2,7 +2,6 @@
 // Refer to included LICENSE file for terms and conditions.
 
 using CodeSmile.Collections;
-using CodeSmile.ProTiler.Data;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using UnityEngine;

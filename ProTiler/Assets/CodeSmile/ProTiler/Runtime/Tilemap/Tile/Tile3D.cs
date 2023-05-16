@@ -4,8 +4,9 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
+using TileIndex = System.UInt16;
 
-namespace CodeSmile.ProTiler.Data
+namespace CodeSmile.ProTiler.Tilemap.Tile
 {
 	/// <summary>
 	///     Represents the saved data in a tilemap.
@@ -18,7 +19,7 @@ namespace CodeSmile.ProTiler.Data
 		/// <summary>
 		///     Tile index used to get a tile's assed from a tile set.
 		/// </summary>
-		public ushort Index;
+		public TileIndex Index;
 		/// <summary>
 		///     Flags encode rotation and mirroring/flipping of a tile.
 		/// </summary>
@@ -38,7 +39,7 @@ namespace CodeSmile.ProTiler.Data
 		public static bool operator !=(Tile3D left, Tile3D right) => !left.Equals(right);
 
 		public Tile3D(int tileIndex, Tile3DFlags flags = Tile3DFlags.DirectionNorth)
-			: this((ushort)tileIndex, flags)
+			: this((TileIndex)tileIndex, flags)
 		{
 #if DEBUG
 			if (tileIndex < 0)
@@ -53,7 +54,7 @@ namespace CodeSmile.ProTiler.Data
 		/// </summary>
 		/// <param name="tileIndex"></param>
 		/// <param name="flags"></param>
-		public Tile3D(ushort tileIndex, Tile3DFlags flags = Tile3DFlags.DirectionNorth)
+		public Tile3D(TileIndex tileIndex, Tile3DFlags flags = Tile3DFlags.DirectionNorth)
 		{
 			Index = tileIndex;
 			Flags = flags;
@@ -61,7 +62,7 @@ namespace CodeSmile.ProTiler.Data
 
 		public bool Equals(Tile3D other) => Index == other.Index && Flags == other.Flags;
 		public override bool Equals(object obj) => obj is Tile3D other && Equals(other);
-		public override int GetHashCode() => HashCode.Combine(Index, (int)Flags);
+		public override int GetHashCode() => HashCode.Combine(Index, Flags);
 
 		[ExcludeFromCodeCoverage] public override string ToString() =>
 			$"{nameof(Tile3D)}(Index: {Index}, Flags: {Flags})";

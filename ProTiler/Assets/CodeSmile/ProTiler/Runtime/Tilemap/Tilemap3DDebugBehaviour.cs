@@ -2,7 +2,8 @@
 // Refer to included LICENSE file for terms and conditions.
 
 using CodeSmile.Attributes;
-using CodeSmile.ProTiler.Data;
+using CodeSmile.ProTiler.Tilemap.Grid;
+using CodeSmile.ProTiler.Tilemap.Tile;
 using System.Diagnostics.CodeAnalysis;
 using UnityEditor;
 using UnityEngine;
@@ -10,7 +11,7 @@ using GridCoord = UnityEngine.Vector3Int;
 using ChunkCoord = UnityEngine.Vector2Int;
 using ChunkSize = UnityEngine.Vector2Int;
 
-namespace CodeSmile.ProTiler.Behaviours
+namespace CodeSmile.ProTiler.Tilemap
 {
 	[RequireComponent(typeof(Tilemap3DBehaviour))]
 	[DisallowMultipleComponent]

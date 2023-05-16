@@ -4,14 +4,15 @@
 using System;
 using System.Collections.Generic;
 using Unity.Properties;
+using ChunkKey = System.Int64;
 
-namespace CodeSmile.ProTiler.Data
+namespace CodeSmile.ProTiler.Tilemap.Chunk
 {
 	[Serializable]
 	internal class Tilemap3DChunks
 	{
-		[CreateProperty] private Dictionary<long, Tilemap3DChunk> m_Chunks = new();
-		public Tilemap3DChunk this[long chunkKey] { get => m_Chunks[chunkKey]; set => m_Chunks[chunkKey] = value; }
+		[CreateProperty] private Dictionary<ChunkKey, Tilemap3DChunk> m_Chunks = new();
+		public Tilemap3DChunk this[ChunkKey chunkKey] { get => m_Chunks[chunkKey]; set => m_Chunks[chunkKey] = value; }
 
 		internal int TileCount
 		{
@@ -26,6 +27,6 @@ namespace CodeSmile.ProTiler.Data
 		}
 		public int Count => m_Chunks.Count;
 
-		public bool TryGetValue(long key, out Tilemap3DChunk chunk) => m_Chunks.TryGetValue(key, out chunk);
+		public bool TryGetValue(ChunkKey key, out Tilemap3DChunk chunk) => m_Chunks.TryGetValue(key, out chunk);
 	}
 }

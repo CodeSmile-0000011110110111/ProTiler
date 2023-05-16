@@ -3,7 +3,7 @@
 
 using UnityEngine;
 
-namespace CodeSmile.ProTiler.Behaviours
+namespace CodeSmile.ProTiler.Tilemap
 {
 	[ExecuteAlways]
 	[RequireComponent(typeof(Tilemap3DBehaviour))]

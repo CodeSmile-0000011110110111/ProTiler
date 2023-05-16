@@ -2,8 +2,9 @@
 // Refer to included LICENSE file for terms and conditions.
 
 using CodeSmile.ProTiler.Assets;
-using CodeSmile.ProTiler.Data;
 using CodeSmile.ProTiler.Editor.Creation;
+using CodeSmile.ProTiler.Tilemap;
+using CodeSmile.ProTiler.Tilemap.Tile;
 using CodeSmile.Tests.Tools;
 using NUnit.Framework;
 using UnityEngine;
