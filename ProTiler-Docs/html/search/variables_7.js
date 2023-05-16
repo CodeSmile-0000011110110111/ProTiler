@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['tile_0',['Tile',['../struct_code_smile_1_1_pro_tiler_1_1_data_1_1_tile3_d_coord.html#a332b1e90b556eae63fa43f9c8378a827',1,'CodeSmile::ProTiler::Data::Tile3DCoord']]],
+  ['tile_0',['Tile',['../struct_code_smile_1_1_pro_tiler_1_1_tile_1_1_tile3_d_coord.html#a332b1e90b556eae63fa43f9c8378a827',1,'CodeSmile::ProTiler::Tile::Tile3DCoord']]],
   ['tile3dassetregister_1',['Tile3DAssetRegister',['../class_code_smile_1_1_pro_tiler_1_1_paths.html#a0e86cfff1cf91b0d7cca1775a2254d6a',1,'CodeSmile::ProTiler::Paths']]],
   ['tile3dpalettewindow_2',['Tile3DPaletteWindow',['../class_code_smile_1_1_pro_tiler_1_1_names.html#a7e670d382018d39a5d43bcac62661ba9',1,'CodeSmile::ProTiler::Names']]],
   ['tileeditor_3',['TileEditor',['../class_code_smile_1_1_pro_tiler_1_1_names.html#a4ca85967ee3c02272dc7d32046eb6d67',1,'CodeSmile::ProTiler::Names']]],

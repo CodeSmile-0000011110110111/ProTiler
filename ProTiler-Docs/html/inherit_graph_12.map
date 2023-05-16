@@ -1,10 +1,4 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" title=" " alt="" coords="8,95,96,121"/>
-<area shape="rect" id="node2" href="$struct_code_smile_1_1_collections_1_1_native_array2_d.html" title="A two&#45;dimensional array stored in native memory." alt="" coords="152,107,286,133"/>
-<area shape="rect" id="node3" href="$class_code_smile_1_1_component_pool.html" title="Pools a component of a prefab. This also works with GameObject instances except that you will have to..." alt="" coords="147,56,291,83"/>
-<area shape="rect" id="node4" title=" " alt="" coords="5,19,99,45"/>
-<area shape="rect" id="node5" href="$class_code_smile_1_1_pro_tiler_1_1_data_1_1_tile3_d_layers.html" title="A collection of Tile3DLayer instances." alt="" coords="171,5,267,32"/>
-<area shape="rect" id="node6" title=" " alt="" coords="11,157,93,184"/>
-<area shape="rect" id="node7" href="$struct_code_smile_1_1_pro_tiler_1_1_data_1_1_tile3_d.html" title="Represents the saved data in a tilemap. Note: a TileIndex of 0 indicates an &quot;empty&quot; tile." alt="" coords="190,208,248,235"/>
-<area shape="rect" id="node8" href="$struct_code_smile_1_1_pro_tiler_1_1_data_1_1_tile3_d_coord.html" title="TileData for a specific coordinate." alt="" coords="173,157,265,184"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,5,97,32"/>
+<area shape="rect" id="node2" href="$struct_code_smile_1_1_collections_1_1_native_array2_d_1_1_enumerator.html" title="An enumerator for this type of array. It enumerates from (0,0) to (Length0&#45;1,Length1&#45;1) in rows of th..." alt="" coords="145,5,350,32"/>
 </map>

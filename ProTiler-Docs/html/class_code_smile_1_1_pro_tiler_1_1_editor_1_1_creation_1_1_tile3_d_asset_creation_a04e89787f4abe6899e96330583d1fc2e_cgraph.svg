@@ -66,17 +66,17 @@ var sectionId = 'dynsection-4';
 <!-- Node2 -->
 <g id="node2" class="node">
 <title>Node2</title>
-<g id="a_node2"><a xlink:href="class_code_smile_1_1_pro_tiler_1_1_editor_1_1_creation_1_1_tile3_d_asset_creation.html#a60759f098574591110a2c2dfcd54864e" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="473.75,-58 257.5,-58 257.5,-38 473.75,-38 473.75,-58"/>
-<text text-anchor="middle" x="365.62" y="-44.5" font-family="Helvetica,sans-Serif" font-size="10.00">CreateMultipleRegisteredAssetsWithSelection</text>
+<g id="a_node2"><a xlink:href="class_code_smile_1_1_pro_tiler_1_1_editor_1_1_creation_1_1_tile3_d_asset_creation.html#aa828ea04966c34394d170ed4b4227c0d" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="#666666" points="456.88,-58 274.38,-58 274.38,-38 456.88,-38 456.88,-58"/>
+<text text-anchor="middle" x="365.62" y="-44.5" font-family="Helvetica,sans-Serif" font-size="10.00">CreateRegisteredAssetsWithSelection</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node2 -->
 <g id="edge1" class="edge">
 <title>Node1&#45;&gt;Node2</title>
-<path fill="none" stroke="#63b8ff" d="M200.82,-36.18C215.85,-37.27 231.48,-38.39 246.85,-39.5"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="246.21,-43.04 256.44,-40.27 246.72,-36.06 246.21,-43.04"/>
+<path fill="none" stroke="#63b8ff" d="M200.82,-36.18C221.19,-37.65 242.66,-39.2 263.1,-40.68"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="262.79,-44.23 273.01,-41.46 263.29,-37.25 262.79,-44.23"/>
 </g>
 <!-- Node4 -->
 <g id="node4" class="node">
@@ -106,8 +106,8 @@ var sectionId = 'dynsection-4';
 <!-- Node2&#45;&gt;Node3 -->
 <g id="edge2" class="edge">
 <title>Node2&#45;&gt;Node3</title>
-<path fill="none" stroke="#63b8ff" d="M474,-48C489.08,-48 504.68,-48 520.06,-48"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="519.66,-51.5 529.66,-48 519.66,-44.5 519.66,-51.5"/>
+<path fill="none" stroke="#63b8ff" d="M457.13,-48C477.03,-48 498.45,-48 519.46,-48"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="519.4,-51.5 529.4,-48 519.4,-44.5 519.4,-51.5"/>
 </g>
 </g>
 </svg>

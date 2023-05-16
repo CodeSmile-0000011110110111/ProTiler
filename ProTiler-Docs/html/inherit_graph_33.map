@@ -1,4 +1,3 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$class_code_smile_1_1_collections_1_1_serialized_dictionary.html" title=" " alt="" coords="5,5,323,32"/>
-<area shape="rect" id="node2" href="$class_code_smile_1_1_pro_tiler_1_1_data_1_1___old_tilemap3_d_1_1_chunk_collection.html" title=" " alt="" coords="371,5,578,32"/>
+<area shape="rect" id="node1" href="$struct_code_smile_1_1_pro_tiler_1_1_chunk_1_1_tile3_d_layer.html" title="Represents a single, flat layer of tiles. Essentially a 2D array." alt="" coords="5,5,95,32"/>
 </map>

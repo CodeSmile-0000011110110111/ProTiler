@@ -1,0 +1,8 @@
+<map id="Tile3DCoord" name="Tile3DCoord">
+<area shape="rect" id="node1" title="TileData for a specific coordinate." alt="" coords="184,440,318,649"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,223,182,304"/>
+<area shape="rect" id="node3" title=" " alt="" coords="205,223,297,304"/>
+<area shape="rect" id="node4" href="$struct_code_smile_1_1_pro_tiler_1_1_tile_1_1_tile3_d.html" title="Represents the saved data in a tilemap. Note: a TileIndex of 0 indicates an &quot;empty&quot; tile." alt="" coords="320,151,443,376"/>
+<area shape="rect" id="node5" title=" " alt="" coords="246,5,389,87"/>
+<area shape="rect" id="node6" title=" " alt="" coords="412,5,479,87"/>
+</map>

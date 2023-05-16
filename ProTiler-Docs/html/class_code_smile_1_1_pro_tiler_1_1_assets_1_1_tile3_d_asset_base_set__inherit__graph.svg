@@ -17,7 +17,7 @@
 <polyline fill="none" stroke="#666666" points="0,-136.5 200.5,-136.5"/>
 <text text-anchor="start" x="8" y="-123" font-family="Helvetica,sans-Serif" font-size="10.00">+ EmptyTileAsset</text>
 <text text-anchor="start" x="8" y="-111" font-family="Helvetica,sans-Serif" font-size="10.00">+ MissingTileAsset</text>
-<text text-anchor="start" x="8" y="-99" font-family="Helvetica,sans-Serif" font-size="10.00">+ this[int index]</text>
+<text text-anchor="start" x="8" y="-99" font-family="Helvetica,sans-Serif" font-size="10.00">+ this[Int32 index]</text>
 <polyline fill="none" stroke="#666666" points="0,-92.5 200.5,-92.5"/>
 <text text-anchor="start" x="8" y="-79" font-family="Helvetica,sans-Serif" font-size="10.00">+ Tile3DAssetBaseSet()</text>
 <text text-anchor="start" x="8" y="-67" font-family="Helvetica,sans-Serif" font-size="10.00">+ Init()</text>

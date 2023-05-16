@@ -48,28 +48,9 @@ var annotated_dup =
           [ "Tile3DAssetRegister", "class_code_smile_1_1_pro_tiler_1_1_assets_1_1_tile3_d_asset_register.html", "class_code_smile_1_1_pro_tiler_1_1_assets_1_1_tile3_d_asset_register" ],
           [ "Tile3DPalette", "class_code_smile_1_1_pro_tiler_1_1_assets_1_1_tile3_d_palette.html", null ]
         ] ],
-        [ "Behaviours", "namespace_code_smile_1_1_pro_tiler_1_1_behaviours.html", [
-          [ "Grid3DBehaviour", "class_code_smile_1_1_pro_tiler_1_1_behaviours_1_1_grid3_d_behaviour.html", "class_code_smile_1_1_pro_tiler_1_1_behaviours_1_1_grid3_d_behaviour" ],
-          [ "Tile3DRendererBehaviour", "class_code_smile_1_1_pro_tiler_1_1_behaviours_1_1_tile3_d_renderer_behaviour.html", null ],
-          [ "Tile3DSetBehaviour", "class_code_smile_1_1_pro_tiler_1_1_behaviours_1_1_tile3_d_set_behaviour.html", "class_code_smile_1_1_pro_tiler_1_1_behaviours_1_1_tile3_d_set_behaviour" ],
-          [ "Tilemap3DBehaviour", "class_code_smile_1_1_pro_tiler_1_1_behaviours_1_1_tilemap3_d_behaviour.html", "class_code_smile_1_1_pro_tiler_1_1_behaviours_1_1_tilemap3_d_behaviour" ],
-          [ "Tilemap3DDebugBehaviour", "class_code_smile_1_1_pro_tiler_1_1_behaviours_1_1_tilemap3_d_debug_behaviour.html", null ],
-          [ "Tilemap3DRendererBehaviour", "class_code_smile_1_1_pro_tiler_1_1_behaviours_1_1_tilemap3_d_renderer_behaviour.html", null ]
-        ] ],
-        [ "Data", "namespace_code_smile_1_1_pro_tiler_1_1_data.html", [
-          [ "_OldTilemap3D", "class_code_smile_1_1_pro_tiler_1_1_data_1_1___old_tilemap3_d.html", "class_code_smile_1_1_pro_tiler_1_1_data_1_1___old_tilemap3_d" ],
-          [ "ChunkCoords", "class_code_smile_1_1_pro_tiler_1_1_data_1_1_chunk_coords.html", "class_code_smile_1_1_pro_tiler_1_1_data_1_1_chunk_coords" ],
-          [ "ChunkTileCoords", "class_code_smile_1_1_pro_tiler_1_1_data_1_1_chunk_tile_coords.html", "class_code_smile_1_1_pro_tiler_1_1_data_1_1_chunk_tile_coords" ],
-          [ "CreatePropertyAttribute", "class_code_smile_1_1_pro_tiler_1_1_data_1_1_create_property_attribute.html", null ],
-          [ "Grid3DUtility", "class_code_smile_1_1_pro_tiler_1_1_data_1_1_grid3_d_utility.html", "class_code_smile_1_1_pro_tiler_1_1_data_1_1_grid3_d_utility" ],
-          [ "Tile3D", "struct_code_smile_1_1_pro_tiler_1_1_data_1_1_tile3_d.html", "struct_code_smile_1_1_pro_tiler_1_1_data_1_1_tile3_d" ],
-          [ "Tile3DCoord", "struct_code_smile_1_1_pro_tiler_1_1_data_1_1_tile3_d_coord.html", "struct_code_smile_1_1_pro_tiler_1_1_data_1_1_tile3_d_coord" ],
-          [ "Tile3DLayer", "struct_code_smile_1_1_pro_tiler_1_1_data_1_1_tile3_d_layer.html", "struct_code_smile_1_1_pro_tiler_1_1_data_1_1_tile3_d_layer" ],
-          [ "Tile3DLayers", "class_code_smile_1_1_pro_tiler_1_1_data_1_1_tile3_d_layers.html", "class_code_smile_1_1_pro_tiler_1_1_data_1_1_tile3_d_layers" ],
-          [ "Tilemap3D", "class_code_smile_1_1_pro_tiler_1_1_data_1_1_tilemap3_d.html", "class_code_smile_1_1_pro_tiler_1_1_data_1_1_tilemap3_d" ],
-          [ "Tilemap3DChunk", "class_code_smile_1_1_pro_tiler_1_1_data_1_1_tilemap3_d_chunk.html", "class_code_smile_1_1_pro_tiler_1_1_data_1_1_tilemap3_d_chunk" ],
-          [ "Tilemap3DChunks", "class_code_smile_1_1_pro_tiler_1_1_data_1_1_tilemap3_d_chunks.html", "class_code_smile_1_1_pro_tiler_1_1_data_1_1_tilemap3_d_chunks" ],
-          [ "Tilemap3DUtility", "class_code_smile_1_1_pro_tiler_1_1_data_1_1_tilemap3_d_utility.html", "class_code_smile_1_1_pro_tiler_1_1_data_1_1_tilemap3_d_utility" ]
+        [ "Chunk", "namespace_code_smile_1_1_pro_tiler_1_1_chunk.html", [
+          [ "Tile3DLayer", "struct_code_smile_1_1_pro_tiler_1_1_chunk_1_1_tile3_d_layer.html", "struct_code_smile_1_1_pro_tiler_1_1_chunk_1_1_tile3_d_layer" ],
+          [ "Tilemap3DChunk", "class_code_smile_1_1_pro_tiler_1_1_chunk_1_1_tilemap3_d_chunk.html", "class_code_smile_1_1_pro_tiler_1_1_chunk_1_1_tilemap3_d_chunk" ]
         ] ],
         [ "Editor", "namespace_code_smile_1_1_pro_tiler_1_1_editor.html", [
           [ "Creation", "namespace_code_smile_1_1_pro_tiler_1_1_editor_1_1_creation.html", [
@@ -82,9 +63,27 @@ var annotated_dup =
             [ "Colors", "class_code_smile_1_1_pro_tiler_1_1_editor_1_1_data_1_1_colors.html", "class_code_smile_1_1_pro_tiler_1_1_editor_1_1_data_1_1_colors" ]
           ] ]
         ] ],
-        [ "Serialization", "namespace_code_smile_1_1_pro_tiler_1_1_serialization.html", [
-          [ "Tilemap3DSerializer", "class_code_smile_1_1_pro_tiler_1_1_serialization_1_1_tilemap3_d_serializer.html", "class_code_smile_1_1_pro_tiler_1_1_serialization_1_1_tilemap3_d_serializer" ]
+        [ "Grid", "namespace_code_smile_1_1_pro_tiler_1_1_grid.html", [
+          [ "Grid3DBehaviour", "class_code_smile_1_1_pro_tiler_1_1_grid_1_1_grid3_d_behaviour.html", "class_code_smile_1_1_pro_tiler_1_1_grid_1_1_grid3_d_behaviour" ],
+          [ "Tile3DSetBehaviour", "class_code_smile_1_1_pro_tiler_1_1_grid_1_1_tile3_d_set_behaviour.html", "class_code_smile_1_1_pro_tiler_1_1_grid_1_1_tile3_d_set_behaviour" ]
         ] ],
+        [ "Tile", "namespace_code_smile_1_1_pro_tiler_1_1_tile.html", [
+          [ "Tile3D", "struct_code_smile_1_1_pro_tiler_1_1_tile_1_1_tile3_d.html", "struct_code_smile_1_1_pro_tiler_1_1_tile_1_1_tile3_d" ],
+          [ "Tile3DCoord", "struct_code_smile_1_1_pro_tiler_1_1_tile_1_1_tile3_d_coord.html", "struct_code_smile_1_1_pro_tiler_1_1_tile_1_1_tile3_d_coord" ],
+          [ "Tile3DRendererBehaviour", "class_code_smile_1_1_pro_tiler_1_1_tile_1_1_tile3_d_renderer_behaviour.html", null ]
+        ] ],
+        [ "Tilemap", "namespace_code_smile_1_1_pro_tiler_1_1_tilemap.html", [
+          [ "Tilemap3D", "class_code_smile_1_1_pro_tiler_1_1_tilemap_1_1_tilemap3_d.html", "class_code_smile_1_1_pro_tiler_1_1_tilemap_1_1_tilemap3_d" ],
+          [ "Tilemap3DBehaviour", "class_code_smile_1_1_pro_tiler_1_1_tilemap_1_1_tilemap3_d_behaviour.html", "class_code_smile_1_1_pro_tiler_1_1_tilemap_1_1_tilemap3_d_behaviour" ],
+          [ "Tilemap3DDebugBehaviour", "class_code_smile_1_1_pro_tiler_1_1_tilemap_1_1_tilemap3_d_debug_behaviour.html", null ],
+          [ "Tilemap3DRendererBehaviour", "class_code_smile_1_1_pro_tiler_1_1_tilemap_1_1_tilemap3_d_renderer_behaviour.html", null ],
+          [ "Tilemap3DSerializer", "class_code_smile_1_1_pro_tiler_1_1_tilemap_1_1_tilemap3_d_serializer.html", "class_code_smile_1_1_pro_tiler_1_1_tilemap_1_1_tilemap3_d_serializer" ]
+        ] ],
+        [ "Utility", "namespace_code_smile_1_1_pro_tiler_1_1_utility.html", [
+          [ "Grid3DUtility", "class_code_smile_1_1_pro_tiler_1_1_utility_1_1_grid3_d_utility.html", "class_code_smile_1_1_pro_tiler_1_1_utility_1_1_grid3_d_utility" ],
+          [ "Tilemap3DUtility", "class_code_smile_1_1_pro_tiler_1_1_utility_1_1_tilemap3_d_utility.html", "class_code_smile_1_1_pro_tiler_1_1_utility_1_1_tilemap3_d_utility" ]
+        ] ],
+        [ "CreatePropertyAttribute", "class_code_smile_1_1_pro_tiler_1_1_create_property_attribute.html", null ],
         [ "Menus", "class_code_smile_1_1_pro_tiler_1_1_menus.html", "class_code_smile_1_1_pro_tiler_1_1_menus" ],
         [ "Names", "class_code_smile_1_1_pro_tiler_1_1_names.html", "class_code_smile_1_1_pro_tiler_1_1_names" ],
         [ "Paths", "class_code_smile_1_1_pro_tiler_1_1_paths.html", "class_code_smile_1_1_pro_tiler_1_1_paths" ]
