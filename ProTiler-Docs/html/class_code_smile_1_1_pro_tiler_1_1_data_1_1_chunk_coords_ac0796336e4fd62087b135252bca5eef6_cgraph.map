@@ -1,0 +1,6 @@
+<map id="GetChunkCoord" name="GetChunkCoord">
+<area shape="rect" id="node1" title=" " alt="" coords="5,64,119,91"/>
+<area shape="rect" id="node2" href="$class_code_smile_1_1_pro_tiler_1_1_data_1_1_tilemap3_d_utility.html#a554ecfe5857bf579af679d5a525500be" title=" " alt="" coords="167,5,513,32"/>
+<area shape="rect" id="node3" href="$class_code_smile_1_1_pro_tiler_1_1_data_1_1_tilemap3_d_utility.html#a14006c80842572b020ab01bae70a64ee" title="Note: negative grid coordinates result in negative chunk coordinates &#45; but offset by 1...." alt="" coords="195,56,485,99"/>
+<area shape="rect" id="node4" href="$class_code_smile_1_1_pro_tiler_1_1_data_1_1_tilemap3_d_utility.html#a9f8f74471399325230854b8467f91528" title=" " alt="" coords="195,123,485,165"/>
+</map>

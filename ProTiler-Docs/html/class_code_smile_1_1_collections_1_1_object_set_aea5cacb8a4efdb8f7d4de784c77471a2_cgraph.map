@@ -1,0 +1,4 @@
+<map id="Add" name="Add">
+<area shape="rect" id="node1" title="Adds an object to the set and returns its index. If the object already exists in the set,..." alt="" coords="5,5,50,32"/>
+<area shape="rect" id="node2" href="$class_code_smile_1_1_collections_1_1_object_set.html#aa38efd3eeba3a0736190d42e24bea771" title="Tests if there is an object for the given index." alt="" coords="98,5,170,32"/>
+</map>

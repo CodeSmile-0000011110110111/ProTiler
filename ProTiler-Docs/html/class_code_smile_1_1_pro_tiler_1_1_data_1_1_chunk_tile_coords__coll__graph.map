@@ -1,0 +1,4 @@
+<map id="ChunkTileCoords" name="ChunkTileCoords">
+<area shape="rect" id="node1" title="Container for Tile3DCoord collections that are automatically divided into chunks." alt="" coords="62,135,202,216"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,5,259,87"/>
+</map>

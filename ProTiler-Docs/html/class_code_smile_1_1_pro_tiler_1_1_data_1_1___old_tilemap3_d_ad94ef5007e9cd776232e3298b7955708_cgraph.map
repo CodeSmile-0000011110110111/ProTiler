@@ -1,0 +1,6 @@
+<map id="GetTiles" name="GetTiles">
+<area shape="rect" id="node1" title=" " alt="" coords="5,56,75,83"/>
+<area shape="rect" id="node2" href="$class_code_smile_1_1_pro_tiler_1_1_data_1_1___old_tilemap3_d.html#a79f7c5a0ee771d83b253e2e1fa7f58ee" title=" " alt="" coords="222,5,329,32"/>
+<area shape="rect" id="node3" href="$class_code_smile_1_1_pro_tiler_1_1_data_1_1_grid3_d_utility.html#a559c7b8ca964b39cd675b46e110edb83" title="Converts x/z coordinate to a 2D array index." alt="" coords="123,56,428,83"/>
+<area shape="rect" id="node4" href="$class_code_smile_1_1_pro_tiler_1_1_data_1_1___old_tilemap3_d.html#aee0c3548e0d2e7309e726cc5112b92b7" title=" " alt="" coords="225,107,326,133"/>
+</map>
