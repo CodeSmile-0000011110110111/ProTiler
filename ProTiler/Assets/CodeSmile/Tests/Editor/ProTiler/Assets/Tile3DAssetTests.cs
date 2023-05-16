@@ -3,8 +3,8 @@
 
 using CodeSmile.ProTiler.Assets;
 using CodeSmile.ProTiler.Editor.Creation;
+using CodeSmile.ProTiler.Tile;
 using CodeSmile.ProTiler.Tilemap;
-using CodeSmile.ProTiler.Tilemap.Tile;
 using CodeSmile.Tests.Tools;
 using NUnit.Framework;
 using UnityEngine;

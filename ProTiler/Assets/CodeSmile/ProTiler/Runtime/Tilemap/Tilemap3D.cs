@@ -1,8 +1,9 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
-using CodeSmile.ProTiler.Tilemap.Chunk;
-using CodeSmile.ProTiler.Tilemap.Tile;
+using CodeSmile.ProTiler.Chunk;
+using CodeSmile.ProTiler.Tile;
+using CodeSmile.ProTiler.Utility;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;

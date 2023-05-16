@@ -62,7 +62,7 @@ namespace CodeSmile.Extensions
 
 		public static T FindObjectByTypeFast<T>(bool findInactive = false) where T : Object
 		{
-			var objects = FindObjectsByTypeFast<T>();
+			var objects = FindObjectsByTypeFast<T>(findInactive);
 			if (objects.Length > 0)
 				return objects[0];
 

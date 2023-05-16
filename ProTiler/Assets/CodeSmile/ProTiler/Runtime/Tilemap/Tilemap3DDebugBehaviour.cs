@@ -2,8 +2,9 @@
 // Refer to included LICENSE file for terms and conditions.
 
 using CodeSmile.Attributes;
-using CodeSmile.ProTiler.Tilemap.Grid;
-using CodeSmile.ProTiler.Tilemap.Tile;
+using CodeSmile.ProTiler.Grid;
+using CodeSmile.ProTiler.Tile;
+using CodeSmile.ProTiler.Utility;
 using System.Diagnostics.CodeAnalysis;
 using UnityEditor;
 using UnityEngine;
