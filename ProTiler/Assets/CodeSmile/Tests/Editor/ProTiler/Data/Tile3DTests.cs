@@ -12,7 +12,7 @@ namespace CodeSmile.Tests.Editor.ProTiler.Data
 {
 	public class Tile3DTests
 	{
-		[Test] public void AssertThatSizeDidNotChangeUnintentionally()
+		[Test] public void SizeDidNotChangeUnintentionally()
 		{
 			var sizeInBytes = Marshal.SizeOf(typeof(Tile3D));
 			Debug.Log($"Size of {nameof(Tile3D)}: {sizeInBytes} bytes");
@@ -20,7 +20,7 @@ namespace CodeSmile.Tests.Editor.ProTiler.Data
 			Assert.That(sizeInBytes, Is.EqualTo(4));
 		}
 
-		[Test] public void AssertThatJsonDidNotChangeUnintentionally()
+		[Test] public void JsonDidNotChangeUnintentionally()
 		{
 			var tile = new Tile3D(ushort.MaxValue, (Tile3DFlags)byte.MaxValue);
 
@@ -32,7 +32,7 @@ namespace CodeSmile.Tests.Editor.ProTiler.Data
 			Assert.That(json.Length, Is.EqualTo(40));
 		}
 
-		[Test] public void AssertThatMinifiedJsonDidNotChangeUnintentionally()
+		[Test] public void MinifiedJsonDidNotChangeUnintentionally()
 		{
 			var tile = new Tile3D(ushort.MaxValue, (Tile3DFlags)byte.MaxValue);
 

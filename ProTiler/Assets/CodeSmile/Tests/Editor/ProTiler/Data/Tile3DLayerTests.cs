@@ -16,7 +16,7 @@ namespace CodeSmile.Tests.Editor.ProTiler.Data
 	{
 		private static Tile3DLayer CreateLayer(int width, int height) => new(new LayerSize(width, height));
 
-		[Test] public void AssertThatSizeDidNotChangeUnintentionally()
+		[Test] public void SizeDidNotChangeUnintentionally()
 		{
 			var sizeInBytes = Marshal.SizeOf(typeof(Tile3DLayer));
 			Debug.Log($"Size of {nameof(Tile3DLayer)} type: {sizeInBytes} bytes");
@@ -24,7 +24,7 @@ namespace CodeSmile.Tests.Editor.ProTiler.Data
 			Assert.That(sizeInBytes == 8);
 		}
 
-		[Test] public void AssertThatJsonDidNotChangeUnintentionally()
+		[Test] public void JsonDidNotChangeUnintentionally()
 		{
 			var layer = CreateLayer(1, 2);
 
@@ -35,7 +35,7 @@ namespace CodeSmile.Tests.Editor.ProTiler.Data
 			Assert.That(json.Length, Is.EqualTo(161));
 		}
 
-		[Test] public void AssertThatMinifiedJsonDidNotChangeUnintentionally()
+		[Test] public void MinifiedJsonDidNotChangeUnintentionally()
 		{
 			var layer = CreateLayer(1, 2);
 

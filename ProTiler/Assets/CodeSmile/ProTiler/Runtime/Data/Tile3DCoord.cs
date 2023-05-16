@@ -5,6 +5,7 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
 using ChunkCoord = UnityEngine.Vector2Int;
+using ChunkSize = UnityEngine.Vector2Int;
 using GridCoord = UnityEngine.Vector3Int;
 using LayerCoord = UnityEngine.Vector3Int;
 
@@ -19,8 +20,6 @@ namespace CodeSmile.ProTiler.Data
 	{
 		public GridCoord Coord;
 		public Tile3D Tile;
-		internal ChunkCoord ChunkCoord;
-		internal LayerCoord LayerCoord;
 
 		public static bool operator ==(Tile3DCoord left, Tile3DCoord right) => left.Equals(right);
 		public static bool operator !=(Tile3DCoord left, Tile3DCoord right) => !left.Equals(right);
@@ -29,19 +28,18 @@ namespace CodeSmile.ProTiler.Data
 		{
 			Coord = coord;
 			Tile = tile;
-			ChunkCoord = default;
-			LayerCoord = default;
 		}
 
 		public Tile3DCoord(Tile3DCoord other)
 		{
 			Coord = other.Coord;
 			Tile = other.Tile;
-			ChunkCoord = other.ChunkCoord;
-			LayerCoord = other.LayerCoord;
 		}
 
 		public bool Equals(Tile3DCoord other) => Coord.Equals(other.Coord) && Tile.Equals(other.Tile);
+
+		internal ChunkCoord GetChunkCoord(ChunkSize chunkSize) => Tilemap3DUtility.GridToChunkCoord(Coord, chunkSize);
+		internal LayerCoord GetLayerCoord(ChunkSize chunkSize) => Tilemap3DUtility.GridToLayerCoord(Coord, chunkSize);
 
 		[ExcludeFromCodeCoverage] public override string ToString() => $"{Coord}, {Tile}";
 

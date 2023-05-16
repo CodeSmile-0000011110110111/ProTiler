@@ -8,6 +8,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using Unity.Serialization.Json;
 using UnityEngine;
+using ChunkCoord = UnityEngine.Vector2Int;
 using ChunkSize = UnityEngine.Vector2Int;
 using GridCoord = UnityEngine.Vector3Int;
 
@@ -17,7 +18,7 @@ namespace CodeSmile.Tests.Editor.ProTiler.Data
 	{
 		private static Tilemap3DChunk CreateChunk(int width, int length) => new(new ChunkSize(width, length));
 
-		[Test] public void AssertThatSizeDidNotChangeUnintentionally()
+		[Test] public void SizeDidNotChangeUnintentionally()
 		{
 			var sizeInBytes = Marshal.SizeOf(typeof(Tilemap3DChunk));
 			Debug.Log($"Size of {nameof(Tilemap3DChunk)} type: {sizeInBytes} bytes");
@@ -25,7 +26,7 @@ namespace CodeSmile.Tests.Editor.ProTiler.Data
 			Assert.That(sizeInBytes == 32);
 		}
 
-		[Test] public void AssertThatJsonDidNotChangeUnintentionally()
+		[Test] public void JsonDidNotChangeUnintentionally()
 		{
 			var chunk = CreateChunk(3, 2);
 
@@ -36,7 +37,7 @@ namespace CodeSmile.Tests.Editor.ProTiler.Data
 			Assert.That(json.Length, Is.EqualTo(104));
 		}
 
-		[Test] public void AssertThatMinifiedJsonDidNotChangeUnintentionally()
+		[Test] public void MinifiedJsonDidNotChangeUnintentionally()
 		{
 			var chunk = CreateChunk(3, 2);
 
@@ -138,7 +139,8 @@ namespace CodeSmile.Tests.Editor.ProTiler.Data
 			var chunk = CreateChunk(x, z);
 
 			var coords = Tile3DTestUtility.CreateOneTileCoord(x, y, z).ToCoordArray();
-			var gotTileCoords = chunk.GetLayerTiles(coords) as IList<Tile3DCoord>;
+			var chunkCoord = new ChunkCoord(0,0);
+			var gotTileCoords = chunk.GetLayerTiles(chunkCoord, coords) as IList<Tile3DCoord>;
 
 			Assert.That(gotTileCoords.Count, Is.EqualTo(coords.Length));
 			Assert.That(gotTileCoords[0].Tile.IsEmpty);
@@ -151,7 +153,8 @@ namespace CodeSmile.Tests.Editor.ProTiler.Data
 			var tileCoords = Tile3DTestUtility.CreateTileCoordsWithIncrementingIndexAcrossLayers(width, height, length);
 			chunk.SetLayerTiles(tileCoords);
 
-			var gotTileCoords = chunk.GetLayerTiles(tileCoords.ToCoordArray()) as IList<Tile3DCoord>;
+			var chunkCoord = new ChunkCoord(0,0);
+			var gotTileCoords = chunk.GetLayerTiles(chunkCoord, tileCoords.ToCoordArray()) as IList<Tile3DCoord>;
 
 			Assert.That(gotTileCoords.Count, Is.EqualTo(tileCoords.Length));
 			for (var i = 0; i < gotTileCoords.Count; i++)

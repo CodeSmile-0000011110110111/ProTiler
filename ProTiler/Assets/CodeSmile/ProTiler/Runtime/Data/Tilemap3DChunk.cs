@@ -2,39 +2,16 @@
 // Refer to included LICENSE file for terms and conditions.
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Runtime.InteropServices;
 using Unity.Properties;
+using ChunkCoord = UnityEngine.Vector2Int;
 using ChunkSize = UnityEngine.Vector2Int;
 using GridCoord = UnityEngine.Vector3Int;
 
 namespace CodeSmile.ProTiler.Data
 {
-	/// <summary>
-	///     A collection of Tile3DLayer instances.
-	/// </summary>
-	[Serializable]
-	internal class Tile3DLayerCollection : IEnumerable<Tile3DLayer>
-	{
-		[CreateProperty] private List<Tile3DLayer> m_Layers = new();
-		public Tile3DLayer this[int index] => m_Layers[index];
-		public int Count => m_Layers.Count;
-		public int Capacity
-		{
-			[ExcludeFromCodeCoverage] get => m_Layers.Capacity;
-			set => m_Layers.Capacity = value;
-		}
-
-		[ExcludeFromCodeCoverage]
-		IEnumerator<Tile3DLayer> IEnumerable<Tile3DLayer>.GetEnumerator() => m_Layers.GetEnumerator();
-
-		[ExcludeFromCodeCoverage] public IEnumerator GetEnumerator() => m_Layers.GetEnumerator();
-		public void Add(Tile3DLayer layer) => m_Layers.Add(layer);
-	}
-
 	/// <summary>
 	///     A chunk is one part of a larger tilemap at a given position offset.
 	///     It contains one or more height layers of the same size.
@@ -44,7 +21,7 @@ namespace CodeSmile.ProTiler.Data
 	public class Tilemap3DChunk
 	{
 		[CreateProperty] private ChunkSize m_Size;
-		[CreateProperty] private Tile3DLayerCollection m_Layers;
+		[CreateProperty] private Tile3DLayers m_Layers;
 
 		/// <summary>
 		///     Gets a layer at the given index (aka "height").
@@ -96,7 +73,7 @@ namespace CodeSmile.ProTiler.Data
 		public Tilemap3DChunk(ChunkSize size)
 		{
 			m_Size = size;
-			m_Layers = new Tile3DLayerCollection();
+			m_Layers = new Tile3DLayers();
 			m_Layers.Capacity = 1;
 		}
 
@@ -104,21 +81,22 @@ namespace CodeSmile.ProTiler.Data
 		///     Set tiles in the chunk's layers at the given coordinates.
 		///     Will create additional height layers as needed based on the Y coordinate.
 		/// </summary>
-		/// <param name="layerCoordTiles"></param>
-		public void SetLayerTiles(IEnumerable<Tile3DCoord> layerCoordTiles)
+		/// <param name="coordTiles"></param>
+		public void SetLayerTiles(IEnumerable<Tile3DCoord> coordTiles)
 		{
-			foreach (var layerCoordTile in layerCoordTiles)
+			foreach (var coordTile in coordTiles)
 			{
-				var coord = layerCoordTile.Coord;
-				var layer = GetOrCreateHeightLayer(coord.y);
-				var tileIndex = ToTileIndex(coord);
-				layer[tileIndex] = layerCoordTile.Tile;
+				var layerCoord = coordTile.GetLayerCoord(m_Size);
+				var layer = GetOrCreateHeightLayer(layerCoord.y);
+				var tileIndex = ToTileIndex(layerCoord);
+				layer[tileIndex] = coordTile.Tile;
 			}
 		}
 
-		public IEnumerable<Tile3DCoord> GetLayerTiles(IEnumerable<GridCoord> layerCoords)
+		public IEnumerable<Tile3DCoord> GetLayerTiles(ChunkCoord chunkCoord, IEnumerable<GridCoord> layerCoords)
 		{
 			var layerTileCoords = new Tile3DCoord[layerCoords.Count()];
+
 			var tileCoordIndex = 0;
 			foreach (var layerCoord in layerCoords)
 			{
@@ -126,7 +104,8 @@ namespace CodeSmile.ProTiler.Data
 				if (layer.IsInitialized)
 				{
 					var tileIndex = ToTileIndex(layerCoord);
-					layerTileCoords[tileCoordIndex].Coord = layerCoord;
+					var gridCoord = Tilemap3DUtility.LayerToGridCoord(layerCoord, chunkCoord, m_Size);
+					layerTileCoords[tileCoordIndex].Coord = gridCoord;
 					layerTileCoords[tileCoordIndex].Tile = layer[tileIndex];
 					tileCoordIndex++;
 				}

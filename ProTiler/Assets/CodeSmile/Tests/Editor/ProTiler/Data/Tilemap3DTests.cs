@@ -27,7 +27,7 @@ namespace CodeSmile.Tests.Editor.ProTiler.Data
 
 		private static Tilemap3D CreateTilemap(ChunkSize chunkSize) => new(chunkSize);
 
-		[Test] public void AssertThatEmptyTilemapMinifiedJsonDidNotChangeUnintentionally()
+		[Test] public void EmptyTilemapMinifiedJsonDidNotChangeUnintentionally()
 		{
 			var tilemap = new Tilemap3D();
 
@@ -40,7 +40,7 @@ namespace CodeSmile.Tests.Editor.ProTiler.Data
 			Assert.That(json.Length, Is.EqualTo(46));
 		}
 
-		[Test] public void AssertThatNonEmptyTilemapMinifiedJsonDidNotChangeUnintentionally()
+		[Test] public void NonEmptyTilemapMinifiedJsonDidNotChangeUnintentionally()
 		{
 			var tilemap = new Tilemap3D();
 			tilemap.SetTiles(new Tile3DCoord[] { new(new GridCoord(1, 1, 1), new Tile3D(123)) });
@@ -58,7 +58,7 @@ namespace CodeSmile.Tests.Editor.ProTiler.Data
 			Assert.That(json.Length, Is.EqualTo(284));
 		}
 
-		[Test] public void AssertThatNonEmptyTilemapIsSerializedCorrectly()
+		[Test] public void NonEmptyTilemapIsDeSerializedCorrectly()
 		{
 			var tilemap = new Tilemap3D();
 			var coord = new GridCoord(1, 1, 1);
@@ -77,7 +77,7 @@ namespace CodeSmile.Tests.Editor.ProTiler.Data
 			Assert.That(tiles.First().Tile.Index, Is.EqualTo(tileIndex));
 		}
 
-		[Test] public void EnsureDefaultCtorUsesMinChunkSize()
+		[Test] public void DefaultCtorUsesMinChunkSize()
 		{
 			var tilemap = new Tilemap3D();
 
