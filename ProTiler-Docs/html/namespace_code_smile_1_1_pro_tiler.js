@@ -1,7 +1,6 @@
 var namespace_code_smile_1_1_pro_tiler =
 [
     [ "Assets", "namespace_code_smile_1_1_pro_tiler_1_1_assets.html", "namespace_code_smile_1_1_pro_tiler_1_1_assets" ],
-    [ "Chunk", "namespace_code_smile_1_1_pro_tiler_1_1_chunk.html", "namespace_code_smile_1_1_pro_tiler_1_1_chunk" ],
     [ "Editor", "namespace_code_smile_1_1_pro_tiler_1_1_editor.html", "namespace_code_smile_1_1_pro_tiler_1_1_editor" ],
     [ "Grid", "namespace_code_smile_1_1_pro_tiler_1_1_grid.html", "namespace_code_smile_1_1_pro_tiler_1_1_grid" ],
     [ "Tile", "namespace_code_smile_1_1_pro_tiler_1_1_tile.html", "namespace_code_smile_1_1_pro_tiler_1_1_tile" ],

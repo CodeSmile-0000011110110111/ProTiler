@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['directioneast_0',['DirectionEast',['../namespace_code_smile_1_1_pro_tiler_1_1_tile.html#a70b8a6ac053029b255dc1eefafbe44bfaba8a38bf0a8d4fcddc7a575a59f61a7a',1,'CodeSmile::ProTiler::Tile']]],
-  ['directionnorth_1',['DirectionNorth',['../namespace_code_smile_1_1_pro_tiler_1_1_tile.html#a70b8a6ac053029b255dc1eefafbe44bfa591c25d5e4bb1761e93252b6b276534a',1,'CodeSmile::ProTiler::Tile']]],
-  ['directionsouth_2',['DirectionSouth',['../namespace_code_smile_1_1_pro_tiler_1_1_tile.html#a70b8a6ac053029b255dc1eefafbe44bfae05863755248c4c21186f8bcfcdbb9e0',1,'CodeSmile::ProTiler::Tile']]],
-  ['directionwest_3',['DirectionWest',['../namespace_code_smile_1_1_pro_tiler_1_1_tile.html#a70b8a6ac053029b255dc1eefafbe44bfac20c4f6d8b4f0df1b50bfd96f9d92bce',1,'CodeSmile::ProTiler::Tile']]]
+  ['flipboth_0',['FlipBoth',['../namespace_code_smile_1_1_pro_tiler_1_1_tile.html#a70b8a6ac053029b255dc1eefafbe44bfa1ff52554c68e8dabbabc2c273c701719',1,'CodeSmile::ProTiler::Tile']]],
+  ['fliphorizontal_1',['FlipHorizontal',['../namespace_code_smile_1_1_pro_tiler_1_1_tile.html#a70b8a6ac053029b255dc1eefafbe44bfaef2eb5709a994eb86f7daa5c72975176',1,'CodeSmile::ProTiler::Tile']]],
+  ['flipvertical_2',['FlipVertical',['../namespace_code_smile_1_1_pro_tiler_1_1_tile.html#a70b8a6ac053029b255dc1eefafbe44bfa17a90cd11c563123de1b1a3db779bee6',1,'CodeSmile::ProTiler::Tile']]],
+  ['forwardmouse_3',['ForwardMouse',['../namespace_code_smile.html#ac1ec3647c005eacad401b06e7e18f711acc13dd0fddc82b4272d9082a2850a870',1,'CodeSmile']]]
 ];

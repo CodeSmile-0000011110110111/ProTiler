@@ -10,7 +10,7 @@ var searchData=
   ['iscreated_7',['IsCreated',['../struct_code_smile_1_1_collections_1_1_native_array2_d.html#a5dc83d488a12e71af44f2ca1fe2447f7',1,'CodeSmile::Collections::NativeArray2D']]],
   ['isctrlkeydown_8',['IsCtrlKeyDown',['../interface_code_smile_1_1_i_input_state.html#a31e8be3ca75af633ad65c20c61ba5efc',1,'CodeSmile::IInputState']]],
   ['isempty_9',['IsEmpty',['../struct_code_smile_1_1_pro_tiler_1_1_tile_1_1_tile3_d.html#a6ee2b0c6a7b64e4390e3c093100c06a3',1,'CodeSmile::ProTiler::Tile::Tile3D']]],
-  ['isinitialized_10',['IsInitialized',['../struct_code_smile_1_1_pro_tiler_1_1_chunk_1_1_tile3_d_layer.html#a97de2f3020e82c95ee020bd636bfcebf',1,'CodeSmile::ProTiler::Chunk::Tile3DLayer']]],
+  ['isinitialized_10',['IsInitialized',['../struct_code_smile_1_1_pro_tiler_1_1_tile_1_1_tile3_d_layer.html#a97de2f3020e82c95ee020bd636bfcebf',1,'CodeSmile::ProTiler::Tile::Tile3DLayer']]],
   ['iskeydown_11',['IsKeyDown',['../interface_code_smile_1_1_i_input_state.html#a040a658e828c570333b083d95bc1a011',1,'CodeSmile::IInputState']]],
   ['ismissing_12',['IsMissing',['../class_code_smile_1_1_extensions_1_1_object_ext.html#a2414a304faf91f62efc183996d632b8a',1,'CodeSmile::Extensions::ObjectExt']]],
   ['isonlybuttondown_13',['IsOnlyButtonDown',['../interface_code_smile_1_1_i_input_state.html#a2b4854c739ededd2f60ac1fa7d67bbe5',1,'CodeSmile::IInputState']]],

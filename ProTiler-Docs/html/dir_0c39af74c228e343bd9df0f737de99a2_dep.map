@@ -1,15 +1,14 @@
 <map id="ProTiler" name="ProTiler">
-<area shape="rect" id="node3" href="dir_e7f4281b37f1cef8281fd00697bc4ec1.html" title="Creation" alt="" coords="883,75,952,101"/>
-<area shape="rect" id="node4" href="dir_f5bb532f5a11a7abe93f97cff61bbac3.html" title="Data" alt="" coords="811,75,859,101"/>
-<area shape="rect" id="node5" href="dir_0385a5ced0a006ca1b6a4e78e0677684.html" title="Extensions" alt="" coords="700,75,786,101"/>
-<area shape="rect" id="node7" href="dir_55f3993c140e552d00e310f0697c46b5.html" title="Assets" alt="" coords="513,75,575,101"/>
-<area shape="rect" id="node8" href="dir_8c93d79bc6467f0214c8e9de8cfd80ba.html" title="Chunk" alt="" coords="431,75,489,101"/>
-<area shape="rect" id="node9" href="dir_4db27aada568c5e4c26859f27fc95318.html" title="Grid" alt="" coords="361,75,407,101"/>
-<area shape="rect" id="node10" href="dir_45fab1691491c20e5b215fdbd9b458bc.html" title="Tile" alt="" coords="295,75,337,101"/>
-<area shape="rect" id="node11" href="dir_6a82667af127deed6a55cc1aee45f93b.html" title="Tilemap" alt="" coords="206,75,272,101"/>
-<area shape="rect" id="node12" href="dir_308b6323a1a6cadf1e3335e7d6832602.html" title="Utility" alt="" coords="128,75,182,101"/>
-<area shape="rect" id="clust3" href="dir_1e9c244713be1220a163da256dbcbc8f.html" alt="" coords="689,64,1043,112"/>
-<area shape="rect" id="clust4" href="dir_99fc70b162b333e8266a3ec1d2c2ce58.html" alt="" coords="117,64,679,112"/>
-<area shape="rect" id="clust2" href="dir_0c39af74c228e343bd9df0f737de99a2.html" alt="" coords="27,53,1053,123"/>
-<area shape="rect" id="clust1" href="dir_82f05f05dc192e1d87896b6ed2d449e5.html" title="CodeSmile" alt="" coords="16,16,1064,133"/>
+<area shape="rect" id="node3" href="dir_e7f4281b37f1cef8281fd00697bc4ec1.html" title="Creation" alt="" coords="800,75,869,101"/>
+<area shape="rect" id="node4" href="dir_f5bb532f5a11a7abe93f97cff61bbac3.html" title="Data" alt="" coords="728,75,776,101"/>
+<area shape="rect" id="node5" href="dir_0385a5ced0a006ca1b6a4e78e0677684.html" title="Extensions" alt="" coords="617,75,703,101"/>
+<area shape="rect" id="node7" href="dir_55f3993c140e552d00e310f0697c46b5.html" title="Assets" alt="" coords="430,75,493,101"/>
+<area shape="rect" id="node8" href="dir_4db27aada568c5e4c26859f27fc95318.html" title="Grid" alt="" coords="361,75,407,101"/>
+<area shape="rect" id="node9" href="dir_45fab1691491c20e5b215fdbd9b458bc.html" title="Tile" alt="" coords="295,75,337,101"/>
+<area shape="rect" id="node10" href="dir_6a82667af127deed6a55cc1aee45f93b.html" title="Tilemap" alt="" coords="206,75,272,101"/>
+<area shape="rect" id="node11" href="dir_308b6323a1a6cadf1e3335e7d6832602.html" title="Utility" alt="" coords="128,75,182,101"/>
+<area shape="rect" id="clust3" href="dir_1e9c244713be1220a163da256dbcbc8f.html" alt="" coords="607,64,960,112"/>
+<area shape="rect" id="clust4" href="dir_99fc70b162b333e8266a3ec1d2c2ce58.html" alt="" coords="117,64,596,112"/>
+<area shape="rect" id="clust2" href="dir_0c39af74c228e343bd9df0f737de99a2.html" alt="" coords="27,53,971,123"/>
+<area shape="rect" id="clust1" href="dir_82f05f05dc192e1d87896b6ed2d449e5.html" title="CodeSmile" alt="" coords="16,16,981,133"/>
 </map>

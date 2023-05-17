@@ -1,4 +1,4 @@
 <map id="ToIndex2D" name="ToIndex2D">
-<area shape="rect" id="node1" title="Converts x/z coordinate to a 2D array index." alt="" coords="350,5,432,32"/>
-<area shape="rect" id="node2" href="$struct_code_smile_1_1_pro_tiler_1_1_chunk_1_1_tile3_d_layer.html#aed4bf87aae8b8321486d95f019065990" title="Sets tiles at the given coordinate using a list of Tile3DCoord instances." alt="" coords="5,5,302,32"/>
+<area shape="rect" id="node1" title="Converts x/z coordinate to a 2D array index." alt="" coords="333,5,415,32"/>
+<area shape="rect" id="node2" href="$struct_code_smile_1_1_pro_tiler_1_1_tile_1_1_tile3_d_layer.html#aed4bf87aae8b8321486d95f019065990" title="Sets tiles at the given coordinate using a list of Tile3DCoord instances." alt="" coords="5,5,285,32"/>
 </map>
