@@ -17,6 +17,9 @@ namespace CodeSmile.ProTiler.Tilemap
 	{
 		[Pure] internal static Byte[] ToBinary(Tilemap3D tilemap)
 		{
+			if (tilemap == null)
+				return new Byte[0];
+
 			using (var stream = CreateUnsafeStream())
 			{
 				unsafe
@@ -29,6 +32,9 @@ namespace CodeSmile.ProTiler.Tilemap
 
 		[Pure] internal static Tilemap3D FromBinary(Byte[] bytes)
 		{
+			if (bytes == null || bytes.Length == 0)
+				return new Tilemap3D();
+
 			using (var stream = CreateUnsafeStream(bytes))
 			{
 				var reader = stream.AsReader();

@@ -2,6 +2,7 @@
 // Refer to included LICENSE file for terms and conditions.
 
 using CodeSmile.Attributes;
+using CodeSmile.Extensions;
 using CodeSmile.ProTiler.Tile;
 using CodeSmile.ProTiler.Utility;
 using System;
@@ -51,24 +52,29 @@ namespace CodeSmile.ProTiler.Tilemap
 
 		private void Awake() => m_Tilemap = GetComponent<Tilemap3DBehaviour>();
 
+		private void OnEnable() => UpdateTileCount();
+
 		[Pure] private void OnDrawGizmosSelected() => DrawActiveChunkTileIndexes();
 
 		private void OnValidate()
 		{
 			m_ActiveLayerIndex = Mathf.Max(0, m_ActiveLayerIndex);
 
-			// TODO
 			m_MaxLayerIndex = -1;
-			UpdateTileCount();
 
 			if (m_FillChunkLayer)
 			{
 				m_FillChunkLayer = false;
 				FillActiveLayerWithIncrementingTiles();
 			}
+
+			UpdateTileCount();
 		}
 
-		private void UpdateTileCount() => m_TileCount = m_Tilemap != null ? m_Tilemap.TileCount : -1;
+		private void UpdateTileCount() => this.WaitForFramesElapsed(1, () =>
+		{
+			m_TileCount = m_Tilemap != null ? m_Tilemap.TileCount : -1;
+		});
 
 		[Pure] private void DrawActiveChunkTileIndexes()
 		{

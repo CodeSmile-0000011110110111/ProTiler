@@ -402,6 +402,37 @@ LightingSettings:
   m_PVRFilteringAtrousPositionSigmaAO: 1
   m_PVRTiledBaking: 0
   m_RespectSceneVisibilityWhenBakingGI: 0
+--- !u!1 &1149278281
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1149278282}
+  m_Layer: 0
+  m_Name: GameObject (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1149278282
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1149278281}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1282295938
 GameObject:
   m_ObjectHideFlags: 0
@@ -479,11 +510,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5089f6d0eadd484783cbb009b1e89330, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ActiveChunkCoord: {x: -1, y: -1}
-  m_ActiveLayerIndex: 1
+  m_ActiveChunkCoord: {x: 1, y: -2}
+  m_ActiveLayerIndex: 0
   m_FillChunkLayer: 0
   m_MaxLayerIndex: -1
-  m_TileCount: 128
+  m_TileCount: 32
 --- !u!114 &1348210621
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -509,7 +540,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ChunkSize: {x: 4, y: 4}
-  m_SerializeAsBinary: 0
+  m_UseBinarySerialization: 1
+  m_SerializedMap: 000400000004000000000002000000096a09cad8d802000004000000040000000000010000000010000000010001000200010003000100040001000d0001000e0001000f00010010000100090001000a0001000b0001000c00010005000100060001000700010008000100586903d822d802000004000000040000000000010000000010000000010001000200010003000100040001000d0001000e0001000f00010010000100090001000a0001000b0001000c00010005000100060001000700010008000100
 --- !u!1 &1502926412
 GameObject:
   m_ObjectHideFlags: 0

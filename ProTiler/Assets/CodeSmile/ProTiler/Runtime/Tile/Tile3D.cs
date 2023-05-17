@@ -19,6 +19,9 @@ namespace CodeSmile.ProTiler.Tile
 	[StructLayout(LayoutKind.Sequential)]
 	public struct Tile3D : IEquatable<Tile3D>
 	{
+		private const Tile3DFlags AllDirectionsMask = Tile3DFlags.DirectionNorth | Tile3DFlags.DirectionWest |
+		                                              Tile3DFlags.DirectionSouth | Tile3DFlags.DirectionEast;
+
 		/// <summary>
 		///     Tile index used to get a tile's assed from a tile set.
 		/// </summary>
@@ -72,7 +75,7 @@ namespace CodeSmile.ProTiler.Tile
 
 		[Pure] private Tile3DFlags GetDirectionOrDefault()
 		{
-			var dir = Flags & Tile3DFlags.AllDirections;
+			var dir = Flags & AllDirectionsMask;
 			return dir != Tile3DFlags.None ? dir : Tile3DFlags.DirectionNorth;
 		}
 	}

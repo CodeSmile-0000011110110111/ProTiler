@@ -2,7 +2,6 @@
 // Refer to included LICENSE file for terms and conditions.
 
 #if UNITY_EDITOR
-using UnityEditor;
 using UnityEditor.SceneManagement;
 #endif
 using CodeSmile.Extensions;
@@ -12,7 +11,6 @@ using CodeSmile.ProTiler.Utility;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
-using System.IO;
 using System.Linq;
 using System.Text;
 using UnityEngine;
@@ -29,8 +27,9 @@ namespace CodeSmile.ProTiler.Tilemap
 	{
 		//[SerializeField] private Vector3 m_TileAnchor;
 		[SerializeField] private Vector2Int m_ChunkSize = new(16, 16);
-		[SerializeField] private Boolean m_SerializeAsBinary = true;
+		[SerializeField] private Boolean m_UseBinarySerialization = true;
 		[SerializeField] private Tilemap3D m_Map;
+		[SerializeField] private Byte[] m_SerializedMap;
 
 		[Pure] public Vector2Int ChunkSize
 		{
@@ -55,8 +54,9 @@ namespace CodeSmile.ProTiler.Tilemap
 
 		[Pure] private void RegisterEditorSceneEvents()
 		{
-#if UNITY_EDITOR
 			UnregisterEditorSceneEvents();
+
+#if UNITY_EDITOR
 			EditorSceneManager.sceneOpened += OnSceneOpened;
 			EditorSceneManager.sceneSaving += OnSceneSaving;
 #endif
@@ -70,64 +70,29 @@ namespace CodeSmile.ProTiler.Tilemap
 #endif
 		}
 
-		private void LoadTilemap(String scenePath)
+		private void DeserializeTilemap()
 		{
-#if UNITY_EDITOR
-			var filename = Path.ChangeExtension(scenePath,
-				m_SerializeAsBinary ? $".{name}.binary" : $".{name}.json");
-			Debug.Log($"LoadTilemap: {filename}");
-			if (m_SerializeAsBinary)
-			{
-				if (File.Exists(filename))
-				{
-					var bytes = File.ReadAllBytes(filename);
-					File.Delete(filename);
-					Debug.Log($"from binary: {bytes.Length} bytes");
-					m_Map = Tilemap3DSerialization.FromBinary(bytes);
-				}
-			}
+			if (m_UseBinarySerialization)
+				m_Map = Tilemap3DSerialization.FromBinary(m_SerializedMap);
 			else
 			{
-				if (File.Exists(scenePath))
-				{
-					var json = File.ReadAllText(filename);
-					File.Delete(filename);
-					Debug.Log($"from json:\n{json}");
-					m_Map = Tilemap3DSerialization.FromJson(json);
-				}
+				var json = Encoding.UTF8.GetString(m_SerializedMap);
+				m_Map = Tilemap3DSerialization.FromJson(json);
 			}
-#endif
 		}
 
-		[Pure] private void SaveTilemap(String scenePath)
+		[Pure] private void SerializeTilemap()
 		{
-#if UNITY_EDITOR
 			if (m_Map != null)
 			{
-				var filename = Path.ChangeExtension(scenePath,
-					m_SerializeAsBinary ? $".{name}.binary" : $".{name}.json");
-				Debug.Log($"LoadTilemap: {filename}");
-				if (m_SerializeAsBinary)
-				{
-					var bytes = Tilemap3DSerialization.ToBinary(m_Map);
-
-					var byteStr = new StringBuilder();
-					foreach (var b in bytes)
-						byteStr.Append(b);
-					Debug.Log($"Writing Tilemap {bytes.Length} bytes:\n{byteStr}");
-
-					File.WriteAllBytes(filename, bytes);
-					AssetDatabase.Refresh(ImportAssetOptions.ForceSynchronousImport);
-				}
+				if (m_UseBinarySerialization)
+					m_SerializedMap = Tilemap3DSerialization.ToBinary(m_Map);
 				else
 				{
 					var json = Tilemap3DSerialization.ToJson(m_Map, false);
-					Debug.Log($"Writing Tilemap.json:\n{json}");
-					File.WriteAllText(filename, json);
-					AssetDatabase.Refresh(ImportAssetOptions.ForceSynchronousImport);
+					m_SerializedMap = Encoding.UTF8.GetBytes(json);
 				}
 			}
-#endif
 		}
 
 		[Pure] public Int32 GetLayerCount(ChunkCoord chunkCoord) => m_Map.GetLayerCount(chunkCoord);
@@ -160,8 +125,8 @@ namespace CodeSmile.ProTiler.Tilemap
 		[Pure] private void SetTilesNoUndo(IEnumerable<Tile3DCoord> tileCoordDatas) => m_Map.SetTiles(tileCoordDatas);
 
 #if UNITY_EDITOR
-		[Pure] private void OnSceneOpened(Scene scene, OpenSceneMode mode) => LoadTilemap(scene.path);
-		[Pure] private void OnSceneSaving(Scene scene, String path) => SaveTilemap(path);
+		[Pure] private void OnSceneOpened(Scene scene, OpenSceneMode mode) => DeserializeTilemap();
+		[Pure] private void OnSceneSaving(Scene scene, String path) => SerializeTilemap();
 #endif
 	}
 }

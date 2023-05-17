@@ -25,14 +25,14 @@ If you have any questions or feedback, [contact me via Discord](https://discord.
 
 Copyright (C) 2022-2023 Steffen Itterheim
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software [..], including [..] the rights to use, copy, modify, merge [..] copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including [..] the rights to use, copy, modify, merge [..] copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
 
 1. The Software must not be used to create or assist in the creation of commercial products, content or services (*) without express permission or purchase of the appropriate number of commercial licenses (**). 
 
 - - a) The Software may be used only for evaluation purposes FOR 30 DAYS free of charge if the Software is intended to be used in the creation or assisting the creation of commercial products, content or services. The 30 day evaluation period begins with either the day of first obtaining a copy of the Software from its GitHub repository (***) or, for as long as the Software has not been published on the Unity Asset Store, the 30 day period begins on the day the Software is first publicly available on the Unity Asset Store.
 
-- - b) Expressly exempt from commercial use restrictions is the promotion, discussion, teaching of the Software and information, education on the Software through (but not limited to) blogs, social media, print/electronic media, conferences (eg you can produce content with and about the Software as long as the content is informational, educational, promotional even when revenue is generated from said content).
+- - b) Expressly exempt from commercial use restrictions is the promotion, discussion, teaching of the Software and information, education on the Software through (but not limited to) blogs, social media, print/electronic media, conferences (eg you can produce content with and about the Software as long as the content is informational or educational even when revenue is generated from said content).
 
 
 2. You may use, copy, modify, merge, and publish binary forms (see #3b) of the Software free of charge without restrictions for non-commercial personal or non-profit educational use.
@@ -46,13 +46,7 @@ Permission is hereby granted, free of charge, to any person obtaining a copy of 
 4. The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 
 ## Footnotes

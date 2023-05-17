@@ -8,6 +8,9 @@ namespace CodeSmile.Tests.Editor.ProTiler.Tile
 {
 	public class Tile3DTestCaseSource
 	{
+		internal const Tile3DFlags AllDirectionsMask = Tile3DFlags.DirectionNorth | Tile3DFlags.DirectionWest |
+		                                              Tile3DFlags.DirectionSouth | Tile3DFlags.DirectionEast;
+
 		public static readonly object[] ValidIndexes =
 		{
 			new object[] { 0 },
@@ -29,10 +32,10 @@ namespace CodeSmile.Tests.Editor.ProTiler.Tile
 		public static readonly object[] ValidIndexesWithFlags =
 		{
 			new object[] { 0, Tile3DFlags.None },
-			new object[] { 1, Tile3DFlags.AllDirections },
-			new object[] { 2, Tile3DFlags.AllFlips },
-			new object[] { ushort.MinValue, Tile3DFlags.AllFlips | Tile3DFlags.AllDirections },
-			new object[] { ushort.MaxValue, Tile3DFlags.AllFlips | Tile3DFlags.AllDirections },
+			new object[] { 1, AllDirectionsMask },
+			new object[] { 2, Tile3DFlags.FlipBoth },
+			new object[] { ushort.MinValue, Tile3DFlags.FlipBoth | AllDirectionsMask },
+			new object[] { ushort.MaxValue, Tile3DFlags.FlipBoth | AllDirectionsMask },
 		};
 
 		public static readonly object[] DirectionFlags =
@@ -41,7 +44,7 @@ namespace CodeSmile.Tests.Editor.ProTiler.Tile
 			new object[] { Tile3DFlags.DirectionEast },
 			new object[] { Tile3DFlags.DirectionSouth },
 			new object[] { Tile3DFlags.DirectionWest },
-			new object[] { Tile3DFlags.AllDirections },
+			new object[] { AllDirectionsMask },
 		};
 
 		public static readonly object[] NonEqualTilePairs =

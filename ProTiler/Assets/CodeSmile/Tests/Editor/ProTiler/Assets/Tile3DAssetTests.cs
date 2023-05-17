@@ -4,7 +4,7 @@
 using CodeSmile.ProTiler.Assets;
 using CodeSmile.ProTiler.Editor.Creation;
 using CodeSmile.ProTiler.Tile;
-using CodeSmile.ProTiler.Tilemap;
+using CodeSmile.Tests.Editor.ProTiler.Tile;
 using CodeSmile.Tests.Tools;
 using NUnit.Framework;
 using UnityEngine;
@@ -26,7 +26,7 @@ namespace CodeSmile.Tests.Editor.ProTiler.Assets
 		[Test] public void GetSetFlags()
 		{
 			var tileAsset = Tile3DAssetCreation.CreateInstance<Tile3DAsset>();
-			var flags = Tile3DFlags.AllDirections | Tile3DFlags.AllFlips;
+			var flags = Tile3DTestCaseSource.AllDirectionsMask | Tile3DFlags.FlipBoth;
 
 			tileAsset.Flags = flags;
 
@@ -47,7 +47,7 @@ namespace CodeSmile.Tests.Editor.ProTiler.Assets
 		[Test] public void SetDefaultFlags()
 		{
 			var tileAsset = Tile3DAssetCreation.CreateInstance<Tile3DAsset>();
-			tileAsset.Flags = Tile3DFlags.AllDirections | Tile3DFlags.AllFlips;
+			tileAsset.Flags = Tile3DTestCaseSource.AllDirectionsMask | Tile3DFlags.FlipBoth;
 
 			tileAsset.SetDefaultFlags();
 
