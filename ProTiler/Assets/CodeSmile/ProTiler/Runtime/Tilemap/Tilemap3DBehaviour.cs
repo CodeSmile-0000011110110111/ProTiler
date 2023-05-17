@@ -28,7 +28,7 @@ namespace CodeSmile.ProTiler.Tilemap
 		//[SerializeField] private Vector3 m_TileAnchor;
 		[SerializeField] private Vector2Int m_ChunkSize = new(16, 16);
 		[SerializeField] private Boolean m_SerializeAsBinary = true;
-		private Tilemap3D m_Map;
+		[SerializeField] private Tilemap3D m_Map;
 
 		[Pure] public Vector2Int ChunkSize
 		{
@@ -36,6 +36,7 @@ namespace CodeSmile.ProTiler.Tilemap
 			set => SetChunkSize(value);
 		}
 
+		[Pure] internal Int32 ChunkCount => m_Map.ChunkCount;
 		[Pure] internal Int32 TileCount => m_Map.TileCount;
 
 		[Pure] public Grid3DBehaviour Grid => transform.parent.GetComponent<Grid3DBehaviour>();
@@ -83,7 +84,7 @@ namespace CodeSmile.ProTiler.Tilemap
 					var bytes = File.ReadAllBytes(filename);
 					File.Delete(filename);
 					Debug.Log($"from binary: {bytes.Length} bytes");
-					m_Map = Tilemap3DSerializer.FromBinary(bytes);
+					m_Map = Tilemap3DSerialization.FromBinary(bytes);
 				}
 			}
 			else
@@ -93,7 +94,7 @@ namespace CodeSmile.ProTiler.Tilemap
 					var json = File.ReadAllText(filename);
 					File.Delete(filename);
 					Debug.Log($"from json:\n{json}");
-					m_Map = Tilemap3DSerializer.FromJson(json);
+					m_Map = Tilemap3DSerialization.FromJson(json);
 				}
 			}
 #endif
@@ -109,7 +110,7 @@ namespace CodeSmile.ProTiler.Tilemap
 				Debug.Log($"LoadTilemap: {filename}");
 				if (m_SerializeAsBinary)
 				{
-					var bytes = Tilemap3DSerializer.ToBinary(m_Map);
+					var bytes = Tilemap3DSerialization.ToBinary(m_Map);
 
 					var byteStr = new StringBuilder();
 					foreach (var b in bytes)
@@ -121,7 +122,7 @@ namespace CodeSmile.ProTiler.Tilemap
 				}
 				else
 				{
-					var json = Tilemap3DSerializer.ToJson(m_Map, false);
+					var json = Tilemap3DSerialization.ToJson(m_Map, false);
 					Debug.Log($"Writing Tilemap.json:\n{json}");
 					File.WriteAllText(filename, json);
 					AssetDatabase.Refresh(ImportAssetOptions.ForceSynchronousImport);

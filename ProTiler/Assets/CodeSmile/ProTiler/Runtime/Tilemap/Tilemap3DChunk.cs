@@ -16,7 +16,7 @@ using ChunkCoord = UnityEngine.Vector2Int;
 using ChunkSize = UnityEngine.Vector2Int;
 using GridCoord = UnityEngine.Vector3Int;
 
-namespace CodeSmile.ProTiler.Chunk
+namespace CodeSmile.ProTiler.Tilemap
 {
 	/// <summary>
 	///     A chunk is one part of a larger tilemap at a given position offset.
@@ -27,7 +27,7 @@ namespace CodeSmile.ProTiler.Chunk
 	[StructLayout(LayoutKind.Sequential)]
 	internal sealed class Tilemap3DChunk
 	{
-		[CreateProperty] private readonly ChunkSize m_Size;
+		[CreateProperty] private ChunkSize m_Size;
 		[CreateProperty] private Tile3DLayers m_Layers;
 
 		/// <summary>
@@ -71,8 +71,8 @@ namespace CodeSmile.ProTiler.Chunk
 		}
 
 		[SuppressMessage("NDepend", "ND1701:PotentiallyDeadMethods",
-			Justification = "required by serialization")]
-		[Pure] internal Tilemap3DChunk() {}
+			Justification = "public parameter-less ctor required by serialization")]
+		[Pure] public Tilemap3DChunk() {}
 
 		/// <summary>
 		///     Creates a new chunk instance with the given size (width, length).

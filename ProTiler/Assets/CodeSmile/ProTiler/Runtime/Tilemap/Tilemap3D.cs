@@ -2,7 +2,6 @@
 // Refer to included LICENSE file for terms and conditions.
 
 using CodeSmile.Attributes;
-using CodeSmile.ProTiler.Chunk;
 using CodeSmile.ProTiler.Tile;
 using CodeSmile.ProTiler.Utility;
 using System;
@@ -128,6 +127,9 @@ namespace CodeSmile.ProTiler.Tilemap
 			}
 		}
 
+		/// <summary>
+		///     Coords divided into chunks
+		/// </summary>
 		private sealed class ChunkCoords : Dictionary<ChunkKey, IList<LayerCoord>>
 		{
 			private readonly Dictionary<ChunkKey, ChunkCoord> m_ChunkCoords = new();
@@ -165,6 +167,9 @@ namespace CodeSmile.ProTiler.Tilemap
 			}
 		}
 
+		/// <summary>
+		///     Collection of chunks
+		/// </summary>
 		[Serializable]
 		private sealed class Tilemap3DChunks
 		{

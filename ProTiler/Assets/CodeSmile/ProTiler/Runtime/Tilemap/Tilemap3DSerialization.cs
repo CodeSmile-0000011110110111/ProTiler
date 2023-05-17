@@ -3,7 +3,6 @@
 
 using CodeSmile.Attributes;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Runtime.InteropServices;
 using Unity.Collections;
@@ -14,14 +13,8 @@ using Unity.Serialization.Json;
 namespace CodeSmile.ProTiler.Tilemap
 {
 	[FullCovered]
-	internal static class Tilemap3DSerializer
+	internal static class Tilemap3DSerialization
 	{
-		private enum BinaryCopyStrategy
-		{
-			AtomicByte,
-			MarshalCopy,
-		}
-
 		[Pure] internal static Byte[] ToBinary(Tilemap3D tilemap)
 		{
 			using (var stream = CreateUnsafeStream())
@@ -46,7 +39,8 @@ namespace CodeSmile.ProTiler.Tilemap
 			}
 		}
 
-		[Pure] internal static String ToJson(Tilemap3D tilemap, Boolean minified = true) => JsonSerialization.ToJson(tilemap,
+		[Pure] internal static String ToJson(Tilemap3D tilemap, Boolean minified = true) => JsonSerialization.ToJson(
+			tilemap,
 			new JsonSerializationParameters { Minified = minified });
 
 		[Pure] internal static Tilemap3D FromJson(String json) => JsonSerialization.FromJson<Tilemap3D>(json);
@@ -58,7 +52,11 @@ namespace CodeSmile.ProTiler.Tilemap
 			unsafe
 			{
 				fixed (Byte* p = bytes)
-					return new UnsafeAppendBuffer(p, bytes.Length);
+				{
+					var stream = new UnsafeAppendBuffer(p, bytes.Length);
+					stream.Add(p, bytes.Length); // odd: Add required even though we pass it into the ctor
+					return stream;
+				}
 			}
 		}
 
@@ -92,6 +90,12 @@ namespace CodeSmile.ProTiler.Tilemap
 			}
 
 			return bytes;
+		}
+
+		private enum BinaryCopyStrategy
+		{
+			AtomicByte,
+			MarshalCopy,
 		}
 	}
 }

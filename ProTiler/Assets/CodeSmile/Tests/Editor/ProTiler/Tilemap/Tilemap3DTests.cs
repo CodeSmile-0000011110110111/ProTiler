@@ -66,9 +66,9 @@ namespace CodeSmile.Tests.Editor.ProTiler.Tilemap
 			var tileIndex = short.MaxValue;
 			tilemap.SetTiles(new Tile3DCoord[] { new(coord, new Tile3D(tileIndex)) });
 
-			var json = Tilemap3DSerializer.ToJson(tilemap);
+			var json = Tilemap3DSerialization.ToJson(tilemap);
 			Debug.Log(json);
-			var deserializedTilemap = Tilemap3DSerializer.FromJson(json);
+			var deserializedTilemap = Tilemap3DSerialization.FromJson(json);
 			var tiles = deserializedTilemap.GetTiles(new[] { coord });
 
 			Assert.That(deserializedTilemap.ChunkSize, Is.EqualTo(tilemap.ChunkSize));
