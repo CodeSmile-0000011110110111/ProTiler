@@ -10,7 +10,12 @@ I wish for this software to be available free of charge for personal & education
 
 I provide the software in its entirety to the public, knowing full well that any attempt of trying to "protect" digital content is fruitless.
 
-Instead, I plea to and believe in your kindness and honesty as I have to make a living off this Software and I only want to do business with kind and honest customers to begin with.
+Instead, I plea to and believe in your kindness and honesty. To gain trust means you have to give it. In return I hope to do business with enough kind and honest customers to make a living off this (and possibly other) Software.
+
+Thus the Terms of Use below are one-of-a-kind.
+
+If you have any questions or feedback, [contact me via Discord](https://discord.gg/56zUz3ZHUJ).
+
 
 => Steffen
 
@@ -25,7 +30,7 @@ Permission is hereby granted, free of charge, to any person obtaining a copy of 
 
 1. The Software must not be used to create or assist in the creation of commercial products, content or services (*) without express permission or purchase of the appropriate number of commercial licenses (**). 
 
-- - a) The Software may be used only for evaluation purposes FOR 30 DAYS free of charge, beginning with the day of first obtaining a copy of the Software from its GitHub repository (***), if the Software is intended to be used in the creation or assisting the creation of commercial products, content or services.
+- - a) The Software may be used only for evaluation purposes FOR 30 DAYS free of charge if the Software is intended to be used in the creation or assisting the creation of commercial products, content or services. The 30 day evaluation period begins with either the day of first obtaining a copy of the Software from its GitHub repository (***) or, for as long as the Software has not been published on the Unity Asset Store, the 30 day period begins on the day the Software is first publicly available on the Unity Asset Store.
 
 - - b) Expressly exempt from commercial use restrictions is the promotion, discussion, teaching of the Software and information, education on the Software through (but not limited to) blogs, social media, print/electronic media, conferences (eg you can produce content with and about the Software as long as the content is informational, educational, promotional even when revenue is generated from said content).
 
@@ -52,8 +57,8 @@ SOFTWARE.
 
 ## Footnotes
 
-(*) = If the Software is used through a business entity's equipment or premises, commercial use is assumed. Commercial use is otherwise considered any effort or intention of generating financial benefits through direct or indirect use of the Software. This includes, but is not limited to, selling apps, selling digital content, in-app transactions, advertisments, donations, venture funding, promotion of businesses, commercial products, services or content where the Software assists in the creation. Refer to condition #1b for exceptions.
+(*) = If the Software is used through a business entity's equipment or premises, commercial use is assumed. Commercial use is otherwise considered any effort or intention of generating financial benefits through direct or indirect use of the Software. This includes, but is not limited to, selling apps, selling digital content, in-app transactions, advertisments, donations, venture funding, promotion of businesses, products, services or content where the Software assists in the creation. Refer to condition #1b for exceptions.
 
 (**) = The standard way of obtaining a commercial use license is to buy the software on the [Unity Asset Store](https://assetstore.unity.com/), one license per seat as defined by the [Unity Asset Store Terms of Service and EULA](https://unity.com/legal/as-terms).
 
-(***) = which must be the corresponding repository URL of the Software hosted by this GitHub user: https://github.com/CodeSmile-0000011110110111
+(***) = which must be the repository URL of the Software hosted by this GitHub user: https://github.com/CodeSmile-0000011110110111

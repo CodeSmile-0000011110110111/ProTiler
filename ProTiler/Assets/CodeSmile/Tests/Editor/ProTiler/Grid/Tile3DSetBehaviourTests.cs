@@ -12,10 +12,10 @@ namespace CodeSmile.Tests.Editor.ProTiler.Grid
 {
 	public class Tile3DSetBehaviourTests
 	{
-		[Test] [CreateEmptyScene] [CreateGameObject(nameof(Tile3DSetBehaviour), typeof(Tile3DSetBehaviour))]
+		[Test] [CreateEmptyScene] [CreateGameObject(nameof(Grid3DTileSetBehaviour), typeof(Grid3DTileSetBehaviour))]
 		public void AddAndContainsTileAsset()
 		{
-			var tileSet = ObjectExt.FindObjectByTypeFast<Tile3DSetBehaviour>();
+			var tileSet = ObjectExt.FindObjectByTypeFast<Grid3DTileSetBehaviour>();
 			var tileAsset = Tile3DAssetCreation.CreateInstance<Tile3DAsset>();
 
 			tileSet.Add(tileAsset);
@@ -23,10 +23,10 @@ namespace CodeSmile.Tests.Editor.ProTiler.Grid
 			Assert.That(tileSet.Contains(tileAsset));
 		}
 
-		[Test] [CreateEmptyScene] [CreateGameObject(nameof(Tile3DSetBehaviour), typeof(Tile3DSetBehaviour))]
+		[Test] [CreateEmptyScene] [CreateGameObject(nameof(Grid3DTileSetBehaviour), typeof(Grid3DTileSetBehaviour))]
 		public void AddTileAssetWithIndex()
 		{
-			var tileSet = ObjectExt.FindObjectByTypeFast<Tile3DSetBehaviour>();
+			var tileSet = ObjectExt.FindObjectByTypeFast<Grid3DTileSetBehaviour>();
 			var tileAsset = Tile3DAssetCreation.CreateInstance<Tile3DAsset>();
 
 			tileSet.Add(tileAsset, out var index);
@@ -35,10 +35,10 @@ namespace CodeSmile.Tests.Editor.ProTiler.Grid
 			Assert.That(tileSet.Contains(tileAsset));
 		}
 
-		[Test] [CreateEmptyScene] [CreateGameObject(nameof(Tile3DSetBehaviour), typeof(Tile3DSetBehaviour))]
+		[Test] [CreateEmptyScene] [CreateGameObject(nameof(Grid3DTileSetBehaviour), typeof(Grid3DTileSetBehaviour))]
 		public void RemoveAndDoesNotContainTileAsset()
 		{
-			var tileSet = ObjectExt.FindObjectByTypeFast<Tile3DSetBehaviour>();
+			var tileSet = ObjectExt.FindObjectByTypeFast<Grid3DTileSetBehaviour>();
 			var tileAsset = Tile3DAssetCreation.CreateInstance<Tile3DAsset>();
 
 			tileSet.Add(tileAsset);

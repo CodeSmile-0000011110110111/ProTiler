@@ -73,7 +73,7 @@ namespace CodeSmile.ProTiler.Editor.Creation
 
 			if (gridGO == null)
 			{
-				gridGO = ObjectFactory.CreateGameObject("Grid3D", typeof(Grid3DBehaviour), typeof(Tile3DSetBehaviour));
+				gridGO = ObjectFactory.CreateGameObject("Grid3D", typeof(Grid3DBehaviour), typeof(Grid3DTileSetBehaviour));
 				Undo.RegisterCreatedObjectUndo (gridGO, "Create 3D Grid");
 			}
 

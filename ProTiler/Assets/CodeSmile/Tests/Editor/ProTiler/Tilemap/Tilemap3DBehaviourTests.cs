@@ -25,7 +25,7 @@ namespace CodeSmile.Tests.Editor.ProTiler.Tilemap
 			Assert.That(tilemap != null);
 			Assert.That(tilemap.Grid != null);
 			Assert.That(ObjectExt.FindObjectsByTypeFast<Grid3DBehaviour>().Length, Is.EqualTo(1));
-			Assert.That(ObjectExt.FindObjectsByTypeFast<Tile3DSetBehaviour>().Length, Is.EqualTo(1));
+			Assert.That(ObjectExt.FindObjectsByTypeFast<Grid3DTileSetBehaviour>().Length, Is.EqualTo(1));
 			Assert.That(ObjectExt.FindObjectsByTypeFast<Tilemap3DBehaviour>().Length, Is.EqualTo(1));
 			Assert.Contains(tilemap.Grid.gameObject, SceneManager.GetActiveScene().GetRootGameObjects());
 			Assert.Contains(tilemap, tilemap.Grid.GetComponentsInChildren<Tilemap3DBehaviour>());
@@ -38,7 +38,7 @@ namespace CodeSmile.Tests.Editor.ProTiler.Tilemap
 			var tilemap2 = Tilemap3DCreation.CreateRectangularTilemap3D();
 
 			Assert.That(ObjectExt.FindObjectsByTypeFast<Grid3DBehaviour>().Length, Is.EqualTo(1));
-			Assert.That(ObjectExt.FindObjectsByTypeFast<Tile3DSetBehaviour>().Length, Is.EqualTo(1));
+			Assert.That(ObjectExt.FindObjectsByTypeFast<Grid3DTileSetBehaviour>().Length, Is.EqualTo(1));
 			Assert.That(ObjectExt.FindObjectsByTypeFast<Tilemap3DBehaviour>().Length, Is.EqualTo(2));
 			Assert.That(tilemap1.Grid, Is.EqualTo(tilemap2.Grid));
 			Assert.That(tilemap1.Grid.gameObject, Is.EqualTo(tilemap2.Grid.gameObject));

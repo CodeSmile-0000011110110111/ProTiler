@@ -12,7 +12,7 @@ namespace CodeSmile.ProTiler.Grid
 	[FullCovered]
 	[DisallowMultipleComponent]
 	[RequireComponent(typeof(Grid3DBehaviour))]
-	public class Tile3DSetBehaviour : MonoBehaviour
+	public class Grid3DTileSetBehaviour : MonoBehaviour
 	{
 		[SerializeField] [ReadOnlyField] private Tile3DAssetBaseSet m_TileAssets;
 

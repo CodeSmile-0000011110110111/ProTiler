@@ -1,6 +1,10 @@
 // Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
+#if UNITY_EDITOR
+using UnityEditor;
+using UnityEditor.SceneManagement;
+#endif
 using CodeSmile.Extensions;
 using CodeSmile.ProTiler.Grid;
 using CodeSmile.ProTiler.Tile;
@@ -11,8 +15,6 @@ using System.Diagnostics.Contracts;
 using System.IO;
 using System.Linq;
 using System.Text;
-using UnityEditor;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using GridCoord = UnityEngine.Vector3Int;
@@ -67,9 +69,6 @@ namespace CodeSmile.ProTiler.Tilemap
 			EditorSceneManager.sceneSaving -= OnSceneSaving;
 #endif
 		}
-
-		[Pure] private void OnSceneOpened(Scene scene, OpenSceneMode mode) => LoadTilemap(scene.path);
-		[Pure] private void OnSceneSaving(Scene scene, String path) => SaveTilemap(path);
 
 		private void LoadTilemap(String scenePath)
 		{
@@ -159,5 +158,10 @@ namespace CodeSmile.ProTiler.Tilemap
 		}
 
 		[Pure] private void SetTilesNoUndo(IEnumerable<Tile3DCoord> tileCoordDatas) => m_Map.SetTiles(tileCoordDatas);
+
+#if UNITY_EDITOR
+		[Pure] private void OnSceneOpened(Scene scene, OpenSceneMode mode) => LoadTilemap(scene.path);
+		[Pure] private void OnSceneSaving(Scene scene, String path) => SaveTilemap(path);
+#endif
 	}
 }
