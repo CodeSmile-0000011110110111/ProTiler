@@ -19,7 +19,7 @@ namespace CodeSmile.Collections
 	/// </summary>
 	[Serializable]
 	[FullCovered]
-	public class ObjectSet<T> where T : Object
+	public sealed class ObjectSet<T> where T : Object
 	{
 		/// <summary>
 		///     The default object that is returned for non-existing indexes. Defaults to null.

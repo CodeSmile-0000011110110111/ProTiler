@@ -51,7 +51,8 @@ namespace CodeSmile.ProTiler.Tilemap
 
 		[Pure] internal static Tilemap3D FromJson(String json) => JsonSerialization.FromJson<Tilemap3D>(json);
 
-		[Pure] private static UnsafeAppendBuffer CreateUnsafeStream() => new(256, 8, Allocator.Persistent);
+		[Pure] private static UnsafeAppendBuffer CreateUnsafeStream() =>
+			new(65536, 8, Allocator.Temp);
 
 		[Pure] private static UnsafeAppendBuffer CreateUnsafeStream(Byte[] bytes)
 		{
@@ -60,48 +61,20 @@ namespace CodeSmile.ProTiler.Tilemap
 				fixed (Byte* p = bytes)
 				{
 					var stream = new UnsafeAppendBuffer(p, bytes.Length);
-					stream.Add(p, bytes.Length); // odd: Add required even though we pass it into the ctor
+					stream.Add(p, bytes.Length);
 					return stream;
 				}
 			}
 		}
 
-		[Pure] private static Byte[] ToManagedBytes(in UnsafeAppendBuffer stream,
-			BinaryCopyStrategy copyStrategy = BinaryCopyStrategy.AtomicByte)
+		[Pure] private static Byte[] ToManagedBytes(in UnsafeAppendBuffer stream)
 		{
 			var reader = stream.AsReader();
 			var bytes = new Byte[reader.Size];
-
-			switch (copyStrategy)
-			{
-				case BinaryCopyStrategy.AtomicByte:
-				{
-					var index = 0;
-					while (reader.EndOfBuffer == false)
-					{
-						bytes[index] = reader.ReadNext<Byte>();
-						index++;
-					}
-					break;
-				}
-				case BinaryCopyStrategy.MarshalCopy:
-				{
-					unsafe
-					{
-						Marshal.Copy((IntPtr)reader.Ptr, bytes, 0, reader.Size);
-					}
-					break;
-				}
-				default: throw new ArgumentOutOfRangeException(nameof(copyStrategy), copyStrategy, null);
-			}
-
+			// TODO: it bothers me that I couldn't find a 'native' way to copy/convert the UnsafeAppendBuffer bytes
+			// for now, Marshal.Copy works and seems rather fast (definitely a lot better than iteration)
+			unsafe { Marshal.Copy((IntPtr)reader.Ptr, bytes, 0, reader.Size); }
 			return bytes;
-		}
-
-		private enum BinaryCopyStrategy
-		{
-			AtomicByte,
-			MarshalCopy,
 		}
 	}
 }

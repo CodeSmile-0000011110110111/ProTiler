@@ -15,7 +15,7 @@ namespace CodeSmile.Tests.Tools.TestRunnerApi
 		static FasterTests() => ScriptableObject.CreateInstance<UnityEditor.TestTools.TestRunner.Api.TestRunnerApi>().RegisterCallbacks(new Callbacks());
 
 		[ExcludeFromCodeCoverage]
-		private class Callbacks : ICallbacks
+		private sealed class Callbacks : ICallbacks
 		{
 			private const string ApplicationIdleTimeKey = "ApplicationIdleTime";
 			private const string InteractionModeKey = "InteractionMode";

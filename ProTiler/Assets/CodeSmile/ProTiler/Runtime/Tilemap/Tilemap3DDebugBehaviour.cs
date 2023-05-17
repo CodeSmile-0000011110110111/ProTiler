@@ -25,6 +25,7 @@ namespace CodeSmile.ProTiler.Tilemap
 		[SerializeField] private ChunkCoord m_ActiveChunkCoord;
 		[SerializeField] private Int32 m_ActiveLayerIndex;
 		[SerializeField] private Boolean m_FillChunkLayer;
+		[SerializeField] private Boolean m_FillChunkLayersFromOrigin;
 		[SerializeField] [ReadOnlyField] private Int32 m_MaxLayerIndex;
 		[SerializeField] [ReadOnlyField] private Int32 m_TileCount;
 
@@ -65,7 +66,13 @@ namespace CodeSmile.ProTiler.Tilemap
 			if (m_FillChunkLayer)
 			{
 				m_FillChunkLayer = false;
-				FillActiveLayerWithIncrementingTiles();
+				FillActiveLayerWithIncrementingTiles(m_ActiveChunkCoord, m_ActiveLayerIndex);
+			}
+
+			if (m_FillChunkLayersFromOrigin)
+			{
+				m_FillChunkLayersFromOrigin = false;
+				FillActiveLayerFromOrigin();
 			}
 
 			UpdateTileCount();
@@ -107,13 +114,24 @@ namespace CodeSmile.ProTiler.Tilemap
 #endif
 		}
 
-		[Pure] private void FillActiveLayerWithIncrementingTiles()
+		[Pure] private void FillActiveLayerWithIncrementingTiles(Vector2Int chunkCoord, Int32 height)
 		{
-			var tileCoords =
-				GetIncrementingIndexChunkTileCoords(m_ActiveChunkCoord, m_Tilemap.ChunkSize, m_ActiveLayerIndex);
+			var tileCoords = GetIncrementingIndexChunkTileCoords(chunkCoord, m_Tilemap.ChunkSize, height);
 			m_Tilemap.SetTiles(tileCoords);
 			UpdateTileCount();
-			Debug.Log($"filled chunk {m_ActiveChunkCoord} layer {m_ActiveLayerIndex} with {tileCoords.Length} tiles");
+			Debug.Log($"filled chunk {chunkCoord} layer {height} with {tileCoords.Length} tiles");
+		}
+
+		private void FillActiveLayerFromOrigin()
+		{
+			for (var x = 0; x < m_ActiveChunkCoord.x; x++)
+			{
+				for (var y = 0; y < m_ActiveChunkCoord.y; y++)
+				{
+					for (var h = 0; h < m_ActiveLayerIndex; h++)
+						FillActiveLayerWithIncrementingTiles(new ChunkCoord(x, y), h);
+				}
+			}
 		}
 	}
 }

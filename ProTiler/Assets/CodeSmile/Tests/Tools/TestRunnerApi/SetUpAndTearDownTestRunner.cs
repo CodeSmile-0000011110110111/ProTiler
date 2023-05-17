@@ -22,7 +22,7 @@ namespace CodeSmile.Tests.Tools.TestRunnerApi
 			.RegisterCallbacks(new Callbacks());
 
 		[ExcludeFromCodeCoverage]
-		private class Callbacks : ICallbacks
+		private sealed class Callbacks : ICallbacks
 		{
 			/// <summary>
 			///     safety: ensure we have the AssetDatabase up-to-date after tests finished

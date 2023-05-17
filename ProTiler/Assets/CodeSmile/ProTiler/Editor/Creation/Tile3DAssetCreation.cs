@@ -109,7 +109,7 @@ namespace CodeSmile.ProTiler.Editor.Creation
 		}
 
 		[ExcludeFromCodeCoverage]
-		private class CreateTile3DAssetEndAction : EndNameEditAction
+		private sealed class CreateTile3DAssetEndAction : EndNameEditAction
 		{
 			private Tile3DAssetBase TileAsset { get; set; }
 			internal Action<Object> CreatedCallback { get; set; }
