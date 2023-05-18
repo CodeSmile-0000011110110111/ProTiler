@@ -2,6 +2,7 @@
 // Refer to included LICENSE file for terms and conditions.
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Diagnostics.Contracts;
 using UnityEngine.SceneManagement;
 #if UNITY_EDITOR
@@ -40,7 +41,7 @@ namespace CodeSmile.ProTiler.Tilemap
 		/// <summary>
 		///     Save the map before domain reload.
 		/// </summary>
-		[Pure] private void OnBeforeAssemblyReload() => SerializeTilemap();
+		[Pure] [ExcludeFromCodeCoverage] private void OnBeforeAssemblyReload() => SerializeTilemap();
 
 		/// <summary>
 		///     Save the map before saving the scene.
@@ -50,7 +51,7 @@ namespace CodeSmile.ProTiler.Tilemap
 		/// <summary>
 		///     Restore the map after domain reload.
 		/// </summary>
-		[Pure] private void OnAfterAssemblyReload() => DeserializeTilemap();
+		[Pure] [ExcludeFromCodeCoverage] private void OnAfterAssemblyReload() => DeserializeTilemap();
 
 		/// <summary>
 		///     Restore the map after opening the scene.

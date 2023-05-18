@@ -1,9 +1,11 @@
 var class_code_smile_1_1_pro_tiler_1_1_tilemap_1_1_tilemap3_d_behaviour =
 [
+    [ "ClearTilemap", "class_code_smile_1_1_pro_tiler_1_1_tilemap_1_1_tilemap3_d_behaviour.html#ada8d76bf92f13e478d2ef5ee8eebbf3c", null ],
+    [ "CreateTilemapNoUndo", "class_code_smile_1_1_pro_tiler_1_1_tilemap_1_1_tilemap3_d_behaviour.html#a6ff3f6e9b55d510e5513ccaba99aeedb", null ],
     [ "GetLayerCount", "class_code_smile_1_1_pro_tiler_1_1_tilemap_1_1_tilemap3_d_behaviour.html#a65fb33588b60ad2735a08159022be80d", null ],
     [ "GetTile", "class_code_smile_1_1_pro_tiler_1_1_tilemap_1_1_tilemap3_d_behaviour.html#a330cb29b61f0249abffaea52f01b431c", null ],
     [ "GetTiles", "class_code_smile_1_1_pro_tiler_1_1_tilemap_1_1_tilemap3_d_behaviour.html#a7ce295e219e0bd2bd15e15f522ce8ba9", null ],
-    [ "RegisterEditorSceneEvents", "class_code_smile_1_1_pro_tiler_1_1_tilemap_1_1_tilemap3_d_behaviour.html#adaec45fd17472f88adf324bc864c946a", null ],
+    [ "RegisterEditorEvents", "class_code_smile_1_1_pro_tiler_1_1_tilemap_1_1_tilemap3_d_behaviour.html#a137d47e0450909fe7f9b8ca662310b11", null ],
     [ "SetTile", "class_code_smile_1_1_pro_tiler_1_1_tilemap_1_1_tilemap3_d_behaviour.html#a36b459ff868bc3c1572752a943966f42", null ],
     [ "SetTiles", "class_code_smile_1_1_pro_tiler_1_1_tilemap_1_1_tilemap3_d_behaviour.html#ab971fead63878d3ee9459d3392b8238b", null ],
     [ "UnregisterEditorSceneEvents", "class_code_smile_1_1_pro_tiler_1_1_tilemap_1_1_tilemap3_d_behaviour.html#ac7e5804cb782f08fab46e1306ce3fa00", null ],

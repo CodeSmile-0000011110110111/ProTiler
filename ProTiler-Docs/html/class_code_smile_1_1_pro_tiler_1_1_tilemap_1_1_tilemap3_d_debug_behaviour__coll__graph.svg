@@ -15,7 +15,7 @@
 <polygon fill="#999999" stroke="#666666" points="0,-0.5 0,-60.5 131.5,-60.5 131.5,-0.5 0,-0.5"/>
 <text text-anchor="middle" x="65.75" y="-47" font-family="Helvetica,sans-Serif" font-size="10.00">Tilemap3DDebugBehaviour</text>
 <polyline fill="none" stroke="#666666" points="0,-40.5 131.5,-40.5"/>
-<text text-anchor="middle" x="65.75" y="-27" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<text text-anchor="start" x="8" y="-27" font-family="Helvetica,sans-Serif" font-size="10.00">+ TilemapBehaviour</text>
 <polyline fill="none" stroke="#666666" points="0,-20.5 131.5,-20.5"/>
 <text text-anchor="middle" x="65.75" y="-7" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
 </a>

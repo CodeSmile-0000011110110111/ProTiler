@@ -51,7 +51,7 @@ var NAVTREEINDEX =
 [
 "annotated.html",
 "class_code_smile_1_1_pro_tiler_1_1_assets_1_1_tile3_d_asset_register.html#ae108bfbedbe27a449996cdc1811289cf",
-"namespace_code_smile.html#ac1ec3647c005eacad401b06e7e18f711a8996a4f34d0b03f713d08c8dccfe072a"
+"interface_code_smile_1_1_i_input_state.html#affc6c159e212010ca9b5ae2b78cf7e95"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

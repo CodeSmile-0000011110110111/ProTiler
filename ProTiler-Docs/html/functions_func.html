@@ -104,6 +104,7 @@ $(document).ready(function(){initNavTree('functions_func.html',''); initResizabl
 <h3><a id="index_c" name="index_c"></a>- c -</h3><ul>
 <li>ClampChunkSize()&#160;:&#160;<a class="el" href="class_code_smile_1_1_pro_tiler_1_1_utility_1_1_tilemap3_d_utility.html#a54a4f4e824f4311d511c0968bdc65077">Tilemap3DUtility</a></li>
 <li>Clear()&#160;:&#160;<a class="el" href="class_code_smile_1_1_collections_1_1_object_set.html#aa71d36872f416feaa853788a7a7a7ef8">ObjectSet&lt; T &gt;</a>, <a class="el" href="class_code_smile_1_1_component_pool.html#aa71d36872f416feaa853788a7a7a7ef8">ComponentPool&lt; T &gt;</a></li>
+<li>ClearTilemap()&#160;:&#160;<a class="el" href="class_code_smile_1_1_pro_tiler_1_1_tilemap_1_1_tilemap3_d_behaviour.html#ada8d76bf92f13e478d2ef5ee8eebbf3c">Tilemap3DBehaviour</a></li>
 <li>ComponentPool()&#160;:&#160;<a class="el" href="class_code_smile_1_1_component_pool.html#a07c5706030abec3057d245cc7ebf51dc">ComponentPool&lt; T &gt;</a></li>
 <li>Contains()&#160;:&#160;<a class="el" href="class_code_smile_1_1_collections_1_1_object_set.html#aa38efd3eeba3a0736190d42e24bea771">ObjectSet&lt; T &gt;</a>, <a class="el" href="class_code_smile_1_1_pro_tiler_1_1_assets_1_1_tile3_d_asset_register.html#a87e0706d37ff4b1e7c0dd6317f70bf53">Tile3DAssetRegister</a>, <a class="el" href="class_code_smile_1_1_pro_tiler_1_1_grid_1_1_grid3_d_tile_set_behaviour.html#afc4b3c75b2730e4492a79a29251ef21a">Grid3DTileSetBehaviour</a></li>
 <li>CopyFrom()&#160;:&#160;<a class="el" href="struct_code_smile_1_1_collections_1_1_native_array2_d.html#a4086a0b46b764d7ce98fc5ac1f19e762">NativeArray2D&lt; T &gt;</a></li>
@@ -116,6 +117,7 @@ $(document).ready(function(){initNavTree('functions_func.html',''); initResizabl
 <li>CreateRegisteredAssetWithSelection&lt; T &gt;()&#160;:&#160;<a class="el" href="class_code_smile_1_1_pro_tiler_1_1_editor_1_1_creation_1_1_tile3_d_asset_creation.html#a04e89787f4abe6899e96330583d1fc2e">Tile3DAssetCreation</a></li>
 <li>CreateScriptableObjectAssetAndDirectory&lt; T &gt;()&#160;:&#160;<a class="el" href="class_code_smile_1_1_editor_1_1_extensions_1_1_asset_database_ext.html#a84297ab06275fb512940cb38e6e26fd5">AssetDatabaseExt</a></li>
 <li>CreateTileAssetWithSelection()&#160;:&#160;<a class="el" href="class_code_smile_1_1_pro_tiler_1_1_editor_1_1_creation_1_1_tile3_d_asset_creation.html#a2ed86968bf5e9f609fc68515bb804b20">Tile3DAssetCreation</a></li>
+<li>CreateTilemapNoUndo()&#160;:&#160;<a class="el" href="class_code_smile_1_1_pro_tiler_1_1_tilemap_1_1_tilemap3_d_behaviour.html#a6ff3f6e9b55d510e5513ccaba99aeedb">Tilemap3DBehaviour</a></li>
 </ul>
 
 
@@ -216,7 +218,7 @@ $(document).ready(function(){initNavTree('functions_func.html',''); initResizabl
 
 <h3><a id="index_r" name="index_r"></a>- r -</h3><ul>
 <li>RecordUndoInEditor()&#160;:&#160;<a class="el" href="class_code_smile_1_1_extensions_1_1_object_ext.html#a4afec8a5381c8b92acd18d11f7f62136">ObjectExt</a></li>
-<li>RegisterEditorSceneEvents()&#160;:&#160;<a class="el" href="class_code_smile_1_1_pro_tiler_1_1_tilemap_1_1_tilemap3_d_behaviour.html#adaec45fd17472f88adf324bc864c946a">Tilemap3DBehaviour</a></li>
+<li>RegisterEditorEvents()&#160;:&#160;<a class="el" href="class_code_smile_1_1_pro_tiler_1_1_tilemap_1_1_tilemap3_d_behaviour.html#a137d47e0450909fe7f9b8ca662310b11">Tilemap3DBehaviour</a></li>
 <li>ReloadScene()&#160;:&#160;<a class="el" href="class_code_smile_1_1_editor_1_1_tools_1_1_menu_items.html#a304914567bcb0f915425880018e3ad13">MenuItems</a></li>
 <li>Remove()&#160;:&#160;<a class="el" href="class_code_smile_1_1_collections_1_1_object_set.html#aaed1f1b12e8f3f13a1721e3067a58040">ObjectSet&lt; T &gt;</a>, <a class="el" href="class_code_smile_1_1_pro_tiler_1_1_assets_1_1_tile3_d_asset_register.html#a5aad6d4a7bc93fee6081d854b635bd53">Tile3DAssetRegister</a>, <a class="el" href="class_code_smile_1_1_pro_tiler_1_1_grid_1_1_grid3_d_tile_set_behaviour.html#a5aad6d4a7bc93fee6081d854b635bd53">Grid3DTileSetBehaviour</a></li>
 <li>RemoveAt()&#160;:&#160;<a class="el" href="class_code_smile_1_1_collections_1_1_object_set.html#aff206b40b7e1882649ed9dec523ebcce">ObjectSet&lt; T &gt;</a></li>
@@ -272,7 +274,7 @@ $(document).ready(function(){initNavTree('functions_func.html',''); initResizabl
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Wed May 17 2023 21:11:24 for CodeSmile by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.6 </li>
+    <li class="footer">Generated on Thu May 18 2023 18:57:04 for CodeSmile by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.6 </li>
   </ul>
 </div>
 </body>
