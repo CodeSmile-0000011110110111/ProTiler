@@ -117,6 +117,9 @@ namespace CodeSmile.ProTiler.Tilemap
 
 			private void CompressBuffer()
 			{
+				if (m_SerializedTilemap == null)
+					return;
+
 				using (var memoryStream = new MemoryStream())
 				using (var zipStream = new GZipStream(memoryStream, CompressionMode.Compress))
 				{
@@ -128,6 +131,9 @@ namespace CodeSmile.ProTiler.Tilemap
 
 			private void DecompressBuffer()
 			{
+				if (m_SerializedTilemap == null)
+					return;
+
 				using (var compressedStream = new MemoryStream(m_SerializedTilemap))
 				using (var unzipStream = new GZipStream(compressedStream, CompressionMode.Decompress))
 				using (var uncompressedStream = new MemoryStream())
