@@ -9,6 +9,8 @@ using CodeSmile.ProTiler.Utility;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
+using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Text;
 using UnityEngine;
@@ -39,18 +41,19 @@ namespace CodeSmile.ProTiler.Tilemap
 
 		[Pure] private void Awake() => UpdateChunkSize(ClampChunkSize(m_ChunkSize));
 		[Pure] private void Reset() => UpdateChunkSize(ClampChunkSize(m_ChunkSize));
-		[Pure] private void OnEnable() => RegisterEditorSceneEvents();
+		[Pure] private void OnEnable() => RegisterEditorEvents();
 		[Pure] private void OnDisable() => UnregisterEditorSceneEvents();
 		[Pure] private void OnValidate() => UpdateChunkSize(ClampChunkSize(m_ChunkSize));
-		private void LoadTilemap() => m_Tilemap = m_Serialization.DeserializeTilemap();
-		[Pure] private void SaveTilemap() => m_Serialization.SerializeTilemap(m_Tilemap);
+		private void DeserializeTilemap() => m_Tilemap = m_Serialization.DeserializeTilemap();
+
+		[Pure] private void SerializeTilemap() => m_Serialization.SerializeTilemap(m_Tilemap);
 
 		[Pure] private void UpdateChunkSize(ChunkSize chunkSize)
 		{
 			if (ChunkSizeChanged(chunkSize))
 			{
 				m_ChunkSize = chunkSize;
-				CreateMap(m_ChunkSize);
+				CreateTilemapNoUndo(m_ChunkSize);
 			}
 		}
 
@@ -59,7 +62,15 @@ namespace CodeSmile.ProTiler.Tilemap
 		[Pure] private Boolean IsTilemapChunkSizeEqualTo(Vector2Int clampedChunkSize) =>
 			m_Tilemap != null && clampedChunkSize == m_Tilemap.ChunkSize;
 
-		private void CreateMap(ChunkSize chunkSize) => m_Tilemap = new Tilemap3D(chunkSize);
+		internal void ClearTilemap()
+		{
+			this.RecordUndoInEditor(nameof(ClearTilemap));
+			CreateTilemapNoUndo(m_ChunkSize);
+			SerializeTilemap();
+		}
+
+		internal void CreateTilemapNoUndo(ChunkSize chunkSize) => m_Tilemap = new Tilemap3D(chunkSize);
+
 		[Pure] public Int32 GetLayerCount(ChunkCoord chunkCoord) => m_Tilemap.GetLayerCount(chunkCoord);
 		[Pure] public Tile3D GetTile(GridCoord coord) => GetTiles(new[] { coord }).FirstOrDefault().Tile;
 		[Pure] public IEnumerable<Tile3DCoord> GetTiles(IEnumerable<GridCoord> coords) => m_Tilemap.GetTiles(coords);
@@ -69,24 +80,62 @@ namespace CodeSmile.ProTiler.Tilemap
 		{
 			this.RecordUndoInEditor(nameof(SetTiles));
 			SetTilesNoUndo(tileCoords);
-			this.SetDirtyInEditor();
+			SerializeTilemap();
 		}
 
 		[Pure] private void SetTilesNoUndo(IEnumerable<Tile3DCoord> tileCoords) => m_Tilemap.SetTiles(tileCoords);
 
+		/// <summary>
+		/// Handles Tilemap data serialization.
+		/// Noteworthy: compressing the byte array speeds up undo/redo of larger maps significantly.
+		/// TODO: split saving into saving each individual chunk separately for performance.
+		/// </summary>
 		[FullCovered] [Serializable]
 		private sealed class Serialization
 		{
 			private const Boolean m_UseBinarySerialization = true;
-			[SerializeField] private Byte[] m_SerializedTilemap;
 
-			[Pure] internal Tilemap3D DeserializeTilemap() => m_UseBinarySerialization
-				? Tilemap3DSerialization.FromBinary(m_SerializedTilemap)
-				: Tilemap3DSerialization.FromJson(Encoding.UTF8.GetString(m_SerializedTilemap));
+			[SerializeField] [HideInInspector] private Byte[] m_SerializedTilemap;
 
-			[Pure] internal void SerializeTilemap(Tilemap3D tilemap) => m_SerializedTilemap = m_UseBinarySerialization
-				? Tilemap3DSerialization.ToBinary(tilemap)
-				: Encoding.UTF8.GetBytes(Tilemap3DSerialization.ToJson(tilemap, false));
+			[Pure] internal void SerializeTilemap(Tilemap3D tilemap)
+			{
+				m_SerializedTilemap = m_UseBinarySerialization
+					? Tilemap3DSerialization.ToBinary(tilemap)
+					: Encoding.UTF8.GetBytes(Tilemap3DSerialization.ToJson(tilemap, false));
+
+				CompressBuffer();
+			}
+
+			[Pure] internal Tilemap3D DeserializeTilemap()
+			{
+				DecompressBuffer();
+
+				return m_UseBinarySerialization
+					? Tilemap3DSerialization.FromBinary(m_SerializedTilemap)
+					: Tilemap3DSerialization.FromJson(Encoding.UTF8.GetString(m_SerializedTilemap));
+			}
+
+			private void CompressBuffer()
+			{
+				using (var memoryStream = new MemoryStream())
+				using (var zipStream = new GZipStream(memoryStream, CompressionMode.Compress))
+				{
+					zipStream.Write(m_SerializedTilemap, 0, m_SerializedTilemap.Length);
+					zipStream.Close();
+					m_SerializedTilemap = memoryStream.ToArray();
+				}
+			}
+
+			private void DecompressBuffer()
+			{
+				using (var compressedStream = new MemoryStream(m_SerializedTilemap))
+				using (var unzipStream = new GZipStream(compressedStream, CompressionMode.Decompress))
+				using (var uncompressedStream = new MemoryStream())
+				{
+					unzipStream.CopyTo(uncompressedStream);
+					m_SerializedTilemap = uncompressedStream.ToArray();
+				}
+			}
 		}
 	}
 }

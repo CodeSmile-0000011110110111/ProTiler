@@ -6,6 +6,7 @@ using CodeSmile.Extensions;
 using CodeSmile.ProTiler.Tile;
 using CodeSmile.ProTiler.Utility;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Diagnostics.Contracts;
 using UnityEditor;
@@ -24,12 +25,12 @@ namespace CodeSmile.ProTiler.Tilemap
 	{
 		[SerializeField] private ChunkCoord m_ActiveChunkCoord;
 		[SerializeField] private Int32 m_ActiveLayerIndex;
+		[SerializeField] private Boolean m_ClearMap;
 		[SerializeField] private Boolean m_FillChunkLayer;
 		[SerializeField] private Boolean m_FillChunkLayersFromOrigin;
-		[SerializeField] [ReadOnlyField] private Int32 m_MaxLayerIndex;
 		[SerializeField] [ReadOnlyField] private Int32 m_TileCount;
 
-		private Tilemap3DBehaviour m_Tilemap;
+		public Tilemap3DBehaviour TilemapBehaviour => GetComponent<Tilemap3DBehaviour>();
 
 		[Pure] private static Tile3DCoord[] GetIncrementingIndexChunkTileCoords(ChunkCoord chunkCoord,
 			ChunkSize chunkSize, Int32 height)
@@ -51,7 +52,7 @@ namespace CodeSmile.ProTiler.Tilemap
 			return tileCoords;
 		}
 
-		private void Awake() => m_Tilemap = GetComponent<Tilemap3DBehaviour>();
+		private void Update() => UpdateTileCount();
 
 		private void OnEnable() => UpdateTileCount();
 
@@ -61,7 +62,11 @@ namespace CodeSmile.ProTiler.Tilemap
 		{
 			m_ActiveLayerIndex = Mathf.Max(0, m_ActiveLayerIndex);
 
-			m_MaxLayerIndex = -1;
+			if (m_ClearMap)
+			{
+				m_ClearMap = false;
+				ClearMap();
+			}
 
 			if (m_FillChunkLayer)
 			{
@@ -78,9 +83,11 @@ namespace CodeSmile.ProTiler.Tilemap
 			UpdateTileCount();
 		}
 
+		private void ClearMap() => TilemapBehaviour.ClearTilemap();
+
 		private void UpdateTileCount() => this.WaitForFramesElapsed(1, () =>
 		{
-			m_TileCount = m_Tilemap != null ? m_Tilemap.TileCount : -1;
+			m_TileCount = TilemapBehaviour != null ? TilemapBehaviour.TileCount : -1;
 		});
 
 		[Pure] private void DrawActiveChunkTileIndexes()
@@ -89,16 +96,17 @@ namespace CodeSmile.ProTiler.Tilemap
 			var normalStyle = new GUIStyleState { textColor = Color.yellow };
 			var labelStyle = new GUIStyle { fontSize = 11, normal = normalStyle };
 
-			var chunkSize = m_Tilemap.ChunkSize;
-			var cellSize = m_Tilemap.Grid.CellSize;
+			var tilemapBehaviour = TilemapBehaviour;
+			var chunkSize = tilemapBehaviour.ChunkSize;
+			var cellSize = tilemapBehaviour.Grid.CellSize;
 			var halfCellSize = cellSize * .5f;
 
-			var layerCountInChunk = m_Tilemap.GetLayerCount(m_ActiveChunkCoord);
+			var layerCountInChunk = tilemapBehaviour.GetLayerCount(m_ActiveChunkCoord);
 			for (var height = 0; height < layerCountInChunk; height++)
 			{
 				var coords =
 					Tilemap3DUtility.GetAllChunkLayerCoords(m_ActiveChunkCoord, chunkSize, height);
-				var tileCoords = m_Tilemap.GetTiles(coords);
+				var tileCoords = tilemapBehaviour.GetTiles(coords);
 
 				foreach (var tileCoord in tileCoords)
 				{
@@ -116,22 +124,31 @@ namespace CodeSmile.ProTiler.Tilemap
 
 		[Pure] private void FillActiveLayerWithIncrementingTiles(Vector2Int chunkCoord, Int32 height)
 		{
-			var tileCoords = GetIncrementingIndexChunkTileCoords(chunkCoord, m_Tilemap.ChunkSize, height);
-			m_Tilemap.SetTiles(tileCoords);
+			var tileCoords = GetIncrementingIndexChunkTileCoords(chunkCoord, TilemapBehaviour.ChunkSize, height);
+			TilemapBehaviour.SetTiles(tileCoords);
 			UpdateTileCount();
 			Debug.Log($"filled chunk {chunkCoord} layer {height} with {tileCoords.Length} tiles");
 		}
 
 		private void FillActiveLayerFromOrigin()
 		{
-			for (var x = 0; x < m_ActiveChunkCoord.x; x++)
+			var allTileCoords = new List<Tile3DCoord>();
+
+			for (var x = 0; x <= m_ActiveChunkCoord.x; x++)
 			{
-				for (var y = 0; y < m_ActiveChunkCoord.y; y++)
+				for (var y = 0; y <= m_ActiveChunkCoord.y; y++)
 				{
-					for (var h = 0; h < m_ActiveLayerIndex; h++)
-						FillActiveLayerWithIncrementingTiles(new ChunkCoord(x, y), h);
+					for (var h = 0; h <= m_ActiveLayerIndex; h++)
+					{
+						var coord = new ChunkCoord(x, y);
+						var tileCoords = GetIncrementingIndexChunkTileCoords(coord, TilemapBehaviour.ChunkSize, h);
+						allTileCoords.AddRange(tileCoords);
+					}
 				}
 			}
+
+			TilemapBehaviour.SetTiles(allTileCoords);
+			UpdateTileCount();
 		}
 	}
 }
