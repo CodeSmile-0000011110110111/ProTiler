@@ -7,7 +7,7 @@ using System.Diagnostics.Contracts;
 using System.Runtime.CompilerServices;
 using WorldPos = UnityEngine.Vector3;
 using GridCoord = UnityEngine.Vector3Int;
-using CellSize = UnityEngine.Vector3Int;
+using CellSize = UnityEngine.Vector3;
 using Math = UnityEngine.Mathf;
 
 namespace CodeSmile.ProTiler.Utility

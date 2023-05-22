@@ -31,6 +31,9 @@ namespace CodeSmile.ProTiler.Tilemap
 		[SerializeField] private Boolean m_FillChunkLayersFromOrigin;
 		[SerializeField] [ReadOnlyField] private Int32 m_TileCount;
 
+		private Vector3 m_CurrentCursorCoord;
+		private Boolean m_IsCurrentCursorCoordValid;
+
 		public Tilemap3DBehaviour TilemapBehaviour => GetComponent<Tilemap3DBehaviour>();
 
 		[Pure] private static Tile3DCoord[] GetIncrementingIndexChunkTileCoords(ChunkCoord chunkCoord,
@@ -120,6 +123,9 @@ namespace CodeSmile.ProTiler.Tilemap
 						Handles.Label(pos, $"{tileCoord.Tile.Index}: {pos}", labelStyle);
 				}
 			}
+
+			if (m_IsCurrentCursorCoordValid)
+				Gizmos.DrawWireCube(m_CurrentCursorCoord, cellSize);
 #endif
 		}
 
@@ -150,6 +156,30 @@ namespace CodeSmile.ProTiler.Tilemap
 
 			TilemapBehaviour.SetTiles(allTileCoords);
 			UpdateTileCount();
+		}
+
+		internal void OnMouseMove(Ray currentWorldRay, Ray lastWorldRay)
+		{
+			m_IsCurrentCursorCoordValid = IntersectsCoord(currentWorldRay, out var currentCoord);
+			if (m_IsCurrentCursorCoordValid)
+			{
+				var isLastCoordValid = IntersectsCoord(lastWorldRay, out var lastCoord);
+				if (isLastCoordValid == false || currentCoord != lastCoord)
+				{
+					Debug.Log("    coord changed: " + currentCoord);
+					var cellSize = TilemapBehaviour.Grid.CellSize;
+					var pos = new Vector3(currentCoord.x * cellSize.x, currentCoord.y * cellSize.y,
+						          currentCoord.z * cellSize.z) + cellSize * .5f;
+					m_CurrentCursorCoord = pos;
+				}
+			}
+		}
+
+		private Boolean IntersectsCoord(Ray ray, out GridCoord coord)
+		{
+			var intersects = ray.IntersectsPlane(out var point);
+			coord = intersects ? Grid3DUtility.ToCoord(point, TilemapBehaviour.Grid.CellSize) : default;
+			return intersects;
 		}
 	}
 }
