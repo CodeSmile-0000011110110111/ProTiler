@@ -14,6 +14,13 @@ namespace CodeSmile.ProTiler.Tilemap
 {
 	public partial class Tilemap3DBehaviour
 	{
+		private static void IncrementCurrentUndoGroup()
+		{
+#if UNITY_EDITOR
+			Undo.IncrementCurrentGroup();
+#endif
+		}
+
 		[Pure] internal void RegisterEditorEvents()
 		{
 #if UNITY_EDITOR
@@ -46,7 +53,7 @@ namespace CodeSmile.ProTiler.Tilemap
 		/// <summary>
 		///     Save the map before saving the scene.
 		/// </summary>
-		[Pure] private void OnSceneSaving(Scene scene, String path) => SerializeTilemap();
+		[Pure] private void OnSceneSaving(Scene scene, String path) => m_Serialization.VerifyBufferMatches(m_Tilemap);
 
 		/// <summary>
 		///     Restore the map after domain reload.

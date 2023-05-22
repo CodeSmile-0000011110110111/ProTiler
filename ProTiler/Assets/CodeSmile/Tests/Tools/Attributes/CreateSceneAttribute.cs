@@ -34,7 +34,6 @@ namespace CodeSmile.Tests.Tools.Attributes
 		[ExcludeFromCodeCoverage] IEnumerator IOuterUnityTestAction.BeforeTest(ITest test) { yield return OnBeforeTest(); }
 		[ExcludeFromCodeCoverage] IEnumerator IOuterUnityTestAction.AfterTest(ITest test) { yield return OnAfterTest(); }
 
-		[ExcludeFromCodeCoverage]
 		private object OnBeforeTest()
 		{
 			if (Application.isPlaying)
@@ -45,7 +44,6 @@ namespace CodeSmile.Tests.Tools.Attributes
 			return null;
 		}
 
-		[ExcludeFromCodeCoverage]
 		private object OnAfterTest()
 		{
 			if (Application.isPlaying == false)
@@ -102,7 +100,6 @@ namespace CodeSmile.Tests.Tools.Attributes
 				throw new UnityException($"EditorSceneManager failed to save test scene to: '{m_ScenePath}'");
 		}
 
-		[ExcludeFromCodeCoverage]
 		private void RuntimeLoadScene()
 		{
 			var sceneName = m_Setup == NewSceneSetup.EmptyScene ? TestNames.EmptyTestScene : TestNames.DefaultObjectsTestScene;

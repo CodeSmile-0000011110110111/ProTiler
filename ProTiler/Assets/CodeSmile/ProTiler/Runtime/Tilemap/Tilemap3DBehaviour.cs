@@ -8,9 +8,8 @@ using CodeSmile.ProTiler.Tile;
 using CodeSmile.ProTiler.Utility;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Diagnostics.Contracts;
-using System.IO;
-using System.IO.Compression;
 using System.Linq;
 using System.Text;
 using UnityEngine;
@@ -24,14 +23,11 @@ namespace CodeSmile.ProTiler.Tilemap
 	[DisallowMultipleComponent]
 	public partial class Tilemap3DBehaviour : MonoBehaviour
 	{
-		[SerializeField] private Vector2Int m_ChunkSize = new(16, 16);
+		private static readonly ChunkSize DefaultChunkSize = new(16, 16);
+
 		[SerializeField] private Tilemap3D m_Tilemap;
-		[SerializeField] private Serialization m_Serialization = new();
-		[Pure] internal Vector2Int ChunkSize
-		{
-			get => m_Tilemap.ChunkSize;
-			set => UpdateChunkSize(value);
-		}
+		[SerializeField] private Serialization m_Serialization;
+		[Pure] internal Vector2Int ChunkSize { get => m_Tilemap.ChunkSize; set => m_Tilemap.ChunkSize = value; }
 		[Pure] internal Int32 ChunkCount => m_Tilemap.ChunkCount;
 		[Pure] internal Int32 TileCount => m_Tilemap.TileCount;
 		[Pure] public Grid3DBehaviour Grid => transform.parent.GetComponent<Grid3DBehaviour>();
@@ -39,34 +35,29 @@ namespace CodeSmile.ProTiler.Tilemap
 		[Pure] private static Vector2Int ClampChunkSize(Vector2Int chunkSize) =>
 			Tilemap3DUtility.ClampChunkSize(chunkSize);
 
-		[Pure] private void Awake() => UpdateChunkSize(ClampChunkSize(m_ChunkSize));
-		[Pure] private void Reset() => UpdateChunkSize(ClampChunkSize(m_ChunkSize));
+		[Pure] private void Reset()
+		{
+			m_Tilemap = new Tilemap3D(DefaultChunkSize);
+			m_Serialization = new Serialization();
+			SerializeTilemap();
+
+			//CreateTilemap(DefaultChunkSize);
+			//CreateTilemapNoUndo(DefaultChunkSize);
+			//SerializeTilemap();
+		}
+
 		[Pure] private void OnEnable() => RegisterEditorEvents();
 		[Pure] private void OnDisable() => UnregisterEditorSceneEvents();
-		[Pure] private void OnValidate() => UpdateChunkSize(ClampChunkSize(m_ChunkSize));
 		private void DeserializeTilemap() => m_Tilemap = m_Serialization.DeserializeTilemap();
 
 		[Pure] private void SerializeTilemap() => m_Serialization.SerializeTilemap(m_Tilemap);
 
-		[Pure] private void UpdateChunkSize(ChunkSize chunkSize)
+		[Pure] internal void CreateTilemap(ChunkSize chunkSize)
 		{
-			if (ChunkSizeChanged(chunkSize))
-			{
-				m_ChunkSize = chunkSize;
-				CreateTilemapNoUndo(m_ChunkSize);
-			}
-		}
-
-		[Pure] private Boolean ChunkSizeChanged(Vector2Int chunkSize) => IsTilemapChunkSizeEqualTo(chunkSize) == false;
-
-		[Pure] private Boolean IsTilemapChunkSizeEqualTo(Vector2Int clampedChunkSize) =>
-			m_Tilemap != null && clampedChunkSize == m_Tilemap.ChunkSize;
-
-		internal void ClearTilemap()
-		{
-			this.RecordUndoInEditor(nameof(ClearTilemap));
-			CreateTilemapNoUndo(m_ChunkSize);
+			this.RecordUndoInEditor(nameof(CreateTilemap));
+			CreateTilemapNoUndo(ClampChunkSize(chunkSize));
 			SerializeTilemap();
+			IncrementCurrentUndoGroup();
 		}
 
 		internal void CreateTilemapNoUndo(ChunkSize chunkSize) => m_Tilemap = new Tilemap3D(chunkSize);
@@ -81,66 +72,61 @@ namespace CodeSmile.ProTiler.Tilemap
 			this.RecordUndoInEditor(nameof(SetTiles));
 			SetTilesNoUndo(tileCoords);
 			SerializeTilemap();
+			IncrementCurrentUndoGroup();
 		}
 
 		[Pure] private void SetTilesNoUndo(IEnumerable<Tile3DCoord> tileCoords) => m_Tilemap.SetTiles(tileCoords);
 
 		/// <summary>
-		/// Handles Tilemap data serialization.
-		/// Noteworthy: compressing the byte array speeds up undo/redo of larger maps significantly.
-		/// TODO: split saving into saving each individual chunk separately for performance.
+		///     Handles Tilemap data serialization.
+		///     Noteworthy: compressing the byte array speeds up undo/redo of larger maps significantly.
+		///     TODO: split saving into saving each individual chunk separately for performance.
 		/// </summary>
 		[FullCovered] [Serializable]
 		private sealed class Serialization
 		{
 			private const Boolean m_UseBinarySerialization = true;
 
-			[SerializeField] [HideInInspector] private Byte[] m_SerializedTilemap;
+			[SerializeField] [HideInInspector] private Byte[] m_CompressedTilemap = new Byte[0];
 
-			[Pure] internal void SerializeTilemap(Tilemap3D tilemap)
+			internal void SerializeTilemap(Tilemap3D tilemap)
 			{
-				m_SerializedTilemap = m_UseBinarySerialization
-					? Tilemap3DSerialization.ToBinary(tilemap)
-					: Encoding.UTF8.GetBytes(Tilemap3DSerialization.ToJson(tilemap, false));
+				m_CompressedTilemap = m_UseBinarySerialization
+					? Tilemap3DSerialization.ToBinary(tilemap).Compress()
+					: Encoding.UTF8.GetBytes(Tilemap3DSerialization.ToJson(tilemap, false)).Compress();
 
-				CompressBuffer();
+				Debug.Log(
+					$"{tilemap} => {m_CompressedTilemap.Length} bytes ({m_CompressedTilemap.CalculateMd5Hash()})");
 			}
 
 			[Pure] internal Tilemap3D DeserializeTilemap()
 			{
-				DecompressBuffer();
+				var tilemap = m_UseBinarySerialization
+					? Tilemap3DSerialization.FromBinary(m_CompressedTilemap.Decompress())
+					: Tilemap3DSerialization.FromJson(Encoding.UTF8.GetString(m_CompressedTilemap.Decompress()));
 
-				return m_UseBinarySerialization
-					? Tilemap3DSerialization.FromBinary(m_SerializedTilemap)
-					: Tilemap3DSerialization.FromJson(Encoding.UTF8.GetString(m_SerializedTilemap));
+				Debug.Log(
+					$"{tilemap} <= {m_CompressedTilemap.Length} bytes ({m_CompressedTilemap.CalculateMd5Hash()})");
+
+				return tilemap;
 			}
 
-			private void CompressBuffer()
+			[ExcludeFromCodeCoverage]
+			public void VerifyBufferMatches(Tilemap3D tilemap)
 			{
-				if (m_SerializedTilemap == null)
-					return;
+#if DEBUG
+				var serializedTilemap = m_UseBinarySerialization
+					? Tilemap3DSerialization.ToBinary(tilemap).Compress()
+					: Encoding.UTF8.GetBytes(Tilemap3DSerialization.ToJson(tilemap, false)).Compress();
 
-				using (var memoryStream = new MemoryStream())
-				using (var zipStream = new GZipStream(memoryStream, CompressionMode.Compress))
+				if (serializedTilemap.Length != m_CompressedTilemap.Length)
 				{
-					zipStream.Write(m_SerializedTilemap, 0, m_SerializedTilemap.Length);
-					zipStream.Close();
-					m_SerializedTilemap = memoryStream.ToArray();
+					Debug.LogWarning("Save scene: current serialized tilemap did not match newly serialized one. " +
+					                 "This indicates changes that bypassed serialization. " +
+					                 "Serializing the current state.");
+					m_CompressedTilemap = serializedTilemap;
 				}
-			}
-
-			private void DecompressBuffer()
-			{
-				if (m_SerializedTilemap == null)
-					return;
-
-				using (var compressedStream = new MemoryStream(m_SerializedTilemap))
-				using (var unzipStream = new GZipStream(compressedStream, CompressionMode.Decompress))
-				using (var uncompressedStream = new MemoryStream())
-				{
-					unzipStream.CopyTo(uncompressedStream);
-					m_SerializedTilemap = uncompressedStream.ToArray();
-				}
+#endif
 			}
 		}
 	}

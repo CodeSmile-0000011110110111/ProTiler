@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections;
+using System.Diagnostics.CodeAnalysis;
 using UnityEngine;
 using Object = System.Object;
 
@@ -42,6 +43,6 @@ namespace CodeSmile.Components
 			return true;
 		}
 
-		public void Reset() => throw new NotImplementedException();
+		[ExcludeFromCodeCoverage] public void Reset() => throw new NotImplementedException();
 	}
 }

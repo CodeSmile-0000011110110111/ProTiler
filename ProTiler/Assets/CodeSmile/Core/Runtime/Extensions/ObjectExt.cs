@@ -45,13 +45,6 @@ namespace CodeSmile.Extensions
 #endif
 		}
 
-		public static void SetDirtyInEditor(this Object obj)
-		{
-#if UNITY_EDITOR
-			EditorUtility.SetDirty(obj);
-#endif
-		}
-
 		public static T[] FindObjectsByTypeFast<T>(bool findInactive = false) where T : Object
 		{
 #if UNITY_2022_2_OR_NEWER

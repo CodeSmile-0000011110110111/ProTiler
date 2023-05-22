@@ -1,0 +1,56 @@
+﻿// Copyright (C) 2021-2023 Steffen Itterheim
+// Refer to included LICENSE file for terms and conditions.
+
+using System;
+using UnityEditor;
+using UnityEngine;
+
+namespace CodeSmile
+{
+	/// <summary>
+	///     ScriptableSingleton without persistence ie it is not an asset and not stored to disk.
+	///     Otherwise it is much like ScriptableSingleton<> but also works at runtime.
+	///     See also:
+	///     https://forum.unity.com/threads/scriptable-object-singleton-pattern-that-doesnt-use-resources.1195315/#post-9028357
+	/// </summary>
+#if UNITY_EDITOR
+	[InitializeOnLoad]
+#endif
+	public abstract class ScriptableSingletonBase<T> : ScriptableObject where T : ScriptableSingletonBase<T>
+	{
+		private static T s_Instance;
+		public static T Singleton => GetOrCreateInstance();
+		protected static Boolean IsCreated => s_Instance != null;
+		protected static T GetOrCreateInstance() => s_Instance = IsCreated ? s_Instance : CreateSingletonInstance();
+
+		protected static T CreateSingletonInstance()
+		{
+			s_Instance = CreateInstance<T>();
+			s_Instance.OnInstanceCreated();
+			return s_Instance;
+		}
+
+		protected virtual void OnInstanceCreated() {}
+
+		// private void Awake() => Debug.Log($"Awake {nameof(ScriptableSingletonBase)} instance: {GetInstanceID()}");
+		// private void OnEnable() => Debug.Log($"OnEnable {nameof(ScriptableSingletonBase)} instance: {GetInstanceID()}");
+		// private void OnDisable() => Debug.Log($"OnDisable {nameof(ScriptableSingletonBase)} instance: {GetInstanceID()}");
+		// private void OnDestroy() => Debug.Log($"OnDestroy {nameof(ScriptableSingletonBase)} instance: {GetInstanceID()}");
+
+#if UNITY_EDITOR
+		static ScriptableSingletonBase()
+		{
+			EditorApplication.delayCall += DelayedCall;
+			AssemblyReloadEvents.beforeAssemblyReload += OnBeforeAssemblyReload;
+		}
+
+		private static void DelayedCall() => GetOrCreateInstance(); // cannot CreateInstance from static ctor
+		private static void OnBeforeAssemblyReload()
+		{
+			// prevent accumulating instances
+			if (IsCreated)
+				DestroyImmediate(s_Instance);
+		}
+#endif
+	}
+}

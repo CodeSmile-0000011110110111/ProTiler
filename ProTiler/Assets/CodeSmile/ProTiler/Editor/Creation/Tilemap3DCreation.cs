@@ -38,8 +38,10 @@ namespace CodeSmile.ProTiler.Editor.Creation
 			var root = FindOrCreateRootGrid3D();
 			var uniqueName = GameObjectUtility.GetUniqueNameForSibling(root.transform, "Tilemap3D");
 			var tilemapGO = ObjectFactory.CreateGameObject(uniqueName, typeof(Tilemap3DBehaviour), typeof(Tilemap3DRendererBehaviour));
+
 			Undo.RegisterCreatedObjectUndo(tilemapGO, "Create Tilemap");
 			Undo.SetTransformParent(tilemapGO.transform, root.transform, "");
+
 			tilemapGO.transform.position = Vector3.zero;
 			Selection.activeGameObject = tilemapGO;
 

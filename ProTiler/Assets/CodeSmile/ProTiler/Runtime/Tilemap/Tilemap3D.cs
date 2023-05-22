@@ -27,7 +27,7 @@ namespace CodeSmile.ProTiler.Tilemap
 		[CreateProperty] private ChunkSize m_ChunkSize;
 		[CreateProperty] private Tilemap3DChunks m_Chunks;
 
-		[Pure] internal ChunkSize ChunkSize => m_ChunkSize;
+		[Pure] internal ChunkSize ChunkSize { get => m_ChunkSize; set => InitChunks(value); }
 		[Pure] internal Int32 ChunkCount => m_Chunks.Count;
 		[Pure] internal Int32 TileCount => m_Chunks.TileCount;
 
@@ -98,7 +98,8 @@ namespace CodeSmile.ProTiler.Tilemap
 
 		[ExcludeFromCodeCoverage]
 		[Pure] public override String ToString() =>
-			$"{nameof(Tilemap3D)}(ChunkCount: {ChunkCount}, ChunkSize: {ChunkSize})";
+			$"{nameof(Tilemap3D)}(Size: {ChunkSize}, Chunks: {ChunkCount}, Tiles: {TileCount})";
+
 
 		/// <summary>
 		///     Container for Tile3DCoord collections that are automatically divided into chunks.

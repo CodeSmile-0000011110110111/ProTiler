@@ -6,8 +6,14 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/_Tests/TileWorldTest.unity
+    path: Assets/_UserAssets/Scenes/TileWorldTest.unity
     guid: 00a07ec9a960dc5469fde6a1375a061c
+  - enabled: 1
+    path: Assets/CodeSmile/Tests/Assets/EmptyTestScene.unity
+    guid: daa82a4f2c959034da5257745011fe87
+  - enabled: 1
+    path: Assets/CodeSmile/Tests/Assets/DefaultObjectsTestScene.unity
+    guid: 4ef48553881c68f4cbbf41b242424c4e
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 62af4bfba73319c48ad4f46f094ed397, type: 2}
   m_UseUCBPForAssetBundles: 0

@@ -23,9 +23,10 @@ namespace CodeSmile.ProTiler.Tilemap
 	[ExcludeFromCodeCoverage]
 	public class Tilemap3DDebugBehaviour : MonoBehaviour
 	{
+		[SerializeField] private ChunkSize m_ChunkSize = new(8, 8);
 		[SerializeField] private ChunkCoord m_ActiveChunkCoord;
 		[SerializeField] private Int32 m_ActiveLayerIndex;
-		[SerializeField] private Boolean m_ClearMap;
+		[SerializeField] private Boolean m_CreateTilemap;
 		[SerializeField] private Boolean m_FillChunkLayer;
 		[SerializeField] private Boolean m_FillChunkLayersFromOrigin;
 		[SerializeField] [ReadOnlyField] private Int32 m_TileCount;
@@ -62,10 +63,10 @@ namespace CodeSmile.ProTiler.Tilemap
 		{
 			m_ActiveLayerIndex = Mathf.Max(0, m_ActiveLayerIndex);
 
-			if (m_ClearMap)
+			if (m_CreateTilemap)
 			{
-				m_ClearMap = false;
-				ClearMap();
+				m_CreateTilemap = false;
+				CreateMap();
 			}
 
 			if (m_FillChunkLayer)
@@ -83,7 +84,7 @@ namespace CodeSmile.ProTiler.Tilemap
 			UpdateTileCount();
 		}
 
-		private void ClearMap() => TilemapBehaviour.ClearTilemap();
+		private void CreateMap() => TilemapBehaviour.CreateTilemap(m_ChunkSize);
 
 		private void UpdateTileCount() => this.WaitForFramesElapsed(1, () =>
 		{

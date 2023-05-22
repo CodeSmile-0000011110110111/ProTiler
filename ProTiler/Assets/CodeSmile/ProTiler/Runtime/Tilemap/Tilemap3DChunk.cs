@@ -43,18 +43,9 @@ namespace CodeSmile.ProTiler.Tilemap
 		[Pure] internal ChunkSize Size => m_Size;
 
 		/// <summary>
-		///     The number of non-empty height layers in this chunk.
+		///     The number of height layers in this chunk.
 		/// </summary>
-		[Pure] internal Int32 LayerCount
-		{
-			get
-			{
-				var layerCount = 0;
-				foreach (Tile3DLayer layer in m_Layers)
-					layerCount += layer.IsInitialized ? 1 : 0;
-				return layerCount;
-			}
-		}
+		[Pure] internal Int32 LayerCount => m_Layers.Count;
 
 		/// <summary>
 		///     The number of non-empty tiles in this chunk's height layers.
