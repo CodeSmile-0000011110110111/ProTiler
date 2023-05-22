@@ -20,7 +20,8 @@ namespace CodeSmile.Tests.Editor.Core.Extensions
 		private static Object[] RaysFacingDownAtAngle =
 		{
 			new Object[] { new Vector3(10f, .00001f, 12.34f), new Vector3(0.0001f, -0.0001f, 0.0001f) },
-			new Object[] { new Vector3(-10f, 100000f, -456.789f), new Vector3(-0.99f, -0.00002f, -0.99f) },
+			// flat angle, intersects very far away (denominator close to min value)
+			new Object[] { new Vector3(-10f, 10000f, -456.789f), new Vector3(-1f, -0.015f, -1f) },
 		};
 
 		private static Object[] RaysNotIntersecting =

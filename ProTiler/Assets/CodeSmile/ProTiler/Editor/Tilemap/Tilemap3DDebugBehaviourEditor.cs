@@ -1,21 +1,15 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
-using CodeSmile.Extensions;
 using CodeSmile.ProTiler.Tilemap;
-using CodeSmile.ProTiler.Utility;
+using System.Diagnostics.CodeAnalysis;
 using UnityEditor;
 using UnityEngine;
 
 namespace CodeSmile.ProTiler.Editor.Tilemap
 {
-	[CustomEditor(typeof(Tilemap3DDebugBehaviour))]
-	public class Tilemap3DDebugBehaviourEditor : UnityEditor.Editor
+	public class OnEventEditorBase : UnityEditor.Editor
 	{
-		private Tilemap3DDebugBehaviour Target => target as Tilemap3DDebugBehaviour;
-
-		private static Ray ToWorldRay(Vector2 mousePosition) => HandleUtility.GUIPointToWorldRay(mousePosition);
-
 		public void OnSceneGUI()
 		{
 			switch (Event.current.type)
@@ -36,12 +30,22 @@ namespace CodeSmile.ProTiler.Editor.Tilemap
 			}
 		}
 
-		private void OnMouseMove()
+		protected virtual void OnMouseMove() {}
+	}
+
+	[ExcludeFromCodeCoverage] // don't test the UI, it's a 'detail'
+	[CustomEditor(typeof(Tilemap3DDebugBehaviour))]
+	public class Tilemap3DDebugBehaviourEditor : OnEventEditorBase
+	{
+		private Tilemap3DDebugBehaviour Target => target as Tilemap3DDebugBehaviour;
+
+		protected override void OnMouseMove()
 		{
-			var mousePos = Event.current.mousePosition;
-			var mouseWorldRay = ToWorldRay(mousePos);
-			var lastMouseWorldRay =ToWorldRay(mousePos - Event.current.delta);
-			Target.OnMouseMove(mouseWorldRay, lastMouseWorldRay);
+			var currentMousePosition = Event.current.mousePosition;
+			var lastMousePosition = currentMousePosition - Event.current.delta;
+			var currentWorldRay = HandleUtility.GUIPointToWorldRay(currentMousePosition);
+			var lastWorldRay = HandleUtility.GUIPointToWorldRay(lastMousePosition);
+			Target.OnMouseMove(currentWorldRay, lastWorldRay);
 		}
 	}
 }

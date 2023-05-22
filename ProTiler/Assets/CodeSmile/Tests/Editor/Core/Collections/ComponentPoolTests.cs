@@ -1,13 +1,14 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
+using CodeSmile.Collections;
 using CodeSmile.Tests.Tools;
 using CodeSmile.Tests.Tools.Attributes;
 using NUnit.Framework;
 using System;
 using UnityEngine;
 
-namespace CodeSmile.Tests.Editor.Core
+namespace CodeSmile.Tests.Editor.Core.Collections
 {
 	[TestFixture(TestOf = typeof(ComponentPool<>))]
 	public class ComponentPoolTests

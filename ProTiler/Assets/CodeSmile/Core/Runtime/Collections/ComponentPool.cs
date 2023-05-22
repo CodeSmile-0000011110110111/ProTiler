@@ -9,7 +9,7 @@ using System.Diagnostics.CodeAnalysis;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace CodeSmile
+namespace CodeSmile.Collections
 {
 	/// <summary>
 	///     Pools a component of a prefab. This also works with GameObject instances except that
