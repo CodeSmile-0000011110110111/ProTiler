@@ -32,7 +32,7 @@ namespace CodeSmile.Tests.Runtime.Core.Components
 		[Test] [CreateEmptyScene] [CreateGameObject(nameof(TestMB), typeof(TestMB))]
 		public void WaitZeroFramesDoesNotExecuteImmediately()
 		{
-			var waitFrames = Object.FindFirstObjectByType(typeof(TestMB)) as TestMB;
+			var waitFrames = ObjectExt.FindObjectByTypeFast<TestMB>();
 
 			var runCount = 0;
 			waitFrames.WaitForFramesElapsed(0, () => { runCount++; });
@@ -43,7 +43,7 @@ namespace CodeSmile.Tests.Runtime.Core.Components
 		[UnityTest] [CreateEmptyScene] [CreateGameObject(nameof(TestMB), typeof(TestMB))]
 		public IEnumerator WaitFramesDoesNotRepeat()
 		{
-			var waitFrames = Object.FindFirstObjectByType(typeof(TestMB)) as TestMB;
+			var waitFrames = ObjectExt.FindObjectByTypeFast<TestMB>();
 
 			var runCount = 0;
 			waitFrames.WaitForFramesElapsed(1, () => { runCount++; });
@@ -59,7 +59,7 @@ namespace CodeSmile.Tests.Runtime.Core.Components
 		[UnityTest] [CreateEmptyScene] [CreateGameObject(nameof(TestMB), typeof(TestMB))]
 		public IEnumerator WaitZeroFramesWaitsOneFrame()
 		{
-			var waitFrames = Object.FindFirstObjectByType(typeof(TestMB)) as TestMB;
+			var waitFrames = ObjectExt.FindObjectByTypeFast<TestMB>();
 
 			var runCount = 0;
 			waitFrames.WaitForFramesElapsed(0, () => { runCount++; });
@@ -72,7 +72,7 @@ namespace CodeSmile.Tests.Runtime.Core.Components
 		[UnityTest] [CreateEmptyScene] [CreateGameObject(nameof(TestMB), typeof(TestMB))]
 		public IEnumerator WaitOneFrameWaitsOneFrame()
 		{
-			var waitFrames = Object.FindFirstObjectByType(typeof(TestMB)) as TestMB;
+			var waitFrames = ObjectExt.FindObjectByTypeFast<TestMB>();
 
 			var runCount = 0;
 			waitFrames.WaitForFramesElapsed(1, () => { runCount++; });
@@ -87,7 +87,7 @@ namespace CodeSmile.Tests.Runtime.Core.Components
 		[UnityTest] [CreateEmptyScene] [CreateGameObject(nameof(TestMB), typeof(TestMB))]
 		public IEnumerator WaitFrameWaitsExpectedNumberOfFrames()
 		{
-			var waitFrames = Object.FindFirstObjectByType(typeof(TestMB)) as TestMB;
+			var waitFrames = ObjectExt.FindObjectByTypeFast<TestMB>();
 
 			var framesToWait = 4;
 			var runCount = 0;
