@@ -3,11 +3,10 @@
 
 using CodeSmile.Attributes;
 using CodeSmile.Extensions;
-using CodeSmile.ProTiler.Tile;
-using CodeSmile.ProTiler.Utility;
+using CodeSmile.ProTiler.Grid;
+using CodeSmile.ProTiler.Tilemap;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Diagnostics.Contracts;
 using UnityEditor;
 using UnityEngine;
@@ -15,13 +14,12 @@ using GridCoord = UnityEngine.Vector3Int;
 using ChunkCoord = UnityEngine.Vector2Int;
 using ChunkSize = UnityEngine.Vector2Int;
 
-namespace CodeSmile.ProTiler.Tilemap
+namespace CodeSmile.ProTiler.Controller
 {
-	[RequireComponent(typeof(Tilemap3DBehaviour))]
-	[DisallowMultipleComponent]
 	[ExecuteAlways]
-	[ExcludeFromCodeCoverage]
-	public class Tilemap3DDebugBehaviour : MonoBehaviour
+	[DisallowMultipleComponent]
+	[RequireComponent(typeof(Tilemap3DModelController))]
+	public sealed class Tilemap3DDebugBehaviour : MonoBehaviour
 	{
 		[SerializeField] private ChunkSize m_ChunkSize = new(8, 8);
 		[SerializeField] private ChunkCoord m_ActiveChunkCoord;
@@ -34,7 +32,7 @@ namespace CodeSmile.ProTiler.Tilemap
 		private Vector3 m_CurrentCursorCoord;
 		private Boolean m_IsCurrentCursorCoordValid;
 
-		public Tilemap3DBehaviour TilemapBehaviour => GetComponent<Tilemap3DBehaviour>();
+		public Tilemap3DModelController TilemapModelController => GetComponent<Tilemap3DModelController>();
 
 		[Pure] private static Tile3DCoord[] GetIncrementingIndexChunkTileCoords(ChunkCoord chunkCoord,
 			ChunkSize chunkSize, Int32 height)
@@ -87,12 +85,18 @@ namespace CodeSmile.ProTiler.Tilemap
 			UpdateTileCount();
 		}
 
-		private void CreateMap() => TilemapBehaviour.CreateTilemap(m_ChunkSize);
+		private void CreateMap() => TilemapModelController.ClearTilemap(m_ChunkSize);
 
-		private void UpdateTileCount() => this.WaitForFramesElapsed(1, () =>
+		private void UpdateTileCount()
 		{
-			m_TileCount = TilemapBehaviour != null ? TilemapBehaviour.TileCount : -1;
-		});
+			if (enabled && gameObject.activeInHierarchy)
+			{
+				this.WaitForFramesElapsed(1, () =>
+				{
+					m_TileCount = TilemapModelController != null ? TilemapModelController.TileCount : -1;
+				});
+			}
+		}
 
 		[Pure] private void DrawActiveChunkTileIndexes()
 		{
@@ -100,7 +104,7 @@ namespace CodeSmile.ProTiler.Tilemap
 			var normalStyle = new GUIStyleState { textColor = Color.yellow };
 			var labelStyle = new GUIStyle { fontSize = 11, normal = normalStyle };
 
-			var tilemapBehaviour = TilemapBehaviour;
+			var tilemapBehaviour = TilemapModelController;
 			var chunkSize = tilemapBehaviour.ChunkSize;
 			var cellSize = tilemapBehaviour.Grid.CellSize;
 			var halfCellSize = cellSize * .5f;
@@ -131,8 +135,8 @@ namespace CodeSmile.ProTiler.Tilemap
 
 		[Pure] private void FillActiveLayerWithIncrementingTiles(Vector2Int chunkCoord, Int32 height)
 		{
-			var tileCoords = GetIncrementingIndexChunkTileCoords(chunkCoord, TilemapBehaviour.ChunkSize, height);
-			TilemapBehaviour.SetTiles(tileCoords);
+			var tileCoords = GetIncrementingIndexChunkTileCoords(chunkCoord, TilemapModelController.ChunkSize, height);
+			TilemapModelController.SetTiles(tileCoords);
 			UpdateTileCount();
 			Debug.Log($"filled chunk {chunkCoord} layer {height} with {tileCoords.Length} tiles");
 		}
@@ -148,38 +152,15 @@ namespace CodeSmile.ProTiler.Tilemap
 					for (var h = 0; h <= m_ActiveLayerIndex; h++)
 					{
 						var coord = new ChunkCoord(x, y);
-						var tileCoords = GetIncrementingIndexChunkTileCoords(coord, TilemapBehaviour.ChunkSize, h);
+						var tileCoords =
+							GetIncrementingIndexChunkTileCoords(coord, TilemapModelController.ChunkSize, h);
 						allTileCoords.AddRange(tileCoords);
 					}
 				}
 			}
 
-			TilemapBehaviour.SetTiles(allTileCoords);
+			TilemapModelController.SetTiles(allTileCoords);
 			UpdateTileCount();
-		}
-
-		internal void OnMouseMove(Ray currentWorldRay, Ray lastWorldRay)
-		{
-			m_IsCurrentCursorCoordValid = IntersectsCoord(currentWorldRay, out var currentCoord);
-			if (m_IsCurrentCursorCoordValid)
-			{
-				var isLastCoordValid = IntersectsCoord(lastWorldRay, out var lastCoord);
-				if (isLastCoordValid == false || currentCoord != lastCoord)
-				{
-					Debug.Log("    coord changed: " + currentCoord);
-					var cellSize = TilemapBehaviour.Grid.CellSize;
-					var pos = new Vector3(currentCoord.x * cellSize.x, currentCoord.y * cellSize.y,
-						          currentCoord.z * cellSize.z) + cellSize * .5f;
-					m_CurrentCursorCoord = pos;
-				}
-			}
-		}
-
-		private Boolean IntersectsCoord(Ray ray, out GridCoord coord)
-		{
-			var intersects = ray.IntersectsPlane(out var point);
-			coord = intersects ? Grid3DUtility.ToCoord(point, TilemapBehaviour.Grid.CellSize) : default;
-			return intersects;
 		}
 	}
 }

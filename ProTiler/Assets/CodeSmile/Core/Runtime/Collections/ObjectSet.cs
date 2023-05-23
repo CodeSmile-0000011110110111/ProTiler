@@ -4,6 +4,7 @@
 using CodeSmile.Attributes;
 using CodeSmile.Extensions;
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -191,6 +192,6 @@ namespace CodeSmile.Collections
 				m_IndexedObjects[index] = obj;
 		}
 
-		[Serializable] private class IndexedObjectsDictionary : SerializedDictionary<int, T> {}
+		[Serializable] private sealed class IndexedObjectsDictionary : SerializedDictionary<int, T> {}
 	}
 }

@@ -53,7 +53,7 @@ namespace CodeSmile.Tests.Tools.TestRunnerApi
 				UpdateInteractionModeSettings();
 			}
 
-			private void SetInteractionModeToNoThrottling()
+			private static void SetInteractionModeToNoThrottling()
 			{
 				EditorPrefs.SetInt(ApplicationIdleTimeKey, 0);
 				EditorPrefs.SetInt(InteractionModeKey, 1);

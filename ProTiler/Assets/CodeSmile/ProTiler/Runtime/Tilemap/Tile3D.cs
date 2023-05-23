@@ -8,7 +8,7 @@ using System.Diagnostics.Contracts;
 using System.Runtime.InteropServices;
 using TileIndex = System.UInt16;
 
-namespace CodeSmile.ProTiler.Tile
+namespace CodeSmile.ProTiler.Tilemap
 {
 	/// <summary>
 	///     Represents the saved data in a tilemap.

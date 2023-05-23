@@ -2,8 +2,6 @@
 // Refer to included LICENSE file for terms and conditions.
 
 using CodeSmile.Attributes;
-using CodeSmile.ProTiler.Tile;
-using CodeSmile.ProTiler.Utility;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;

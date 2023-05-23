@@ -11,7 +11,7 @@ using ChunkSize = UnityEngine.Vector2Int;
 using LayerCoord = UnityEngine.Vector3Int;
 using Math = UnityEngine.Mathf;
 
-namespace CodeSmile.ProTiler.Utility
+namespace CodeSmile.ProTiler.Tilemap
 {
 	[FullCovered]
 	internal static class Tilemap3DUtility
@@ -21,6 +21,7 @@ namespace CodeSmile.ProTiler.Utility
 		///     The hashes of chunks with size of less than 2x2 would not be unique.
 		/// </summary>
 		internal static readonly ChunkSize MinChunkSize = new(2, 2);
+		internal static readonly ChunkSize DefaultChunkSize = new(16, 16);
 
 		internal static IEnumerable<GridCoord> GetAllChunkLayerCoords(ChunkCoord chunkCoord, ChunkSize chunkSize, int height = 0)
 		{

@@ -3,16 +3,18 @@
 
 using CodeSmile.Attributes;
 using CodeSmile.ProTiler.Assets;
+using CodeSmile.ProTiler.Grid;
 using System.Diagnostics.CodeAnalysis;
 using System.Diagnostics.Contracts;
 using UnityEngine;
 
-namespace CodeSmile.ProTiler.Grid
+namespace CodeSmile.ProTiler.Controller
 {
 	[FullCovered]
+	[AddComponentMenu("")]
 	[DisallowMultipleComponent]
-	[RequireComponent(typeof(Grid3DBehaviour))]
-	public class Grid3DTileSetBehaviour : MonoBehaviour
+	[RequireComponent(typeof(Grid3DController))]
+	public class Tile3DAssetController : MonoBehaviour
 	{
 		[SerializeField] [ReadOnlyField] private Tile3DAssetBaseSet m_TileAssets;
 

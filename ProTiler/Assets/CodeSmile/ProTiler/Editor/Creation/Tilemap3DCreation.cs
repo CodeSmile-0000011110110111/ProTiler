@@ -2,8 +2,10 @@
 // Refer to included LICENSE file for terms and conditions.
 
 using CodeSmile.Attributes;
+using CodeSmile.ProTiler.Controller;
 using CodeSmile.ProTiler.Grid;
 using CodeSmile.ProTiler.Tilemap;
+using System;
 using UnityEditor;
 using UnityEngine;
 
@@ -12,32 +14,36 @@ namespace CodeSmile.ProTiler.Editor.Creation
 	[FullCovered]
 	public static class Tilemap3DCreation
 	{
-		private const string RectangularTilemapMenuText = "Rectangular";
-		private const string IsometricTilemapMenuText = "Isometric (same as Rectangular)";
-		private const string HexagonalFlatTopTilemapMenuText = "Hexagonal - Flat Top";
-		private const string HexagonalPointTopTilemapMenuText = "Hexagonal - Pointed Top";
+		private const String RectangularTilemapMenuText = "Rectangular";
+		private const String IsometricTilemapMenuText = "Isometric (same as Rectangular)";
+		private const String HexagonalFlatTopTilemapMenuText = "Hexagonal - Flat Top";
+		private const String HexagonalPointTopTilemapMenuText = "Hexagonal - Pointed Top";
+
+		private static readonly Type[] s_TilemapComponents =
+		{
+			typeof(Tilemap3DModelController),
+			typeof(Tilemap3DModelSerialization),
+			typeof(Tilemap3DRenderer),
+			typeof(Tilemap3DDebugBehaviour),
+			typeof(Tilemap3DViewController),
+			typeof(Tilemap3DViewControllerRuntime),
+		};
 
 		[MenuItem("GameObject/" + Names.TileEditor + "/" + Menus.TilemapMenuText + "/" + RectangularTilemapMenuText,
 			priority = Menus.CreateGameObjectPriority + 0)]
-		public static Tilemap3DBehaviour CreateRectangularTilemap3D() => CreateTilemap3D(CellLayout.Rectangular);
+		public static Tilemap3DModelController CreateRectangularTilemap3D() => CreateTilemap3D(CellLayout.Rectangular);
 
-		/*
-		[MenuItem("GameObject/" + Names.TileEditor + "/" + Menus.TilemapMenuText + "/" + HexagonalFlatTopTilemapMenuText,
-			priority = Menus.CreateGameObjectPriority + 1)]
-		public static Tilemap3D CreateHexagonalFlatTopTilemap3D() => throw new NotImplementedException(nameof(CreateHexagonalFlatTopTilemap3D));
-
-		[MenuItem("GameObject/" + Names.TileEditor + "/" + Menus.TilemapMenuText + "/" + HexagonalPointTopTilemapMenuText,
-			priority = Menus.CreateGameObjectPriority + 2)]
-		public static Tilemap3D CreateHexagonalPointTopTilemap3D() => throw new NotImplementedException(nameof(CreateHexagonalPointTopTilemap3D));
-		*/
-
-		private static Tilemap3DBehaviour CreateTilemap3D(CellLayout cellLayout)
+		private static Tilemap3DModelController CreateTilemap3D(CellLayout cellLayout)
 		{
 			Undo.SetCurrentGroupName("Create 3D Tilemap");
+			var currentUndoGroup = Undo.GetCurrentGroup();
 
 			var root = FindOrCreateRootGrid3D();
 			var uniqueName = GameObjectUtility.GetUniqueNameForSibling(root.transform, "Tilemap3D");
-			var tilemapGO = ObjectFactory.CreateGameObject(uniqueName, typeof(Tilemap3DBehaviour), typeof(Tilemap3DRendererBehaviour));
+			var tilemapGO = ObjectFactory.CreateGameObject(uniqueName, s_TilemapComponents);
+
+			DisableBehaviour<Tilemap3DDebugBehaviour>(tilemapGO);
+			DisableBehaviour<Tilemap3DViewControllerRuntime>(tilemapGO);
 
 			Undo.RegisterCreatedObjectUndo(tilemapGO, "Create Tilemap");
 			Undo.SetTransformParent(tilemapGO.transform, root.transform, "");
@@ -45,19 +51,19 @@ namespace CodeSmile.ProTiler.Editor.Creation
 			tilemapGO.transform.position = Vector3.zero;
 			Selection.activeGameObject = tilemapGO;
 
-			/*
-			switch (cellLayout)
-			{
-				case CellLayout.Rectangular:
-					break;
-				default:
-					throw new NotImplementedException(cellLayout.ToString());
-			}
-			*/
+			// TODO: switch on CellLayout
 
+			Undo.CollapseUndoOperations(currentUndoGroup);
 			Undo.IncrementCurrentGroup();
 
-			return tilemapGO.GetComponent<Tilemap3DBehaviour>();
+			return tilemapGO.GetComponent<Tilemap3DModelController>();
+		}
+
+		private static void DisableBehaviour<T>(GameObject tilemapGO) where T: MonoBehaviour
+		{
+			var behaviour = tilemapGO.GetComponent<T>();
+			if (behaviour != null)
+				behaviour.enabled = false;
 		}
 
 		private static GameObject FindOrCreateRootGrid3D()
@@ -68,15 +74,16 @@ namespace CodeSmile.ProTiler.Editor.Creation
 			if (activeSelection is GameObject)
 			{
 				// check for it being grid3d or parent being grid3d
-				var parentGrid = activeSelection.GetComponentInParent<Grid3DBehaviour>();
+				var parentGrid = activeSelection.GetComponentInParent<Grid3DController>();
 				if (parentGrid != null)
 					gridGO = parentGrid.gameObject;
 			}
 
 			if (gridGO == null)
 			{
-				gridGO = ObjectFactory.CreateGameObject("Grid3D", typeof(Grid3DBehaviour), typeof(Grid3DTileSetBehaviour));
-				Undo.RegisterCreatedObjectUndo (gridGO, "Create 3D Grid");
+				gridGO = ObjectFactory.CreateGameObject("Grid3D", typeof(Grid3DController),
+					typeof(Tile3DAssetController));
+				Undo.RegisterCreatedObjectUndo(gridGO, "Create 3D Grid");
 			}
 
 			return gridGO;

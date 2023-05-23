@@ -3,10 +3,10 @@
 
 using UnityEngine;
 
-namespace CodeSmile.ProTiler.Tile
+namespace CodeSmile.ProTiler.View
 {
 	[AddComponentMenu("")] // hide from Add Component list
-	public class Tile3DRendererBehaviour : MonoBehaviour
+	public class Tile3DRenderer : MonoBehaviour
 	{
 		
 	}

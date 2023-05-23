@@ -1,7 +1,7 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
-using CodeSmile.ProTiler.Utility;
+using CodeSmile.ProTiler.Tilemap;
 using NUnit.Framework;
 using System.Linq;
 using GridCoord = UnityEngine.Vector3Int;

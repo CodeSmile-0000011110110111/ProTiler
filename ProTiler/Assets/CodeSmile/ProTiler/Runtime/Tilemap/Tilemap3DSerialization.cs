@@ -33,7 +33,7 @@ namespace CodeSmile.ProTiler.Tilemap
 		[Pure] internal static Tilemap3D FromBinary(Byte[] bytes)
 		{
 			if (bytes == null || bytes.Length == 0)
-				return new Tilemap3D();
+				return new Tilemap3D(Tilemap3DUtility.DefaultChunkSize);
 
 			using (var stream = CreateUnsafeStream(bytes))
 			{

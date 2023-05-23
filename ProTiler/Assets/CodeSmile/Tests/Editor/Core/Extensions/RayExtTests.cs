@@ -10,21 +10,21 @@ namespace CodeSmile.Tests.Editor.Core.Extensions
 {
 	public class RayExtTests
 	{
-		private static Object[] RaysFacingStraightDown =
+		private static readonly Object[] RaysFacingStraightDown =
 		{
 			new Object[] { new Vector3(0f, .00001f, 0f), Vector3.down },
 			new Object[] { new Vector3(0f, 100000f, 0f), Vector3.down },
 			new Object[] { new Vector3(0f, -100000f, 0f), Vector3.down },
 		};
 
-		private static Object[] RaysFacingDownAtAngle =
+		private static readonly Object[] RaysFacingDownAtAngle =
 		{
 			new Object[] { new Vector3(10f, .00001f, 12.34f), new Vector3(0.0001f, -0.0001f, 0.0001f) },
 			// flat angle, intersects very far away (denominator close to min value)
 			new Object[] { new Vector3(-10f, 10000f, -456.789f), new Vector3(-1f, -0.015f, -1f) },
 		};
 
-		private static Object[] RaysNotIntersecting =
+		private static readonly Object[] RaysNotIntersecting =
 		{
 			new Object[] { Vector3.zero, Vector3.zero },
 			new Object[] { new Vector3(0f, -100000f, 0f), Vector3.up }, // wrong direction

@@ -11,10 +11,10 @@ namespace CodeSmile.Tests.Editor.ProTiler.Grid
 {
 	public class Grid3DBehaviourTests
 	{
-		[Test] [CreateEmptyScene] [CreateGameObject(nameof(Grid3DBehaviour), typeof(Grid3DBehaviour))]
+		[Test] [CreateEmptyScene] [CreateGameObject(nameof(Grid3DController), typeof(Grid3DController))]
 		public void GetSetCellLayout()
 		{
-			var grid = ObjectExt.FindObjectByTypeFast<Grid3DBehaviour>();
+			var grid = ObjectExt.FindObjectByTypeFast<Grid3DController>();
 			var cellLayout = CellLayout.Hexagonal;
 
 			grid.CellLayout = cellLayout;
@@ -22,10 +22,10 @@ namespace CodeSmile.Tests.Editor.ProTiler.Grid
 			Assert.That(cellLayout, Is.EqualTo(grid.CellLayout));
 		}
 
-		[Test] [CreateEmptyScene] [CreateGameObject(nameof(Grid3DBehaviour), typeof(Grid3DBehaviour))]
+		[Test] [CreateEmptyScene] [CreateGameObject(nameof(Grid3DController), typeof(Grid3DController))]
 		public void GetSetCellSize()
 		{
-			var grid = ObjectExt.FindObjectByTypeFast<Grid3DBehaviour>();
+			var grid = ObjectExt.FindObjectByTypeFast<Grid3DController>();
 			var cellSize = new Vector3(3f, 4f, 7f);
 
 			grid.CellSize = cellSize;
@@ -33,10 +33,10 @@ namespace CodeSmile.Tests.Editor.ProTiler.Grid
 			Assert.That(cellSize, Is.EqualTo(grid.CellSize));
 		}
 
-		[Test] [CreateEmptyScene] [CreateGameObject(nameof(Grid3DBehaviour), typeof(Grid3DBehaviour))]
+		[Test] [CreateEmptyScene] [CreateGameObject(nameof(Grid3DController), typeof(Grid3DController))]
 		public void GetSetCellGap()
 		{
-			var grid = ObjectExt.FindObjectByTypeFast<Grid3DBehaviour>();
+			var grid = ObjectExt.FindObjectByTypeFast<Grid3DController>();
 			var cellGap = new Vector3(1.1f, 2.2f, 3.3f);
 
 			grid.CellGap = cellGap;

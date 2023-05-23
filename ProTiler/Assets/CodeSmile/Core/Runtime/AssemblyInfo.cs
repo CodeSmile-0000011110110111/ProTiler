@@ -4,6 +4,7 @@
 // This assembly is required to be fully covered by tests
 
 using CodeSmile.Attributes;
+using System.Diagnostics.CodeAnalysis;
 
 // This assembly is required to be fully covered by tests
 [assembly: FullCovered]

@@ -3,12 +3,12 @@
 
 using UnityEngine;
 
-namespace CodeSmile.ProTiler.Tilemap
+namespace CodeSmile.ProTiler.Controller
 {
 	[ExecuteAlways]
-	[RequireComponent(typeof(Tilemap3DBehaviour))]
+	[RequireComponent(typeof(Tilemap3DModelController))]
 	[DisallowMultipleComponent]
-	public class Tilemap3DRendererBehaviour : MonoBehaviour
+	public sealed class Tilemap3DRenderer : MonoBehaviour
 	{
 		//[SerializeField] private int m_DrawDistance = 20;
 		// private Vector3Int[] m_VisibleCoords;

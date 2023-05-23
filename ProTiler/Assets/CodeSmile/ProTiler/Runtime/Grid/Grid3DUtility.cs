@@ -10,7 +10,7 @@ using GridCoord = UnityEngine.Vector3Int;
 using CellSize = UnityEngine.Vector3;
 using Math = UnityEngine.Mathf;
 
-namespace CodeSmile.ProTiler.Utility
+namespace CodeSmile.ProTiler.Grid
 {
 	[FullCovered]
 	internal static class Grid3DUtility

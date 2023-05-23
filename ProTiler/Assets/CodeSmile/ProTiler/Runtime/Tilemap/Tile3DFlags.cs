@@ -3,7 +3,7 @@
 
 using System;
 
-namespace CodeSmile.ProTiler.Tile
+namespace CodeSmile.ProTiler.Tilemap
 {
 	[Flags]
 	public enum Tile3DFlags : Int16
@@ -18,6 +18,6 @@ namespace CodeSmile.ProTiler.Tile
 		FlipVertical = 1 << 5,
 		FlipBoth = FlipHorizontal | FlipVertical,
 
-		ReservedBits = 6,
+		BitCount = 6,
 	}
 }

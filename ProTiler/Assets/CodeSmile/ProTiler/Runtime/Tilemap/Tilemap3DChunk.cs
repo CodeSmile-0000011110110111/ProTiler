@@ -2,8 +2,7 @@
 // Refer to included LICENSE file for terms and conditions.
 
 using CodeSmile.Attributes;
-using CodeSmile.ProTiler.Tile;
-using CodeSmile.ProTiler.Utility;
+using CodeSmile.ProTiler.Grid;
 using System;
 using System.Collections;
 using System.Collections.Generic;

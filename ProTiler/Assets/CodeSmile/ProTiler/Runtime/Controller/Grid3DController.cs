@@ -10,9 +10,10 @@ using CellGap = UnityEngine.Vector3;
 namespace CodeSmile.ProTiler.Grid
 {
 	[FullCovered]
-	[RequireComponent(typeof(Transform))]
+	[AddComponentMenu("")]
 	[DisallowMultipleComponent]
-	public class Grid3DBehaviour : MonoBehaviour
+	[RequireComponent(typeof(Transform))]
+	public class Grid3DController : MonoBehaviour
 	{
 		[SerializeField] private CellSize m_CellSize = new(1f, 1f, 1f);
 		[SerializeField] private CellGap m_CellGap;

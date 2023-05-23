@@ -2,7 +2,7 @@
 // Refer to included LICENSE file for terms and conditions.
 
 using CodeSmile.Attributes;
-using CodeSmile.ProTiler.Utility;
+using CodeSmile.ProTiler.Grid;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -11,7 +11,7 @@ using System.Runtime.InteropServices;
 using Unity.Properties;
 using LayerSize = UnityEngine.Vector2Int;
 
-namespace CodeSmile.ProTiler.Tile
+namespace CodeSmile.ProTiler.Tilemap
 {
 	/// <summary>
 	///     Represents a single, flat layer of tiles. Essentially a 2D array.

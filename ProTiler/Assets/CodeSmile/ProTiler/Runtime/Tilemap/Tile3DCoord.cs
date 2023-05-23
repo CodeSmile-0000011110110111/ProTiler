@@ -2,7 +2,6 @@
 // Refer to included LICENSE file for terms and conditions.
 
 using CodeSmile.Attributes;
-using CodeSmile.ProTiler.Utility;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Diagnostics.Contracts;
@@ -12,7 +11,7 @@ using ChunkSize = UnityEngine.Vector2Int;
 using GridCoord = UnityEngine.Vector3Int;
 using LayerCoord = UnityEngine.Vector3Int;
 
-namespace CodeSmile.ProTiler.Tile
+namespace CodeSmile.ProTiler.Tilemap
 {
 	/// <summary>
 	///     TileData for a specific coordinate.

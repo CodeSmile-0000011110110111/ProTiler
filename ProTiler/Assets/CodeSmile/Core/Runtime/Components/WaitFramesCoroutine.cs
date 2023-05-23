@@ -43,6 +43,7 @@ namespace CodeSmile.Components
 			return true;
 		}
 
+		[SuppressMessage("NDepend", "ND1312:DoImplementMethodsThatThrowNotImplementedException", Justification="on purpose")]
 		[ExcludeFromCodeCoverage] public void Reset() => throw new NotImplementedException();
 	}
 }

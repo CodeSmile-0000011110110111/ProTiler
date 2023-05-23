@@ -2,6 +2,7 @@
 // Refer to included LICENSE file for terms and conditions.
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 using UnityEditor;
 using UnityEngine;
 
@@ -18,12 +19,13 @@ namespace CodeSmile
 #endif
 	public abstract class ScriptableSingletonBase<T> : ScriptableObject where T : ScriptableSingletonBase<T>
 	{
+		[SuppressMessage("NDepend", "ND1901:AvoidNonReadOnlyStaticFields", Justification="unavoidable")]
 		private static T s_Instance;
 		public static T Singleton => GetOrCreateInstance();
 		protected static Boolean IsCreated => s_Instance != null;
-		protected static T GetOrCreateInstance() => s_Instance = IsCreated ? s_Instance : CreateSingletonInstance();
+		private static T GetOrCreateInstance() => IsCreated ? s_Instance : CreateSingletonInstance();
 
-		protected static T CreateSingletonInstance()
+		private static T CreateSingletonInstance()
 		{
 			s_Instance = CreateInstance<T>();
 			s_Instance.OnInstanceCreated();
@@ -31,11 +33,6 @@ namespace CodeSmile
 		}
 
 		protected virtual void OnInstanceCreated() {}
-
-		// private void Awake() => Debug.Log($"Awake {nameof(ScriptableSingletonBase)} instance: {GetInstanceID()}");
-		// private void OnEnable() => Debug.Log($"OnEnable {nameof(ScriptableSingletonBase)} instance: {GetInstanceID()}");
-		// private void OnDisable() => Debug.Log($"OnDisable {nameof(ScriptableSingletonBase)} instance: {GetInstanceID()}");
-		// private void OnDestroy() => Debug.Log($"OnDestroy {nameof(ScriptableSingletonBase)} instance: {GetInstanceID()}");
 
 #if UNITY_EDITOR
 		static ScriptableSingletonBase()
