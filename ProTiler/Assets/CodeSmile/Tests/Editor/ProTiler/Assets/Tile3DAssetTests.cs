@@ -4,7 +4,7 @@
 using CodeSmile.ProTiler.Assets;
 using CodeSmile.ProTiler.Editor.Creation;
 using CodeSmile.ProTiler.Tilemap;
-using CodeSmile.Tests.Editor.ProTiler.Tile;
+using CodeSmile.Tests.Editor.ProTiler.Tilemap;
 using CodeSmile.Tests.Tools;
 using NUnit.Framework;
 using UnityEngine;

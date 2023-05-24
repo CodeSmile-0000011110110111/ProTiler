@@ -10,10 +10,10 @@ using Unity.Collections.LowLevel.Unsafe;
 using Unity.Serialization.Binary;
 using Unity.Serialization.Json;
 
-namespace CodeSmile.ProTiler
+namespace CodeSmile.ProTiler.Serialization
 {
 	[FullCovered]
-	internal static class UnitySerialization
+	internal static class UnitySerializer
 	{
 		[Pure] internal static Byte[] ToBinary(object input)
 		{

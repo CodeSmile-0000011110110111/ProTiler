@@ -16,13 +16,6 @@ namespace CodeSmile.ProTiler.Tilemap
 	[FullCovered]
 	internal static class Tilemap3DUtility
 	{
-		/// <summary>
-		///     This is a required technical limitation to have at least 2x2 tiles per chunk.
-		///     The hashes of chunks with size of less than 2x2 would not be unique.
-		/// </summary>
-		internal static readonly ChunkSize MinChunkSize = new(2, 2);
-		internal static readonly ChunkSize DefaultChunkSize = new(16, 16);
-
 		internal static IEnumerable<GridCoord> GetAllChunkLayerCoords(ChunkCoord chunkCoord, ChunkSize chunkSize, int height = 0)
 		{
 			var coords = new GridCoord[chunkSize.x * chunkSize.y];
@@ -40,8 +33,8 @@ namespace CodeSmile.ProTiler.Tilemap
 
 		internal static ChunkSize ClampChunkSize(ChunkSize chunkSize)
 		{
-			chunkSize.x = Math.Max(MinChunkSize.x, chunkSize.x);
-			chunkSize.y = Math.Max(MinChunkSize.y, chunkSize.y);
+			chunkSize.x = Math.Max(Tilemap3D.MinChunkSize.x, chunkSize.x);
+			chunkSize.y = Math.Max(Tilemap3D.MinChunkSize.y, chunkSize.y);
 			return chunkSize;
 		}
 

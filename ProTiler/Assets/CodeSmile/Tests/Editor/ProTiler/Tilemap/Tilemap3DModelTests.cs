@@ -17,7 +17,7 @@ using ChunkSize = UnityEngine.Vector2Int;
 
 namespace CodeSmile.Tests.Editor.ProTiler.Tilemap
 {
-	public class Tilemap3DBehaviourTests
+	public class Tilemap3DModelTests
 	{
 		[Test] [CreateEmptyScene]
 		public void TilemapCreation()
@@ -28,9 +28,9 @@ namespace CodeSmile.Tests.Editor.ProTiler.Tilemap
 			Assert.That(tilemapBehaviour.Grid != null);
 			Assert.That(ObjectExt.FindObjectsByTypeFast<Grid3DController>().Length, Is.EqualTo(1));
 			Assert.That(ObjectExt.FindObjectsByTypeFast<Tile3DAssetController>().Length, Is.EqualTo(1));
-			Assert.That(ObjectExt.FindObjectsByTypeFast<Tilemap3DModelController>().Length, Is.EqualTo(1));
+			Assert.That(ObjectExt.FindObjectsByTypeFast<Tilemap3DModel>().Length, Is.EqualTo(1));
 			Assert.Contains(tilemapBehaviour.Grid.gameObject, SceneManager.GetActiveScene().GetRootGameObjects());
-			Assert.Contains(tilemapBehaviour, tilemapBehaviour.Grid.GetComponentsInChildren<Tilemap3DModelController>());
+			Assert.Contains(tilemapBehaviour, tilemapBehaviour.Grid.GetComponentsInChildren<Tilemap3DModel>());
 		}
 
 		[Test] [CreateEmptyScene]
@@ -41,7 +41,7 @@ namespace CodeSmile.Tests.Editor.ProTiler.Tilemap
 
 			Assert.That(ObjectExt.FindObjectsByTypeFast<Grid3DController>().Length, Is.EqualTo(1));
 			Assert.That(ObjectExt.FindObjectsByTypeFast<Tile3DAssetController>().Length, Is.EqualTo(1));
-			Assert.That(ObjectExt.FindObjectsByTypeFast<Tilemap3DModelController>().Length, Is.EqualTo(2));
+			Assert.That(ObjectExt.FindObjectsByTypeFast<Tilemap3DModel>().Length, Is.EqualTo(2));
 			Assert.That(tilemapBehaviour1.Grid, Is.EqualTo(tilemapBehaviour2.Grid));
 			Assert.That(tilemapBehaviour1.Grid.gameObject, Is.EqualTo(tilemapBehaviour2.Grid.gameObject));
 		}
@@ -56,14 +56,14 @@ namespace CodeSmile.Tests.Editor.ProTiler.Tilemap
 			Debug.Log($"after Undo {Undo.GetCurrentGroupName()}");
 
 			Assert.That(ObjectExt.FindObjectsByTypeFast<Grid3DController>().Length, Is.EqualTo(0));
-			Assert.That(ObjectExt.FindObjectsByTypeFast<Tilemap3DModelController>().Length, Is.EqualTo(0));
+			Assert.That(ObjectExt.FindObjectsByTypeFast<Tilemap3DModel>().Length, Is.EqualTo(0));
 
 			Debug.Log($"before Redo {Undo.GetCurrentGroupName()}");
 			Undo.PerformRedo();
 			Debug.Log($"after Redo {Undo.GetCurrentGroupName()}");
 
 			Assert.That(ObjectExt.FindObjectsByTypeFast<Grid3DController>().Length, Is.EqualTo(1));
-			Assert.That(ObjectExt.FindObjectsByTypeFast<Tilemap3DModelController>().Length, Is.EqualTo(1));
+			Assert.That(ObjectExt.FindObjectsByTypeFast<Tilemap3DModel>().Length, Is.EqualTo(1));
 		}
 
 		[Test] [CreateEmptyScene]
@@ -75,12 +75,12 @@ namespace CodeSmile.Tests.Editor.ProTiler.Tilemap
 			Undo.PerformUndo();
 
 			Assert.That(ObjectExt.FindObjectsByTypeFast<Grid3DController>().Length, Is.EqualTo(1));
-			Assert.That(ObjectExt.FindObjectsByTypeFast<Tilemap3DModelController>().Length, Is.EqualTo(1));
+			Assert.That(ObjectExt.FindObjectsByTypeFast<Tilemap3DModel>().Length, Is.EqualTo(1));
 
 			Undo.PerformRedo();
 
 			Assert.That(ObjectExt.FindObjectsByTypeFast<Grid3DController>().Length, Is.EqualTo(1));
-			Assert.That(ObjectExt.FindObjectsByTypeFast<Tilemap3DModelController>().Length, Is.EqualTo(2));
+			Assert.That(ObjectExt.FindObjectsByTypeFast<Tilemap3DModel>().Length, Is.EqualTo(2));
 		}
 
 		[Test] [CreateEmptyScene]
@@ -94,6 +94,7 @@ namespace CodeSmile.Tests.Editor.ProTiler.Tilemap
 
 			Assert.That(tilemapBehaviour.ChunkCount, Is.EqualTo(1));
 			Assert.That(tilemapBehaviour.TileCount, Is.EqualTo(1));
+			Assert.That(tilemapBehaviour.GetLayerCount(new Vector2Int(0, 0)), Is.EqualTo(2));
 			Assert.That(tilemapBehaviour.GetTile(coord).Index, Is.EqualTo(tileIndex));
 		}
 
@@ -156,7 +157,6 @@ namespace CodeSmile.Tests.Editor.ProTiler.Tilemap
 			Assert.That(tilemapBehaviour.GetTile(coord).Index, Is.EqualTo(tileIndex));
 		}
 
-
 		[Test] [CreateEmptyScene]
 		public void CreateTilemapSetTileUndoRedo()
 		{
@@ -197,7 +197,7 @@ namespace CodeSmile.Tests.Editor.ProTiler.Tilemap
 			var tilemapBehaviour = Tilemap3DCreation.CreateRectangularTilemap3D();
 
 			tilemapBehaviour.SetTile(Vector3Int.zero, new Tile3D(234));
-			tilemapBehaviour.ClearTilemap(new ChunkSize(6,9));
+			tilemapBehaviour.ClearTilemap(new ChunkSize(6, 9));
 
 			Assert.That(tilemapBehaviour.ChunkCount, Is.EqualTo(0));
 			Assert.That(tilemapBehaviour.TileCount, Is.EqualTo(0));
@@ -245,7 +245,6 @@ namespace CodeSmile.Tests.Editor.ProTiler.Tilemap
 			var secondChunkSize = new ChunkSize(12, 14);
 			tilemapBehaviour.ClearTilemap(secondChunkSize);
 			Assert.That(tilemapBehaviour.ChunkSize, Is.EqualTo(secondChunkSize));
-
 
 			Undo.PerformUndo();
 
@@ -327,7 +326,7 @@ namespace CodeSmile.Tests.Editor.ProTiler.Tilemap
 			EditorSceneManager.SaveOpenScenes();
 			EditorSceneManager.OpenScene(SceneManager.GetActiveScene().path);
 
-			var tilemapBehaviours = ObjectExt.FindObjectsByTypeFast<Tilemap3DModelController>();
+			var tilemapBehaviours = ObjectExt.FindObjectsByTypeFast<Tilemap3DModel>();
 			Assert.That(tilemapBehaviours.Length, Is.EqualTo(1));
 			Assert.That(tilemapBehaviours.First() != null);
 			Assert.That(tilemapBehaviours.First().ChunkSize, Is.EqualTo(chunkSize));

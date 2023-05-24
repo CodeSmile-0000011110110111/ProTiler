@@ -2,6 +2,7 @@
 // Refer to included LICENSE file for terms and conditions.
 
 using CodeSmile.ProTiler;
+using CodeSmile.ProTiler.Serialization;
 using CodeSmile.ProTiler.Tilemap;
 using CodeSmile.Tests.Editor.ProTiler.Utility;
 using NUnit.Framework;
@@ -29,7 +30,7 @@ namespace CodeSmile.Tests.Editor.ProTiler.Tilemap
 
 		[Test] public void EmptyTilemapMinifiedJsonDidNotChangeUnintentionally()
 		{
-			var tilemap = new Tilemap3D();
+			var tilemap = new Tilemap3D(Tilemap3D.MinChunkSize);
 
 			var json = JsonSerialization.ToJson(tilemap,
 				new JsonSerializationParameters { Simplified = true, Minified = true });
@@ -42,7 +43,7 @@ namespace CodeSmile.Tests.Editor.ProTiler.Tilemap
 
 		[Test] public void NonEmptyTilemapMinifiedJsonDidNotChangeUnintentionally()
 		{
-			var tilemap = new Tilemap3D();
+			var tilemap = new Tilemap3D(Tilemap3D.MinChunkSize);
 			tilemap.SetTiles(new Tile3DCoord[] { new(new GridCoord(1, 1, 1), new Tile3D(123)) });
 
 			var json = JsonSerialization.ToJson(tilemap,
@@ -65,9 +66,9 @@ namespace CodeSmile.Tests.Editor.ProTiler.Tilemap
 			var tileIndex = short.MaxValue;
 			tilemap.SetTiles(new Tile3DCoord[] { new(coord, new Tile3D(tileIndex)) });
 
-			var json = UnitySerialization.ToJson(tilemap);
+			var json = UnitySerializer.ToJson(tilemap);
 			Debug.Log(json);
-			var deserializedTilemap = UnitySerialization.FromJson<Tilemap3D>(json);
+			var deserializedTilemap = UnitySerializer.FromJson<Tilemap3D>(json);
 			var tiles = deserializedTilemap.GetTiles(new[] { coord });
 
 			Assert.That(deserializedTilemap.ChunkSize, Is.EqualTo(tilemap.ChunkSize));
@@ -77,12 +78,12 @@ namespace CodeSmile.Tests.Editor.ProTiler.Tilemap
 			Assert.That(tiles.First().Tile.Index, Is.EqualTo(tileIndex));
 		}
 
-		[Test] public void DefaultCtorUsesMinChunkSize()
+		[Test] public void DefaultCtorUsesDefaultChunkSize()
 		{
 			var tilemap = new Tilemap3D();
 
 			Assert.That(tilemap.ChunkCount, Is.EqualTo(0));
-			Assert.That(tilemap.ChunkSize, Is.EqualTo(Tilemap3DUtility.MinChunkSize));
+			Assert.That(tilemap.ChunkSize, Is.EqualTo(Tilemap3D.DefaultChunkSize));
 		}
 
 		[TestCaseSource(nameof(IllegalChunkSizes))]
@@ -91,7 +92,7 @@ namespace CodeSmile.Tests.Editor.ProTiler.Tilemap
 			var tilemap = CreateTilemap(illegalChunkSize);
 
 			Assert.That(tilemap.ChunkCount, Is.EqualTo(0));
-			Assert.That(tilemap.ChunkSize, Is.EqualTo(Tilemap3DUtility.MinChunkSize));
+			Assert.That(tilemap.ChunkSize, Is.EqualTo(Tilemap3D.MinChunkSize));
 		}
 
 		[Test] public void GetTilesOnEmptyMapReturnsEmptyEnumerable()

@@ -17,6 +17,7 @@ namespace CodeSmile.Editor
 	/// </summary>
 	[ExcludeFromCodeCoverage]
 	[SuppressMessage("NDepend", "ND1001:AvoidTypesWithTooManyMethods", Justification="unavoidable")]
+	[SuppressMessage("NDepend", "ND1100:FromNowAllTypesAddedShouldRespectBasicQualityPrinciples")]
 	public abstract class OnSceneEventEditorBase : UnityEditor.Editor
 	{
 		public void OnSceneGUI() => ForwardEvents();
@@ -28,7 +29,8 @@ namespace CodeSmile.Editor
 		/// EventType == EventType.MouseMove calls OnMouseMove(Event.current)
 		/// </summary>
 		/// <exception cref="ArgumentOutOfRangeException"></exception>
-		[SuppressMessage("NDepend", "ND1006:AvoidMethodsPotentiallyPoorlyCommented", Justification="needs no comments")]
+		[SuppressMessage("NDepend", "ND1006:AvoidMethodsPotentiallyPoorlyCommented")]
+		[SuppressMessage("NDepend", "ND1102:FromNowAllMethodsAddedShouldRespectBasicQualityPrinciples")]
 		private void ForwardEvents()
 		{
 			var evt = Event.current;

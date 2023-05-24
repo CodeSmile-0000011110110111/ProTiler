@@ -20,8 +20,15 @@ namespace CodeSmile.ProTiler.Tilemap
 	/// </summary>
 	[FullCovered]
 	[Serializable]
-	public class Tilemap3D
+	public sealed class Tilemap3D
 	{
+		/// <summary>
+		///     This is a required technical limitation to have at least 2x2 tiles per chunk.
+		///     The hashes of chunks with size of less than 2x2 would not be unique.
+		/// </summary>
+		internal static readonly ChunkSize MinChunkSize = new(2, 2);
+		internal static readonly ChunkSize DefaultChunkSize = new(16, 16);
+
 		[CreateProperty] private ChunkSize m_ChunkSize;
 		[CreateProperty] private Tilemap3DChunks m_Chunks;
 
@@ -30,7 +37,7 @@ namespace CodeSmile.ProTiler.Tilemap
 		[Pure] internal Int32 TileCount => m_Chunks.TileCount;
 
 		[Pure] public Tilemap3D()
-			: this(Tilemap3DUtility.MinChunkSize) {}
+			: this(DefaultChunkSize) {}
 
 		[Pure] public Tilemap3D(ChunkSize chunkSize) => InitChunks(Tilemap3DUtility.ClampChunkSize(chunkSize));
 
@@ -98,11 +105,10 @@ namespace CodeSmile.ProTiler.Tilemap
 		[Pure] public override String ToString() =>
 			$"{nameof(Tilemap3D)}(Size: {ChunkSize}, Chunks: {ChunkCount}, Tiles: {TileCount})";
 
-
 		/// <summary>
 		///     Container for Tile3DCoord collections that are automatically divided into chunks.
 		/// </summary>
-		private sealed class ChunkTileCoords : Dictionary<ChunkKey, IList<Tile3DCoord>>
+		private sealed class ChunkTileCoords : Dictionary<Int64, IList<Tile3DCoord>>
 		{
 			[Pure] internal ChunkTileCoords(IEnumerable<Tile3DCoord> tileCoords, ChunkSize chunkSize) =>
 				SplitTileCoordsIntoChunks(tileCoords, chunkSize);
@@ -129,9 +135,9 @@ namespace CodeSmile.ProTiler.Tilemap
 		/// <summary>
 		///     Coords divided into chunks
 		/// </summary>
-		private sealed class ChunkCoords : Dictionary<ChunkKey, IList<LayerCoord>>
+		private sealed class ChunkCoords : Dictionary<Int64, IList<GridCoord>>
 		{
-			private readonly Dictionary<ChunkKey, ChunkCoord> m_ChunkCoords = new();
+			private readonly Dictionary<Int64, ChunkCoord> m_ChunkCoords = new();
 
 			[Pure] internal ChunkCoords(IEnumerable<GridCoord> gridCoords, ChunkSize chunkSize) =>
 				SplitIntoChunkLayerCoords(gridCoords, chunkSize);
@@ -162,7 +168,7 @@ namespace CodeSmile.ProTiler.Tilemap
 				if (TryGetValue(chunkKey, out var coords))
 					coords.Add(layerCoord);
 				else
-					Add(chunkKey, new List<LayerCoord> { layerCoord });
+					Add(chunkKey, new List<GridCoord> { layerCoord });
 			}
 		}
 
@@ -175,7 +181,7 @@ namespace CodeSmile.ProTiler.Tilemap
 			[CreateProperty] private Dictionary<Int64, Tilemap3DChunk> m_Chunks = new();
 			[Pure] internal Tilemap3DChunk this[Int64 chunkKey]
 			{
-				get => m_Chunks[chunkKey];
+				//get => m_Chunks[chunkKey];
 				set => m_Chunks[chunkKey] = value;
 			}
 

@@ -14,6 +14,9 @@ scopes = {
 	"last_search.C87CA1ED" = ""
 	"OpenInspectorPreview.C87CA1ED" = "0"
 	"currentGroup.C87CA1ED" = "all"
+	"last_search.8DF93126" = ""
+	"OpenInspectorPreview.8DF93126" = "0"
+	"currentGroup.8DF93126" = ""
 }
 providers = {
 	adb = {
@@ -59,6 +62,11 @@ providers = {
 	profilermarkers = {
 		active = false
 		priority = 100
+		defaultAction = null
+	}
+	presets_provider = {
+		active = false
+		priority = -10
 		defaultAction = null
 	}
 }

@@ -7,7 +7,7 @@ using UnityEngine;
 namespace CodeSmile.ProTiler.View
 {
 	[ExecuteAlways]
-	[RequireComponent(typeof(Tilemap3DModelController))]
+	[RequireComponent(typeof(Tilemap3DModel))]
 	[DisallowMultipleComponent]
 	public sealed class Tilemap3DRenderer : MonoBehaviour
 	{

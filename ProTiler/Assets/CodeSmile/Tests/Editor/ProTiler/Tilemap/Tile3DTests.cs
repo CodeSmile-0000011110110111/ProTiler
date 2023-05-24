@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 using Unity.Serialization.Json;
 using UnityEngine;
 
-namespace CodeSmile.Tests.Editor.ProTiler.Tile
+namespace CodeSmile.Tests.Editor.ProTiler.Tilemap
 {
 	public class Tile3DTests
 	{

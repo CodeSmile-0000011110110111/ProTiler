@@ -2,13 +2,12 @@
 // Refer to included LICENSE file for terms and conditions.
 
 using CodeSmile.Attributes;
-using CodeSmile.ProTiler.Grid;
 using System.Diagnostics.Contracts;
 using UnityEngine;
 using CellSize = UnityEngine.Vector3;
 using CellGap = UnityEngine.Vector3;
 
-namespace CodeSmile.ProTiler.Controller
+namespace CodeSmile.ProTiler.Grid
 {
 	[FullCovered]
 	[AddComponentMenu("")]

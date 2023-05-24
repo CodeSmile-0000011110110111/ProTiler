@@ -8,7 +8,7 @@ using UnityEngine.TestTools;
 
 namespace CodeSmile.Tests.Editor.ProTiler.Tilemap
 {
-	public class Tilemap3DDebugBehaviourTests
+	public class Tilemap3DDebugControllerTests
 	{
 
 		[Test]

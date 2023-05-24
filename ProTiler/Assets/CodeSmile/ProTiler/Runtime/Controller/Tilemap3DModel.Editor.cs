@@ -12,7 +12,7 @@ using UnityEditor.SceneManagement;
 
 namespace CodeSmile.ProTiler.Controller
 {
-	public sealed partial class Tilemap3DModelController
+	public sealed partial class Tilemap3DModel
 	{
 		private void StartRecordUndo(String undoGroupName, String undoActionName)
 		{

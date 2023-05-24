@@ -4,10 +4,12 @@
 using System.Diagnostics.CodeAnalysis;
 
 [assembly: SuppressMessage("NDepend", "ND1100:FromNowAllTypesAddedShouldRespectBasicQualityPrinciples",
-	Scope = "deep", Target="", Justification="is okay in test classes")]
+	Scope = "deep", Target = "", Justification = "is okay in test classes")]
+[assembly: SuppressMessage("NDepend", "ND1102:FromNowAllMethodsAddedShouldRespectBasicQualityPrinciples",
+	Scope = "deep", Target = "", Justification = "is okay in test classes")]
 [assembly: SuppressMessage("NDepend", "ND1001:AvoidTypesWithTooManyMethods",
 	Scope = "deep", Target = "", Justification = "is okay in test classes")]
 [assembly: SuppressMessage("NDepend", "ND1206:AStatelessClassOrStructureMightBeTurnedIntoAStaticType",
-	Scope = "deep", Target="", Justification="is okay in test classes")]
+	Scope = "deep", Target = "", Justification = "is okay in test classes")]
 [assembly: SuppressMessage("NDepend", "ND1207:NonStaticClassesShouldBeInstantiatedOrTurnedToStatic",
-	Scope = "deep", Target="", Justification="is okay in test classes")]
+	Scope = "deep", Target = "", Justification = "is okay in test classes")]

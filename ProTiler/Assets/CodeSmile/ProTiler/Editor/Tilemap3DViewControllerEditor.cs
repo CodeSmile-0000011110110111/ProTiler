@@ -10,7 +10,7 @@ using UnityEngine;
 
 namespace CodeSmile.ProTiler.Editor
 {
-	[SuppressMessage("NDepend", "ND1204:OverridesOfMethodShouldCallBaseMethod", Justification="not expected")]
+	[SuppressMessage("NDepend", "ND1204:OverridesOfMethodShouldCallBaseMethod", Justification = "not expected")]
 	[ExcludeFromCodeCoverage] // don't test the UI, it's a 'detail'
 	[CustomEditor(typeof(Tilemap3DViewController))]
 	public class Tilemap3DViewControllerEditor : OnSceneEventEditorBase
@@ -23,15 +23,8 @@ namespace CodeSmile.ProTiler.Editor
 			Target.OnMouseMove(new MouseMoveEventData(worldRay));
 		}
 
-		protected override void OnMouseEnterWindow(Event evt)
-		{
-			Target.EnableCursor();
-		}
+		protected override void OnMouseEnterWindow(Event evt) => Target.EnableCursor();
 
-		protected override void OnMouseLeaveWindow(Event evt)
-		{
-			Target.DisableCursor();
-		}
-
+		protected override void OnMouseLeaveWindow(Event evt) => Target.DisableCursor();
 	}
 }

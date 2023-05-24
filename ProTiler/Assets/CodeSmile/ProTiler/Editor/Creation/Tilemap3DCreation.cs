@@ -4,7 +4,6 @@
 using CodeSmile.Attributes;
 using CodeSmile.ProTiler.Controller;
 using CodeSmile.ProTiler.Grid;
-using CodeSmile.ProTiler.Tilemap;
 using CodeSmile.ProTiler.View;
 using System;
 using UnityEditor;
@@ -22,18 +21,18 @@ namespace CodeSmile.ProTiler.Editor.Creation
 
 		private static readonly Type[] s_TilemapComponents =
 		{
-			typeof(Tilemap3DModelController),
+			typeof(Tilemap3DModel),
 			typeof(Tilemap3DRenderer),
-			typeof(Tilemap3DDebugViewController),
+			typeof(Tilemap3DDebugController),
 			typeof(Tilemap3DViewController),
 			typeof(Tilemap3DViewControllerRuntime),
 		};
 
 		[MenuItem("GameObject/" + Names.TileEditor + "/" + Menus.TilemapMenuText + "/" + RectangularTilemapMenuText,
 			priority = Menus.CreateGameObjectPriority + 0)]
-		public static Tilemap3DModelController CreateRectangularTilemap3D() => CreateTilemap3D(CellLayout.Rectangular);
+		public static Tilemap3DModel CreateRectangularTilemap3D() => CreateTilemap3D(CellLayout.Rectangular);
 
-		private static Tilemap3DModelController CreateTilemap3D(CellLayout cellLayout)
+		private static Tilemap3DModel CreateTilemap3D(CellLayout cellLayout)
 		{
 			Undo.SetCurrentGroupName("Create 3D Tilemap");
 			var currentUndoGroup = Undo.GetCurrentGroup();
@@ -42,7 +41,7 @@ namespace CodeSmile.ProTiler.Editor.Creation
 			var uniqueName = GameObjectUtility.GetUniqueNameForSibling(root.transform, "Tilemap3D");
 			var tilemapGO = ObjectFactory.CreateGameObject(uniqueName, s_TilemapComponents);
 
-			DisableBehaviour<Tilemap3DDebugViewController>(tilemapGO);
+			DisableBehaviour<Tilemap3DDebugController>(tilemapGO);
 			DisableBehaviour<Tilemap3DViewControllerRuntime>(tilemapGO);
 
 			Undo.RegisterCreatedObjectUndo(tilemapGO, "Create Tilemap");
@@ -56,10 +55,10 @@ namespace CodeSmile.ProTiler.Editor.Creation
 			Undo.CollapseUndoOperations(currentUndoGroup);
 			Undo.IncrementCurrentGroup();
 
-			return tilemapGO.GetComponent<Tilemap3DModelController>();
+			return tilemapGO.GetComponent<Tilemap3DModel>();
 		}
 
-		private static void DisableBehaviour<T>(GameObject tilemapGO) where T: MonoBehaviour
+		private static void DisableBehaviour<T>(GameObject tilemapGO) where T : MonoBehaviour
 		{
 			var behaviour = tilemapGO.GetComponent<T>();
 			if (behaviour != null)

@@ -35,14 +35,14 @@ namespace CodeSmile
 		protected virtual void OnInstanceCreated() {}
 
 #if UNITY_EDITOR
-		static ScriptableSingletonBase()
+		[ExcludeFromCodeCoverage] static ScriptableSingletonBase()
 		{
 			EditorApplication.delayCall += DelayedCall;
 			AssemblyReloadEvents.beforeAssemblyReload += OnBeforeAssemblyReload;
 		}
 
-		private static void DelayedCall() => GetOrCreateInstance(); // cannot CreateInstance from static ctor
-		private static void OnBeforeAssemblyReload()
+		[ExcludeFromCodeCoverage] private static void DelayedCall() => GetOrCreateInstance(); // cannot CreateInstance from static ctor
+		[ExcludeFromCodeCoverage] private static void OnBeforeAssemblyReload()
 		{
 			// prevent accumulating instances
 			if (IsCreated)
