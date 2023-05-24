@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace CodeSmile.ProTiler.Editor
 {
-	[SuppressMessage("NDepend", "ND1204:OverridesOfMethodShouldCallBaseMethod", Justification="not expected")]
+	/*[SuppressMessage("NDepend", "ND1204:OverridesOfMethodShouldCallBaseMethod", Justification="not expected")]
 	[CustomEditor(typeof(Grid3DController))]
 	public class Grid3DBehaviourEditor : OnSceneEventEditorBase
 	{
@@ -17,5 +17,5 @@ namespace CodeSmile.ProTiler.Editor
 		{
 			Debug.Log("grid mouse move");
 		}
-	}
+	}*/
 }

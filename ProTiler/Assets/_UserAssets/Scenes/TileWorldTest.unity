@@ -408,7 +408,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1203346774}
   - component: {fileID: 1203346780}
-  - component: {fileID: 1203346779}
   - component: {fileID: 1203346778}
   - component: {fileID: 1203346777}
   - component: {fileID: 1203346776}
@@ -466,7 +465,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1203346773}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5089f6d0eadd484783cbb009b1e89330, type: 3}
   m_Name: 
@@ -477,7 +476,7 @@ MonoBehaviour:
   m_CreateTilemap: 0
   m_FillChunkLayer: 0
   m_FillChunkLayersFromOrigin: 0
-  m_TileCount: 0
+  m_TileCount: 4
 --- !u!114 &1203346778
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -490,19 +489,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30075d68e0e145fc85fc5c4fcff62545, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1203346779
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1203346773}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b7646641b254185b89dbc062964dd2a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SerializedData: 1f8b080000000000000aedd7f7bb4f051c07f0f3b58a8caba8ec9dac1029ba64ef9b3d12b2335209959d3d2b6553d71ed75ea9ecac5034eca26997b24756afebfeec2fb8e7fd9cd7f9e1f39c5fcffb79de41541004f18220097105cf67dd703449c229e19cf4de3b12ff447c13718804c9484e0a1ee04152928a87484d1ad2928e28d2f3308f90818c3cca633c4e26329385ac64233b39c8492e729387bce4e309f2f324052848210a5384a7284a318af3342528c93394e2599ea33465789e68ca528e17284f052a5289ca54a12ad5a84e0d6a528bdac4f02275a84b3dead3808634a2314d68ca4b34e3659ad38296bc422b5ad386b6b4a33d1d78958e74a2335d788daebcce1bbc4937dea23b3de8c9dbbcc3bbf4a2377de84b3ffa3380f718c820063384a10c63382318c928463386f7f9800f19cb477ccc38c63381894c62325398ca343ee1536299ce0c66328bd9cc612ef398cf02e258c82216b384a52c63392b58c92a56f3196bf89c2ff892b5ac633d1bd8c82636f3155bd8ca36b6b383afd9c92e76f30ddfb287bd7cc7f7fcc08fec633f0738c8210e73849ff899a31ce3177ee5377ee70ffee4382738c9294e7386b3fcc5df9ce31ffee53c17b8c8252e7385ab5ce33a37f88f9bdce23677b81bc4fffc91b004c212084b202c81b004c21208c21248cc2510131d1bacb8cf4a0813264c624e580261c224f2842b215c0941b81212f34af81f046ba9db5b180000
 --- !u!114 &1203346780
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -515,6 +501,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4964a85d42504534b84cd67ea68893e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Serialization:
+    m_SerializedData: 1f8b080000000000000a8d8f410ac23010455fd31ec4038808aebbd29d0b0b8afbaa5d14db46625d7822d71ec41b7818ff5445410513fef0e7e765429c07c6783614cca929a9e4066404a58b471f943c7d4dceeea31f31a14fefaf59c62d3bb757e66948198a7be93ee920be550d625351857cab2e576e44a67e255fb266aad3a3def06ce59a8eb7fb154e3f344124cd2e27ce57c75b1c5b49f8b27e8691b6936229916e3f2cc01447010000
 --- !u!1 &1282295938
 GameObject:
   m_ObjectHideFlags: 0

@@ -37,27 +37,6 @@ namespace CodeSmile.Extensions
 		public static void DestroyInAnyMode(this Object self) => self.RuntimeDestroy();
 #endif
 
-		public static void UndoRecordObjectInEditor(this Object obj, string undoActionName)
-		{
-#if UNITY_EDITOR
-			if (EditorApplication.isPlaying == false)
-				Undo.RecordObject(obj, undoActionName);
-#endif
-		}
-
-		public static void UndoIncrementCurrentGroup(this Object obj)
-		{
-#if UNITY_EDITOR
-			Undo.IncrementCurrentGroup();
-#endif
-		}
-		public static void UndoSetCurrentGroupName(this Object obj, string name)
-		{
-#if UNITY_EDITOR
-			Undo.SetCurrentGroupName(name);
-#endif
-		}
-
 		public static T[] FindObjectsByTypeFast<T>(bool findInactive = false) where T : Object
 		{
 #if UNITY_2022_2_OR_NEWER

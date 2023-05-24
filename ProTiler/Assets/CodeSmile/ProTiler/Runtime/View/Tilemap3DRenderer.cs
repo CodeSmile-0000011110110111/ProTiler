@@ -1,9 +1,10 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
+using CodeSmile.ProTiler.Controller;
 using UnityEngine;
 
-namespace CodeSmile.ProTiler.Controller
+namespace CodeSmile.ProTiler.View
 {
 	[ExecuteAlways]
 	[RequireComponent(typeof(Tilemap3DModelController))]

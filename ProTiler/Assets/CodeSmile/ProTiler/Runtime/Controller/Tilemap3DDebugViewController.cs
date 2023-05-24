@@ -19,7 +19,7 @@ namespace CodeSmile.ProTiler.Controller
 	[ExecuteAlways]
 	[DisallowMultipleComponent]
 	[RequireComponent(typeof(Tilemap3DModelController))]
-	public sealed class Tilemap3DDebugBehaviour : MonoBehaviour
+	public sealed class Tilemap3DDebugViewController : MonoBehaviour
 	{
 		[SerializeField] private ChunkSize m_ChunkSize = new(8, 8);
 		[SerializeField] private ChunkCoord m_ActiveChunkCoord;
@@ -29,10 +29,11 @@ namespace CodeSmile.ProTiler.Controller
 		[SerializeField] private Boolean m_FillChunkLayersFromOrigin;
 		[SerializeField] [ReadOnlyField] private Int32 m_TileCount;
 
-		private Vector3 m_CurrentCursorCoord;
-		private Boolean m_IsCurrentCursorCoordValid;
+		private Grid3DCursor m_Cursor;
+		[Pure] private Grid3DController Grid => transform.parent.GetComponent<Grid3DController>();
 
-		public Tilemap3DModelController TilemapModelController => GetComponent<Tilemap3DModelController>();
+		[Pure] private Tilemap3DModelController TilemapModelController => GetComponent<Tilemap3DModelController>();
+		[Pure] private Tilemap3DViewController TilemapViewController => GetComponent<Tilemap3DViewController>();
 
 		[Pure] private static Tile3DCoord[] GetIncrementingIndexChunkTileCoords(ChunkCoord chunkCoord,
 			ChunkSize chunkSize, Int32 height)
@@ -54,11 +55,21 @@ namespace CodeSmile.ProTiler.Controller
 			return tileCoords;
 		}
 
-		private void Update() => UpdateTileCount();
+		[Pure] private void Update() => UpdateTileCount();
 
-		private void OnEnable() => UpdateTileCount();
+		[Pure] private void OnEnable()
+		{
+			UpdateTileCount();
+			TilemapViewController.OnCursorUpdate += OnCursorUpdate;
+		}
 
-		[Pure] private void OnDrawGizmosSelected() => DrawActiveChunkTileIndexes();
+		[Pure] private void OnDisable() => TilemapViewController.OnCursorUpdate -= OnCursorUpdate;
+
+		[Pure] private void OnDrawGizmosSelected()
+		{
+			DrawActiveChunkTileIndexes();
+			DrawCursor();
+		}
 
 		private void OnValidate()
 		{
@@ -85,7 +96,15 @@ namespace CodeSmile.ProTiler.Controller
 			UpdateTileCount();
 		}
 
-		private void CreateMap() => TilemapModelController.ClearTilemap(m_ChunkSize);
+		private void OnCursorUpdate(Grid3DCursor cursor) => m_Cursor = cursor;
+
+		[Pure] private void DrawCursor()
+		{
+			if (m_Cursor.IsValid)
+				Gizmos.DrawWireCube(m_Cursor.Position, Grid.CellSize);
+		}
+
+		[Pure] private void CreateMap() => TilemapModelController.ClearTilemap(m_ChunkSize);
 
 		private void UpdateTileCount()
 		{
@@ -127,9 +146,6 @@ namespace CodeSmile.ProTiler.Controller
 						Handles.Label(pos, $"{tileCoord.Tile.Index}: {pos}", labelStyle);
 				}
 			}
-
-			if (m_IsCurrentCursorCoordValid)
-				Gizmos.DrawWireCube(m_CurrentCursorCoord, cellSize);
 #endif
 		}
 
@@ -141,7 +157,7 @@ namespace CodeSmile.ProTiler.Controller
 			Debug.Log($"filled chunk {chunkCoord} layer {height} with {tileCoords.Length} tiles");
 		}
 
-		private void FillActiveLayerFromOrigin()
+		[Pure] private void FillActiveLayerFromOrigin()
 		{
 			var allTileCoords = new List<Tile3DCoord>();
 

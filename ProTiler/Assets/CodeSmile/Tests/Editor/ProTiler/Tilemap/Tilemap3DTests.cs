@@ -1,6 +1,7 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
+using CodeSmile.ProTiler;
 using CodeSmile.ProTiler.Tilemap;
 using CodeSmile.Tests.Editor.ProTiler.Utility;
 using NUnit.Framework;
@@ -64,9 +65,9 @@ namespace CodeSmile.Tests.Editor.ProTiler.Tilemap
 			var tileIndex = short.MaxValue;
 			tilemap.SetTiles(new Tile3DCoord[] { new(coord, new Tile3D(tileIndex)) });
 
-			var json = Tilemap3DSerialization.ToJson(tilemap);
+			var json = UnitySerialization.ToJson(tilemap);
 			Debug.Log(json);
-			var deserializedTilemap = Tilemap3DSerialization.FromJson(json);
+			var deserializedTilemap = UnitySerialization.FromJson<Tilemap3D>(json);
 			var tiles = deserializedTilemap.GetTiles(new[] { coord });
 
 			Assert.That(deserializedTilemap.ChunkSize, Is.EqualTo(tilemap.ChunkSize));

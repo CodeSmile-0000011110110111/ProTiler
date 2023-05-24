@@ -21,6 +21,7 @@ namespace CodeSmile.ProTiler.Editor
 		{
 			var currentMousePosition = Event.current.mousePosition;
 			var lastMousePosition = currentMousePosition - Event.current.delta;
+
 			var currentWorldRay = HandleUtility.GUIPointToWorldRay(currentMousePosition);
 			var lastWorldRay = HandleUtility.GUIPointToWorldRay(lastMousePosition);
 			Target.OnMouseMove(new MouseMoveEventData(currentWorldRay, lastWorldRay));

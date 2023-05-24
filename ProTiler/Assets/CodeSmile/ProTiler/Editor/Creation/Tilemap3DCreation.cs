@@ -5,6 +5,7 @@ using CodeSmile.Attributes;
 using CodeSmile.ProTiler.Controller;
 using CodeSmile.ProTiler.Grid;
 using CodeSmile.ProTiler.Tilemap;
+using CodeSmile.ProTiler.View;
 using System;
 using UnityEditor;
 using UnityEngine;
@@ -22,9 +23,8 @@ namespace CodeSmile.ProTiler.Editor.Creation
 		private static readonly Type[] s_TilemapComponents =
 		{
 			typeof(Tilemap3DModelController),
-			typeof(Tilemap3DModelSerialization),
 			typeof(Tilemap3DRenderer),
-			typeof(Tilemap3DDebugBehaviour),
+			typeof(Tilemap3DDebugViewController),
 			typeof(Tilemap3DViewController),
 			typeof(Tilemap3DViewControllerRuntime),
 		};
@@ -42,7 +42,7 @@ namespace CodeSmile.ProTiler.Editor.Creation
 			var uniqueName = GameObjectUtility.GetUniqueNameForSibling(root.transform, "Tilemap3D");
 			var tilemapGO = ObjectFactory.CreateGameObject(uniqueName, s_TilemapComponents);
 
-			DisableBehaviour<Tilemap3DDebugBehaviour>(tilemapGO);
+			DisableBehaviour<Tilemap3DDebugViewController>(tilemapGO);
 			DisableBehaviour<Tilemap3DViewControllerRuntime>(tilemapGO);
 
 			Undo.RegisterCreatedObjectUndo(tilemapGO, "Create Tilemap");
