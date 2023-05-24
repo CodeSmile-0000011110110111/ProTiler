@@ -1,4 +1,18 @@
-﻿{
-  "name": "_Tests.Editor",
-  "references":[ "GUID:d42cd92badf37dd40902b9c06cc2bb8c" ]
+{
+    "name": "_Tests.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:d42cd92badf37dd40902b9c06cc2bb8c"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }
