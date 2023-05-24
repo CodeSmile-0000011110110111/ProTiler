@@ -8,5 +8,7 @@ namespace CodeSmile.ProTiler.Controller
 	public interface ITilemap3DViewController
 	{
 		public void OnMouseMove(MouseMoveEventData eventData);
+		void DisableCursor();
+		void EnableCursor();
 	}
 }

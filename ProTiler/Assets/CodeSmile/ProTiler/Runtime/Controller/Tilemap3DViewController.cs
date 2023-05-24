@@ -19,16 +19,23 @@ namespace CodeSmile.ProTiler.Controller
 		private Grid3DCursor m_Cursor;
 
 		[Pure] private Tilemap3DModelController TilemapModelController => GetComponent<Tilemap3DModelController>();
-		[Pure] private Grid3DController Grid => transform.parent.GetComponent<Grid3DController>();
+		[Pure] private Grid3DController Grid => TilemapModelController.Grid;
 
 		[Pure] public void OnMouseMove(MouseMoveEventData eventData)
 		{
-			var cursor = new Grid3DCursor(eventData.CurrentWorldRay, eventData.LastWorldRay, Grid.CellSize);
-			if (cursor.Equals(m_Cursor) == false)
-			{
-				m_Cursor = cursor;
-				OnCursorUpdate?.Invoke(m_Cursor);
-			}
+			var cursor = new Grid3DCursor(eventData.WorldRay, Grid.CellSize);
+			if (cursor != m_Cursor)
+				UpdateCursor(cursor);
+		}
+
+		[Pure] public void DisableCursor() => UpdateCursor(new Grid3DCursor());
+
+		[Pure] public void EnableCursor() {}
+
+		private void UpdateCursor(in Grid3DCursor cursor)
+		{
+			m_Cursor = cursor;
+			OnCursorUpdate?.Invoke(m_Cursor);
 		}
 	}
 }

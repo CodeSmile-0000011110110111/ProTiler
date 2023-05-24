@@ -30,8 +30,7 @@ namespace CodeSmile.ProTiler.Controller
 		[SerializeField] [ReadOnlyField] private Int32 m_TileCount;
 
 		private Grid3DCursor m_Cursor;
-		[Pure] private Grid3DController Grid => transform.parent.GetComponent<Grid3DController>();
-
+		//[Pure] private Grid3DController Grid => TilemapModelController.GetComponent<Grid3DController>();
 		[Pure] private Tilemap3DModelController TilemapModelController => GetComponent<Tilemap3DModelController>();
 		[Pure] private Tilemap3DViewController TilemapViewController => GetComponent<Tilemap3DViewController>();
 
@@ -101,7 +100,7 @@ namespace CodeSmile.ProTiler.Controller
 		[Pure] private void DrawCursor()
 		{
 			if (m_Cursor.IsValid)
-				Gizmos.DrawWireCube(m_Cursor.Position, Grid.CellSize);
+				Gizmos.DrawWireCube(m_Cursor.Position, m_Cursor.CellSize);
 		}
 
 		[Pure] private void CreateMap() => TilemapModelController.ClearTilemap(m_ChunkSize);

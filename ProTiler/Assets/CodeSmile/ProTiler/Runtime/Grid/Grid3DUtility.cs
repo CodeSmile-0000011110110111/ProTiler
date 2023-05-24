@@ -16,6 +16,16 @@ namespace CodeSmile.ProTiler.Grid
 	internal static class Grid3DUtility
 	{
 		/// <summary>
+		/// Converts grid coord to world position.
+		/// </summary>
+		/// <param name="coord"></param>
+		/// <param name="cellSize"></param>
+		/// <returns></returns>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static WorldPos ToWorldPos(GridCoord coord, CellSize cellSize) =>
+			new WorldPos(coord.x * cellSize.x, coord.y * cellSize.y, coord.z * cellSize.z) + cellSize * .5f;
+
+		/// <summary>
 		///     Converts x/z coordinate to a 2D array index.
 		/// </summary>
 		/// <param name="x"></param>
@@ -53,6 +63,7 @@ namespace CodeSmile.ProTiler.Grid
 		/// <param name="worldPosition"></param>
 		/// <param name="cellSize"></param>
 		/// <returns></returns>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		[Pure] internal static GridCoord ToCoord(WorldPos worldPosition, CellSize cellSize) => new(
 			Math.FloorToInt(worldPosition.x * (1f / cellSize.x)),
 			Math.FloorToInt(worldPosition.y * (1f / cellSize.y)),

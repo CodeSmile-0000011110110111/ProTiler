@@ -7,13 +7,8 @@ namespace CodeSmile.ProTiler.Events
 {
 	public struct MouseMoveEventData
 	{
-		public Ray CurrentWorldRay { get; }
-		public Ray LastWorldRay { get; }
+		public Ray WorldRay { get; }
 
-		public MouseMoveEventData(Ray currentWorldRay, Ray lastWorldRay)
-		{
-			CurrentWorldRay = currentWorldRay;
-			LastWorldRay = lastWorldRay;
-		}
+		public MouseMoveEventData(Ray worldRay) => WorldRay = worldRay;
 	}
 }

@@ -19,12 +19,19 @@ namespace CodeSmile.ProTiler.Editor
 
 		protected override void OnMouseMove(Event evt)
 		{
-			var currentMousePosition = Event.current.mousePosition;
-			var lastMousePosition = currentMousePosition - Event.current.delta;
-
-			var currentWorldRay = HandleUtility.GUIPointToWorldRay(currentMousePosition);
-			var lastWorldRay = HandleUtility.GUIPointToWorldRay(lastMousePosition);
-			Target.OnMouseMove(new MouseMoveEventData(currentWorldRay, lastWorldRay));
+			var worldRay = HandleUtility.GUIPointToWorldRay(Event.current.mousePosition);
+			Target.OnMouseMove(new MouseMoveEventData(worldRay));
 		}
+
+		protected override void OnMouseEnterWindow(Event evt)
+		{
+			Target.EnableCursor();
+		}
+
+		protected override void OnMouseLeaveWindow(Event evt)
+		{
+			Target.DisableCursor();
+		}
+
 	}
 }
