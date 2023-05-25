@@ -15,6 +15,8 @@ namespace CodeSmile.ProTiler.Grid
 	[RequireComponent(typeof(Transform))]
 	public class Grid3DController : MonoBehaviour
 	{
+		[SerializeField] private Grid3D m_Grid;
+
 		[SerializeField] private CellSize m_CellSize = new(1f, 1f, 1f);
 		[SerializeField] private CellGap m_CellGap;
 		[SerializeField] private CellLayout m_CellLayout;

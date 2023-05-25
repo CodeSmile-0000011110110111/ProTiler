@@ -4,7 +4,6 @@
 using CodeSmile.Attributes;
 using CodeSmile.Collections;
 using System;
-using System.Diagnostics.CodeAnalysis;
 using System.Diagnostics.Contracts;
 using UnityEngine;
 
@@ -24,10 +23,7 @@ namespace CodeSmile.ProTiler.Assets
 			get
 			{
 				if (m_MissingTileAsset == null)
-				{
-					LoadMissingTileAsset();
-					SetMissingTileAsDefault();
-				}
+					LoadMissingTileAssetAndSetAsDefault();
 				return m_MissingTileAsset;
 			}
 		}
@@ -36,7 +32,7 @@ namespace CodeSmile.ProTiler.Assets
 			get
 			{
 				if (m_EmptyTileAsset == null)
-					LoadEmptyTileAsset();
+					m_EmptyTileAsset = LoadEmptyTileAsset();
 				return m_EmptyTileAsset;
 			}
 		}
@@ -50,28 +46,25 @@ namespace CodeSmile.ProTiler.Assets
 			return prefab;
 		}
 
+		internal static Tile3DAsset LoadMissingTileAsset() => LoadTile3DAssetResource(Paths.ResourcesMissingTileAsset);
+
+		internal static Tile3DAsset LoadEmptyTileAsset() => LoadTile3DAssetResource(Paths.ResourcesEmptyTileAsset);
+
 		[Pure] public Tile3DAssetBaseSet()
 			: base(null, 1) {}
 
 		[Pure] public void Init()
 		{
-			LoadEmptyTileAsset();
-			LoadMissingTileAsset();
-			SetMissingTileAsDefault();
+			m_EmptyTileAsset = LoadEmptyTileAsset();
+			LoadMissingTileAssetAndSetAsDefault();
 		}
 
-		internal void LoadMissingTileAsset() =>
-			m_MissingTileAsset = LoadTile3DAssetResource(Paths.ResourcesMissingTileAsset);
+		[Pure] internal void SetAsDefault(Tile3DAssetBase tileAsset) => DefaultObject = tileAsset;
 
-		internal void LoadEmptyTileAsset() => m_EmptyTileAsset = LoadTile3DAssetResource(Paths.ResourcesEmptyTileAsset);
-
-		[Pure] internal void SetMissingTileAsDefault() => DefaultObject = MissingTileAsset;
-
-		[ExcludeFromCodeCoverage]
 		[Pure] internal void LoadMissingTileAssetAndSetAsDefault()
 		{
-			LoadMissingTileAsset();
-			SetMissingTileAsDefault();
+			m_MissingTileAsset = LoadMissingTileAsset();
+			SetAsDefault(m_MissingTileAsset);
 		}
 	}
 }

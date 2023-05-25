@@ -23,7 +23,7 @@ namespace CodeSmile.ProTiler.Editor.Creation
 		{
 			typeof(Tilemap3DModel),
 			typeof(Tilemap3DRenderer),
-			typeof(Tilemap3DDebugController),
+			typeof(Tilemap3DDebug),
 			typeof(Tilemap3DViewController),
 			typeof(Tilemap3DViewControllerRuntime),
 		};
@@ -81,7 +81,7 @@ namespace CodeSmile.ProTiler.Editor.Creation
 			if (gridGO == null)
 			{
 				gridGO = ObjectFactory.CreateGameObject("Grid3D", typeof(Grid3DController),
-					typeof(Tile3DAssetController));
+					typeof(Tile3DAssetSet));
 				Undo.RegisterCreatedObjectUndo(gridGO, "Create 3D Grid");
 			}
 

@@ -6,6 +6,7 @@ using CodeSmile.ProTiler.Assets;
 using CodeSmile.ProTiler.Controller;
 using CodeSmile.ProTiler.Editor.Creation;
 using CodeSmile.ProTiler.Grid;
+using CodeSmile.ProTiler.Rendering;
 using CodeSmile.Tests.Tools.Attributes;
 using NUnit.Framework;
 
@@ -13,10 +14,10 @@ namespace CodeSmile.Tests.Editor.ProTiler.Grid
 {
 	public class Tile3DSetBehaviourTests
 	{
-		[Test] [CreateEmptyScene] [CreateGameObject(nameof(Tile3DAssetController), typeof(Tile3DAssetController))]
+		[Test] [CreateEmptyScene] [CreateGameObject(nameof(Tile3DAssetSet), typeof(Tile3DAssetSet))]
 		public void AddAndContainsTileAsset()
 		{
-			var tileSet = ObjectExt.FindObjectByTypeFast<Tile3DAssetController>();
+			var tileSet = ObjectExt.FindObjectByTypeFast<Tile3DAssetSet>();
 			var tileAsset = Tile3DAssetCreation.CreateInstance<Tile3DAsset>();
 
 			tileSet.Add(tileAsset);
@@ -24,10 +25,10 @@ namespace CodeSmile.Tests.Editor.ProTiler.Grid
 			Assert.That(tileSet.Contains(tileAsset));
 		}
 
-		[Test] [CreateEmptyScene] [CreateGameObject(nameof(Tile3DAssetController), typeof(Tile3DAssetController))]
+		[Test] [CreateEmptyScene] [CreateGameObject(nameof(Tile3DAssetSet), typeof(Tile3DAssetSet))]
 		public void AddTileAssetWithIndex()
 		{
-			var tileSet = ObjectExt.FindObjectByTypeFast<Tile3DAssetController>();
+			var tileSet = ObjectExt.FindObjectByTypeFast<Tile3DAssetSet>();
 			var tileAsset = Tile3DAssetCreation.CreateInstance<Tile3DAsset>();
 
 			tileSet.Add(tileAsset, out var index);
@@ -36,10 +37,10 @@ namespace CodeSmile.Tests.Editor.ProTiler.Grid
 			Assert.That(tileSet.Contains(tileAsset));
 		}
 
-		[Test] [CreateEmptyScene] [CreateGameObject(nameof(Tile3DAssetController), typeof(Tile3DAssetController))]
+		[Test] [CreateEmptyScene] [CreateGameObject(nameof(Tile3DAssetSet), typeof(Tile3DAssetSet))]
 		public void RemoveAndDoesNotContainTileAsset()
 		{
-			var tileSet = ObjectExt.FindObjectByTypeFast<Tile3DAssetController>();
+			var tileSet = ObjectExt.FindObjectByTypeFast<Tile3DAssetSet>();
 			var tileAsset = Tile3DAssetCreation.CreateInstance<Tile3DAsset>();
 
 			tileSet.Add(tileAsset);
