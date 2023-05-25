@@ -4,7 +4,7 @@
 using CodeSmile.Attributes;
 using CodeSmile.Extensions;
 using CodeSmile.ProTiler.Grid;
-using CodeSmile.ProTiler.Tilemap;
+using CodeSmile.ProTiler.Model;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -36,6 +36,13 @@ namespace CodeSmile.ProTiler.Controller
 		[Pure] private Tilemap3DModel TilemapModel => GetComponent<Tilemap3DModel>();
 		[Pure] private Tilemap3DViewController TilemapViewController => GetComponent<Tilemap3DViewController>();
 		[Pure] private Grid3DController Grid => TilemapViewController.Grid;
+
+		[Pure] private void Awake()
+		{
+#if !UNITY_EDITOR
+			Destroy(this);
+#endif
+		}
 
 		[Pure] private void Update()
 		{

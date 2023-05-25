@@ -3,8 +3,8 @@
 
 using CodeSmile.Attributes;
 using CodeSmile.ProTiler.Grid;
+using CodeSmile.ProTiler.Model;
 using CodeSmile.ProTiler.Serialization;
-using CodeSmile.ProTiler.Tilemap;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;

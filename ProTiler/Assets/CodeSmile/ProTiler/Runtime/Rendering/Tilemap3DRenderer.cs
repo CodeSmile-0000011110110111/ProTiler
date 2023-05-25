@@ -4,7 +4,7 @@
 using CodeSmile.ProTiler.Controller;
 using UnityEngine;
 
-namespace CodeSmile.ProTiler.View
+namespace CodeSmile.ProTiler.Rendering
 {
 	[ExecuteAlways]
 	[RequireComponent(typeof(Tilemap3DModel))]

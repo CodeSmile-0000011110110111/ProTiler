@@ -11,7 +11,7 @@ using ChunkSize = UnityEngine.Vector2Int;
 using LayerCoord = UnityEngine.Vector3Int;
 using Math = UnityEngine.Mathf;
 
-namespace CodeSmile.ProTiler.Tilemap
+namespace CodeSmile.ProTiler.Model
 {
 	[FullCovered]
 	internal static class Tilemap3DUtility

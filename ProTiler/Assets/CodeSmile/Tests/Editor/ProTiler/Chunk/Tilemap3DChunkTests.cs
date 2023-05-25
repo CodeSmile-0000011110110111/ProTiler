@@ -2,7 +2,7 @@
 // Refer to included LICENSE file for terms and conditions.
 
 using CodeSmile.ProTiler.Grid;
-using CodeSmile.ProTiler.Tilemap;
+using CodeSmile.ProTiler.Model;
 using CodeSmile.Tests.Editor.ProTiler.Utility;
 using NUnit.Framework;
 using System.Collections.Generic;

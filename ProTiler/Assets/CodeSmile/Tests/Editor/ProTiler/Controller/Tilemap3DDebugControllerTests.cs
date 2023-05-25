@@ -3,10 +3,9 @@
 
 using NUnit.Framework;
 using System.Collections;
-using UnityEditor;
 using UnityEngine.TestTools;
 
-namespace CodeSmile.Tests.Editor.ProTiler.Tilemap
+namespace CodeSmile.Tests.Editor.ProTiler.Controller
 {
 	public class Tilemap3DDebugControllerTests
 	{

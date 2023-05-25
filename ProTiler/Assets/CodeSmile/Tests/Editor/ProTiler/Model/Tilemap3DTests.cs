@@ -1,9 +1,8 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
-using CodeSmile.ProTiler;
+using CodeSmile.ProTiler.Model;
 using CodeSmile.ProTiler.Serialization;
-using CodeSmile.ProTiler.Tilemap;
 using CodeSmile.Tests.Editor.ProTiler.Utility;
 using NUnit.Framework;
 using System.Collections.Generic;
@@ -13,7 +12,7 @@ using UnityEngine;
 using ChunkSize = UnityEngine.Vector2Int;
 using GridCoord = UnityEngine.Vector3Int;
 
-namespace CodeSmile.Tests.Editor.ProTiler.Tilemap
+namespace CodeSmile.Tests.Editor.ProTiler.Model
 {
 	public class Tilemap3DTests
 	{

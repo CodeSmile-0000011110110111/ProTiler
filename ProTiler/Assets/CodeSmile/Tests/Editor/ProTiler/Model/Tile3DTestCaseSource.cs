@@ -1,10 +1,10 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
-using CodeSmile.ProTiler.Tilemap;
+using CodeSmile.ProTiler.Model;
 using UnityEngine;
 
-namespace CodeSmile.Tests.Editor.ProTiler.Tilemap
+namespace CodeSmile.Tests.Editor.ProTiler.Model
 {
 	public class Tile3DTestCaseSource
 	{

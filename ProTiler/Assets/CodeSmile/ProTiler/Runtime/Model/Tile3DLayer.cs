@@ -11,7 +11,7 @@ using System.Runtime.InteropServices;
 using Unity.Properties;
 using LayerSize = UnityEngine.Vector2Int;
 
-namespace CodeSmile.ProTiler.Tilemap
+namespace CodeSmile.ProTiler.Model
 {
 	/// <summary>
 	///     Represents a single, flat layer of tiles. Essentially a 2D array.

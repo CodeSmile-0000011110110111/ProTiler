@@ -4,7 +4,7 @@
 using CodeSmile.Attributes;
 using CodeSmile.ProTiler.Controller;
 using CodeSmile.ProTiler.Grid;
-using CodeSmile.ProTiler.View;
+using CodeSmile.ProTiler.Rendering;
 using System;
 using UnityEditor;
 using UnityEngine;
@@ -41,8 +41,8 @@ namespace CodeSmile.ProTiler.Editor.Creation
 			var uniqueName = GameObjectUtility.GetUniqueNameForSibling(root.transform, "Tilemap3D");
 			var tilemapGO = ObjectFactory.CreateGameObject(uniqueName, s_TilemapComponents);
 
-			DisableBehaviour<Tilemap3DDebugController>(tilemapGO);
-			DisableBehaviour<Tilemap3DViewControllerRuntime>(tilemapGO);
+			//DisableBehaviour<Tilemap3DDebugController>(tilemapGO);
+			//DisableBehaviour<Tilemap3DViewControllerRuntime>(tilemapGO);
 
 			Undo.RegisterCreatedObjectUndo(tilemapGO, "Create Tilemap");
 			Undo.SetTransformParent(tilemapGO.transform, root.transform, "");

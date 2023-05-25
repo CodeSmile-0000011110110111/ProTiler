@@ -2,10 +2,12 @@
 // Refer to included LICENSE file for terms and conditions.
 
 using CodeSmile.ProTiler.Events;
+using System.Diagnostics.CodeAnalysis;
 using UnityEngine;
 
 namespace CodeSmile.ProTiler.Controller
 {
+	[ExcludeFromCodeCoverage] // the UI is a detail
 	[DisallowMultipleComponent]
 	[RequireComponent(typeof(Tilemap3DViewController))]
 	public sealed class Tilemap3DViewControllerRuntime : MonoBehaviour

@@ -15,7 +15,7 @@ using ChunkCoord = UnityEngine.Vector2Int;
 using ChunkSize = UnityEngine.Vector2Int;
 using GridCoord = UnityEngine.Vector3Int;
 
-namespace CodeSmile.ProTiler.Tilemap
+namespace CodeSmile.ProTiler.Model
 {
 	/// <summary>
 	///     A chunk is one part of a larger tilemap at a given position offset.

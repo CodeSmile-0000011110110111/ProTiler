@@ -8,10 +8,9 @@ using CodeSmile.ProTiler.Grid;
 using CodeSmile.Tests.Tools.Attributes;
 using NUnit.Framework;
 using UnityEngine;
-using GridCoord = UnityEngine.Vector3Int;
 using CellSize = UnityEngine.Vector3;
 
-namespace CodeSmile.Tests.Editor.ProTiler.Tilemap
+namespace CodeSmile.Tests.Editor.ProTiler.Controller
 {
 	public class Tilemap3DViewControllerTests
 	{
@@ -26,7 +25,7 @@ namespace CodeSmile.Tests.Editor.ProTiler.Tilemap
 
 			var didRaise = false;
 			controller.OnCursorUpdate += cursor => { didRaise = true; };
-			controller.OnMouseMove(new MouseMoveEventData(new Ray(Vector3.one, Vector3.down)));
+			controller.OnMouseMove(new MouseMoveEventData(new Ray(CellSize.one, CellSize.down)));
 
 			Assert.That(didRaise);
 		}
@@ -77,7 +76,7 @@ namespace CodeSmile.Tests.Editor.ProTiler.Tilemap
 			var controller = GetTilemap3DViewController();
 
 			var cursor = new Grid3DCursor();
-			controller.OnCursorUpdate += c => { cursor=c; };
+			controller.OnCursorUpdate += c => { cursor = c; };
 			controller.OnMouseMove(new MouseMoveEventData(new Ray(Vector3.one, Vector3.down)));
 			controller.DisableCursor();
 
@@ -90,7 +89,7 @@ namespace CodeSmile.Tests.Editor.ProTiler.Tilemap
 			var controller = GetTilemap3DViewController();
 
 			var raiseCount = 0;
-			controller.OnCursorUpdate += c => {raiseCount++; };
+			controller.OnCursorUpdate += c => { raiseCount++; };
 			controller.DisableCursor();
 			controller.OnMouseMove(new MouseMoveEventData(new Ray(Vector3.one, Vector3.down)));
 
@@ -104,7 +103,7 @@ namespace CodeSmile.Tests.Editor.ProTiler.Tilemap
 
 			var origin = new Vector3(1.9f, 0f, 3.4f);
 			var cursor = new Grid3DCursor();
-			controller.OnCursorUpdate += c => { cursor=c; };
+			controller.OnCursorUpdate += c => { cursor = c; };
 			controller.DisableCursor();
 			controller.OnMouseMove(new MouseMoveEventData(new Ray(origin, Vector3.down)));
 			controller.EnableCursor();
@@ -112,6 +111,5 @@ namespace CodeSmile.Tests.Editor.ProTiler.Tilemap
 			Assert.That(cursor.IsValid);
 			Assert.That(cursor.Coord, Is.EqualTo(Grid3DUtility.ToCoord(origin, CellSize.one)));
 		}
-
 	}
 }
