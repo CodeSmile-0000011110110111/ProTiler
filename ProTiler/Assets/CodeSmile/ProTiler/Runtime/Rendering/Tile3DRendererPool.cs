@@ -59,8 +59,11 @@ namespace CodeSmile.ProTiler.Rendering
 
 		private void DestroyRendererFolder()
 		{
-			RendererFolder.DestroyInAnyMode();
-			m_RendererFolder = null;
+			if (m_RendererFolder != null)
+			{
+				m_RendererFolder.DestroyInAnyMode();
+				m_RendererFolder = null;
+			}
 		}
 
 		internal void UpdateModifiedTiles(IEnumerable<Tile3DCoord> tileCoords, CellSize cellSize,
@@ -96,10 +99,17 @@ namespace CodeSmile.ProTiler.Rendering
 		{
 			var go = Object.Instantiate(m_RendererTemplate, worldPosition, Quaternion.identity, RendererFolder);
 			go.hideFlags = HideFlags.DontSave;
-			Debug.Log($"Created: {go} in {RendererFolder} at pos {worldPosition}");
+			//Debug.Log($"Created: {go} in {RendererFolder} at pos {worldPosition}");
 			return go.GetComponent<Tile3DRenderer>();
 		}
 
 		private sealed class TileRenderers : Dictionary<GridCoord, Tile3DRenderer> {}
+
+		public void Clear()
+		{
+			m_ActiveRenderers.Clear();
+			//m_RendererPool.Clear();
+			RendererFolder.DestroyAllChildren();
+		}
 	}
 }

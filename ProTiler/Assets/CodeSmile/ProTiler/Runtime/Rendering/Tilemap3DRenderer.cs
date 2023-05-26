@@ -90,7 +90,7 @@ namespace CodeSmile.ProTiler.Rendering
 			TilemapModel.OnTilemapModified -= OnTilemapModified;
 		}
 
-		private void OnTilemapCleared() => CreateTileRendererPool();
+		private void OnTilemapCleared() => m_TileRendererPool.Clear();
 
 		private void OnTilemapModified(IEnumerable<Tile3DCoord> tileCoords) =>
 			m_TileRendererPool.UpdateModifiedTiles(tileCoords, TilemapModel.Grid.CellSize, TileAssetSet);
