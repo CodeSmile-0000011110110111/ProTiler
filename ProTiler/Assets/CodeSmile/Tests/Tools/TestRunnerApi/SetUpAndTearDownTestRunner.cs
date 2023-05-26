@@ -55,8 +55,14 @@ namespace CodeSmile.Tests.Tools.TestRunnerApi
 			/// </summary>
 			private static void ClearUndoRedoStack() => Undo.ClearAll();
 
-			private static void CloseActiveScene() =>
-				EditorSceneManager.CloseScene(SceneManager.GetActiveScene(), false);
+			private static void CloseActiveScene()
+			{
+				// make sure tests aren't influence by currently open scenes ...
+				if (Application.isPlaying)
+					SceneManager.LoadScene(TestNames.EmptyTestScene);
+				else
+					EditorSceneManager.CloseScene(SceneManager.GetActiveScene(), false);
+			}
 
 			/// <summary>
 			///     TestRunner, if interrupted, sometimes leaves "InitTestScene*.unity" scenes at the Assets root.
@@ -82,8 +88,7 @@ namespace CodeSmile.Tests.Tools.TestRunnerApi
 
 			public void RunStarted(ITestAdaptor testsToRun)
 			{
-				if (EditorApplication.isPlaying == false)
-					CloseActiveScene();
+				CloseActiveScene();
 				DeleteTestRunnerLeftOverTempScenes();
 				DeleteTempTestAssetsDirectoryAndContents();
 				SynchronizeAssetDatabase();

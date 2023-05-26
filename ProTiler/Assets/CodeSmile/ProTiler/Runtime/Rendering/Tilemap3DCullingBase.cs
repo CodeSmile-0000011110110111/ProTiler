@@ -6,7 +6,7 @@ using GridCoord = UnityEngine.Vector3Int;
 
 namespace CodeSmile.ProTiler.Rendering
 {
-	public abstract class Tilemap3DFrustumCullingBase : ITilemap3DFrustumCulling
+	public abstract class Tilemap3DCullingBase : ITilemap3DFrustumCulling
 	{
 		public abstract IEnumerable<GridCoord> GetVisibleCoords();
 	}

@@ -2,9 +2,9 @@
 // Refer to included LICENSE file for terms and conditions.
 
 using CodeSmile.Attributes;
-using System.Diagnostics.CodeAnalysis;
-using UnityEditor;
+using System;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace CodeSmile.Extensions
 {
@@ -18,16 +18,22 @@ namespace CodeSmile.Extensions
 		/// </summary>
 		/// <param name="obj"></param>
 		/// <returns>true if this is a valid object, false if the object is in the 'missing' state</returns>
-		public static bool IsMissing(this Object obj) => ReferenceEquals(obj, null);
+		public static Boolean IsMissing(this Object obj) => ReferenceEquals(obj, null);
 
 		/// <summary>
-		///     Destroys the object safely, regardless of mode.
-		///     Depending on the mode (editor vs playmode/player) it calls either DestroyImmediate or Destroy.
+		///     Destroys the object safely, regardless of Edit or Play mode.
+		///     Depending on the mode it calls either DestroyImmediate or Destroy.
+		///     If used on a Transform object, it will transparently use Transform's gameObject
+		///     since it is assumed that the intention is to destroy the GameObject,
+		///     not the Transform (which isn't allowed).
 		/// </summary>
 		/// <param name="self"></param>
 #if UNITY_EDITOR
 		public static void DestroyInAnyMode(this Object self)
 		{
+			if (self is Transform t)
+				self = t.gameObject;
+
 			if (Application.isPlaying == false)
 				self.EditorDestroy();
 			else
@@ -37,7 +43,7 @@ namespace CodeSmile.Extensions
 		public static void DestroyInAnyMode(this Object self) => self.RuntimeDestroy();
 #endif
 
-		public static T[] FindObjectsByTypeFast<T>(bool findInactive = false) where T : Object
+		public static T[] FindObjectsByTypeFast<T>(Boolean findInactive = false) where T : Object
 		{
 #if UNITY_2022_2_OR_NEWER
 			return Object.FindObjectsByType<T>(
@@ -47,7 +53,7 @@ namespace CodeSmile.Extensions
 #endif
 		}
 
-		public static T FindObjectByTypeFast<T>(bool findInactive = false) where T : Object
+		public static T FindObjectByTypeFast<T>(Boolean findInactive = false) where T : Object
 		{
 			var objects = FindObjectsByTypeFast<T>(findInactive);
 			if (objects.Length > 0)

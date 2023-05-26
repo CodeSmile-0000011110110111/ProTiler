@@ -45,16 +45,20 @@ namespace CodeSmile.ProTiler.Controller
 
 		private void OnDisable() => UnregisterEditorSceneEvents();
 
-		[Pure] internal void ClearTilemap(ChunkSize chunkSize)
+		[Pure] public void ClearTilemap() => ClearTilemap(m_Tilemap.ChunkSize);
+
+		[Pure] public void ClearTilemap(ChunkSize chunkSize)
 		{
 			StartRecordUndo("Clear Tilemap", nameof(ClearTilemap));
 			ClearTilemapNoUndo(ClampChunkSize(chunkSize));
-			OnTilemapCleared?.Invoke();
-			OnTilemapModified?.Invoke(new Tile3DCoord[0]);
 			EndRecordUndo();
 		}
 
-		public void ClearTilemapNoUndo(ChunkSize chunkSize) => m_Tilemap = new Tilemap3D(chunkSize);
+		public void ClearTilemapNoUndo(ChunkSize chunkSize)
+		{
+			m_Tilemap = new Tilemap3D(chunkSize);
+			OnTilemapCleared?.Invoke();
+		}
 
 		[Pure] internal Int32 GetLayerCount(ChunkCoord chunkCoord) => m_Tilemap.GetLayerCount(chunkCoord);
 		[Pure] public Tile3D GetTile(GridCoord coord) => GetTiles(new[] { coord }).FirstOrDefault().Tile;
@@ -65,11 +69,14 @@ namespace CodeSmile.ProTiler.Controller
 		{
 			StartRecordUndo(tileCoords.Count() > 1 ? "Set Tiles" : "Set Tile", nameof(SetTiles));
 			SetTilesNoUndo(tileCoords);
-			OnTilemapModified?.Invoke(tileCoords);
 			EndRecordUndo();
 		}
 
-		[Pure] public void SetTilesNoUndo(IEnumerable<Tile3DCoord> tileCoords) => m_Tilemap.SetTiles(tileCoords);
+		[Pure] public void SetTilesNoUndo(IEnumerable<Tile3DCoord> tileCoords)
+		{
+			m_Tilemap.SetTiles(tileCoords);
+			OnTilemapModified?.Invoke(tileCoords);
+		}
 
 		[Pure] private void SerializeTilemap() => m_SerializedTilemap = m_Serializer.SerializeTilemap(m_Tilemap);
 		private void DeserializeTilemap() => m_Tilemap = m_Serializer.DeserializeTilemap(m_SerializedTilemap);

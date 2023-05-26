@@ -44,7 +44,7 @@ namespace CodeSmile.ProTiler.Rendering
 
 				var tileAsset = AssetDatabase.LoadAssetAtPath<Tile3DAssetBase>(tileAssetPath);
 				Add(tileAsset, out var tileIndex);
-				Debug.Log($"  [{tileIndex}] = '{tileAssetPath}'");
+				//Debug.Log($"  [{tileIndex}] = '{tileAssetPath}'");
 			}
 			#endif
 		}

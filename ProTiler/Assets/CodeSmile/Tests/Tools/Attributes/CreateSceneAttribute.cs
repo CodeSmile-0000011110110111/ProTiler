@@ -5,6 +5,7 @@ using CodeSmile.Attributes;
 using CodeSmile.Extensions;
 using NUnit.Framework;
 using NUnit.Framework.Interfaces;
+using System;
 using System.Collections;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
@@ -20,21 +21,28 @@ namespace CodeSmile.Tests.Tools.Attributes
 	public abstract class CreateSceneAttribute : NUnitAttribute, IOuterUnityTestAction
 	{
 		private readonly NewSceneSetup m_Setup;
-		private string m_ScenePath;
+		private String m_ScenePath;
 
-		private static bool IsObjectNamedLikeADefaultObject(GameObject rootGameObject) =>
+		private static Boolean IsObjectNamedLikeADefaultObject(GameObject rootGameObject) =>
 			rootGameObject.name == "Main Camera" || rootGameObject.name == "Directional Light";
 
-		protected CreateSceneAttribute(string scenePath = null, NewSceneSetup setup = NewSceneSetup.EmptyScene)
+		protected CreateSceneAttribute(String scenePath = null, NewSceneSetup setup = NewSceneSetup.EmptyScene)
 		{
 			m_Setup = setup;
 			SetupAndVerifyScenePath(scenePath);
 		}
 
-		[ExcludeFromCodeCoverage] IEnumerator IOuterUnityTestAction.BeforeTest(ITest test) { yield return OnBeforeTest(); }
-		[ExcludeFromCodeCoverage] IEnumerator IOuterUnityTestAction.AfterTest(ITest test) { yield return OnAfterTest(); }
+		[ExcludeFromCodeCoverage] IEnumerator IOuterUnityTestAction.BeforeTest(ITest test)
+		{
+			yield return OnBeforeTest();
+		}
 
-		private object OnBeforeTest()
+		[ExcludeFromCodeCoverage] IEnumerator IOuterUnityTestAction.AfterTest(ITest test)
+		{
+			yield return OnAfterTest();
+		}
+
+		private IEnumerator OnBeforeTest()
 		{
 			if (Application.isPlaying)
 				RuntimeLoadScene();
@@ -44,9 +52,11 @@ namespace CodeSmile.Tests.Tools.Attributes
 			return null;
 		}
 
-		private object OnAfterTest()
+		private IEnumerator OnAfterTest()
 		{
-			if (Application.isPlaying == false)
+			if (Application.isPlaying)
+				RuntimeLoadScene();
+			else
 				EditorCleanupScene();
 
 			return null;
@@ -67,8 +77,9 @@ namespace CodeSmile.Tests.Tools.Attributes
 				DeleteTestScene();
 		}
 
-		private bool ShouldSkipDefaultObjects(GameObject rootGameObject) => m_Setup == NewSceneSetup.DefaultGameObjects &&
-		                                                                    IsObjectNamedLikeADefaultObject(rootGameObject);
+		private Boolean ShouldSkipDefaultObjects(GameObject rootGameObject) =>
+			m_Setup == NewSceneSetup.DefaultGameObjects &&
+			IsObjectNamedLikeADefaultObject(rootGameObject);
 
 		[ExcludeFromCodeCoverage]
 		private void DeleteTestScene()
@@ -102,13 +113,15 @@ namespace CodeSmile.Tests.Tools.Attributes
 
 		private void RuntimeLoadScene()
 		{
-			var sceneName = m_Setup == NewSceneSetup.EmptyScene ? TestNames.EmptyTestScene : TestNames.DefaultObjectsTestScene;
+			var sceneName = m_Setup == NewSceneSetup.EmptyScene
+				? TestNames.EmptyTestScene
+				: TestNames.DefaultObjectsTestScene;
 			SceneManager.LoadScene(sceneName);
 		}
 
-		private void SetupAndVerifyScenePath(string scenePath)
+		private void SetupAndVerifyScenePath(String scenePath)
 		{
-			m_ScenePath = string.IsNullOrWhiteSpace(scenePath) == false ? scenePath : null;
+			m_ScenePath = String.IsNullOrWhiteSpace(scenePath) == false ? scenePath : null;
 			if (m_ScenePath != null)
 			{
 				PrefixAssetsPathIfNeeded();
@@ -128,9 +141,9 @@ namespace CodeSmile.Tests.Tools.Attributes
 				m_ScenePath += ".unity";
 		}
 
-		private bool IsScenePathValid() => string.IsNullOrWhiteSpace(m_ScenePath) == false;
+		private Boolean IsScenePathValid() => String.IsNullOrWhiteSpace(m_ScenePath) == false;
 
-		private string CreateTestSceneName()
+		private String CreateTestSceneName()
 		{
 			var name = m_ScenePath != null ? Path.GetFileName(m_ScenePath) : m_Setup.ToString();
 			return $"Test [{GetType().Name.Replace("Attribute", "")}] {name}";
