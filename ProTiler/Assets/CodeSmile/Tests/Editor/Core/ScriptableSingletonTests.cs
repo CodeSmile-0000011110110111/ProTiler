@@ -16,6 +16,7 @@ namespace CodeSmile.Tests.Editor.Core
 		[Test] public void ScriptableSingletonIsCreatedAfterSingletonAccess()
 		{
 			var singleton = ScriptableSingletonTestImpl.Singleton;
+
 			Assert.That(ScriptableSingletonTestImpl.IsCreated);
 		}
 
@@ -25,7 +26,7 @@ namespace CodeSmile.Tests.Editor.Core
 		private sealed class ScriptableSingletonTestImpl : ScriptableSingletonBase<ScriptableSingletonTestImpl>
 		{
 			public Boolean InstanceCreatedWasCalled;
-			public static Boolean IsCreated => ScriptableSingletonBase<ScriptableSingletonTestImpl>.IsCreated;
+			public new static Boolean IsCreated => ScriptableSingletonBase<ScriptableSingletonTestImpl>.IsCreated;
 			protected override void OnInstanceCreated()
 			{
 				base.OnInstanceCreated();

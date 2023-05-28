@@ -8,7 +8,7 @@ using UnityEngine;
 namespace CodeSmile.ProTiler.Rendering
 {
 	[AddComponentMenu("")] // hide from Add Component list
-	internal class Tile3DRenderer : MonoBehaviour
+	public class Tile3DRenderer : MonoBehaviour
 	{
 		private GameObject m_PrefabInstance;
 		private Tile3DCoord m_TileCoord;

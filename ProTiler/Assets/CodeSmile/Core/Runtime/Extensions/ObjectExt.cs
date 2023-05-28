@@ -31,16 +31,13 @@ namespace CodeSmile.Extensions
 #if UNITY_EDITOR
 		public static void DestroyInAnyMode(this Object self)
 		{
-			if (self is Transform t)
-				self = t.gameObject;
-
 			if (Application.isPlaying == false)
-				self.EditorDestroy();
+				Object.DestroyImmediate(self);
 			else
-				self.RuntimeDestroy();
+				Object.Destroy(self);
 		}
 #else
-		public static void DestroyInAnyMode(this Object self) => self.RuntimeDestroy();
+		public static void DestroyInAnyMode(this Object self) => Object.Destroy(self);
 #endif
 
 		public static T[] FindObjectsByTypeFast<T>(Boolean findInactive = false) where T : Object
@@ -61,9 +58,5 @@ namespace CodeSmile.Extensions
 
 			return null;
 		}
-
-		private static void EditorDestroy(this Object self) => Object.DestroyImmediate(self);
-
-		private static void RuntimeDestroy(this Object self) => Object.Destroy(self);
 	}
 }

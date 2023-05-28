@@ -14,5 +14,30 @@ namespace CodeSmile.Extensions
 			for (var i = t.childCount - 1; i >= 0; i--)
 				t.GetChild(i).gameObject.DestroyInAnyMode();
 		}
+
+#if UNITY_EDITOR
+		public static void DestroyInAnyMode(this Transform self)
+		{
+			if (Application.isPlaying == false)
+				Object.DestroyImmediate(self.gameObject);
+			else
+				Object.Destroy(self.gameObject);
+		}
+#else
+		public static void DestroyInAnyMode(this Transform self) => Object.Destroy(self.gameObject);
+#endif
+
+		public static Transform FindOrCreateChild(this Transform parent, string name, HideFlags hideFlags = HideFlags.None)
+		{
+			var t = parent.Find(name);
+			if (t != null)
+				return t;
+
+			return new GameObject(name)
+			{
+				hideFlags = hideFlags,
+				transform = { parent = parent.transform },
+			}.transform;
+		}
 	}
 }

@@ -21,7 +21,6 @@ namespace CodeSmile.Tests.Editor.Core.Collections
 
 			Assert.Throws<ArgumentNullException>(() => { new ComponentPool<Transform>(null, instance, 1); });
 			Assert.Throws<ArgumentNullException>(() => { new ComponentPool<Transform>(prefab, null, 2); });
-			Assert.Throws<ArgumentException>(() => { new ComponentPool<Transform>(instance, instance, 3); });
 			Assert.Throws<ArgumentException>(() => { new ComponentPool<Transform>(prefab, prefab, 4); });
 		}
 

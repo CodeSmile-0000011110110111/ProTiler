@@ -66,7 +66,7 @@ namespace CodeSmile.Tests.Editor.ProTiler.Rendering
 		{
 			var model = Tilemap3DCreation.CreateRectangularTilemap3D();
 
-			Assert.True(model.transform.Find(Tile3DRendererPool.RendererFolderName));
+			Assert.True(model.transform.Find(Tile3DRendererPoolFirstTry.RendererFolderName));
 		}
 
 		[Test] [CreateEmptyScene]
@@ -77,7 +77,7 @@ namespace CodeSmile.Tests.Editor.ProTiler.Rendering
 
 			Object.DestroyImmediate(renderer);
 
-			Assert.False(model.transform.Find(Tile3DRendererPool.RendererFolderName));
+			Assert.False(model.transform.Find(Tile3DRendererPoolFirstTry.RendererFolderName));
 		}
 
 		private Tilemap3DRenderer CreateTilemapRenderer() =>

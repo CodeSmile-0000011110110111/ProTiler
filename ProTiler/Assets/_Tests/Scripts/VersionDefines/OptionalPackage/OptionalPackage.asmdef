@@ -1,0 +1,24 @@
+{
+    "name": "OptionalPackage",
+    "rootNamespace": "",
+    "references": [
+        "GUID:2765e68924a08a94ea0ea66b31c0168f"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [
+        "USE_OPTIONAL_PACKAGE"
+    ],
+    "versionDefines": [
+        {
+            "name": "com.unity.serialization",
+            "expression": "2.1",
+            "define": "UNITY_SERIALIZATION_3_1_0_AVAILABLE"
+        }
+    ],
+    "noEngineReferences": false
+}

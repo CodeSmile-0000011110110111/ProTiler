@@ -3,113 +3,118 @@
 
 using CodeSmile.Collections;
 using CodeSmile.Extensions;
-using CodeSmile.ProTiler.Grid;
-using CodeSmile.ProTiler.Model;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
-using CellSize = UnityEngine.Vector3;
 using GridCoord = UnityEngine.Vector3Int;
-using Object = UnityEngine.Object;
-using WorldPos = UnityEngine.Vector3;
+using CellSize = UnityEngine.Vector3;
 
 namespace CodeSmile.ProTiler.Rendering
 {
-	internal sealed class Tile3DRendererPool : IDisposable
+	[AddComponentMenu("")] // hide from Add Component list
+	public class Tile3DRendererPool : MonoBehaviour
 	{
-		internal static readonly String RendererFolderName = $"[{nameof(Tile3DRenderer)}s]";
-		private readonly GameObject m_ParentObject;
+		internal const String ActiveRenderersFolderName = "[Active " + nameof(Tile3DRenderer) + "s]";
+		internal const String PooledRenderersFolderName = "[Pooled " + nameof(Tile3DRenderer) + "s]";
+		internal const String TemplateGameObjectName = "*" + nameof(Tile3DRenderer);
 
-		private TileRenderers m_ActiveRenderers = new();
-		private GameObject m_RendererTemplate;
-		private ComponentPool<Tile3DRenderer> m_RendererPool;
-		private Transform m_RendererFolder;
+		private const HideFlags ChildHideFlags = HideFlags.DontSave;
+		internal const Int32 InitialPoolSize = 32;
 
-		private Transform RendererFolder
+		private readonly TileRenderers m_ActiveRenderers = new();
+
+		protected Transform m_ActiveRenderersFolder;
+		protected Transform m_PooledRenderersFolder;
+		protected GameObject m_TemplateGameObject;
+		protected ComponentPool<Tile3DRenderer> m_ComponentPool;
+
+		private void OnEnable()
 		{
-			get
-			{
-				if (m_RendererFolder == null)
-					InitRendererFolder();
+			GetOrCreateActiveRenderersFolder();
+			GetOrCreatePooledRenderersFolder();
+			CreateTemplateGameObject();
+			CreateComponentPool();
+		}
 
-				return m_RendererFolder;
+		private void OnDisable()
+		{
+			DisposeComponentPool();
+			DestroyActiveRenderersFolder();
+			DestroyPooledRenderersFolder();
+		}
+
+		private void GetOrCreateActiveRenderersFolder() => m_ActiveRenderersFolder =
+			transform.FindOrCreateChild(ActiveRenderersFolderName, ChildHideFlags);
+
+		private void GetOrCreatePooledRenderersFolder() => m_PooledRenderersFolder =
+			transform.FindOrCreateChild(PooledRenderersFolderName, ChildHideFlags);
+
+		private void DestroyActiveRenderersFolder()
+		{
+			if (m_ActiveRenderersFolder != null)
+			{
+				m_ActiveRenderersFolder.DestroyInAnyMode();
+				m_ActiveRenderersFolder = null;
 			}
 		}
 
-		public Tile3DRendererPool(GameObject parentObject)
+		private void DestroyPooledRenderersFolder()
 		{
-			m_ParentObject = parentObject;
-			InitRendererFolder();
-			InitRendererTemplate();
-		}
-
-		public void Dispose() => DestroyRendererFolder();
-
-		private void InitRendererTemplate()
-		{
-			m_RendererTemplate = m_ParentObject.FindOrCreateChild($"*{nameof(Tile3DRenderer)}", HideFlags.DontSave);
-			m_RendererTemplate.GetOrAddComponent<Tile3DRenderer>();
-		}
-
-		private void InitRendererFolder()
-		{
-			var folderObject = m_ParentObject.FindOrCreateChild(RendererFolderName, HideFlags.DontSave);
-			m_RendererFolder = folderObject.transform;
-		}
-
-		private void DestroyRendererFolder()
-		{
-			if (m_RendererFolder != null)
+			if (m_PooledRenderersFolder != null)
 			{
-				m_RendererFolder.DestroyInAnyMode();
-				m_RendererFolder = null;
+				m_PooledRenderersFolder.DestroyInAnyMode();
+				m_PooledRenderersFolder = null;
 			}
 		}
 
-		internal void UpdateModifiedTiles(IEnumerable<Tile3DCoord> tileCoords, CellSize cellSize,
-			ITile3DAssetIndexer prefabLookup)
+		private void CreateTemplateGameObject()
 		{
-			foreach (var tileCoord in tileCoords)
+			m_TemplateGameObject = gameObject.FindOrCreateChild(TemplateGameObjectName, ChildHideFlags);
+			m_TemplateGameObject.GetOrAddComponent<Tile3DRenderer>();
+		}
+
+		private void CreateComponentPool() => m_ComponentPool =
+			new ComponentPool<Tile3DRenderer>(m_TemplateGameObject, m_PooledRenderersFolder.gameObject,
+				InitialPoolSize, ChildHideFlags);
+
+		private void DisposeComponentPool()
+		{
+			if (m_ComponentPool != null)
 			{
-				if (m_ActiveRenderers.TryGetValue(tileCoord.Coord, out var tileRenderer))
-					tileRenderer.OnTileModified(tileCoord, prefabLookup);
+				m_ComponentPool.Dispose();
+				m_ComponentPool = null;
 			}
 		}
 
-		internal void UpdateActiveRenderers(IEnumerable<GridCoord> visibleCoords, in CellSize cellSize)
+		public void SetVisibleCoords(IEnumerable<GridCoord> visibleCoords, CellSize cellSize)
 		{
-			// set visible
-			var visibleRenderers = new TileRenderers();
+			//var activeAndVisible = m_ActiveRenderers.Keys.Union(visibleCoords);
+
+			GrowComponentPool(visibleCoords.Count());
+
 			foreach (var coord in visibleCoords)
 			{
-				if (m_ActiveRenderers.TryGetValue(coord, out var tileRenderer))
-					visibleRenderers.Add(coord, tileRenderer);
-				else
-				{
-					// create a new one
-					var worldPos = Grid3DUtility.ToWorldPos(coord, cellSize);
-					visibleRenderers.Add(coord, GetOrCreateTileRenderer(worldPos));
-				}
+				var tileRenderer = m_ComponentPool.GetFromPool();
+				tileRenderer.transform.parent = m_ActiveRenderersFolder;
+				m_ActiveRenderers.Add(coord, tileRenderer);
+				// if (m_ActiveRenderers.TryGetValue(coord, out var tileRenderer) == false)
+				// {
+				// 	// create a new one
+				// 	var worldPos = Grid3DUtility.ToWorldPos(coord, cellSize);
+				// 	visibleRenderers.Add(coord, GetOrCreateTileRenderer(worldPos));
+				// }
 			}
 
-			m_ActiveRenderers = visibleRenderers;
+			// m_ActiveRenderersFolder = visibleRenderers;
 		}
 
-		private Tile3DRenderer GetOrCreateTileRenderer(WorldPos worldPosition)
+		private void GrowComponentPool(Int32 visibleCount)
 		{
-			var go = Object.Instantiate(m_RendererTemplate, worldPosition, Quaternion.identity, RendererFolder);
-			go.hideFlags = HideFlags.DontSave;
-			//Debug.Log($"Created: {go} in {RendererFolder} at pos {worldPosition}");
-			return go.GetComponent<Tile3DRenderer>();
+			if (m_ComponentPool.Count <= visibleCount)
+				m_ComponentPool.SetPoolSize(visibleCount);
 		}
 
 		private sealed class TileRenderers : Dictionary<GridCoord, Tile3DRenderer> {}
-
-		public void Clear()
-		{
-			m_ActiveRenderers.Clear();
-			//m_RendererPool.Clear();
-			RendererFolder.DestroyAllChildren();
-		}
 	}
 }

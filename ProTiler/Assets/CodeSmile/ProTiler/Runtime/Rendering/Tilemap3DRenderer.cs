@@ -1,6 +1,7 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
+using CodeSmile.Extensions;
 using CodeSmile.ProTiler.Controller;
 using CodeSmile.ProTiler.Model;
 using System.Collections.Generic;
@@ -16,9 +17,10 @@ namespace CodeSmile.ProTiler.Rendering
 	{
 		[SerializeReference] [HideInInspector] private Tilemap3DCullingBase m_Culling;
 
-		private Tile3DRendererPool m_TileRendererPool;
 		private Tile3DAssetSet m_TileAssetSet;
-		private Tile3DRendererPool TileRendererPool
+		private Tile3DRendererPool m_TileRendererPool;
+		/*private Tile3DRendererPoolFirstTry m_TileRendererPool;
+		private Tile3DRendererPoolFirstTry TileRendererPool
 		{
 			get
 			{
@@ -26,7 +28,7 @@ namespace CodeSmile.ProTiler.Rendering
 					CreateTileRendererPool();
 				return m_TileRendererPool;
 			}
-		}
+		}*/
 		internal Tile3DAssetSet TileAssetSet
 		{
 			get
@@ -44,6 +46,9 @@ namespace CodeSmile.ProTiler.Rendering
 #if UNITY_EDITOR
 			AssemblyReloadEvents.beforeAssemblyReload += OnBeforeAssemblyReload;
 #endif
+
+			m_TileRendererPool = gameObject.GetOrAddComponent<Tile3DRendererPool>();
+
 			CreateDefaultFrustumCulling();
 			CreateTileRendererPool();
 		}
@@ -57,7 +62,7 @@ namespace CodeSmile.ProTiler.Rendering
 		private void LateUpdate()
 		{
 			var visibleCoords = m_Culling.GetVisibleCoords();
-			TileRendererPool.UpdateActiveRenderers(visibleCoords, TilemapModel.Grid.CellSize);
+			//TileRendererPool.UpdateActiveRenderers(visibleCoords, TilemapModel.Grid.CellSize);
 		}
 
 #if UNITY_EDITOR
@@ -69,13 +74,13 @@ namespace CodeSmile.ProTiler.Rendering
 		private void CreateTileRendererPool()
 		{
 			DisposeTileRendererPool();
-			m_TileRendererPool = new Tile3DRendererPool(gameObject);
+			//m_TileRendererPool = new Tile3DRendererPoolFirstTry(gameObject);
 		}
 
 		private void DisposeTileRendererPool()
 		{
-			if (m_TileRendererPool != null)
-				m_TileRendererPool.Dispose();
+			// if (m_TileRendererPool != null)
+			// 	m_TileRendererPool.Dispose();
 		}
 
 		private void RegisterModelEvents()
@@ -90,9 +95,14 @@ namespace CodeSmile.ProTiler.Rendering
 			TilemapModel.OnTilemapModified -= OnTilemapModified;
 		}
 
-		private void OnTilemapCleared() => m_TileRendererPool.Clear();
+		private void OnTilemapCleared()
+		{
+			//m_TileRendererPool.Clear();
+		}
 
-		private void OnTilemapModified(IEnumerable<Tile3DCoord> tileCoords) =>
-			m_TileRendererPool.UpdateModifiedTiles(tileCoords, TilemapModel.Grid.CellSize, TileAssetSet);
+		private void OnTilemapModified(IEnumerable<Tile3DCoord> tileCoords)
+		{
+			//m_TileRendererPool.UpdateModifiedTiles(tileCoords, TilemapModel.Grid.CellSize, TileAssetSet);
+		}
 	}
 }

@@ -24,12 +24,12 @@ namespace CodeSmile.Collections
 	{
 		private readonly List<T> m_AllInstances = new();
 		private readonly List<T> m_InactiveInstances = new();
-		private readonly Transform m_ParentTransform;
+		private readonly Transform m_Parent;
 		private readonly HideFlags m_HideFlags;
-		private readonly GameObject m_Prefab;
+		private readonly GameObject m_Template;
 
 		/// <summary>
-		///     Number of pooled instances.
+		///     Number of all instances.
 		/// </summary>
 		public int Count => m_AllInstances.Count;
 		/// <summary>
@@ -40,28 +40,26 @@ namespace CodeSmile.Collections
 		/// <summary>
 		///     Creates a new component pool.
 		/// </summary>
-		/// <param name="prefab">A prefab asset reference. Must not be null.</param>
+		/// <param name="template">A prefab asset reference. Must not be null.</param>
 		/// <param name="parent">The parent object instances will be parented to. Must not be null. Must be a scene object.</param>
 		/// <param name="poolSize">Number of initial instances to create in the pool.</param>
 		/// <param name="hideFlags">The HideFlags to apply to each instance.</param>
 		/// <exception cref="ArgumentNullException">Thrown when prefab or parent is null.</exception>
 		/// <exception cref="ArgumentException">Thrown when prefab is not a prefab asset, or parent is not a scene object.</exception>
-		public ComponentPool(GameObject prefab, GameObject parent, int poolSize, HideFlags hideFlags = HideFlags.None)
+		public ComponentPool(GameObject template, GameObject parent, int poolSize, HideFlags hideFlags = HideFlags.None)
 		{
-			if (prefab == null)
-				throw new ArgumentNullException(nameof(prefab), "prefab must not be null");
+			if (template == null)
+				throw new ArgumentNullException(nameof(template), "prefab must not be null");
 			if (parent == null)
 				throw new ArgumentNullException(nameof(parent), "parent must not be null");
-			if (prefab.GetInstanceID() < 0)
-				throw new ArgumentException("prefab must be an asset, not an instance");
 			if (parent.GetInstanceID() >= 0)
 				throw new ArgumentException("parent must be a scene object");
 
-			m_Prefab = prefab;
-			m_ParentTransform = parent.transform;
+			m_Template = template;
+			m_Parent = parent.transform;
 			m_HideFlags = hideFlags;
 
-			UpdatePoolSize(poolSize);
+			SetPoolSize(poolSize);
 		}
 
 		/// <summary>
@@ -80,14 +78,14 @@ namespace CodeSmile.Collections
 		/// <summary>
 		///     Clears the pool and destroys all pooled instances, including active ones.
 		/// </summary>
-		public void Clear() => UpdatePoolSize(0);
+		public void Clear() => SetPoolSize(0);
 
 		/// <summary>
 		///     Get an inactive instance from the pool.
 		/// </summary>
 		/// <param name="setActive">If true (default), calls SetActive(true) on the component's gameObject.</param>
 		/// <returns>An instance or null if there are no more inactive instances.</returns>
-		/*public T GetFromPool(bool setActive = true)
+		public T GetFromPool(bool setActive = true)
 		{
 			if (m_InactiveInstances.Count == 0)
 				return null;
@@ -100,7 +98,7 @@ namespace CodeSmile.Collections
 				instance.gameObject.SetActive(true);
 
 			return instance;
-		}*/
+		}
 
 		/// <summary>
 		///     Puts an active instance back into the pool.
@@ -108,7 +106,7 @@ namespace CodeSmile.Collections
 		/// <param name="instance">The instance to return to the pool. Must not be null.</param>
 		/// <param name="setInactive">If true (default), will call SetActive(false) on the gameObject instance.</param>
 		/// <exception cref="ArgumentNullException">thrown when instance is null</exception>
-		/*public void ReturnToPool(T instance, bool setInactive = true)
+		public void ReturnToPool(T instance, bool setInactive = true)
 		{
 #if DEBUG
 			if (instance == null)
@@ -119,9 +117,14 @@ namespace CodeSmile.Collections
 				instance.gameObject.SetActive(false);
 
 			m_InactiveInstances.Add(instance);
-		}*/
+		}
 
-		private void UpdatePoolSize(int poolSize)
+		/// <summary>
+		/// Increments or decrements the number of instances the pool holds.
+		/// This will either Instantiate new instances or Destroy excess objects.
+		/// </summary>
+		/// <param name="poolSize"></param>
+		public void SetPoolSize(int poolSize)
 		{
 			if (poolSize != m_AllInstances.Count)
 			{
@@ -138,13 +141,14 @@ namespace CodeSmile.Collections
 		{
 			for (var i = 0; i < newCount; i++)
 			{
-				var go = Object.Instantiate(m_Prefab, Vector3.zero, Quaternion.identity, m_ParentTransform);
+				var go = Object.Instantiate(m_Template, Vector3.zero, Quaternion.identity, m_Parent);
 				go.hideFlags = m_HideFlags;
 				go.SetActive(false);
 
 				// TODO: (maybe) this won't work with anything but components
-				m_AllInstances.Add(go.GetComponent<T>());
-				m_InactiveInstances.Add(go.GetComponent<T>());
+				var component = go.GetComponent<T>();
+				m_AllInstances.Add(component);
+				m_InactiveInstances.Add(component);
 			}
 		}
 

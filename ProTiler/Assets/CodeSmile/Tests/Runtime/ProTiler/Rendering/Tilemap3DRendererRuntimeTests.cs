@@ -33,7 +33,7 @@ namespace CodeSmile.Tests.Runtime.ProTiler
 			var renderer = model.GetComponent<Tilemap3DRenderer>();
 			renderer.Culling = new TestCulling(width, length);
 
-			var rendererFolder = model.transform.Find(Tile3DRendererPool.RendererFolderName);
+			var rendererFolder = model.transform.Find(Tile3DRendererPoolFirstTry.RendererFolderName);
 			Assert.That(rendererFolder != null);
 			Assert.That(rendererFolder.childCount, Is.EqualTo(0));
 
@@ -53,7 +53,7 @@ namespace CodeSmile.Tests.Runtime.ProTiler
 
 			yield return null;
 
-			var rendererFolder = model.transform.Find(Tile3DRendererPool.RendererFolderName);
+			var rendererFolder = model.transform.Find(Tile3DRendererPoolFirstTry.RendererFolderName);
 			Assert.That(rendererFolder != null);
 			Assert.That(rendererFolder.childCount, Is.GreaterThan(0));
 
@@ -62,7 +62,7 @@ namespace CodeSmile.Tests.Runtime.ProTiler
 			//yield return null;
 
 			Debug.Log(SceneManager.GetActiveScene().DumpAll());
-			rendererFolder = model.transform.Find(Tile3DRendererPool.RendererFolderName);
+			rendererFolder = model.transform.Find(Tile3DRendererPoolFirstTry.RendererFolderName);
 			Assert.That(rendererFolder != null);
 			Assert.That(rendererFolder.childCount, Is.EqualTo(0));
 		}
