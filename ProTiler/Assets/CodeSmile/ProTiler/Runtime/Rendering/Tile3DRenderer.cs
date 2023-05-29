@@ -2,7 +2,10 @@
 // Refer to included LICENSE file for terms and conditions.
 
 using CodeSmile.Extensions;
+using CodeSmile.ProTiler.Grid;
 using CodeSmile.ProTiler.Model;
+using System.Diagnostics.Contracts;
+using UnityEditor;
 using UnityEngine;
 
 namespace CodeSmile.ProTiler.Rendering
@@ -20,7 +23,6 @@ namespace CodeSmile.ProTiler.Rendering
 			if (m_TileCoord != tileCoord)
 				m_TileCoord = tileCoord;
 
-
 			if (tileIndexChanged)
 			{
 				var tileIndex = tileCoord.Tile.Index;
@@ -37,8 +39,23 @@ namespace CodeSmile.ProTiler.Rendering
 
 				Debug.Log($"instantiate tile index {tileCoord.Tile.Index} => {tileAsset.Prefab.name}");
 				m_PrefabInstance = Instantiate(tileAsset.Prefab, tileCoord.Coord, Quaternion.identity, transform);
-
 			}
 		}
+
+#if UNITY_EDITOR
+		[Pure] private Grid3DController Grid => transform.parent.parent.parent.GetComponent<Grid3DController>();
+		private void OnDrawGizmos()
+		{
+			if (EditorPrefs.GetBool("CodeSmile.TestRunner.Running"))
+				return;
+
+			if (m_TileCoord.Tile.IsEmpty == false)
+				Gizmos.DrawWireCube(transform.position, Grid.CellSize);
+			else
+			{
+				Gizmos.DrawWireSphere(transform.position, (Grid.CellSize.x + Grid.CellSize.z) / 4f);
+			}
+		}
+#endif
 	}
 }

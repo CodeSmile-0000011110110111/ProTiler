@@ -61,7 +61,7 @@ namespace CodeSmile.ProTiler.Controller
 		[ExcludeFromCodeCoverage]
 		[Pure] private void OnDrawGizmosSelected()
 		{
-			DrawActiveChunkTileIndexes();
+			//DrawActiveChunkTileIndexes();
 			DrawCursor();
 		}
 

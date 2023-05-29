@@ -23,6 +23,7 @@ namespace CodeSmile.ProTiler.Editor.Creation
 		{
 			typeof(Tilemap3DModel),
 			typeof(Tilemap3DRenderer),
+			typeof(Tile3DRendererPool),
 			typeof(Tilemap3DDebug),
 			typeof(Tilemap3DViewController),
 			typeof(Tilemap3DViewControllerRuntime),

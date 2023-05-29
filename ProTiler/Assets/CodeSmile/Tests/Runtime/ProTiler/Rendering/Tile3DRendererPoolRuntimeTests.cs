@@ -41,7 +41,7 @@ namespace CodeSmile.Tests.Runtime.ProTiler
 
 		[UnityTest] [CreateEmptyScene]
 		[CreateGameObject(nameof(TestTile3DRendererPool), typeof(TestTile3DRendererPool))]
-		public IEnumerator DestroyPoolDestroysActiveRenderersFolder()
+		public IEnumerator DestroyPoolClearsActiveRenderersFolder()
 		{
 			var pool = GetTileRendererPool();
 			var parent = pool.transform;
@@ -49,7 +49,9 @@ namespace CodeSmile.Tests.Runtime.ProTiler
 			pool.DestroyInAnyMode();
 			yield return null;
 
-			Assert.That(parent.Find(Tile3DRendererPool.ActiveRenderersFolderName), Is.Null);
+			var folder = parent.Find(Tile3DRendererPool.ActiveRenderersFolderName);
+			Assert.That(folder != null);
+			Assert.That(folder.childCount, Is.EqualTo(0));
 		}
 
 		[UnityTest] [CreateEmptyScene]
@@ -62,7 +64,9 @@ namespace CodeSmile.Tests.Runtime.ProTiler
 			pool.DestroyInAnyMode();
 			yield return null;
 
-			Assert.That(parent.Find(Tile3DRendererPool.PooledRenderersFolderName), Is.Null);
+			var folder = parent.Find(Tile3DRendererPool.PooledRenderersFolderName);
+			Assert.That(folder != null);
+			Assert.That(folder.childCount, Is.EqualTo(0));
 		}
 
 		[Test] [CreateEmptyScene]
@@ -104,11 +108,12 @@ namespace CodeSmile.Tests.Runtime.ProTiler
 
 		[TestCase(0)] [TestCase(1)] [TestCase(2)] [CreateEmptyScene]
 		[CreateGameObject(nameof(TestTile3DRendererPool), typeof(TestTile3DRendererPool))]
-		public void SetVisibleCoordsReturnsNonVisibleTileRenderersToPool(Int32 visibleTilesCount)
+		public void SetVisibleCoordsMovesNonVisibleTileRenderersToPool(Int32 visibleTilesCount)
 		{
 			var pool = GetTileRendererPool();
 			var startingTileCount = visibleTilesCount + 1;
 			var coords = new GridCoord[startingTileCount];
+
 			for (var i = 0; i < startingTileCount; i++)
 				coords[i] = new GridCoord(i, i, i);
 			pool.SetVisibleCoords(coords, CellSize.one);
@@ -127,8 +132,27 @@ namespace CodeSmile.Tests.Runtime.ProTiler
 				Assert.That(pooledRenderer.gameObject.activeInHierarchy == false);
 		}
 
-		[TestCase(Tile3DRendererPool.InitialPoolSize + 1)]
-		[TestCase(Tile3DRendererPool.InitialPoolSize * 3)] [CreateEmptyScene]
+		[UnityTest] [CreateEmptyScene]
+		[CreateGameObject(nameof(TestTile3DRendererPool), typeof(TestTile3DRendererPool))]
+		public IEnumerator ClearRemovesBothActiveAndPooledTileRenderers()
+		{
+			var pool = GetTileRendererPool();
+			var startingTileCount = 17;
+			var coords = new GridCoord[startingTileCount];
+			for (var i = 0; i < startingTileCount; i++)
+				coords[i] = new GridCoord(i, i, i);
+			pool.SetVisibleCoords(coords, CellSize.one);
+			Assert.That(pool.ActiveRenderersFolder.childCount, Is.EqualTo(coords.Length));
+
+			pool.Clear();
+
+			yield return null;
+
+			Assert.That(pool.ActiveRenderersFolder.childCount, Is.EqualTo(0));
+			Assert.That(pool.PooledRenderersFolder.childCount, Is.EqualTo(0));
+		}
+
+		[TestCase(1)] [TestCase(13)] [CreateEmptyScene]
 		[CreateGameObject(nameof(TestTile3DRendererPool), typeof(TestTile3DRendererPool))]
 		public void ComponentPoolGrowsOnDemand(Int32 visibleTilesCount)
 		{
@@ -139,7 +163,26 @@ namespace CodeSmile.Tests.Runtime.ProTiler
 				coords[i] = new GridCoord(i, i, i);
 			pool.SetVisibleCoords(coords, CellSize.one);
 
-			Assert.That(pool.ActiveRenderersFolder.childCount, Is.EqualTo(coords.Length));
+			Assert.That(pool.ActiveRenderersFolder.childCount, Is.EqualTo(visibleTilesCount));
+		}
+
+
+		[TestCase(1)] [TestCase(13)] [CreateEmptyScene]
+		[CreateGameObject(nameof(TestTile3DRendererPool), typeof(TestTile3DRendererPool))]
+		public void ActiveRenderersCountDoesNotGrow(Int32 visibleTilesCount)
+		{
+			var pool = GetTileRendererPool();
+
+			var coords = new GridCoord[visibleTilesCount];
+			for (var i = 0; i < visibleTilesCount; i++)
+				coords[i] = new GridCoord(i, i, i);
+			pool.SetVisibleCoords(coords, CellSize.one);
+
+			for (var i = 0; i < visibleTilesCount; i++)
+				coords[i] = new GridCoord(i+10, i+20, i+30);
+			pool.SetVisibleCoords(coords, CellSize.one);
+
+			Assert.That(pool.ActiveRenderers.Count, Is.EqualTo(visibleTilesCount));
 		}
 
 		[TestCase(1, 1, 1)] [TestCase(3f, 4f, 5f)]
@@ -190,6 +233,7 @@ namespace CodeSmile.Tests.Runtime.ProTiler
 			internal Transform PooledRenderersFolder => m_PooledRenderersFolder;
 			internal GameObject TemplateGameObject => m_TemplateGameObject;
 			internal ComponentPool<Tile3DRenderer> ComponentPool => m_ComponentPool;
+			internal TileRenderers ActiveRenderers => m_ActiveRenderers;
 		}
 	}
 }

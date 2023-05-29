@@ -12,11 +12,11 @@ namespace DependentCode
 	{
 		static UsesOptionalPackage()
 		{
-			Debug.Log("static ctor");
+			//Debug.Log("static ctor");
 
 #if USE_OPTIONAL_PACKAGE
 			var optional = new OptionalAssembly.OptionalCode();
-			Debug.Log(optional.GetOptionalString());
+			//Debug.Log(optional.GetOptionalString());
 #endif
 		}
 	}
