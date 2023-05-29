@@ -83,9 +83,8 @@ namespace CodeSmile.Collections
 		/// <summary>
 		///     Get an inactive instance from the pool.
 		/// </summary>
-		/// <param name="setActive">If true (default), calls SetActive(true) on the component's gameObject.</param>
 		/// <returns>An instance or null if there are no more inactive instances.</returns>
-		public T GetFromPool(bool setActive = true)
+		public T GetFromPool()
 		{
 			if (m_InactiveInstances.Count == 0)
 				return null;
@@ -94,9 +93,6 @@ namespace CodeSmile.Collections
 			var instance = m_InactiveInstances[lastIndex];
 			m_InactiveInstances.RemoveAt(lastIndex);
 
-			if (setActive)
-				instance.gameObject.SetActive(true);
-
 			return instance;
 		}
 
@@ -104,18 +100,13 @@ namespace CodeSmile.Collections
 		///     Puts an active instance back into the pool.
 		/// </summary>
 		/// <param name="instance">The instance to return to the pool. Must not be null.</param>
-		/// <param name="setInactive">If true (default), will call SetActive(false) on the gameObject instance.</param>
 		/// <exception cref="ArgumentNullException">thrown when instance is null</exception>
-		public void ReturnToPool(T instance, bool setInactive = true)
+		public void ReturnToPool(T instance)
 		{
 #if DEBUG
 			if (instance == null)
 				throw new ArgumentNullException("instance must not be null");
 #endif
-
-			if (setInactive)
-				instance.gameObject.SetActive(false);
-
 			m_InactiveInstances.Add(instance);
 		}
 
@@ -143,7 +134,6 @@ namespace CodeSmile.Collections
 			{
 				var go = Object.Instantiate(m_Template, Vector3.zero, Quaternion.identity, m_Parent);
 				go.hideFlags = m_HideFlags;
-				go.SetActive(false);
 
 				// TODO: (maybe) this won't work with anything but components
 				var component = go.GetComponent<T>();

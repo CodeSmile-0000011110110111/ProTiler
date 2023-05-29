@@ -3,6 +3,7 @@
 
 using CodeSmile.Collections;
 using CodeSmile.Extensions;
+using CodeSmile.ProTiler.Grid;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -47,8 +48,11 @@ namespace CodeSmile.ProTiler.Rendering
 		private void GetOrCreateActiveRenderersFolder() => m_ActiveRenderersFolder =
 			transform.FindOrCreateChild(ActiveRenderersFolderName, ChildHideFlags);
 
-		private void GetOrCreatePooledRenderersFolder() => m_PooledRenderersFolder =
-			transform.FindOrCreateChild(PooledRenderersFolderName, ChildHideFlags);
+		private void GetOrCreatePooledRenderersFolder()
+		{
+			m_PooledRenderersFolder = transform.FindOrCreateChild(PooledRenderersFolderName, ChildHideFlags);
+			m_PooledRenderersFolder.gameObject.SetActive(false);
+		}
 
 		private void DestroyActiveRenderersFolder()
 		{
@@ -89,24 +93,9 @@ namespace CodeSmile.ProTiler.Rendering
 
 		public void SetVisibleCoords(IEnumerable<GridCoord> visibleCoords, CellSize cellSize)
 		{
-			//var activeAndVisible = m_ActiveRenderers.Keys.Union(visibleCoords);
-
 			GrowComponentPool(visibleCoords.Count());
-
-			foreach (var coord in visibleCoords)
-			{
-				var tileRenderer = m_ComponentPool.GetFromPool();
-				tileRenderer.transform.parent = m_ActiveRenderersFolder;
-				m_ActiveRenderers.Add(coord, tileRenderer);
-				// if (m_ActiveRenderers.TryGetValue(coord, out var tileRenderer) == false)
-				// {
-				// 	// create a new one
-				// 	var worldPos = Grid3DUtility.ToWorldPos(coord, cellSize);
-				// 	visibleRenderers.Add(coord, GetOrCreateTileRenderer(worldPos));
-				// }
-			}
-
-			// m_ActiveRenderersFolder = visibleRenderers;
+			UpdateVisibleTileRenderers(visibleCoords, cellSize);
+			DeactivateNonVisibleTileRenderers(visibleCoords);
 		}
 
 		private void GrowComponentPool(Int32 visibleCount)
@@ -114,6 +103,56 @@ namespace CodeSmile.ProTiler.Rendering
 			if (m_ComponentPool.Count <= visibleCount)
 				m_ComponentPool.SetPoolSize(visibleCount);
 		}
+
+		private void UpdateVisibleTileRenderers(IEnumerable<Vector3Int> visibleCoords, Vector3 cellSize)
+		{
+			foreach (var coord in visibleCoords)
+			{
+				if (m_ActiveRenderers.TryGetValue(coord, out var tileRenderer) == false)
+				{
+					tileRenderer = GetPooledTileRenderer();
+					m_ActiveRenderers.Add(coord, tileRenderer);
+				}
+
+				SetTileRendererPositionAndScale(tileRenderer, coord, cellSize);
+			}
+		}
+
+		private void DeactivateNonVisibleTileRenderers(IEnumerable<Vector3Int> visibleCoords)
+		{
+			foreach (var lastVisibleCoord in m_ActiveRenderers.Keys.Where(lastVisibleCoord =>
+				         visibleCoords.Contains(lastVisibleCoord) == false))
+			{
+				var tileRenderer = m_ActiveRenderers[lastVisibleCoord];
+				ReturnTileRendererToPool(tileRenderer);
+			}
+		}
+
+		private void SetTileRendererPositionAndScale(Tile3DRenderer tileRenderer, Vector3Int coord, Vector3 cellSize)
+		{
+			var tileRendererTransform = tileRenderer.transform;
+			tileRendererTransform.position = Grid3DUtility.ToWorldPos(coord, cellSize);
+			tileRendererTransform.localScale = cellSize;
+		}
+
+		private Tile3DRenderer GetPooledTileRenderer()
+		{
+			var tileRenderer = m_ComponentPool.GetFromPool();
+			SetActiveFolderAsParent(tileRenderer);
+			return tileRenderer;
+		}
+
+		private void ReturnTileRendererToPool(Tile3DRenderer tileRenderer)
+		{
+			m_ComponentPool.ReturnToPool(tileRenderer);
+			SetPoolFolderAsParent(tileRenderer);
+		}
+
+		private void SetActiveFolderAsParent(Tile3DRenderer tileRenderer) =>
+			tileRenderer.transform.parent = m_ActiveRenderersFolder;
+
+		private void SetPoolFolderAsParent(Tile3DRenderer tileRenderer) =>
+			tileRenderer.transform.parent = m_PooledRenderersFolder;
 
 		private sealed class TileRenderers : Dictionary<GridCoord, Tile3DRenderer> {}
 	}

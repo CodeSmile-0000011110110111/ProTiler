@@ -3,6 +3,7 @@
 
 using CodeSmile.Collections;
 using CodeSmile.Extensions;
+using CodeSmile.ProTiler.Grid;
 using CodeSmile.ProTiler.Rendering;
 using CodeSmile.Tests.Tools.Attributes;
 using NUnit.Framework;
@@ -83,10 +84,7 @@ namespace CodeSmile.Tests.Runtime.ProTiler
 			Assert.That(pool.ComponentPool != null);
 		}
 
-		[TestCase(0)]
-		[TestCase(1)]
-		[TestCase(2)]
-		[CreateEmptyScene]
+		[TestCase(0)] [TestCase(1)] [TestCase(2)] [CreateEmptyScene]
 		[CreateGameObject(nameof(TestTile3DRendererPool), typeof(TestTile3DRendererPool))]
 		public void SetVisibleCoordsMakesTileRendererActive(Int32 visibleTilesCount)
 		{
@@ -98,15 +96,41 @@ namespace CodeSmile.Tests.Runtime.ProTiler
 				coords[i] = new GridCoord(i, i, i);
 			pool.SetVisibleCoords(coords, CellSize.one);
 
-			Assert.That(pool.ActiveRenderersFolder.childCount, Is.EqualTo(coords.Length));
+			var activeRenderersCount = pool.ActiveRenderersFolder.childCount;
+			Assert.That(activeRenderersCount, Is.EqualTo(coords.Length));
+			if (activeRenderersCount > 0)
+				Assert.That(pool.ActiveRenderersFolder.GetChild(0).gameObject.activeInHierarchy);
 		}
 
+		[TestCase(0)] [TestCase(1)] [TestCase(2)] [CreateEmptyScene]
+		[CreateGameObject(nameof(TestTile3DRendererPool), typeof(TestTile3DRendererPool))]
+		public void SetVisibleCoordsReturnsNonVisibleTileRenderersToPool(Int32 visibleTilesCount)
+		{
+			var pool = GetTileRendererPool();
+			var startingTileCount = visibleTilesCount + 1;
+			var coords = new GridCoord[startingTileCount];
+			for (var i = 0; i < startingTileCount; i++)
+				coords[i] = new GridCoord(i, i, i);
+			pool.SetVisibleCoords(coords, CellSize.one);
+			Assert.That(pool.ActiveRenderersFolder.childCount, Is.EqualTo(coords.Length));
+			var lastPooledRendererCount = pool.PooledRenderersFolder.childCount;
+
+			coords = new GridCoord[visibleTilesCount];
+			for (var i = 0; i < visibleTilesCount; i++)
+				coords[i] = new GridCoord(i, i, i);
+			pool.SetVisibleCoords(coords, CellSize.one);
+
+			Assert.That(pool.ActiveRenderersFolder.childCount, Is.EqualTo(coords.Length));
+			Assert.That(pool.PooledRenderersFolder.childCount, Is.EqualTo(lastPooledRendererCount + 1));
+
+			foreach (Transform pooledRenderer in pool.PooledRenderersFolder)
+				Assert.That(pooledRenderer.gameObject.activeInHierarchy == false);
+		}
 
 		[TestCase(Tile3DRendererPool.InitialPoolSize + 1)]
-		[TestCase(Tile3DRendererPool.InitialPoolSize * 3)]
-		[CreateEmptyScene]
+		[TestCase(Tile3DRendererPool.InitialPoolSize * 3)] [CreateEmptyScene]
 		[CreateGameObject(nameof(TestTile3DRendererPool), typeof(TestTile3DRendererPool))]
-		public void IncreasingTileCountGrowsComponentPoolSize(Int32 visibleTilesCount)
+		public void ComponentPoolGrowsOnDemand(Int32 visibleTilesCount)
 		{
 			var pool = GetTileRendererPool();
 
@@ -118,8 +142,47 @@ namespace CodeSmile.Tests.Runtime.ProTiler
 			Assert.That(pool.ActiveRenderersFolder.childCount, Is.EqualTo(coords.Length));
 		}
 
-		// set position
-		// set scale
+		[TestCase(1, 1, 1)] [TestCase(3f, 4f, 5f)]
+		[TestCase(7.89f, 8.88f, 9.87f)] [CreateEmptyScene]
+		[CreateGameObject(nameof(TestTile3DRendererPool), typeof(TestTile3DRendererPool))]
+		public void TileRenderersConvertGridToWorldPosition(Single cellSizeX, Single cellSizeY, Single cellSizeZ)
+		{
+			var pool = GetTileRendererPool();
+			var cellSize = new CellSize(cellSizeX, cellSizeY, cellSizeZ);
+			var visibleTilesCount = 3;
+
+			var coords = new GridCoord[visibleTilesCount];
+			for (var i = 0; i < visibleTilesCount; i++)
+				coords[i] = new GridCoord(i, i, i);
+			pool.SetVisibleCoords(coords, cellSize);
+
+			for (var i = 0; i < visibleTilesCount; i++)
+			{
+				var tileRenderer = pool.ActiveRenderersFolder.GetChild(i);
+				Assert.That(tileRenderer.position, Is.EqualTo(Grid3DUtility.ToWorldPos(coords[i], cellSize)));
+			}
+		}
+
+		[TestCase(1, 1, 1)] [TestCase(3f, 4f, 5f)]
+		[TestCase(7.89f, 8.88f, 9.87f)] [CreateEmptyScene]
+		[CreateGameObject(nameof(TestTile3DRendererPool), typeof(TestTile3DRendererPool))]
+		public void TileRenderersConvertCellSizeToScale(Single cellSizeX, Single cellSizeY, Single cellSizeZ)
+		{
+			var pool = GetTileRendererPool();
+			var cellSize = new CellSize(cellSizeX, cellSizeY, cellSizeZ);
+			var visibleTilesCount = 3;
+
+			var coords = new GridCoord[visibleTilesCount];
+			for (var i = 0; i < visibleTilesCount; i++)
+				coords[i] = new GridCoord(i, i, i);
+			pool.SetVisibleCoords(coords, cellSize);
+
+			for (var i = 0; i < visibleTilesCount; i++)
+			{
+				var tileRenderer = pool.ActiveRenderersFolder.GetChild(i);
+				Assert.That(tileRenderer.localScale, Is.EqualTo(cellSize));
+			}
+		}
 
 		private class TestTile3DRendererPool : Tile3DRendererPool
 		{
