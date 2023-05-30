@@ -15,7 +15,7 @@ namespace CodeSmile.ProTiler.Serialization
 	[FullCovered]
 	internal static class UnitySerializer
 	{
-		[Pure] internal static Byte[] ToBinary(object input)
+		internal static Byte[] ToBinary(object input)
 		{
 			if (input == null)
 				return new Byte[0];
@@ -30,7 +30,7 @@ namespace CodeSmile.ProTiler.Serialization
 			}
 		}
 
-		[Pure] internal static T FromBinary<T>(Byte[] bytes) where T : new()
+		internal static T FromBinary<T>(Byte[] bytes) where T : new()
 		{
 			if (bytes == null || bytes.Length == 0)
 				return new T();
@@ -45,15 +45,15 @@ namespace CodeSmile.ProTiler.Serialization
 			}
 		}
 
-		[Pure] internal static String ToJson(object input, Boolean minified = true) =>
+		internal static String ToJson(object input, Boolean minified = true) =>
 			JsonSerialization.ToJson(input, new JsonSerializationParameters { Minified = minified });
 
-		[Pure] internal static T FromJson<T>(String json) => JsonSerialization.FromJson<T>(json);
+		internal static T FromJson<T>(String json) => JsonSerialization.FromJson<T>(json);
 
-		[Pure] private static UnsafeAppendBuffer CreateUnsafeStream() =>
+		private static UnsafeAppendBuffer CreateUnsafeStream() =>
 			new(65536, 8, Allocator.Temp);
 
-		[Pure] private static UnsafeAppendBuffer CreateUnsafeStream(Byte[] bytes)
+		private static UnsafeAppendBuffer CreateUnsafeStream(Byte[] bytes)
 		{
 			unsafe
 			{
@@ -66,7 +66,7 @@ namespace CodeSmile.ProTiler.Serialization
 			}
 		}
 
-		[Pure] private static Byte[] ToManagedBytes(in UnsafeAppendBuffer stream)
+		private static Byte[] ToManagedBytes(in UnsafeAppendBuffer stream)
 		{
 			var reader = stream.AsReader();
 			var bytes = new Byte[reader.Size];

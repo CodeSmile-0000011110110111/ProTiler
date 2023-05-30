@@ -18,24 +18,24 @@ namespace CodeSmile.ProTiler.Assets
 
 		public GameObject Prefab
 		{
-			[Pure] get => m_Prefab;
+			get => m_Prefab;
 			set => m_Prefab = value;
 		}
 
 		public Tile3DFlags Flags
 		{
-			[Pure] get => m_Flags;
+			get => m_Flags;
 			set => m_Flags = value;
 		}
 
 		public Matrix4x4 Transform
 		{
-			[Pure] get => m_Transform;
+			get => m_Transform;
 			set => m_Transform = value;
 		}
 
 		[ExcludeFromCodeCoverage]
-		[Pure] private void Reset() => SetDefaultFlags();
+		private void Reset() => SetDefaultFlags();
 
 		internal void SetDefaultFlags() => m_Flags = Tile3DFlags.DirectionNorth;
 	}

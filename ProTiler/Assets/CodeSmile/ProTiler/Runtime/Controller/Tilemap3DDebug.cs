@@ -33,33 +33,33 @@ namespace CodeSmile.ProTiler.Controller
 		private GameObject m_CursorObject;
 		private Grid3DCursor m_Cursor;
 
-		[Pure] private Tilemap3DModel TilemapModel => GetComponent<Tilemap3DModel>();
-		[Pure] private Tilemap3DViewController TilemapViewController => GetComponent<Tilemap3DViewController>();
-		[Pure] private Grid3DController Grid => TilemapViewController.Grid;
+		private Tilemap3DModel TilemapModel => GetComponent<Tilemap3DModel>();
+		private Tilemap3DViewController TilemapViewController => GetComponent<Tilemap3DViewController>();
+		private Grid3DController Grid => TilemapViewController.Grid;
 
-		[Pure] private void Awake()
+		private void Awake()
 		{
 #if !UNITY_EDITOR
 			Destroy(this);
 #endif
 		}
 
-		[Pure] private void Update()
+		private void Update()
 		{
 			UpdateTileCount();
 			DrawCursorObject();
 		}
 
-		[Pure] private void OnEnable()
+		private void OnEnable()
 		{
 			UpdateTileCount();
 			TilemapViewController.OnCursorUpdate += OnCursorUpdate;
 		}
 
-		[Pure] private void OnDisable() => TilemapViewController.OnCursorUpdate -= OnCursorUpdate;
+		private void OnDisable() => TilemapViewController.OnCursorUpdate -= OnCursorUpdate;
 
 		[ExcludeFromCodeCoverage]
-		[Pure] private void OnDrawGizmosSelected()
+		private void OnDrawGizmosSelected()
 		{
 			//DrawActiveChunkTileIndexes();
 			DrawCursor();
@@ -123,20 +123,20 @@ namespace CodeSmile.ProTiler.Controller
 		private void OnCursorUpdate(Grid3DCursor cursor) => m_Cursor = cursor;
 
 		[ExcludeFromCodeCoverage]
-		[Pure] private void DrawCursor()
+		private void DrawCursor()
 		{
 			if (m_Cursor.IsValid)
 				Gizmos.DrawWireCube(m_Cursor.CenterPosition, m_Cursor.CellSize);
 		}
 
 		[ExcludeFromCodeCoverage]
-		[Pure] private void ClearTilemap() => TilemapModel.ClearTilemap(m_ChunkSize);
+		private void ClearTilemap() => TilemapModel.ClearTilemap(m_ChunkSize);
 
 		[ExcludeFromCodeCoverage]
 		private void UpdateTileCount() => m_TileCount = TilemapModel != null ? TilemapModel.TileCount : -1;
 
 		[ExcludeFromCodeCoverage]
-		[Pure] private void DrawActiveChunkTileIndexes()
+		private void DrawActiveChunkTileIndexes()
 		{
 #if UNITY_EDITOR
 			var normalStyle = new GUIStyleState { textColor = Color.yellow };
@@ -169,7 +169,7 @@ namespace CodeSmile.ProTiler.Controller
 		}
 
 		[ExcludeFromCodeCoverage]
-		[Pure] private void FillActiveLayerWithIncrementingTiles(Vector2Int chunkCoord, Int32 height)
+		private void FillActiveLayerWithIncrementingTiles(Vector2Int chunkCoord, Int32 height)
 		{
 			var tileCoords = GetIncrementingIndexChunkTileCoords(chunkCoord, TilemapModel.ChunkSize, height);
 			TilemapModel.SetTiles(tileCoords);
@@ -178,7 +178,7 @@ namespace CodeSmile.ProTiler.Controller
 		}
 
 		[ExcludeFromCodeCoverage]
-		[Pure] private void FillActiveLayerFromOrigin()
+		private void FillActiveLayerFromOrigin()
 		{
 			var allTileCoords = new List<Tile3DCoord>();
 
@@ -201,7 +201,7 @@ namespace CodeSmile.ProTiler.Controller
 		}
 
 		[ExcludeFromCodeCoverage]
-		[Pure] private Tile3DCoord[] GetIncrementingIndexChunkTileCoords(ChunkCoord chunkCoord,
+		private Tile3DCoord[] GetIncrementingIndexChunkTileCoords(ChunkCoord chunkCoord,
 			ChunkSize chunkSize, Int32 height)
 		{
 			var width = chunkSize.x;

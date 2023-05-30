@@ -44,7 +44,7 @@ namespace CodeSmile
 #endif
 		}
 
-		[Pure] private void OnUndoRedoPerformed()
+		private void OnUndoRedoPerformed()
 		{
 #if UNITY_EDITOR
 			if (m_UndoGroups.Contains(m_CurrentUndoGroup))

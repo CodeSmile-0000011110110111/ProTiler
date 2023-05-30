@@ -37,7 +37,7 @@ namespace CodeSmile.ProTiler.Controller
 #endif
 		}
 
-		[Pure] private void RegisterEditorSceneEvents()
+		private void RegisterEditorSceneEvents()
 		{
 #if UNITY_EDITOR
 			UnregisterEditorSceneEvents();
@@ -49,7 +49,7 @@ namespace CodeSmile.ProTiler.Controller
 #endif
 		}
 
-		[Pure] private void UnregisterEditorSceneEvents()
+		private void UnregisterEditorSceneEvents()
 		{
 #if UNITY_EDITOR
 			m_UndoGroupRegistry.UnregisterUndoRedoEvents(OnRegisteredUndoRedoEvent);
@@ -62,10 +62,10 @@ namespace CodeSmile.ProTiler.Controller
 
 #if UNITY_EDITOR
 		private void OnRegisteredUndoRedoEvent() => DeserializeTilemap();
-		[Pure] [ExcludeFromCodeCoverage] private void OnBeforeAssemblyReload() => SerializeTilemap();
-		[Pure] private void OnSceneSaving(Scene scene, String path) => SerializeTilemap();
-		[Pure] [ExcludeFromCodeCoverage] private void OnAfterAssemblyReload() => DeserializeTilemap();
-		[Pure] private void OnSceneOpened(Scene scene, OpenSceneMode mode) => DeserializeTilemap();
+		[ExcludeFromCodeCoverage] private void OnBeforeAssemblyReload() => SerializeTilemap();
+		private void OnSceneSaving(Scene scene, String path) => SerializeTilemap();
+		[ExcludeFromCodeCoverage] private void OnAfterAssemblyReload() => DeserializeTilemap();
+		private void OnSceneOpened(Scene scene, OpenSceneMode mode) => DeserializeTilemap();
 #endif
 	}
 }

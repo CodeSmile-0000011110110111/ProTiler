@@ -20,10 +20,10 @@ namespace CodeSmile.ProTiler.Controller
 		private Grid3DCursor m_Cursor;
 		private Boolean m_CursorEnabled = true;
 
-		[Pure] private Tilemap3DModel TilemapModel => GetComponent<Tilemap3DModel>();
-		[Pure] internal Grid3DController Grid => TilemapModel.Grid;
+		private Tilemap3DModel TilemapModel => GetComponent<Tilemap3DModel>();
+		internal Grid3DController Grid => TilemapModel.Grid;
 
-		[Pure] public void OnMouseMove(MouseMoveEventData eventData) => UpdateCursorIfModified(eventData);
+		public void OnMouseMove(MouseMoveEventData eventData) => UpdateCursorIfModified(eventData);
 
 		public void EnableCursor()
 		{
@@ -37,7 +37,7 @@ namespace CodeSmile.ProTiler.Controller
 			OnCursorUpdate?.Invoke(new Grid3DCursor());
 		}
 
-		[Pure] private void UpdateCursorIfModified(MouseMoveEventData eventData)
+		private void UpdateCursorIfModified(MouseMoveEventData eventData)
 		{
 			var cursor = new Grid3DCursor(eventData.WorldRay, Grid.CellSize);
 			if (cursor != m_Cursor)

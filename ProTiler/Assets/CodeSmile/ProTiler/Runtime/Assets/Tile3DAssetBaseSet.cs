@@ -16,9 +16,9 @@ namespace CodeSmile.ProTiler.Assets
 		[SerializeField] [HideInInspector] private Tile3DAssetBase m_EmptyTileAsset;
 		[SerializeField] [HideInInspector] private Tile3DAssetBase m_MissingTileAsset;
 
-		[Pure] public new Tile3DAssetBase this[Int32 index] => index <= 0 ? EmptyTileAsset : base[index];
+		public new Tile3DAssetBase this[Int32 index] => index <= 0 ? EmptyTileAsset : base[index];
 
-		[Pure] public Tile3DAssetBase MissingTileAsset
+		public Tile3DAssetBase MissingTileAsset
 		{
 			get
 			{
@@ -27,7 +27,7 @@ namespace CodeSmile.ProTiler.Assets
 				return m_MissingTileAsset;
 			}
 		}
-		[Pure] public Tile3DAssetBase EmptyTileAsset
+		public Tile3DAssetBase EmptyTileAsset
 		{
 			get
 			{
@@ -37,7 +37,7 @@ namespace CodeSmile.ProTiler.Assets
 			}
 		}
 
-		[Pure] internal static Tile3DAsset LoadTile3DAssetResource(String resourcePath)
+		internal static Tile3DAsset LoadTile3DAssetResource(String resourcePath)
 		{
 			var prefab = Resources.Load<Tile3DAsset>(resourcePath);
 			if (prefab == null)
@@ -50,18 +50,18 @@ namespace CodeSmile.ProTiler.Assets
 
 		internal static Tile3DAsset LoadEmptyTileAsset() => LoadTile3DAssetResource(Paths.ResourcesEmptyTileAsset);
 
-		[Pure] public Tile3DAssetBaseSet()
+		public Tile3DAssetBaseSet()
 			: base(null, 1) {}
 
-		[Pure] public void Init()
+		public void Init()
 		{
 			m_EmptyTileAsset = LoadEmptyTileAsset();
 			LoadMissingTileAssetAndSetAsDefault();
 		}
 
-		[Pure] internal void SetAsDefault(Tile3DAssetBase tileAsset) => DefaultObject = tileAsset;
+		internal void SetAsDefault(Tile3DAssetBase tileAsset) => DefaultObject = tileAsset;
 
-		[Pure] internal void LoadMissingTileAssetAndSetAsDefault()
+		internal void LoadMissingTileAssetAndSetAsDefault()
 		{
 			m_MissingTileAsset = LoadMissingTileAsset();
 			SetAsDefault(m_MissingTileAsset);

@@ -24,8 +24,8 @@ namespace CodeSmile.ProTiler.Model
 		public GridCoord Coord;
 		public Tile3D Tile;
 
-		[Pure] public static Boolean operator ==(Tile3DCoord left, Tile3DCoord right) => left.Equals(right);
-		[Pure] public static Boolean operator !=(Tile3DCoord left, Tile3DCoord right) => !left.Equals(right);
+		public static Boolean operator ==(Tile3DCoord left, Tile3DCoord right) => left.Equals(right);
+		public static Boolean operator !=(Tile3DCoord left, Tile3DCoord right) => !left.Equals(right);
 
 		public Tile3DCoord(GridCoord coord, Tile3D tile)
 		{
@@ -33,18 +33,18 @@ namespace CodeSmile.ProTiler.Model
 			Tile = tile;
 		}
 
-		[Pure] public Boolean Equals(Tile3DCoord other) => Coord.Equals(other.Coord) && Tile.Equals(other.Tile);
+		public Boolean Equals(Tile3DCoord other) => Coord.Equals(other.Coord) && Tile.Equals(other.Tile);
 
-		[Pure] internal ChunkCoord GetChunkCoord(ChunkSize chunkSize) =>
+		internal ChunkCoord GetChunkCoord(ChunkSize chunkSize) =>
 			Tilemap3DUtility.GridToChunkCoord(Coord, chunkSize);
 
-		[Pure] internal LayerCoord GetLayerCoord(ChunkSize chunkSize) =>
+		internal LayerCoord GetLayerCoord(ChunkSize chunkSize) =>
 			Tilemap3DUtility.GridToLayerCoord(Coord, chunkSize);
 
-		[ExcludeFromCodeCoverage] [Pure] public override String ToString() => $"{Coord}, {Tile}";
+		[ExcludeFromCodeCoverage] public override String ToString() => $"{Coord}, {Tile}";
 
-		[Pure] public override Boolean Equals(Object obj) => obj is Tile3DCoord other && Equals(other);
+		public override Boolean Equals(Object obj) => obj is Tile3DCoord other && Equals(other);
 
-		[Pure] public override Int32 GetHashCode() => HashCode.Combine(Coord, Tile);
+		public override Int32 GetHashCode() => HashCode.Combine(Coord, Tile);
 	}
 }

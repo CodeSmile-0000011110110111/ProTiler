@@ -49,9 +49,9 @@ namespace CodeSmile.ProTiler.Rendering
 			#endif
 		}
 
-		[Pure] public void Add(Tile3DAssetBase tileAsset) => m_TileAssets.Add(tileAsset);
-		[Pure] public void Add(Tile3DAssetBase tileAsset, out Int32 index) => m_TileAssets.Add(tileAsset, out index);
-		[Pure] public void Remove(Tile3DAssetBase tileAsset) => m_TileAssets.Remove(tileAsset);
-		[Pure] public Boolean Contains(Tile3DAssetBase tileAsset) => m_TileAssets.Contains(tileAsset);
+		public void Add(Tile3DAssetBase tileAsset) => m_TileAssets.Add(tileAsset);
+		public void Add(Tile3DAssetBase tileAsset, out Int32 index) => m_TileAssets.Add(tileAsset, out index);
+		public void Remove(Tile3DAssetBase tileAsset) => m_TileAssets.Remove(tileAsset);
+		public Boolean Contains(Tile3DAssetBase tileAsset) => m_TileAssets.Contains(tileAsset);
 	}
 }

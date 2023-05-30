@@ -33,21 +33,21 @@ namespace CodeSmile.ProTiler.Controller
 		private readonly Tilemap3DSerializer m_Serializer = new();
 		private readonly UndoGroupRegistry m_UndoGroupRegistry = new();
 
-		[Pure] internal Vector2Int ChunkSize { get => m_Tilemap.ChunkSize; set => m_Tilemap.ChunkSize = value; }
-		[Pure] internal Int32 ChunkCount => m_Tilemap.ChunkCount;
-		[Pure] internal Int32 TileCount => m_Tilemap.TileCount;
-		[Pure] public Grid3DController Grid => transform.parent.GetComponent<Grid3DController>();
+		internal Vector2Int ChunkSize { get => m_Tilemap.ChunkSize; set => m_Tilemap.ChunkSize = value; }
+		internal Int32 ChunkCount => m_Tilemap.ChunkCount;
+		internal Int32 TileCount => m_Tilemap.TileCount;
+		public Grid3DController Grid => transform.parent.GetComponent<Grid3DController>();
 
-		[Pure] private static Vector2Int ClampChunkSize(Vector2Int chunkSize) =>
+		private static Vector2Int ClampChunkSize(Vector2Int chunkSize) =>
 			Tilemap3DUtility.ClampChunkSize(chunkSize);
 
 		private void OnEnable() => RegisterEditorSceneEvents();
 
 		private void OnDisable() => UnregisterEditorSceneEvents();
 
-		[Pure] public void ClearTilemap() => ClearTilemap(m_Tilemap.ChunkSize);
+		public void ClearTilemap() => ClearTilemap(m_Tilemap.ChunkSize);
 
-		[Pure] public void ClearTilemap(ChunkSize chunkSize)
+		public void ClearTilemap(ChunkSize chunkSize)
 		{
 			StartRecordUndo("Clear Tilemap", nameof(ClearTilemap));
 			ClearTilemapNoUndo(ClampChunkSize(chunkSize));
@@ -60,25 +60,25 @@ namespace CodeSmile.ProTiler.Controller
 			OnTilemapCleared?.Invoke();
 		}
 
-		[Pure] internal Int32 GetLayerCount(ChunkCoord chunkCoord) => m_Tilemap.GetLayerCount(chunkCoord);
-		[Pure] public Tile3D GetTile(GridCoord coord) => GetTiles(new[] { coord }).FirstOrDefault().Tile;
-		[Pure] public IEnumerable<Tile3DCoord> GetTiles(IEnumerable<GridCoord> coords) => m_Tilemap.GetTiles(coords);
-		[Pure] public void SetTile(GridCoord coord, Tile3D tile) => SetTiles(new[] { new Tile3DCoord(coord, tile) });
+		internal Int32 GetLayerCount(ChunkCoord chunkCoord) => m_Tilemap.GetLayerCount(chunkCoord);
+		public Tile3D GetTile(GridCoord coord) => GetTiles(new[] { coord }).FirstOrDefault().Tile;
+		public IEnumerable<Tile3DCoord> GetTiles(IEnumerable<GridCoord> coords) => m_Tilemap.GetTiles(coords);
+		public void SetTile(GridCoord coord, Tile3D tile) => SetTiles(new[] { new Tile3DCoord(coord, tile) });
 
-		[Pure] public void SetTiles(IEnumerable<Tile3DCoord> tileCoords)
+		public void SetTiles(IEnumerable<Tile3DCoord> tileCoords)
 		{
 			StartRecordUndo(tileCoords.Count() > 1 ? "Set Tiles" : "Set Tile", nameof(SetTiles));
 			SetTilesNoUndo(tileCoords);
 			EndRecordUndo();
 		}
 
-		[Pure] public void SetTilesNoUndo(IEnumerable<Tile3DCoord> tileCoords)
+		public void SetTilesNoUndo(IEnumerable<Tile3DCoord> tileCoords)
 		{
 			m_Tilemap.SetTiles(tileCoords);
 			OnTilemapModified?.Invoke(tileCoords);
 		}
 
-		[Pure] private void SerializeTilemap() => m_SerializedTilemap = m_Serializer.SerializeTilemap(m_Tilemap);
+		private void SerializeTilemap() => m_SerializedTilemap = m_Serializer.SerializeTilemap(m_Tilemap);
 		private void DeserializeTilemap() => m_Tilemap = m_Serializer.DeserializeTilemap(m_SerializedTilemap);
 	}
 }

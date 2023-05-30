@@ -34,17 +34,17 @@ namespace CodeSmile.ProTiler.Model
 		/// <summary>
 		///     Checks if the tile is "empty". A TileIndex == 0 indicates an "empty" tile.
 		/// </summary>
-		[Pure] public Boolean IsEmpty => Index == 0;
+		public Boolean IsEmpty => Index == 0;
 
 		/// <summary>
 		///     Returns direction flags from Flags. Returns DirectionNorth even if flags is 0 to ensure a default rotation.
 		/// </summary>
-		[Pure] public Tile3DFlags Direction => GetDirectionOrDefault();
+		public Tile3DFlags Direction => GetDirectionOrDefault();
 
-		[Pure] public static Boolean operator ==(Tile3D left, Tile3D right) => left.Equals(right);
-		[Pure] public static Boolean operator !=(Tile3D left, Tile3D right) => !left.Equals(right);
+		public static Boolean operator ==(Tile3D left, Tile3D right) => left.Equals(right);
+		public static Boolean operator !=(Tile3D left, Tile3D right) => !left.Equals(right);
 
-		[Pure] public Tile3D(Int32 tileIndex, Tile3DFlags flags = Tile3DFlags.DirectionNorth)
+		public Tile3D(Int32 tileIndex, Tile3DFlags flags = Tile3DFlags.DirectionNorth)
 			: this((TileIndex)tileIndex, flags)
 		{
 #if DEBUG
@@ -66,14 +66,14 @@ namespace CodeSmile.ProTiler.Model
 			Flags = flags;
 		}
 
-		[Pure] public Boolean Equals(Tile3D other) => Index == other.Index && Flags == other.Flags;
-		[Pure] public override Boolean Equals(Object obj) => obj is Tile3D other && Equals(other);
-		[Pure] public override Int32 GetHashCode() => HashCode.Combine(Index, Flags);
+		public Boolean Equals(Tile3D other) => Index == other.Index && Flags == other.Flags;
+		public override Boolean Equals(Object obj) => obj is Tile3D other && Equals(other);
+		public override Int32 GetHashCode() => HashCode.Combine(Index, Flags);
 
-		[ExcludeFromCodeCoverage] [Pure] public override String ToString() =>
+		[ExcludeFromCodeCoverage] public override String ToString() =>
 			$"{nameof(Tile3D)}(Index: {Index}, Flags: {Flags})";
 
-		[Pure] private Tile3DFlags GetDirectionOrDefault()
+		private Tile3DFlags GetDirectionOrDefault()
 		{
 			var dir = Flags & AllDirectionsMask;
 			return dir != Tile3DFlags.None ? dir : Tile3DFlags.DirectionNorth;

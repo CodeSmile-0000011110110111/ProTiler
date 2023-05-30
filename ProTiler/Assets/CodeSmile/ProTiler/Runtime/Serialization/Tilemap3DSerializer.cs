@@ -24,7 +24,7 @@ namespace CodeSmile.ProTiler.Serialization
 			return data;
 		}
 
-		[Pure] internal Tilemap3D DeserializeTilemap(Byte[] data)
+		internal Tilemap3D DeserializeTilemap(Byte[] data)
 		{
 			var tilemap = m_UseBinarySerialization
 				? UnitySerializer.FromBinary<Tilemap3D>(data.Decompress())

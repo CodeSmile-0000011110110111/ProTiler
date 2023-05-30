@@ -20,8 +20,8 @@ namespace CodeSmile.ProTiler.Grid
 		[SerializeField] private CellSize m_CellSize = new(1f, 1f, 1f);
 		[SerializeField] private CellGap m_CellGap;
 		[SerializeField] private CellLayout m_CellLayout;
-		public CellSize CellSize { [Pure] get => m_CellSize; set => m_CellSize = value; }
-		public CellGap CellGap { [Pure] get => m_CellGap; set => m_CellGap = value; }
-		public CellLayout CellLayout { [Pure] get => m_CellLayout; set => m_CellLayout = value; }
+		public CellSize CellSize { get => m_CellSize; set => m_CellSize = value; }
+		public CellGap CellGap { get => m_CellGap; set => m_CellGap = value; }
+		public CellLayout CellLayout { get => m_CellLayout; set => m_CellLayout = value; }
 	}
 }

@@ -4,7 +4,6 @@
 using CodeSmile.Extensions;
 using CodeSmile.ProTiler.Grid;
 using CodeSmile.ProTiler.Model;
-using System.Diagnostics.Contracts;
 using UnityEditor;
 using UnityEngine;
 
@@ -43,7 +42,7 @@ namespace CodeSmile.ProTiler.Rendering
 		}
 
 #if UNITY_EDITOR
-		[Pure] private Grid3DController Grid => transform.parent.parent.parent.GetComponent<Grid3DController>();
+		private Grid3DController Grid => transform.parent.parent.parent.GetComponent<Grid3DController>();
 		private void OnDrawGizmos()
 		{
 			if (EditorPrefs.GetBool("CodeSmile.TestRunner.Running"))
@@ -52,9 +51,7 @@ namespace CodeSmile.ProTiler.Rendering
 			if (m_TileCoord.Tile.IsEmpty == false)
 				Gizmos.DrawWireCube(transform.position, Grid.CellSize);
 			else
-			{
 				Gizmos.DrawWireSphere(transform.position, (Grid.CellSize.x + Grid.CellSize.z) / 4f);
-			}
 		}
 #endif
 	}

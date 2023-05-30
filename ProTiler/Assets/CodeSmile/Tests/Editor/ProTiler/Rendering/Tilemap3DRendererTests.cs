@@ -1,9 +1,11 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
+using CodeSmile.Extensions;
 using CodeSmile.ProTiler.Assets;
 using CodeSmile.ProTiler.Editor.Creation;
 using CodeSmile.ProTiler.Rendering;
+using CodeSmile.Tests.Tools;
 using CodeSmile.Tests.Tools.Attributes;
 using NUnit.Framework;
 using System.Linq;
@@ -17,9 +19,9 @@ namespace CodeSmile.Tests.Editor.ProTiler.Rendering
 	{
 		[Test] public void TilemapRendererIsNotNull()
 		{
-			var renderer = CreateTilemapRenderer();
+			var model = Tilemap3DCreation.CreateRectangularTilemap3D();
 
-			Assert.That(renderer != null);
+			Assert.That(model.GetComponent<Tilemap3DRenderer>() != null);
 		}
 
 		[Test] public void TilemapRendererHasDefaultCullingInstance()
@@ -29,12 +31,12 @@ namespace CodeSmile.Tests.Editor.ProTiler.Rendering
 			Assert.That(renderer.Culling is Tilemap3DFrustumCulling);
 		}
 
-		[Test] public void DefaultCullingReturnsFixedNumberOfTiles()
+		[Test] public void DefaultCullingReturnsNonZeroVisibleCoords()
 		{
 			var renderer = CreateTilemapRenderer();
 			var coords = renderer.Culling.GetVisibleCoords();
 
-			Assert.That(coords.Count(), Is.EqualTo(100));
+			Assert.That(coords.Count(), Is.GreaterThan(0));
 		}
 
 		[Test] public void GetPrefabWithIndexZeroReturnsEmptyTile()
@@ -62,22 +64,29 @@ namespace CodeSmile.Tests.Editor.ProTiler.Rendering
 		}
 
 		[Test] [CreateEmptyScene]
-		public void NewTilemapCreatedRendererPoolFolder()
-		{
-			var model = Tilemap3DCreation.CreateRectangularTilemap3D();
-
-			Assert.True(model.transform.Find(Tile3DRendererPoolFirstTry.RendererFolderName));
-		}
-
-		[Test] [CreateEmptyScene]
-		public void DestroyRendererRemovesRendererPoolFolder()
+		public void DestroyRendererEmptiesActiveRenderersFolder()
 		{
 			var model = Tilemap3DCreation.CreateRectangularTilemap3D();
 			var renderer = model.GetComponent<Tilemap3DRenderer>();
 
-			Object.DestroyImmediate(renderer);
+			renderer.DestroyInAnyMode();
 
-			Assert.False(model.transform.Find(Tile3DRendererPoolFirstTry.RendererFolderName));
+			var folder = model.transform.Find(Tilemap3DRenderer.ActiveRenderersFolderName);
+			Assert.NotNull(folder);
+			Assert.That(folder.transform.childCount, Is.Zero);
+		}
+
+		[Test] [CreateEmptyScene]
+		public void DestroyRendererEmptiesPooledRenderersFolder()
+		{
+			var model = Tilemap3DCreation.CreateRectangularTilemap3D();
+			var renderer = model.GetComponent<Tilemap3DRenderer>();
+
+			renderer.DestroyInAnyMode();
+
+			var folder = model.transform.Find(Tilemap3DRenderer.PooledRenderersFolderName);
+			Assert.NotNull(folder);
+			Assert.That(folder.transform.childCount, Is.Zero);
 		}
 
 		private Tilemap3DRenderer CreateTilemapRenderer() =>

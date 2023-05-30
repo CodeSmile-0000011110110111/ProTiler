@@ -9,6 +9,7 @@ using System.Runtime.CompilerServices;
 [assembly: FullCovered]
 
 [assembly: InternalsVisibleTo("CodeSmile.Tests.Editor.ProTiler")]
+[assembly: InternalsVisibleTo("CodeSmile.Tests.Runtime.ProTiler")]
 
 // ********************************************************************************
 // NDepend: Suppressed Messages

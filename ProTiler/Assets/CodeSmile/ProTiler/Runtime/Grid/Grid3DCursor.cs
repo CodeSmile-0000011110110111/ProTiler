@@ -25,8 +25,8 @@ namespace CodeSmile.ProTiler.Grid
 		public GridCoord Coord => m_Coord;
 		public CellSize CellSize => m_CellSize;
 		public Boolean IsValid => m_IsValid;
-		[Pure] public static Boolean operator ==(Grid3DCursor left, Grid3DCursor right) => left.Equals(right);
-		[Pure] public static Boolean operator !=(Grid3DCursor left, Grid3DCursor right) => !left.Equals(right);
+		public static Boolean operator ==(Grid3DCursor left, Grid3DCursor right) => left.Equals(right);
+		public static Boolean operator !=(Grid3DCursor left, Grid3DCursor right) => !left.Equals(right);
 
 		public Grid3DCursor(Ray worldRay, CellSize cellSize)
 		{
@@ -37,7 +37,7 @@ namespace CodeSmile.ProTiler.Grid
 			CalculateCursorCoord(worldRay);
 		}
 
-		[Pure] public Boolean Equals(Grid3DCursor other) => m_CenterPosition.Equals(other.m_CenterPosition) &&
+		public Boolean Equals(Grid3DCursor other) => m_CenterPosition.Equals(other.m_CenterPosition) &&
 		                                                    m_CellSize.Equals(other.m_CellSize) &&
 		                                                    m_IsValid == other.m_IsValid;
 
@@ -50,7 +50,7 @@ namespace CodeSmile.ProTiler.Grid
 			}
 		}
 
-		[Pure] private Boolean IntersectsPlaneAtCoord(Ray ray, out GridCoord coord, CellSize cellSize)
+		private Boolean IntersectsPlaneAtCoord(Ray ray, out GridCoord coord, CellSize cellSize)
 		{
 			var intersects = ray.IntersectsPlane(out var point);
 			coord = intersects ? Grid3DUtility.ToCoord(point, cellSize) : default;
@@ -60,7 +60,7 @@ namespace CodeSmile.ProTiler.Grid
 		[ExcludeFromCodeCoverage] public override String ToString() =>
 			$"Grid3DCursor(coord: {m_Coord}, pos: {m_CenterPosition}, valid: {IsValid})";
 
-		[Pure] public override Boolean Equals(Object obj) => obj is Grid3DCursor other && Equals(other);
-		[Pure] public override Int32 GetHashCode() => HashCode.Combine(m_CenterPosition, m_CellSize, m_IsValid);
+		public override Boolean Equals(Object obj) => obj is Grid3DCursor other && Equals(other);
+		public override Int32 GetHashCode() => HashCode.Combine(m_CenterPosition, m_CellSize, m_IsValid);
 	}
 }

@@ -29,7 +29,7 @@ namespace CodeSmile.ProTiler.Model
 		///     Get/set tile at index. No bounds check is performed.
 		/// </summary>
 		/// <param name="index"></param>
-		[Pure] internal Tile3D this[Int32 index]
+		internal Tile3D this[Int32 index]
 		{
 			get => m_Tiles[index];
 			set => m_Tiles[index] = value;
@@ -38,7 +38,7 @@ namespace CodeSmile.ProTiler.Model
 		/// <summary>
 		///     Counts non-empty tiles.
 		/// </summary>
-		[Pure] internal Int32 TileCount
+		internal Int32 TileCount
 		{
 			get
 			{
@@ -55,12 +55,12 @@ namespace CodeSmile.ProTiler.Model
 		/// <summary>
 		///     The max. size of the tile storage buffer.
 		/// </summary>
-		[Pure] internal Int32 Capacity => IsInitialized ? m_Tiles.Length : 0;
+		internal Int32 Capacity => IsInitialized ? m_Tiles.Length : 0;
 
 		/// <summary>
 		///     Returns true if the tile storage is not null. It can be initialized or null'ed via Resize().
 		/// </summary>
-		[Pure] internal Boolean IsInitialized => m_Tiles != null;
+		internal Boolean IsInitialized => m_Tiles != null;
 
 		/// <summary>
 		///     Create a new layer with the given dimensions. A (0,0) sized layer will leave the tile storage uninitialized.
@@ -77,14 +77,14 @@ namespace CodeSmile.ProTiler.Model
 		///     IsInitialized returns false.
 		/// </summary>
 		/// <param name="size"></param>
-		[Pure] internal void Resize(LayerSize size) => AllocateTilesBuffer(size);
+		internal void Resize(LayerSize size) => AllocateTilesBuffer(size);
 
 		/// <summary>
 		///     Sets tiles at the given coordinate using a list of Tile3DCoord instances.
 		/// </summary>
 		/// <param name="tileCoords"></param>
 		/// <param name="width"></param>
-		[Pure] internal void SetTiles(IEnumerable<Tile3DCoord> tileCoords, Int32 width)
+		internal void SetTiles(IEnumerable<Tile3DCoord> tileCoords, Int32 width)
 		{
 			foreach (var coordData in tileCoords)
 			{
@@ -94,7 +94,7 @@ namespace CodeSmile.ProTiler.Model
 		}
 
 		[ExcludeFromCodeCoverage]
-		[Pure] public override String ToString() =>
+		public override String ToString() =>
 			$"{nameof(Tile3DLayer)}(Capacity: {Capacity}, Non-Empty: {TileCount})";
 
 		private void AllocateTilesBuffer(LayerSize size)
