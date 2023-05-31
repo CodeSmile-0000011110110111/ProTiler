@@ -14,14 +14,13 @@ namespace CodeSmile.Tests.Editor.Core.Collections
 	public class ComponentPoolTests
 	{
 		[Test] [CreateEmptyScene] [CreateGameObject("Parent")]
-		public void NewThrowsOnInvalidParams()
+		public void NewThrowsOnNullParams()
 		{
 			var instance = GameObject.Find("Parent");
 			var prefab = TestAssets.LoadTestPrefab();
 
 			Assert.Throws<ArgumentNullException>(() => { new ComponentPool<Transform>(null, instance, 1); });
 			Assert.Throws<ArgumentNullException>(() => { new ComponentPool<Transform>(prefab, null, 2); });
-			Assert.Throws<ArgumentException>(() => { new ComponentPool<Transform>(prefab, prefab, 4); });
 		}
 
 		[Test] [CreateEmptyScene] [CreateGameObject("Parent")]

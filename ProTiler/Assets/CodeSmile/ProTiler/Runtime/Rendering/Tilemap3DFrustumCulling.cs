@@ -14,11 +14,11 @@ namespace CodeSmile.ProTiler.Rendering
 
 		public override IEnumerable<GridCoord> GetVisibleCoords()
 		{
-			const Int32 width = 4;
+			const Int32 width = 14;
 			const Int32 height = 1;
-			const Int32 length = 4;
+			const Int32 length = 14;
 
-			UpdateTestOffset();
+			//UpdateTestOffset();
 
 			var coords = new List<GridCoord>(width * height * length);
 

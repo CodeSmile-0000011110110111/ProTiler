@@ -91,10 +91,10 @@ namespace CodeSmile.ProTiler.Model
 			}
 		}
 
-		internal IEnumerable<Tile3DCoord> GetLayerTiles(ChunkCoord chunkCoord,
+		internal IEnumerable<Tile3DCoord> GetExistingLayerTiles(ChunkCoord chunkCoord,
 			IEnumerable<GridCoord> layerCoords)
 		{
-			var layerTileCoords = new Tile3DCoord[layerCoords.Count()];
+			var layerTileCoords = new List<Tile3DCoord>(layerCoords.Count());
 
 			var tileCoordIndex = 0;
 			foreach (var layerCoord in layerCoords)
@@ -104,7 +104,7 @@ namespace CodeSmile.ProTiler.Model
 				{
 					var gridCoord = Tilemap3DUtility.LayerToGridCoord(layerCoord, chunkCoord, m_Size);
 					var layerTileIndex = ToTileIndex(layerCoord);
-					layerTileCoords[tileCoordIndex] = new Tile3DCoord(gridCoord, layer[layerTileIndex]);
+					layerTileCoords.Add(new Tile3DCoord(gridCoord, layer[layerTileIndex]));
 					tileCoordIndex++;
 				}
 			}

@@ -4,7 +4,6 @@
 using CodeSmile.Collections;
 using CodeSmile.Extensions;
 using CodeSmile.ProTiler.Controller;
-using CodeSmile.ProTiler.Grid;
 using CodeSmile.ProTiler.Model;
 using System;
 using System.Collections.Generic;
@@ -19,14 +18,18 @@ namespace CodeSmile.ProTiler.Rendering
 	[ExecuteAlways]
 	[DisallowMultipleComponent]
 	[RequireComponent(typeof(Tilemap3DModel))]
-	public class Tilemap3DRenderer : MonoBehaviour
+	public partial class Tilemap3DRenderer : MonoBehaviour
 	{
 		internal const String ActiveRenderersFolderName = "[Active " + nameof(Tile3DRenderer) + "s]";
 		internal const String PooledRenderersFolderName = "[Pooled " + nameof(Tile3DRenderer) + "s]";
 		internal const String TemplateGameObjectFolderName = "[Template " + nameof(Tile3DRenderer) + "]";
 		internal const String TemplateGameObjectName = "*" + nameof(Tile3DRenderer);
 
-		private const HideFlags ChildHideFlags = HideFlags.DontSave;
+		// this needs some work because "DontSave" causes serious issues, eg
+		// https://answers.unity.com/questions/609621/hideflagsdontsave-causes-checkconsistency-transfor.html
+		private const HideFlags ChildHideFlags = HideFlags.None;
+
+		[SerializeReference] [HideInInspector] private Tilemap3DCullingBase m_Culling;
 
 		protected readonly TileRenderers m_ActiveRenderers = new();
 		protected Transform m_ActiveRenderersFolder;
@@ -35,20 +38,20 @@ namespace CodeSmile.ProTiler.Rendering
 		protected GameObject m_TemplateGameObject;
 		protected ComponentPool<Tile3DRenderer> m_ComponentPool;
 
-		[SerializeReference] [HideInInspector] private Tilemap3DCullingBase m_Culling;
-
-		private Tile3DAssetSet m_TileAssetSet;
-		internal Tile3DAssetSet TileAssetSet
+		private ITile3DAssetSet m_TileAssetSet;
+		internal ITile3DAssetSet TileAssetSet
 		{
 			get
 			{
 				if (m_TileAssetSet == null)
-					m_TileAssetSet = transform.parent.GetComponent<Tile3DAssetSet>();
+					m_TileAssetSet = transform.parent.GetComponent<ITile3DAssetSet>();
 				return m_TileAssetSet;
 			}
 		}
 		private Tilemap3DModel TilemapModel => GetComponent<Tilemap3DModel>();
 		public Tilemap3DCullingBase Culling { get => m_Culling; set => m_Culling = value; }
+
+		private void OnValidate() => UpdateDebugDrawingFlag();
 
 		private void Awake() => CreateDefaultFrustumCulling();
 		private void Reset() => CreateDefaultFrustumCulling();
@@ -59,12 +62,12 @@ namespace CodeSmile.ProTiler.Rendering
 			AssemblyReloadEvents.beforeAssemblyReload += ClearTileRenderers;
 #endif
 
-			m_ActiveRenderersFolder = GetOrCreateFolder(ActiveRenderersFolderName, true, ChildHideFlags);
-			m_PooledRenderersFolder = GetOrCreateFolder(PooledRenderersFolderName, false, ChildHideFlags);
-			m_TemplateGameObjectFolder = GetOrCreateFolder(TemplateGameObjectFolderName, false, ChildHideFlags);
+			m_ActiveRenderersFolder = GetOrCreateFolder(ActiveRenderersFolderName);
+			m_PooledRenderersFolder = GetOrCreateFolder(PooledRenderersFolderName, false);
+			m_TemplateGameObjectFolder = GetOrCreateFolder(TemplateGameObjectFolderName, false);
 
 			m_TemplateGameObject = GetOrCreateTemplateGameObject();
-			CreateComponentPool();
+			m_ComponentPool = CreateComponentPool();
 
 			RegisterModelEvents();
 		}
@@ -75,14 +78,7 @@ namespace CodeSmile.ProTiler.Rendering
 			ClearTileRenderers();
 		}
 
-		private void LateUpdate()
-		{
-			if (m_Culling != null)
-			{
-				var visibleCoords = m_Culling.GetVisibleCoords();
-				SetVisibleCoords(visibleCoords, TilemapModel.Grid.CellSize);
-			}
-		}
+		private void LateUpdate() => CullAndSetVisibleCoords();
 
 		private Transform GetOrCreateFolder(String folderName, Boolean active = true,
 			HideFlags hideFlags = HideFlags.None)
@@ -104,8 +100,13 @@ namespace CodeSmile.ProTiler.Rendering
 			transform = { parent = m_TemplateGameObjectFolder },
 		};
 
-		private void CreateComponentPool() => m_ComponentPool = new ComponentPool<Tile3DRenderer>(m_TemplateGameObject,
-			m_PooledRenderersFolder.gameObject, 0, ChildHideFlags);
+		private ComponentPool<Tile3DRenderer> CreateComponentPool()
+		{
+			if (m_ComponentPool != null)
+				m_ComponentPool.Dispose();
+			return new ComponentPool<Tile3DRenderer>(m_TemplateGameObject,
+				m_PooledRenderersFolder.gameObject, 0);
+		}
 
 		private void CreateDefaultFrustumCulling() => m_Culling = new Tilemap3DFrustumCulling();
 
@@ -113,20 +114,35 @@ namespace CodeSmile.ProTiler.Rendering
 		{
 			m_ComponentPool.Clear();
 			m_ActiveRenderers.Clear();
+
+#if DEBUG
+			if (m_PooledRenderersFolder == null)
+				Debug.LogError("pooled renderers folder is null");
+			if (ReferenceEquals(m_PooledRenderersFolder, null))
+				Debug.LogError("ReferenceEquals null for pooled renderers folder");
+			if (m_ActiveRenderersFolder == null)
+				Debug.LogError("active renderers folder is null");
+			if (ReferenceEquals(m_ActiveRenderersFolder, null))
+				Debug.LogError("ReferenceEquals null for active renderers folder");
+#endif
 			m_PooledRenderersFolder.DestroyAllChildren();
 			m_ActiveRenderersFolder.DestroyAllChildren();
 		}
 
-		private void UpdateTileRenderers(IEnumerable<Tile3DCoord> tileCoords)
+		private void CullAndSetVisibleCoords()
 		{
-			Debug.LogWarning("update tile renderewrs not implemented");
+			if (m_Culling != null)
+			{
+				var visibleCoords = m_Culling.GetVisibleCoords();
+				SetVisibleCoords(visibleCoords, TilemapModel.Grid.CellSize);
+			}
 		}
 
 		public void SetVisibleCoords(IEnumerable<GridCoord> visibleCoords, CellSize cellSize)
 		{
 			GrowComponentPool(visibleCoords.Count());
 			ReturnNonVisibleTileRenderersToPool(visibleCoords);
-			TakeFromPoolAndUpdateVisibleTileRenderers(visibleCoords, cellSize);
+			UpdateVisibleTileRenderers(visibleCoords, cellSize);
 		}
 
 		private void GrowComponentPool(Int32 visibleCount)
@@ -160,13 +176,21 @@ namespace CodeSmile.ProTiler.Rendering
 				m_ActiveRenderers.Remove(culledRenderers[i]);
 		}
 
-		private void TakeFromPoolAndUpdateVisibleTileRenderers(IEnumerable<GridCoord> visibleCoords,
+		private void UpdateVisibleTileRenderers(IEnumerable<GridCoord> visibleCoords,
 			CellSize cellSize)
 		{
-			foreach (var coord in visibleCoords)
+			var tileCoords = TilemapModel.GetTiles(visibleCoords);
+			foreach (var pair in tileCoords)
 			{
+				var coord = pair.Key;
 				var tileRenderer = GetOrActivateTileRenderer(coord);
-				UpdateTileRendererTransform(tileRenderer, coord, cellSize);
+				tileRenderer.UpdateTransform(coord, cellSize);
+
+				var tileCoord = pair.Value;
+				if (tileRenderer.TileCoord.Tile != tileCoord.Tile)
+					tileRenderer.UpdateTileCoord(tileCoord, TileAssetSet);
+
+				tileRenderer.EnableDebugDrawing = m_EnableDebugDrawing;
 			}
 		}
 
@@ -196,13 +220,6 @@ namespace CodeSmile.ProTiler.Rendering
 			tileRenderer.transform.parent = m_PooledRenderersFolder;
 		}
 
-		private void UpdateTileRendererTransform(Tile3DRenderer tileRenderer, GridCoord coord, CellSize cellSize)
-		{
-			var tileRendererTransform = tileRenderer.transform;
-			tileRendererTransform.position = Grid3DUtility.ToWorldPos(coord, cellSize);
-			tileRendererTransform.localScale = cellSize;
-		}
-
 		private void RegisterModelEvents()
 		{
 			TilemapModel.OnTilemapCleared += OnTilemapCleared;
@@ -217,10 +234,7 @@ namespace CodeSmile.ProTiler.Rendering
 
 		private void OnTilemapCleared() => ClearTileRenderers();
 
-		private void OnTilemapModified(IEnumerable<Tile3DCoord> tileCoords)
-		{
-			UpdateTileRenderers(tileCoords);
-		}
+		private void OnTilemapModified(IEnumerable<Tile3DCoord> tileCoords) => CullAndSetVisibleCoords();
 
 		protected internal sealed class TileRenderers : Dictionary<GridCoord, Tile3DRenderer> {}
 	}

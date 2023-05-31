@@ -17,7 +17,7 @@ namespace CodeSmile.ProTiler.Rendering
 	[AddComponentMenu("")]
 	[DisallowMultipleComponent]
 	[RequireComponent(typeof(Grid3DController))]
-	public class Tile3DAssetSet : MonoBehaviour, ITile3DAssetIndexer
+	public class Tile3DAssetSet : MonoBehaviour, ITile3DAssetSet
 	{
 		[SerializeField] [ReadOnlyField] private Tile3DAssetBaseSet m_TileAssets;
 
@@ -27,7 +27,6 @@ namespace CodeSmile.ProTiler.Rendering
 		{
 			m_TileAssets = new Tile3DAssetBaseSet();
 			m_TileAssets.Init();
-
 			LoadAllTileAssetsInProject();
 		}
 
@@ -44,7 +43,6 @@ namespace CodeSmile.ProTiler.Rendering
 
 				var tileAsset = AssetDatabase.LoadAssetAtPath<Tile3DAssetBase>(tileAssetPath);
 				Add(tileAsset, out var tileIndex);
-				//Debug.Log($"  [{tileIndex}] = '{tileAssetPath}'");
 			}
 			#endif
 		}

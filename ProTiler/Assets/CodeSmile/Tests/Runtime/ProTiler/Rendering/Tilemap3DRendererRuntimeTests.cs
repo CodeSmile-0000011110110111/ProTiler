@@ -8,19 +8,17 @@ using CodeSmile.ProTiler.Editor.Creation;
 using CodeSmile.ProTiler.Grid;
 using CodeSmile.ProTiler.Model;
 using CodeSmile.ProTiler.Rendering;
-using CodeSmile.Tests.Tools;
 using CodeSmile.Tests.Tools.Attributes;
 using NUnit.Framework;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 using CellSize = UnityEngine.Vector3;
 using GridCoord = UnityEngine.Vector3Int;
 
-namespace CodeSmile.Tests.Runtime.ProTiler
+namespace CodeSmile.Tests.Runtime.ProTiler.Rendering
 {
 	public class Tilemap3DRendererRuntimeTests
 	{

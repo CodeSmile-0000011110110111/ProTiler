@@ -4,7 +4,6 @@
 using CodeSmile.Attributes;
 using CodeSmile.Collections;
 using System;
-using System.Diagnostics.Contracts;
 using UnityEngine;
 
 namespace CodeSmile.ProTiler.Assets
@@ -15,16 +14,39 @@ namespace CodeSmile.ProTiler.Assets
 	{
 		[SerializeField] [HideInInspector] private Tile3DAssetBase m_EmptyTileAsset;
 		[SerializeField] [HideInInspector] private Tile3DAssetBase m_MissingTileAsset;
+		[SerializeField] [HideInInspector] private Tile3DAssetBase m_MissingPrefabAsset;
 
-		public new Tile3DAssetBase this[Int32 index] => index <= 0 ? EmptyTileAsset : base[index];
+		public new Tile3DAssetBase this[Int32 index]
+		{
+			get
+			{
+				if (index <= 0)
+					return EmptyTileAsset;
+
+				var tileAsset = base[index];
+				if (tileAsset.Prefab == null)
+					return MissingPrefabAsset;
+
+				return tileAsset;
+			}
+		}
 
 		public Tile3DAssetBase MissingTileAsset
 		{
 			get
 			{
 				if (m_MissingTileAsset == null)
-					LoadMissingTileAssetAndSetAsDefault();
+					m_MissingTileAsset = LoadMissingTileAsset();
 				return m_MissingTileAsset;
+			}
+		}
+		public Tile3DAssetBase MissingPrefabAsset
+		{
+			get
+			{
+				if (m_MissingPrefabAsset == null)
+					m_MissingPrefabAsset = LoadMissingPrefabAsset();
+				return m_MissingPrefabAsset;
 			}
 		}
 		public Tile3DAssetBase EmptyTileAsset
@@ -48,23 +70,14 @@ namespace CodeSmile.ProTiler.Assets
 
 		internal static Tile3DAsset LoadMissingTileAsset() => LoadTile3DAssetResource(Paths.ResourcesMissingTileAsset);
 
+		internal static Tile3DAsset LoadMissingPrefabAsset() =>
+			LoadTile3DAssetResource(Paths.ResourcesMissingPrefabAsset);
+
 		internal static Tile3DAsset LoadEmptyTileAsset() => LoadTile3DAssetResource(Paths.ResourcesEmptyTileAsset);
 
 		public Tile3DAssetBaseSet()
 			: base(null, 1) {}
 
-		public void Init()
-		{
-			m_EmptyTileAsset = LoadEmptyTileAsset();
-			LoadMissingTileAssetAndSetAsDefault();
-		}
-
-		internal void SetAsDefault(Tile3DAssetBase tileAsset) => DefaultObject = tileAsset;
-
-		internal void LoadMissingTileAssetAndSetAsDefault()
-		{
-			m_MissingTileAsset = LoadMissingTileAsset();
-			SetAsDefault(m_MissingTileAsset);
-		}
+		public void Init() => DefaultObject = MissingTileAsset;
 	}
 }

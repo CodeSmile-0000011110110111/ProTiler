@@ -56,8 +56,5 @@ namespace CodeSmile.ProTiler.Assets
 		public void Add(Tile3DAssetBase tileAsset, out Int32 index) => m_TileAssets.Add(tileAsset, out index);
 		public void Remove(Tile3DAssetBase tileAsset) => m_TileAssets.Remove(tileAsset);
 		public Boolean Contains(Tile3DAssetBase tileAsset) => m_TileAssets.Contains(tileAsset);
-
-		[ExcludeFromCodeCoverage]
-		internal void LoadMissingTileAssetAndSetAsDefault() => m_TileAssets.LoadMissingTileAssetAndSetAsDefault();
 	}
 }

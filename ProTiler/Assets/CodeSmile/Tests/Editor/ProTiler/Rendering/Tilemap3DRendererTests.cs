@@ -51,7 +51,7 @@ namespace CodeSmile.Tests.Editor.ProTiler.Rendering
 			var renderer = CreateTilemapRenderer();
 
 			var tileAsset = ScriptableObject.CreateInstance<Tile3DAsset>();
-			renderer.TileAssetSet.Add(tileAsset);
+			(renderer.TileAssetSet as Tile3DAssetSet).Add(tileAsset);
 
 			Assert.That(renderer.TileAssetSet[1] != null);
 		}

@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using UnityEngine;
 
-namespace CodeSmile.Tests.Runtime.ProTiler
+namespace CodeSmile.Tests.Runtime.ProTiler.Rendering
 {
 	[ExcludeFromCodeCoverage]
 	public sealed class TestCulling : Tilemap3DCullingBase

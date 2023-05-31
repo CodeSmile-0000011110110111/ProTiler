@@ -7,6 +7,7 @@ using CodeSmile.ProTiler.Editor.Creation;
 using CodeSmile.ProTiler.Grid;
 using CodeSmile.ProTiler.Model;
 using CodeSmile.ProTiler.Rendering;
+using CodeSmile.Tests.Tools;
 using CodeSmile.Tests.Tools.Attributes;
 using NUnit.Framework;
 using System.Linq;
@@ -96,7 +97,7 @@ namespace CodeSmile.Tests.Editor.ProTiler.Controller
 			Assert.That(model.ChunkCount, Is.EqualTo(1));
 			Assert.That(model.TileCount, Is.EqualTo(1));
 			Assert.That(model.GetLayerCount(new Vector2Int(0, 0)), Is.EqualTo(2));
-			Assert.That(model.GetTile(coord).Index, Is.EqualTo(tileIndex));
+			Assert.That(model.GetExistingTile(coord).Index, Is.EqualTo(tileIndex));
 		}
 
 		[Test] [CreateEmptyScene]
@@ -114,7 +115,7 @@ namespace CodeSmile.Tests.Editor.ProTiler.Controller
 
 			Assert.That(model.ChunkCount, Is.EqualTo(0));
 			Assert.That(model.TileCount, Is.EqualTo(0));
-			Assert.That(model.GetTile(coord).Index, Is.EqualTo(0));
+			Assert.That(model.GetExistingTile(coord).Index, Is.EqualTo(0));
 		}
 
 		[Test] [CreateEmptyScene]
@@ -134,7 +135,7 @@ namespace CodeSmile.Tests.Editor.ProTiler.Controller
 
 			Assert.That(model.ChunkCount, Is.EqualTo(1));
 			Assert.That(model.TileCount, Is.EqualTo(1));
-			Assert.That(model.GetTile(coord).Index, Is.EqualTo(tileIndex));
+			Assert.That(model.GetExistingTile(coord).Index, Is.EqualTo(tileIndex));
 		}
 
 		[Test] [CreateEmptyScene]
@@ -155,7 +156,7 @@ namespace CodeSmile.Tests.Editor.ProTiler.Controller
 
 			Assert.That(model.ChunkCount, Is.EqualTo(1));
 			Assert.That(model.TileCount, Is.EqualTo(1));
-			Assert.That(model.GetTile(coord).Index, Is.EqualTo(tileIndex));
+			Assert.That(model.GetExistingTile(coord).Index, Is.EqualTo(tileIndex));
 		}
 
 		[Test] [CreateEmptyScene]
@@ -177,14 +178,14 @@ namespace CodeSmile.Tests.Editor.ProTiler.Controller
 			Assert.That(model.ChunkSize, Is.EqualTo(chunkSize));
 			Assert.That(model.ChunkCount, Is.EqualTo(0));
 			Assert.That(model.TileCount, Is.EqualTo(0));
-			Assert.That(model.GetTile(coord).Index, Is.EqualTo(0));
+			Assert.That(model.GetExistingTile(coord).Index, Is.EqualTo(0));
 
 			Undo.PerformRedo();
 
 			Assert.That(model.ChunkSize, Is.EqualTo(chunkSize));
 			Assert.That(model.ChunkCount, Is.EqualTo(1));
 			Assert.That(model.TileCount, Is.EqualTo(1));
-			Assert.That(model.GetTile(coord).Index, Is.EqualTo(tileIndex));
+			Assert.That(model.GetExistingTile(coord).Index, Is.EqualTo(tileIndex));
 
 			Undo.PerformUndo();
 			Undo.PerformUndo();
@@ -324,14 +325,19 @@ namespace CodeSmile.Tests.Editor.ProTiler.Controller
 			var coord = Vector3Int.one;
 			model.SetTile(coord, new Tile3D(tileIndex));
 
+			Debug.Log("BEFORE Saving");
+			Debug.Log(SceneManager.GetActiveScene().DumpAll());
 			EditorSceneManager.SaveOpenScenes();
+
 			EditorSceneManager.OpenScene(SceneManager.GetActiveScene().path);
+			Debug.Log("AFTER Loading");
+			Debug.Log(SceneManager.GetActiveScene().DumpAll());
 
 			var models = ObjectExt.FindObjectsByTypeFast<Tilemap3DModel>();
 			Assert.That(models.Length, Is.EqualTo(1));
 			Assert.That(models.First() != null);
 			Assert.That(models.First().ChunkSize, Is.EqualTo(chunkSize));
-			Assert.That(models.First().GetTile(coord).Index, Is.EqualTo(tileIndex));
+			Assert.That(models.First().GetExistingTile(coord).Index, Is.EqualTo(tileIndex));
 		}
 	}
 }

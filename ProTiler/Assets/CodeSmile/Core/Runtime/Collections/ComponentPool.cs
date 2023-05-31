@@ -52,8 +52,6 @@ namespace CodeSmile.Collections
 				throw new ArgumentNullException(nameof(template), "prefab must not be null");
 			if (parent == null)
 				throw new ArgumentNullException(nameof(parent), "parent must not be null");
-			if (parent.GetInstanceID() >= 0)
-				throw new ArgumentException("parent must be a scene object");
 
 			m_Template = template;
 			m_Parent = parent.transform;

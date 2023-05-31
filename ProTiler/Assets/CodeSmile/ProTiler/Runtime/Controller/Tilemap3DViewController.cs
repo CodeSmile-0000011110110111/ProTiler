@@ -4,7 +4,6 @@
 using CodeSmile.ProTiler.Events;
 using CodeSmile.ProTiler.Grid;
 using System;
-using System.Diagnostics.Contracts;
 using UnityEngine;
 using ChunkCoord = UnityEngine.Vector2Int;
 using ChunkSize = UnityEngine.Vector2Int;

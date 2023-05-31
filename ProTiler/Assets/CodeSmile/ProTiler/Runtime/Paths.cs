@@ -12,6 +12,7 @@ namespace CodeSmile.ProTiler
 		private const string ResourcesTiles = ResourcesRoot + "Tiles/";
 
 		public const string ResourcesMissingTileAsset = ResourcesTiles + "MissingTile3DAsset";
+		public const string ResourcesMissingPrefabAsset = ResourcesTiles + "MissingTile3DAssetPrefab";
 		public const string ResourcesEmptyTileAsset = ResourcesTiles + "EmptyTile3DAsset";
 
 		// old ...

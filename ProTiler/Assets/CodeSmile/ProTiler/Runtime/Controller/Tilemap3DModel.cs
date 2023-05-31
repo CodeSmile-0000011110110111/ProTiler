@@ -61,8 +61,9 @@ namespace CodeSmile.ProTiler.Controller
 		}
 
 		internal Int32 GetLayerCount(ChunkCoord chunkCoord) => m_Tilemap.GetLayerCount(chunkCoord);
-		public Tile3D GetTile(GridCoord coord) => GetTiles(new[] { coord }).FirstOrDefault().Tile;
-		public IEnumerable<Tile3DCoord> GetTiles(IEnumerable<GridCoord> coords) => m_Tilemap.GetTiles(coords);
+		public Tile3D GetExistingTile(GridCoord coord) => GetExistingTiles(new[] { coord }).FirstOrDefault().Tile;
+		public IEnumerable<Tile3DCoord> GetExistingTiles(IEnumerable<GridCoord> coords) => m_Tilemap.GetExistingTiles(coords);
+		public IDictionary<GridCoord, Tile3DCoord> GetTiles(IEnumerable<GridCoord> coords) => m_Tilemap.GetTiles(coords);
 		public void SetTile(GridCoord coord, Tile3D tile) => SetTiles(new[] { new Tile3DCoord(coord, tile) });
 
 		public void SetTiles(IEnumerable<Tile3DCoord> tileCoords)

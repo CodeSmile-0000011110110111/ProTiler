@@ -133,17 +133,16 @@ namespace CodeSmile.Tests.Editor.ProTiler.Chunk
 				Tile3DTestUtility.AssertThatAllTilesHaveIncrementingIndex(width, length, chunk[y], y);
 		}
 
-		[TestCase(3, 4, 5)]
-		public void GetTileFromEmptyChunkShouldReturnEmptyTile(int x, int y, int z)
+		[TestCase(0, 1, 0)][TestCase(3, 4, 5)]
+		public void GetExistingTileFromEmptyChunkShouldReturnEmptyTile(int x, int y, int z)
 		{
 			var chunk = CreateChunk(x, z);
 
 			var coords = Tile3DTestUtility.CreateOneTileCoord(x, y, z).ToCoordArray();
 			var chunkCoord = new ChunkCoord(0,0);
-			var gotTileCoords = chunk.GetLayerTiles(chunkCoord, coords) as IList<Tile3DCoord>;
+			var gotTileCoords = chunk.GetExistingLayerTiles(chunkCoord, coords) as IList<Tile3DCoord>;
 
-			Assert.That(gotTileCoords.Count, Is.EqualTo(coords.Length));
-			Assert.That(gotTileCoords[0].Tile.IsEmpty);
+			Assert.That(gotTileCoords.Count, Is.Zero);
 		}
 
 		[TestCase(3, 4, 5)]
@@ -154,7 +153,7 @@ namespace CodeSmile.Tests.Editor.ProTiler.Chunk
 			chunk.SetLayerTiles(tileCoords);
 
 			var chunkCoord = new ChunkCoord(0,0);
-			var gotTileCoords = chunk.GetLayerTiles(chunkCoord, tileCoords.ToCoordArray()) as IList<Tile3DCoord>;
+			var gotTileCoords = chunk.GetExistingLayerTiles(chunkCoord, tileCoords.ToCoordArray()) as IList<Tile3DCoord>;
 
 			Assert.That(gotTileCoords.Count, Is.EqualTo(tileCoords.Length));
 			for (var i = 0; i < gotTileCoords.Count; i++)

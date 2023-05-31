@@ -28,7 +28,6 @@ namespace CodeSmile.ProTiler.Editor.Creation
 		{
 			var register = LoadOrCreateTileAssetRegister();
 			register.AssignSingletonInstance();
-			register.LoadMissingTileAssetAndSetAsDefault();
 		}
 
 		private static Tile3DAssetRegister LoadOrCreateTileAssetRegister() => AssetDatabaseExt.AssetExists<Tile3DAssetRegister>()

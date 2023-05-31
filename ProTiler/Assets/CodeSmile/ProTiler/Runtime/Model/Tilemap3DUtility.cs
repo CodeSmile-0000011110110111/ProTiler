@@ -2,8 +2,10 @@
 // Refer to included LICENSE file for terms and conditions.
 
 using CodeSmile.Attributes;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Runtime.CompilerServices;
 using ChunkKey = System.Int64;
 using GridCoord = UnityEngine.Vector3Int;
 using ChunkCoord = UnityEngine.Vector2Int;
@@ -16,7 +18,8 @@ namespace CodeSmile.ProTiler.Model
 	[FullCovered]
 	internal static class Tilemap3DUtility
 	{
-		internal static IEnumerable<GridCoord> GetAllChunkLayerCoords(ChunkCoord chunkCoord, ChunkSize chunkSize, int height = 0)
+		internal static IEnumerable<GridCoord> GetAllChunkLayerCoords(ChunkCoord chunkCoord, ChunkSize chunkSize,
+			Int32 height = 0)
 		{
 			var coords = new GridCoord[chunkSize.x * chunkSize.y];
 			var index = 0;
@@ -31,6 +34,7 @@ namespace CodeSmile.ProTiler.Model
 			return coords;
 		}
 
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static ChunkSize ClampChunkSize(ChunkSize chunkSize)
 		{
 			chunkSize.x = Math.Max(Tilemap3D.MinChunkSize.x, chunkSize.x);
@@ -38,35 +42,40 @@ namespace CodeSmile.ProTiler.Model
 			return chunkSize;
 		}
 
-		/*internal static long GetChunkKey(GridCoord worldCoord, ChunkSize chunkSize)
-	{
-		var chunkCoord = ToChunkCoord(worldCoord, chunkSize);
-		return GetChunkKey(chunkCoord);
-	}*/
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static ChunkKey GetChunkKey(GridCoord coord, ChunkSize chunkSize)
+		{
+			var chunkCoord = GridToChunkCoord(coord, chunkSize);
+			return GetChunkKey(chunkCoord);
+		}
 
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static ChunkKey GetChunkKey(ChunkCoord chunkCoord) => HashUtility.GetHash(chunkCoord.x, chunkCoord.y);
 
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static GridCoord LayerToGridCoord(LayerCoord layerCoord, ChunkCoord chunkCoord, ChunkSize chunkSize) =>
 			new(chunkCoord.x * chunkSize.x + layerCoord.x,
 				layerCoord.y,
 				chunkCoord.y * chunkSize.y + layerCoord.z);
 
 		/// <summary>
-		/// Note: negative grid coordinates result in negative chunk coordinates - but offset by 1. There may
-		/// be a generic way to calculate this but the straightforward solution using ternary works just fine.
-		/// Examples for ChunkSize(2,2):
-		/// Grid(-1,0,-1) => Chunk(-1,-1)
-		/// Grid(-2,0,-2) => Chunk(-1,-1)
-		/// Grid(-3,0,-3) => Chunk(-2,-2)
-		/// Grid(-4,0,-4) => Chunk(-2,-2)
+		///     Note: negative grid coordinates result in negative chunk coordinates - but offset by 1. There may
+		///     be a generic way to calculate this but the straightforward solution using ternary works just fine.
+		///     Examples for ChunkSize(2,2):
+		///     Grid(-1,0,-1) => Chunk(-1,-1)
+		///     Grid(-2,0,-2) => Chunk(-1,-1)
+		///     Grid(-3,0,-3) => Chunk(-2,-2)
+		///     Grid(-4,0,-4) => Chunk(-2,-2)
 		/// </summary>
 		/// <param name="gridCoord"></param>
 		/// <param name="chunkSize"></param>
 		/// <returns></returns>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static ChunkCoord GridToChunkCoord(GridCoord gridCoord, ChunkSize chunkSize) => new(
 			gridCoord.x < 0 ? (Math.Abs(gridCoord.x + 1) / chunkSize.x + 1) * -1 : gridCoord.x / chunkSize.x,
 			gridCoord.z < 0 ? (Math.Abs(gridCoord.z + 1) / chunkSize.y + 1) * -1 : gridCoord.z / chunkSize.y);
 
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static LayerCoord GridToLayerCoord(GridCoord gridCoord, ChunkSize chunkSize) => new(
 			Math.Abs(gridCoord.x) % chunkSize.x,
 			Math.Max(0, gridCoord.y),

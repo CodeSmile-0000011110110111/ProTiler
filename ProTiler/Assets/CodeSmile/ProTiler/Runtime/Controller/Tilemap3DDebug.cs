@@ -5,15 +5,16 @@ using CodeSmile.Attributes;
 using CodeSmile.Extensions;
 using CodeSmile.ProTiler.Grid;
 using CodeSmile.ProTiler.Model;
+using CodeSmile.ProTiler.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Diagnostics.Contracts;
 using UnityEditor;
 using UnityEngine;
 using GridCoord = UnityEngine.Vector3Int;
 using ChunkCoord = UnityEngine.Vector2Int;
 using ChunkSize = UnityEngine.Vector2Int;
+using Random = UnityEngine.Random;
 
 namespace CodeSmile.ProTiler.Controller
 {
@@ -28,6 +29,7 @@ namespace CodeSmile.ProTiler.Controller
 		[SerializeField] private Boolean m_ClearTilemap;
 		[SerializeField] private Boolean m_FillChunkLayer;
 		[SerializeField] private Boolean m_FillChunkLayersFromOrigin;
+		[SerializeField] private Boolean m_EnableRendererDebugDrawing;
 		[SerializeField] [ReadOnlyField] private Int32 m_TileCount;
 
 		private GameObject m_CursorObject;
@@ -54,16 +56,17 @@ namespace CodeSmile.ProTiler.Controller
 		{
 			UpdateTileCount();
 			TilemapViewController.OnCursorUpdate += OnCursorUpdate;
+#if UNITY_EDITOR
+			AssemblyReloadEvents.afterAssemblyReload += UpdateRendererDebugDrawing;
+#endif
 		}
 
 		private void OnDisable() => TilemapViewController.OnCursorUpdate -= OnCursorUpdate;
 
 		[ExcludeFromCodeCoverage]
-		private void OnDrawGizmosSelected()
-		{
+		private void OnDrawGizmosSelected() =>
 			//DrawActiveChunkTileIndexes();
 			DrawCursor();
-		}
 
 		[ExcludeFromCodeCoverage]
 		private void OnValidate()
@@ -73,7 +76,7 @@ namespace CodeSmile.ProTiler.Controller
 			// prevent occassional "coroutine not started" on disabled objects warnings
 			if (enabled && gameObject.activeInHierarchy)
 			{
-				// prevent issues with doing stuff in these methods that isn't allowed (ie Destroy during validate)
+				// prevent issues with doing stuff in OnValidate that isn't allowed (ie Destroy during validate)
 				this.WaitForFramesElapsed(1, () =>
 				{
 					if (m_ClearTilemap)
@@ -95,8 +98,16 @@ namespace CodeSmile.ProTiler.Controller
 					}
 
 					UpdateTileCount();
+					UpdateRendererDebugDrawing();
 				});
 			}
+		}
+
+		private void UpdateRendererDebugDrawing()
+		{
+			var renderer = GetComponent<Tilemap3DRenderer>();
+			if (renderer != null)
+				renderer.EnableDebugDrawing = m_EnableRendererDebugDrawing;
 		}
 
 		private void DrawCursorObject()
@@ -109,9 +120,9 @@ namespace CodeSmile.ProTiler.Controller
 				{
 					m_CursorObject = GameObject.CreatePrimitive(PrimitiveType.Cube);
 					m_CursorObject.name = DebugCursorName;
+					m_CursorObject.hideFlags = HideFlags.HideAndDontSave;
 					m_CursorObject.transform.parent = transform;
-					var scale = Grid.CellSize;
-					//scale.y = 0.01f;
+					var scale = Grid.CellSize * 0.99f; // downscale to prevent z-fighting
 					m_CursorObject.transform.localScale = scale;
 				}
 			}
@@ -152,7 +163,7 @@ namespace CodeSmile.ProTiler.Controller
 			{
 				var coords =
 					Tilemap3DUtility.GetAllChunkLayerCoords(m_ActiveChunkCoord, chunkSize, height);
-				var tileCoords = tilemapBehaviour.GetTiles(coords);
+				var tileCoords = tilemapBehaviour.GetExistingTiles(coords);
 
 				foreach (var tileCoord in tileCoords)
 				{
@@ -171,7 +182,7 @@ namespace CodeSmile.ProTiler.Controller
 		[ExcludeFromCodeCoverage]
 		private void FillActiveLayerWithIncrementingTiles(Vector2Int chunkCoord, Int32 height)
 		{
-			var tileCoords = GetIncrementingIndexChunkTileCoords(chunkCoord, TilemapModel.ChunkSize, height);
+			var tileCoords = GetRandomIndexChunkTileCoords(chunkCoord, TilemapModel.ChunkSize, height);
 			TilemapModel.SetTiles(tileCoords);
 			UpdateTileCount();
 			Debug.Log($"filled chunk {chunkCoord} layer {height} with {tileCoords.Length} tiles");
@@ -190,7 +201,7 @@ namespace CodeSmile.ProTiler.Controller
 					{
 						var coord = new ChunkCoord(x, y);
 						var tileCoords =
-							GetIncrementingIndexChunkTileCoords(coord, TilemapModel.ChunkSize, h);
+							GetRandomIndexChunkTileCoords(coord, TilemapModel.ChunkSize, h);
 						allTileCoords.AddRange(tileCoords);
 					}
 				}
@@ -201,8 +212,8 @@ namespace CodeSmile.ProTiler.Controller
 		}
 
 		[ExcludeFromCodeCoverage]
-		private Tile3DCoord[] GetIncrementingIndexChunkTileCoords(ChunkCoord chunkCoord,
-			ChunkSize chunkSize, Int32 height)
+		private Tile3DCoord[] GetRandomIndexChunkTileCoords(ChunkCoord chunkCoord,
+			ChunkSize chunkSize, Int32 height, Int32 minValue = 1, Int32 maxValue = 33)
 		{
 			var width = chunkSize.x;
 			var length = chunkSize.y;
@@ -214,8 +225,8 @@ namespace CodeSmile.ProTiler.Controller
 				for (var z = 0; z < length; z++)
 				{
 					var coord = new GridCoord(chunkOrigin.x + x, height, chunkOrigin.y + z);
-					var tileIndex = Grid3DUtility.ToIndex2D(x, z, width);
-					tileCoords[tileIndex] = new Tile3DCoord(coord, new Tile3D(tileIndex + 1));
+					var tileIndex = Random.Range(minValue, maxValue);
+					tileCoords[x * width + z] = new Tile3DCoord(coord, new Tile3D(tileIndex));
 				}
 			}
 			return tileCoords;
