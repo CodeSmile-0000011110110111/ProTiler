@@ -16,6 +16,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.TestTools;
 using CellSize = UnityEngine.Vector3;
+using ChunkSize = UnityEngine.Vector2Int;
 using GridCoord = UnityEngine.Vector3Int;
 
 namespace CodeSmile.Tests.Runtime.ProTiler.Rendering
@@ -290,7 +291,7 @@ namespace CodeSmile.Tests.Runtime.ProTiler.Rendering
 
 		private class ZeroCulling : Tilemap3DCullingBase
 		{
-			public override IEnumerable<Vector3Int> GetVisibleCoords() => new Vector3Int[0];
+			public override IEnumerable<Vector3Int> GetVisibleCoords(ChunkSize chunkSize, CellSize cellSize) => new Vector3Int[0];
 		}
 	}
 }

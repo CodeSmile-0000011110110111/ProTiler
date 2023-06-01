@@ -53,7 +53,7 @@ namespace CodeSmile.ProTiler.Grid
 		private Boolean IntersectsPlaneAtCoord(Ray ray, out GridCoord coord, CellSize cellSize)
 		{
 			var intersects = ray.IntersectsPlane(out var point);
-			coord = intersects ? Grid3DUtility.ToCoord(point, cellSize) : default;
+			coord = intersects ? Grid3DUtility.ToGridCoord(point, cellSize) : default;
 			return intersects;
 		}
 

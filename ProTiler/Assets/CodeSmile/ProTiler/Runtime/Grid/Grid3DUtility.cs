@@ -52,7 +52,7 @@ namespace CodeSmile.ProTiler.Grid
 		/// <param name="y"></param>
 		/// <returns></returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static GridCoord ToCoord(Int32 index2d, Int32 width, Int32 y = 0) =>
+		internal static GridCoord ToGridCoord(Int32 index2d, Int32 width, Int32 y = 0) =>
 			new(index2d % width, y, index2d / width);
 
 		/// <summary>
@@ -64,7 +64,7 @@ namespace CodeSmile.ProTiler.Grid
 		/// <param name="cellSize"></param>
 		/// <returns></returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static GridCoord ToCoord(WorldPos worldPosition, CellSize cellSize) => new(
+		internal static GridCoord ToGridCoord(WorldPos worldPosition, CellSize cellSize) => new(
 			Math.FloorToInt(worldPosition.x * (1f / cellSize.x)),
 			Math.FloorToInt(worldPosition.y * (1f / cellSize.y)),
 			Math.FloorToInt(worldPosition.z * (1f / cellSize.z)));

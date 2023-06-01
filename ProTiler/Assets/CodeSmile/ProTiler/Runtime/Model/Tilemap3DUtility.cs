@@ -18,7 +18,8 @@ namespace CodeSmile.ProTiler.Model
 	[FullCovered]
 	internal static class Tilemap3DUtility
 	{
-		internal static IEnumerable<GridCoord> GetAllChunkLayerCoords(ChunkCoord chunkCoord, ChunkSize chunkSize,
+
+		internal static IEnumerable<GridCoord> GetChunkGridCoords(ChunkCoord chunkCoord, ChunkSize chunkSize,
 			Int32 height = 0)
 		{
 			var coords = new GridCoord[chunkSize.x * chunkSize.y];
@@ -70,6 +71,7 @@ namespace CodeSmile.ProTiler.Model
 		/// <param name="gridCoord"></param>
 		/// <param name="chunkSize"></param>
 		/// <returns></returns>
+		// TODO: these +1/-1 can probably be refactored to a more generic algorithm
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static ChunkCoord GridToChunkCoord(GridCoord gridCoord, ChunkSize chunkSize) => new(
 			gridCoord.x < 0 ? (Math.Abs(gridCoord.x + 1) / chunkSize.x + 1) * -1 : gridCoord.x / chunkSize.x,
@@ -80,6 +82,10 @@ namespace CodeSmile.ProTiler.Model
 			Math.Abs(gridCoord.x) % chunkSize.x,
 			Math.Max(0, gridCoord.y),
 			Math.Abs(gridCoord.z) % chunkSize.y);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static GridCoord ChunkToGridCoord(ChunkCoord chunkCoord, ChunkSize chunkSize) =>
+			new(chunkCoord.x * chunkSize.x, 0, chunkCoord.y * chunkSize.y);
 
 		[ExcludeFromCodeCoverage] static Tilemap3DUtility() {}
 	}

@@ -5,7 +5,6 @@ using CodeSmile.Extensions;
 using CodeSmile.ProTiler.Assets;
 using CodeSmile.ProTiler.Editor.Creation;
 using CodeSmile.ProTiler.Rendering;
-using CodeSmile.Tests.Tools;
 using CodeSmile.Tests.Tools.Attributes;
 using NUnit.Framework;
 using System.Linq;
@@ -28,13 +27,13 @@ namespace CodeSmile.Tests.Editor.ProTiler.Rendering
 		{
 			var renderer = CreateTilemapRenderer();
 
-			Assert.That(renderer.Culling is Tilemap3DFrustumCulling);
+			Assert.That(renderer.Culling is Tilemap3DTopDownCulling);
 		}
 
 		[Test] public void DefaultCullingReturnsNonZeroVisibleCoords()
 		{
 			var renderer = CreateTilemapRenderer();
-			var coords = renderer.Culling.GetVisibleCoords();
+			var coords = renderer.Culling.GetVisibleCoords(new ChunkSize(16, 16), Vector3.one);
 
 			Assert.That(coords.Count(), Is.GreaterThan(0));
 		}

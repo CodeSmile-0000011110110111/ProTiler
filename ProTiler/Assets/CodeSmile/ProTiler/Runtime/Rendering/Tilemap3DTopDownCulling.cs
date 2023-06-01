@@ -1,49 +1,37 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
-using System;
+using CodeSmile.ProTiler.Grid;
+using CodeSmile.ProTiler.Model;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 using GridCoord = UnityEngine.Vector3Int;
+using CellSize = UnityEngine.Vector3;
+using ChunkCoord = UnityEngine.Vector2Int;
+using ChunkSize = UnityEngine.Vector2Int;
 
 namespace CodeSmile.ProTiler.Rendering
 {
-	public class Tilemap3DFrustumCulling : Tilemap3DCullingBase
+	public class Tilemap3DTopDownCulling : Tilemap3DCullingBase
 	{
 		private GridCoord m_TestOffset;
 
-		public override IEnumerable<GridCoord> GetVisibleCoords()
+		public override IEnumerable<GridCoord> GetVisibleCoords(ChunkSize chunkSize, CellSize cellSize)
 		{
-			const Int32 width = 14;
-			const Int32 height = 1;
-			const Int32 length = 14;
+			var visibleChunks = GetVisibleChunks(chunkSize, cellSize);
+			Debug.Log($"visible chunks: {visibleChunks.Count()}");
+			var visibleCoords = new List<GridCoord>();
 
-			//UpdateTestOffset();
-
-			var coords = new List<GridCoord>(width * height * length);
-
-			for (var z = 0; z < length; z++)
-				for (var y = 0; y < height; y++)
-					for (var x = 0; x < width; x++)
-						coords.Add(new GridCoord(x, y, z) + m_TestOffset);
-
-			return coords;
-		}
-
-		private void UpdateTestOffset()
-		{
-			if (Time.frameCount % 2 == 0)
+			foreach (var chunkCoord in visibleChunks)
 			{
-				m_TestOffset.x--;
-				m_TestOffset.z--;
-
-				if (m_TestOffset.x < 0)
-				{
-					m_TestOffset.x = 24;
-					m_TestOffset.z = 24;
-				}
+				Debug.Log($"visible chunk: {chunkCoord}");
+				var chunkGridCoords = Tilemap3DUtility.GetChunkGridCoords(chunkCoord, chunkSize);
+				visibleCoords.AddRange(chunkGridCoords);
 			}
+
+			return visibleCoords;
 		}
 
 		public Camera GetMainOrSceneViewCamera()
@@ -54,6 +42,24 @@ namespace CodeSmile.ProTiler.Rendering
 #endif
 
 			return Camera.main;
+		}
+
+		public IEnumerable<ChunkCoord> GetVisibleChunks(ChunkSize chunkSize, CellSize cellSize)
+		{
+			var visibleChunks = new HashSet<ChunkCoord>();
+
+			var startChunkCoord = GetCameraChunkCoord(chunkSize, cellSize);
+			visibleChunks.Add(startChunkCoord);
+
+			return visibleChunks;
+		}
+
+		private Vector2Int GetCameraChunkCoord(Vector2Int chunkSize, Vector3 cellSize)
+		{
+			var camera = GetMainOrSceneViewCamera();
+			var gridCoord = Grid3DUtility.ToGridCoord(camera.transform.position, cellSize);
+			var chunkCoord = Tilemap3DUtility.GridToChunkCoord(gridCoord, chunkSize);
+			return chunkCoord;
 		}
 	}
 }

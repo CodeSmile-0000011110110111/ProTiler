@@ -37,36 +37,36 @@ namespace CodeSmile.Tests.Editor.ProTiler.Grid
 		}
 
 		[Test] public void Index2DToCoord_Zero() =>
-			Assert.That(Grid3DUtility.ToCoord(0, 7), Is.EqualTo(Vector3Int.zero));
+			Assert.That(Grid3DUtility.ToGridCoord(0, 7), Is.EqualTo(Vector3Int.zero));
 
 		[Test] public void Index2DToCoord()
 		{
-			Assert.That(Grid3DUtility.ToCoord(0, 7, 3), Is.EqualTo(new Vector3Int(0, 3, 0)));
-			Assert.That(Grid3DUtility.ToCoord(49, 7, 5), Is.EqualTo(new Vector3Int(0, 5, 7)));
-			Assert.That(Grid3DUtility.ToCoord(61, 7, 9), Is.EqualTo(new Vector3Int(5, 9, 8)));
+			Assert.That(Grid3DUtility.ToGridCoord(0, 7, 3), Is.EqualTo(new Vector3Int(0, 3, 0)));
+			Assert.That(Grid3DUtility.ToGridCoord(49, 7, 5), Is.EqualTo(new Vector3Int(0, 5, 7)));
+			Assert.That(Grid3DUtility.ToGridCoord(61, 7, 9), Is.EqualTo(new Vector3Int(5, 9, 8)));
 		}
 
 		[Test] public void Index2DToCoord_Negative()
 		{
-			Assert.That(Grid3DUtility.ToCoord(-1, 7), Is.EqualTo(new Vector3Int(-1, 0, 0)));
-			Assert.That(Grid3DUtility.ToCoord(-15, 7), Is.EqualTo(new Vector3Int(-1, 0, -2)));
+			Assert.That(Grid3DUtility.ToGridCoord(-1, 7), Is.EqualTo(new Vector3Int(-1, 0, 0)));
+			Assert.That(Grid3DUtility.ToGridCoord(-15, 7), Is.EqualTo(new Vector3Int(-1, 0, -2)));
 		}
 
 		[Test] public void WorldPositionToCoord_Zero() =>
-			Assert.That(Grid3DUtility.ToCoord(Vector3.zero, new Vector3Int(3, 4, 7)), Is.EqualTo(Vector3Int.zero));
+			Assert.That(Grid3DUtility.ToGridCoord(Vector3.zero, new Vector3Int(3, 4, 7)), Is.EqualTo(Vector3Int.zero));
 
 		[Test] public void WorldPositionToCoord()
 		{
 			var cellSize = new Vector3Int(3, 4, 7);
-			Assert.That(Grid3DUtility.ToCoord(new Vector3(2.99999f, 3.99999f, 6.99999f), cellSize),
+			Assert.That(Grid3DUtility.ToGridCoord(new Vector3(2.99999f, 3.99999f, 6.99999f), cellSize),
 				Is.EqualTo(new Vector3Int(0, 0, 0)));
-			Assert.That(Grid3DUtility.ToCoord(new Vector3(3f, 4f, 7f), cellSize), Is.EqualTo(new Vector3Int(1, 1, 1)));
+			Assert.That(Grid3DUtility.ToGridCoord(new Vector3(3f, 4f, 7f), cellSize), Is.EqualTo(new Vector3Int(1, 1, 1)));
 		}
 
 		[Test] public void WorldPositionToCoord_Negative()
 		{
 			var cellSize = new Vector3Int(3, 4, 7);
-			Assert.That(Grid3DUtility.ToCoord(new Vector3(-.1f, -4.1f, -20.99f), cellSize),
+			Assert.That(Grid3DUtility.ToGridCoord(new Vector3(-.1f, -4.1f, -20.99f), cellSize),
 				Is.EqualTo(new Vector3Int(-1, -2, -3)));
 		}
 

@@ -52,10 +52,20 @@ namespace CodeSmile.Tests.Editor.ProTiler.Model
 			new object[] { new GridCoord(-9, -9, -9), new ChunkCoord(4, 3), new GridCoord(1, 0, 0) },
 		};
 
+		private static readonly object[] ChunkToGridCoordParams =
+		{
+			new object[] { new ChunkCoord(0, 0), new ChunkSize(2, 2), new GridCoord(0, 0, 0) },
+			new object[] { new ChunkCoord(1, 1), new ChunkSize(2, 2), new GridCoord(2, 0, 2) },
+			new object[] { new ChunkCoord(3, 3), new ChunkSize(3, 4), new GridCoord(9, 0, 12) },
+			new object[] { new ChunkCoord(-1, 0), new ChunkSize(2, 2), new GridCoord(-2, 0, 0) },
+			new object[] { new ChunkCoord(0, -1), new ChunkSize(3, 3), new GridCoord(0, 0, -3) },
+			new object[] { new ChunkCoord(-1, -1), new ChunkSize(4, 4), new GridCoord(-4, 0, -4) },
+		};
+
 		[TestCaseSource(nameof(ChunkCoords))]
 		public void GetAllChunkLayerCoordsCorrectness(ChunkCoord chunkCoord, ChunkSize chunkSize, GridCoord firstCoord)
 		{
-			var coords = Tilemap3DUtility.GetAllChunkLayerCoords(chunkCoord, chunkSize);
+			var coords = Tilemap3DUtility.GetChunkGridCoords(chunkCoord, chunkSize);
 
 			var expected = new GridCoord(chunkCoord.x * chunkSize.x, 0, chunkCoord.y * chunkSize.y);
 			Assert.That(coords.Count(), Is.EqualTo(chunkSize.x * chunkSize.y));
@@ -68,11 +78,16 @@ namespace CodeSmile.Tests.Editor.ProTiler.Model
 			Is.EqualTo(expected));
 
 		[TestCaseSource(nameof(GridToChunkCoordParams))]
-		public void GridToChunkCoordIsCorrect(GridCoord gridCoord, ChunkCoord chunkSize, ChunkCoord expected) =>
+		public void GridToChunkCoordIsCorrect(GridCoord gridCoord, ChunkSize chunkSize, ChunkCoord expected) =>
 			Assert.That(Tilemap3DUtility.GridToChunkCoord(gridCoord, chunkSize), Is.EqualTo(expected));
 
 		[TestCaseSource(nameof(GridToLayerCoordParams))]
-		public void GridToLayerCoordIsCorrect(GridCoord gridCoord, ChunkCoord chunkSize, GridCoord expected) =>
+		public void GridToLayerCoordIsCorrect(GridCoord gridCoord, ChunkSize chunkSize, GridCoord expected) =>
 			Assert.That(Tilemap3DUtility.GridToLayerCoord(gridCoord, chunkSize), Is.EqualTo(expected));
+
+
+		[TestCaseSource(nameof(ChunkToGridCoordParams))]
+		public void ChunkToGridCoordIsCorrect(ChunkCoord chunkCoord, ChunkSize chunkSize, GridCoord expected) =>
+			Assert.That(Tilemap3DUtility.ChunkToGridCoord(chunkCoord, chunkSize), Is.EqualTo(expected));
 	}
 }

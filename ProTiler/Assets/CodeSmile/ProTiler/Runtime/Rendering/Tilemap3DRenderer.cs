@@ -108,32 +108,26 @@ namespace CodeSmile.ProTiler.Rendering
 				m_PooledRenderersFolder.gameObject, 0);
 		}
 
-		private void CreateDefaultFrustumCulling() => m_Culling = new Tilemap3DFrustumCulling();
+		private void CreateDefaultFrustumCulling() => m_Culling = new Tilemap3DTopDownCulling();
 
 		public void ClearTileRenderers()
 		{
 			m_ComponentPool.Clear();
 			m_ActiveRenderers.Clear();
 
-#if DEBUG
-			if (m_PooledRenderersFolder == null)
-				Debug.LogError("pooled renderers folder is null");
-			if (ReferenceEquals(m_PooledRenderersFolder, null))
-				Debug.LogError("ReferenceEquals null for pooled renderers folder");
-			if (m_ActiveRenderersFolder == null)
-				Debug.LogError("active renderers folder is null");
-			if (ReferenceEquals(m_ActiveRenderersFolder, null))
-				Debug.LogError("ReferenceEquals null for active renderers folder");
-#endif
-			m_PooledRenderersFolder.DestroyAllChildren();
-			m_ActiveRenderersFolder.DestroyAllChildren();
+			if (m_PooledRenderersFolder != null)
+				m_PooledRenderersFolder.DestroyAllChildren();
+			if (m_ActiveRenderersFolder != null)
+				m_ActiveRenderersFolder.DestroyAllChildren();
 		}
 
 		private void CullAndSetVisibleCoords()
 		{
 			if (m_Culling != null)
 			{
-				var visibleCoords = m_Culling.GetVisibleCoords();
+				var chunkSize = TilemapModel.ChunkSize;
+				var cellSize = TilemapModel.Grid.CellSize;
+				var visibleCoords = m_Culling.GetVisibleCoords(chunkSize, cellSize);
 				SetVisibleCoords(visibleCoords, TilemapModel.Grid.CellSize);
 			}
 		}

@@ -162,7 +162,7 @@ namespace CodeSmile.ProTiler.Controller
 			for (var height = 0; height < layerCountInChunk; height++)
 			{
 				var coords =
-					Tilemap3DUtility.GetAllChunkLayerCoords(m_ActiveChunkCoord, chunkSize, height);
+					Tilemap3DUtility.GetChunkGridCoords(m_ActiveChunkCoord, chunkSize, height);
 				var tileCoords = tilemapBehaviour.GetExistingTiles(coords);
 
 				foreach (var tileCoord in tileCoords)

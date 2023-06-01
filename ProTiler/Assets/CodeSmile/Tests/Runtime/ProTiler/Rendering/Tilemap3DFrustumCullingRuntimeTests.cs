@@ -1,29 +1,21 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
+using CodeSmile.ProTiler.Rendering;
 using NUnit.Framework;
-using System.Collections;
-using UnityEngine.TestTools;
+using UnityEngine;
 
 namespace CodeSmile.Tests.Runtime.ProTiler.Rendering
 {
 	public class Tilemap3DFrustumCullingRuntimeTests
 	{
-		[Test]
-		public void Tilemap3DFrustumCullingRuntimeTestsSimplePasses()
+		[Test] public void GetCameraReturnsSceneViewCamera()
 		{
-			// Use the Assert class to test conditions.
-			
-		}
+			var culling = new Tilemap3DTopDownCulling();
 
-		// A UnityTest behaves like a coroutine in PlayMode
-		// and allows you to yield null to skip a frame in EditMode
-		[UnityTest]
-		public IEnumerator Tilemap3DFrustumCullingRuntimeTestsWithEnumeratorPasses()
-		{
-			// Use the Assert class to test conditions.
-			// yield to skip a frame
-			yield return null;
+			var camera = culling.GetMainOrSceneViewCamera();
+
+			Assert.NotNull(camera == Camera.main);
 		}
 	}
 }

@@ -65,7 +65,7 @@ namespace CodeSmile.Tests.Editor.ProTiler.Controller
 			controller.OnMouseMove(new MouseMoveEventData(new Ray(origin, Vector3.down)));
 
 			Assert.That(cursor.IsValid);
-			Assert.That(cursor.Coord, Is.EqualTo(Grid3DUtility.ToCoord(cursor.CenterPosition, CellSize.one)));
+			Assert.That(cursor.Coord, Is.EqualTo(Grid3DUtility.ToGridCoord(cursor.CenterPosition, CellSize.one)));
 			Assert.That(cursor.CenterPosition, Is.EqualTo(cursor.Coord + CellSize.one / 2f));
 			Assert.That(cursor.CellSize, Is.EqualTo(CellSize.one));
 		}
@@ -109,7 +109,7 @@ namespace CodeSmile.Tests.Editor.ProTiler.Controller
 			controller.EnableCursor();
 
 			Assert.That(cursor.IsValid);
-			Assert.That(cursor.Coord, Is.EqualTo(Grid3DUtility.ToCoord(origin, CellSize.one)));
+			Assert.That(cursor.Coord, Is.EqualTo(Grid3DUtility.ToGridCoord(origin, CellSize.one)));
 		}
 	}
 }
