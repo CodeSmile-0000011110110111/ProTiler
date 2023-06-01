@@ -29,14 +29,16 @@ namespace CodeSmile.ProTiler.Rendering
 		// https://answers.unity.com/questions/609621/hideflagsdontsave-causes-checkconsistency-transfor.html
 		private const HideFlags ChildHideFlags = HideFlags.None;
 
-		[SerializeReference] [HideInInspector] private Tilemap3DCullingBase m_Culling;
-
 		protected readonly TileRenderers m_ActiveRenderers = new();
+
+		[SerializeReference] [HideInInspector] private Tilemap3DCullingBase m_Culling;
 		protected Transform m_ActiveRenderersFolder;
 		protected Transform m_PooledRenderersFolder;
 		protected Transform m_TemplateGameObjectFolder;
 		protected GameObject m_TemplateGameObject;
 		protected ComponentPool<Tile3DRenderer> m_ComponentPool;
+
+		private IEnumerable<GridCoord> m_LastVisibleCoords = new GridCoord[0];
 
 		private ITile3DAssetSet m_TileAssetSet;
 		internal ITile3DAssetSet TileAssetSet
@@ -143,6 +145,7 @@ namespace CodeSmile.ProTiler.Rendering
 			GrowComponentPool(visibleCoords.Count());
 			ReturnNonVisibleTileRenderersToPool(visibleCoords);
 			UpdateVisibleTileRenderers(visibleCoords, cellSize);
+			m_LastVisibleCoords = visibleCoords;
 		}
 
 		private void GrowComponentPool(Int32 visibleCount)
@@ -153,26 +156,32 @@ namespace CodeSmile.ProTiler.Rendering
 
 		private void ReturnNonVisibleTileRenderersToPool(IEnumerable<GridCoord> visibleCoords)
 		{
-			var culledRenderers = GetCulledRenderers(visibleCoords);
-			ReturnCulledTileRenderersToPool(culledRenderers);
-			SetCulledTileRenderersAsInactive(culledRenderers);
+			var culledCoords = GetCulledCoords(visibleCoords);
+			ReturnCulledTileRenderersToPool(culledCoords);
+			SetCulledTileRenderersAsInactive(culledCoords);
 		}
 
-		private IReadOnlyList<GridCoord> GetCulledRenderers(IEnumerable<GridCoord> visibleCoords) =>
-			m_ActiveRenderers.Keys.Where(coord => visibleCoords.Contains(coord) == false).ToList();
+		private IReadOnlyList<GridCoord> GetCulledCoords(IEnumerable<GridCoord> visibleCoords)
+		{
+			var culledCoords = new HashSet<GridCoord>(m_LastVisibleCoords);
+			foreach (var visibleCoord in visibleCoords)
+				culledCoords.Remove(visibleCoord);
+
+			return culledCoords.ToList();
+		}
 
 		private void ReturnCulledTileRenderersToPool(IReadOnlyList<GridCoord> culledRenderers)
 		{
 			foreach (var coord in culledRenderers)
 			{
-				var tileRenderer = m_ActiveRenderers[coord];
-				ReturnTileRendererToPool(tileRenderer);
+				if (m_ActiveRenderers.TryGetValue(coord, out var tileRenderer))
+					ReturnTileRendererToPool(tileRenderer);
 			}
 		}
 
 		private void SetCulledTileRenderersAsInactive(IReadOnlyList<GridCoord> culledRenderers)
 		{
-			for (var i = culledRenderers.Count - 1; i >= 0; i--)
+			for (var i = culledRenderers.Count() - 1; i >= 0; i--)
 				m_ActiveRenderers.Remove(culledRenderers[i]);
 		}
 

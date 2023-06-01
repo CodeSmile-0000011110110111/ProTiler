@@ -44,7 +44,7 @@ namespace CodeSmile.ProTiler.Rendering
 
 		public IEnumerable<ChunkCoord> GetVisibleChunks(ChunkSize chunkSize, CellSize cellSize)
 		{
-			var visibleChunks = new HashSet<ChunkCoord>();
+			var visibleChunks = new List<ChunkCoord>();
 
 			var startChunkCoord = GetCameraChunkCoord(chunkSize, cellSize);
 			visibleChunks.Add(startChunkCoord);
