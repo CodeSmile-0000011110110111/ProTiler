@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using GridCoord = UnityEngine.Vector3Int;
 
@@ -43,6 +44,16 @@ namespace CodeSmile.ProTiler.Rendering
 					m_TestOffset.z = 24;
 				}
 			}
+		}
+
+		public Camera GetMainOrSceneViewCamera()
+		{
+#if UNITY_EDITOR
+			if (Application.isPlaying == false)
+				return SceneView.lastActiveSceneView.camera;
+#endif
+
+			return Camera.main;
 		}
 	}
 }
