@@ -21,12 +21,10 @@ namespace CodeSmile.ProTiler.Rendering
 		public override IEnumerable<GridCoord> GetVisibleCoords(ChunkSize chunkSize, CellSize cellSize)
 		{
 			var visibleChunks = GetVisibleChunks(chunkSize, cellSize);
-			Debug.Log($"visible chunks: {visibleChunks.Count()}");
 			var visibleCoords = new List<GridCoord>();
 
 			foreach (var chunkCoord in visibleChunks)
 			{
-				Debug.Log($"visible chunk: {chunkCoord}");
 				var chunkGridCoords = Tilemap3DUtility.GetChunkGridCoords(chunkCoord, chunkSize);
 				visibleCoords.AddRange(chunkGridCoords);
 			}
@@ -50,6 +48,15 @@ namespace CodeSmile.ProTiler.Rendering
 
 			var startChunkCoord = GetCameraChunkCoord(chunkSize, cellSize);
 			visibleChunks.Add(startChunkCoord);
+
+			visibleChunks.Add(startChunkCoord + new ChunkCoord(-1, -1));
+			visibleChunks.Add(startChunkCoord + new ChunkCoord(-1, 0));
+			visibleChunks.Add(startChunkCoord + new ChunkCoord(-1, 1));
+			visibleChunks.Add(startChunkCoord + new ChunkCoord(0, 1));
+			visibleChunks.Add(startChunkCoord + new ChunkCoord(1, 1));
+			visibleChunks.Add(startChunkCoord + new ChunkCoord(1, 0));
+			visibleChunks.Add(startChunkCoord + new ChunkCoord(1, -1));
+			visibleChunks.Add(startChunkCoord + new ChunkCoord(0, -1));
 
 			return visibleChunks;
 		}

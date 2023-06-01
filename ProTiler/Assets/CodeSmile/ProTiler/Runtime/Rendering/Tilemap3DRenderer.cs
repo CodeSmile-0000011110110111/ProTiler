@@ -60,6 +60,7 @@ namespace CodeSmile.ProTiler.Rendering
 		{
 #if UNITY_EDITOR
 			AssemblyReloadEvents.beforeAssemblyReload += ClearTileRenderers;
+			EditorApplication.update += CullAndSetVisibleCoords;
 #endif
 
 			m_ActiveRenderersFolder = GetOrCreateFolder(ActiveRenderersFolderName);
@@ -74,6 +75,11 @@ namespace CodeSmile.ProTiler.Rendering
 
 		private void OnDisable()
 		{
+#if UNITY_EDITOR
+			AssemblyReloadEvents.beforeAssemblyReload -= ClearTileRenderers;
+			EditorApplication.update -= CullAndSetVisibleCoords;
+#endif
+
 			UnregisterModelEvents();
 			ClearTileRenderers();
 		}
