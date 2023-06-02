@@ -2,9 +2,9 @@
 // Refer to included LICENSE file for terms and conditions.
 
 using System.Collections.Generic;
-using GridCoord = UnityEngine.Vector3Int;
-using CellSize = UnityEngine.Vector3;
-using ChunkSize = UnityEngine.Vector2Int;
+using GridCoord = Unity.Mathematics.int3;
+using CellSize = Unity.Mathematics.float3;
+using ChunkSize = Unity.Mathematics.int2;
 
 namespace CodeSmile.ProTiler.Rendering
 {

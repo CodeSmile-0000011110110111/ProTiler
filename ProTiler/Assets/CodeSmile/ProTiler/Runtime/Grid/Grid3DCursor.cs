@@ -4,11 +4,10 @@
 using CodeSmile.Extensions;
 using System;
 using System.Diagnostics.CodeAnalysis;
-using System.Diagnostics.Contracts;
 using UnityEngine;
-using WorldPos = UnityEngine.Vector3;
-using CellSize = UnityEngine.Vector3;
-using GridCoord = UnityEngine.Vector3Int;
+using WorldPos = Unity.Mathematics.float3;
+using CellSize = Unity.Mathematics.float3;
+using GridCoord = Unity.Mathematics.int3;
 using Object = System.Object;
 
 namespace CodeSmile.ProTiler.Grid
@@ -38,8 +37,8 @@ namespace CodeSmile.ProTiler.Grid
 		}
 
 		public Boolean Equals(Grid3DCursor other) => m_CenterPosition.Equals(other.m_CenterPosition) &&
-		                                                    m_CellSize.Equals(other.m_CellSize) &&
-		                                                    m_IsValid == other.m_IsValid;
+		                                             m_CellSize.Equals(other.m_CellSize) &&
+		                                             m_IsValid == other.m_IsValid;
 
 		private void CalculateCursorCoord(Ray worldRay)
 		{

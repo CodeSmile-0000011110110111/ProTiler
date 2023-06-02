@@ -5,10 +5,10 @@ using CodeSmile.Attributes;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
-using ChunkCoord = UnityEngine.Vector2Int;
-using ChunkSize = UnityEngine.Vector2Int;
-using GridCoord = UnityEngine.Vector3Int;
-using LayerCoord = UnityEngine.Vector3Int;
+using ChunkCoord = Unity.Mathematics.int2;
+using ChunkSize = Unity.Mathematics.int2;
+using GridCoord = Unity.Mathematics.int3;
+using LayerCoord = Unity.Mathematics.int3;
 
 namespace CodeSmile.ProTiler.Model
 {

@@ -2,14 +2,13 @@
 // Refer to included LICENSE file for terms and conditions.
 
 using CodeSmile.Extensions;
-using CodeSmile.ProTiler.Assets;
 using CodeSmile.ProTiler.Grid;
 using CodeSmile.ProTiler.Model;
 using System;
 using UnityEditor;
 using UnityEngine;
-using CellSize = UnityEngine.Vector3;
-using GridCoord = UnityEngine.Vector3Int;
+using CellSize = Unity.Mathematics.float3;
+using GridCoord = Unity.Mathematics.int3;
 
 namespace CodeSmile.ProTiler.Rendering
 {

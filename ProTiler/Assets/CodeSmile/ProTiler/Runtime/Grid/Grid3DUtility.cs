@@ -3,12 +3,11 @@
 
 using CodeSmile.Attributes;
 using System;
-using System.Diagnostics.Contracts;
 using System.Runtime.CompilerServices;
-using WorldPos = UnityEngine.Vector3;
-using GridCoord = UnityEngine.Vector3Int;
-using CellSize = UnityEngine.Vector3;
-using Math = UnityEngine.Mathf;
+using WorldPos = Unity.Mathematics.float3;
+using GridCoord = Unity.Mathematics.int3;
+using CellSize = Unity.Mathematics.float3;
+using Math = Unity.Mathematics.math;
 
 namespace CodeSmile.ProTiler.Grid
 {
@@ -16,7 +15,7 @@ namespace CodeSmile.ProTiler.Grid
 	internal static class Grid3DUtility
 	{
 		/// <summary>
-		/// Converts grid coord to world position.
+		///     Converts grid coord to world position.
 		/// </summary>
 		/// <param name="coord"></param>
 		/// <param name="cellSize"></param>
@@ -65,8 +64,8 @@ namespace CodeSmile.ProTiler.Grid
 		/// <returns></returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static GridCoord ToGridCoord(WorldPos worldPosition, CellSize cellSize) => new(
-			Math.FloorToInt(worldPosition.x * (1f / cellSize.x)),
-			Math.FloorToInt(worldPosition.y * (1f / cellSize.y)),
-			Math.FloorToInt(worldPosition.z * (1f / cellSize.z)));
+			(Int32)Math.floor((Double)(worldPosition.x * (1f / cellSize.x))),
+			(Int32)Math.floor((Double)(worldPosition.y * (1f / cellSize.y))),
+			(Int32)Math.floor((Double)(worldPosition.z * (1f / cellSize.z))));
 	}
 }

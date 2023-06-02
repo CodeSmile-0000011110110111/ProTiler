@@ -9,8 +9,8 @@ using CodeSmile.Tests.Tools.Attributes;
 using NUnit.Framework;
 using System.Linq;
 using UnityEngine;
-using ChunkSize = UnityEngine.Vector2Int;
-using GridCoord = UnityEngine.Vector3Int;
+using ChunkSize = Unity.Mathematics.int2;
+using GridCoord = Unity.Mathematics.int3;
 
 namespace CodeSmile.Tests.Editor.ProTiler.Rendering
 {

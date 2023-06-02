@@ -15,7 +15,9 @@ using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using ChunkSize = UnityEngine.Vector2Int;
+using ChunkSize = Unity.Mathematics.int2;
+using ChunkCoord = Unity.Mathematics.int2;
+using GridCoord = Unity.Mathematics.int3;
 
 namespace CodeSmile.Tests.Editor.ProTiler.Controller
 {
@@ -91,12 +93,12 @@ namespace CodeSmile.Tests.Editor.ProTiler.Controller
 			var model = Tilemap3DCreation.CreateRectangularTilemap3D();
 
 			var tileIndex = 1234;
-			var coord = Vector3Int.one;
+			var coord = new GridCoord(1, 1, 1);
 			model.SetTile(coord, new Tile3D(tileIndex));
 
 			Assert.That(model.ChunkCount, Is.EqualTo(1));
 			Assert.That(model.TileCount, Is.EqualTo(1));
-			Assert.That(model.GetLayerCount(new Vector2Int(0, 0)), Is.EqualTo(2));
+			Assert.That(model.GetLayerCount(new ChunkCoord(0, 0)), Is.EqualTo(2));
 			Assert.That(model.GetExistingTile(coord).Index, Is.EqualTo(tileIndex));
 		}
 
@@ -106,7 +108,7 @@ namespace CodeSmile.Tests.Editor.ProTiler.Controller
 			var model = Tilemap3DCreation.CreateRectangularTilemap3D();
 
 			var tileIndex = 1234;
-			var coord = Vector3Int.one;
+			var coord = new GridCoord(1, 1, 1);
 			model.SetTile(coord, new Tile3D(tileIndex));
 
 			Debug.Log($"before Undo {Undo.GetCurrentGroup()}: {Undo.GetCurrentGroupName()}");
@@ -124,7 +126,7 @@ namespace CodeSmile.Tests.Editor.ProTiler.Controller
 			var model = Tilemap3DCreation.CreateRectangularTilemap3D();
 
 			var tileIndex = 12345;
-			var coord = Vector3Int.one;
+			var coord = new GridCoord(1, 1, 1);
 			model.SetTile(coord, new Tile3D(tileIndex));
 
 			Debug.Log($"before Undo {Undo.GetCurrentGroup()}: {Undo.GetCurrentGroupName()}");
@@ -144,7 +146,7 @@ namespace CodeSmile.Tests.Editor.ProTiler.Controller
 			var model = Tilemap3DCreation.CreateRectangularTilemap3D();
 
 			var tileIndex = 222;
-			var coord = Vector3Int.one;
+			var coord = new GridCoord(1, 1, 1);
 			model.SetTile(coord, new Tile3D(tileIndex));
 
 			Debug.Log($"before Undo {Undo.GetCurrentGroup()}: {Undo.GetCurrentGroupName()}");
@@ -169,7 +171,7 @@ namespace CodeSmile.Tests.Editor.ProTiler.Controller
 			model.ClearTilemap(chunkSize);
 
 			var tileIndex = 123;
-			var coord = Vector3Int.one;
+			var coord = new GridCoord(1, 1, 1);
 			model.SetTile(coord, new Tile3D(tileIndex));
 			Assert.That(model.ChunkSize, Is.EqualTo(chunkSize));
 
@@ -198,7 +200,7 @@ namespace CodeSmile.Tests.Editor.ProTiler.Controller
 		{
 			var model = Tilemap3DCreation.CreateRectangularTilemap3D();
 
-			model.SetTile(Vector3Int.zero, new Tile3D(234));
+			model.SetTile(new GridCoord(), new Tile3D(234));
 			model.ClearTilemap(new ChunkSize(6, 9));
 
 			Assert.That(model.ChunkCount, Is.EqualTo(0));
@@ -290,7 +292,7 @@ namespace CodeSmile.Tests.Editor.ProTiler.Controller
 			var initialChunkSize = new ChunkSize(8, 5);
 			model.ClearTilemap(initialChunkSize);
 
-			model.SetTile(Vector3Int.one, new Tile3D(456));
+			model.SetTile(new GridCoord(1, 1, 1), new Tile3D(456));
 			Assert.That(model.ChunkSize, Is.EqualTo(initialChunkSize));
 			Assert.That(model.ChunkCount, Is.EqualTo(1));
 			Assert.That(model.TileCount, Is.EqualTo(1));
@@ -322,7 +324,7 @@ namespace CodeSmile.Tests.Editor.ProTiler.Controller
 			model.ChunkSize = chunkSize;
 
 			var tileIndex = 123;
-			var coord = Vector3Int.one;
+			var coord = new GridCoord(1, 1, 1);
 			model.SetTile(coord, new Tile3D(tileIndex));
 
 			Debug.Log("BEFORE Saving");

@@ -7,10 +7,10 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using Unity.Properties;
 using ChunkKey = System.Int64;
-using ChunkCoord = UnityEngine.Vector2Int;
-using ChunkSize = UnityEngine.Vector2Int;
-using GridCoord = UnityEngine.Vector3Int;
-using LayerCoord = UnityEngine.Vector3Int;
+using ChunkCoord = Unity.Mathematics.int2;
+using ChunkSize = Unity.Mathematics.int2;
+using GridCoord = Unity.Mathematics.int3;
+using LayerCoord = Unity.Mathematics.int3;
 
 namespace CodeSmile.ProTiler.Model
 {
@@ -28,7 +28,7 @@ namespace CodeSmile.ProTiler.Model
 		internal static readonly ChunkSize MinChunkSize = new(2, 2);
 		internal static readonly ChunkSize DefaultChunkSize = new(16, 16);
 
-		[CreateProperty] private ChunkSize m_ChunkSize;
+		[CreateProperty] private ChunkSize m_ChunkSize = DefaultChunkSize;
 		[CreateProperty] private Tilemap3DChunks m_Chunks;
 
 		internal ChunkSize ChunkSize { get => m_ChunkSize; set => InitChunks(value); }

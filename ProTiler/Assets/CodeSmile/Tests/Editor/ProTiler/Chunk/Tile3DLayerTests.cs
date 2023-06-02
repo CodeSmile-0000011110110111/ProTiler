@@ -8,7 +8,7 @@ using System;
 using System.Runtime.InteropServices;
 using Unity.Serialization.Json;
 using UnityEngine;
-using LayerSize = UnityEngine.Vector2Int;
+using LayerSize = Unity.Mathematics.int2;
 
 namespace CodeSmile.Tests.Editor.ProTiler.Chunk
 {

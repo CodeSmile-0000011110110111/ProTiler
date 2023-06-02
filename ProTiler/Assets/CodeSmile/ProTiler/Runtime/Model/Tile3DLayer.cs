@@ -6,10 +6,9 @@ using CodeSmile.ProTiler.Grid;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Diagnostics.Contracts;
 using System.Runtime.InteropServices;
 using Unity.Properties;
-using LayerSize = UnityEngine.Vector2Int;
+using LayerSize = Unity.Mathematics.int2;
 
 namespace CodeSmile.ProTiler.Model
 {
@@ -94,8 +93,7 @@ namespace CodeSmile.ProTiler.Model
 		}
 
 		[ExcludeFromCodeCoverage]
-		public override String ToString() =>
-			$"{nameof(Tile3DLayer)}(Capacity: {Capacity}, Non-Empty: {TileCount})";
+		public override String ToString() => $"{nameof(Tile3DLayer)}(Capacity: {Capacity}, Non-Empty: {TileCount})";
 
 		private void AllocateTilesBuffer(LayerSize size)
 		{

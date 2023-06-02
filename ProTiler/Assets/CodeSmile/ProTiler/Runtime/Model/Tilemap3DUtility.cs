@@ -7,18 +7,17 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using ChunkKey = System.Int64;
-using GridCoord = UnityEngine.Vector3Int;
-using ChunkCoord = UnityEngine.Vector2Int;
-using ChunkSize = UnityEngine.Vector2Int;
-using LayerCoord = UnityEngine.Vector3Int;
-using Math = UnityEngine.Mathf;
+using GridCoord = Unity.Mathematics.int3;
+using ChunkCoord = Unity.Mathematics.int2;
+using ChunkSize = Unity.Mathematics.int2;
+using LayerCoord = Unity.Mathematics.int3;
+using Math = Unity.Mathematics.math;
 
 namespace CodeSmile.ProTiler.Model
 {
 	[FullCovered]
 	internal static class Tilemap3DUtility
 	{
-
 		internal static IEnumerable<GridCoord> GetChunkGridCoords(ChunkCoord chunkCoord, ChunkSize chunkSize,
 			Int32 height = 0)
 		{
@@ -38,8 +37,8 @@ namespace CodeSmile.ProTiler.Model
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static ChunkSize ClampChunkSize(ChunkSize chunkSize)
 		{
-			chunkSize.x = Math.Max(Tilemap3D.MinChunkSize.x, chunkSize.x);
-			chunkSize.y = Math.Max(Tilemap3D.MinChunkSize.y, chunkSize.y);
+			chunkSize.x = Math.max(Tilemap3D.MinChunkSize.x, chunkSize.x);
+			chunkSize.y = Math.max(Tilemap3D.MinChunkSize.y, chunkSize.y);
 			return chunkSize;
 		}
 
@@ -73,15 +72,22 @@ namespace CodeSmile.ProTiler.Model
 		/// <returns></returns>
 		// TODO: these +1/-1 can probably be refactored to a more generic algorithm
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static ChunkCoord GridToChunkCoord(GridCoord gridCoord, ChunkSize chunkSize) => new(
-			gridCoord.x < 0 ? (Math.Abs(gridCoord.x + 1) / chunkSize.x + 1) * -1 : gridCoord.x / chunkSize.x,
-			gridCoord.z < 0 ? (Math.Abs(gridCoord.z + 1) / chunkSize.y + 1) * -1 : gridCoord.z / chunkSize.y);
+		internal static ChunkCoord GridToChunkCoord(GridCoord gridCoord, ChunkSize chunkSize)
+		{
+#if DEBUG
+			if (chunkSize.x == 0 || chunkSize.y == 0)
+				throw new DivideByZeroException();
+#endif
+			return new ChunkCoord(
+				gridCoord.x < 0 ? (Math.abs(gridCoord.x + 1) / chunkSize.x + 1) * -1 : gridCoord.x / chunkSize.x,
+				gridCoord.z < 0 ? (Math.abs(gridCoord.z + 1) / chunkSize.y + 1) * -1 : gridCoord.z / chunkSize.y);
+		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static LayerCoord GridToLayerCoord(GridCoord gridCoord, ChunkSize chunkSize) => new(
-			Math.Abs(gridCoord.x) % chunkSize.x,
-			Math.Max(0, gridCoord.y),
-			Math.Abs(gridCoord.z) % chunkSize.y);
+			Math.abs(gridCoord.x) % chunkSize.x,
+			Math.max(0, gridCoord.y),
+			Math.abs(gridCoord.z) % chunkSize.y);
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static GridCoord ChunkToGridCoord(ChunkCoord chunkCoord, ChunkSize chunkSize) =>

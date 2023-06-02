@@ -7,13 +7,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Runtime.InteropServices;
 using Unity.Properties;
-using ChunkCoord = UnityEngine.Vector2Int;
-using ChunkSize = UnityEngine.Vector2Int;
-using GridCoord = UnityEngine.Vector3Int;
+using ChunkCoord = Unity.Mathematics.int2;
+using ChunkSize = Unity.Mathematics.int2;
+using GridCoord = Unity.Mathematics.int3;
 
 namespace CodeSmile.ProTiler.Model
 {

@@ -11,9 +11,9 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using UnityEditor;
 using UnityEngine;
-using GridCoord = UnityEngine.Vector3Int;
-using ChunkCoord = UnityEngine.Vector2Int;
-using ChunkSize = UnityEngine.Vector2Int;
+using GridCoord = Unity.Mathematics.int3;
+using ChunkCoord = Unity.Mathematics.int2;
+using ChunkSize = Unity.Mathematics.int2;
 using Random = UnityEngine.Random;
 
 namespace CodeSmile.ProTiler.Controller
@@ -180,7 +180,7 @@ namespace CodeSmile.ProTiler.Controller
 		}
 
 		[ExcludeFromCodeCoverage]
-		private void FillActiveLayerWithIncrementingTiles(Vector2Int chunkCoord, Int32 height)
+		private void FillActiveLayerWithIncrementingTiles(ChunkCoord chunkCoord, Int32 height)
 		{
 			var tileCoords = GetRandomIndexChunkTileCoords(chunkCoord, TilemapModel.ChunkSize, height);
 			TilemapModel.SetTiles(tileCoords);

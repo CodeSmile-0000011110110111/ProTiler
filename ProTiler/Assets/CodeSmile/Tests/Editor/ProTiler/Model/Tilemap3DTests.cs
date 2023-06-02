@@ -10,8 +10,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Unity.Serialization.Json;
 using UnityEngine;
-using ChunkSize = UnityEngine.Vector2Int;
-using GridCoord = UnityEngine.Vector3Int;
+using ChunkSize = Unity.Mathematics.int2;
+using GridCoord = Unity.Mathematics.int3;
 using Object = System.Object;
 
 namespace CodeSmile.Tests.Editor.ProTiler.Model
@@ -129,8 +129,8 @@ namespace CodeSmile.Tests.Editor.ProTiler.Model
 		{
 			var tilemap = CreateTilemap(new ChunkSize(2, 2));
 			var zeroCoord = new Tile3DCoord(GridCoord.zero, new Tile3D(1));
-			var oneCoord = new Tile3DCoord(GridCoord.one, new Tile3D(2));
-			var twoCoord = new Tile3DCoord(GridCoord.one * 2, new Tile3D(22));
+			var oneCoord = new Tile3DCoord(new GridCoord(1, 1, 1), new Tile3D(2));
+			var twoCoord = new Tile3DCoord(new GridCoord(2, 2, 2), new Tile3D(22));
 			var existingCoords = new[] { zeroCoord, oneCoord, twoCoord };
 			tilemap.SetTiles(existingCoords);
 
@@ -146,9 +146,9 @@ namespace CodeSmile.Tests.Editor.ProTiler.Model
 			Assert.That(tiles[zeroCoord.Coord], Is.EqualTo(zeroCoord));
 			Assert.That(tiles[oneCoord.Coord], Is.EqualTo(oneCoord));
 			Assert.That(tiles[twoCoord.Coord], Is.EqualTo(twoCoord));
-			Assert.That(tiles[new GridCoord(0,1,2)], Is.EqualTo(new Tile3DCoord(new GridCoord(0,1,2))));
-			Assert.That(tiles[new GridCoord(1,2,0)], Is.EqualTo(new Tile3DCoord(new GridCoord(1,2,0))));
-			Assert.That(tiles[new GridCoord(2,0,1)], Is.EqualTo(new Tile3DCoord(new GridCoord(2,0,1))));
+			Assert.That(tiles[new GridCoord(0, 1, 2)], Is.EqualTo(new Tile3DCoord(new GridCoord(0, 1, 2))));
+			Assert.That(tiles[new GridCoord(1, 2, 0)], Is.EqualTo(new Tile3DCoord(new GridCoord(1, 2, 0))));
+			Assert.That(tiles[new GridCoord(2, 0, 1)], Is.EqualTo(new Tile3DCoord(new GridCoord(2, 0, 1))));
 		}
 
 		[TestCase(1, 0, 1, 2, 2)]

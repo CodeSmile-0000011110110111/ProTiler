@@ -9,8 +9,8 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using Unity.Serialization.Json;
 using UnityEngine;
-using ChunkCoord = UnityEngine.Vector2Int;
-using ChunkSize = UnityEngine.Vector2Int;
+using ChunkCoord = Unity.Mathematics.int2;
+using ChunkSize = Unity.Mathematics.int2;
 
 namespace CodeSmile.Tests.Editor.ProTiler.Chunk
 {

@@ -15,9 +15,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.TestTools;
-using CellSize = UnityEngine.Vector3;
-using ChunkSize = UnityEngine.Vector2Int;
-using GridCoord = UnityEngine.Vector3Int;
+using WorldPos = Unity.Mathematics.float3;
+using CellSize = Unity.Mathematics.float3;
+using ChunkSize = Unity.Mathematics.int2;
+using GridCoord = Unity.Mathematics.int3;
 
 namespace CodeSmile.Tests.Runtime.ProTiler.Rendering
 {
@@ -63,7 +64,7 @@ namespace CodeSmile.Tests.Runtime.ProTiler.Rendering
 		// 	Assert.That(rendererFolder.childCount, Is.EqualTo(width * length));
 		// }
 
-		[Test] [CreateEmptyScene]
+		[Test] [CreateDefaultScene]
 		public void PoolCreatesActiveRenderersFolder()
 		{
 			var renderer = GetTilemapRenderer();
@@ -71,7 +72,7 @@ namespace CodeSmile.Tests.Runtime.ProTiler.Rendering
 			Assert.That(renderer.ActiveRenderersFolder != null);
 		}
 
-		[Test] [CreateEmptyScene]
+		[Test] [CreateDefaultScene]
 		public void PoolCreatesPooledRenderersFolder()
 		{
 			var renderer = GetTilemapRenderer();
@@ -87,7 +88,7 @@ namespace CodeSmile.Tests.Runtime.ProTiler.Rendering
 			var coords = new GridCoord[startingTileCount];
 			for (var i = 0; i < startingTileCount; i++)
 				coords[i] = new GridCoord(i, i, i);
-			renderer.SetVisibleCoords(coords, CellSize.one);
+			renderer.SetVisibleCoords(coords, new CellSize(1, 1, 1));
 			Assert.That(renderer.ActiveRenderersFolder.childCount, Is.EqualTo(startingTileCount));
 
 			renderer.ClearTileRenderers();
@@ -95,8 +96,8 @@ namespace CodeSmile.Tests.Runtime.ProTiler.Rendering
 
 			yield return null;
 
-			Assert.That(renderer.ActiveRenderersFolder.childCount, Is.EqualTo(0));
-			Assert.That(renderer.PooledRenderersFolder.childCount, Is.EqualTo(0));
+			Assert.That(renderer.ActiveRenderersFolder.childCount, Is.Zero);
+			Assert.That(renderer.PooledRenderersFolder.childCount, Is.Zero);
 		}
 
 		[UnityTest] [CreateEmptyScene]
@@ -105,7 +106,7 @@ namespace CodeSmile.Tests.Runtime.ProTiler.Rendering
 			var model = Tilemap3DCreation.CreateRectangularTilemap3D();
 			var renderer = model.GetComponent<Tilemap3DRenderer>();
 			renderer.Culling = new TestCulling(3, 3);
-			model.SetTile(Vector3Int.one, new Tile3D(1));
+			model.SetTile(new GridCoord(1, 1, 1), new Tile3D(1));
 
 			yield return null;
 
@@ -151,7 +152,7 @@ namespace CodeSmile.Tests.Runtime.ProTiler.Rendering
 			Assert.That(folder.childCount, Is.EqualTo(0));
 		}
 
-		[Test] [CreateEmptyScene]
+		[Test] [CreateDefaultScene]
 		public void PoolCreatesTemplateGameObject()
 		{
 			var renderer = GetTilemapRenderer();
@@ -160,7 +161,7 @@ namespace CodeSmile.Tests.Runtime.ProTiler.Rendering
 			Assert.That(renderer.TemplateGameObject.GetComponent<Tile3DRenderer>() != null);
 		}
 
-		[Test] [CreateEmptyScene]
+		[Test] [CreateDefaultScene]
 		public void PoolCreatesComponentPool()
 		{
 			var renderer = GetTilemapRenderer();
@@ -168,7 +169,7 @@ namespace CodeSmile.Tests.Runtime.ProTiler.Rendering
 			Assert.That(renderer.ComponentPool != null);
 		}
 
-		[TestCase(0)] [TestCase(1)] [TestCase(2)] [CreateEmptyScene]
+		[TestCase(0)] [TestCase(1)] [TestCase(2)] [CreateDefaultScene]
 		public void SetVisibleCoordsMakesTileRendererActive(Int32 visibleTilesCount)
 		{
 			var renderer = GetTilemapRenderer();
@@ -177,7 +178,7 @@ namespace CodeSmile.Tests.Runtime.ProTiler.Rendering
 			var coords = new GridCoord[visibleTilesCount];
 			for (var i = 0; i < visibleTilesCount; i++)
 				coords[i] = new GridCoord(i, i, i);
-			renderer.SetVisibleCoords(coords, CellSize.one);
+			renderer.SetVisibleCoords(coords, new CellSize(1, 1, 1));
 
 			var activeRenderersCount = renderer.ActiveRenderersFolder.childCount;
 			Assert.That(activeRenderersCount, Is.EqualTo(coords.Length));
@@ -185,7 +186,7 @@ namespace CodeSmile.Tests.Runtime.ProTiler.Rendering
 				Assert.That(renderer.ActiveRenderersFolder.GetChild(0).gameObject.activeInHierarchy);
 		}
 
-		[TestCase(0)] [TestCase(1)] [TestCase(2)] [CreateEmptyScene]
+		[TestCase(0)] [TestCase(1)] [TestCase(2)] [CreateDefaultScene]
 		public void SetVisibleCoordsMovesNonVisibleTileRenderersToPool(Int32 visibleTilesCount)
 		{
 			var renderer = GetTilemapRenderer();
@@ -194,14 +195,14 @@ namespace CodeSmile.Tests.Runtime.ProTiler.Rendering
 
 			for (var i = 0; i < startingTileCount; i++)
 				coords[i] = new GridCoord(i, i, i);
-			renderer.SetVisibleCoords(coords, CellSize.one);
+			renderer.SetVisibleCoords(coords, new CellSize(1, 1, 1));
 			Assert.That(renderer.ActiveRenderersFolder.childCount, Is.EqualTo(coords.Length));
 			var lastPooledRendererCount = renderer.PooledRenderersFolder.childCount;
 
 			coords = new GridCoord[visibleTilesCount];
 			for (var i = 0; i < visibleTilesCount; i++)
 				coords[i] = new GridCoord(i, i, i);
-			renderer.SetVisibleCoords(coords, CellSize.one);
+			renderer.SetVisibleCoords(coords, new CellSize(1, 1, 1));
 
 			Assert.That(renderer.ActiveRenderersFolder.childCount, Is.EqualTo(coords.Length));
 			Assert.That(renderer.PooledRenderersFolder.childCount, Is.EqualTo(lastPooledRendererCount + 1));
@@ -210,7 +211,7 @@ namespace CodeSmile.Tests.Runtime.ProTiler.Rendering
 				Assert.That(pooledRenderer.gameObject.activeInHierarchy == false);
 		}
 
-		[TestCase(1)] [TestCase(13)] [CreateEmptyScene]
+		[TestCase(1)] [TestCase(13)] [CreateDefaultScene]
 		public void ComponentPoolGrowsOnDemand(Int32 visibleTilesCount)
 		{
 			var renderer = GetTilemapRenderer();
@@ -218,12 +219,12 @@ namespace CodeSmile.Tests.Runtime.ProTiler.Rendering
 			var coords = new GridCoord[visibleTilesCount];
 			for (var i = 0; i < visibleTilesCount; i++)
 				coords[i] = new GridCoord(i, i, i);
-			renderer.SetVisibleCoords(coords, CellSize.one);
+			renderer.SetVisibleCoords(coords, new CellSize(1, 1, 1));
 
 			Assert.That(renderer.ActiveRenderersFolder.childCount, Is.EqualTo(visibleTilesCount));
 		}
 
-		[TestCase(1)] [TestCase(13)] [CreateEmptyScene]
+		[TestCase(1)] [TestCase(13)] [CreateDefaultScene]
 		public void ActiveRenderersCountDoesNotGrow(Int32 visibleTilesCount)
 		{
 			var renderer = GetTilemapRenderer();
@@ -231,17 +232,17 @@ namespace CodeSmile.Tests.Runtime.ProTiler.Rendering
 			var coords = new GridCoord[visibleTilesCount];
 			for (var i = 0; i < visibleTilesCount; i++)
 				coords[i] = new GridCoord(i, i, i);
-			renderer.SetVisibleCoords(coords, CellSize.one);
+			renderer.SetVisibleCoords(coords, new CellSize(1, 1, 1));
 
 			for (var i = 0; i < visibleTilesCount; i++)
 				coords[i] = new GridCoord(i + 10, i + 20, i + 30);
-			renderer.SetVisibleCoords(coords, CellSize.one);
+			renderer.SetVisibleCoords(coords, new CellSize(1, 1, 1));
 
 			Assert.That(renderer.ActiveRenderers.Count, Is.EqualTo(visibleTilesCount));
 		}
 
 		[TestCase(1, 1, 1)] [TestCase(3f, 4f, 5f)]
-		[TestCase(7.89f, 8.88f, 9.87f)] [CreateEmptyScene]
+		[TestCase(7.89f, 8.88f, 9.87f)] [CreateDefaultScene]
 		public void TileRenderersConvertGridToWorldPosition(Single cellSizeX, Single cellSizeY, Single cellSizeZ)
 		{
 			var renderer = GetTilemapRenderer();
@@ -256,12 +257,12 @@ namespace CodeSmile.Tests.Runtime.ProTiler.Rendering
 			for (var i = 0; i < visibleTilesCount; i++)
 			{
 				var tileRenderer = renderer.ActiveRenderersFolder.GetChild(i);
-				Assert.That(tileRenderer.position, Is.EqualTo(Grid3DUtility.ToWorldPos(coords[i], cellSize)));
+				Assert.That((WorldPos)tileRenderer.position, Is.EqualTo(Grid3DUtility.ToWorldPos(coords[i], cellSize)));
 			}
 		}
 
 		[TestCase(1, 1, 1)] [TestCase(3f, 4f, 5f)]
-		[TestCase(7.89f, 8.88f, 9.87f)] [CreateEmptyScene]
+		[TestCase(7.89f, 8.88f, 9.87f)] [CreateDefaultScene]
 		public void TileRenderersConvertCellSizeToScale(Single cellSizeX, Single cellSizeY, Single cellSizeZ)
 		{
 			var renderer = GetTilemapRenderer();
@@ -276,7 +277,7 @@ namespace CodeSmile.Tests.Runtime.ProTiler.Rendering
 			for (var i = 0; i < visibleTilesCount; i++)
 			{
 				var tileRenderer = renderer.ActiveRenderersFolder.GetChild(i);
-				Assert.That(tileRenderer.localScale, Is.EqualTo(cellSize));
+				Assert.That((CellSize)tileRenderer.localScale, Is.EqualTo(cellSize));
 			}
 		}
 
@@ -291,7 +292,8 @@ namespace CodeSmile.Tests.Runtime.ProTiler.Rendering
 
 		private class ZeroCulling : Tilemap3DCullingBase
 		{
-			public override IEnumerable<Vector3Int> GetVisibleCoords(ChunkSize chunkSize, CellSize cellSize) => new Vector3Int[0];
+			public override IEnumerable<GridCoord> GetVisibleCoords(ChunkSize chunkSize, CellSize cellSize) =>
+				new GridCoord[0];
 		}
 	}
 }

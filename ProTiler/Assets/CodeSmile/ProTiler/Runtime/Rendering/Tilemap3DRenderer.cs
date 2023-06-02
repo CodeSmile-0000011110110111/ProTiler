@@ -10,11 +10,13 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
-using GridCoord = UnityEngine.Vector3Int;
-using CellSize = UnityEngine.Vector3;
+using GridCoord = Unity.Mathematics.int3;
+using CellSize = Unity.Mathematics.float3;
+
 
 namespace CodeSmile.ProTiler.Rendering
 {
+
 	[ExecuteAlways]
 	[DisallowMultipleComponent]
 	[RequireComponent(typeof(Tilemap3DModel))]
@@ -29,9 +31,9 @@ namespace CodeSmile.ProTiler.Rendering
 		// https://answers.unity.com/questions/609621/hideflagsdontsave-causes-checkconsistency-transfor.html
 		private const HideFlags ChildHideFlags = HideFlags.None;
 
-		protected readonly TileRenderers m_ActiveRenderers = new();
-
 		[SerializeReference] [HideInInspector] private Tilemap3DCullingBase m_Culling;
+
+		protected readonly TileRenderers m_ActiveRenderers = new();
 		protected Transform m_ActiveRenderersFolder;
 		protected Transform m_PooledRenderersFolder;
 		protected Transform m_TemplateGameObjectFolder;
@@ -157,6 +159,9 @@ namespace CodeSmile.ProTiler.Rendering
 		private void ReturnNonVisibleTileRenderersToPool(IEnumerable<GridCoord> visibleCoords)
 		{
 			var culledCoords = GetCulledCoords(visibleCoords);
+			if (culledCoords.Count == 0)
+				return;
+
 			ReturnCulledTileRenderersToPool(culledCoords);
 			SetCulledTileRenderersAsInactive(culledCoords);
 		}
@@ -216,8 +221,12 @@ namespace CodeSmile.ProTiler.Rendering
 		private Tile3DRenderer GetAndActivatePooledTileRenderer()
 		{
 			var tileRenderer = m_ComponentPool.GetFromPool();
+
+#if UNITY_EDITOR
 			if (tileRenderer == null)
-				Debug.Log($"got null from pool, total count: {m_ComponentPool.Count}");
+				throw new NullReferenceException(
+					$"TileRenderer from pool is null, pool count: {m_ComponentPool.Count}");
+#endif
 
 			tileRenderer.transform.parent = m_ActiveRenderersFolder;
 			return tileRenderer;

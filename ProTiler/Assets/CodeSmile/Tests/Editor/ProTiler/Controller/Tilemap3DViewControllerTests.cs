@@ -8,7 +8,7 @@ using CodeSmile.ProTiler.Grid;
 using CodeSmile.Tests.Tools.Attributes;
 using NUnit.Framework;
 using UnityEngine;
-using CellSize = UnityEngine.Vector3;
+using CellSize = Unity.Mathematics.float3;
 
 namespace CodeSmile.Tests.Editor.ProTiler.Controller
 {
@@ -25,7 +25,7 @@ namespace CodeSmile.Tests.Editor.ProTiler.Controller
 
 			var didRaise = false;
 			controller.OnCursorUpdate += cursor => { didRaise = true; };
-			controller.OnMouseMove(new MouseMoveEventData(new Ray(CellSize.one, CellSize.down)));
+			controller.OnMouseMove(new MouseMoveEventData(new Ray(Vector3.one, Vector3.down)));
 
 			Assert.That(didRaise);
 		}
@@ -65,9 +65,10 @@ namespace CodeSmile.Tests.Editor.ProTiler.Controller
 			controller.OnMouseMove(new MouseMoveEventData(new Ray(origin, Vector3.down)));
 
 			Assert.That(cursor.IsValid);
-			Assert.That(cursor.Coord, Is.EqualTo(Grid3DUtility.ToGridCoord(cursor.CenterPosition, CellSize.one)));
-			Assert.That(cursor.CenterPosition, Is.EqualTo(cursor.Coord + CellSize.one / 2f));
-			Assert.That(cursor.CellSize, Is.EqualTo(CellSize.one));
+			Assert.That(cursor.Coord,
+				Is.EqualTo(Grid3DUtility.ToGridCoord(cursor.CenterPosition, new CellSize(1, 1, 1))));
+			Assert.That(cursor.CenterPosition, Is.EqualTo(cursor.Coord + new CellSize(1, 1, 1) / 2f));
+			Assert.That(cursor.CellSize, Is.EqualTo(new CellSize(1, 1, 1)));
 		}
 
 		[Test] [CreateEmptyScene]
@@ -109,7 +110,7 @@ namespace CodeSmile.Tests.Editor.ProTiler.Controller
 			controller.EnableCursor();
 
 			Assert.That(cursor.IsValid);
-			Assert.That(cursor.Coord, Is.EqualTo(Grid3DUtility.ToGridCoord(origin, CellSize.one)));
+			Assert.That(cursor.Coord, Is.EqualTo(Grid3DUtility.ToGridCoord(origin, new CellSize(1, 1, 1))));
 		}
 	}
 }

@@ -8,12 +8,11 @@ using CodeSmile.ProTiler.Serialization;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Diagnostics.Contracts;
 using System.Linq;
 using UnityEngine;
-using GridCoord = UnityEngine.Vector3Int;
-using ChunkCoord = UnityEngine.Vector2Int;
-using ChunkSize = UnityEngine.Vector2Int;
+using GridCoord = Unity.Mathematics.int3;
+using ChunkCoord = Unity.Mathematics.int2;
+using ChunkSize = Unity.Mathematics.int2;
 
 namespace CodeSmile.ProTiler.Controller
 {
@@ -33,13 +32,12 @@ namespace CodeSmile.ProTiler.Controller
 		private readonly Tilemap3DSerializer m_Serializer = new();
 		private readonly UndoGroupRegistry m_UndoGroupRegistry = new();
 
-		internal Vector2Int ChunkSize { get => m_Tilemap.ChunkSize; set => m_Tilemap.ChunkSize = value; }
+		internal ChunkSize ChunkSize { get => m_Tilemap.ChunkSize; set => m_Tilemap.ChunkSize = value; }
 		internal Int32 ChunkCount => m_Tilemap.ChunkCount;
 		internal Int32 TileCount => m_Tilemap.TileCount;
 		public Grid3DController Grid => transform.parent.GetComponent<Grid3DController>();
 
-		private static Vector2Int ClampChunkSize(Vector2Int chunkSize) =>
-			Tilemap3DUtility.ClampChunkSize(chunkSize);
+		private static ChunkSize ClampChunkSize(ChunkSize chunkSize) => Tilemap3DUtility.ClampChunkSize(chunkSize);
 
 		private void OnEnable() => RegisterEditorSceneEvents();
 
@@ -62,8 +60,13 @@ namespace CodeSmile.ProTiler.Controller
 
 		internal Int32 GetLayerCount(ChunkCoord chunkCoord) => m_Tilemap.GetLayerCount(chunkCoord);
 		public Tile3D GetExistingTile(GridCoord coord) => GetExistingTiles(new[] { coord }).FirstOrDefault().Tile;
-		public IEnumerable<Tile3DCoord> GetExistingTiles(IEnumerable<GridCoord> coords) => m_Tilemap.GetExistingTiles(coords);
-		public IDictionary<GridCoord, Tile3DCoord> GetTiles(IEnumerable<GridCoord> coords) => m_Tilemap.GetTiles(coords);
+
+		public IEnumerable<Tile3DCoord> GetExistingTiles(IEnumerable<GridCoord> coords) =>
+			m_Tilemap.GetExistingTiles(coords);
+
+		public IDictionary<GridCoord, Tile3DCoord> GetTiles(IEnumerable<GridCoord> coords) =>
+			m_Tilemap.GetTiles(coords);
+
 		public void SetTile(GridCoord coord, Tile3D tile) => SetTiles(new[] { new Tile3DCoord(coord, tile) });
 
 		public void SetTiles(IEnumerable<Tile3DCoord> tileCoords)

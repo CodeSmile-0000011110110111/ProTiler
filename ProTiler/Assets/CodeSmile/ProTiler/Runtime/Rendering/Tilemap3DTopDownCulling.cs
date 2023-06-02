@@ -4,13 +4,12 @@
 using CodeSmile.ProTiler.Grid;
 using CodeSmile.ProTiler.Model;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEditor;
 using UnityEngine;
-using GridCoord = UnityEngine.Vector3Int;
-using CellSize = UnityEngine.Vector3;
-using ChunkCoord = UnityEngine.Vector2Int;
-using ChunkSize = UnityEngine.Vector2Int;
+using GridCoord = Unity.Mathematics.int3;
+using CellSize = Unity.Mathematics.float3;
+using ChunkCoord = Unity.Mathematics.int2;
+using ChunkSize = Unity.Mathematics.int2;
 
 namespace CodeSmile.ProTiler.Rendering
 {
@@ -32,15 +31,6 @@ namespace CodeSmile.ProTiler.Rendering
 			return visibleCoords;
 		}
 
-		public Camera GetMainOrSceneViewCamera()
-		{
-#if UNITY_EDITOR
-			if (Application.isPlaying == false)
-				return SceneView.lastActiveSceneView.camera;
-#endif
-
-			return Camera.main;
-		}
 
 		public IEnumerable<ChunkCoord> GetVisibleChunks(ChunkSize chunkSize, CellSize cellSize)
 		{
@@ -61,12 +51,23 @@ namespace CodeSmile.ProTiler.Rendering
 			return visibleChunks;
 		}
 
-		private Vector2Int GetCameraChunkCoord(Vector2Int chunkSize, Vector3 cellSize)
+		private ChunkCoord GetCameraChunkCoord(ChunkSize chunkSize, CellSize cellSize)
 		{
 			var camera = GetMainOrSceneViewCamera();
 			var gridCoord = Grid3DUtility.ToGridCoord(camera.transform.position, cellSize);
 			var chunkCoord = Tilemap3DUtility.GridToChunkCoord(gridCoord, chunkSize);
 			return chunkCoord;
+		}
+
+
+		public Camera GetMainOrSceneViewCamera()
+		{
+#if UNITY_EDITOR
+			if (Application.isPlaying == false)
+				return SceneView.lastActiveSceneView.camera;
+#endif
+
+			return Camera.main;
 		}
 	}
 }

@@ -4,13 +4,13 @@
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
+        "Unity.Mathematics",
         "CodeSmile",
         "CodeSmile.ProTiler",
         "CodeSmile.Tests.Tools",
         "CodeSmile.ProTiler.Editor"
     ],
-    "includePlatforms": [
-    ],
+    "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": true,

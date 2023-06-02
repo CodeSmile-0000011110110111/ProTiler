@@ -6,7 +6,7 @@ using CodeSmile.ProTiler.Model;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
-using GridCoord = UnityEngine.Vector3Int;
+using GridCoord = Unity.Mathematics.int3;
 
 namespace CodeSmile.Tests.Editor.ProTiler.Utility
 {

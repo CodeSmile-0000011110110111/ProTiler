@@ -7,10 +7,10 @@ using NUnit.Framework;
 using System;
 using System.Linq;
 using UnityEditor;
-using GridCoord = UnityEngine.Vector3Int;
-using ChunkCoord = UnityEngine.Vector2Int;
-using CellSize = UnityEngine.Vector3;
-using ChunkSize = UnityEngine.Vector2Int;
+using GridCoord = Unity.Mathematics.int3;
+using ChunkCoord = Unity.Mathematics.int2;
+using CellSize = Unity.Mathematics.float3;
+using ChunkSize = Unity.Mathematics.int2;
 
 namespace CodeSmile.Tests.Editor.ProTiler.Rendering
 {
@@ -47,12 +47,12 @@ namespace CodeSmile.Tests.Editor.ProTiler.Rendering
 			camera.transform.position = new CellSize(10f, 30f, 10f);
 
 			var chunkSize = new ChunkSize(3, 7);
-			var cellSize = CellSize.one;
+			var cellSize = new CellSize(1, 1, 1);
 
 			var visibleChunks = culling.GetVisibleChunks(chunkSize, cellSize);
 
 			Assert.NotNull(visibleChunks);
-			Assert.That(visibleChunks.Count(), Is.EqualTo(1));
+			Assert.That(visibleChunks.Count(), Is.EqualTo(9));
 			Assert.That(visibleChunks.First(), Is.EqualTo(new ChunkCoord(3, 1)));
 		}
 

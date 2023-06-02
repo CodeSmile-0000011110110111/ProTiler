@@ -3,20 +3,21 @@
 
 using CodeSmile.ProTiler.Model;
 using NUnit.Framework;
-using UnityEngine;
+using System;
+using GridCoord = Unity.Mathematics.int3;
 
 namespace CodeSmile.Tests.Editor.ProTiler.Model
 {
 	public class Tile3DCoordTests
 	{
-		private readonly Vector3Int m_TestCoord = new(1, 2, 3);
-		private readonly Tile3D m_TestTile = new Tile3D(123, Tile3DFlags.DirectionEast | Tile3DFlags.FlipVertical);
+		private readonly GridCoord m_TestCoord = new(1, 2, 3);
+		private readonly Tile3D m_TestTile = new(123, Tile3DFlags.DirectionEast | Tile3DFlags.FlipVertical);
 
 		[Test] public void TileCreatedWithNewKeywordHasDefaultValues()
 		{
 			var tileCoord = new Tile3DCoord();
 
-			Assert.That(tileCoord.Coord, Is.EqualTo(new Vector3Int()));
+			Assert.That(tileCoord.Coord, Is.EqualTo(new GridCoord()));
 			Assert.That(tileCoord.Tile, Is.EqualTo(new Tile3D()));
 		}
 
@@ -35,8 +36,8 @@ namespace CodeSmile.Tests.Editor.ProTiler.Model
 			Assert.That(tile1 != tile2, Is.True);
 			Assert.That(tile1.Equals(tile2), Is.False);
 			Assert.That(tile2.Equals(tile1), Is.False);
-			Assert.That(tile1.Equals((object)tile2), Is.False);
-			Assert.That(tile2.Equals((object)tile1), Is.False);
+			Assert.That(tile1.Equals((Object)tile2), Is.False);
+			Assert.That(tile2.Equals((Object)tile1), Is.False);
 		}
 
 		[TestCaseSource(typeof(Tile3DTestCaseSource), nameof(Tile3DTestCaseSource.EqualTileCoordPairs))]
@@ -46,16 +47,16 @@ namespace CodeSmile.Tests.Editor.ProTiler.Model
 			Assert.That(tile1 != tile2, Is.False);
 			Assert.That(tile1.Equals(tile2), Is.True);
 			Assert.That(tile2.Equals(tile1), Is.True);
-			Assert.That(tile1.Equals((object)tile2), Is.True);
-			Assert.That(tile2.Equals((object)tile1), Is.True);
+			Assert.That(tile1.Equals((Object)tile2), Is.True);
+			Assert.That(tile2.Equals((Object)tile1), Is.True);
 		}
 
 		[Test] public void TilesWithDifferentCoordsHaveNonEqualHashcodes() => Assert.That(
-			new Tile3DCoord(Vector3Int.left, new Tile3D()).GetHashCode() !=
-			new Tile3DCoord(Vector3Int.right, new Tile3D()).GetHashCode());
+			new Tile3DCoord(new GridCoord(-1, 0, 0), new Tile3D()).GetHashCode() !=
+			new Tile3DCoord(new GridCoord(1, 0, 0), new Tile3D()).GetHashCode());
 
 		[Test] public void TilesWithSameCoordsHaveEqualHashcodes() => Assert.That(
-			new Tile3DCoord(Vector3Int.one, new Tile3D()).GetHashCode() ==
-			new Tile3DCoord(Vector3Int.one, new Tile3D()).GetHashCode());
+			new Tile3DCoord(new GridCoord(1, 1, 1), new Tile3D()).GetHashCode() ==
+			new Tile3DCoord(new GridCoord(1, 1, 1), new Tile3D()).GetHashCode());
 	}
 }

@@ -4,9 +4,9 @@
 using CodeSmile.ProTiler.Model;
 using NUnit.Framework;
 using System.Linq;
-using GridCoord = UnityEngine.Vector3Int;
-using ChunkCoord = UnityEngine.Vector2Int;
-using ChunkSize = UnityEngine.Vector2Int;
+using GridCoord = Unity.Mathematics.int3;
+using ChunkCoord = Unity.Mathematics.int2;
+using ChunkSize = Unity.Mathematics.int2;
 
 namespace CodeSmile.Tests.Editor.ProTiler.Model
 {
