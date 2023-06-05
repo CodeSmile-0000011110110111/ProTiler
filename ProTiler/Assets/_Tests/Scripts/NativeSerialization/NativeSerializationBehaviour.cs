@@ -3,63 +3,166 @@
 
 using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using System.Text;
+using Unity.Burst;
 using Unity.Collections;
 using Unity.Collections.LowLevel.Unsafe;
 using Unity.Collections.LowLevel.Unsafe.NotBurstCompatible;
 using Unity.Serialization.Binary;
+using UnityEditor;
 using UnityEngine;
+using ChunkCoord = Unity.Mathematics.int2;
+using ChunkSize = Unity.Mathematics.int2;
+using ChunkKey = System.Int64;
+using CellSize = Unity.Mathematics.float3;
+using CellGap = Unity.Mathematics.float3;
+using GridCoord = Unity.Mathematics.int3;
+using Object = UnityEngine.Object;
+using WorldPos = Unity.Mathematics.float3;
+
+[Flags]
+public enum TileFlags : UInt16
+{
+	None = 0,
+
+	DirectionNorth = 1 << 0,
+	DirectionEast = 1 << 1,
+	DirectionSouth = 1 << 2,
+	DirectionWest = 1 << 3,
+	FlipHorizontal = 1 << 4,
+	FlipVertical = 1 << 5,
+	FlipBoth = FlipHorizontal | FlipVertical,
+
+	BitCount = 6,
+}
+
+public interface ITileData
+{
+	public UInt16 TileIndex { get; set; }
+	public TileFlags TileFlags { get; set; }
+	public UInt32 TileIndexFlags { get; set; }
+}
+
+/// <summary>
+///     Data for every tile in a chunk/layer. Be very considerate of what to add here and what type as
+///     this can have a huge impact on memory/disk usage of the map.
+/// </summary>
+[BurstCompile]
+[StructLayout(LayoutKind.Explicit)]
+public struct TileData : ITileData
+{
+	[FieldOffset(0)]
+	private UInt16 m_TileIndex;
+	[FieldOffset(2)]
+	private TileFlags m_TileFlags;
+	[FieldOffset(0)]
+	private UInt32 m_TileIndexFlags;
+
+	public UInt16 TileIndex { get => m_TileIndex; set => m_TileIndex = value; }
+	public TileFlags TileFlags { get => m_TileFlags; set => m_TileFlags = value; }
+	public UInt32 TileIndexFlags { get => m_TileIndexFlags; set => m_TileIndexFlags = value; }
+}
+
+/// <summary>
+///     Data for specific tiles (based on coordinates) in a chunk/layer.
+///     Use this for flagging tiles where most tiles use default data and only some tiles require
+///     additional or custom data.
+/// </summary>
+[BurstCompile]
+[StructLayout(LayoutKind.Sequential)]
+public struct SparseTileData
+{
+	// empty is default
+	// extend this as needed on per-project basis
+}
+
+[BurstCompile]
+[StructLayout(LayoutKind.Sequential)]
+public struct ChunkLinearData<TLinearData> where TLinearData : unmanaged, ILinearData
+{
+	private readonly UnsafeList<UnsafeList<TLinearData>> m_ChunkData;
+}
+
+public interface ILinearData {}
+public interface ISparseData {}
+
+[BurstCompile]
+[StructLayout(LayoutKind.Sequential)]
+public struct ChunkData<TLinear, TSparse>
+	where TLinear : unmanaged, ILinearData
+	where TSparse : unmanaged, ISparseData
+{
+	private readonly ChunkSize m_ChunkSize;
+	private readonly UnsafeList<UnsafeList<TLinear>> m_LinearData;
+	private readonly UnsafeList<UnsafeParallelHashMap<GridCoord, TSparse>> m_SparseData;
+}
+
+// generic type can be simple types (int2, int4) or structs
+// MB acts as a factory for various types, inspector lets you select predefined types
+// MB has mechanism to extend with custom types - how? static "create tilemap" event method
+// that allows you to pass types?
+public class Tilemap3DBase<TLinear, TSparse>
+	where TLinear : unmanaged, ILinearData
+	where TSparse : unmanaged, ISparseData
+{
+	private NativeParallelHashMap<ChunkKey, ChunkData<TLinear, TSparse>> m_ChunkData;
+	private FixedString512Bytes m_ExpectedChunkDataTypes;
+
+	private NativeParallelHashMap<ChunkKey, ChunkLinearData<TLinear>> m_ChunkLinearData;
+	// chunked Tile Index + Flags
+	private NativeParallelHashMap<ChunkKey, UnsafeList<TLinear>> m_ChunkedTileData;
+	// chunked user-defined per-coord struct
+	private NativeParallelHashMap<ChunkKey, UnsafeParallelHashMap<GridCoord, TSparse>> m_ChunkedCoordTileData;
+	//FixedList4096Bytes<T>
+	//NativeArray<>
+}
+
+//public class Tilemap3D : Tilemap3DBase {}
 
 //[Serializable]
+[BurstCompile]
+[StructLayout(LayoutKind.Sequential)]
 public struct DataContainer
 {
-	public Byte ByteValue1;
-	public Byte ByteValue2;
-	public Byte ByteValue3;
-	public Byte ByteValue4;
-	public UnsafeList<Byte> ByteArray;
+	public UInt16 TileIndex;
+	public UInt16 TileFlags;
 
 	public DataContainer(Byte startValue)
 	{
-		ByteValue1 = startValue;
-		ByteValue2 = (Byte)(ByteValue1 + 1);
-		ByteValue3 = (Byte)(ByteValue2 + 1);
-		ByteValue4 = (Byte)(ByteValue3 + 1);
-
-		ByteArray = new UnsafeList<Byte>(5, Allocator.Persistent);
-		ByteArray.Add(ByteValue1);
-		ByteArray.Add(ByteValue2);
-		ByteArray.Add(ByteValue3);
-		ByteArray.Add(ByteValue4);
-		ByteArray.Add((Byte)(ByteValue1 + ByteValue2 + ByteValue3 + ByteValue4));
+		TileIndex = startValue;
+		TileFlags = (Byte)(TileIndex + 1);
 	}
 
-	// [CreateProperty] public Int32 IntValue;
-	// [CreateProperty] public Single FloatValue;
-	// [CreateProperty] public Double DoubleValue;
-	// [CreateProperty] public int4 Int4Value;
+	[BurstCompile]
+	public void Test()
+	{
+		var x = TileIndex + TileFlags;
+		TileIndex = (UInt16)(TileFlags - x);
+	}
 }
 
-public class NativeListDataContainerAdapter : IBinaryAdapter<NativeList<DataContainer>>
+public struct NativeListDataContainerAdapter : IBinaryAdapter<NativeList<DataContainer>>
 {
 	public unsafe void Serialize(in BinarySerializationContext<NativeList<DataContainer>> context,
 		NativeList<DataContainer> value)
 	{
 		var writer = context.Writer;
 
-		writer->Add(value.Length);
+		if (value.Length > UInt16.MaxValue)
+			throw new ArgumentException();
+
+		writer->Add((UInt16)value.Length);
 
 		for (var i = 0; i < value.Length; i++)
 		{
-			writer->Add(value[i].ByteValue1);
-			writer->Add(value[i].ByteValue2);
-			writer->Add(value[i].ByteValue3);
-			writer->Add(value[i].ByteValue4);
+			writer->Add(value[i].TileIndex);
+			writer->Add(value[i].TileFlags);
 
-			var byteArray = value[i].ByteArray;
-			writer->Add(byteArray.Length);
-			for (var k = 0; k < byteArray.Length; k++)
-				writer->Add(byteArray[k]);
+			// var byteArray = value[i].ByteArray;
+			// writer->Add(byteArray.Length);
+			// for (var k = 0; k < byteArray.Length; k++)
+			// 	writer->Add(byteArray[k]);
 		}
 	}
 
@@ -68,22 +171,20 @@ public class NativeListDataContainerAdapter : IBinaryAdapter<NativeList<DataCont
 	{
 		var reader = context.Reader;
 
-		var containerLength = reader->ReadNext<Int32>();
+		var containerLength = reader->ReadNext<UInt16>();
 		var value = new NativeList<DataContainer>(containerLength, Allocator.Persistent);
 
 		for (var i = 0; i < containerLength; i++)
 		{
 			var data = new DataContainer();
 
-			data.ByteValue1 = reader->ReadNext<Byte>();
-			data.ByteValue2 = reader->ReadNext<Byte>();
-			data.ByteValue3 = reader->ReadNext<Byte>();
-			data.ByteValue4 = reader->ReadNext<Byte>();
+			data.TileIndex = reader->ReadNext<UInt16>();
+			data.TileFlags = reader->ReadNext<UInt16>();
 
-			var unsafeListLength = reader->ReadNext<Int32>();
-			data.ByteArray = new UnsafeList<Byte>(unsafeListLength, Allocator.Persistent);
-			for (var k = 0; k < unsafeListLength; k++)
-				data.ByteArray.Add(reader->ReadNext<Byte>());
+			// var unsafeListLength = reader->ReadNext<Int32>();
+			// data.ByteArray = new UnsafeList<Byte>(unsafeListLength, Allocator.Persistent);
+			// for (var k = 0; k < unsafeListLength; k++)
+			// 	data.ByteArray.Add(reader->ReadNext<Byte>());
 
 			value.Add(data);
 		}
@@ -95,6 +196,7 @@ public class NativeListDataContainerAdapter : IBinaryAdapter<NativeList<DataCont
 [ExecuteAlways]
 public class NativeSerializationBehaviour : MonoBehaviour
 {
+	[SerializeField] private Object m_TestFolderAsset;
 	private NativeList<DataContainer> m_DataContainers;
 
 	private void Update()
@@ -110,17 +212,24 @@ public class NativeSerializationBehaviour : MonoBehaviour
 		var deserializedBytes = Serialize(deserializedList);
 		DisposeDataContainer(deserializedList);
 
-
 		var sb = new StringBuilder();
 		foreach (var b in bytes)
 			sb.Append(b);
-
 
 		var sb2 = new StringBuilder();
 		foreach (var b in deserializedBytes)
 			sb2.Append(b);
 
 		Debug.Log($"{sb} ?? {sb2} == {sb.Equals(sb2)}");
+
+#if UNITY_EDITOR
+		var folderAsset = AssetDatabase.LoadAssetAtPath<Object>("Assets/_Tests/FolderAsset");
+		Debug.Log($"asset for folder: {folderAsset} {AssetDatabase.GetAssetPath(folderAsset)}");
+		if (folderAsset != null)
+			m_TestFolderAsset = folderAsset;
+		else if (m_TestFolderAsset != null)
+			Debug.Log($"folder asset after move: {AssetDatabase.GetAssetPath(m_TestFolderAsset)}");
+#endif
 	}
 
 	private void OnDisable() => DisposeDataContainer(m_DataContainers);
@@ -153,74 +262,9 @@ public class NativeSerializationBehaviour : MonoBehaviour
 	{
 		if (dataContainers.IsCreated)
 		{
-			foreach (var dataContainer in dataContainers)
-				dataContainer.ByteArray.Dispose();
+			// foreach (var dataContainer in dataContainers)
+			// 	dataContainer.ByteArray.Dispose();
 			dataContainers.Dispose();
 		}
 	}
-
-	/*
-	private Byte[] ObjectToByteArray<T>(T obj)
-	{
-		using (var stream = new UnsafeAppendBuffer(16, 8, Allocator.Temp))
-		{
-			unsafe
-			{
-				BinarySerialization.ToBinary(&stream, obj, new BinarySerializationParameters
-				{
-					UserDefinedAdapters = new List<IBinaryAdapter>
-					{
-						new NativeArrayAdapter(),
-					},
-				});
-			}
-
-			return stream.ToBytes();
-		}
-	}
-
-	private T ByteArrayToObject<T>(Byte[] arr)
-	{
-		unsafe
-		{
-			fixed (Byte* ptr = arr)
-			{
-				var reader = new UnsafeAppendBuffer.Reader(ptr, arr.Length);
-
-				return BinarySerialization.FromBinary<T>(&reader, new BinarySerializationParameters
-				{
-					UserDefinedAdapters = new List<IBinaryAdapter>
-					{
-						new NativeArrayAdapter(),
-					},
-				});
-			}
-		}
-	}
-
-	private class NativeArrayAdapter : IBinaryAdapter<NativeArray<Int32>>
-	{
-		public unsafe void Serialize(in BinarySerializationContext<NativeArray<Int32>> context,
-			NativeArray<Int32> value)
-		{
-			var writer = context.Writer;
-			writer->Add(value.Length);
-
-			for (var i = 0; i < value.Length; i++)
-				writer->Add(value[i]);
-		}
-
-		public unsafe NativeArray<Int32> Deserialize(in BinaryDeserializationContext<NativeArray<Int32>> context)
-		{
-			var reader = context.Reader;
-			var length = reader->ReadNext<Int32>();
-
-			var value = new NativeArray<Int32>(length, Allocator.Persistent);
-
-			for (var i = 0; i < length; i++)
-				value[i] = reader->ReadNext<Int32>();
-
-			return value;
-		}
-	}*/
 }
