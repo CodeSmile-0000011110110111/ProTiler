@@ -7,7 +7,6 @@
         "CodeSmile",
         "CodeSmile.Editor",
         "CodeSmile.ProTiler",
-        "CodeSmile.ProTiler.Editor",
         "CodeSmile.Tests.Tools",
         "Unity.Mathematics",
         "Unity.Serialization"

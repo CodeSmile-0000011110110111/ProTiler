@@ -9,7 +9,7 @@ using GridCoord = Unity.Mathematics.int3;
 using CellSize = Unity.Mathematics.float3;
 using Math = Unity.Mathematics.math;
 
-namespace CodeSmile.ProTiler.Grid
+namespace CodeSmile.ProTiler3.Runtime.Grid
 {
 	[FullCovered]
 	internal static class Grid3DUtility

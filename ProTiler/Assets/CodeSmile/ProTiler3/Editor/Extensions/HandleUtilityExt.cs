@@ -1,7 +1,7 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
-namespace CodeSmile.ProTiler.Editor.Extensions
+namespace CodeSmile.ProTiler3.Editor.Extensions
 {
 	/*
 	public static class HandleUtilityExt

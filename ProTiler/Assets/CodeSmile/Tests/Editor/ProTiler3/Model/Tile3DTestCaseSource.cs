@@ -1,7 +1,7 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
-using CodeSmile.ProTiler.Model;
+using CodeSmile.ProTiler3.Runtime.Model;
 using System;
 using GridCoord = Unity.Mathematics.int3;
 

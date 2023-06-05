@@ -2,12 +2,13 @@
 // Refer to included LICENSE file for terms and conditions.
 
 using CodeSmile.Editor.Extensions;
-using CodeSmile.ProTiler.Assets;
+using CodeSmile.ProTiler3.Runtime;
+using CodeSmile.ProTiler3.Runtime.Assets;
 using System.Diagnostics.CodeAnalysis;
 using UnityEditor;
 using UnityEngine;
 
-namespace CodeSmile.ProTiler.Editor.Creation
+namespace CodeSmile.ProTiler3.Editor.Creation
 {
 	[InitializeOnLoad]
 	[ExcludeFromCodeCoverage]

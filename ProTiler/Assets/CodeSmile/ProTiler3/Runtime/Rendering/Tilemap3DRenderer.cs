@@ -3,8 +3,8 @@
 
 using CodeSmile.Collections;
 using CodeSmile.Extensions;
-using CodeSmile.ProTiler.Controller;
-using CodeSmile.ProTiler.Model;
+using CodeSmile.ProTiler3.Runtime.Controller;
+using CodeSmile.ProTiler3.Runtime.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +14,7 @@ using GridCoord = Unity.Mathematics.int3;
 using CellSize = Unity.Mathematics.float3;
 
 
-namespace CodeSmile.ProTiler.Rendering
+namespace CodeSmile.ProTiler3.Runtime.Rendering
 {
 
 	[ExecuteAlways]
@@ -254,6 +254,6 @@ namespace CodeSmile.ProTiler.Rendering
 
 		private void OnTilemapModified(IEnumerable<Tile3DCoord> tileCoords) => CullAndSetVisibleCoords();
 
-		protected internal sealed class TileRenderers : Dictionary<GridCoord, Tile3DRenderer> {}
+		public sealed class TileRenderers : Dictionary<GridCoord, Tile3DRenderer> {}
 	}
 }

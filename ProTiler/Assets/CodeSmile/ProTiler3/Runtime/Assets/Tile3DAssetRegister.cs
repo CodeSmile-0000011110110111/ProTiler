@@ -4,10 +4,9 @@
 using CodeSmile.Attributes;
 using System;
 using System.Diagnostics.CodeAnalysis;
-using System.Diagnostics.Contracts;
 using UnityEngine;
 
-namespace CodeSmile.ProTiler.Assets
+namespace CodeSmile.ProTiler3.Runtime.Assets
 {
 	[FullCovered]
 	public sealed class Tile3DAssetRegister : ScriptableObject

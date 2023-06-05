@@ -4,7 +4,7 @@
 using System.Diagnostics.CodeAnalysis;
 using UnityEngine;
 
-namespace CodeSmile.ProTiler.Events
+namespace CodeSmile.ProTiler3.Runtime.Events
 {
 	[SuppressMessage("NDepend", "ND1313:OverrideEqualsAndOperatorEqualsOnValueTypes")]
 	public struct MouseMoveEventData

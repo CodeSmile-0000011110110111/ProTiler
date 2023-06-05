@@ -2,7 +2,7 @@
 // Refer to included LICENSE file for terms and conditions.
 
 using CodeSmile.Attributes;
-using CodeSmile.ProTiler.Grid;
+using CodeSmile.ProTiler3.Runtime.Grid;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -14,7 +14,7 @@ using ChunkCoord = Unity.Mathematics.int2;
 using ChunkSize = Unity.Mathematics.int2;
 using GridCoord = Unity.Mathematics.int3;
 
-namespace CodeSmile.ProTiler.Model
+namespace CodeSmile.ProTiler3.Runtime.Model
 {
 	/// <summary>
 	///     A chunk is one part of a larger tilemap at a given position offset.

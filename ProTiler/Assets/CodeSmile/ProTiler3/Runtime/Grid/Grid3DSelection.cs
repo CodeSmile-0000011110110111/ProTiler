@@ -4,7 +4,7 @@
 using System.Collections.Generic;
 using GridCoord = UnityEngine.Vector3Int;
 
-namespace CodeSmile.ProTiler.Grid
+namespace CodeSmile.ProTiler3.Runtime.Grid
 {
 	public sealed class Grid3DSelection
 	{

@@ -10,7 +10,7 @@ using ChunkSize = Unity.Mathematics.int2;
 using GridCoord = Unity.Mathematics.int3;
 using LayerCoord = Unity.Mathematics.int3;
 
-namespace CodeSmile.ProTiler.Model
+namespace CodeSmile.ProTiler3.Runtime.Model
 {
 	/// <summary>
 	///     TileData for a specific coordinate.

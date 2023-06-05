@@ -2,13 +2,12 @@
 // Refer to included LICENSE file for terms and conditions.
 
 using CodeSmile.Extensions;
-using CodeSmile.ProTiler.Model;
+using CodeSmile.ProTiler3.Runtime.Model;
 using System;
-using System.Diagnostics.Contracts;
 using System.Text;
 using UnityEngine;
 
-namespace CodeSmile.ProTiler.Serialization
+namespace CodeSmile.ProTiler3.Runtime.Serialization
 {
 	public sealed class Tilemap3DSerializer
 	{

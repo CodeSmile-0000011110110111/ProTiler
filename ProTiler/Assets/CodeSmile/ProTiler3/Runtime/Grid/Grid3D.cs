@@ -6,7 +6,7 @@ using ChunkSize = UnityEngine.Vector2Int;
 using CellSize = UnityEngine.Vector3;
 using CellGap = UnityEngine.Vector3;
 
-namespace CodeSmile.ProTiler.Grid
+namespace CodeSmile.ProTiler3.Runtime.Grid
 {
 	[Serializable]
 	public struct Grid3D : IEquatable<Grid3D>

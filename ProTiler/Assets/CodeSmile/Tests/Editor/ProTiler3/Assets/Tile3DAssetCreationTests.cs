@@ -2,8 +2,8 @@
 // Refer to included LICENSE file for terms and conditions.
 
 using CodeSmile.Extensions;
-using CodeSmile.ProTiler.Assets;
-using CodeSmile.ProTiler.Editor.Creation;
+using CodeSmile.ProTiler3.Editor.Creation;
+using CodeSmile.ProTiler3.Runtime.Assets;
 using CodeSmile.Tests.Tools;
 using NUnit.Framework;
 using UnityEditor;

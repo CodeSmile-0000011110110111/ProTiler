@@ -2,13 +2,13 @@
 // Refer to included LICENSE file for terms and conditions.
 
 using CodeSmile.Editor;
-using CodeSmile.ProTiler.Controller;
-using CodeSmile.ProTiler.Events;
+using CodeSmile.ProTiler3.Runtime.Controller;
+using CodeSmile.ProTiler3.Runtime.Events;
 using System.Diagnostics.CodeAnalysis;
 using UnityEditor;
 using UnityEngine;
 
-namespace CodeSmile.ProTiler.Editor
+namespace CodeSmile.ProTiler3.Editor
 {
 	[SuppressMessage("NDepend", "ND1204:OverridesOfMethodShouldCallBaseMethod", Justification = "not expected")]
 	[ExcludeFromCodeCoverage] // don't test the UI, it's a 'detail'

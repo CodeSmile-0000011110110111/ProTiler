@@ -2,11 +2,11 @@
 // Refer to included LICENSE file for terms and conditions.
 
 using CodeSmile.Extensions;
-using CodeSmile.ProTiler.Controller;
-using CodeSmile.ProTiler.Editor.Creation;
-using CodeSmile.ProTiler.Grid;
-using CodeSmile.ProTiler.Model;
-using CodeSmile.ProTiler.Rendering;
+using CodeSmile.ProTiler3.Editor.Creation;
+using CodeSmile.ProTiler3.Runtime.Controller;
+using CodeSmile.ProTiler3.Runtime.Grid;
+using CodeSmile.ProTiler3.Runtime.Model;
+using CodeSmile.ProTiler3.Runtime.Rendering;
 using CodeSmile.Tests.Tools;
 using CodeSmile.Tests.Tools.Attributes;
 using NUnit.Framework;

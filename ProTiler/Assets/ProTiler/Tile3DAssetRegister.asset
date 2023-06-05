@@ -14,9 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_TileAssets:
     m_NextIndex: 1
-    DefaultObject: {fileID: 11400000, guid: c1e5280904371ea46a4e5d0b00892ff8, type: 2}
+    m_DefaultObject: {fileID: 11400000, guid: c1e5280904371ea46a4e5d0b00892ff8, type: 2}
     m_IndexedObjects:
       m_Keys: 
       m_Values: []
-    m_EmptyTileAsset: {fileID: 11400000, guid: 0d8d38bcdd24fd543a5a6350621df911, type: 2}
+    m_EmptyTileAsset: {fileID: 0}
     m_MissingTileAsset: {fileID: 11400000, guid: c1e5280904371ea46a4e5d0b00892ff8, type: 2}
+    m_MissingPrefabAsset: {fileID: 0}

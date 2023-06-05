@@ -2,7 +2,7 @@
 // Refer to included LICENSE file for terms and conditions.
 
 using CodeSmile.Extensions;
-using CodeSmile.ProTiler.Grid;
+using CodeSmile.ProTiler3.Runtime.Grid;
 using CodeSmile.Tests.Tools.Attributes;
 using NUnit.Framework;
 using UnityEngine;

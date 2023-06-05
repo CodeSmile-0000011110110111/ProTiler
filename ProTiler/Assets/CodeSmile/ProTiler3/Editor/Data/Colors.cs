@@ -3,7 +3,7 @@
 
 using System.Diagnostics.CodeAnalysis;
 
-namespace CodeSmile.ProTiler.Editor.Data
+namespace CodeSmile.ProTiler3.Editor.Data
 {
 	[ExcludeFromCodeCoverage]
 	public static class Colors

@@ -4,7 +4,8 @@
 using CodeSmile.Attributes;
 using CodeSmile.Editor.Extensions;
 using CodeSmile.Extensions;
-using CodeSmile.ProTiler.Assets;
+using CodeSmile.ProTiler3.Runtime;
+using CodeSmile.ProTiler3.Runtime.Assets;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -14,7 +15,7 @@ using UnityEditor.ProjectWindowCallback;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace CodeSmile.ProTiler.Editor.Creation
+namespace CodeSmile.ProTiler3.Editor.Creation
 {
 	[FullCovered]
 	public static class Tile3DAssetCreation

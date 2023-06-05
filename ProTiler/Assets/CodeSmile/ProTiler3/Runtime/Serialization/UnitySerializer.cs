@@ -3,14 +3,13 @@
 
 using CodeSmile.Attributes;
 using System;
-using System.Diagnostics.Contracts;
 using System.Runtime.InteropServices;
 using Unity.Collections;
 using Unity.Collections.LowLevel.Unsafe;
 using Unity.Serialization.Binary;
 using Unity.Serialization.Json;
 
-namespace CodeSmile.ProTiler.Serialization
+namespace CodeSmile.ProTiler3.Runtime.Serialization
 {
 	[FullCovered]
 	internal static class UnitySerializer

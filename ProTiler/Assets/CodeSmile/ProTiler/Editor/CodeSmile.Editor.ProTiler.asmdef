@@ -1,0 +1,20 @@
+{
+    "name": "CodeSmile.Editor.ProTiler",
+    "rootNamespace": "",
+    "references": [
+        "GUID:0de177a875028db4d97efebe9a09aa5a",
+        "GUID:4f940526aaebaa547a5dafc2a02498ea",
+        "GUID:d74c946c0dddbe741ba530125b4cb9f2"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

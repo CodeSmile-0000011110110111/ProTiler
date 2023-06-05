@@ -6,7 +6,7 @@ using CodeSmile.Collections;
 using System;
 using UnityEngine;
 
-namespace CodeSmile.ProTiler.Assets
+namespace CodeSmile.ProTiler3.Runtime.Assets
 {
 	[FullCovered]
 	[Serializable]

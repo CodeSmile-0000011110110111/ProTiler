@@ -3,14 +3,11 @@
 
 using System;
 using System.Diagnostics.CodeAnalysis;
-using System.Diagnostics.Contracts;
 using UnityEditor;
-using UnityEngine.SceneManagement;
-#if UNITY_EDITOR
 using UnityEditor.SceneManagement;
-#endif
+using UnityEngine.SceneManagement;
 
-namespace CodeSmile.ProTiler.Controller
+namespace CodeSmile.ProTiler3.Runtime.Controller
 {
 	public sealed partial class Tilemap3DModel
 	{

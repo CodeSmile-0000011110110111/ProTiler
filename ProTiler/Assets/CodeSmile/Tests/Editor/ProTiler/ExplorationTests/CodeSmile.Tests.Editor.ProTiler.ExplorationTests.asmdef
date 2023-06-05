@@ -1,18 +1,23 @@
 {
-    "name": "CodeSmile.Tests.Runtime.ProTiler",
+    "name": "CodeSmile.Tests.Editor.ProTiler.ExplorationTests",
     "rootNamespace": "",
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
-        "Unity.Mathematics",
         "CodeSmile",
+        "CodeSmile.Editor",
         "CodeSmile.ProTiler",
         "CodeSmile.Tests.Tools",
-        "CodeSmile.ProTiler.Editor"
+        "Unity.Burst",
+        "Unity.Collections",
+        "Unity.Mathematics",
+        "Unity.Serialization"
     ],
-    "includePlatforms": [],
+    "includePlatforms": [
+        "Editor"
+    ],
     "excludePlatforms": [],
-    "allowUnsafeCode": false,
+    "allowUnsafeCode": true,
     "overrideReferences": true,
     "precompiledReferences": [
         "nunit.framework.dll"

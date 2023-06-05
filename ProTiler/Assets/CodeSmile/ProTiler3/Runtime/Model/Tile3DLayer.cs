@@ -2,7 +2,7 @@
 // Refer to included LICENSE file for terms and conditions.
 
 using CodeSmile.Attributes;
-using CodeSmile.ProTiler.Grid;
+using CodeSmile.ProTiler3.Runtime.Grid;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 using Unity.Properties;
 using LayerSize = Unity.Mathematics.int2;
 
-namespace CodeSmile.ProTiler.Model
+namespace CodeSmile.ProTiler3.Runtime.Model
 {
 	/// <summary>
 	///     Represents a single, flat layer of tiles. Essentially a 2D array.

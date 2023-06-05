@@ -1,14 +1,12 @@
 // Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
-using CodeSmile.ProTiler.Events;
-using CodeSmile.ProTiler.Grid;
+using CodeSmile.ProTiler3.Runtime.Events;
+using CodeSmile.ProTiler3.Runtime.Grid;
 using System;
 using UnityEngine;
-using ChunkCoord = UnityEngine.Vector2Int;
-using ChunkSize = UnityEngine.Vector2Int;
 
-namespace CodeSmile.ProTiler.Controller
+namespace CodeSmile.ProTiler3.Runtime.Controller
 {
 	[ExecuteAlways]
 	[DisallowMultipleComponent]

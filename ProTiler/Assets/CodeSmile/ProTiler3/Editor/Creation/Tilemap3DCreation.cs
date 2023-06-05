@@ -2,14 +2,15 @@
 // Refer to included LICENSE file for terms and conditions.
 
 using CodeSmile.Attributes;
-using CodeSmile.ProTiler.Controller;
-using CodeSmile.ProTiler.Grid;
-using CodeSmile.ProTiler.Rendering;
+using CodeSmile.ProTiler3.Runtime;
+using CodeSmile.ProTiler3.Runtime.Controller;
+using CodeSmile.ProTiler3.Runtime.Grid;
+using CodeSmile.ProTiler3.Runtime.Rendering;
 using System;
 using UnityEditor;
 using UnityEngine;
 
-namespace CodeSmile.ProTiler.Editor.Creation
+namespace CodeSmile.ProTiler3.Editor.Creation
 {
 	[FullCovered]
 	public static class Tilemap3DCreation
