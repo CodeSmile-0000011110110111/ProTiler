@@ -1,5 +1,5 @@
 {
-    "name": "CodeSmile.Tests.Editor.ProTiler.ExplorationTests",
+    "name": "CodeSmile.Tests.Editor.ProTiler.PerformanceTests",
     "rootNamespace": "",
     "references": [
         "UnityEngine.TestRunner",
@@ -11,7 +11,9 @@
         "Unity.Burst",
         "Unity.Collections",
         "Unity.Mathematics",
-        "Unity.Serialization"
+        "Unity.PerformanceTesting",
+        "Unity.Serialization",
+        "CodeSmile.Tests.Editor.ProTiler.ExplorationTests"
     ],
     "includePlatforms": [
         "Editor"

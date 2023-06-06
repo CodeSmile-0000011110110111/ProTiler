@@ -9,13 +9,12 @@ using Unity.Collections.LowLevel.Unsafe;
 using Unity.Serialization.Binary;
 using UnityEngine;
 using ChunkCoord = Unity.Mathematics.int2;
-using ChunkSize = Unity.Mathematics.int2;
+using ChunkSize = Unity.Mathematics.int3;
 using ChunkKey = System.Int64;
 using CellSize = Unity.Mathematics.float3;
 using CellGap = Unity.Mathematics.float3;
 using GridCoord = Unity.Mathematics.int3;
 using WorldPos = Unity.Mathematics.float3;
-using ListCount = System.UInt16;
 
 namespace CodeSmile.Tests.Editor.ProTiler
 {
@@ -48,7 +47,10 @@ namespace CodeSmile.Tests.Editor.ProTiler
 			var list = new NativeList<LinearTileData>(1, Allocator.Temp);
 			list.Add(linearData);
 
-			var adapters = new List<IBinaryAdapter> { new BinaryAdapters.NativeListMax65k<LinearTileData>() };
+			var adapters = new List<IBinaryAdapter>
+			{
+				new BinaryAdapters.NativeListAdapter<LinearTileData>(Allocator.Temp),
+			};
 			var bytes = BinarySerializer.Serialize(list, adapters);
 			var deserialList = BinarySerializer.Deserialize<NativeList<LinearTileData>>(bytes, adapters);
 
@@ -63,7 +65,10 @@ namespace CodeSmile.Tests.Editor.ProTiler
 			var list = new UnsafeList<LinearTileData>(1, Allocator.Temp);
 			list.Add(linearData);
 
-			var adapters = new List<IBinaryAdapter> { new BinaryAdapters.UnsafeListMax65k<LinearTileData>() };
+			var adapters = new List<IBinaryAdapter>
+			{
+				new BinaryAdapters.UnsafeListAdapter<LinearTileData>(Allocator.Temp),
+			};
 			var bytes = BinarySerializer.Serialize(list, adapters);
 			var deserialList = BinarySerializer.Deserialize<UnsafeList<LinearTileData>>(bytes, adapters);
 
@@ -89,8 +94,8 @@ namespace CodeSmile.Tests.Editor.ProTiler
 
 			var adapters = new List<IBinaryAdapter>
 			{
-				new BinaryAdapters.NativeListMax65k<UnsafeList<LinearTileData>>(),
-				new BinaryAdapters.UnsafeListMax65k<LinearTileData>(),
+				new BinaryAdapters.NativeListAdapter<UnsafeList<LinearTileData>>(Allocator.Temp),
+				new BinaryAdapters.UnsafeListAdapter<LinearTileData>(Allocator.Temp),
 			};
 			var bytes = BinarySerializer.Serialize(list, adapters);
 			var deserialList = BinarySerializer.Deserialize<NativeList<UnsafeList<LinearTileData>>>(bytes, adapters);
@@ -103,100 +108,43 @@ namespace CodeSmile.Tests.Editor.ProTiler
 			Assert.That(deserialList1[0], Is.EqualTo(linearData2));
 		}
 
-		public static class BinaryAdapters
+		[Test] public void CanSerializeAndDeserializeParallelHashMap()
 		{
-			private static class Collection
+			var allocator = Allocator.Temp;
+			var chunkSize = new ChunkSize(4, 3, 2);
+			var chunks = new NativeParallelHashMap<Int64,
+				TilemapChunk<LinearTileData, SparseTileData>>(0, allocator);
+			var chunk = new TilemapChunk<LinearTileData, SparseTileData>(chunkSize, allocator);
+
+			var linearData = new LinearTileData(2, (TileFlags)3);
+			chunk.AddTileData(linearData);
+			chunk.AddTileData(linearData);
+			chunks.Add(9, chunk);
+
+
+			var coord = new GridCoord(4, 5, 6);
+			var sparseData = new SparseTileData(1234567890);
+			chunk.SetTileData(coord, sparseData);
+			chunk.SetTileData(coord + new GridCoord(1,1,1), sparseData);
+
+
+			var adapters = new List<IBinaryAdapter>
 			{
-				public static Int32 GetListCount<TList, TListType>(TList list)
-					where TList:unmanaged, INativeList<TListType> where TListType : unmanaged =>
-					list.Length <= ListCount.MaxValue
-						? list.Length
-						: throw new ArgumentOutOfRangeException(
-							$"List length {list.Length} exceeds {ListCount.MaxValue}");
+				new BinaryAdapters.UnsafeListAdapter<LinearTileData>(allocator),
+				new BinaryAdapters.UnsafeParallelHashMapAdapter<GridCoord, SparseTileData>(allocator),
+				TilemapChunk<LinearTileData, SparseTileData>.BinarySerializationAdapter,
+				new BinaryAdapters.NativeParallelHashMapAdapter<Int64, TilemapChunk<LinearTileData, SparseTileData>>(allocator),
+			};
+			var bytes = BinarySerializer.Serialize(chunks, adapters);
+			Debug.Log($"{bytes.Length} Bytes: {bytes.AsString()}");
+			var deserialChunks = BinarySerializer.Deserialize<NativeParallelHashMap<Int64,
+					TilemapChunk<LinearTileData, SparseTileData>>>(bytes, adapters);
 
-				public static unsafe void SerializeCount<TList, TListType>(
-					in BinarySerializationContext<TList> context, in TList list)
-					where TList : unmanaged, INativeList<TListType> where TListType : unmanaged =>
-					context.Writer->Add((ListCount)GetListCount<TList, TListType>(list));
-
-				public static void SerializeValues<TList, TListType>(
-					in BinarySerializationContext<TList> context, in TList list)
-					where TList : unmanaged, INativeList<TListType> where TListType : unmanaged
-				{
-					var listCount = list.Length;
-					for (var i = 0; i < listCount; i++)
-						context.SerializeValue(list[i]);
-				}
-
-				public static unsafe Int32 DeserializeCount<TList>(in BinaryDeserializationContext<TList> context)
-					where TList : unmanaged => context.Reader->ReadNext<ListCount>();
-
-				public static void DeserializeValues<TList, TListType>(in BinaryDeserializationContext<TList> context,
-					TList list, Int32 itemCount)
-					where TList : unmanaged, INativeList<TListType> where TListType : unmanaged
-				{
-					for (var i = 0; i < itemCount; i++)
-						list[i] = context.DeserializeValue<TListType>();
-				}
-
-				public static NativeList<T> CreateResizedNativeList<T>(Int32 itemCount, Allocator allocator)
-					where T : unmanaged
-				{
-					var list = new NativeList<T>(itemCount, allocator);
-					list.Resize(itemCount, NativeArrayOptions.UninitializedMemory);
-					return list;
-				}
-
-				public static UnsafeList<T> CreateResizedUnsafeList<T>(Int32 itemCount, Allocator allocator)
-					where T : unmanaged
-				{
-					var list = new UnsafeList<T>(itemCount, allocator);
-					list.Resize(itemCount);
-					return list;
-				}
-			}
-
-			public class NativeListMax65k<T> : IBinaryAdapter<NativeList<T>> where T : unmanaged
-			{
-				private readonly Allocator m_Allocator;
-
-				public NativeListMax65k(Allocator allocator = Allocator.Temp) => m_Allocator = allocator;
-
-				public void Serialize(in BinarySerializationContext<NativeList<T>> context, NativeList<T> list)
-				{
-					Collection.SerializeCount<NativeList<T>, T>(context, list);
-					Collection.SerializeValues<NativeList<T>, T>(context, list);
-				}
-
-				public NativeList<T> Deserialize(in BinaryDeserializationContext<NativeList<T>> context)
-				{
-					var itemCount = Collection.DeserializeCount(context);
-					var list = Collection.CreateResizedNativeList<T>(itemCount, m_Allocator);
-					Collection.DeserializeValues<NativeList<T>, T>(context, list, itemCount);
-					return list;
-				}
-			}
-
-			public class UnsafeListMax65k<T> : IBinaryAdapter<UnsafeList<T>> where T : unmanaged
-			{
-				private readonly Allocator m_Allocator;
-
-				public UnsafeListMax65k(Allocator allocator = Allocator.Temp) => m_Allocator = allocator;
-
-				public void Serialize(in BinarySerializationContext<UnsafeList<T>> context, UnsafeList<T> list)
-				{
-					Collection.SerializeCount<UnsafeList<T>, T>(context, list);
-					Collection.SerializeValues<UnsafeList<T>, T>(context, list);
-				}
-
-				public UnsafeList<T> Deserialize(in BinaryDeserializationContext<UnsafeList<T>> context)
-				{
-					var itemCount = Collection.DeserializeCount(context);
-					var list = Collection.CreateResizedUnsafeList<T>(itemCount, m_Allocator);
-					Collection.DeserializeValues<UnsafeList<T>, T>(context, list, itemCount);
-					return list;
-				}
-			}
+			Assert.That(deserialChunks.Count(), Is.EqualTo(1));
+			Assert.That(deserialChunks[9].LinearDataCount, Is.EqualTo(2));
+			Assert.That(deserialChunks[9].SparseDataCount, Is.EqualTo(2));
+			Assert.That(deserialChunks[9][0], Is.EqualTo(linearData));
+			Assert.That(deserialChunks[9][coord], Is.EqualTo(sparseData));
 		}
 	}
 }

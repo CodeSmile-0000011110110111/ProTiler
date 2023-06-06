@@ -2,86 +2,29 @@
 // Refer to included LICENSE file for terms and conditions.
 
 using System;
-using System.Collections.Generic;
 using System.Runtime.InteropServices;
-using System.Text;
-using Unity.Burst;
 using Unity.Collections;
 using Unity.Collections.LowLevel.Unsafe;
-using Unity.Collections.LowLevel.Unsafe.NotBurstCompatible;
 using Unity.Properties;
 using Unity.Serialization.Binary;
-using UnityEditor;
-using UnityEngine;
 using ChunkCoord = Unity.Mathematics.int2;
-using ChunkSize = Unity.Mathematics.int2;
+using ChunkSize = Unity.Mathematics.int3;
 using ChunkKey = System.Int64;
 using CellSize = Unity.Mathematics.float3;
 using CellGap = Unity.Mathematics.float3;
 using GridCoord = Unity.Mathematics.int3;
-using Object = System.Object;
 using WorldPos = Unity.Mathematics.float3;
 
 namespace CodeSmile.Tests.Editor.ProTiler
 {
-	public static class BinarySerializer
-	{
-		public static unsafe Byte[] Serialize<T>(T data, List<IBinaryAdapter> adapters = null)
-		{
-			var stream = new UnsafeAppendBuffer(16, 8, Allocator.Temp);
-			var parameters = new BinarySerializationParameters { UserDefinedAdapters = adapters };
-			BinarySerialization.ToBinary(&stream, data, parameters);
-
-			var bytes = stream.ToBytesNBC();
-			stream.Dispose();
-
-			return bytes;
-		}
-
-		public static unsafe T Deserialize<T>(Byte[] bytes, List<IBinaryAdapter> adapters = null)
-		{
-			fixed (Byte* ptr = bytes)
-			{
-				var reader = new UnsafeAppendBuffer.Reader(ptr, bytes.Length);
-				var parameters = new BinarySerializationParameters { UserDefinedAdapters = adapters };
-				return BinarySerialization.FromBinary<T>(&reader, parameters);
-			}
-		}
-	}
-
-	public static class ByteArrayExt
-	{
-		public static String AsString(this Byte[] bytes)
-		{
-			var sb = new StringBuilder();
-			foreach (var b in bytes)
-				sb.Append(b);
-			return sb.ToString();
-		}
-	}
-
-	[Flags]
-	public enum TileFlags : UInt16
-	{
-		None = 0,
-
-		DirectionNorth = 1 << 0,
-		DirectionEast = 1 << 1,
-		DirectionSouth = 1 << 2,
-		DirectionWest = 1 << 3,
-		FlipHorizontal = 1 << 4,
-		FlipVertical = 1 << 5,
-		FlipBoth = FlipHorizontal | FlipVertical,
-
-		BitCount = 6,
-	}
-
 	public interface ILinearTileData
 	{
 		public UInt16 TileIndex { get; set; }
-		public TileFlags TileFlags { get;set; }
-		public UInt32 TileIndexFlags { get;set; }
+		public TileFlags TileFlags { get; set; }
+		public UInt32 TileIndexAndFlags { get; set; }
 	}
+
+	public interface ISparseTileData {}
 
 	/// <summary>
 	///     Data for every tile in a chunk/layer. Be very considerate of what to add here and what type as
@@ -90,33 +33,28 @@ namespace CodeSmile.Tests.Editor.ProTiler
 	[StructLayout(LayoutKind.Explicit)]
 	public struct LinearTileData : ILinearTileData, IEquatable<LinearTileData>
 	{
-		[FieldOffset(0)] [CreateProperty] private UInt32 m_TileIndexFlags;
+		[CreateProperty]
+		[FieldOffset(0)] private UInt32 m_TileIndexAndFlags;
 		[FieldOffset(0)] private UInt16 m_TileIndex;
 		[FieldOffset(2)] private TileFlags m_TileFlags;
 
 		public UInt16 TileIndex { get => m_TileIndex; set => m_TileIndex = value; }
 		public TileFlags TileFlags { get => m_TileFlags; set => m_TileFlags = value; }
-		public UInt32 TileIndexFlags { get => m_TileIndexFlags; set => m_TileIndexFlags = value; }
-
-		public LinearTileData(UInt32 tileIndexFlags)
-		{
-			m_TileIndex = 0;
-			m_TileFlags = 0;
-			m_TileIndexFlags = tileIndexFlags;
-		}
+		public UInt32 TileIndexAndFlags { get => m_TileIndexAndFlags; set => m_TileIndexAndFlags = value; }
+		public static Boolean operator ==(LinearTileData left, LinearTileData right) => left.Equals(right);
+		public static Boolean operator !=(LinearTileData left, LinearTileData right) => !left.Equals(right);
 
 		public LinearTileData(UInt16 tileIndex, TileFlags tileFlags)
 		{
-			m_TileIndexFlags = 0;
+			m_TileIndexAndFlags = 0;
 			m_TileIndex = tileIndex;
 			m_TileFlags = tileFlags;
 		}
 
-		public Boolean Equals(LinearTileData other) => m_TileIndexFlags == other.m_TileIndexFlags;
+		public Boolean Equals(LinearTileData other) => m_TileIndexAndFlags == other.m_TileIndexAndFlags;
 		public override Boolean Equals(Object obj) => obj is LinearTileData other && Equals(other);
-		public override Int32 GetHashCode() => (Int32)m_TileIndexFlags;
-		public static Boolean operator ==(LinearTileData left, LinearTileData right) => left.Equals(right);
-		public static Boolean operator !=(LinearTileData left, LinearTileData right) => !left.Equals(right);
+		public override Int32 GetHashCode() => (Int32)m_TileIndexAndFlags;
+		public override String ToString() => $"{nameof(LinearTileData)}(Index {m_TileIndex}, {m_TileFlags})";
 	}
 
 	/// <summary>
@@ -124,187 +62,124 @@ namespace CodeSmile.Tests.Editor.ProTiler
 	///     Use this for flagging tiles where most tiles use default data and only some tiles require
 	///     additional or custom data.
 	/// </summary>
-	[BurstCompile]
 	[StructLayout(LayoutKind.Sequential)]
-	public struct SparseTileData
+	public struct SparseTileData : ISparseTileData, IEquatable<SparseTileData>
 	{
-		// empty is default
-		// extend this as needed on per-project basis
+		[CreateProperty]
+		private Int32 m_Value;
+		public static Boolean operator ==(SparseTileData left, SparseTileData right) => left.Equals(right);
+		public static Boolean operator !=(SparseTileData left, SparseTileData right) => !left.Equals(right);
+		public SparseTileData(Int32 value) => m_Value = value;
+		public Boolean Equals(SparseTileData other) => m_Value == other.m_Value;
+		public override Boolean Equals(Object obj) => obj is SparseTileData other && Equals(other);
+		public override Int32 GetHashCode() => m_Value;
+		public override String ToString() => $"{nameof(SparseTileData)}({m_Value})";
 	}
 
-	[BurstCompile]
 	[StructLayout(LayoutKind.Sequential)]
-	public struct TileLayerLinearData<TLinearData> where TLinearData : unmanaged, ILinearData
+	public struct TilemapChunk<TLinear, TSparse> : IDisposable
+		where TLinear : unmanaged, ILinearTileData, IEquatable<TLinear>
+		where TSparse : unmanaged, ISparseTileData, IEquatable<TSparse>
 	{
-		private readonly UnsafeList<TLinearData> m_LayerData;
-	}
+		private ChunkSize m_ChunkSize;
+		private UnsafeList<TLinear> m_LinearTileData;
+		private UnsafeParallelHashMap<GridCoord, TSparse> m_SparseTileData;
+		public Int32 LinearDataCount => m_LinearTileData.Length;
+		public Int32 SparseDataCount => m_SparseTileData.Count();
 
-	[BurstCompile]
-	[StructLayout(LayoutKind.Sequential)]
-	public struct ChunkLinearData<TLinearData> where TLinearData : unmanaged, ILinearData
-	{
-		private readonly UnsafeList<TileLayerLinearData<TLinearData>> m_ChunkData;
-	}
+		public TilemapChunk(ChunkSize chunkSize, Allocator allocator)
+		{
+			m_ChunkSize = chunkSize;
 
-	public interface ILinearData {}
-	public interface ISparseData {}
+			var initialCapacity = chunkSize.x * chunkSize.y * chunkSize.z;
+			m_LinearTileData = new UnsafeList<TLinear>(initialCapacity, allocator);
+			m_SparseTileData = new UnsafeParallelHashMap<GridCoord, TSparse>(0, allocator);
+		}
 
-	[BurstCompile]
-	[StructLayout(LayoutKind.Sequential)]
-	public struct ChunkData<TLinear, TSparse>
-		where TLinear : unmanaged, ILinearData
-		where TSparse : unmanaged, ISparseData
-	{
-		private readonly ChunkSize m_ChunkSize;
-		private readonly UnsafeList<UnsafeList<TLinear>> m_LinearData;
-		private readonly UnsafeList<UnsafeParallelHashMap<GridCoord, TSparse>> m_SparseData;
+		private TilemapChunk(ChunkSize chunkSize, UnsafeList<TLinear> linearData,
+			UnsafeParallelHashMap<GridCoord, TSparse> sparseData)
+		{
+			m_ChunkSize = chunkSize;
+			m_LinearTileData = linearData;
+			m_SparseTileData = sparseData;
+		}
+
+		public void AddTileData(TLinear data) => m_LinearTileData.Add(data);
+
+		public void SetTileData(GridCoord coord, TSparse data) => m_SparseTileData[coord] = data;
+
+		public TLinear this[Int32 index]
+		{
+			get => m_LinearTileData[index];
+			set => m_LinearTileData[index] = value;
+		}
+
+		public TSparse this[GridCoord coord]
+		{
+			get => m_SparseTileData.TryGetValue(coord, out var data) ? data : default;
+			set => m_SparseTileData[coord] = value;
+		}
+
+		// GetLayerCount => m_LinearTileData.Length / (m_ChunkSize.x * m_ChunkSize.z)
+		public void Dispose()
+		{
+			m_ChunkSize = ChunkSize.zero;
+			m_LinearTileData.Dispose();
+			m_SparseTileData.Dispose();
+		}
+
+		public override String ToString() =>
+			$"{nameof(TilemapChunk<TLinear, TSparse>)}: {m_ChunkSize}, #{LinearDataCount} Linear, #{SparseDataCount} Sparse";
+
+		public static IBinaryAdapter<TilemapChunk<TLinear, TSparse>> BinarySerializationAdapter => new BinaryAdapter();
+
+		private struct BinaryAdapter : IBinaryAdapter<TilemapChunk<TLinear, TSparse>>
+		{
+			public unsafe void Serialize(in BinarySerializationContext<TilemapChunk<TLinear, TSparse>> context,
+				TilemapChunk<TLinear, TSparse> chunk)
+			{
+				context.Writer->Add(chunk.m_ChunkSize);
+				context.SerializeValue(chunk.m_LinearTileData);
+				context.SerializeValue(chunk.m_SparseTileData);
+			}
+
+			public unsafe TilemapChunk<TLinear, TSparse> Deserialize(
+				in BinaryDeserializationContext<TilemapChunk<TLinear, TSparse>> context)
+			{
+				var chunkSize = context.Reader->ReadNext<ChunkSize>();
+				var linearData = context.DeserializeValue<UnsafeList<TLinear>>();
+				var sparseData = context.DeserializeValue<UnsafeParallelHashMap<GridCoord, TSparse>>();
+				return new TilemapChunk<TLinear, TSparse>(chunkSize, linearData, sparseData);
+			}
+		}
 	}
 
 // generic type can be simple types (int2, int4) or structs
 // MB acts as a factory for various types, inspector lets you select predefined types
 // MB has mechanism to extend with custom types - how? static "create tilemap" event method
 // that allows you to pass types?
-	public class Tilemap3DBase<TLinear, TSparse>
-		where TLinear : unmanaged, ILinearData
-		where TSparse : unmanaged, ISparseData
+	public abstract class Tilemap3DBase<TLinear, TSparse> : IDisposable
+		where TLinear : unmanaged, ILinearTileData, IEquatable<TLinear>
+		where TSparse : unmanaged, ISparseTileData, IEquatable<TSparse>
 	{
-		private NativeParallelHashMap<ChunkKey, ChunkData<TLinear, TSparse>> m_ChunkData;
-		private FixedString512Bytes m_ExpectedChunkDataTypes;
+		private readonly ChunkSize m_ChunkSize;
 
-		private NativeParallelHashMap<ChunkKey, ChunkLinearData<TLinear>> m_ChunkLinearData;
-		// chunked Tile Index + Flags
-		private NativeParallelHashMap<ChunkKey, UnsafeList<TLinear>> m_ChunkedTileData;
-		// chunked user-defined per-coord struct
-		private NativeParallelHashMap<ChunkKey, UnsafeParallelHashMap<GridCoord, TSparse>> m_ChunkedCoordTileData;
-		//FixedList4096Bytes<T>
-		//NativeArray<>
+		// chunks as separate structs
+		private NativeParallelHashMap<ChunkKey, TilemapChunk<TLinear, TSparse>> m_Chunks;
+		//private FixedString512Bytes m_ExpectedChunkDataTypes;
+
+		public Tilemap3DBase(ChunkSize chunkSize, Allocator allocator)
+		{
+			m_ChunkSize = chunkSize;
+			m_Chunks = new NativeParallelHashMap<Int64, TilemapChunk<TLinear, TSparse>>(0, allocator);
+		}
+
+		public void Dispose() => m_Chunks.Dispose();
 	}
 
-//public class Tilemap3D : Tilemap3DBase {}
-
-//[Serializable]
-	[BurstCompile]
-	[StructLayout(LayoutKind.Sequential)]
-	public struct DataContainer
+	public class Tilemap3D : Tilemap3DBase<LinearTileData, SparseTileData>
 	{
-		public UInt16 TileIndex;
-		public UInt16 TileFlags;
-
-		public DataContainer(Byte startValue)
-		{
-			TileIndex = startValue;
-			TileFlags = (Byte)(TileIndex + 1);
-		}
-
-		[BurstCompile]
-		public void Test()
-		{
-			var x = TileIndex + TileFlags;
-			TileIndex = (UInt16)(TileFlags - x);
-		}
-	}
-
-	public struct NativeListDataContainerAdapter : IBinaryAdapter<NativeList<DataContainer>>
-	{
-		public unsafe void Serialize(in BinarySerializationContext<NativeList<DataContainer>> context,
-			NativeList<DataContainer> value)
-		{
-			var writer = context.Writer;
-
-			if (value.Length > UInt16.MaxValue)
-				throw new ArgumentException();
-
-			writer->Add((UInt16)value.Length);
-
-			for (var i = 0; i < value.Length; i++)
-			{
-				writer->Add(value[i].TileIndex);
-				writer->Add(value[i].TileFlags);
-
-				// var byteArray = value[i].ByteArray;
-				// writer->Add(byteArray.Length);
-				// for (var k = 0; k < byteArray.Length; k++)
-				// 	writer->Add(byteArray[k]);
-			}
-		}
-
-		public unsafe NativeList<DataContainer> Deserialize(
-			in BinaryDeserializationContext<NativeList<DataContainer>> context)
-		{
-			var reader = context.Reader;
-
-			var containerLength = reader->ReadNext<UInt16>();
-			var value = new NativeList<DataContainer>(containerLength, Allocator.Persistent);
-
-			for (var i = 0; i < containerLength; i++)
-			{
-				var data = new DataContainer();
-
-				data.TileIndex = reader->ReadNext<UInt16>();
-				data.TileFlags = reader->ReadNext<UInt16>();
-
-				// var unsafeListLength = reader->ReadNext<Int32>();
-				// data.ByteArray = new UnsafeList<Byte>(unsafeListLength, Allocator.Persistent);
-				// for (var k = 0; k < unsafeListLength; k++)
-				// 	data.ByteArray.Add(reader->ReadNext<Byte>());
-
-				value.Add(data);
-			}
-
-			return value;
-		}
-	}
-
-	[ExecuteAlways]
-	public class NativeSerializationBehaviour : MonoBehaviour
-	{
-		[SerializeField] private UnityEngine.Object m_TestFolderAsset;
-		private NativeList<DataContainer> m_DataContainers;
-
-		private void Update()
-		{
-			DisposeDataContainer(m_DataContainers);
-
-			m_DataContainers = new NativeList<DataContainer>(Allocator.Persistent);
-			m_DataContainers.Add(new DataContainer(4));
-
-			var adapters = new List<IBinaryAdapter> { new NativeListDataContainerAdapter() };
-			var bytes = BinarySerializer.Serialize(m_DataContainers, adapters);
-			var deserializedList = BinarySerializer.Deserialize<NativeList<DataContainer>>(bytes, adapters);
-			var deserializedBytes = BinarySerializer.Serialize(deserializedList, adapters);
-
-			DisposeDataContainer(deserializedList);
-
-			var sb = new StringBuilder();
-			foreach (var b in bytes)
-				sb.Append(b);
-
-			var sb2 = new StringBuilder();
-			foreach (var b in deserializedBytes)
-				sb2.Append(b);
-
-			Debug.Log($"{sb} ?? {sb2} == {sb.Equals(sb2)}");
-
-#if UNITY_EDITOR
-			var folderAsset = AssetDatabase.LoadAssetAtPath<UnityEngine.Object>("Assets/_Tests/FolderAsset");
-			Debug.Log($"asset for folder: {folderAsset} {AssetDatabase.GetAssetPath(folderAsset)}");
-			if (folderAsset != null)
-				m_TestFolderAsset = folderAsset;
-			else if (m_TestFolderAsset != null)
-				Debug.Log($"folder asset after move: {AssetDatabase.GetAssetPath(m_TestFolderAsset)}");
-#endif
-		}
-
-		private void OnDisable() => DisposeDataContainer(m_DataContainers);
-
-		private void DisposeDataContainer(NativeList<DataContainer> dataContainers)
-		{
-			if (dataContainers.IsCreated)
-			{
-				// foreach (var dataContainer in dataContainers)
-				// 	dataContainer.ByteArray.Dispose();
-				dataContainers.Dispose();
-			}
-		}
+		public Tilemap3D(ChunkSize chunkSize, Allocator allocator)
+			: base(chunkSize, allocator) {}
 	}
 }
