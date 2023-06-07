@@ -6,6 +6,7 @@ using System.Runtime.InteropServices;
 using Unity.Collections;
 using Unity.Collections.LowLevel.Unsafe;
 using Unity.Properties;
+using Unity.Serialization;
 using Unity.Serialization.Binary;
 using ChunkCoord = Unity.Mathematics.int2;
 using ChunkSize = Unity.Mathematics.int3;
@@ -65,8 +66,12 @@ namespace CodeSmile.Tests.Editor.ProTiler
 	[StructLayout(LayoutKind.Sequential)]
 	public struct SparseTileData : ISparseTileData, IEquatable<SparseTileData>
 	{
-		[CreateProperty]
-		private Int32 m_Value;
+		[CreateProperty] private Int32 m_Value;
+		public Int32 Value
+		{
+			get => m_Value;
+			set => m_Value = value;
+		}
 		public static Boolean operator ==(SparseTileData left, SparseTileData right) => left.Equals(right);
 		public static Boolean operator !=(SparseTileData left, SparseTileData right) => !left.Equals(right);
 		public SparseTileData(Int32 value) => m_Value = value;
@@ -131,14 +136,20 @@ namespace CodeSmile.Tests.Editor.ProTiler
 		public override String ToString() =>
 			$"{nameof(TilemapChunk<TLinear, TSparse>)}: {m_ChunkSize}, #{LinearDataCount} Linear, #{SparseDataCount} Sparse";
 
-		public static IBinaryAdapter<TilemapChunk<TLinear, TSparse>> BinarySerializationAdapter => new BinaryAdapter();
+		public static IBinaryAdapter<TilemapChunk<TLinear, TSparse>> GetBinarySerializationAdapter() =>
+			new BinaryAdapter();
 
-		private struct BinaryAdapter : IBinaryAdapter<TilemapChunk<TLinear, TSparse>>
+		private class BinaryAdapter : BinaryAdapterBase, IBinaryAdapter<TilemapChunk<TLinear, TSparse>>
 		{
+			public BinaryAdapter() : base(version:0) {}
+
 			public unsafe void Serialize(in BinarySerializationContext<TilemapChunk<TLinear, TSparse>> context,
 				TilemapChunk<TLinear, TSparse> chunk)
 			{
-				context.Writer->Add(chunk.m_ChunkSize);
+				var writer = context.Writer;
+				WriteVersion(writer);
+
+				writer->Add(chunk.m_ChunkSize);
 				context.SerializeValue(chunk.m_LinearTileData);
 				context.SerializeValue(chunk.m_SparseTileData);
 			}
@@ -146,15 +157,26 @@ namespace CodeSmile.Tests.Editor.ProTiler
 			public unsafe TilemapChunk<TLinear, TSparse> Deserialize(
 				in BinaryDeserializationContext<TilemapChunk<TLinear, TSparse>> context)
 			{
-				var chunkSize = context.Reader->ReadNext<ChunkSize>();
-				var linearData = context.DeserializeValue<UnsafeList<TLinear>>();
-				var sparseData = context.DeserializeValue<UnsafeParallelHashMap<GridCoord, TSparse>>();
-				return new TilemapChunk<TLinear, TSparse>(chunkSize, linearData, sparseData);
+				var reader = context.Reader;
+				ReadVersion(reader);
+				if (Version == 0)
+				{
+					var chunkSize = reader->ReadNext<ChunkSize>();
+					var linearData = context.DeserializeValue<UnsafeList<TLinear>>();
+					var sparseData = context.DeserializeValue<UnsafeParallelHashMap<GridCoord, TSparse>>();
+
+					return new TilemapChunk<TLinear, TSparse>(chunkSize, linearData, sparseData);
+				}
+				// fallbacks go here
+
+				throw new SerializationException($"{nameof(TilemapChunk<TLinear, TSparse>)} data version " +
+				                                 $"{Version} is unhandled. Possibly data was created with a " +
+				                                 "newer version of the serializer?");
 			}
 		}
 	}
 
-// generic type can be simple types (int2, int4) or structs
+	// generic type can be simple types (int2, int4) or structs
 // MB acts as a factory for various types, inspector lets you select predefined types
 // MB has mechanism to extend with custom types - how? static "create tilemap" event method
 // that allows you to pass types?

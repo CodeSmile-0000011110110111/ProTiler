@@ -37,7 +37,7 @@ namespace CodeSmile.Tests.Editor.ProTiler
 			Byte[] bytes = null;
 			Measure.Method(() =>
 				{
-					bytes = BinarySerializer.Serialize(list, adapters);
+					bytes = Serialize.ToBinary(list, adapters);
 				})
 				.DynamicMeasurementCount()
 				.SampleGroup("Serialize")
@@ -46,7 +46,7 @@ namespace CodeSmile.Tests.Editor.ProTiler
 			list = default;
 			Measure.Method(() =>
 				{
-					list = BinarySerializer.Deserialize<NativeList<UnsafeList<LinearTileData>>>(bytes, adapters);
+					list = Serialize.FromBinary<NativeList<UnsafeList<LinearTileData>>>(bytes, adapters);
 				})
 				.DynamicMeasurementCount()
 				.SampleGroup("De-Serialize")

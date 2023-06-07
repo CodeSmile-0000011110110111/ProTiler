@@ -4,32 +4,62 @@
 using System;
 using Unity.Collections;
 using Unity.Collections.LowLevel.Unsafe;
+using Unity.Serialization;
 using Unity.Serialization.Binary;
+using Unity.Serialization.Json;
+using UnityEngine;
 
 namespace CodeSmile.Tests.Editor.ProTiler
 {
-	public static class BinaryAdapters
+	public static class JsonAdapters
 	{
-		public class NativeListAdapter<T> : IBinaryAdapter<NativeList<T>> where T : unmanaged
+		public class NativeListAdapter<T> : IJsonAdapter<NativeList<T>> where T : unmanaged
 		{
 			private readonly Allocator m_Allocator;
 
 			public NativeListAdapter(Allocator allocator) => m_Allocator = allocator;
 
-			public unsafe void Serialize(in BinarySerializationContext<NativeList<T>> context, NativeList<T> list)
+			public void Serialize(in JsonSerializationContext<NativeList<T>> context, NativeList<T> list)
 			{
+				var writer = context.Writer;
 				var itemCount = list.Length;
-				context.Writer->Add(itemCount);
-				for (var i = 0; i < itemCount; i++)
-					context.SerializeValue(list[i]);
+
+				using (writer.WriteObjectScope())
+				{
+					writer.WriteKey(nameof(Type));
+					writer.WriteValue(typeof(NativeList<T>).Name);
+					writer.WriteKey(nameof(NativeList<T>.Length));
+					writer.WriteValue(itemCount);
+
+					writer.WriteKey(typeof(T).Name);
+					using (writer.WriteArrayScope())
+					{
+						for (var i = 0; i < itemCount; i++)
+							context.SerializeValue(list[i]);
+					}
+				}
 			}
 
-			public unsafe NativeList<T> Deserialize(in BinaryDeserializationContext<NativeList<T>> context)
+			public NativeList<T> Deserialize(in JsonDeserializationContext<NativeList<T>> context)
 			{
-				var itemCount = context.Reader->ReadNext<Int32>();
+				var typeName = context.SerializedValue[nameof(Type)].AsStringView().ToString();
+				if (typeName != typeof(NativeList<T>).Name)
+					throw new SerializationException(
+						$"expected type '{typeof(NativeList<T>).Name}' but read '{typeName}'");
+
+				var itemCount = context.SerializedValue[nameof(NativeList<T>.Length)].AsInt32();
 				var list = CreateResizedNativeList(itemCount, m_Allocator);
-				for (var i = 0; i < itemCount; i++)
-					list[i] = context.DeserializeValue<T>();
+
+				var array = context.SerializedValue[typeof(T).Name].AsArrayView();
+				Debug.Log(array.ToString());
+
+				var enumerator = array.GetEnumerator();
+				Debug.Log(enumerator.Current);
+				enumerator.MoveNext();
+				Debug.Log(enumerator.Current);
+
+
+				//for (var i = 0; i < itemCount; i++) list[i] = array.
 				return list;
 			}
 
@@ -49,8 +79,8 @@ namespace CodeSmile.Tests.Editor.ProTiler
 
 			public unsafe void Serialize(in BinarySerializationContext<UnsafeList<T>> context, UnsafeList<T> list)
 			{
+				context.Writer->Add(list.Length);
 				var itemCount = list.Length;
-				context.Writer->Add(itemCount);
 				for (var i = 0; i < itemCount; i++)
 					context.SerializeValue(list[i]);
 			}
