@@ -85,6 +85,16 @@ namespace CodeSmile.Tests.Editor.ProTiler
 		public override String ToString() => $"{nameof(SparseTileData)}({m_Value})";
 	}
 
+	/*public static class TilemapChunkExt
+	{
+		public static void SetSomeOtherTypeOfLinearData<TOtherLinear>(
+			ref this TilemapChunk<LinearTileData,SparseTileData> chunk,
+			TOtherLinear data) where TOtherLinear : unmanaged, ILinearTileData, IEquatable<LinearTileData>
+		{
+			chunk.m_LinearTileData.Add((LinearTileData)data);
+		}
+	}*/
+
 	[StructLayout(LayoutKind.Sequential)]
 	public struct TilemapChunk<TLinear, TSparse> : IDisposable
 		where TLinear : unmanaged, ILinearTileData, IEquatable<TLinear>
@@ -194,6 +204,9 @@ namespace CodeSmile.Tests.Editor.ProTiler
 		private readonly ChunkSize m_ChunkSize;
 
 		// chunks as separate structs
+		// TODO: put TilemapChunk into UnsafeList to support multiple linear/sparse types of data?
+		// or is it better to have multiple Tilemap3D in parallel?
+		// should I separate chunks into linear and sparse data, so Tilemap has authority over each chunk's data?
 		private NativeParallelHashMap<ChunkKey, TilemapChunk<TLinear, TSparse>> m_Chunks;
 		//private FixedString512Bytes m_ExpectedChunkDataTypes;
 
@@ -212,4 +225,80 @@ namespace CodeSmile.Tests.Editor.ProTiler
 		public Tilemap3D(ChunkSize chunkSize, Allocator allocator)
 			: base(chunkSize, allocator) {}
 	}
+
+	public static class CodeDesign
+	{
+		public interface IData {}
+		public interface ILinearData : IData {}
+		public interface ISparseData : IData {}
+		public struct LinearData1 : ILinearData {}
+		public struct LinearData2 : ILinearData {}
+		public struct SparseData1 : ISparseData {}
+		public struct SparseData2 : ISparseData {}
+
+		public interface IChunk {}
+		public interface ILinearChunk : IChunk {}
+		public interface ISparseChunk : IChunk {}
+		public struct LinearChunk<TLinearData> : ILinearChunk where TLinearData:unmanaged, ILinearData
+		{
+			public UnsafeList<TLinearData> data;
+		}
+		public struct SparseChunk<TSparseData> : ISparseChunk where TSparseData:unmanaged, ISparseData
+		{
+			public UnsafeParallelHashMap<GridCoord, TSparseData> data;
+		}
+
+		public interface IMap {}
+		public interface ILinearMap : IMap {}
+		public interface ISparseMap : IMap {}
+		public abstract class LinearMapBase<TLinearData> : ILinearMap where TLinearData:unmanaged, ILinearData
+		{
+			public NativeParallelHashMap<long, LinearChunk<TLinearData>> linearChunks;
+		}
+		public class LinearMap : LinearMapBase<LinearData1>
+		{
+		}
+		public class LinearMap1 : LinearMapBase<LinearData1>
+		{
+		}
+		public class LinearMap2 : LinearMapBase<LinearData2>
+		{
+		}
+		public class SparseMap1<TSparseChunk> : ISparseMap where TSparseChunk : unmanaged, ISparseChunk
+		{
+			public NativeParallelHashMap<long, TSparseChunk> linearChunks;
+		}
+
+		public class Tilemap
+		{
+			public List<ILinearMap> linearMaps;
+			public ISparseMap[] sparseMaps;
+
+			public Tilemap()
+			{
+				var data = new LinearMap();
+				linearMaps.Add(data);
+				var data1 = new LinearMap1();
+				linearMaps.Add(data1);
+				var data2 = new LinearMap2();
+				linearMaps.Add(data2);
+			}
+		}
+
+		/*
+		struct Chunk<TLinearData> : IChunk		// accessed linearly
+		struct Chunk<TSparseData> : IChunk	// accessed by coord
+		struct Chunk<TSomeOtherData> : IChunk	// custom
+
+		We then have a tilemap data class that can take any one of these:
+		struct TilemapData<TChunk> : ITilemapData where TChunk: unmanaged, IChunk
+		UnsafeList<TChunk>
+
+			And at the root level we have a single Tilemap class:
+		class Tilemap<TData> where TData: unmanaged, ITilemapData
+		NativeParallelHashMap<long, UnsafeList<TData>>
+		*/
+
+	}
+
 }
