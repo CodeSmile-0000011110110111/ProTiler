@@ -5,6 +5,7 @@ using System;
 using Unity.Collections;
 using Unity.Collections.LowLevel.Unsafe;
 using Unity.Serialization.Binary;
+using UnityEngine;
 
 namespace CodeSmile.Tests.Editor.ProTiler
 {
@@ -57,6 +58,7 @@ namespace CodeSmile.Tests.Editor.ProTiler
 
 			public unsafe UnsafeList<T> Deserialize(in BinaryDeserializationContext<UnsafeList<T>> context)
 			{
+				Debug.Log($"Deserialize UnsafeList<{typeof(T).Name}>");
 				var itemCount = context.Reader->ReadNext<Int32>();
 				var list = CreateResizedUnsafeList(itemCount, m_Allocator);
 				for (var i = 0; i < itemCount; i++)

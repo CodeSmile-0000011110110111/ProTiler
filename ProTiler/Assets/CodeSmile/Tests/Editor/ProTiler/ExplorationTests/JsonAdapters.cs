@@ -2,12 +2,11 @@
 // Refer to included LICENSE file for terms and conditions.
 
 using System;
+using System.Linq;
 using Unity.Collections;
 using Unity.Collections.LowLevel.Unsafe;
-using Unity.Serialization;
 using Unity.Serialization.Binary;
 using Unity.Serialization.Json;
-using UnityEngine;
 
 namespace CodeSmile.Tests.Editor.ProTiler
 {
@@ -24,42 +23,42 @@ namespace CodeSmile.Tests.Editor.ProTiler
 				var writer = context.Writer;
 				var itemCount = list.Length;
 
-				using (writer.WriteObjectScope())
-				{
-					writer.WriteKey(nameof(Type));
-					writer.WriteValue(typeof(NativeList<T>).Name);
-					writer.WriteKey(nameof(NativeList<T>.Length));
-					writer.WriteValue(itemCount);
+				// writer.WriteKey("ListType");
+				// writer.WriteValue("NativeList");
+				// writer.WriteKey("ItemType");
+				// writer.WriteValue(typeof(T).Name);
+				writer.WriteKey("Length");
+				writer.WriteValue(itemCount);
 
-					writer.WriteKey(typeof(T).Name);
-					using (writer.WriteArrayScope())
-					{
-						for (var i = 0; i < itemCount; i++)
-							context.SerializeValue(list[i]);
-					}
+				writer.WriteKey("Items");
+				using (writer.WriteArrayScope())
+				{
+					for (var i = 0; i < itemCount; i++)
+						context.SerializeValue(list[i]);
 				}
 			}
 
 			public NativeList<T> Deserialize(in JsonDeserializationContext<NativeList<T>> context)
 			{
-				var typeName = context.SerializedValue[nameof(Type)].AsStringView().ToString();
-				if (typeName != typeof(NativeList<T>).Name)
-					throw new SerializationException(
-						$"expected type '{typeof(NativeList<T>).Name}' but read '{typeName}'");
-
-				var itemCount = context.SerializedValue[nameof(NativeList<T>.Length)].AsInt32();
+				var itemCount = context.SerializedValue["Length"].AsInt32();
 				var list = CreateResizedNativeList(itemCount, m_Allocator);
 
-				var array = context.SerializedValue[typeof(T).Name].AsArrayView();
-				Debug.Log(array.ToString());
+				var array = context.SerializedValue["Items"].AsArrayView().ToArray();
+				var genericType = typeof(T);
+				switch (genericType)
+				{
+					case Type _ when genericType == typeof(Int32):
+						for (var i = 0; i < itemCount; i++)
+							list[i] = (T)(Object)array[i].AsInt32();
+						break;
+					case Type _ when genericType == typeof(Int64):
+						for (var i = 0; i < itemCount; i++)
+							list[i] = (T)(Object)array[i].AsInt64();
+						break;
 
-				var enumerator = array.GetEnumerator();
-				Debug.Log(enumerator.Current);
-				enumerator.MoveNext();
-				Debug.Log(enumerator.Current);
-
-
-				//for (var i = 0; i < itemCount; i++) list[i] = array.
+					default:
+						throw new ArgumentException($"unhandled generic type: {genericType}");
+				}
 				return list;
 			}
 

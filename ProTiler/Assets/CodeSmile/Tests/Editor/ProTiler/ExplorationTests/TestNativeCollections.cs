@@ -2,18 +2,22 @@
 // Refer to included LICENSE file for terms and conditions.
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.InteropServices;
 using Unity.Collections;
 using Unity.Collections.LowLevel.Unsafe;
 using Unity.Properties;
 using Unity.Serialization;
 using Unity.Serialization.Binary;
+using UnityEngine;
 using ChunkCoord = Unity.Mathematics.int2;
 using ChunkSize = Unity.Mathematics.int3;
 using ChunkKey = System.Int64;
 using CellSize = Unity.Mathematics.float3;
 using CellGap = Unity.Mathematics.float3;
 using GridCoord = Unity.Mathematics.int3;
+using Object = System.Object;
 using WorldPos = Unity.Mathematics.float3;
 
 namespace CodeSmile.Tests.Editor.ProTiler
@@ -109,7 +113,10 @@ namespace CodeSmile.Tests.Editor.ProTiler
 			m_SparseTileData = sparseData;
 		}
 
-		public void AddTileData(TLinear data) => m_LinearTileData.Add(data);
+		public void AddTileData(TLinear data)
+		{
+			m_LinearTileData.Add(data);
+		}
 
 		public void SetTileData(GridCoord coord, TSparse data) => m_SparseTileData[coord] = data;
 
@@ -199,6 +206,7 @@ namespace CodeSmile.Tests.Editor.ProTiler
 		public void Dispose() => m_Chunks.Dispose();
 	}
 
+	[Serializable]
 	public class Tilemap3D : Tilemap3DBase<LinearTileData, SparseTileData>
 	{
 		public Tilemap3D(ChunkSize chunkSize, Allocator allocator)

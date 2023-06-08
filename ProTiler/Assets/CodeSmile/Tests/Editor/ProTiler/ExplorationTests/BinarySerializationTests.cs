@@ -4,7 +4,6 @@
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using Unity.Collections;
 using Unity.Collections.LowLevel.Unsafe;
 using Unity.Serialization.Binary;
@@ -19,7 +18,7 @@ using WorldPos = Unity.Mathematics.float3;
 
 namespace CodeSmile.Tests.Editor.ProTiler
 {
-	public class NativeCollectionsBinarySerializationTests
+	public class BinarySerializationTests
 	{
 		[Test] public void CanSerializeLinearTileDataStruct()
 		{
@@ -97,10 +96,11 @@ namespace CodeSmile.Tests.Editor.ProTiler
 			Assert.That(list0[0], Is.EqualTo(linearData1));
 			Assert.That(list1[0], Is.EqualTo(linearData2));
 
+			var allocator = Allocator.Temp;
 			var adapters = new List<IBinaryAdapter>
 			{
-				new BinaryAdapters.NativeListAdapter<UnsafeList<LinearTileData>>(Allocator.Temp),
-				new BinaryAdapters.UnsafeListAdapter<LinearTileData>(Allocator.Temp),
+				new BinaryAdapters.NativeListAdapter<UnsafeList<LinearTileData>>(allocator),
+				new BinaryAdapters.UnsafeListAdapter<LinearTileData>(allocator),
 			};
 			var bytes = Serialize.ToBinary(list, adapters);
 			Debug.Log($"{bytes.Length} Bytes: {bytes.AsString()}");
@@ -126,24 +126,24 @@ namespace CodeSmile.Tests.Editor.ProTiler
 			chunk.AddTileData(linearData);
 			chunks.Add(9, chunk);
 
-
 			var coord = new GridCoord(4, 5, 6);
 			var sparseData = new SparseTileData(1234567890);
 			chunk.SetTileData(coord, sparseData);
-			chunk.SetTileData(coord + new GridCoord(1,1,1), sparseData);
-
+			chunk.SetTileData(coord + new GridCoord(1, 1, 1), sparseData);
 
 			var adapters = new List<IBinaryAdapter>
 			{
 				new BinaryAdapters.UnsafeListAdapter<LinearTileData>(allocator),
+				new BinaryAdapters.UnsafeListAdapter<SparseTileData>(allocator),
 				new BinaryAdapters.UnsafeParallelHashMapAdapter<GridCoord, SparseTileData>(allocator),
 				TilemapChunk<LinearTileData, SparseTileData>.GetBinarySerializationAdapter(),
-				new BinaryAdapters.NativeParallelHashMapAdapter<Int64, TilemapChunk<LinearTileData, SparseTileData>>(allocator),
+				new BinaryAdapters.NativeParallelHashMapAdapter<Int64, TilemapChunk<LinearTileData, SparseTileData>>(
+					allocator),
 			};
 			var bytes = Serialize.ToBinary(chunks, adapters);
 			Debug.Log($"{bytes.Length} Bytes: {bytes.AsString()}");
 			var deserialChunks = Serialize.FromBinary<NativeParallelHashMap<Int64,
-					TilemapChunk<LinearTileData, SparseTileData>>>(bytes, adapters);
+				TilemapChunk<LinearTileData, SparseTileData>>>(bytes, adapters);
 
 			Assert.That(deserialChunks.Count(), Is.EqualTo(1));
 			Assert.That(deserialChunks[9].LinearDataCount, Is.EqualTo(2));
