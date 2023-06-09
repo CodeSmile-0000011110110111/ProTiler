@@ -2,22 +2,18 @@
 // Refer to included LICENSE file for terms and conditions.
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.InteropServices;
 using Unity.Collections;
 using Unity.Collections.LowLevel.Unsafe;
 using Unity.Properties;
 using Unity.Serialization;
 using Unity.Serialization.Binary;
-using UnityEngine;
 using ChunkCoord = Unity.Mathematics.int2;
 using ChunkSize = Unity.Mathematics.int3;
 using ChunkKey = System.Int64;
 using CellSize = Unity.Mathematics.float3;
 using CellGap = Unity.Mathematics.float3;
 using GridCoord = Unity.Mathematics.int3;
-using Object = System.Object;
 using WorldPos = Unity.Mathematics.float3;
 
 namespace CodeSmile.Tests.Editor.ProTiler
@@ -123,10 +119,7 @@ namespace CodeSmile.Tests.Editor.ProTiler
 			m_SparseTileData = sparseData;
 		}
 
-		public void AddTileData(TLinear data)
-		{
-			m_LinearTileData.Add(data);
-		}
+		public void AddTileData(TLinear data) => m_LinearTileData.Add(data);
 
 		public void SetTileData(GridCoord coord, TSparse data) => m_SparseTileData[coord] = data;
 
@@ -158,7 +151,8 @@ namespace CodeSmile.Tests.Editor.ProTiler
 
 		private class BinaryAdapter : BinaryAdapterBase, IBinaryAdapter<TilemapChunk<TLinear, TSparse>>
 		{
-			public BinaryAdapter() : base(version:0) {}
+			public BinaryAdapter()
+				: base(0) {}
 
 			public unsafe void Serialize(in BinarySerializationContext<TilemapChunk<TLinear, TSparse>> context,
 				TilemapChunk<TLinear, TSparse> chunk)
@@ -225,80 +219,4 @@ namespace CodeSmile.Tests.Editor.ProTiler
 		public Tilemap3D(ChunkSize chunkSize, Allocator allocator)
 			: base(chunkSize, allocator) {}
 	}
-
-	public static class CodeDesign
-	{
-		public interface IData {}
-		public interface ILinearData : IData {}
-		public interface ISparseData : IData {}
-		public struct LinearData1 : ILinearData {}
-		public struct LinearData2 : ILinearData {}
-		public struct SparseData1 : ISparseData {}
-		public struct SparseData2 : ISparseData {}
-
-		public interface IChunk {}
-		public interface ILinearChunk : IChunk {}
-		public interface ISparseChunk : IChunk {}
-		public struct LinearChunk<TLinearData> : ILinearChunk where TLinearData:unmanaged, ILinearData
-		{
-			public UnsafeList<TLinearData> data;
-		}
-		public struct SparseChunk<TSparseData> : ISparseChunk where TSparseData:unmanaged, ISparseData
-		{
-			public UnsafeParallelHashMap<GridCoord, TSparseData> data;
-		}
-
-		public interface IMap {}
-		public interface ILinearMap : IMap {}
-		public interface ISparseMap : IMap {}
-		public abstract class LinearMapBase<TLinearData> : ILinearMap where TLinearData:unmanaged, ILinearData
-		{
-			public NativeParallelHashMap<long, LinearChunk<TLinearData>> linearChunks;
-		}
-		public class LinearMap : LinearMapBase<LinearData1>
-		{
-		}
-		public class LinearMap1 : LinearMapBase<LinearData1>
-		{
-		}
-		public class LinearMap2 : LinearMapBase<LinearData2>
-		{
-		}
-		public class SparseMap1<TSparseChunk> : ISparseMap where TSparseChunk : unmanaged, ISparseChunk
-		{
-			public NativeParallelHashMap<long, TSparseChunk> linearChunks;
-		}
-
-		public class Tilemap
-		{
-			public List<ILinearMap> linearMaps;
-			public ISparseMap[] sparseMaps;
-
-			public Tilemap()
-			{
-				var data = new LinearMap();
-				linearMaps.Add(data);
-				var data1 = new LinearMap1();
-				linearMaps.Add(data1);
-				var data2 = new LinearMap2();
-				linearMaps.Add(data2);
-			}
-		}
-
-		/*
-		struct Chunk<TLinearData> : IChunk		// accessed linearly
-		struct Chunk<TSparseData> : IChunk	// accessed by coord
-		struct Chunk<TSomeOtherData> : IChunk	// custom
-
-		We then have a tilemap data class that can take any one of these:
-		struct TilemapData<TChunk> : ITilemapData where TChunk: unmanaged, IChunk
-		UnsafeList<TChunk>
-
-			And at the root level we have a single Tilemap class:
-		class Tilemap<TData> where TData: unmanaged, ITilemapData
-		NativeParallelHashMap<long, UnsafeList<TData>>
-		*/
-
-	}
-
 }
