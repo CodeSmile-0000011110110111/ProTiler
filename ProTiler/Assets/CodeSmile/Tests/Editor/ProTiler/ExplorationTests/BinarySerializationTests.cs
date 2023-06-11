@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using Unity.Collections;
 using Unity.Collections.LowLevel.Unsafe;
+using Unity.Properties;
 using Unity.Serialization.Binary;
 using UnityEngine;
 using ChunkCoord = Unity.Mathematics.int2;
@@ -14,12 +15,14 @@ using ChunkKey = System.Int64;
 using CellSize = Unity.Mathematics.float3;
 using CellGap = Unity.Mathematics.float3;
 using GridCoord = Unity.Mathematics.int3;
+using Object = System.Object;
 using WorldPos = Unity.Mathematics.float3;
 
 namespace CodeSmile.Tests.Editor.ProTiler
 {
 	public class BinarySerializationTests
 	{
+
 		[Test] public void CanSerializeLinearTileDataStruct()
 		{
 			var linearData = new LinearTileData(1, TileFlags.DirectionWest);
