@@ -24,40 +24,49 @@ namespace CodeSmile.Tests.Editor.ProTiler
 
 			var bytesCovarImpl = Serialize.ToBinary(impl, covAdapters);
 			Debug.Log($"Cov-Serialize TheImpl: {bytesCovarImpl.Length} Bytes: {bytesCovarImpl.AsString()}");
-			//var bytesCovarBase = Serialize.ToBinary(implAsBase, covAdapters);
-			//Debug.Log($"Cov-Serialize TheBase: {bytesCovarBase.Length} Bytes: {bytesCovarBase.AsString()}");
 
 			var bytesContraImpl = Serialize.ToBinary(impl, conAdapters);
 			Debug.Log($"Con-Serialize TheImpl: {bytesContraImpl.Length} Bytes: {bytesContraImpl.AsString()}");
-			// var bytesContraBase = Serialize.ToBinary(implAsBase, conAdapters);
-			// Debug.Log($"Con-Serialize TheBase: {bytesContraBase.Length} Bytes: {bytesContraBase.AsString()}");
 
 			var bytesImplNoAdapters = Serialize.ToBinary(impl);
 			Debug.Log($"Def-Serialize TheImpl: {bytesImplNoAdapters.Length} Bytes: {bytesImplNoAdapters.AsString()}");
-			// var bytesBaseNoAdapters = Serialize.ToBinary(implAsBase);
-			// Debug.Log($"Def-Serialize TheBase: {bytesBaseNoAdapters.Length} Bytes: {bytesBaseNoAdapters.AsString()}");
 
 			var implCovar = Serialize.FromBinary<TheImpl>(bytesCovarImpl, covAdapters);
 			Assert.That(implCovar, Is.EqualTo(impl));
-			// var baseCovar = Serialize.FromBinary<TheBase>(bytesCovarBase, covAdapters);
-			// Assert.NotNull(baseCovar as TheImpl);
-			// Assert.That(baseCovar, Is.EqualTo(impl));
 
 			var implContra = Serialize.FromBinary<TheImpl>(bytesContraImpl, conAdapters);
 			Assert.That(implContra, Is.EqualTo(impl));
-			// var baseContra = Serialize.FromBinary<TheBase>(bytesContraBase, conAdapters);
-			// Assert.NotNull(baseContra as TheImpl);
-			// Assert.That(baseContra, Is.EqualTo(impl));
 
 			var implNoAdapters = Serialize.FromBinary<TheImpl>(bytesImplNoAdapters);
 			Assert.That(implNoAdapters, Is.EqualTo(impl));
-			// var baseNoAdapters = Serialize.FromBinary<TheBase>(bytesBaseNoAdapters);
-			// Assert.NotNull(baseNoAdapters as TheImpl);
-			// Assert.That(baseNoAdapters, Is.EqualTo(impl));
-
-			//var deserializedData = Serialize.FromBinary<LinearTileData>(bytes);
-			//Assert.That(deserializedData, Is.EqualTo(impl));
 		}
+
+		/*[Test] public void CanSerializeAndDeserializeStructsWithGenericAdapter()
+		{
+			var data1 = new Data1();
+			var data2 = new Data2();
+
+			var covAdapters = new List<IBinaryAdapter> { new GenericCovarBinaryAdapter<Data1>() };
+			var conAdapters = new List<IBinaryAdapter> { new GenericContraImplBinaryAdapter<TheImpl>() };
+
+			var bytesCovarImpl = Serialize.ToBinary(impl, covAdapters);
+			Debug.Log($"Cov-Serialize TheImpl: {bytesCovarImpl.Length} Bytes: {bytesCovarImpl.AsString()}");
+
+			var bytesContraImpl = Serialize.ToBinary(impl, conAdapters);
+			Debug.Log($"Con-Serialize TheImpl: {bytesContraImpl.Length} Bytes: {bytesContraImpl.AsString()}");
+
+			var bytesImplNoAdapters = Serialize.ToBinary(impl);
+			Debug.Log($"Def-Serialize TheImpl: {bytesImplNoAdapters.Length} Bytes: {bytesImplNoAdapters.AsString()}");
+
+			var implCovar = Serialize.FromBinary<TheImpl>(bytesCovarImpl, covAdapters);
+			Assert.That(implCovar, Is.EqualTo(impl));
+
+			var implContra = Serialize.FromBinary<TheImpl>(bytesContraImpl, conAdapters);
+			Assert.That(implContra, Is.EqualTo(impl));
+
+			var implNoAdapters = Serialize.FromBinary<TheImpl>(bytesImplNoAdapters);
+			Assert.That(implNoAdapters, Is.EqualTo(impl));
+		}*/
 
 		public abstract class TheBase : IEquatable<TheBase>
 		{
@@ -68,10 +77,7 @@ namespace CodeSmile.Tests.Editor.ProTiler
 
 			public TheBase() => baseField = 1;
 
-			public TheBase(IBinaryReader reader)
-			{
-				throw new NotImplementedException();
-			}
+			public TheBase(IBinaryReader reader) => throw new NotImplementedException();
 
 			public Boolean Equals(TheBase other)
 			{
@@ -121,10 +127,7 @@ namespace CodeSmile.Tests.Editor.ProTiler
 			public TheImpl() => implField = 2;
 
 			public TheImpl(IBinaryReader reader)
-				: base(reader)
-			{
-				throw new NotImplementedException();
-			}
+				: base(reader) => throw new NotImplementedException();
 
 			public Boolean Equals(TheImpl other)
 			{
@@ -209,7 +212,60 @@ namespace CodeSmile.Tests.Editor.ProTiler
 				new T().Deserialize(new BinaryReader(context.Reader)) as T;
 		}
 
-		public class CovarBinaryAdapter : IBinaryAdapter<TheImpl>
+		/*public struct Data1
+		{
+			public Byte byteValue;
+		}
+
+		public struct Data2
+		{
+			public Double doubleValue;
+		}
+
+		public class Data1BinaryAdapter : IBinaryAdapter<Data1>
+		{
+			public unsafe void Serialize(in BinarySerializationContext<Data1> context, Data1 value)
+			{
+				var writer = context.Writer;
+				writer->Add(value.byteValue);
+			}
+
+			public unsafe Data1 Deserialize(in BinaryDeserializationContext<Data1> context)
+			{
+				var reader = context.Reader;
+				return new Data1
+				{
+					byteValue = reader->ReadNext<Byte>(),
+				};
+			}
+		}
+
+		public class Data2BinaryAdapter : IBinaryAdapter<Data2>
+		{
+			public unsafe void Serialize(in BinarySerializationContext<Data2> context, Data2 value)
+			{
+				var writer = context.Writer;
+				writer->Add(value.doubleValue);
+			}
+
+			public unsafe Data2 Deserialize(in BinaryDeserializationContext<Data2> context)
+			{
+				var reader = context.Reader;
+				return new Data2
+				{
+					doubleValue = reader->ReadNext<Double>(),
+				};
+			}
+		}*/
+
+		// avoid using interface for struct types as it causes boxing
+		public interface IBinarySerializable<T>
+		{
+			public void Serialize(IBinaryWriter writer);
+			public T Deserialize(IBinaryReader reader);
+		}
+
+		/*public class CovarBinaryAdapter : IBinaryAdapter<TheImpl>
 		{
 			public unsafe void Serialize(in BinarySerializationContext<TheImpl> context, TheImpl value) =>
 				value.Serialize(new BinaryWriter(context.Writer));
@@ -225,6 +281,6 @@ namespace CodeSmile.Tests.Editor.ProTiler
 
 			public unsafe Object Deserialize(IBinaryDeserializationContext context) =>
 				new TheImpl(new BinaryReader(context.Reader));
-		}
+		}*/
 	}
 }

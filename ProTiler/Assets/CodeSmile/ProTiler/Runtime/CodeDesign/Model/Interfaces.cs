@@ -22,6 +22,15 @@ namespace CodeSmile.ProTiler.Runtime.CodeDesign.Model
 		// SerializeChunk(key)
 	}
 
+	public interface IBinaryReader
+	{
+		public T ReadNext<T>() where T : unmanaged;
+	}
+
+	public interface IBinaryWriter
+	{
+		public void Add<T>(T value) where T : unmanaged;
+	}
 
 
 	// TODO:

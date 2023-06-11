@@ -12,6 +12,18 @@ namespace CodeSmile.ProTiler.Runtime.CodeDesign.Model
 		protected List<ITilemapDataLinear> linearMaps;
 		protected List<ITilemapDataSparse> sparseMaps;
 
+		public virtual void Serialize(IBinaryWriter writer)
+		{
+			//writer.Add(..);
+		}
+
+		public virtual TilemapBase Deserialize(IBinaryReader reader)
+		{
+			// deserialize base class fields first
+			//baseField = reader.ReadNext<Byte>();
+			return this;
+		}
+
 		public byte[] SerializeAll()
 		{
 			// used for undo/redo

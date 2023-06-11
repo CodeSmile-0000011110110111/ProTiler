@@ -18,6 +18,8 @@ namespace CodeSmile.ProTiler.Runtime.CodeDesign.Model
 		// coord to chunk key
 		// hashmap of modified (unsaved) chunks
 		// possibly: hashmap of loaded chunks together with access timestamp
+
+		// create instance of undo/redo system (editor and runtime edit-mode)
 	}
 
 	public class TilemapDataLinear<TData> : TilemapDataBase, ITilemapDataLinear
