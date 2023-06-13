@@ -1,0 +1,14 @@
+@startuml
+class "TilemapChunkBufferedFileStream`2"<TChunk,TData> {
+    - m_SerializedChunks : Dictionary<Int64, byte[]>
+    + SerializeChunk(key:Int64, chunk:TChunk) : void
+    + DeserializeChunk(key:Int64) : TChunk
+}
+class "TilemapChunkMemoryStream`2"<TChunk,TData> {
+    - m_SerializedChunks : Dictionary<Int64, byte[]>
+    + SerializeChunk(key:Int64, chunk:TChunk) : void
+    + DeserializeChunk(key:Int64) : TChunk
+}
+"TilemapChunkMemoryStream`2" "<TChunk,TData>" <|-- "TilemapChunkBufferedFileStream`2"
+"ITilemapChunkDataSerialization`2" "<TChunk,TData>" <|-- "TilemapChunkMemoryStream`2"
+@enduml

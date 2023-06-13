@@ -1,0 +1,12 @@
+@startuml
+class UnityStandardEventsController <<sealed>> {
+    - Awake() : void
+    - Start() : void
+    - Update() : void
+    - LateUpdate() : void
+    - OnEnable() : void
+    - OnDisable() : void
+    - OnDestroy() : void
+}
+MonoBehaviour <|-- UnityStandardEventsController
+@enduml
