@@ -1,8 +1,85 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ProjectTasksOptions">
-    <enabled-global>
-      <option value="pumlgen" />
-    </enabled-global>
+    <TaskOptions isEnabled="true">
+      <option name="arguments" value="$FilePath$" />
+      <option name="checkSyntaxErrors" value="true" />
+      <option name="description" />
+      <option name="exitCodeBehavior" value="ERROR" />
+      <option name="fileExtension" value="cs" />
+      <option name="immediateSync" value="true" />
+      <option name="name" value="pumlgen" />
+      <option name="output" value="" />
+      <option name="outputFilters">
+        <array />
+      </option>
+      <option name="outputFromStdout" value="false" />
+      <option name="program" value="$PROJECT_DIR$/../../PlantUmlClassDiagramGenerator/src/PlantUmlClassDiagramGenerator/bin/Debug/net6.0/PlantUmlClassDiagramGenerator.exe" />
+      <option name="runOnExternalChanges" value="false" />
+      <option name="scopeName" value="Current File" />
+      <option name="trackOnlyRoot" value="false" />
+      <option name="workingDir" value="" />
+      <envs />
+    </TaskOptions>
+    <TaskOptions isEnabled="true">
+      <option name="arguments" value="$FilePath$ $FileDir$\$FileNameWithoutExtension$-public.puml -public" />
+      <option name="checkSyntaxErrors" value="true" />
+      <option name="description" />
+      <option name="exitCodeBehavior" value="ERROR" />
+      <option name="fileExtension" value="cs" />
+      <option name="immediateSync" value="true" />
+      <option name="name" value="pumlgen public" />
+      <option name="output" value="" />
+      <option name="outputFilters">
+        <array />
+      </option>
+      <option name="outputFromStdout" value="false" />
+      <option name="program" value="$PROJECT_DIR$/../../PlantUmlClassDiagramGenerator/src/PlantUmlClassDiagramGenerator/bin/Debug/net6.0/PlantUmlClassDiagramGenerator.exe" />
+      <option name="runOnExternalChanges" value="false" />
+      <option name="scopeName" value="Current File" />
+      <option name="trackOnlyRoot" value="false" />
+      <option name="workingDir" value="" />
+      <envs />
+    </TaskOptions>
+    <TaskOptions isEnabled="true">
+      <option name="arguments" value="$FilePath$ $FileDir$\$FileNameWithoutExtension$-associations.puml -createAssociation" />
+      <option name="checkSyntaxErrors" value="true" />
+      <option name="description" />
+      <option name="exitCodeBehavior" value="ERROR" />
+      <option name="fileExtension" value="cs" />
+      <option name="immediateSync" value="true" />
+      <option name="name" value="pumlgen with associations" />
+      <option name="output" value="" />
+      <option name="outputFilters">
+        <array />
+      </option>
+      <option name="outputFromStdout" value="false" />
+      <option name="program" value="$PROJECT_DIR$/../../PlantUmlClassDiagramGenerator/src/PlantUmlClassDiagramGenerator/bin/Debug/net6.0/PlantUmlClassDiagramGenerator.exe" />
+      <option name="runOnExternalChanges" value="false" />
+      <option name="scopeName" value="Current File" />
+      <option name="trackOnlyRoot" value="false" />
+      <option name="workingDir" value="" />
+      <envs />
+    </TaskOptions>
+    <TaskOptions isEnabled="true">
+      <option name="arguments" value="$FilePath$ $FileDir$\$FileNameWithoutExtension$-public-associations.puml -public -createAssociation" />
+      <option name="checkSyntaxErrors" value="true" />
+      <option name="description" />
+      <option name="exitCodeBehavior" value="ERROR" />
+      <option name="fileExtension" value="cs" />
+      <option name="immediateSync" value="true" />
+      <option name="name" value="pumlgen public with associations" />
+      <option name="output" value="" />
+      <option name="outputFilters">
+        <array />
+      </option>
+      <option name="outputFromStdout" value="false" />
+      <option name="program" value="$PROJECT_DIR$/../../PlantUmlClassDiagramGenerator/src/PlantUmlClassDiagramGenerator/bin/Debug/net6.0/PlantUmlClassDiagramGenerator.exe" />
+      <option name="runOnExternalChanges" value="false" />
+      <option name="scopeName" value="Current File" />
+      <option name="trackOnlyRoot" value="false" />
+      <option name="workingDir" value="" />
+      <envs />
+    </TaskOptions>
   </component>
 </project>

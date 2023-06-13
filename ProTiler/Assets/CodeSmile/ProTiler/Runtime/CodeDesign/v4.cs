@@ -208,17 +208,30 @@ namespace CodeSmile.ProTiler.CodeDesign
 				}
 			}
 
-			public abstract class BinaryAdapterBase
+			public abstract class VersionedBinaryAdapter
 			{
+				/// <summary>
+				///     Can be used to identify the version of the serialized data.
+				///     Usually you would bump the version when adding fields AND whenever you want existing data
+				///     to be preserved. Then add a version switch to read the old data format and set any new
+				///     fields to default or computed values or skip fields that no longer exist.
+				///     You might think that a byte is insufficient but in fact you will rarely maintain more than a few
+				///     versions back, particularly during development. Once deployed, you will have to make old data
+				///     incompatible after 256 changes to the format - highly unlikely after release.
+				///     In general you are well advised to retain backward compatibility only a few versions back because
+				///     maintaining those versions will be a pain in the back since you will always have to ensure that
+				///     loading a version "n-1" to "n-x" binary format will all continue to work and you need to test each
+				///     migration path.
+				/// </summary>
 				protected Byte Version { get; set; }
-				public BinaryAdapterBase(Byte version) => Version = version;
+				public VersionedBinaryAdapter(Byte version) => Version = version;
 				protected unsafe void WriteVersion(UnsafeAppendBuffer* writer) => writer->Add(Version);
 
 				protected unsafe void ReadVersion(UnsafeAppendBuffer.Reader* reader) =>
 					Version = reader->ReadNext<Byte>();
 			}
 
-			public sealed class LinearDataChunkBinaryAdapter<TData> : BinaryAdapterBase,
+			public sealed class LinearDataChunkBinaryAdapter<TData> : VersionedBinaryAdapter,
 				IBinaryAdapter<LinearDataChunk<TData>>
 				where TData : unmanaged
 			{
@@ -233,7 +246,7 @@ namespace CodeSmile.ProTiler.CodeDesign
 					throw new NotImplementedException();
 			}
 
-			public sealed class SparseDataChunkBinaryAdapter<TData> : BinaryAdapterBase,
+			public sealed class SparseDataChunkBinaryAdapter<TData> : VersionedBinaryAdapter,
 				IBinaryAdapter<SparseDataChunk<TData>>
 				where TData : unmanaged
 			{
@@ -248,7 +261,7 @@ namespace CodeSmile.ProTiler.CodeDesign
 					throw new NotImplementedException();
 			}
 
-			public sealed class DataMapBinaryAdapter<TDataMap> : BinaryAdapterBase, IBinaryAdapter<TDataMap>
+			public sealed class DataMapBinaryAdapter<TDataMap> : VersionedBinaryAdapter, IBinaryAdapter<TDataMap>
 				where TDataMap : DataMapBase, new()
 			{
 				public DataMapBinaryAdapter(Byte version)
@@ -261,7 +274,7 @@ namespace CodeSmile.ProTiler.CodeDesign
 					new TDataMap().Deserialize(new BinaryReader(context.Reader)) as TDataMap;
 			}
 
-			public sealed class GridMapBaseBinaryAdapter<TGridMap> : BinaryAdapterBase, IBinaryAdapter<TGridMap>
+			public sealed class GridMapBaseBinaryAdapter<TGridMap> : VersionedBinaryAdapter, IBinaryAdapter<TGridMap>
 				where TGridMap : GridMapBase, new()
 			{
 				public GridMapBaseBinaryAdapter(Byte version)
@@ -313,7 +326,7 @@ namespace CodeSmile.ProTiler.CodeDesign
 					Add(new StreamingSparseDataMap<MyVisSparseTileData>());
 				}
 
-				// only override when adding fields to the custom subclass
+				// override when adding fields to the subclass
 				public override void Serialize(IBinaryWriter writer) => base.Serialize(writer);
 				public override GridMapBase Deserialize(IBinaryReader reader) => base.Deserialize(reader);
 			}
@@ -350,7 +363,7 @@ namespace CodeSmile.ProTiler.CodeDesign
 					Add(new StreamingSparseDataMap<MySparseVoxelData>());
 				}
 
-				// only override when adding fields to the custom subclass
+				// override when adding fields to the subclass
 				public override void Serialize(IBinaryWriter writer) => base.Serialize(writer);
 				public override GridMapBase Deserialize(IBinaryReader reader) => base.Deserialize(reader);
 			}

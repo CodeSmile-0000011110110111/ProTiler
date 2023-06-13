@@ -14,11 +14,9 @@ abstract class DataMapBase {
     + <<virtual>> Deserialize(reader:IBinaryReader) : DataMapBase
 }
 class "LinearDataMap<TData>"<TData> {
-    # m_DataChunks : NativeParallelHashMap<ChunkKey, LinearDataChunk<TData>>
     + <<virtual>> TryGetChunk(key:ChunkKey, chunk:LinearDataChunk<TData>) : Boolean
 }
 class "SparseDataMap<TData>"<TData> {
-    # sparseChunks : NativeParallelHashMap<ChunkKey, SparseDataChunk<TData>>
     + <<virtual>> TryGetChunk(key:ChunkKey, chunk:SparseDataChunk<TData>) : Boolean
 }
 class "StreamingLinearDataMap<TData>"<TData> {
@@ -34,9 +32,6 @@ interface IBinaryWriter {
     + Add(value:T) : void
 }
 abstract class GridMapBase {
-    - <<readonly>> m_LinearMaps : List<ILinearDataMap>
-    - <<readonly>> m_SparseMaps : List<ISparseDataMap>
-    - m_ChunkSize : ChunkSize
     + Add(dataMap:ILinearDataMap) : void
     + Add(dataMap:ISparseDataMap) : void
     + <<virtual>> Serialize(writer:IBinaryWriter) : void
@@ -45,12 +40,10 @@ abstract class GridMapBase {
 class GridMapUndoRedo {
 }
 struct BinaryReader <<struct>> {
-    - <<readonly>> m_Reader : UnsafeAppendBuffer.Reader*
     + BinaryReader(reader:UnsafeAppendBuffer.Reader*)
     + ReadNext() : T
 }
 struct BinaryWriter <<struct>> {
-    - <<readonly>> m_Writer : UnsafeAppendBuffer*
     + BinaryWriter(writer:UnsafeAppendBuffer*)
     + Add(value:T) : void
 }
@@ -59,10 +52,7 @@ class Serialize <<static>> {
     + {static} <<unsafe>> FromBinary(bytes:Byte[], adapters:List<IBinaryAdapter>) : T
 }
 abstract class VersionedBinaryAdapter {
-    # Version : Byte <<get>> <<set>>
     + VersionedBinaryAdapter(version:Byte)
-    # <<unsafe>> WriteVersion(writer:UnsafeAppendBuffer*) : void
-    # <<unsafe>> ReadVersion(reader:UnsafeAppendBuffer.Reader*) : void
 }
 class "LinearDataChunkBinaryAdapter<TData>"<TData> <<sealed>> {
     + LinearDataChunkBinaryAdapter(version:Byte)
@@ -113,7 +103,6 @@ class VoxelMap {
     + <<override>> Deserialize(reader:IBinaryReader) : GridMapBase
 }
 class "SaveLoadExample<TGridMap,TLinearData,TSparseData>"<TGridMap,TLinearData,TSparseData> <<sealed>> {
-    - s_GridMapAdapters : List<IBinaryAdapter>
     + GridMapAdapters : List<IBinaryAdapter> <<get>> <<set>>
     + SerializeGridMap(map:GridMapBase) : Byte[]
     + DeserializeGridMap(bytes:Byte[]) : GridMapBase
