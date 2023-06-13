@@ -9,7 +9,9 @@ interface ILinearDataMap {
 }
 interface ISparseDataMap {
 }
-abstract class "DataMapBase<TData>"<TData> {
+abstract class DataMapBase {
+    + <<virtual>> Serialize(writer:IBinaryWriter) : void
+    + <<virtual>> Deserialize(reader:IBinaryReader) : DataMapBase
 }
 class "LinearDataMap<TData>"<TData> {
     # m_DataChunks : NativeParallelHashMap<ChunkKey, LinearDataChunk<TData>>
@@ -52,6 +54,36 @@ struct BinaryWriter <<struct>> {
     + BinaryWriter(writer:UnsafeAppendBuffer*)
     + Add(value:T) : void
 }
+class Serialize <<static>> {
+    + {static} <<unsafe>> ToBinary(data:T, adapters:List<IBinaryAdapter>) : Byte[]
+    + {static} <<unsafe>> FromBinary(bytes:Byte[], adapters:List<IBinaryAdapter>) : T
+}
+abstract class BinaryAdapterBase {
+    # Version : Byte <<get>> <<set>>
+    + BinaryAdapterBase(version:Byte)
+    # <<unsafe>> WriteVersion(writer:UnsafeAppendBuffer*) : void
+    # <<unsafe>> ReadVersion(reader:UnsafeAppendBuffer.Reader*) : void
+}
+class "LinearDataChunkBinaryAdapter<TData>"<TData> <<sealed>> {
+    + LinearDataChunkBinaryAdapter(version:Byte)
+    + Serialize(context:BinarySerializationContext<LinearDataChunk<TData>>, value:LinearDataChunk<TData>) : void
+    + Deserialize(context:BinaryDeserializationContext<LinearDataChunk<TData>>) : LinearDataChunk<TData>
+}
+class "SparseDataChunkBinaryAdapter<TData>"<TData> <<sealed>> {
+    + SparseDataChunkBinaryAdapter(version:Byte)
+    + Serialize(context:BinarySerializationContext<SparseDataChunk<TData>>, value:SparseDataChunk<TData>) : void
+    + Deserialize(context:BinaryDeserializationContext<SparseDataChunk<TData>>) : SparseDataChunk<TData>
+}
+class "DataMapBinaryAdapter<TDataMap>"<TDataMap> <<sealed>> {
+    + DataMapBinaryAdapter(version:Byte)
+    + <<unsafe>> Serialize(context:BinarySerializationContext<TDataMap>, value:TDataMap) : void
+    + <<unsafe>> Deserialize(context:BinaryDeserializationContext<TDataMap>) : TDataMap
+}
+class "GridMapBaseBinaryAdapter<TGridMap>"<TGridMap> <<sealed>> {
+    + GridMapBaseBinaryAdapter(version:Byte)
+    + <<unsafe>> Serialize(context:BinarySerializationContext<TGridMap>, value:TGridMap) : void
+    + <<unsafe>> Deserialize(context:BinaryDeserializationContext<TGridMap>) : TGridMap
+}
 struct MyLinearTileData <<struct>> {
     + TileIndex : UInt16
 }
@@ -80,14 +112,28 @@ class VoxelMap {
     + <<override>> Serialize(writer:IBinaryWriter) : void
     + <<override>> Deserialize(reader:IBinaryReader) : GridMapBase
 }
-"DataMapBase<TData>" "<TData>" <|-- "LinearDataMap<TData>"
+class "SaveLoadExample<TGridMap,TLinearData,TSparseData>"<TGridMap,TLinearData,TSparseData> <<sealed>> {
+    - s_GridMapAdapters : List<IBinaryAdapter>
+    + GridMapAdapters : List<IBinaryAdapter> <<get>> <<set>>
+    + SerializeGridMap(map:GridMapBase) : Byte[]
+    + DeserializeGridMap(bytes:Byte[]) : GridMapBase
+}
+DataMapBase <|-- "LinearDataMap<TData>"
 ILinearDataMap <|-- "LinearDataMap<TData>"
-"DataMapBase<TData>" "<TData>" <|-- "SparseDataMap<TData>"
+DataMapBase <|-- "SparseDataMap<TData>"
 ISparseDataMap <|-- "SparseDataMap<TData>"
 "LinearDataMap<TData>" "<TData>" <|-- "StreamingLinearDataMap<TData>"
 "SparseDataMap<TData>" "<TData>" <|-- "StreamingSparseDataMap<TData>"
 IBinaryReader <|-- BinaryReader
 IBinaryWriter <|-- BinaryWriter
+BinaryAdapterBase <|-- "LinearDataChunkBinaryAdapter<TData>"
+"IBinaryAdapter<LinearDataChunk<TData>>" "<LinearDataChunk<TData>>" <|-- "LinearDataChunkBinaryAdapter<TData>"
+BinaryAdapterBase <|-- "SparseDataChunkBinaryAdapter<TData>"
+"IBinaryAdapter<SparseDataChunk<TData>>" "<SparseDataChunk<TData>>" <|-- "SparseDataChunkBinaryAdapter<TData>"
+BinaryAdapterBase <|-- "DataMapBinaryAdapter<TDataMap>"
+"IBinaryAdapter<TDataMap>" "<TDataMap>" <|-- "DataMapBinaryAdapter<TDataMap>"
+BinaryAdapterBase <|-- "GridMapBaseBinaryAdapter<TGridMap>"
+"IBinaryAdapter<TGridMap>" "<TGridMap>" <|-- "GridMapBaseBinaryAdapter<TGridMap>"
 GridMapBase <|-- Tilemap3D
 GridMapBase <|-- VoxelMap
 @enduml

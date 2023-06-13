@@ -1,7 +1,0 @@
-@startuml
-class "ChunkDataLinearBinaryAdapter`1"<TData> <<sealed>> {
-    + Serialize(context:BinarySerializationContext<ChunkDataLinear<TData>>, value:ChunkDataLinear<TData>) : void
-    + Deserialize(context:BinaryDeserializationContext<ChunkDataLinear<TData>>) : ChunkDataLinear<TData>
-}
-"IBinaryAdapter`1" "<ChunkDataLinear<TData>>" <|-- "ChunkDataLinearBinaryAdapter`1"
-@enduml
