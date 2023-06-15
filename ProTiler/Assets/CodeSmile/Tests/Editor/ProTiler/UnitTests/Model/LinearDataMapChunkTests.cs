@@ -30,17 +30,17 @@ namespace CodeSmile.Tests.Editor.ProTiler.UnitTests.Model
 		}
 
 		[TestCase(0)] [TestCase(1)] [TestCase(2)]
-		public void Add_WhenDataAddedToNewLayer_CollectionExpands(Int32 height)
+		public void Indexer_WhenDataAdded_CollectionExpands(Int32 height)
 		{
-			using (var chunk = new LinearDataMapChunk<TestData>(s_TestChunkSize))
-			{
-				var data = new TestData { value = 1 };
-				var chunkCoord = new ChunkCoord(0, height, 0);
+			var chunk = new LinearDataMapChunk<TestData>(s_TestChunkSize);
+			var data = new TestData { value = 1 };
+			var localCoord = new ChunkCoord(0, height, 0);
 
-				chunk.Add(chunkCoord, data);
+			chunk[localCoord] = data;
 
-				Assert.That(chunk.Data.Length, Is.EqualTo(s_TestChunkSize.x * (height + 1) * s_TestChunkSize.z));
-			}
+			var chunkDataLength = chunk.Data.Length;
+			chunk.Dispose();
+			Assert.That(chunkDataLength, Is.EqualTo(s_TestChunkSize.x * (height + 1) * s_TestChunkSize.z));
 		}
 
 		[TestCase(0)] [TestCase(1)] [TestCase(2)]
@@ -49,24 +49,24 @@ namespace CodeSmile.Tests.Editor.ProTiler.UnitTests.Model
 			using (var chunk = new LinearDataMapChunk<TestData>(s_TestChunkSize))
 			{
 				var data = new TestData { value = (Byte)(height + 1) };
-				var chunkCoord = new ChunkCoord(0, height, 0);
+				var localCoord = new ChunkCoord(0, height, 0);
 
-				chunk.Add(chunkCoord, data);
-				var returnedData = chunk[chunkCoord];
+				chunk.SetData(localCoord, data);
+				var returnedData = chunk[localCoord];
 
 				Assert.That(returnedData, Is.EqualTo(data));
 			}
 		}
 
-		[Test] public void Indexer_WhenCoordOutOfBounds_ThrowsIndexOutOfRangeException()
+		[TestCase(-1, -1, -1)] [TestCase(0, 0, 0)]
+		public void Indexer_WhenCoordOutOfBounds_ThrowsIndexOutOfRangeException(Int32 x, Int32 y, Int32 z)
 		{
 			using (var chunk = new LinearDataMapChunk<TestData>(s_TestChunkSize))
 			{
-				var chunkCoord = new ChunkCoord(0, 0, 0);
-
+				var localCoord = new ChunkCoord(x, y, z);
 				Assert.Throws<IndexOutOfRangeException>(() =>
 				{
-					var data = chunk[chunkCoord];
+					var data = chunk[localCoord];
 				});
 			}
 		}
