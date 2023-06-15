@@ -18,9 +18,8 @@
 [Cc]ode[Cc]overage/
 
 # PlantUML generated files
-PlantUML/*.puml
-PlantUML/*.meta
-PlantUML.meta
+**/PlantUML/**
+**/PlantUML.meta
 
 # Asset meta data should only be ignored when the corresponding asset is also ignored
 !/[Aa]ssets/**/*.meta
