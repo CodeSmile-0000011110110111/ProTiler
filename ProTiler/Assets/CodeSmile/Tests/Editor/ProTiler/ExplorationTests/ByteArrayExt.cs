@@ -8,12 +8,6 @@ namespace CodeSmile.Tests.Editor.ProTiler
 {
 	public static class ByteArrayExt
 	{
-		public static String AsString(this Byte[] bytes)
-		{
-			var sb = new StringBuilder();
-			foreach (var b in bytes)
-				sb.Append(b);
-			return sb.ToString();
-		}
+
 	}
 }

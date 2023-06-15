@@ -9,7 +9,9 @@
         "CodeSmile.ProTiler",
         "CodeSmile.Tests.Tools",
         "Unity.Mathematics",
-        "Unity.Serialization"
+        "Unity.Serialization",
+        "CodeSmile.ProTiler.CodeDesign",
+        "CodeSmile.Serialization"
     ],
     "includePlatforms": [
         "Editor"

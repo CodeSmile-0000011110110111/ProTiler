@@ -1,5 +1,0 @@
-@startuml
-class UnityEditorEventsController <<sealed>> {
-}
-ScriptableObject <|-- UnityEditorEventsController
-@enduml

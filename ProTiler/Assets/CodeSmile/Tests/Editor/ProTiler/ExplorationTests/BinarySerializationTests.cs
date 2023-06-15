@@ -1,6 +1,7 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
+using CodeSmile.Extensions;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
@@ -34,7 +35,7 @@ namespace CodeSmile.Tests.Editor.ProTiler
 			Assert.That(bytes.Length, Is.EqualTo(sizeof(UInt32)));
 		}
 
-		[Test] public void CanSerializeAndDeserializeLinearTileDataStruct()
+		[Test] public void LinearTileData_SerializeDeserialize_ResultsInSameObject()
 		{
 			var linearData = new LinearTileData(123, TileFlags.DirectionEast | TileFlags.FlipBoth);
 
@@ -42,6 +43,22 @@ namespace CodeSmile.Tests.Editor.ProTiler
 			Debug.Log($"{bytes.Length} Bytes: {bytes.AsString()}");
 			var deserializedData = Serialize.FromBinary<LinearTileData>(bytes);
 
+			Assert.That(deserializedData, Is.EqualTo(linearData));
+		}
+
+		[Test] public void LinearTileData_SerializeDeserializeThroughInterface_ResultsInSameObject()
+		{
+			var linearData = new LinearTileData(123, TileFlags.DirectionEast | TileFlags.FlipBoth);
+			var interfaceData = linearData as ILinearTileData;
+
+			var bytes = Serialize.ToBinary(interfaceData, new List<IBinaryAdapter>()
+			{
+				new BinaryAdapters.LinearTileDataInterfaceAdapter(),
+			});
+			Debug.Log($"{bytes.Length} Bytes: {bytes.AsString()}");
+			var deserializedData = Serialize.FromBinary<ILinearTileData>(bytes);
+
+			Assert.That(deserializedData, Is.EqualTo(interfaceData));
 			Assert.That(deserializedData, Is.EqualTo(linearData));
 		}
 

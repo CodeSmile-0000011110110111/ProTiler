@@ -1,0 +1,19 @@
+{
+    "name": "CodeSmile.ProTiler.CodeDesign",
+    "rootNamespace": "",
+    "references": [
+        "GUID:e0cd26848372d4e5c891c569017e11f1",
+        "GUID:d8b63aba1907145bea998dd612889d6b",
+        "GUID:2765e68924a08a94ea0ea66b31c0168f",
+        "GUID:928bb8dff08d4c4a9801d95e0e916f72"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": true,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

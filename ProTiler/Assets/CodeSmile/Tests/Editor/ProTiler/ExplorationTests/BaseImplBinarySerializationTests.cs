@@ -1,6 +1,7 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
+using CodeSmile.Extensions;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
@@ -19,7 +20,10 @@ namespace CodeSmile.Tests.Editor.ProTiler
 			var implAsBase = impl as TheBase;
 			Assert.That(impl, Is.EqualTo(implAsBase));
 
-			var covAdapters = new List<IBinaryAdapter> { new GenericCovarBinaryAdapter<TheImpl>() };
+			var covAdapters = new List<IBinaryAdapter>
+			{
+				new GenericCovarBinaryAdapter<TheImpl>()
+			};
 			var conAdapters = new List<IBinaryAdapter> { new GenericContraImplBinaryAdapter<TheImpl>() };
 
 			var bytesCovarImpl = Serialize.ToBinary(impl, covAdapters);

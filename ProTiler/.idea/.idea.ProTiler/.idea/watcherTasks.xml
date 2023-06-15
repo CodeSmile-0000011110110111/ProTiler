@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectTasksOptions">
     <TaskOptions isEnabled="true">
-      <option name="arguments" value="$FilePath$" />
+      <option name="arguments" value="$FilePath$ $FileDir$\PlantUML\$FileNameWithoutExtension$.puml" />
       <option name="checkSyntaxErrors" value="true" />
       <option name="description" />
       <option name="exitCodeBehavior" value="ERROR" />
@@ -22,7 +22,7 @@
       <envs />
     </TaskOptions>
     <TaskOptions isEnabled="true">
-      <option name="arguments" value="$FilePath$ $FileDir$\$FileNameWithoutExtension$-public.puml -public" />
+      <option name="arguments" value="$FilePath$ $FileDir$\PlantUML\$FileNameWithoutExtension$-public.puml -public" />
       <option name="checkSyntaxErrors" value="true" />
       <option name="description" />
       <option name="exitCodeBehavior" value="ERROR" />
@@ -42,7 +42,7 @@
       <envs />
     </TaskOptions>
     <TaskOptions isEnabled="true">
-      <option name="arguments" value="$FilePath$ $FileDir$\$FileNameWithoutExtension$-associations.puml -createAssociation" />
+      <option name="arguments" value="$FilePath$ $FileDir$\PlantUML\$FileNameWithoutExtension$-associations.puml -createAssociation" />
       <option name="checkSyntaxErrors" value="true" />
       <option name="description" />
       <option name="exitCodeBehavior" value="ERROR" />
@@ -62,7 +62,7 @@
       <envs />
     </TaskOptions>
     <TaskOptions isEnabled="true">
-      <option name="arguments" value="$FilePath$ $FileDir$\$FileNameWithoutExtension$-public-associations.puml -public -createAssociation" />
+      <option name="arguments" value="$FilePath$ $FileDir$\PlantUML\$FileNameWithoutExtension$-public-associations.puml -public -createAssociation" />
       <option name="checkSyntaxErrors" value="true" />
       <option name="description" />
       <option name="exitCodeBehavior" value="ERROR" />

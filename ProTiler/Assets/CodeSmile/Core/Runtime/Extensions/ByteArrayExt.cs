@@ -5,6 +5,7 @@ using System;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
+using System.Text;
 
 namespace CodeSmile.Extensions
 {
@@ -49,6 +50,14 @@ namespace CodeSmile.Extensions
 				byte[] hash = md5.ComputeHash(buffer);
 				return string.Join("", Enumerable.Range(0, hash.Length).Select(i => hash[i].ToString("X2")));
 			}
+		}
+
+		public static String AsString(this Byte[] bytes)
+		{
+			var sb = new StringBuilder();
+			foreach (var b in bytes)
+				sb.Append(b);
+			return sb.ToString();
 		}
 	}
 }

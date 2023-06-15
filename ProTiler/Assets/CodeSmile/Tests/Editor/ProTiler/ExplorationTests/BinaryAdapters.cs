@@ -11,6 +11,15 @@ namespace CodeSmile.Tests.Editor.ProTiler
 {
 	public static class BinaryAdapters
 	{
+		public class LinearTileDataInterfaceAdapter : IBinaryAdapter<ILinearTileData>
+		{
+			public void Serialize(in BinarySerializationContext<ILinearTileData> context, ILinearTileData value) =>
+				context.SerializeValue(value);
+
+			public ILinearTileData Deserialize(in BinaryDeserializationContext<ILinearTileData> context) =>
+				context.DeserializeValue<ILinearTileData>();
+		}
+
 		public class NativeListAdapter<T> : IBinaryAdapter<NativeList<T>> where T : unmanaged
 		{
 			private readonly Allocator m_Allocator;
