@@ -48,6 +48,8 @@ namespace CodeSmile.Tests.Editor.ProTiler
 
 		[Test] public void LinearTileData_SerializeDeserializeThroughInterface_ResultsInSameObject()
 		{
+			Assert.Fail("this crashes Unity, maybe because the interface cannot be instantiated?");
+			/*
 			var linearData = new LinearTileData(123, TileFlags.DirectionEast | TileFlags.FlipBoth);
 			var interfaceData = linearData as ILinearTileData;
 
@@ -60,6 +62,7 @@ namespace CodeSmile.Tests.Editor.ProTiler
 
 			Assert.That(deserializedData, Is.EqualTo(interfaceData));
 			Assert.That(deserializedData, Is.EqualTo(linearData));
+			*/
 		}
 
 		[Test] public void CanSerializeAndDeserializeNativeListOfLinearTileDataStruct()

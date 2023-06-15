@@ -44,6 +44,26 @@ namespace CodeSmile.Serialization
 		/// </summary>
 		/// <param name="reader"></param>
 		/// <returns></returns>
-		protected unsafe Byte ReadSerializedVersion(UnsafeAppendBuffer.Reader* reader) => reader->ReadNext<Byte>();
+		protected unsafe Byte ReadAdapterVersion(UnsafeAppendBuffer.Reader* reader) => reader->ReadNext<Byte>();
+
+		protected String GetFutureVersionExceptionMessage(Byte serializedVersion, Byte supportedVersion) =>
+			$"serialized data version {serializedVersion} is greater than supported version {supportedVersion}";
+
+		protected String GetLegacyVersionExceptionMessage(Byte serializedVersion, Byte supportedVersion) =>
+			$"serialized data version {serializedVersion} is not supported in version {supportedVersion}";
+	}
+
+	/// <summary>
+	///     The exception thrown when the version of a serialized data stream is unhandled or not supported.
+	/// </summary>
+	[Serializable]
+	public class SerializationVersionException : Exception
+	{
+		/// <summary>
+		///     Initializes a new instance of the <see cref="SerializationException" /> class with a specified message.
+		/// </summary>
+		/// <param name="message">The message for the exception.</param>
+		public SerializationVersionException(String message)
+			: base(message) {}
 	}
 }
