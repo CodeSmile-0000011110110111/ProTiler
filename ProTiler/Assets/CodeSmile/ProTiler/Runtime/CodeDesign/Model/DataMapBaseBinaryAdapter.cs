@@ -1,12 +1,12 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
-using CodeSmile.ProTiler.CodeDesign.v4.Serialization;
-using CodeSmile.Serialization;
+using CodeSmile.Core.Runtime.Serialization;
+using CodeSmile.ProTiler.Runtime.CodeDesign.Model.Serialization;
 using System;
 using Unity.Serialization.Binary;
 
-namespace CodeSmile.ProTiler.CodeDesign.v4.DataMaps
+namespace CodeSmile.ProTiler.Runtime.CodeDesign.Model
 {
 	public sealed class DataMapBaseBinaryAdapter<TDataMap> : VersionedBinaryAdapter, IBinaryAdapter<TDataMap>
 		where TDataMap : DataMapBase, new()

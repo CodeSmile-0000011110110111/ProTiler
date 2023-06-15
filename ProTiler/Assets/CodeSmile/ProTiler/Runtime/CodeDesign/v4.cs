@@ -1,9 +1,10 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
-using CodeSmile.ProTiler.CodeDesign.v4.GridMap;
-using CodeSmile.ProTiler.CodeDesign.v4.TilemapGame.TileData;
-using CodeSmile.ProTiler.CodeDesign.v4.VoxelGame.VoxelData;
+using CodeSmile.ProTiler.Runtime.CodeDesign.Model;
+using CodeSmile.ProTiler.Runtime.CodeDesign.v4.GridMap;
+using CodeSmile.ProTiler.Runtime.CodeDesign.v4.TilemapGame.TileData;
+using CodeSmile.ProTiler.Runtime.CodeDesign.v4.VoxelGame.VoxelData;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,14 +14,9 @@ using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using ChunkCoord = Unity.Mathematics.int2;
-using CellSize = Unity.Mathematics.float3;
-using CellGap = Unity.Mathematics.float3;
-using GridCoord = Unity.Mathematics.int3;
 using Object = System.Object;
-using WorldPos = Unity.Mathematics.float3;
 
-namespace CodeSmile.ProTiler.CodeDesign
+namespace CodeSmile.ProTiler.Runtime.CodeDesign
 {
 	namespace v4
 	{
@@ -63,7 +59,7 @@ namespace CodeSmile.ProTiler.CodeDesign
 				public void Serialize<T>(T gridMap, IReadOnlyList<IBinaryAdapter> adapters) where T : GridBase
 				{
 					var binaryAdapters = adapters.Cast<IBinaryAdapter>().ToList();
-					m_SerializedGridMap = CodeSmile.Serialization.Serialize.ToBinary(gridMap, binaryAdapters);
+					m_SerializedGridMap = Core.Runtime.Serialization.Serialize.ToBinary(gridMap, binaryAdapters);
 				}
 
 				public T Deserialize<T>(IReadOnlyList<IBinaryAdapter> adapters) where T : GridBase
@@ -72,7 +68,7 @@ namespace CodeSmile.ProTiler.CodeDesign
 						return null;
 
 					var binaryAdapters = adapters.Cast<IBinaryAdapter>().ToList();
-					return CodeSmile.Serialization.Serialize.FromBinary<T>(m_SerializedGridMap, binaryAdapters);
+					return Core.Runtime.Serialization.Serialize.FromBinary<T>(m_SerializedGridMap, binaryAdapters);
 				}
 
 				[Serializable]

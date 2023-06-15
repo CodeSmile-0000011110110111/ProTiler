@@ -7,7 +7,7 @@ using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace CodeSmile.ProTiler.CodeDesign.Controller
+namespace CodeSmile.ProTiler.Runtime.CodeDesign._old.Controller
 {
 	public sealed class UnityEditorEventsController : ScriptableObject
 	{

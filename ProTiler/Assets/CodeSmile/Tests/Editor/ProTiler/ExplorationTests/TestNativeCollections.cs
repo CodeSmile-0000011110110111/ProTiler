@@ -8,15 +8,11 @@ using Unity.Collections.LowLevel.Unsafe;
 using Unity.Properties;
 using Unity.Serialization;
 using Unity.Serialization.Binary;
-using ChunkCoord = Unity.Mathematics.int2;
 using ChunkSize = Unity.Mathematics.int3;
 using ChunkKey = System.Int64;
-using CellSize = Unity.Mathematics.float3;
-using CellGap = Unity.Mathematics.float3;
 using GridCoord = Unity.Mathematics.int3;
-using WorldPos = Unity.Mathematics.float3;
 
-namespace CodeSmile.Tests.Editor.ProTiler
+namespace CodeSmile.Tests.Editor.ProTiler.ExplorationTests
 {
 	public interface ILinearTileData
 	{

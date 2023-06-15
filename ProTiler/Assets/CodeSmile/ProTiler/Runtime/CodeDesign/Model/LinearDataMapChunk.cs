@@ -1,19 +1,14 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
-using CodeSmile.ProTiler.CodeDesign.v4.GridMap;
 using System;
 using System.Runtime.CompilerServices;
 using Unity.Collections;
 using Unity.Collections.LowLevel.Unsafe;
 using ChunkCoord = Unity.Mathematics.int3;
 using ChunkSize = Unity.Mathematics.int3;
-using CellSize = Unity.Mathematics.float3;
-using CellGap = Unity.Mathematics.float3;
-using GridCoord = Unity.Mathematics.int3;
-using WorldPos = Unity.Mathematics.float3;
 
-namespace CodeSmile.ProTiler.CodeDesign.v4.DataMaps
+namespace CodeSmile.ProTiler.Runtime.CodeDesign.Model
 {
 	public struct LinearDataMapChunk<TData> : IDisposable where TData : unmanaged
 	{

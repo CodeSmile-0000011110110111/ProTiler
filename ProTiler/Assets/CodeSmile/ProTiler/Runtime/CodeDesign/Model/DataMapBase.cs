@@ -1,9 +1,9 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
-using CodeSmile.ProTiler.CodeDesign.v4.GridMap;
+using CodeSmile.ProTiler.Runtime.CodeDesign.v4.GridMap;
 
-namespace CodeSmile.ProTiler.CodeDesign.v4.DataMaps
+namespace CodeSmile.ProTiler.Runtime.CodeDesign.Model
 {
 	public abstract class DataMapBase
 	{

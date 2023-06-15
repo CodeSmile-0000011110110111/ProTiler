@@ -6,7 +6,7 @@ using Unity.Collections;
 using Unity.Collections.LowLevel.Unsafe;
 using Unity.Properties;
 
-namespace CodeSmile.ProTiler.Runtime.CodeDesign.UserCode
+namespace CodeSmile.ProTiler.Runtime.CodeDesign._old.UserCode
 {
 	public interface ITileData {}
 

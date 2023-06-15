@@ -2,8 +2,8 @@
 // Refer to included LICENSE file for terms and conditions.
 
 using CodeSmile.Extensions;
-using CodeSmile.ProTiler.CodeDesign.v4.GridMap;
-using CodeSmile.ProTiler.CodeDesign.v4.VoxelGame;
+using CodeSmile.ProTiler.Runtime.CodeDesign;
+using CodeSmile.ProTiler.Runtime.CodeDesign.v4.GridMap;
 using CodeSmile.Tests.Tools.Attributes;
 using NUnit.Framework;
 using System;

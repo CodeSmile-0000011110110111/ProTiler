@@ -10,7 +10,7 @@ using Unity.Serialization.Binary;
 using UnityEngine;
 using Object = System.Object;
 
-namespace CodeSmile.Tests.Editor.ProTiler
+namespace CodeSmile.Tests.Editor.ProTiler.ExplorationTests
 {
 	public class TextSerializationTests
 	{

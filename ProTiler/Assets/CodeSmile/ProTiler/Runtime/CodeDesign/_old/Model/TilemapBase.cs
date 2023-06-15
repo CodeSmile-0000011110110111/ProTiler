@@ -4,7 +4,7 @@
 using System.Collections.Generic;
 using Unity.Mathematics;
 
-namespace CodeSmile.ProTiler.Runtime.CodeDesign.Model
+namespace CodeSmile.ProTiler.Runtime.CodeDesign._old.Model
 {
 	public abstract class TilemapBase
 	{

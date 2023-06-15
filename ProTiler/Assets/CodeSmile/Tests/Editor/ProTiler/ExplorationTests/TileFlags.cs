@@ -3,7 +3,7 @@
 
 using System;
 
-namespace CodeSmile.Tests.Editor.ProTiler
+namespace CodeSmile.Tests.Editor.ProTiler.ExplorationTests
 {
 	[Flags]
 	public enum TileFlags : UInt16

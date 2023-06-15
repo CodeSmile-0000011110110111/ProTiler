@@ -8,7 +8,7 @@ using Unity.Collections.LowLevel.Unsafe;
 using Unity.Serialization.Binary;
 using Unity.Serialization.Json;
 
-namespace CodeSmile.Tests.Editor.ProTiler
+namespace CodeSmile.Tests.Editor.ProTiler.ExplorationTests
 {
 	public static class JsonAdapters
 	{

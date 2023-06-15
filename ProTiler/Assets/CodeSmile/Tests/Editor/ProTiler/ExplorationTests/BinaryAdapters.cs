@@ -7,7 +7,7 @@ using Unity.Collections.LowLevel.Unsafe;
 using Unity.Serialization.Binary;
 using UnityEngine;
 
-namespace CodeSmile.Tests.Editor.ProTiler
+namespace CodeSmile.Tests.Editor.ProTiler.ExplorationTests
 {
 	public static class BinaryAdapters
 	{

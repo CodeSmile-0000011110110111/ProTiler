@@ -1,6 +1,7 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
+using CodeSmile.Tests.Editor.ProTiler.ExplorationTests;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using Unity.Collections.LowLevel.Unsafe;
 using Unity.PerformanceTesting;
 using Unity.Serialization.Binary;
 
-namespace CodeSmile.Tests.Editor.ProTiler
+namespace CodeSmile.Tests.Editor.ProTiler.PerformanceTests
 {
 	public class NestedNativeCollectionSerializationPerformanceTests
 	{

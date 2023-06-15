@@ -5,13 +5,8 @@ using System;
 using Unity.Collections;
 using Unity.Properties;
 using ChunkCoord = Unity.Mathematics.int2;
-using ChunkSize = Unity.Mathematics.int3;
-using CellSize = Unity.Mathematics.float3;
-using CellGap = Unity.Mathematics.float3;
-using GridCoord = Unity.Mathematics.int3;
-using WorldPos = Unity.Mathematics.float3;
 
-namespace CodeSmile.ProTiler.Runtime.CodeDesign.Model
+namespace CodeSmile.ProTiler.Runtime.CodeDesign._old.Model
 {
 	public abstract class TilemapDataBase : ITilemapData
 	{

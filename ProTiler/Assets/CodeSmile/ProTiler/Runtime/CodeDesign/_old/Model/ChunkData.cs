@@ -5,7 +5,7 @@ using Unity.Collections.LowLevel.Unsafe;
 using Unity.Mathematics;
 using Unity.Properties;
 
-namespace CodeSmile.ProTiler.Runtime.CodeDesign.Model
+namespace CodeSmile.ProTiler.Runtime.CodeDesign._old.Model
 {
 	public struct ChunkDataSparse<TData> : IChunkDataSparse<TData> where TData : unmanaged
 	{

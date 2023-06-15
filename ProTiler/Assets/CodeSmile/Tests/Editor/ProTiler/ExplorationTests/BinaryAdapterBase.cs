@@ -4,7 +4,7 @@
 using System;
 using Unity.Collections.LowLevel.Unsafe;
 
-namespace CodeSmile.Tests.Editor.ProTiler
+namespace CodeSmile.Tests.Editor.ProTiler.ExplorationTests
 {
 	public abstract class BinaryAdapterBase
 	{
