@@ -6,11 +6,14 @@
         "UnityEditor.TestRunner",
         "CodeSmile",
         "CodeSmile.ProTiler",
-        "CodeSmile.Tests.Tools"
+        "CodeSmile.Tests.Tools",
+        "CodeSmile.Serialization",
+        "Unity.Collections",
+        "Unity.Serialization"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
-    "allowUnsafeCode": false,
+    "allowUnsafeCode": true,
     "overrideReferences": true,
     "precompiledReferences": [
         "nunit.framework.dll"

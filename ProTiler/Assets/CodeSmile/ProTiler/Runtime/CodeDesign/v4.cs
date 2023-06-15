@@ -3,11 +3,9 @@
 
 using CodeSmile.ProTiler.CodeDesign.v4.DataChunks;
 using CodeSmile.ProTiler.CodeDesign.v4.DataMaps;
-using CodeSmile.ProTiler.CodeDesign.v4.DataMapStreaming;
 using CodeSmile.ProTiler.CodeDesign.v4.GridMap;
 using CodeSmile.ProTiler.CodeDesign.v4.Serialization;
 using CodeSmile.ProTiler.CodeDesign.v4.TilemapGame.TileData;
-using CodeSmile.ProTiler.CodeDesign.v4.UnitySerialization;
 using CodeSmile.ProTiler.CodeDesign.v4.VoxelGame.VoxelData;
 using CodeSmile.Serialization;
 using System;
@@ -35,36 +33,16 @@ namespace CodeSmile.ProTiler.CodeDesign
 {
 	namespace v4
 	{
-		namespace UnitySerialization
+		namespace Serialization
 		{
-			public abstract class VersionedBinaryAdapter
-			{
-				/// <summary>
-				///     Can be used to identify the version of the serialized data.
-				///     Usually you would bump the version when adding fields AND whenever you want existing data
-				///     to be preserved. Then add a version switch to read the old data format and set any new
-				///     fields to default/computed values or read & skip data whose fields no longer exist.
-				///     You might think that a byte is insufficient but in fact you will rarely maintain more than a few
-				///     versions back, particularly during development. You most certainly do NOT want to maintain
-				///     over 256 different versions of your serialized data after release. Trust me. ;)
-				///     In general you are well advised to retain backward compatibility as few versions back as possible
-				///     because maintaining those versions will be a pain in the back since you will always have to ensure
-				///     that loading a version "n-1" to "n-x" binary formats will all continue to work and you need
-				///     to test each migration path separately.
-				/// </summary>
-				protected Byte Version { get; set; }
-				public VersionedBinaryAdapter(Byte version) => Version = version;
-				protected unsafe void WriteVersion(UnsafeAppendBuffer* writer) => writer->Add(Version);
-
-				protected unsafe void ReadVersion(UnsafeAppendBuffer.Reader* reader) =>
-					Version = reader->ReadNext<Byte>();
-			}
-
 			public sealed class LinearDataChunkBinaryAdapter<TData> : VersionedBinaryAdapter,
 				IBinaryAdapter<LinearDataChunk<TData>>
 				where TData : unmanaged
 			{
-				public LinearDataChunkBinaryAdapter(Byte version)
+				private const Byte CurrentVersion = 0;
+				public LinearDataChunkBinaryAdapter()
+					: this(CurrentVersion) {}
+				private LinearDataChunkBinaryAdapter(Byte version)
 					: base(version) {}
 
 				public void Serialize(in BinarySerializationContext<LinearDataChunk<TData>> context,
@@ -79,7 +57,10 @@ namespace CodeSmile.ProTiler.CodeDesign
 				IBinaryAdapter<SparseDataChunk<TData>>
 				where TData : unmanaged
 			{
-				public SparseDataChunkBinaryAdapter(Byte version)
+				private const Byte CurrentVersion = 0;
+				public SparseDataChunkBinaryAdapter()
+					: this(CurrentVersion) {}
+				private SparseDataChunkBinaryAdapter(Byte version)
 					: base(version) {}
 
 				public void Serialize(in BinarySerializationContext<SparseDataChunk<TData>> context,
@@ -93,7 +74,10 @@ namespace CodeSmile.ProTiler.CodeDesign
 			public sealed class DataMapBinaryAdapter<TDataMap> : VersionedBinaryAdapter, IBinaryAdapter<TDataMap>
 				where TDataMap : DataMapBase, new()
 			{
-				public DataMapBinaryAdapter(Byte version)
+				private const Byte CurrentVersion = 0;
+				public DataMapBinaryAdapter()
+					: this(CurrentVersion) {}
+				private DataMapBinaryAdapter(Byte version)
 					: base(version) {}
 
 				public unsafe void Serialize(in BinarySerializationContext<TDataMap> context,
@@ -103,22 +87,22 @@ namespace CodeSmile.ProTiler.CodeDesign
 					new TDataMap().Deserialize(new BinaryReader(context.Reader)) as TDataMap;
 			}
 
-			public sealed class GridMapBaseBinaryAdapter<TGridMap> : VersionedBinaryAdapter, IBinaryAdapter<TGridMap>
+			public sealed class GridMapBinaryAdapter<TGridMap> : VersionedBinaryAdapter, IBinaryAdapter<TGridMap>
 				where TGridMap : GridMapBase, new()
 			{
-				public GridMapBaseBinaryAdapter(Byte version)
+				public GridMapBinaryAdapter(byte version)
 					: base(version) {}
 
 				public unsafe void Serialize(in BinarySerializationContext<TGridMap> context, TGridMap map)
 				{
-					WriteVersion(context.Writer);
+					WriteAdapterVersion(context.Writer);
 					map.Serialize(context);
 				}
 
 				public unsafe TGridMap Deserialize(in BinaryDeserializationContext<TGridMap> context)
 				{
-					ReadVersion(context.Reader);
-					return new TGridMap().Deserialize(context, Version) as TGridMap;
+					ReadSerializedVersion(context.Reader);
+					return new TGridMap().Deserialize(context, AdapterVersion) as TGridMap;
 				}
 			}
 		}
@@ -163,6 +147,11 @@ namespace CodeSmile.ProTiler.CodeDesign
 			// avoid <TData> because of serialization?
 			public abstract class DataMapBase //<TData> where TData : unmanaged
 			{
+				protected IMapDataStream m_Stream;
+				public DataMapBase() {}
+
+				public DataMapBase(IMapDataStream stream) => m_Stream = stream;
+
 				// coord to chunk key
 				// hashmap of modified (unsaved) chunks
 				// possibly: hashmap of loaded chunks together with access timestamp
@@ -183,45 +172,34 @@ namespace CodeSmile.ProTiler.CodeDesign
 			{
 				[CreateProperty] protected NativeParallelHashMap<ChunkKey, LinearDataChunk<TData>> m_DataChunks;
 
-				public virtual Boolean TryGetChunk(ChunkKey key, out LinearDataChunk<TData> chunk) =>
-					throw new NotImplementedException();
+				public LinearDataMap() {}
+
+				public LinearDataMap(IMapDataStream stream)
+					: base(stream) {}
+
+				public Boolean TryGetChunk(ChunkKey key, out LinearDataChunk<TData> chunk) => throw
+					// try get from HashMap first
+					//if (base.TryGetChunk(key, out chunk)) return true;
+					// try get chunk from stream
+					// may decide to dispose least recently used chunks
+					new NotImplementedException();
 			}
 
 			public class SparseDataMap<TData> : DataMapBase where TData : unmanaged
 			{
 				[CreateProperty] protected NativeParallelHashMap<ChunkKey, SparseDataChunk<TData>> sparseChunks;
 
-				public virtual Boolean TryGetChunk(ChunkKey key, out SparseDataChunk<TData> chunk) =>
-					throw new NotImplementedException();
-			}
-		}
+				public SparseDataMap() {}
 
-		namespace DataMapStreaming
-		{
-			public class StreamingLinearDataMap<TData> : LinearDataMap<TData> where TData : unmanaged
-			{
-				public override Boolean TryGetChunk(ChunkKey key, out LinearDataChunk<TData> chunk)
-				{
-					if (base.TryGetChunk(key, out chunk))
-						return true;
+				public SparseDataMap(IMapDataStream stream)
+					: base(stream) {}
 
-					// try get chunk from file system
+				public Boolean TryGetChunk(ChunkKey key, out SparseDataChunk<TData> chunk) => throw
+					// try get from HashMap first
+					//if (base.TryGetChunk(key, out chunk)) return true;
+					// try get chunk from stream
 					// may decide to dispose least recently used chunks
-					throw new NotImplementedException();
-				}
-			}
-
-			public class StreamingSparseDataMap<TData> : SparseDataMap<TData> where TData : unmanaged
-			{
-				public override Boolean TryGetChunk(ChunkKey key, out SparseDataChunk<TData> chunk)
-				{
-					if (base.TryGetChunk(key, out chunk))
-						return true;
-
-					// try get chunk from file system
-					// may decide to dispose least recently used chunks
-					throw new NotImplementedException();
-				}
+					new NotImplementedException();
 			}
 		}
 
@@ -237,15 +215,30 @@ namespace CodeSmile.ProTiler.CodeDesign
 				public void Add<T>(T value) where T : unmanaged;
 			}
 
-			[Serializable]
+			public interface IMapDataStream {}
+
 			public abstract class GridMapBase
 			{
-				[CreateProperty] private readonly List<DataMapBase> m_LinearMaps = new();
-				[CreateProperty] private readonly List<DataMapBase> m_SparseMaps = new();
-				[CreateProperty] private ChunkSize m_ChunkSize = new(2, 2, 2);
+				private readonly List<DataMapBase> m_LinearMaps = new();
+				private readonly List<DataMapBase> m_SparseMaps = new();
+				private ChunkSize m_ChunkSize = new(2, 2, 2);
 
-				public void AddLinearDataMap(DataMapBase dataMap) => m_LinearMaps.Add(dataMap);
-				public void AddSparseDataMap(DataMapBase dataMap) => m_SparseMaps.Add(dataMap);
+				protected readonly List<IBinaryAdapter> m_SerializationAdapters =new();
+				public IReadOnlyList<IBinaryAdapter> SerializationAdapters => m_SerializationAdapters;
+
+				public void AddLinearDataMap<T>(IMapDataStream stream = null) where T : unmanaged
+				{
+					m_LinearMaps.Add(new LinearDataMap<T>(stream));
+					m_SerializationAdapters.Add(new LinearDataChunkBinaryAdapter<T>());
+					m_SerializationAdapters.Add(new DataMapBinaryAdapter<LinearDataMap<T>>());
+				}
+
+				public void AddSparseDataMap<T>(IMapDataStream stream = null) where T : unmanaged
+				{
+					m_SparseMaps.Add(new SparseDataMap<T>(stream));
+					m_SerializationAdapters.Add(new SparseDataChunkBinaryAdapter<T>());
+					m_SerializationAdapters.Add(new DataMapBinaryAdapter<SparseDataMap<T>>());
+				}
 
 				public virtual void Serialize<TGridMap>(in BinarySerializationContext<TGridMap> context)
 					where TGridMap : GridMapBase, new()
@@ -274,9 +267,12 @@ namespace CodeSmile.ProTiler.CodeDesign
 					return this;
 				}
 
-				public virtual List<Object> GetBinaryAdapters() => new();
-
 				public override String ToString() => $"{nameof(GridMapBase)}(ChunkSize: {m_ChunkSize})";
+
+				protected void AddGridMapSerializationAdapter<T>(byte version) where T:GridMapBase, new()
+				{
+					m_SerializationAdapters.Add(new GridMapBinaryAdapter<T>(0));
+				}
 			}
 
 			[ExecuteAlways]
@@ -291,10 +287,10 @@ namespace CodeSmile.ProTiler.CodeDesign
 				public void OnAfterDeserialize() => DeserializeMap();
 
 				public void SerializeMap() =>
-					m_GridMapBinarySerialization.Serialize(m_GridMap, m_GridMap.GetBinaryAdapters());
+					m_GridMapBinarySerialization.Serialize(m_GridMap, m_GridMap.SerializationAdapters);
 
 				public void DeserializeMap() =>
-					m_GridMap = m_GridMapBinarySerialization.Deserialize<T>(m_GridMap.GetBinaryAdapters());
+					m_GridMap = m_GridMapBinarySerialization.Deserialize<T>(m_GridMap.SerializationAdapters);
 			}
 
 			// Consider: make abstract base?
@@ -304,19 +300,19 @@ namespace CodeSmile.ProTiler.CodeDesign
 				[SerializeField] protected Byte[] m_SerializedGridMap;
 				[SerializeField] private SerializedChunkWrapper[] m_SerializedChunks;
 
-				public List<Object> GetDefaultAdapters()
+				public IReadOnlyList<IBinaryAdapter> GetDefaultAdapters()
 				{
 					var adapters = new List<IBinaryAdapter>();
-					return adapters.Cast<Object>().ToList();
+					return adapters.AsReadOnly();
 				}
 
-				public void Serialize<T>(T gridMap, List<Object> adapters) where T : GridMapBase
+				public void Serialize<T>(T gridMap, IReadOnlyList<IBinaryAdapter> adapters) where T : GridMapBase
 				{
 					var binaryAdapters = adapters.Cast<IBinaryAdapter>().ToList();
 					m_SerializedGridMap = CodeSmile.Serialization.Serialize.ToBinary(gridMap, binaryAdapters);
 				}
 
-				public T Deserialize<T>(List<Object> adapters) where T : GridMapBase
+				public T Deserialize<T>(IReadOnlyList<IBinaryAdapter> adapters) where T : GridMapBase
 				{
 					if (m_SerializedGridMap == null || m_SerializedGridMap.Length == 0)
 						return null;
@@ -369,12 +365,12 @@ namespace CodeSmile.ProTiler.CodeDesign
 				public Tilemap3D()
 				{
 					// no streaming
-					AddLinearDataMap(new LinearDataMap<MyLinearTileData>());
-					AddSparseDataMap(new SparseDataMap<MyNavSparseTileData>());
+					AddLinearDataMap<MyLinearTileData>();
+					AddSparseDataMap<MyNavSparseTileData>();
 
 					// streaming with customizable strategy & tech
-					AddLinearDataMap(new StreamingLinearDataMap<MyLinearTileData>());
-					AddSparseDataMap(new StreamingSparseDataMap<MyVisSparseTileData>());
+					var streamingInterfaceDummy = new Object() as IMapDataStream;
+					AddSparseDataMap<MyVisSparseTileData>(streamingInterfaceDummy);
 				}
 
 				// override when adding fields to the subclass
@@ -416,13 +412,14 @@ namespace CodeSmile.ProTiler.CodeDesign
 			{
 				public VoxelMap()
 				{
+					// streaming
+					var streamingInterfaceDummy = new Object() as IMapDataStream;
+					AddLinearDataMap<MyLinearVoxelData>(streamingInterfaceDummy);
 					// no streaming
-					AddLinearDataMap(new LinearDataMap<MyLinearVoxelData>());
-					AddSparseDataMap(new SparseDataMap<MySparseVoxelData>());
+					AddSparseDataMap<MySparseVoxelData>();
 
-					// streaming with customizable strategy & tech
-					AddLinearDataMap(new StreamingLinearDataMap<MyLinearVoxelData>());
-					AddSparseDataMap(new StreamingSparseDataMap<MySparseVoxelData>());
+					// add the map's adapter last for minimally faster serialization
+					AddGridMapSerializationAdapter<VoxelMap>(0);
 				}
 
 				// override when adding fields to the subclass
@@ -437,20 +434,6 @@ namespace CodeSmile.ProTiler.CodeDesign
 				{
 					Debug.Log("VoxelMap Deserialize");
 					return base.Deserialize(context, version);
-				}
-
-				public override List<Object> GetBinaryAdapters()
-				{
-					// TODO: can these adapters be inferred from usage? see ctor
-					var list = base.GetBinaryAdapters();
-					list.Add(new LinearDataChunkBinaryAdapter<MyLinearVoxelData>(0));
-					list.Add(new DataMapBinaryAdapter<LinearDataMap<MyLinearVoxelData>>(0));
-
-					list.Add(new SparseDataChunkBinaryAdapter<MySparseVoxelData>(0));
-					list.Add(new DataMapBinaryAdapter<SparseDataMap<MySparseVoxelData>>(0));
-
-					list.Add(new GridMapBaseBinaryAdapter<VoxelMap>(0));
-					return list;
 				}
 			}
 		}
@@ -484,32 +467,6 @@ namespace CodeSmile.ProTiler.CodeDesign
 				private void OnUndoRedoEvent(in UndoRedoInfo undo) =>
 					Debug.Log($"UndoRedo #{undo.undoGroup} '{undo.undoName}', redo: {undo.isRedo}");
 #endif
-			}
-
-			public sealed class SaveLoadExample<TGridMap, TLinearData, TSparseData>
-				where TGridMap : GridMapBase, new() where TLinearData : unmanaged where TSparseData : unmanaged
-			{
-				private List<IBinaryAdapter> s_GridMapAdapters = new()
-				{
-					new LinearDataChunkBinaryAdapter<LinearDataChunk<TLinearData>>(0),
-					new DataMapBinaryAdapter<LinearDataMap<TLinearData>>(0),
-
-					new SparseDataChunkBinaryAdapter<SparseDataChunk<TSparseData>>(0),
-					new DataMapBinaryAdapter<LinearDataMap<TSparseData>>(0),
-
-					new GridMapBaseBinaryAdapter<TGridMap>(0),
-				};
-
-				public List<IBinaryAdapter> GridMapAdapters
-				{
-					get => s_GridMapAdapters;
-					set => s_GridMapAdapters = value;
-				}
-
-				public Byte[] SerializeGridMap(GridMapBase map) => Serialize.ToBinary(map, GridMapAdapters);
-
-				public GridMapBase DeserializeGridMap<T>(Byte[] bytes) where T : GridMapBase =>
-					Serialize.FromBinary<T>(bytes, GridMapAdapters);
 			}
 		}
 	}

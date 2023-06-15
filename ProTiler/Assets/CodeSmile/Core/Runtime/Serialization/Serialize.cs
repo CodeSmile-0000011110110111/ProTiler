@@ -10,27 +10,45 @@ using Unity.Serialization.Binary;
 
 namespace CodeSmile.Serialization
 {
+	/// <summary>
+	/// Provides methods to serialize (save) objects and deserialize (load) them.
+	/// </summary>
 	public static class Serialize
 	{
-		public static unsafe Byte[] ToBinary<T>(T data, List<IBinaryAdapter> adapters = null)
+		/// <summary>
+		/// Serializes the object to binary using the provided adapters.
+		/// Adapters provide control over how serialization is processed.
+		/// </summary>
+		/// <param name="obj"></param>
+		/// <param name="adapters"></param>
+		/// <typeparam name="T"></typeparam>
+		/// <returns></returns>
+		public static unsafe Byte[] ToBinary<T>(T obj, List<IBinaryAdapter> adapters = null)
 		{
-			var stream = new UnsafeAppendBuffer(16, 8, Allocator.Temp);
+			var buffer = new UnsafeAppendBuffer(16, 8, Allocator.Temp);
 			var parameters = new BinarySerializationParameters { UserDefinedAdapters = adapters };
-			BinarySerialization.ToBinary(&stream, data, parameters);
+			BinarySerialization.ToBinary(&buffer, obj, parameters);
 
-			var bytes = stream.ToBytesNBC();
-			stream.Dispose();
+			var bytes = buffer.ToBytesNBC();
+			buffer.Dispose();
 
 			return bytes;
 		}
 
-		public static unsafe T FromBinary<T>(Byte[] bytes, List<IBinaryAdapter> adapters = null)
+		/// <summary>
+		/// Attemtps to deserialize a byte[] to the specified type using the provided adapters.
+		/// </summary>
+		/// <param name="serializedBytes"></param>
+		/// <param name="adapters"></param>
+		/// <typeparam name="T"></typeparam>
+		/// <returns></returns>
+		public static unsafe T FromBinary<T>(Byte[] serializedBytes, List<IBinaryAdapter> adapters = null)
 		{
-			fixed (Byte* ptr = bytes)
+			fixed (Byte* ptr = serializedBytes)
 			{
-				var reader = new UnsafeAppendBuffer.Reader(ptr, bytes.Length);
+				var bufferReader = new UnsafeAppendBuffer.Reader(ptr, serializedBytes.Length);
 				var parameters = new BinarySerializationParameters { UserDefinedAdapters = adapters };
-				return BinarySerialization.FromBinary<T>(&reader, parameters);
+				return BinarySerialization.FromBinary<T>(&bufferReader, parameters);
 			}
 		}
 	}
