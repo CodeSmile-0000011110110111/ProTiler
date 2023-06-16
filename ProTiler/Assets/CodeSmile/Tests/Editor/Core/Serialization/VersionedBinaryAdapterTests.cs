@@ -70,7 +70,7 @@ namespace CodeSmile.Tests.Editor.Core.Serialization
 			public Byte byteValue;
 		}
 
-		public class TestVersionedBinaryAdapter : VersionedBinaryAdapter, IBinaryAdapter<TestStruct>
+		public class TestVersionedBinaryAdapter : VersionedBinaryAdapterBase, IBinaryAdapter<TestStruct>
 		{
 			public Byte BinaryAdapterVersion => AdapterVersion;
 

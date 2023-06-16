@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.Collections;
 using Unity.Collections.LowLevel.Unsafe;
 using Unity.Collections.LowLevel.Unsafe.NotBurstCompatible;
@@ -23,10 +24,10 @@ namespace CodeSmile.Core.Runtime.Serialization
 		/// <param name="adapters"></param>
 		/// <typeparam name="T"></typeparam>
 		/// <returns></returns>
-		public static unsafe Byte[] ToBinary<T>(T obj, List<IBinaryAdapter> adapters = null)
+		public static unsafe Byte[] ToBinary<T>(T obj, IReadOnlyList<IBinaryAdapter> adapters = null)
 		{
 			var buffer = new UnsafeAppendBuffer(16, 8, Allocator.Temp);
-			var parameters = new BinarySerializationParameters { UserDefinedAdapters = adapters };
+			var parameters = new BinarySerializationParameters { UserDefinedAdapters = adapters?.ToList() };
 			BinarySerialization.ToBinary(&buffer, obj, parameters);
 
 			var bytes = buffer.ToBytesNBC();
@@ -42,12 +43,12 @@ namespace CodeSmile.Core.Runtime.Serialization
 		/// <param name="adapters"></param>
 		/// <typeparam name="T"></typeparam>
 		/// <returns></returns>
-		public static unsafe T FromBinary<T>(Byte[] serializedBytes, List<IBinaryAdapter> adapters = null)
+		public static unsafe T FromBinary<T>(Byte[] serializedBytes, IReadOnlyList<IBinaryAdapter> adapters = null)
 		{
 			fixed (Byte* ptr = serializedBytes)
 			{
 				var bufferReader = new UnsafeAppendBuffer.Reader(ptr, serializedBytes.Length);
-				var parameters = new BinarySerializationParameters { UserDefinedAdapters = adapters };
+				var parameters = new BinarySerializationParameters { UserDefinedAdapters = adapters?.ToList() };
 				return BinarySerialization.FromBinary<T>(&bufferReader, parameters);
 			}
 		}

@@ -32,12 +32,12 @@ namespace CodeSmile.Tests.Editor.ProTiler.IntegrationTests
 			var voxelMapBehaviour = Object.FindAnyObjectByType<VoxelMapBehaviourTest>();
 			var serialization = voxelMapBehaviour.BinarySerialization as GridMapBinarySerializationTest;
 
-			voxelMapBehaviour.SerializeMap();
+			//voxelMapBehaviour.SerializeMap();
 			Debug.Log(voxelMapBehaviour.GridMap);
 			var bytes = serialization.SerializedGridMap;
 			Debug.Log($"{bytes.Length} Bytes: {bytes.AsString()}");
 
-			voxelMapBehaviour.DeserializeMap();
+			//voxelMapBehaviour.DeserializeMap();
 			Debug.Log(voxelMapBehaviour.GridMap);
 			bytes = serialization.SerializedGridMap;
 			Debug.Log($"{bytes.Length} Bytes: {bytes.AsString()}");

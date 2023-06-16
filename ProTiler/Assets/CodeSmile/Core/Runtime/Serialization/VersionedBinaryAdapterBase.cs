@@ -20,18 +20,18 @@ namespace CodeSmile.Core.Runtime.Serialization
 	///     more than a few versions back, particularly during development. You most certainly do NOT want to
 	///     maintain over 256 different versions of your serialized data after release. Trust me. ;)
 	/// </summary>
-	public abstract class VersionedBinaryAdapter
+	public abstract class VersionedBinaryAdapterBase
 	{
 		/// <summary>
 		///     Version of the adapter. This is the "current" version.
 		/// </summary>
-		protected Byte AdapterVersion { get; }
+		public Byte AdapterVersion { get; set; }
 
 		/// <summary>
 		///     Create adapter with version.
 		/// </summary>
 		/// <param name="adapterVersion"></param>
-		public VersionedBinaryAdapter(Byte adapterVersion) => AdapterVersion = adapterVersion;
+		public VersionedBinaryAdapterBase(Byte adapterVersion) => AdapterVersion = adapterVersion;
 
 		/// <summary>
 		///     Adds the current Version to the writer.

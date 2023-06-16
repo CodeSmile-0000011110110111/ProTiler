@@ -11,16 +11,40 @@ using ChunkSize = Unity.Mathematics.int3;
 
 namespace CodeSmile.ProTiler.Runtime.CodeDesign.Model
 {
+	/// <summary>
+	///     Stores data linearly. Data is any unmanaged type.
+	///     Allocates memory when needed, incrementing by one "layer size" where layer size is the chunk size X*Z dimensions.
+	///     If initialized with a ChunkSize, the y determines the number of height layers to pre-allocate. Use y==0 to
+	///     defer allocation for assignment. Note that out of bounds exceptions are thrown when reading the chunk.
+	///     Size property contains the zero based chunk size and is updated as the chunk allocates more height layers,
+	///     where Size.y reflects the current "height" or number of layers.
+	///     For example, ChunkSize(2,2,2) means the allowed coordinate range goes from (0,0,0) to (1,1,1).
+	/// </summary>
+	/// <typeparam name="TData"></typeparam>
 	public struct LinearDataMapChunk<TData> : IDisposable where TData : unmanaged
 	{
-		private readonly ChunkSize m_Size;
+		private ChunkSize m_Size;
+		public ChunkCoord Size => m_Size;
 		private UnsafeList<TData> m_Data;
-		public UnsafeList<TData> Data { get => m_Data; set => m_Data = value; }
+		internal UnsafeList<TData> Data
+		{
+			get => m_Data;
+			set
+			{
+				if (m_Data.IsCreated)
+					m_Data.Dispose();
+				m_Data = value;
+			}
+		}
 
 		public LinearDataMapChunk(ChunkSize size)
 		{
-			m_Size = size;
+			m_Size.x = math.max(0, size.x);
+			m_Size.y = math.max(0, size.y);
+			m_Size.z = math.max(0, size.z);
+
 			m_Data = new UnsafeList<TData>(0, Allocator.Domain);
+			ResizeListToHeightLayer(m_Size.y);
 		}
 
 		public void Serialize(IBinaryWriter writer) {}
@@ -30,31 +54,51 @@ namespace CodeSmile.ProTiler.Runtime.CodeDesign.Model
 
 		public void Dispose() => m_Data.Dispose();
 
+		public TData this[Int32 index]
+		{
+			get => m_Data[index];
+			set => m_Data[ResizeListIfNeeded(index)] = value;
+		}
 		public TData this[ChunkCoord localCoord]
 		{
-			get => GetData(localCoord);
-			set => SetData(localCoord, value);
+			get => this[ToIndex(localCoord)];
+			set => this[ToIndex(localCoord)] = value;
 		}
-		private TData GetData(ChunkCoord localCoord) => m_Data[CalculateIndex(localCoord)];
-
-		public void SetData(ChunkCoord localCoord, TData data) =>
-			m_Data[ResizeListIfNeeded(CalculateIndex(localCoord))] = data;
+		public TData GetData(Int32 index) => this[index];
+		public void SetData(Int32 index, TData data) => this[index] = data;
+		public TData GetData(ChunkCoord localCoord) => this[localCoord];
+		public void SetData(ChunkCoord localCoord, TData data) => this[localCoord] = data;
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		private Int32 CalculateIndex(ChunkCoord localCoord) =>
+		private Int32 ToIndex(ChunkCoord localCoord) =>
 			m_Size.x * m_Size.z * localCoord.y + localCoord.z * m_Size.z + localCoord.x;
 
-		private Int32 ResizeListIfNeeded(Int32 index)
+		private Int32 ResizeListIfNeeded(Int32 chunkIndex)
 		{
-			if (index >= m_Data.Length)
+			if (chunkIndex >= m_Data.Length)
 			{
-				var layerSize = m_Size.x * m_Size.z;
-				var accessedLayerIndex = (Int32)math.round((index + layerSize) / layerSize);
-				var requestedListSize = layerSize * accessedLayerIndex;
-				m_Data.Resize(requestedListSize);
+				var accessedHeightLayer = ToHeightLayer(chunkIndex);
+				ResizeListToHeightLayer(accessedHeightLayer);
 			}
 
-			return index;
+			return chunkIndex;
+		}
+
+		private Int32 ToHeightLayer(Int32 chunkIndex)
+		{
+			var layerSize = m_Size.x * m_Size.z;
+			var accessedLayerIndex = (Int32)math.round((chunkIndex + layerSize) / layerSize);
+			return accessedLayerIndex;
+		}
+
+		private void ResizeListToHeightLayer(Int32 layerIndex)
+		{
+			layerIndex = math.max(0, layerIndex);
+			var layerSize = m_Size.x * m_Size.z;
+			var requestedListSize = layerSize * layerIndex;
+
+			m_Data.Resize(requestedListSize);
+			m_Size.y = layerIndex;
 		}
 	}
 }

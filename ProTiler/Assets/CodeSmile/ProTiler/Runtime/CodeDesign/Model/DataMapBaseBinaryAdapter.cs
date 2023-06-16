@@ -8,7 +8,7 @@ using Unity.Serialization.Binary;
 
 namespace CodeSmile.ProTiler.Runtime.CodeDesign.Model
 {
-	public sealed class DataMapBaseBinaryAdapter<TDataMap> : VersionedBinaryAdapter, IBinaryAdapter<TDataMap>
+	public sealed class DataMapBaseBinaryAdapter<TDataMap> : VersionedBinaryAdapterBase, IBinaryAdapter<TDataMap>
 		where TDataMap : DataMapBase, new()
 	{
 		private const Byte CurrentAdapterVersion = 0;

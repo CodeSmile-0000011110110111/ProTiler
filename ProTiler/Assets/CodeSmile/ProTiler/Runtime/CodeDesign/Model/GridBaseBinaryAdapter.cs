@@ -7,7 +7,7 @@ using Unity.Serialization.Binary;
 
 namespace CodeSmile.ProTiler.Runtime.CodeDesign.Model
 {
-	public sealed class GridBaseBinaryAdapter<TGridMap> : VersionedBinaryAdapter, IBinaryAdapter<TGridMap>
+	public sealed class GridBaseBinaryAdapter<TGridMap> : VersionedBinaryAdapterBase, IBinaryAdapter<TGridMap>
 		where TGridMap : GridBase, new()
 	{
 		public GridBaseBinaryAdapter(Byte version)

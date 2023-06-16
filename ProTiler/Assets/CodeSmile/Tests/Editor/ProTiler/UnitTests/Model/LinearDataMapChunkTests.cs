@@ -4,6 +4,8 @@
 using CodeSmile.ProTiler.Runtime.CodeDesign.Model;
 using NUnit.Framework;
 using System;
+using Unity.Collections;
+using Unity.Collections.LowLevel.Unsafe;
 using ChunkCoord = Unity.Mathematics.int3;
 using ChunkSize = Unity.Mathematics.int3;
 using CellSize = Unity.Mathematics.float3;
@@ -15,7 +17,9 @@ namespace CodeSmile.Tests.Editor.ProTiler.UnitTests.Model
 {
 	public class LinearDataMapChunkTests
 	{
-		private static readonly ChunkSize s_TestChunkSize = new(4, 2, 4);
+		private const Int32 s_TestChunkSizeX = 4;
+		private const Int32 s_TestChunkSizeZ = 4;
+		private static readonly ChunkSize s_TestChunkSize = new(s_TestChunkSizeX, 0, s_TestChunkSizeZ);
 
 		[Test] public void DefaultCtor_WhenDataAccessed_IsNotCreated()
 		{
@@ -30,21 +34,103 @@ namespace CodeSmile.Tests.Editor.ProTiler.UnitTests.Model
 		}
 
 		[TestCase(0)] [TestCase(1)] [TestCase(2)]
-		public void Indexer_WhenDataAdded_CollectionExpands(Int32 height)
+		public void ChunkSizeCtor_ForChunkSizeY_PreAllocatesHeightLayers(Int32 height)
+		{
+			var chunkSize = new ChunkSize(2, height, 2);
+			using (var chunk = new LinearDataMapChunk<TestData>(chunkSize))
+				Assert.That(chunk.Data.Length, Is.EqualTo(chunkSize.x * height * chunkSize.z));
+		}
+
+		[TestCase(Int32.MinValue)] [TestCase(-1)] [TestCase(0)]
+		public void ChunkSizeCtor_ForZeroOrNegativeSizeY_DoesNotPreAllocate(Int32 height)
+		{
+			var chunkSize = new ChunkSize(2, height, 2);
+			using (var chunk = new LinearDataMapChunk<TestData>(chunkSize))
+				Assert.That(chunk.Data.Length, Is.Zero);
+		}
+
+		[TestCase(Int32.MinValue)] [TestCase(-1)] [TestCase(0)]
+		public void ChunkSizeCtor_ForNegativeSizeAxis_SizeAxisIsZero(Int32 axisSize)
+		{
+			var chunkSize = new ChunkSize(axisSize, axisSize, axisSize);
+			using (var chunk = new LinearDataMapChunk<TestData>(chunkSize))
+				Assert.That(chunk.Size, Is.EqualTo(ChunkSize.zero));
+		}
+
+		[Test] public unsafe void DataCollection_WhenSet_ExistingCollectionIsReplaced()
 		{
 			var chunk = new LinearDataMapChunk<TestData>(s_TestChunkSize);
-			var data = new TestData { value = 1 };
-			var localCoord = new ChunkCoord(0, height, 0);
+			Assert.That(chunk.Data.IsCreated);
+			Assert.That(chunk.Data.Length, Is.Zero);
+			var existingDataPtr = chunk.Data.Ptr;
 
-			chunk[localCoord] = data;
+			var newDataLength = 123;
+			chunk.Data = new UnsafeList<TestData>(newDataLength, Allocator.Temp);
 
-			var chunkDataLength = chunk.Data.Length;
-			chunk.Dispose();
-			Assert.That(chunkDataLength, Is.EqualTo(s_TestChunkSize.x * (height + 1) * s_TestChunkSize.z));
+			Assert.That(chunk.Data.IsCreated);
+			Assert.That(existingDataPtr != chunk.Data.Ptr);
 		}
 
 		[TestCase(0)] [TestCase(1)] [TestCase(2)]
-		public void Indexer_WhenDataRead_IsSameAsAddedData(Int32 height)
+		public void CoordIndexer_WhenDataAdded_CollectionExpands(Int32 height)
+		{
+			using (var chunk = new LinearDataMapChunk<TestData>(s_TestChunkSize))
+			{
+				var data = new TestData { value = 1 };
+				var localCoord = new ChunkCoord(0, height, 0);
+
+				chunk.SetData(localCoord, data);
+
+				var chunkDataLength = chunk.Data.Length;
+				Assert.That(chunkDataLength, Is.EqualTo(chunk.Size.x * (height + 1) * chunk.Size.x));
+			}
+		}
+
+		[TestCase(0)] [TestCase(1)] [TestCase(2)]
+		public void IndexIndexer_WhenDataAdded_CollectionExpands(Int32 height)
+		{
+			using (var chunk = new LinearDataMapChunk<TestData>(s_TestChunkSize))
+			{
+				var data = new TestData { value = 1 };
+				var index = chunk.Size.x * height * chunk.Size.z;
+
+				chunk.SetData(index, data);
+
+				var chunkDataLength = chunk.Data.Length;
+				Assert.That(chunkDataLength, Is.EqualTo(chunk.Size.x * (height + 1) * chunk.Size.x));
+			}
+		}
+
+		[TestCase(0)] [TestCase(1)] [TestCase(2)]
+		public void CoordIndexer_ExpandingHeightLayer_SizeYIsNewHeightLayerCount(Int32 height)
+		{
+			using (var chunk = new LinearDataMapChunk<TestData>(s_TestChunkSize))
+			{
+				var data = new TestData { value = 1 };
+				var localCoord = new ChunkCoord(0, height, 0);
+
+				chunk.SetData(localCoord, data);
+
+				Assert.That(chunk.Size.y, Is.EqualTo(height + 1));
+			}
+		}
+
+		[TestCase(0)] [TestCase(1)] [TestCase(2)]
+		public void IndexIndexer_ExpandingHeightLayer_SizeYIsNewHeightLayerCount(Int32 height)
+		{
+			using (var chunk = new LinearDataMapChunk<TestData>(s_TestChunkSize))
+			{
+				var data = new TestData { value = 1 };
+				var index = chunk.Size.x * height * chunk.Size.z;
+
+				chunk.SetData(index, data);
+
+				Assert.That(chunk.Size.y, Is.EqualTo(height + 1));
+			}
+		}
+
+		[TestCase(0)] [TestCase(1)] [TestCase(2)]
+		public void CoordIndexer_AddAndReadData_IsIdenticalData(Int32 height)
 		{
 			using (var chunk = new LinearDataMapChunk<TestData>(s_TestChunkSize))
 			{
@@ -52,23 +138,39 @@ namespace CodeSmile.Tests.Editor.ProTiler.UnitTests.Model
 				var localCoord = new ChunkCoord(0, height, 0);
 
 				chunk.SetData(localCoord, data);
-				var returnedData = chunk[localCoord];
+				var returnedData = chunk.GetData(localCoord);
+
+				Assert.That(returnedData, Is.EqualTo(data));
+			}
+		}
+
+		[TestCase(0)] [TestCase(1)] [TestCase(2)]
+		public void IndexIndexer_AddAndReadData_IsIdenticalData(Int32 height)
+		{
+			using (var chunk = new LinearDataMapChunk<TestData>(s_TestChunkSize))
+			{
+				var data = new TestData { value = (Byte)(height + 1) };
+				var index = chunk.Size.x * height * chunk.Size.z;
+
+				chunk.SetData(index, data);
+				var returnedData = chunk.GetData(index);
 
 				Assert.That(returnedData, Is.EqualTo(data));
 			}
 		}
 
 		[TestCase(-1, -1, -1)] [TestCase(0, 0, 0)]
-		public void Indexer_WhenCoordOutOfBounds_ThrowsIndexOutOfRangeException(Int32 x, Int32 y, Int32 z)
+		public void CoordIndexer_GetDataWithInvalidCoords_ThrowsIndexOutOfRangeException(Int32 x, Int32 y, Int32 z)
 		{
 			using (var chunk = new LinearDataMapChunk<TestData>(s_TestChunkSize))
-			{
-				var localCoord = new ChunkCoord(x, y, z);
-				Assert.Throws<IndexOutOfRangeException>(() =>
-				{
-					var data = chunk[localCoord];
-				});
-			}
+				Assert.Throws<IndexOutOfRangeException>(() => { chunk.GetData(new ChunkCoord(x, y, z)); });
+		}
+
+		[TestCase(-1)] [TestCase(Int32.MinValue)]
+		public void IndexIndexer_GetDataWithInvalidCoords_ThrowsIndexOutOfRangeException(Int32 index)
+		{
+			using (var chunk = new LinearDataMapChunk<TestData>(s_TestChunkSize))
+				Assert.Throws<IndexOutOfRangeException>(() => { chunk.GetData(index); });
 		}
 
 		public struct TestData : IEquatable<TestData>

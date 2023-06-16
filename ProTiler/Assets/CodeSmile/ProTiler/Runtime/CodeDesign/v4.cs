@@ -25,24 +25,6 @@ namespace CodeSmile.ProTiler.Runtime.CodeDesign
 		{
 			public interface IDataMapStream {}
 
-			[ExecuteAlways]
-			public abstract class GridMapBaseBehaviour<T> : MonoBehaviour, ISerializationCallbackReceiver
-				where T : GridBase, new()
-			{
-				[SerializeReference] private T m_GridMap = new();
-				[SerializeReference] protected GridMapBinarySerialization m_GridMapBinarySerialization = new();
-
-				public T GridMap => m_GridMap;
-				public void OnBeforeSerialize() => SerializeMap();
-				public void OnAfterDeserialize() => DeserializeMap();
-
-				public void SerializeMap() =>
-					m_GridMapBinarySerialization.Serialize(m_GridMap, m_GridMap.SerializationAdapters);
-
-				public void DeserializeMap() =>
-					m_GridMap = m_GridMapBinarySerialization.Deserialize<T>(m_GridMap.SerializationAdapters);
-			}
-
 			// Consider: make abstract base?
 			[Serializable]
 			public class GridMapBinarySerialization
@@ -58,8 +40,7 @@ namespace CodeSmile.ProTiler.Runtime.CodeDesign
 
 				public void Serialize<T>(T gridMap, IReadOnlyList<IBinaryAdapter> adapters) where T : GridBase
 				{
-					var binaryAdapters = adapters.Cast<IBinaryAdapter>().ToList();
-					m_SerializedGridMap = Core.Runtime.Serialization.Serialize.ToBinary(gridMap, binaryAdapters);
+					m_SerializedGridMap = Core.Runtime.Serialization.Serialize.ToBinary(gridMap, adapters);
 				}
 
 				public T Deserialize<T>(IReadOnlyList<IBinaryAdapter> adapters) where T : GridBase
@@ -67,8 +48,7 @@ namespace CodeSmile.ProTiler.Runtime.CodeDesign
 					if (m_SerializedGridMap == null || m_SerializedGridMap.Length == 0)
 						return null;
 
-					var binaryAdapters = adapters.Cast<IBinaryAdapter>().ToList();
-					return Core.Runtime.Serialization.Serialize.FromBinary<T>(m_SerializedGridMap, binaryAdapters);
+					return Core.Runtime.Serialization.Serialize.FromBinary<T>(m_SerializedGridMap, adapters);
 				}
 
 				[Serializable]
@@ -112,7 +92,7 @@ namespace CodeSmile.ProTiler.Runtime.CodeDesign
 			[Serializable]
 			public class Tilemap3D : GridBase
 			{
-				public Tilemap3D()
+				public Tilemap3D() : base(0)
 				{
 					// no streaming
 					AddLinearDataMap<MyLinearTileData>(0);
@@ -160,16 +140,13 @@ namespace CodeSmile.ProTiler.Runtime.CodeDesign
 			[Serializable]
 			public class Voxel : GridBase
 			{
-				public Voxel()
+				public Voxel() : base(0)
 				{
 					// streaming
 					var streamingInterfaceDummy = new Object() as IDataMapStream;
 					AddLinearDataMap<MyLinearVoxelData>(0,streamingInterfaceDummy);
 					// no streaming
 					AddSparseDataMap<MySparseVoxelData>(0);
-
-					// add the map's adapter last for minimally faster serialization
-					AddGridMapSerializationAdapter<Voxel>(0);
 				}
 
 				// override when adding fields to the subclass

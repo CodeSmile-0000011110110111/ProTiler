@@ -4,6 +4,9 @@
 using CodeSmile.ProTiler.Runtime.CodeDesign.v4.GridMap;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
+using System.Reflection;
 using Unity.Mathematics;
 using Unity.Serialization.Binary;
 
@@ -15,22 +18,28 @@ namespace CodeSmile.ProTiler.Runtime.CodeDesign.Model
 		private readonly List<DataMapBase> m_SparseMaps = new();
 
 		protected readonly List<IBinaryAdapter> m_SerializationAdapters = new();
-		private int3 m_ChunkSize = new(2, 2, 2);
+		private int3 m_ChunkSize = new(2, 0, 2);
 		public IReadOnlyList<IBinaryAdapter> SerializationAdapters => m_SerializationAdapters;
 
-		public void AddLinearDataMap<T>(byte userDataVersion, IDataMapStream stream = null) where T : unmanaged
+		private GridBase()
+			: this(0) {}
+
+		public GridBase(Byte gridVersion) => AddGridMapSerializationAdapter(gridVersion);
+
+		public void AddLinearDataMap<T>(Byte dataVersion, IDataMapStream stream = null) where T : unmanaged
 		{
 			m_LinearMaps.Add(new LinearDataMap<T>(stream));
-			//m_SerializationAdapters.Add(new LinearDataMapChunkBinaryAdapter<T>());
-			m_SerializationAdapters.Add(new DataMapBaseBinaryAdapter<LinearDataMap<T>>(userDataVersion));
+			m_SerializationAdapters.Add(new DataMapBaseBinaryAdapter<LinearDataMap<T>>(dataVersion));
 		}
 
-		public void AddSparseDataMap<T>(byte userDataVersion, IDataMapStream stream = null) where T : unmanaged
+		public void AddSparseDataMap<T>(Byte dataVersion, IDataMapStream stream = null) where T : unmanaged
 		{
 			m_SparseMaps.Add(new SparseDataMap<T>(stream));
-			//m_SerializationAdapters.Add(new SparseDataMapChunkBinaryAdapter<T>());
-			m_SerializationAdapters.Add(new DataMapBaseBinaryAdapter<SparseDataMap<T>>(userDataVersion));
+			m_SerializationAdapters.Add(new DataMapBaseBinaryAdapter<SparseDataMap<T>>(dataVersion));
 		}
+
+		// public void AddSerializationAdapter<T>(GridBaseBinaryAdapter<T> adapter) where T : GridBase, new() =>
+		// 	m_SerializationAdapters.Add(adapter);
 
 		public virtual void Serialize<TGridMap>(in BinarySerializationContext<TGridMap> context)
 			where TGridMap : GridBase, new()
@@ -59,9 +68,18 @@ namespace CodeSmile.ProTiler.Runtime.CodeDesign.Model
 			return this;
 		}
 
+		[ExcludeFromCodeCoverage]
 		public override String ToString() => $"{nameof(GridBase)}(ChunkSize: {m_ChunkSize})";
 
-		protected void AddGridMapSerializationAdapter<T>(Byte version) where T : GridBase, new() =>
-			m_SerializationAdapters.Add(new GridBaseBinaryAdapter<T>(0));
+		private void AddGridMapSerializationAdapter(Byte gridVersion)
+		{
+			const BindingFlags bindingFlags = BindingFlags.Public | BindingFlags.Instance;
+			var type = typeof(GridBaseBinaryAdapter<>).MakeGenericType(GetType());
+			var versionParam = new Object[] { gridVersion };
+			var culture = CultureInfo.InvariantCulture;
+			var adapter = Activator.CreateInstance(type, bindingFlags, null, versionParam, culture);
+
+			m_SerializationAdapters.Add(adapter as IBinaryAdapter);
+		}
 	}
 }
