@@ -3,10 +3,9 @@
 
 using NUnit.Framework;
 using System.Collections;
-using UnityEditor;
 using UnityEngine.TestTools;
 
-namespace CodeSmile.Tests.Editor.ProTiler.UnitTests.Serialization
+namespace CodeSmile.Tests.Runtime.ProTiler.UnitTests.Serialization
 {
 	public class LinearDataMapSerializationTests
 	{

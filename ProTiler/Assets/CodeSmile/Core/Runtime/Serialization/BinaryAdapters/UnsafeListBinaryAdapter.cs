@@ -1,7 +1,7 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
-using CodeSmile.Core.Extensions.NativeCollections;
+using CodeSmile.Core.Runtime.Extensions.NativeCollections;
 using System;
 using Unity.Collections;
 using Unity.Collections.LowLevel.Unsafe;

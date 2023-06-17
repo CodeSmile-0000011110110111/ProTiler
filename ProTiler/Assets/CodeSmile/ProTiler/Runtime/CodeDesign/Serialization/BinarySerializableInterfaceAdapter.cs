@@ -6,7 +6,7 @@ using CodeSmile.ProTiler.Runtime.CodeDesign.Model;
 using System;
 using Unity.Serialization.Binary;
 
-namespace CodeSmile.Tests.Editor.ProTiler.UnitTests.Serialization
+namespace CodeSmile.ProTiler.Runtime.CodeDesign.Serialization
 {
 	public class BinarySerializableInterfaceAdapter<T> : VersionedBinaryAdapterBase, IBinaryAdapter<IBinarySerializable>
 		where T : unmanaged, IBinarySerializable

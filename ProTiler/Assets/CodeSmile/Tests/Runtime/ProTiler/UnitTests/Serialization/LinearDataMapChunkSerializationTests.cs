@@ -16,7 +16,7 @@ using ChunkCoord = Unity.Mathematics.int3;
 using ChunkSize = Unity.Mathematics.int3;
 using Object = System.Object;
 
-namespace CodeSmile.Tests.Editor.ProTiler.UnitTests.Serialization
+namespace CodeSmile.Tests.Runtime.ProTiler.UnitTests.Serialization
 {
 	public class LinearDataMapChunkSerializationTests
 	{
