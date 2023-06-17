@@ -2,11 +2,12 @@
 // Refer to included LICENSE file for terms and conditions.
 
 using CodeSmile.Core.Serialization;
-using CodeSmile.ProTiler.Runtime.CodeDesign.Model.Serialization;
+using CodeSmile.ProTiler.Runtime.CodeDesign.Model;
+using CodeSmile.ProTiler.Runtime.CodeDesign.Model._remove;
 using System;
 using Unity.Serialization.Binary;
 
-namespace CodeSmile.ProTiler.Runtime.CodeDesign.Model
+namespace CodeSmile.ProTiler.Runtime.CodeDesign.Serialization
 {
 	public sealed class DataMapBaseBinaryAdapter<TDataMap> : VersionedBinaryAdapterBase, IBinaryAdapter<TDataMap>
 		where TDataMap : DataMapBase, new()

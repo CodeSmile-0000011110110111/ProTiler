@@ -1,6 +1,7 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
+using CodeSmile.ProTiler.Runtime.CodeDesign.Model._remove;
 using CodeSmile.ProTiler.Runtime.CodeDesign.v4.GridMap;
 using System;
 using Unity.Collections;
@@ -10,7 +11,7 @@ namespace CodeSmile.ProTiler.Runtime.CodeDesign.Model
 	public class LinearDataMap<TData> : DataMapBase where TData : unmanaged
 	{
 		private NativeParallelHashMap<Int64, LinearDataMapChunk<TData>> m_Chunks;
-		
+
 		public NativeParallelHashMap<Int64, LinearDataMapChunk<TData>> Chunks => m_Chunks;
 
 		public LinearDataMap() {}

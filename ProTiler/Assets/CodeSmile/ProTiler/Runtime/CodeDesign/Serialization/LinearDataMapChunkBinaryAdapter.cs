@@ -3,18 +3,14 @@
 
 using CodeSmile.Core.Extensions.NativeCollections;
 using CodeSmile.Core.Serialization;
+using CodeSmile.ProTiler.Runtime.CodeDesign.Model;
 using System;
 using Unity.Collections;
 using Unity.Collections.LowLevel.Unsafe;
 using Unity.Serialization.Binary;
-using ChunkCoord = Unity.Mathematics.int3;
 using ChunkSize = Unity.Mathematics.int3;
-using CellSize = Unity.Mathematics.float3;
-using CellGap = Unity.Mathematics.float3;
-using GridCoord = Unity.Mathematics.int3;
-using WorldPos = Unity.Mathematics.float3;
 
-namespace CodeSmile.ProTiler.Runtime.CodeDesign.Model.Serialization
+namespace CodeSmile.ProTiler.Runtime.CodeDesign.Serialization
 {
 	public class LinearDataMapChunkBinaryAdapter<TData> : VersionedBinaryAdapterBase,
 		IBinaryAdapter<LinearDataMapChunk<TData>>

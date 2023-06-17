@@ -8,7 +8,7 @@ using UnityEngine;
 namespace CodeSmile.ProTiler.Runtime.CodeDesign.Model
 {
 	[ExecuteAlways]
-	public abstract class GridMapBaseBehaviour<T> : MonoBehaviour//, ISerializationCallbackReceiver
+	public abstract class GridBehaviourBase<T> : MonoBehaviour//, ISerializationCallbackReceiver
 		where T : GridBase, new()
 	{
 		[SerializeReference] private T m_GridMap = new();

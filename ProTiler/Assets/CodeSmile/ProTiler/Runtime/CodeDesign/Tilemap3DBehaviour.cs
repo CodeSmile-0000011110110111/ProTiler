@@ -6,5 +6,5 @@ using CodeSmile.ProTiler.Runtime.CodeDesign.v4.TilemapGame;
 
 namespace CodeSmile.ProTiler.Runtime.CodeDesign
 {
-	public sealed class Tilemap3DBehaviour : GridMapBaseBehaviour<Tilemap3D> {}
+	public sealed class Tilemap3DBehaviour : GridBehaviourBase<Tilemap3D> {}
 }

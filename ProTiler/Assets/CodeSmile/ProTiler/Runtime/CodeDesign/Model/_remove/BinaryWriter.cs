@@ -3,7 +3,7 @@
 
 using Unity.Collections.LowLevel.Unsafe;
 
-namespace CodeSmile.ProTiler.Runtime.CodeDesign.Model.Serialization
+namespace CodeSmile.ProTiler.Runtime.CodeDesign.Model._remove
 {
 	public unsafe class BinaryWriter : IBinaryWriter
 	{

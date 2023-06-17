@@ -6,5 +6,5 @@ using CodeSmile.ProTiler.Runtime.CodeDesign.v4.VoxelGame;
 
 namespace CodeSmile.ProTiler.Runtime.CodeDesign
 {
-	public class VoxelMapBehaviour : GridMapBaseBehaviour<Voxel> {}
+	public class VoxelMapBehaviour : GridBehaviourBase<Voxel> {}
 }

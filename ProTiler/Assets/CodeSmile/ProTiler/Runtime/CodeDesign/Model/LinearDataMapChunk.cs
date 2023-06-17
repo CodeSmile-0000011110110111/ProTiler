@@ -1,6 +1,7 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
+using CodeSmile.ProTiler.Runtime.CodeDesign.Model._remove;
 using System;
 using System.Runtime.CompilerServices;
 using Unity.Collections;
@@ -33,8 +34,8 @@ namespace CodeSmile.ProTiler.Runtime.CodeDesign.Model
 		}
 		public TData this[ChunkCoord localCoord]
 		{
-			get => this[ToIndex(localCoord)];
-			set => this[ToIndex(localCoord)] = value;
+			get => this[ToIndex(localCoord, m_Size)];
+			set => this[ToIndex(localCoord, m_Size)] = value;
 		}
 
 		public ChunkCoord Size => m_Size;
@@ -88,8 +89,8 @@ namespace CodeSmile.ProTiler.Runtime.CodeDesign.Model
 		public void SetData(ChunkCoord localCoord, TData data) => this[localCoord] = data;
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		private Int32 ToIndex(ChunkCoord localCoord) =>
-			localCoord.y * m_Size.z * m_Size.x + localCoord.z * m_Size.x + localCoord.x;
+		private static Int32 ToIndex(ChunkCoord localCoord, ChunkSize chunkSize) =>
+			localCoord.y * chunkSize.z * chunkSize.x + localCoord.z * chunkSize.x + localCoord.x;
 
 		private Int32 ResizeListIfNeeded(Int32 chunkIndex)
 		{
@@ -105,8 +106,7 @@ namespace CodeSmile.ProTiler.Runtime.CodeDesign.Model
 		private Int32 ToHeightLayer(Int32 chunkIndex)
 		{
 			var layerSize = m_Size.x * m_Size.z;
-			var accessedLayerIndex = (Int32)math.round((chunkIndex + layerSize) / layerSize);
-			return accessedLayerIndex;
+			return (Int32)math.round((chunkIndex + layerSize) / layerSize);
 		}
 
 		private void ExpandListSizeToHeightLayer(Int32 layerIndex)

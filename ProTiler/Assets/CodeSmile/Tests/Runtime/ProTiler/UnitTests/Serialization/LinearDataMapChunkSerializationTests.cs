@@ -4,11 +4,12 @@
 using CodeSmile.Core.Serialization;
 using CodeSmile.Extensions;
 using CodeSmile.ProTiler.Runtime.CodeDesign.Model;
-using CodeSmile.ProTiler.Runtime.CodeDesign.Model.Serialization;
+using CodeSmile.ProTiler.Runtime.CodeDesign.Serialization;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using Unity.Collections;
+using Unity.Collections.LowLevel.Unsafe;
 using Unity.Serialization.Binary;
 using UnityEngine;
 using ChunkCoord = Unity.Mathematics.int3;
@@ -104,10 +105,91 @@ namespace CodeSmile.Tests.Editor.ProTiler.UnitTests.Serialization
 			}
 		}
 
-		public struct SerializationTestData : IEquatable<SerializationTestData>
+		[TestCase(1, 1, 1)] [TestCase(2, 2, 2)] [TestCase(3, 4, 5)] [TestCase(4, 2, 7)]
+		public void ChunkWithData_WhenSerializedWithDataAdapter_CanDeserialize(Int32 x, Int32 y, Int32 z)
+		{
+			var chunkSize = new ChunkSize(x, y, z);
+			using (var chunk = CreateChunkFilledWithData(chunkSize))
+			{
+				var adapters = new List<IBinaryAdapter>(LinearDataMapChunkAdapter);
+				adapters.Add(new SerializationTestDataBinaryAdapter(0));
+
+				var bytes = Serialize.ToBinary(chunk, adapters);
+				Debug.Log($"{bytes.Length} Bytes: {bytes.AsString()}");
+				var deserializedChunk = Serialize.FromBinary<LinearDataMapChunk<SerializationTestData>>(
+					bytes, LinearDataMapChunkAdapter);
+
+				Assert.That(deserializedChunk, Is.EqualTo(chunk));
+				var deserializedData = deserializedChunk.GetWritableData();
+				var chunkData = chunk.GetWritableData();
+				for (var i = 0; i < deserializedData.Length; i++)
+					Assert.That(deserializedData[i], Is.EqualTo(chunkData[i]));
+			}
+		}
+
+		[TestCase(1, 1, 1)] [TestCase(2, 2, 2)] [TestCase(3, 4, 5)] [TestCase(4, 2, 7)]
+		public void ChunkWithData_WhenSerializedWithInterfaceDataAdapter_CanDeserialize(Int32 x, Int32 y, Int32 z)
+		{
+			var chunkSize = new ChunkSize(x, y, z);
+			using (var chunk = CreateChunkFilledWithData(chunkSize))
+			{
+				var adapters = new List<IBinaryAdapter>(LinearDataMapChunkAdapter);
+				adapters.Add(new BinarySerializableInterfaceAdapter<SerializationTestData>(0));
+
+				var bytes = Serialize.ToBinary(chunk, adapters);
+				Debug.Log($"{bytes.Length} Bytes: {bytes.AsString()}");
+				var deserializedChunk = Serialize.FromBinary<LinearDataMapChunk<SerializationTestData>>(
+					bytes, LinearDataMapChunkAdapter);
+
+				Assert.That(deserializedChunk, Is.EqualTo(chunk));
+				var deserializedData = deserializedChunk.GetWritableData();
+				var chunkData = chunk.GetWritableData();
+				for (var i = 0; i < deserializedData.Length; i++)
+					Assert.That(deserializedData[i], Is.EqualTo(chunkData[i]));
+			}
+		}
+
+		public class SerializationTestDataBinaryAdapter : VersionedBinaryAdapterBase,
+			IBinaryAdapter<SerializationTestData>
+		{
+			public SerializationTestDataBinaryAdapter(Byte adapterVersion)
+				: base(adapterVersion) {}
+
+			public unsafe void Serialize(in BinarySerializationContext<SerializationTestData> context,
+				SerializationTestData data) => data.Serialize(context.Writer);
+
+			public unsafe SerializationTestData Deserialize(
+				in BinaryDeserializationContext<SerializationTestData> context)
+			{
+				var data = new SerializationTestData();
+				data.Deserialize(context.Reader, AdapterVersion);
+				return data;
+			}
+		}
+
+		public struct SerializationTestData : IEquatable<SerializationTestData>, IBinarySerializable
 		{
 			public ChunkCoord Coord;
 			public UInt16 Index;
+
+			public unsafe void Serialize(UnsafeAppendBuffer* writer)
+			{
+				writer->Add(Coord);
+				writer->Add(Index);
+			}
+
+			public unsafe void Deserialize(UnsafeAppendBuffer.Reader* reader, Byte dataVersion)
+			{
+				switch (dataVersion)
+				{
+					case 0:
+						Coord = reader->ReadNext<ChunkCoord>();
+						Index = reader->ReadNext<UInt16>();
+						break;
+					default:
+						throw new SerializationVersionException($"unhandled version {dataVersion}");
+				}
+			}
 
 			public static Boolean operator ==(SerializationTestData left, SerializationTestData right) =>
 				left.Equals(right);
@@ -116,7 +198,6 @@ namespace CodeSmile.Tests.Editor.ProTiler.UnitTests.Serialization
 				!left.Equals(right);
 
 			public Boolean Equals(SerializationTestData other) => Coord.Equals(other.Coord) && Index == other.Index;
-
 			public override String ToString() => $"{nameof(SerializationTestData)}({Index}, {Coord})";
 			public override Boolean Equals(Object obj) => obj is SerializationTestData other && Equals(other);
 			public override Int32 GetHashCode() => HashCode.Combine(Coord, Index);

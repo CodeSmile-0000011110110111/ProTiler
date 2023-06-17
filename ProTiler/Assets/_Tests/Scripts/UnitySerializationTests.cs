@@ -18,7 +18,7 @@ using UnityEngine.SceneManagement;
 using Debug = UnityEngine.Debug;
 #endif
 
-public class Serialize : UnityEngine.MonoBehaviour
+public class UnitySerializationTests : UnityEngine.MonoBehaviour
 {
 #if UNITY_2022_3_OR_NEWER
 	public enum SerializationFormat
