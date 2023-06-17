@@ -8,13 +8,12 @@ using CodeSmile.ProTiler.Runtime.CodeDesign.Model.Serialization;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
-using Unity.Android.Gradle.Manifest;
 using Unity.Collections;
 using Unity.Serialization.Binary;
 using UnityEngine;
 using ChunkCoord = Unity.Mathematics.int3;
 using ChunkSize = Unity.Mathematics.int3;
+using Object = System.Object;
 
 namespace CodeSmile.Tests.Editor.ProTiler.UnitTests.Serialization
 {
@@ -64,10 +63,10 @@ namespace CodeSmile.Tests.Editor.ProTiler.UnitTests.Serialization
 			return chunk;
 		}
 
-		[TestCase(1,1,1)] [TestCase(2,2,2)] [TestCase(4,2,7)]
-		public void ChunkWithData_WhenSerialized_HasExpectedLength(int x, int y, int z)
+		[TestCase(1, 1, 1)] [TestCase(2, 2, 2)] [TestCase(4, 2, 7)]
+		public void ChunkWithData_WhenSerialized_HasExpectedLength(Int32 x, Int32 y, Int32 z)
 		{
-			var chunkSize = new ChunkSize(x,y,z);
+			var chunkSize = new ChunkSize(x, y, z);
 			using (var chunk = CreateChunkFilledWithData(chunkSize))
 			{
 				var bytes = Serialize.ToBinary(chunk, LinearDataMapChunkAdapter);
@@ -75,9 +74,9 @@ namespace CodeSmile.Tests.Editor.ProTiler.UnitTests.Serialization
 
 				unsafe
 				{
-					var versionLength = sizeof(byte);
+					var versionLength = sizeof(Byte);
 					var chunkSizeLength = sizeof(ChunkSize);
-					var listLength = sizeof(int);
+					var listLength = sizeof(Int32);
 					var chunkGridLength = chunkSize.x * chunkSize.y * chunkSize.z;
 					var dataLength = sizeof(ChunkSize) + sizeof(UInt16);
 					var expectedLength = versionLength + chunkSizeLength + listLength + chunkGridLength * dataLength;
@@ -86,10 +85,10 @@ namespace CodeSmile.Tests.Editor.ProTiler.UnitTests.Serialization
 			}
 		}
 
-		[Test] public void ChunkWithData_WhenSerialized_CanDeserialize()
+		[TestCase(1, 1, 1)] [TestCase(2, 2, 2)] [TestCase(3, 4, 5)] [TestCase(4, 2, 7)]
+		public void ChunkWithData_WhenSerialized_CanDeserialize(Int32 x, Int32 y, Int32 z)
 		{
-			var axisSize = 2;
-			var chunkSize = new ChunkSize(axisSize, axisSize, axisSize);
+			var chunkSize = new ChunkSize(x, y, z);
 			using (var chunk = CreateChunkFilledWithData(chunkSize))
 			{
 				var bytes = Serialize.ToBinary(chunk, LinearDataMapChunkAdapter);
@@ -100,10 +99,8 @@ namespace CodeSmile.Tests.Editor.ProTiler.UnitTests.Serialization
 				Assert.That(deserializedChunk, Is.EqualTo(chunk));
 				var deserializedData = deserializedChunk.GetWritableData();
 				var chunkData = chunk.GetWritableData();
-				for (int i = 0; i < deserializedData.Length; i++)
-				{
+				for (var i = 0; i < deserializedData.Length; i++)
 					Assert.That(deserializedData[i], Is.EqualTo(chunkData[i]));
-				}
 			}
 		}
 
@@ -112,13 +109,17 @@ namespace CodeSmile.Tests.Editor.ProTiler.UnitTests.Serialization
 			public ChunkCoord Coord;
 			public UInt16 Index;
 
-			public override String ToString() => $"{nameof(SerializationTestData)}({Index}, {Coord})";
+			public static Boolean operator ==(SerializationTestData left, SerializationTestData right) =>
+				left.Equals(right);
 
-			public bool Equals(SerializationTestData other) => Coord.Equals(other.Coord) && Index == other.Index;
-			public override bool Equals(object obj) => obj is SerializationTestData other && Equals(other);
-			public override int GetHashCode() => HashCode.Combine(Coord, Index);
-			public static bool operator ==(SerializationTestData left, SerializationTestData right) => left.Equals(right);
-			public static bool operator !=(SerializationTestData left, SerializationTestData right) => !left.Equals(right);
+			public static Boolean operator !=(SerializationTestData left, SerializationTestData right) =>
+				!left.Equals(right);
+
+			public Boolean Equals(SerializationTestData other) => Coord.Equals(other.Coord) && Index == other.Index;
+
+			public override String ToString() => $"{nameof(SerializationTestData)}({Index}, {Coord})";
+			public override Boolean Equals(Object obj) => obj is SerializationTestData other && Equals(other);
+			public override Int32 GetHashCode() => HashCode.Combine(Coord, Index);
 		}
 	}
 }
