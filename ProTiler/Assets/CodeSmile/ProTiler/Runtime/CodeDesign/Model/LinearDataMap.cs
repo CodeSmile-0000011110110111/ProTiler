@@ -10,6 +10,7 @@ namespace CodeSmile.ProTiler.Runtime.CodeDesign.Model
 	public class LinearDataMap<TData> : DataMapBase where TData : unmanaged
 	{
 		private NativeParallelHashMap<Int64, LinearDataMapChunk<TData>> m_Chunks;
+		
 		public NativeParallelHashMap<Int64, LinearDataMapChunk<TData>> Chunks => m_Chunks;
 
 		public LinearDataMap() {}

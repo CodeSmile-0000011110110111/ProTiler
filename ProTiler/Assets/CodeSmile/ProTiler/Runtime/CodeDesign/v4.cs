@@ -40,7 +40,7 @@ namespace CodeSmile.ProTiler.Runtime.CodeDesign
 
 				public void Serialize<T>(T gridMap, IReadOnlyList<IBinaryAdapter> adapters) where T : GridBase
 				{
-					m_SerializedGridMap = Core.Runtime.Serialization.Serialize.ToBinary(gridMap, adapters);
+					m_SerializedGridMap = Core.Serialization.Serialize.ToBinary(gridMap, adapters);
 				}
 
 				public T Deserialize<T>(IReadOnlyList<IBinaryAdapter> adapters) where T : GridBase
@@ -48,7 +48,7 @@ namespace CodeSmile.ProTiler.Runtime.CodeDesign
 					if (m_SerializedGridMap == null || m_SerializedGridMap.Length == 0)
 						return null;
 
-					return Core.Runtime.Serialization.Serialize.FromBinary<T>(m_SerializedGridMap, adapters);
+					return Core.Serialization.Serialize.FromBinary<T>(m_SerializedGridMap, adapters);
 				}
 
 				[Serializable]

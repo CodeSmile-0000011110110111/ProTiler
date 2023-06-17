@@ -1,15 +1,12 @@
 {
-    "name": "CodeSmile.Serialization",
+    "name": "CodeSmile.Extensions.Native",
     "rootNamespace": "",
     "references": [
-        "GUID:e0cd26848372d4e5c891c569017e11f1",
-        "GUID:2765e68924a08a94ea0ea66b31c0168f",
-        "GUID:0de177a875028db4d97efebe9a09aa5a",
-        "GUID:79060570adeaca746b487a34622a73ef"
+        "GUID:e0cd26848372d4e5c891c569017e11f1"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
-    "allowUnsafeCode": true,
+    "allowUnsafeCode": false,
     "overrideReferences": false,
     "precompiledReferences": [],
     "autoReferenced": true,

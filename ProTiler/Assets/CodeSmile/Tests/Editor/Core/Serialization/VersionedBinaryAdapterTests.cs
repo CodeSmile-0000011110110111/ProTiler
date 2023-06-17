@@ -1,7 +1,7 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
-using CodeSmile.Core.Runtime.Serialization;
+using CodeSmile.Core.Serialization;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;

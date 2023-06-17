@@ -1,11 +1,12 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
+using CodeSmile.Core.Extensions.NativeCollections;
 using System;
 using Unity.Collections;
 using Unity.Serialization.Binary;
 
-namespace CodeSmile.Core.Runtime.Serialization.BinaryAdapters
+namespace CodeSmile.Core.Serialization.BinaryAdapters
 {
 	public class NativeListBinaryAdapter<T> : IBinaryAdapter<NativeList<T>> where T : unmanaged
 	{
@@ -26,17 +27,10 @@ namespace CodeSmile.Core.Runtime.Serialization.BinaryAdapters
 		{
 			var itemCount = context.Reader->ReadNext<Int32>();
 
-			var list = CreateResizedNativeList(itemCount, m_Allocator);
+			var list = NativeListExt.NewWithLength<T>(itemCount, m_Allocator, NativeArrayOptions.UninitializedMemory);
 			for (var i = 0; i < itemCount; i++)
 				list[i] = context.DeserializeValue<T>();
 
-			return list;
-		}
-
-		private NativeList<T> CreateResizedNativeList(Int32 itemCount, Allocator allocator)
-		{
-			var list = new NativeList<T>(itemCount, allocator);
-			list.Resize(itemCount, NativeArrayOptions.UninitializedMemory);
 			return list;
 		}
 	}

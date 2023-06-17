@@ -273,69 +273,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: be6e177b41426754aa282dda6ebb8536, type: 3}
---- !u!1 &792417934
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 792417936}
-  - component: {fileID: 792417935}
-  m_Layer: 0
-  m_Name: Tilemap
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &792417935
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 792417934}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5734f503155428c87c2ac3f374ae21f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_GridMap:
-    rid: 6802251058018516999
-  m_GridMapSerialization:
-    rid: 6802251058018517000
-  references:
-    version: 2
-    RefIds:
-    - rid: 6802251058018516999
-      type: {class: Tilemap3D, ns: CodeSmile.ProTiler.CodeDesign.v4.TilemapGame, asm: CodeSmile.ProTiler}
-      data:
-        m_ChunkSize:
-          x: 2
-          y: 2
-          z: 2
-    - rid: 6802251058018517000
-      type: {class: GridMapSerialization, ns: CodeSmile.ProTiler.CodeDesign.v4.GridMap, asm: CodeSmile.ProTiler}
-      data:
-        m_SerializedGridMap: 
-        m_SerializedChunks: []
---- !u!4 &792417936
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 792417934}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1000792803
 GameObject:
   m_ObjectHideFlags: 0
@@ -367,19 +304,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_GridMap:
     rid: -2
-  m_GridMapSerialization:
-    rid: 6802251058018516998
+  m_GridMapBinarySerialization:
+    rid: 6802251124345929730
   references:
     version: 2
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 6802251058018516998
-      type: {class: GridMapSerialization, ns: CodeSmile.ProTiler.CodeDesign.v4.GridMap, asm: CodeSmile.ProTiler}
+    - rid: 6802251124345929730
+      type: {class: GridMapBinarySerialization, ns: CodeSmile.ProTiler.Runtime.CodeDesign.v4.GridMap, asm: CodeSmile.ProTiler.CodeDesign}
       data:
-        m_SerializedGridMap: 01
-        m_SerializedChunks:
-        - m_SerializedChunk: 02
+        m_SerializedGridMap: 
+        m_SerializedChunks: []
 --- !u!4 &1000792805
 Transform:
   m_ObjectHideFlags: 0

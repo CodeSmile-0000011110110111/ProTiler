@@ -24,19 +24,19 @@ namespace CodeSmile.Tests.Editor.ProTiler.UnitTests.Model
 		[Test] public void DefaultCtor_WhenDataAccessed_IsNotCreated()
 		{
 			using (var chunk = new LinearDataMapChunk<TestData>())
-				Assert.That(chunk.Data.IsCreated == false);
+				Assert.That(chunk.GetWritableData().IsCreated == false);
 		}
 
 		[Test] public void ChunkSizeCtor_WhenDataAccessed_IsCreated()
 		{
 			using (var chunk = new LinearDataMapChunk<TestData>(s_TestChunkSize))
-				Assert.That(chunk.Data.IsCreated);
+				Assert.That(chunk.GetWritableData().IsCreated);
 		}
 
 		[TestCase(0)] [TestCase(1)] [TestCase(2)]
 		public void ChunkSizeCtor_ForChunkSizeY_PreAllocatesHeightLayers(Int32 height)
 		{
-			var chunkSize = new ChunkSize(2, height, 2);
+			var chunkSize = new ChunkSize(4, height, 7);
 			using (var chunk = new LinearDataMapChunk<TestData>(chunkSize))
 				Assert.That(chunk.Data.Length, Is.EqualTo(chunkSize.x * height * chunkSize.z));
 		}
@@ -55,20 +55,6 @@ namespace CodeSmile.Tests.Editor.ProTiler.UnitTests.Model
 			var chunkSize = new ChunkSize(axisSize, axisSize, axisSize);
 			using (var chunk = new LinearDataMapChunk<TestData>(chunkSize))
 				Assert.That(chunk.Size, Is.EqualTo(ChunkSize.zero));
-		}
-
-		[Test] public unsafe void DataCollection_WhenSet_ExistingCollectionIsReplaced()
-		{
-			var chunk = new LinearDataMapChunk<TestData>(s_TestChunkSize);
-			Assert.That(chunk.Data.IsCreated);
-			Assert.That(chunk.Data.Length, Is.Zero);
-			var existingDataPtr = chunk.Data.Ptr;
-
-			var newDataLength = 123;
-			chunk.Data = new UnsafeList<TestData>(newDataLength, Allocator.Temp);
-
-			Assert.That(chunk.Data.IsCreated);
-			Assert.That(existingDataPtr != chunk.Data.Ptr);
 		}
 
 		[TestCase(0)] [TestCase(1)] [TestCase(2)]
