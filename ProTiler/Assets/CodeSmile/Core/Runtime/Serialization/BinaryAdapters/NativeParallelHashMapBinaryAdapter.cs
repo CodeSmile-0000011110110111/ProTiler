@@ -18,6 +18,7 @@ namespace CodeSmile.Core.Runtime.Serialization.BinaryAdapters
 			NativeParallelHashMap<TKey, TValue> map)
 		{
 			context.Writer->Add(map.Count());
+
 			foreach (var pair in map)
 			{
 				context.SerializeValue(pair.Key);
@@ -29,6 +30,7 @@ namespace CodeSmile.Core.Runtime.Serialization.BinaryAdapters
 			in BinaryDeserializationContext<NativeParallelHashMap<TKey, TValue>> context)
 		{
 			var itemCount = context.Reader->ReadNext<Int32>();
+
 			var map = new NativeParallelHashMap<TKey, TValue>(itemCount, m_Allocator);
 			for (var i = 0; i < itemCount; i++)
 			{
@@ -36,6 +38,7 @@ namespace CodeSmile.Core.Runtime.Serialization.BinaryAdapters
 				var value = context.DeserializeValue<TValue>();
 				map[key] = value;
 			}
+
 			return map;
 		}
 	}

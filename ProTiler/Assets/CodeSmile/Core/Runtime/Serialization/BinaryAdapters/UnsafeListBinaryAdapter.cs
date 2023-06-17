@@ -19,17 +19,19 @@ namespace CodeSmile.Core.Runtime.Serialization.BinaryAdapters
 		{
 			var itemCount = list.Length;
 			context.Writer->Add(itemCount);
+
 			for (var i = 0; i < itemCount; i++)
 				context.SerializeValue(list[i]);
 		}
 
 		public unsafe UnsafeList<T> Deserialize(in BinaryDeserializationContext<UnsafeList<T>> context)
 		{
-			Debug.Log($"Deserialize UnsafeList<{typeof(T).Name}>");
 			var itemCount = context.Reader->ReadNext<Int32>();
+
 			var list = CreateResizedUnsafeList(itemCount, m_Allocator);
 			for (var i = 0; i < itemCount; i++)
 				list[i] = context.DeserializeValue<T>();
+
 			return list;
 		}
 

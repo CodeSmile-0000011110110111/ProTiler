@@ -17,6 +17,7 @@ namespace CodeSmile.Core.Runtime.Serialization.BinaryAdapters
 		{
 			var itemCount = list.Length;
 			context.Writer->Add(itemCount);
+
 			for (var i = 0; i < itemCount; i++)
 				context.SerializeValue(list[i]);
 		}
@@ -24,9 +25,11 @@ namespace CodeSmile.Core.Runtime.Serialization.BinaryAdapters
 		public unsafe NativeList<T> Deserialize(in BinaryDeserializationContext<NativeList<T>> context)
 		{
 			var itemCount = context.Reader->ReadNext<Int32>();
+
 			var list = CreateResizedNativeList(itemCount, m_Allocator);
 			for (var i = 0; i < itemCount; i++)
 				list[i] = context.DeserializeValue<T>();
+
 			return list;
 		}
 
