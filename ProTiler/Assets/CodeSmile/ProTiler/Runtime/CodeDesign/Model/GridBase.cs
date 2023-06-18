@@ -29,13 +29,13 @@ namespace CodeSmile.ProTiler.Runtime.CodeDesign.Model
 
 		public void AddLinearDataMap<T>(Byte dataVersion, IDataMapStream stream = null) where T : unmanaged
 		{
-			m_LinearMaps.Add(new LinearDataMap<T>(stream));
+			m_LinearMaps.Add(new LinearDataMap<T>(m_ChunkSize, stream));
 			m_SerializationAdapters.Add(new DataMapBaseBinaryAdapter<LinearDataMap<T>>(dataVersion));
 		}
 
 		public void AddSparseDataMap<T>(Byte dataVersion, IDataMapStream stream = null) where T : unmanaged
 		{
-			m_SparseMaps.Add(new SparseDataMap<T>(stream));
+			m_SparseMaps.Add(new SparseDataMap<T>(m_ChunkSize, stream));
 			m_SerializationAdapters.Add(new DataMapBaseBinaryAdapter<SparseDataMap<T>>(dataVersion));
 		}
 

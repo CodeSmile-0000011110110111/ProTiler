@@ -4,9 +4,12 @@
 using CodeSmile.Attributes;
 using System;
 using System.Runtime.CompilerServices;
-using WorldPos = Unity.Mathematics.float3;
-using GridCoord = Unity.Mathematics.int3;
+using ChunkCoord = Unity.Mathematics.int3;
+using ChunkSize = Unity.Mathematics.int3;
 using CellSize = Unity.Mathematics.float3;
+using CellGap = Unity.Mathematics.float3;
+using GridCoord = Unity.Mathematics.int3;
+using WorldPos = Unity.Mathematics.float3;
 using Math = Unity.Mathematics.math;
 
 namespace CodeSmile.ProTiler3.Runtime.Grid

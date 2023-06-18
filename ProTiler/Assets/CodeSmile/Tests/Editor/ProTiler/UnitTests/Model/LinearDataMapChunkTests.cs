@@ -4,13 +4,11 @@
 using CodeSmile.ProTiler.Runtime.CodeDesign.Model;
 using NUnit.Framework;
 using System;
-using Unity.Collections;
-using Unity.Collections.LowLevel.Unsafe;
-using ChunkCoord = Unity.Mathematics.int3;
 using ChunkSize = Unity.Mathematics.int3;
 using CellSize = Unity.Mathematics.float3;
 using CellGap = Unity.Mathematics.float3;
-using GridCoord = Unity.Mathematics.int3;
+using LocalCoord = Unity.Mathematics.int3;
+using WorldCoord = Unity.Mathematics.int3;
 using WorldPos = Unity.Mathematics.float3;
 
 namespace CodeSmile.Tests.Editor.ProTiler.UnitTests.Model
@@ -63,7 +61,7 @@ namespace CodeSmile.Tests.Editor.ProTiler.UnitTests.Model
 			using (var chunk = new LinearDataMapChunk<TestData>(s_TestChunkSize))
 			{
 				var data = new TestData { value = 1 };
-				var localCoord = new ChunkCoord(0, height, 0);
+				var localCoord = new LocalCoord(0, height, 0);
 
 				chunk.SetData(localCoord, data);
 
@@ -93,7 +91,7 @@ namespace CodeSmile.Tests.Editor.ProTiler.UnitTests.Model
 			using (var chunk = new LinearDataMapChunk<TestData>(s_TestChunkSize))
 			{
 				var data = new TestData { value = 1 };
-				var localCoord = new ChunkCoord(0, height, 0);
+				var localCoord = new LocalCoord(0, height, 0);
 
 				chunk.SetData(localCoord, data);
 
@@ -121,7 +119,7 @@ namespace CodeSmile.Tests.Editor.ProTiler.UnitTests.Model
 			using (var chunk = new LinearDataMapChunk<TestData>(s_TestChunkSize))
 			{
 				var data = new TestData { value = (Byte)(height + 1) };
-				var localCoord = new ChunkCoord(0, height, 0);
+				var localCoord = new LocalCoord(0, height, 0);
 
 				chunk.SetData(localCoord, data);
 				var returnedData = chunk.GetData(localCoord);
@@ -149,7 +147,7 @@ namespace CodeSmile.Tests.Editor.ProTiler.UnitTests.Model
 		public void CoordIndexer_GetDataWithInvalidCoords_ThrowsIndexOutOfRangeException(Int32 x, Int32 y, Int32 z)
 		{
 			using (var chunk = new LinearDataMapChunk<TestData>(s_TestChunkSize))
-				Assert.Throws<IndexOutOfRangeException>(() => { chunk.GetData(new ChunkCoord(x, y, z)); });
+				Assert.Throws<IndexOutOfRangeException>(() => { chunk.GetData(new LocalCoord(x, y, z)); });
 		}
 
 		[TestCase(-1)] [TestCase(Int32.MinValue)]

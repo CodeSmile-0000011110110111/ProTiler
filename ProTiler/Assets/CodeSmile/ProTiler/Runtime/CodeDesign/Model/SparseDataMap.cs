@@ -4,6 +4,14 @@
 using CodeSmile.ProTiler.Runtime.CodeDesign.v4.GridMap;
 using System;
 using Unity.Collections;
+using ChunkCoord = Unity.Mathematics.int2;
+using ChunkSize = Unity.Mathematics.int3;
+using CellSize = Unity.Mathematics.float3;
+using CellGap = Unity.Mathematics.float3;
+using LocalCoord = Unity.Mathematics.int3;
+using LocalPos = Unity.Mathematics.float3;
+using WorldCoord = Unity.Mathematics.int3;
+using WorldPos = Unity.Mathematics.float3;
 
 namespace CodeSmile.ProTiler.Runtime.CodeDesign.Model
 {
@@ -14,8 +22,7 @@ namespace CodeSmile.ProTiler.Runtime.CodeDesign.Model
 
 		public SparseDataMap() {}
 
-		public SparseDataMap(IDataMapStream stream)
-			: base(stream) {}
+		public SparseDataMap(ChunkSize chunkSize, IDataMapStream stream) : base(chunkSize, stream) {}
 
 		public Boolean TryGetChunk(Int64 key, out SparseDataMapChunk<TData> chunk) => throw
 			// try get from HashMap first

@@ -11,8 +11,13 @@ using System.Collections.Generic;
 using Unity.Collections;
 using Unity.Serialization.Binary;
 using UnityEngine;
-using ChunkCoord = Unity.Mathematics.int3;
+using ChunkCoord = Unity.Mathematics.int2;
 using ChunkSize = Unity.Mathematics.int3;
+using CellSize = Unity.Mathematics.float3;
+using CellGap = Unity.Mathematics.float3;
+using LocalCoord = Unity.Mathematics.int3;
+using WorldCoord = Unity.Mathematics.int3;
+using WorldPos = Unity.Mathematics.float3;
 
 namespace CodeSmile.Tests.Runtime.ProTiler.UnitTests.Serialization
 {

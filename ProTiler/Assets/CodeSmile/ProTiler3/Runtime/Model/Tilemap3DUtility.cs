@@ -49,15 +49,6 @@ namespace CodeSmile.ProTiler3.Runtime.Model
 			return GetChunkKey(chunkCoord);
 		}
 
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static ChunkKey GetChunkKey(ChunkCoord chunkCoord) => HashUtility.GetHash(chunkCoord.x, chunkCoord.y);
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static GridCoord LayerToGridCoord(LayerCoord layerCoord, ChunkCoord chunkCoord, ChunkSize chunkSize) =>
-			new(chunkCoord.x * chunkSize.x + layerCoord.x,
-				layerCoord.y,
-				chunkCoord.y * chunkSize.y + layerCoord.z);
-
 		/// <summary>
 		///     Note: negative grid coordinates result in negative chunk coordinates - but offset by 1. There may
 		///     be a generic way to calculate this but the straightforward solution using ternary works just fine.
@@ -74,14 +65,21 @@ namespace CodeSmile.ProTiler3.Runtime.Model
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static ChunkCoord GridToChunkCoord(GridCoord gridCoord, ChunkSize chunkSize)
 		{
-#if DEBUG
-			if (chunkSize.x == 0 || chunkSize.y == 0)
-				throw new DivideByZeroException();
-#endif
 			return new ChunkCoord(
-				gridCoord.x < 0 ? (Math.abs(gridCoord.x + 1) / chunkSize.x + 1) * -1 : gridCoord.x / chunkSize.x,
-				gridCoord.z < 0 ? (Math.abs(gridCoord.z + 1) / chunkSize.y + 1) * -1 : gridCoord.z / chunkSize.y);
+				gridCoord.x < 0 ? -(Math.abs(gridCoord.x + 1) / chunkSize.x + 1) : gridCoord.x / chunkSize.x,
+				gridCoord.z < 0 ? -(Math.abs(gridCoord.z + 1) / chunkSize.y + 1) : gridCoord.z / chunkSize.y);
 		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static ChunkKey GetChunkKey(ChunkCoord chunkCoord) => HashUtility.GetHash(chunkCoord.x, chunkCoord.y);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static GridCoord LayerToGridCoord(LayerCoord layerCoord, ChunkCoord chunkCoord, ChunkSize chunkSize) =>
+			new(chunkCoord.x * chunkSize.x + layerCoord.x,
+				layerCoord.y,
+				chunkCoord.y * chunkSize.y + layerCoord.z);
+
+
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static LayerCoord GridToLayerCoord(GridCoord gridCoord, ChunkSize chunkSize) => new(

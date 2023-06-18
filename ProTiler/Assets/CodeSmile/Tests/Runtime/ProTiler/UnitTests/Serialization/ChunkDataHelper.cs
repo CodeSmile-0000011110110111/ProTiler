@@ -6,9 +6,9 @@ using Unity.Mathematics;
 
 namespace CodeSmile.Tests.Runtime.ProTiler.UnitTests.Serialization
 {
-	static internal class ChunkDataHelper
+	public static class ChunkDataHelper
 	{
-		private static IReadOnlyList<int3> CreateChunkCoords(int3 chunkSize)
+		public static IReadOnlyList<int3> CreateChunkCoords(int3 chunkSize)
 		{
 			var coords = new List<int3>();
 

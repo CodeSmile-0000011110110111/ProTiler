@@ -3,17 +3,62 @@
 
 using CodeSmile.ProTiler.Runtime.CodeDesign.Model._remove;
 using CodeSmile.ProTiler.Runtime.CodeDesign.v4.GridMap;
+using System;
+using System.Runtime.CompilerServices;
+using ChunkCoord = Unity.Mathematics.int2;
+using ChunkKey = System.Int64;
+using ChunkSize = Unity.Mathematics.int3;
+using CellSize = Unity.Mathematics.float3;
+using CellGap = Unity.Mathematics.float3;
+using LocalCoord = Unity.Mathematics.int3;
+using WorldCoord = Unity.Mathematics.int3;
+using WorldPos = Unity.Mathematics.float3;
+using Math = Unity.Mathematics.math;
 
 namespace CodeSmile.ProTiler.Runtime.CodeDesign.Model
 {
 	public abstract class DataMapBase
 	{
+		/// <summary>
+		/// Chunks must be at least 2x2 in X/Z to avoid hashed chunk coords from clashing.
+		/// </summary>
+		protected static readonly ChunkSize s_MinChunkSize = new ChunkSize(2, 0, 2);
+
 		protected IDataMapStream m_Stream;
-		public DataMapBase() {}
+		protected ChunkSize m_ChunkSize;
 
-		public DataMapBase(IDataMapStream stream) => m_Stream = stream;
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static ChunkKey ToChunkKey(ChunkCoord chunkCoord) => HashUtility.GetHash(chunkCoord.x, chunkCoord.y);
 
-		// coord to chunk key
+		public DataMapBase() : this(s_MinChunkSize) {}
+
+		public DataMapBase(ChunkSize chunkSize, IDataMapStream stream = null)
+		{
+			m_ChunkSize = chunkSize;
+			m_Stream = stream;
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal ChunkKey ToChunkKey(WorldCoord worldCoord) => ToChunkKey(ToChunkCoord(worldCoord));
+
+		/// <summary>
+		///     Examples for ChunkSize(2,2):
+		///     Grid(-1,0,-1) => Chunk(-1,-1)
+		///     Grid(-2,0,-2) => Chunk(-1,-1)
+		///     Grid(-3,0,-3) => Chunk(-2,-2)
+		///     Grid(-4,0,-4) => Chunk(-2,-2)
+		/// </summary>
+		/// <param name="worldCoord"></param>
+		/// <param name="m_ChunkSize"></param>
+		/// <returns></returns>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal ChunkCoord ToChunkCoord(WorldCoord worldCoord) =>
+			// TODO: the +1 for negative coords can probably be refactored to a more generic algorithm
+			// Explanation: negative grid coordinates result in negative chunk coordinates - but offset by 1.
+			new(
+				worldCoord.x < 0 ? -(Math.abs(worldCoord.x + 1) / m_ChunkSize.x + 1) : worldCoord.x / m_ChunkSize.x,
+				worldCoord.z < 0 ? -(Math.abs(worldCoord.z + 1) / m_ChunkSize.z + 1) : worldCoord.z / m_ChunkSize.z);
+
 		// hashmap of modified (unsaved) chunks
 		// possibly: hashmap of loaded chunks together with access timestamp
 
@@ -23,7 +68,7 @@ namespace CodeSmile.ProTiler.Runtime.CodeDesign.Model
 			//writer.Add(..);
 		}
 
-		public virtual DataMapBase Deserialize(IBinaryReader reader, byte userDataVersion) =>
+		public virtual DataMapBase Deserialize(IBinaryReader reader, Byte userDataVersion) =>
 			// deserialize base class fields first
 			//baseField = reader.ReadNext<Byte>();
 			this;
