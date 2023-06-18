@@ -20,23 +20,24 @@ namespace CodeSmile.ProTiler.Runtime.CodeDesign.Model
 	public abstract class DataMapBase
 	{
 		/// <summary>
-		/// Chunks must be at least 2x2 in X/Z to avoid hashed chunk coords from clashing.
+		///     Chunks must be at least 2x2 in X/Z to avoid hashed chunk coords from clashing.
 		/// </summary>
-		protected static readonly ChunkSize s_MinChunkSize = new ChunkSize(2, 0, 2);
+		protected static readonly ChunkSize s_MinChunkSize = new(2, 0, 2);
 
 		protected IDataMapStream m_Stream;
 		protected ChunkSize m_ChunkSize;
 
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static ChunkKey ToChunkKey(ChunkCoord chunkCoord) => HashUtility.GetHash(chunkCoord.x, chunkCoord.y);
-
-		public DataMapBase() : this(s_MinChunkSize) {}
+		public DataMapBase()
+			: this(s_MinChunkSize) {}
 
 		public DataMapBase(ChunkSize chunkSize, IDataMapStream stream = null)
 		{
-			m_ChunkSize = chunkSize;
+			m_ChunkSize = Math.max(s_MinChunkSize, chunkSize);
 			m_Stream = stream;
 		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal ChunkKey ToChunkKey(ChunkCoord chunkCoord) => HashUtility.GetHash(chunkCoord.x, chunkCoord.y);
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal ChunkKey ToChunkKey(WorldCoord worldCoord) => ToChunkKey(ToChunkCoord(worldCoord));
@@ -52,15 +53,12 @@ namespace CodeSmile.ProTiler.Runtime.CodeDesign.Model
 		/// <param name="m_ChunkSize"></param>
 		/// <returns></returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal ChunkCoord ToChunkCoord(WorldCoord worldCoord) =>
+		internal ChunkCoord ToChunkCoord(WorldCoord worldCoord) => new(
 			// TODO: the +1 for negative coords can probably be refactored to a more generic algorithm
 			// Explanation: negative grid coordinates result in negative chunk coordinates - but offset by 1.
-			new(
-				worldCoord.x < 0 ? -(Math.abs(worldCoord.x + 1) / m_ChunkSize.x + 1) : worldCoord.x / m_ChunkSize.x,
-				worldCoord.z < 0 ? -(Math.abs(worldCoord.z + 1) / m_ChunkSize.z + 1) : worldCoord.z / m_ChunkSize.z);
+			worldCoord.x < 0 ? -(Math.abs(worldCoord.x + 1) / m_ChunkSize.x + 1) : worldCoord.x / m_ChunkSize.x,
+			worldCoord.z < 0 ? -(Math.abs(worldCoord.z + 1) / m_ChunkSize.z + 1) : worldCoord.z / m_ChunkSize.z);
 
-		// hashmap of modified (unsaved) chunks
-		// possibly: hashmap of loaded chunks together with access timestamp
 
 		// create instance of undo/redo system (editor and runtime edit-mode)
 		public virtual void Serialize(IBinaryWriter writer)

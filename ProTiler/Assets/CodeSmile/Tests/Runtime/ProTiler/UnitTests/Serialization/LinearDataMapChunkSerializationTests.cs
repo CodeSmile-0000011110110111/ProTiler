@@ -62,7 +62,8 @@ namespace CodeSmile.Tests.Runtime.ProTiler.UnitTests.Serialization
 				var deserializedChunk = Serialize.FromBinary<LinearDataMapChunk<SerializationTestData>>(
 					bytes, LinearDataMapChunkAdapter);
 
-				Assert.That(deserializedChunk, Is.EqualTo(chunk));
+				Assert.That(deserializedChunk.Size, Is.EqualTo(chunk.Size));
+				Assert.That(deserializedChunk.Data.Length, Is.EqualTo(chunk.Data.Length));
 				var deserializedData = deserializedChunk.GetWritableData();
 				var chunkData = chunk.GetWritableData();
 				for (var i = 0; i < deserializedData.Length; i++)
@@ -84,7 +85,8 @@ namespace CodeSmile.Tests.Runtime.ProTiler.UnitTests.Serialization
 				var deserializedChunk = Serialize.FromBinary<LinearDataMapChunk<SerializationTestData>>(
 					bytes, LinearDataMapChunkAdapter);
 
-				Assert.That(deserializedChunk, Is.EqualTo(chunk));
+				Assert.That(deserializedChunk.Size, Is.EqualTo(chunk.Size));
+				Assert.That(deserializedChunk.Data.Length, Is.EqualTo(chunk.Data.Length));
 				var deserializedData = deserializedChunk.GetWritableData();
 				var chunkData = chunk.GetWritableData();
 				for (var i = 0; i < deserializedData.Length; i++)
@@ -106,7 +108,8 @@ namespace CodeSmile.Tests.Runtime.ProTiler.UnitTests.Serialization
 				var deserializedChunk = Serialize.FromBinary<LinearDataMapChunk<SerializationTestData>>(
 					bytes, LinearDataMapChunkAdapter);
 
-				Assert.That(deserializedChunk, Is.EqualTo(chunk));
+				Assert.That(deserializedChunk.Size, Is.EqualTo(chunk.Size));
+				Assert.That(deserializedChunk.Data.Length, Is.EqualTo(chunk.Data.Length));
 				var deserializedData = deserializedChunk.GetWritableData();
 				var chunkData = chunk.GetWritableData();
 				for (var i = 0; i < deserializedData.Length; i++)

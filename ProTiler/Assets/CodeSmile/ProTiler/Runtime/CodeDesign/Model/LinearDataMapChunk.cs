@@ -83,9 +83,7 @@ namespace CodeSmile.ProTiler.Runtime.CodeDesign.Model
 			if (data.IsCreated == false)
 				throw new ArgumentException("UnsafeList<TData> passed into ctor is not allocated");
 
-			m_Size.x = math.max(0, size.x);
-			m_Size.y = math.max(0, size.y);
-			m_Size.z = math.max(0, size.z);
+			m_Size = math.max(ChunkSize.zero, size);
 			m_Data = data;
 			ExpandListSizeToHeightLayer(m_Size.y);
 		}
@@ -168,10 +166,10 @@ namespace CodeSmile.ProTiler.Runtime.CodeDesign.Model
 		public override Boolean Equals(Object obj) => obj is LinearDataMapChunk<TData> other && Equals(other);
 		public override Int32 GetHashCode() => HashCode.Combine(m_Size, m_Data);
 
-		public Boolean Equals(LinearDataMapChunk<TData> other) =>
-			m_Size.Equals(other.m_Size) && m_Data.Length == other.m_Data.Length;
+		public unsafe Boolean Equals(LinearDataMapChunk<TData> other) =>
+			m_Data.Ptr == other.m_Data.Ptr && m_Data.Length == other.m_Data.Length && m_Size.Equals(other.m_Size);
 
-		public override String ToString() =>
-			$"{nameof(LinearDataMapChunk<TData>)}({m_Size}, {m_Data.Length} length, {m_Data.Allocator.ToAllocator} allocator)";
+		public unsafe override String ToString() =>
+			$"{nameof(LinearDataMapChunk<TData>)}({m_Size}, {m_Data.Length} length, {(IntPtr)m_Data.Ptr} ptr, {m_Data.Allocator.ToAllocator} allocator)";
 	}
 }

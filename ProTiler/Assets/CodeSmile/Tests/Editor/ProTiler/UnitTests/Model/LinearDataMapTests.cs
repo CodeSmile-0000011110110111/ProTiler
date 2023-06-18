@@ -34,5 +34,22 @@ namespace CodeSmile.Tests.Editor.ProTiler.UnitTests.Model
 			using (var map = new LinearDataMap<SerializationTestData>())
 				Assert.False(map.TryGetChunk(new WorldCoord(0, 0, 0), out var chunk));
 		}
+
+		[Test] public void AddChunk_WhenAddedToCoord_GetSameChunkFromCoord()
+		{
+			using (var map = new LinearDataMap<SerializationTestData>())
+			{
+				using (var chunk = new LinearDataMapChunk<SerializationTestData>())
+				{
+					var coord = new WorldCoord(-7, 4, 13);
+
+					map.AddChunk(coord, chunk);
+					var gotChunk = map.TryGetChunk(coord, out var outChunk);
+
+					Assert.That(gotChunk);
+					Assert.That(outChunk, Is.EqualTo(chunk));
+				}
+			}
+		}
 	}
 }
