@@ -6,7 +6,7 @@ using NUnit.Framework;
 using UnityEngine;
 using Object = System.Object;
 
-namespace CodeSmile.Tests.Editor.Core.Extensions
+namespace CodeSmile.Tests.Editor.Extensions
 {
 	public class RayExtTests
 	{

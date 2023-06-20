@@ -4,7 +4,7 @@
 using NUnit.Framework;
 using System;
 
-namespace CodeSmile.Tests.Editor.Core
+namespace CodeSmile.Tests.Editor
 {
 	public class ScriptableSingletonTests
 	{

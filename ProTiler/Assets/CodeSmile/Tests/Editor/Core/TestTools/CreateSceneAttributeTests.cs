@@ -7,7 +7,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace CodeSmile.Tests.Editor.Core.TestTools
+namespace CodeSmile.Tests.Editor.TestTools
 {
 	public class CreateSceneAttributeTests
 	{

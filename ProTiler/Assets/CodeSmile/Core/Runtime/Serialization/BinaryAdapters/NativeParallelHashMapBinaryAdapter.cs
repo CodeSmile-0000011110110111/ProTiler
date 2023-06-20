@@ -5,7 +5,7 @@ using System;
 using Unity.Collections;
 using Unity.Serialization.Binary;
 
-namespace CodeSmile.Core.Serialization.BinaryAdapters
+namespace CodeSmile.Serialization.BinaryAdapters
 {
 	public class NativeParallelHashMapBinaryAdapter<TKey, TValue> : IBinaryAdapter<NativeParallelHashMap<TKey, TValue>>
 		where TKey : unmanaged, IEquatable<TKey> where TValue : unmanaged

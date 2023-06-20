@@ -4,7 +4,7 @@
 using CodeSmile.Tests.Runtime.Core.Serialization;
 using NUnit.Framework;
 
-namespace CodeSmile.Tests.Editor.Core.Serialization
+namespace CodeSmile.Tests.Editor.Serialization
 {
 	public class UnityEditorSerializationTests
 	{

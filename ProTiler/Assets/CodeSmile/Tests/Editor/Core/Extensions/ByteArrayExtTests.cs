@@ -5,7 +5,7 @@ using CodeSmile.Extensions;
 using NUnit.Framework;
 using System;
 
-namespace CodeSmile.Tests.Editor.Core.Extensions
+namespace CodeSmile.Tests.Editor.Extensions
 {
 	public class ByteArrayExtTests
 	{

@@ -4,7 +4,7 @@
 using System;
 using Unity.Collections.LowLevel.Unsafe;
 
-namespace CodeSmile.Core.Serialization
+namespace CodeSmile.Serialization
 {
 	/// <summary>
 	///     Adapters can subclass this to be able to identify the version of the serialized data for the adapter.

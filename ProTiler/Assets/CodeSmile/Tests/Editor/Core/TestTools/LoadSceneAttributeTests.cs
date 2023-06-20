@@ -6,7 +6,7 @@ using CodeSmile.Tests.Tools.Attributes;
 using NUnit.Framework;
 using UnityEngine.SceneManagement;
 
-namespace CodeSmile.Tests.Editor.Core.TestTools
+namespace CodeSmile.Tests.Editor.TestTools
 {
 	public class LoadSceneAttributeTests
 	{

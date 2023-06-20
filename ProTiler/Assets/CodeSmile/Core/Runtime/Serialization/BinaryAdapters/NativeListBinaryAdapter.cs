@@ -1,12 +1,12 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
-using CodeSmile.Core.Runtime.Extensions.NativeCollections;
+using CodeSmile.Runtime.Extensions.NativeCollections;
 using System;
 using Unity.Collections;
 using Unity.Serialization.Binary;
 
-namespace CodeSmile.Core.Serialization.BinaryAdapters
+namespace CodeSmile.Serialization.BinaryAdapters
 {
 	public class NativeListBinaryAdapter<T> : IBinaryAdapter<NativeList<T>> where T : unmanaged
 	{

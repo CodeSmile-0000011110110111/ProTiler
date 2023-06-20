@@ -6,7 +6,7 @@ using Unity.Collections;
 using Unity.Collections.LowLevel.Unsafe;
 using Unity.Serialization.Binary;
 
-namespace CodeSmile.Core.Serialization.BinaryAdapters
+namespace CodeSmile.Serialization.BinaryAdapters
 {
 	public class UnsafeParallelHashMapBinaryAdapter<TKey, TValue> : IBinaryAdapter<UnsafeParallelHashMap<TKey, TValue>>
 		where TKey : unmanaged, IEquatable<TKey> where TValue : unmanaged

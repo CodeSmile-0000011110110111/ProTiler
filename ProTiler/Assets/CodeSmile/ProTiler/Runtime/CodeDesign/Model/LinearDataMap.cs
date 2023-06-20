@@ -22,7 +22,7 @@ namespace CodeSmile.ProTiler.Runtime.CodeDesign.Model
 
 		private NativeParallelHashMap<ChunkKey, LinearDataMapChunk<TData>> m_Chunks;
 
-		public NativeParallelHashMap<Int64, LinearDataMapChunk<TData>>.ReadOnly Chunks => m_Chunks.AsReadOnly();
+		internal NativeParallelHashMap<Int64, LinearDataMapChunk<TData>>.ReadOnly Chunks => m_Chunks.AsReadOnly();
 
 		public LinearDataMap()
 			: this(s_MinChunkSize) {}
@@ -33,13 +33,13 @@ namespace CodeSmile.ProTiler.Runtime.CodeDesign.Model
 
 		public void Dispose() => m_Chunks.Dispose();
 
-		public void AddChunk(WorldCoord worldCoord, LinearDataMapChunk<TData> chunk) =>
+		internal void AddChunk(WorldCoord worldCoord, LinearDataMapChunk<TData> chunk) =>
 			AddChunk(ToChunkKey(worldCoord), chunk);
 
 		//public void AddChunk(ChunkCoord chunkCoord, LinearDataMapChunk<TData> chunk) => AddChunk(ToChunkKey(chunkCoord), chunk);
 		internal void AddChunk(ChunkKey key, LinearDataMapChunk<TData> chunk) => m_Chunks.Add(key, chunk);
 
-		public Boolean TryGetChunk(WorldCoord worldCoord, out LinearDataMapChunk<TData> chunk) =>
+		internal Boolean TryGetChunk(WorldCoord worldCoord, out LinearDataMapChunk<TData> chunk) =>
 			TryGetChunk(ToChunkKey(worldCoord), out chunk);
 
 		internal Boolean TryGetChunk(ChunkKey key, out LinearDataMapChunk<TData> chunk)

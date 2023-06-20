@@ -9,7 +9,7 @@ using Unity.Collections.LowLevel.Unsafe;
 using Unity.Collections.LowLevel.Unsafe.NotBurstCompatible;
 using Unity.Serialization.Binary;
 
-namespace CodeSmile.Core.Serialization
+namespace CodeSmile.Serialization
 {
 	/// <summary>
 	/// Provides methods to serialize (save) objects and deserialize (load) them.

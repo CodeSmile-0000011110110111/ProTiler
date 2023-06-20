@@ -1,13 +1,13 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
-using CodeSmile.Core.Serialization;
+using CodeSmile.Serialization;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using Unity.Serialization.Binary;
 
-namespace CodeSmile.Tests.Editor.Core.Serialization
+namespace CodeSmile.Tests.Editor.Serialization
 {
 	public class VersionedBinaryAdapterTests
 	{
