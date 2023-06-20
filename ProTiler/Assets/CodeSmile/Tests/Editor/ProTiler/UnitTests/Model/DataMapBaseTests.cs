@@ -4,6 +4,7 @@
 using CodeSmile.ProTiler.CodeDesign.Model;
 using NUnit.Framework;
 using System;
+using Unity.Collections.LowLevel.Unsafe;
 using ChunkCoord = Unity.Mathematics.int2;
 using ChunkSize = Unity.Mathematics.int3;
 using CellSize = Unity.Mathematics.float3;
@@ -31,9 +32,20 @@ namespace CodeSmile.Tests.Editor.ProTiler.UnitTests.Model
 			new Object[] { new WorldCoord(-16, 0, -32), new ChunkSize(4, 6, 8), new ChunkCoord(-4, -4) },
 		};
 
-		[Test] public void Ctor_InvalidChunkSize_SizeIsMinimum2x2()
+		private static readonly Object[] InvalidChunkSizes =
 		{
-			Assert.Fail();
+			new Object[] { new ChunkSize(2, 0, 1) },
+			new Object[] { new ChunkSize(1, 0, 2) },
+			new Object[] { new ChunkSize(0, 0, 0) },
+			new Object[] { new ChunkSize(-1, -1, -1) },
+		};
+
+		[TestCaseSource(nameof(InvalidChunkSizes))]
+		public void Ctor_InvalidChunkSize_SizeIsClampedToMinimum(ChunkSize chunkSize)
+		{
+			var map = new TestDataMap(chunkSize);
+
+			Assert.That(map.ChunkSize, Is.EqualTo(new ChunkSize(2,0,2)));
 		}
 
 		[TestCaseSource(nameof(GridToChunkCoordParams))]
@@ -48,6 +60,9 @@ namespace CodeSmile.Tests.Editor.ProTiler.UnitTests.Model
 		{
 			public TestDataMap(ChunkSize chunkSize)
 				: base(chunkSize) {}
+
+			public override unsafe void Serialize(UnsafeAppendBuffer* writer) => throw new NotImplementedException();
+			public override unsafe void Deserialize(UnsafeAppendBuffer.Reader* reader, Byte serializedDataVersion, Byte currentDataVersion) => throw new NotImplementedException();
 		}
 	}
 }

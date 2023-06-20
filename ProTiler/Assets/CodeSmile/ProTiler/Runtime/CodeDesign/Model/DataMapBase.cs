@@ -1,14 +1,20 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
-using CodeSmile.ProTiler.CodeDesign.Model._remove;
-using CodeSmile.ProTiler.CodeDesign.v4.GridMap;
+using CodeSmile.Serialization;
 using System;
 using System.Runtime.CompilerServices;
+using Unity.Collections.LowLevel.Unsafe;
+using Unity.Mathematics;
 using ChunkCoord = Unity.Mathematics.int2;
 using ChunkKey = System.Int64;
 using ChunkSize = Unity.Mathematics.int3;
+using CellSize = Unity.Mathematics.float3;
+using CellGap = Unity.Mathematics.float3;
+using LocalCoord = Unity.Mathematics.int3;
+using LocalPos = Unity.Mathematics.float3;
 using WorldCoord = Unity.Mathematics.int3;
+using WorldPos = Unity.Mathematics.float3;
 using Math = Unity.Mathematics.math;
 
 namespace CodeSmile.ProTiler.CodeDesign.Model
@@ -18,20 +24,20 @@ namespace CodeSmile.ProTiler.CodeDesign.Model
 		/// <summary>
 		///     Chunks must be at least 2x2 in X/Z to avoid hashed chunk coords from clashing.
 		/// </summary>
-		protected static readonly ChunkSize s_MinChunkSize = new(2, 0, 2);
+		protected static readonly ChunkSize s_MinimumChunkSize = new(2, 0, 2);
 
-		protected IDataMapStream m_Stream;
 		protected ChunkSize m_ChunkSize;
+		//protected IDataMapStream m_Stream;
+
+		public ChunkSize ChunkSize => m_ChunkSize;
 
 		public DataMapBase()
-			: this(s_MinChunkSize) {}
+			: this(s_MinimumChunkSize) {}
 
-		public DataMapBase(ChunkSize chunkSize, IDataMapStream stream = null)
-		{
-			m_ChunkSize = Math.max(s_MinChunkSize, chunkSize);
-			m_Stream = stream;
-		}
+		public DataMapBase(ChunkSize chunkSize /*, IDataMapStream stream = null*/) =>
+			m_ChunkSize = Math.max(s_MinimumChunkSize, chunkSize);
 
+		//m_Stream = stream;
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal ChunkKey ToChunkKey(ChunkCoord chunkCoord) => HashUtility.GetHash(chunkCoord.x, chunkCoord.y);
 
@@ -55,16 +61,25 @@ namespace CodeSmile.ProTiler.CodeDesign.Model
 			worldCoord.x < 0 ? -(Math.abs(worldCoord.x + 1) / m_ChunkSize.x + 1) : worldCoord.x / m_ChunkSize.x,
 			worldCoord.z < 0 ? -(Math.abs(worldCoord.z + 1) / m_ChunkSize.z + 1) : worldCoord.z / m_ChunkSize.z);
 
-
-		// create instance of undo/redo system (editor and runtime edit-mode)
-		public virtual void Serialize(IBinaryWriter writer)
+		internal unsafe void SerializeBaseFirst(UnsafeAppendBuffer* writer)
 		{
-			//writer.Add(..);
+			writer->Add(m_ChunkSize);
+			Serialize(writer);
 		}
 
-		public virtual DataMapBase Deserialize(IBinaryReader reader, Byte userDataVersion) =>
-			// deserialize base class fields first
-			//baseField = reader.ReadNext<Byte>();
-			this;
+		internal unsafe void DeserializeBaseFirst(UnsafeAppendBuffer.Reader* reader, Byte serializedVersion,
+			Byte adapterVersion)
+		{
+			if (serializedVersion != adapterVersion)
+				throw new SerializationVersionException($"serialized version {serializedVersion} unhandled " +
+				                                        $"in current version {adapterVersion}");
+
+			m_ChunkSize = reader->ReadNext<ChunkSize>();
+			Deserialize(reader, serializedVersion, adapterVersion);
+		}
+
+		public abstract unsafe void Serialize(UnsafeAppendBuffer* writer);
+		public abstract unsafe void Deserialize(UnsafeAppendBuffer.Reader* reader, Byte serializedDataVersion,
+			Byte currentDataVersion);
 	}
 }

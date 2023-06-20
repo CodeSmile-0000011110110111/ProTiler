@@ -27,16 +27,16 @@ namespace CodeSmile.ProTiler.CodeDesign.Model
 
 		public GridBase(Byte gridVersion) => AddGridMapSerializationAdapter(gridVersion);
 
-		public void AddLinearDataMap<T>(Byte dataVersion, IDataMapStream stream = null) where T : unmanaged
+		public void AddLinearDataMap<TData>(Byte dataVersion, IDataMapStream stream = null) where TData : unmanaged
 		{
-			m_LinearMaps.Add(new LinearDataMap<T>(m_ChunkSize, stream));
-			m_SerializationAdapters.Add(new DataMapBaseBinaryAdapter<LinearDataMap<T>>(dataVersion));
+			m_LinearMaps.Add(new LinearDataMap<TData>(m_ChunkSize/*, stream*/));
+			m_SerializationAdapters.Add(new LinearDataMapBinaryAdapter<TData>(0, dataVersion));
 		}
 
-		public void AddSparseDataMap<T>(Byte dataVersion, IDataMapStream stream = null) where T : unmanaged
+		public void AddSparseDataMap<TData>(Byte dataVersion, IDataMapStream stream = null) where TData : unmanaged
 		{
-			m_SparseMaps.Add(new SparseDataMap<T>(m_ChunkSize, stream));
-			m_SerializationAdapters.Add(new DataMapBaseBinaryAdapter<SparseDataMap<T>>(dataVersion));
+			m_SparseMaps.Add(new SparseDataMap<TData>(m_ChunkSize/*, stream*/));
+			m_SerializationAdapters.Add(new SparseDataMapBinaryAdapter<TData>(0, dataVersion));
 		}
 
 		// public void AddSerializationAdapter<T>(GridBaseBinaryAdapter<T> adapter) where T : GridBase, new() =>

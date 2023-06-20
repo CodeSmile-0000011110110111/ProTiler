@@ -39,25 +39,6 @@ namespace CodeSmile.Tests.Editor.ProTiler.ExplorationTests
 			Assert.That(deserializedData, Is.EqualTo(linearData));
 		}
 
-		[Test] public void LinearTileData_SerializeDeserializeThroughInterface_ResultsInSameObject()
-		{
-			Assert.Fail("this crashes Unity, maybe because the interface cannot be instantiated?");
-			/*
-			var linearData = new LinearTileData(123, TileFlags.DirectionEast | TileFlags.FlipBoth);
-			var interfaceData = linearData as ILinearTileData;
-
-			var bytes = Serialize.ToBinary(interfaceData, new List<IBinaryAdapter>()
-			{
-				new BinaryAdapters.LinearTileDataInterfaceAdapter(),
-			});
-			Debug.Log($"{bytes.Length} Bytes: {bytes.AsString()}");
-			var deserializedData = Serialize.FromBinary<ILinearTileData>(bytes);
-
-			Assert.That(deserializedData, Is.EqualTo(interfaceData));
-			Assert.That(deserializedData, Is.EqualTo(linearData));
-			*/
-		}
-
 		[Test] public void CanSerializeAndDeserializeNativeListOfLinearTileDataStruct()
 		{
 			var linearData1 = new LinearTileData(2, TileFlags.DirectionSouth);

@@ -58,11 +58,16 @@ namespace CodeSmile.ProTiler.CodeDesign.Serialization
 		{
 			var reader = context.Reader;
 
-			ReadAdapterVersion(reader);
-			var chunkSize = reader->ReadNext<ChunkSize>();
-			var data = ReadChunkData(context, m_Allocator);
+			var serializedVersion = ReadAdapterVersion(reader);
+			if (serializedVersion == AdapterVersion)
+			{
+				var chunkSize = reader->ReadNext<ChunkSize>();
+				var data = ReadChunkData(context, m_Allocator);
 
-			return new LinearDataMapChunk<TData>(chunkSize, data);
+				return new LinearDataMapChunk<TData>(chunkSize, data);
+			}
+
+			throw new SerializationVersionException(GetVersionExceptionMessage(serializedVersion));
 		}
 	}
 }

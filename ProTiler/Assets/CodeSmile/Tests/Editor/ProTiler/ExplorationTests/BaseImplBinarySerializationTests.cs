@@ -262,12 +262,6 @@ namespace CodeSmile.Tests.Editor.ProTiler.ExplorationTests
 			}
 		}*/
 
-		// avoid using interface for struct types as it causes boxing
-		public interface IBinarySerializable<T>
-		{
-			public void Serialize(IBinaryWriter writer);
-			public T Deserialize(IBinaryReader reader);
-		}
 
 		/*public class CovarBinaryAdapter : IBinaryAdapter<TheImpl>
 		{

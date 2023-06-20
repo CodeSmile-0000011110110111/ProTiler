@@ -61,7 +61,7 @@ namespace CodeSmile.Tests.Editor.ProTiler.ExplorationTests
 			Assert.That(deserialList.m_NativeList[2], Is.EqualTo(3));
 		}
 
-		[Test] public void CanSerializeAndDeserializeNativeListOfLinearTileDataStruct()
+		/*[Test] public void CanSerializeAndDeserializeNativeListOfLinearTileDataStruct()
 		{
 			var allocator = Allocator.Temp;
 			var linearData1 = new LinearTileData(123, 0);
@@ -81,7 +81,7 @@ namespace CodeSmile.Tests.Editor.ProTiler.ExplorationTests
 			Assert.That(deserialList.Length, Is.EqualTo(2));
 			Assert.That(deserialList[0], Is.EqualTo(linearData1));
 			Assert.That(deserialList[1], Is.EqualTo(linearData2));
-		}
+		}*/
 
 		[Serializable]
 		[StructLayout(LayoutKind.Sequential)]

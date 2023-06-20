@@ -46,11 +46,8 @@ namespace CodeSmile.Serialization
 		/// <returns></returns>
 		protected unsafe Byte ReadAdapterVersion(UnsafeAppendBuffer.Reader* reader) => reader->ReadNext<Byte>();
 
-		protected String GetFutureVersionExceptionMessage(Byte serializedVersion, Byte supportedVersion) =>
-			$"serialized data version {serializedVersion} is greater than supported version {supportedVersion}";
-
-		protected String GetLegacyVersionExceptionMessage(Byte serializedVersion, Byte supportedVersion) =>
-			$"serialized data version {serializedVersion} is not supported in version {supportedVersion}";
+		protected String GetVersionExceptionMessage(Byte serializedVersion) =>
+			$"serialized data version {serializedVersion} is not supported in version {AdapterVersion}";
 	}
 
 	/// <summary>

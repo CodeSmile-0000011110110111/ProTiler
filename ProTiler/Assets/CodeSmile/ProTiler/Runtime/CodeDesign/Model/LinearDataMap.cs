@@ -1,10 +1,9 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
-using CodeSmile.ProTiler.CodeDesign.Model._remove;
-using CodeSmile.ProTiler.CodeDesign.v4.GridMap;
 using System;
 using Unity.Collections;
+using Unity.Collections.LowLevel.Unsafe;
 using ChunkKey = System.Int64;
 using ChunkSize = Unity.Mathematics.int3;
 using WorldCoord = Unity.Mathematics.int3;
@@ -18,13 +17,13 @@ namespace CodeSmile.ProTiler.CodeDesign.Model
 
 		private NativeParallelHashMap<ChunkKey, LinearDataMapChunk<TData>> m_Chunks;
 
-		internal NativeParallelHashMap<Int64, LinearDataMapChunk<TData>>.ReadOnly Chunks => m_Chunks.AsReadOnly();
+		public NativeParallelHashMap<ChunkKey, LinearDataMapChunk<TData>>.ReadOnly Chunks => m_Chunks.AsReadOnly();
 
 		public LinearDataMap()
-			: this(s_MinChunkSize) {}
+			: this(s_MinimumChunkSize) {}
 
-		public LinearDataMap(ChunkSize chunkSize, IDataMapStream stream = null)
-			: base(chunkSize, stream) => m_Chunks = new NativeParallelHashMap<ChunkKey, LinearDataMapChunk<TData>>
+		public LinearDataMap(ChunkSize chunkSize /*, IDataMapStream stream = null*/)
+			: base(chunkSize /*, stream*/) => m_Chunks = new NativeParallelHashMap<ChunkKey, LinearDataMapChunk<TData>>
 			(0, Allocator.Domain);
 
 		public void Dispose() => m_Chunks.Dispose();
@@ -45,19 +44,20 @@ namespace CodeSmile.ProTiler.CodeDesign.Model
 				return true;
 
 			// try get chunk from stream here ...
-			if (m_Stream != null) {}
+			// if (m_Stream != null) {}
 
 			return false;
 		}
 
-		public override void Serialize(IBinaryWriter writer)
+		public override unsafe void Serialize(UnsafeAppendBuffer* writer)
 		{
-			//writer.Add(..);
+
 		}
 
-		public override DataMapBase Deserialize(IBinaryReader reader, Byte userDataVersion) =>
-			// deserialize base class fields first
-			//baseField = reader.ReadNext<Byte>();
-			this;
+		public override unsafe void Deserialize(UnsafeAppendBuffer.Reader* reader, Byte serializedDataVersion,
+			Byte currentDataVersion)
+		{
+			throw new NotImplementedException();
+		}
 	}
 }

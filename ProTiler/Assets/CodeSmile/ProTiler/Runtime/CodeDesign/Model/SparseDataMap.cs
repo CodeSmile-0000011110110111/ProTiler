@@ -4,6 +4,7 @@
 using CodeSmile.ProTiler.CodeDesign.v4.GridMap;
 using System;
 using Unity.Collections;
+using Unity.Collections.LowLevel.Unsafe;
 using ChunkSize = Unity.Mathematics.int3;
 
 namespace CodeSmile.ProTiler.CodeDesign.Model
@@ -15,7 +16,7 @@ namespace CodeSmile.ProTiler.CodeDesign.Model
 
 		public SparseDataMap() {}
 
-		public SparseDataMap(ChunkSize chunkSize, IDataMapStream stream) : base(chunkSize, stream) {}
+		public SparseDataMap(ChunkSize chunkSize/*, IDataMapStream stream*/) : base(chunkSize/*, stream*/) {}
 
 		public Boolean TryGetChunk(Int64 key, out SparseDataMapChunk<TData> chunk) => throw
 			// try get from HashMap first
@@ -23,5 +24,16 @@ namespace CodeSmile.ProTiler.CodeDesign.Model
 			// try get chunk from stream
 			// may decide to dispose least recently used chunks
 			new NotImplementedException();
+
+		public override unsafe void Serialize(UnsafeAppendBuffer* writer)
+		{
+			throw new NotImplementedException();
+		}
+
+		public override unsafe void Deserialize(UnsafeAppendBuffer.Reader* reader, Byte serializedDataVersion,
+			Byte currentDataVersion)
+		{
+			throw new NotImplementedException();
+		}
 	}
 }

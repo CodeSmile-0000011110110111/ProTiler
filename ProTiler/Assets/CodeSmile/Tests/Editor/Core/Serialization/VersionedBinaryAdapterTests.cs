@@ -88,24 +88,17 @@ namespace CodeSmile.Tests.Editor.Serialization
 			public unsafe TestStruct Deserialize(in BinaryDeserializationContext<TestStruct> context)
 			{
 				var reader = context.Reader;
-				var serializedDataVersion = ReadAdapterVersion(reader);
+				var serializedVersion = ReadAdapterVersion(reader);
 
-				if (serializedDataVersion == CurrentAdapterVersion)
+				if (serializedVersion == CurrentAdapterVersion)
 					return new TestStruct { byteValue = reader->ReadNext<Byte>() };
 
 				// handle previous version
 				// uses default value because "byteValue" field was supposedly added in a later version
-				if (serializedDataVersion == CurrentAdapterVersion - 1)
+				if (serializedVersion == CurrentAdapterVersion - 1)
 					return new TestStruct { byteValue = PreviousDataVersionDefaultValue };
 
-				if (serializedDataVersion > CurrentAdapterVersion)
-				{
-					throw new SerializationVersionException(
-						GetFutureVersionExceptionMessage(serializedDataVersion, CurrentAdapterVersion));
-				}
-
-				throw new SerializationVersionException(
-					GetLegacyVersionExceptionMessage(serializedDataVersion, CurrentAdapterVersion));
+				throw new SerializationVersionException(GetVersionExceptionMessage(serializedVersion));
 			}
 		}
 	}
