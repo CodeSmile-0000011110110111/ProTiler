@@ -4,7 +4,7 @@
 using System;
 using Unity.Collections.LowLevel.Unsafe;
 
-namespace CodeSmile.ProTiler.Runtime.CodeDesign.Model
+namespace CodeSmile.Serialization
 {
 	public interface IBinarySerializable
 	{

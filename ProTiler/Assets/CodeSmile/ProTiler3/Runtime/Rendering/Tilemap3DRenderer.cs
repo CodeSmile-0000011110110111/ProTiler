@@ -3,8 +3,8 @@
 
 using CodeSmile.Collections;
 using CodeSmile.Extensions;
-using CodeSmile.ProTiler3.Runtime.Controller;
-using CodeSmile.ProTiler3.Runtime.Model;
+using CodeSmile.ProTiler3.Controller;
+using CodeSmile.ProTiler3.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +14,7 @@ using GridCoord = Unity.Mathematics.int3;
 using CellSize = Unity.Mathematics.float3;
 
 
-namespace CodeSmile.ProTiler3.Runtime.Rendering
+namespace CodeSmile.ProTiler3.Rendering
 {
 
 	[ExecuteAlways]

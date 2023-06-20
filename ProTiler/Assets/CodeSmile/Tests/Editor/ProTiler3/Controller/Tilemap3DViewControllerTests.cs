@@ -1,10 +1,10 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
+using CodeSmile.ProTiler3.Controller;
 using CodeSmile.ProTiler3.Editor.Creation;
-using CodeSmile.ProTiler3.Runtime.Controller;
-using CodeSmile.ProTiler3.Runtime.Events;
-using CodeSmile.ProTiler3.Runtime.Grid;
+using CodeSmile.ProTiler3.Events;
+using CodeSmile.ProTiler3.Grid;
 using CodeSmile.Tests.Tools.Attributes;
 using NUnit.Framework;
 using UnityEngine;

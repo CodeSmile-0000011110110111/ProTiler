@@ -4,8 +4,7 @@
 using CodeSmile.Attributes;
 using CodeSmile.Editor.Extensions;
 using CodeSmile.Extensions;
-using CodeSmile.ProTiler3.Runtime;
-using CodeSmile.ProTiler3.Runtime.Assets;
+using CodeSmile.ProTiler3.Assets;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;

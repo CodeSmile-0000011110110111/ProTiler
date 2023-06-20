@@ -1,12 +1,12 @@
 // Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
-using CodeSmile.ProTiler3.Runtime.Events;
-using CodeSmile.ProTiler3.Runtime.Grid;
+using CodeSmile.ProTiler3.Events;
+using CodeSmile.ProTiler3.Grid;
 using System;
 using UnityEngine;
 
-namespace CodeSmile.ProTiler3.Runtime.Controller
+namespace CodeSmile.ProTiler3.Controller
 {
 	[ExecuteAlways]
 	[DisallowMultipleComponent]

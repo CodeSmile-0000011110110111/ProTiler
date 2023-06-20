@@ -2,11 +2,11 @@
 // Refer to included LICENSE file for terms and conditions.
 
 using CodeSmile.Attributes;
-using CodeSmile.ProTiler3.Runtime.Model;
+using CodeSmile.ProTiler3.Model;
 using System.Diagnostics.CodeAnalysis;
 using UnityEngine;
 
-namespace CodeSmile.ProTiler3.Runtime.Assets
+namespace CodeSmile.ProTiler3.Assets
 {
 	[FullCovered]
 	public abstract class Tile3DAssetBase : ScriptableObject

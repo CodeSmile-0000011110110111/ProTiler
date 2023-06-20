@@ -10,7 +10,7 @@ using CellSize = Unity.Mathematics.float3;
 using GridCoord = Unity.Mathematics.int3;
 using Object = System.Object;
 
-namespace CodeSmile.ProTiler3.Runtime.Grid
+namespace CodeSmile.ProTiler3.Grid
 {
 	[Serializable]
 	public struct Grid3DCursor : IEquatable<Grid3DCursor>

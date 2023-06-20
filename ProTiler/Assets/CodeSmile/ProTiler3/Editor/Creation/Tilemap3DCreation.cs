@@ -2,10 +2,9 @@
 // Refer to included LICENSE file for terms and conditions.
 
 using CodeSmile.Attributes;
-using CodeSmile.ProTiler3.Runtime;
-using CodeSmile.ProTiler3.Runtime.Controller;
-using CodeSmile.ProTiler3.Runtime.Grid;
-using CodeSmile.ProTiler3.Runtime.Rendering;
+using CodeSmile.ProTiler3.Controller;
+using CodeSmile.ProTiler3.Grid;
+using CodeSmile.ProTiler3.Rendering;
 using System;
 using UnityEditor;
 using UnityEngine;

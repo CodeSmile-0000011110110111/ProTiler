@@ -5,7 +5,7 @@ using System;
 using Unity.Collections;
 using Unity.Collections.LowLevel.Unsafe;
 
-namespace CodeSmile.Runtime.Extensions.NativeCollections
+namespace CodeSmile.Extensions.NativeCollections
 {
 	public static class UnsafeListExt
 	{

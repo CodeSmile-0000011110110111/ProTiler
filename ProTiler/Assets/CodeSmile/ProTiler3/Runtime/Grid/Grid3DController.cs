@@ -6,7 +6,7 @@ using UnityEngine;
 using CellSize = UnityEngine.Vector3;
 using CellGap = UnityEngine.Vector3;
 
-namespace CodeSmile.ProTiler3.Runtime.Grid
+namespace CodeSmile.ProTiler3.Grid
 {
 	[FullCovered]
 	[AddComponentMenu("")]

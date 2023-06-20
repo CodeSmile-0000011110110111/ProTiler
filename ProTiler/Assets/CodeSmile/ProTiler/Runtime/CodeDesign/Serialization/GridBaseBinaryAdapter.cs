@@ -1,12 +1,12 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
-using CodeSmile.ProTiler.Runtime.CodeDesign.Model;
+using CodeSmile.ProTiler.CodeDesign.Model;
 using CodeSmile.Serialization;
 using System;
 using Unity.Serialization.Binary;
 
-namespace CodeSmile.ProTiler.Runtime.CodeDesign.Serialization
+namespace CodeSmile.ProTiler.CodeDesign.Serialization
 {
 	public sealed class GridBaseBinaryAdapter<TGridMap> : VersionedBinaryAdapterBase, IBinaryAdapter<TGridMap>
 		where TGridMap : GridBase, new()

@@ -2,9 +2,9 @@
 // Refer to included LICENSE file for terms and conditions.
 
 using CodeSmile.Attributes;
-using CodeSmile.ProTiler3.Runtime.Grid;
-using CodeSmile.ProTiler3.Runtime.Model;
-using CodeSmile.ProTiler3.Runtime.Serialization;
+using CodeSmile.ProTiler3.Grid;
+using CodeSmile.ProTiler3.Model;
+using CodeSmile.ProTiler3.Serialization;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -14,7 +14,7 @@ using GridCoord = Unity.Mathematics.int3;
 using ChunkCoord = Unity.Mathematics.int2;
 using ChunkSize = Unity.Mathematics.int2;
 
-namespace CodeSmile.ProTiler3.Runtime.Controller
+namespace CodeSmile.ProTiler3.Controller
 {
 	[SuppressMessage("NDepend", "ND1001:AvoidTypesWithTooManyMethods")]
 	[FullCovered]

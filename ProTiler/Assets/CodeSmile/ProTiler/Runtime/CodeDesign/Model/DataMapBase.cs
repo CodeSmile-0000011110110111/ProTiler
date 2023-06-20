@@ -1,21 +1,17 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
-using CodeSmile.ProTiler.Runtime.CodeDesign.Model._remove;
-using CodeSmile.ProTiler.Runtime.CodeDesign.v4.GridMap;
+using CodeSmile.ProTiler.CodeDesign.Model._remove;
+using CodeSmile.ProTiler.CodeDesign.v4.GridMap;
 using System;
 using System.Runtime.CompilerServices;
 using ChunkCoord = Unity.Mathematics.int2;
 using ChunkKey = System.Int64;
 using ChunkSize = Unity.Mathematics.int3;
-using CellSize = Unity.Mathematics.float3;
-using CellGap = Unity.Mathematics.float3;
-using LocalCoord = Unity.Mathematics.int3;
 using WorldCoord = Unity.Mathematics.int3;
-using WorldPos = Unity.Mathematics.float3;
 using Math = Unity.Mathematics.math;
 
-namespace CodeSmile.ProTiler.Runtime.CodeDesign.Model
+namespace CodeSmile.ProTiler.CodeDesign.Model
 {
 	public abstract class DataMapBase
 	{

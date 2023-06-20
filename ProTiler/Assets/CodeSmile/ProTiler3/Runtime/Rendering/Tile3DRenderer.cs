@@ -2,15 +2,15 @@
 // Refer to included LICENSE file for terms and conditions.
 
 using CodeSmile.Extensions;
-using CodeSmile.ProTiler3.Runtime.Grid;
-using CodeSmile.ProTiler3.Runtime.Model;
+using CodeSmile.ProTiler3.Grid;
+using CodeSmile.ProTiler3.Model;
 using System;
 using UnityEditor;
 using UnityEngine;
 using CellSize = Unity.Mathematics.float3;
 using GridCoord = Unity.Mathematics.int3;
 
-namespace CodeSmile.ProTiler3.Runtime.Rendering
+namespace CodeSmile.ProTiler3.Rendering
 {
 	[AddComponentMenu("")] // hide from Add Component list
 	public class Tile3DRenderer : MonoBehaviour

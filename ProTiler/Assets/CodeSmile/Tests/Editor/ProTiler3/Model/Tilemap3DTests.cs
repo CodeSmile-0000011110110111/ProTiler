@@ -1,8 +1,8 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
-using CodeSmile.ProTiler3.Runtime.Model;
-using CodeSmile.ProTiler3.Runtime.Serialization;
+using CodeSmile.ProTiler3.Model;
+using CodeSmile.ProTiler3.Serialization;
 using CodeSmile.Tests.Editor.ProTiler3.Utility;
 using NUnit.Framework;
 using System;

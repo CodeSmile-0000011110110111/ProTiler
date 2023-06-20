@@ -9,7 +9,7 @@ using Unity.Collections.LowLevel.Unsafe;
 using Unity.Serialization.Binary;
 using Unity.Serialization.Json;
 
-namespace CodeSmile.ProTiler3.Runtime.Serialization
+namespace CodeSmile.ProTiler3.Serialization
 {
 	[FullCovered]
 	internal static class UnitySerializer

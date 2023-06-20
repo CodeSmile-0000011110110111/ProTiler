@@ -3,7 +3,7 @@
 
 using System;
 
-namespace CodeSmile.ProTiler.Runtime.CodeDesign._old.Model
+namespace CodeSmile.ProTiler.CodeDesign._old.Model
 {
 
 	// Questions:

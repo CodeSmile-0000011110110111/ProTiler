@@ -2,8 +2,7 @@
 // Refer to included LICENSE file for terms and conditions.
 
 using CodeSmile.Editor.Extensions;
-using CodeSmile.ProTiler3.Runtime;
-using CodeSmile.ProTiler3.Runtime.Assets;
+using CodeSmile.ProTiler3.Assets;
 using System.Diagnostics.CodeAnalysis;
 using UnityEditor;
 using UnityEngine;

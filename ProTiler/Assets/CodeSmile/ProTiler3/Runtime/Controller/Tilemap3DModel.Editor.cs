@@ -7,7 +7,7 @@ using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine.SceneManagement;
 
-namespace CodeSmile.ProTiler3.Runtime.Controller
+namespace CodeSmile.ProTiler3.Controller
 {
 	public sealed partial class Tilemap3DModel
 	{

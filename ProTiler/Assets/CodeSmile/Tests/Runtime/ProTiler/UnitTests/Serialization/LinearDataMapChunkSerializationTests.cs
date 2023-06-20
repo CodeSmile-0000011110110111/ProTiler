@@ -2,9 +2,10 @@
 // Refer to included LICENSE file for terms and conditions.
 
 using CodeSmile.Extensions;
-using CodeSmile.ProTiler.Runtime.CodeDesign.Model;
-using CodeSmile.ProTiler.Runtime.CodeDesign.Serialization;
+using CodeSmile.ProTiler.CodeDesign.Model;
+using CodeSmile.ProTiler.CodeDesign.Serialization;
 using CodeSmile.Serialization;
+using CodeSmile.Serialization.BinaryAdapters;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;

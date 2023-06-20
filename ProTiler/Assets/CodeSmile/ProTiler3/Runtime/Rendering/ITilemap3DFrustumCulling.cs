@@ -6,7 +6,7 @@ using GridCoord = Unity.Mathematics.int3;
 using CellSize = Unity.Mathematics.float3;
 using ChunkSize = Unity.Mathematics.int2;
 
-namespace CodeSmile.ProTiler3.Runtime.Rendering
+namespace CodeSmile.ProTiler3.Rendering
 {
 	public interface ITilemap3DFrustumCulling
 	{

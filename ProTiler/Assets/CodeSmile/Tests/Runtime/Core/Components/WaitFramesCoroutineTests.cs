@@ -3,13 +3,12 @@
 
 using CodeSmile.Extensions;
 using CodeSmile.Tests.Tools.Attributes;
-using CodeSmile.Tests.Tools.TestRunnerApi;
 using NUnit.Framework;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.TestTools;
 
-namespace CodeSmile.Tests.Runtime.Core.Components
+namespace CodeSmile.Tests.Runtime.Components
 {
 	public class WaitFramesCoroutineTests
 	{

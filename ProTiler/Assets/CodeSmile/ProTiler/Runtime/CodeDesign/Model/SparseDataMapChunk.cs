@@ -4,7 +4,7 @@
 using Unity.Collections.LowLevel.Unsafe;
 using Unity.Mathematics;
 
-namespace CodeSmile.ProTiler.Runtime.CodeDesign.Model
+namespace CodeSmile.ProTiler.CodeDesign.Model
 {
 	public struct SparseDataMapChunk<TData> where TData : unmanaged
 	{

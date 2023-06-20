@@ -3,7 +3,7 @@
 
 using System;
 
-namespace CodeSmile.Tests.Runtime.Core.Serialization
+namespace CodeSmile.Tests.Runtime.Serialization
 {
 	public struct SerializationTestNestedType : IEquatable<SerializationTestNestedType>
 	{

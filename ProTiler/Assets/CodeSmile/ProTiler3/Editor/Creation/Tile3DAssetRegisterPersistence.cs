@@ -3,8 +3,7 @@
 
 using CodeSmile.Editor;
 using CodeSmile.Editor.Extensions;
-using CodeSmile.ProTiler3.Runtime;
-using CodeSmile.ProTiler3.Runtime.Assets;
+using CodeSmile.ProTiler3.Assets;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using UnityEditor;

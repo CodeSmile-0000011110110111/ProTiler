@@ -2,8 +2,8 @@
 // Refer to included LICENSE file for terms and conditions.
 
 using CodeSmile.Editor.Extensions;
+using CodeSmile.ProTiler3.Assets;
 using CodeSmile.ProTiler3.Editor.Creation;
-using CodeSmile.ProTiler3.Runtime.Assets;
 using NUnit.Framework;
 using System.IO;
 using System.Linq;

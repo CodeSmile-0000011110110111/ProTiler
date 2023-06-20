@@ -1,19 +1,12 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
-using CodeSmile.ProTiler.Runtime.CodeDesign.v4.GridMap;
+using CodeSmile.ProTiler.CodeDesign.v4.GridMap;
 using System;
 using Unity.Collections;
-using ChunkCoord = Unity.Mathematics.int2;
 using ChunkSize = Unity.Mathematics.int3;
-using CellSize = Unity.Mathematics.float3;
-using CellGap = Unity.Mathematics.float3;
-using LocalCoord = Unity.Mathematics.int3;
-using LocalPos = Unity.Mathematics.float3;
-using WorldCoord = Unity.Mathematics.int3;
-using WorldPos = Unity.Mathematics.float3;
 
-namespace CodeSmile.ProTiler.Runtime.CodeDesign.Model
+namespace CodeSmile.ProTiler.CodeDesign.Model
 {
 	public class SparseDataMap<TData> : DataMapBase where TData : unmanaged
 	{

@@ -2,9 +2,9 @@
 // Refer to included LICENSE file for terms and conditions.
 
 using CodeSmile.Extensions;
+using CodeSmile.ProTiler3.Assets;
 using CodeSmile.ProTiler3.Editor.Creation;
-using CodeSmile.ProTiler3.Runtime.Assets;
-using CodeSmile.ProTiler3.Runtime.Rendering;
+using CodeSmile.ProTiler3.Rendering;
 using CodeSmile.Tests.Tools.Attributes;
 using NUnit.Framework;
 

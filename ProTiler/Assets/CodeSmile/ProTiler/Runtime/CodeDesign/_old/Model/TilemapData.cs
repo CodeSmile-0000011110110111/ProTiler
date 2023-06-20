@@ -6,7 +6,7 @@ using Unity.Collections;
 using Unity.Properties;
 using ChunkCoord = Unity.Mathematics.int2;
 
-namespace CodeSmile.ProTiler.Runtime.CodeDesign._old.Model
+namespace CodeSmile.ProTiler.CodeDesign._old.Model
 {
 	public abstract class TilemapDataBase : ITilemapData
 	{

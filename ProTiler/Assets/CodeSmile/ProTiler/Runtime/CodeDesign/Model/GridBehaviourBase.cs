@@ -1,11 +1,10 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
-using CodeSmile.ProTiler.Runtime.CodeDesign.v4.GridMap;
-using System;
+using CodeSmile.ProTiler.CodeDesign.v4.GridMap;
 using UnityEngine;
 
-namespace CodeSmile.ProTiler.Runtime.CodeDesign.Model
+namespace CodeSmile.ProTiler.CodeDesign.Model
 {
 	[ExecuteAlways]
 	public abstract class GridBehaviourBase<T> : MonoBehaviour//, ISerializationCallbackReceiver

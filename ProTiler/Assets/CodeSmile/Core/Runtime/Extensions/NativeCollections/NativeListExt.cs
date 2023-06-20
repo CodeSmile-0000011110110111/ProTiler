@@ -4,7 +4,7 @@
 using System;
 using Unity.Collections;
 
-namespace CodeSmile.Runtime.Extensions.NativeCollections
+namespace CodeSmile.Extensions.NativeCollections
 {
 	public static class NativeListExt
 	{

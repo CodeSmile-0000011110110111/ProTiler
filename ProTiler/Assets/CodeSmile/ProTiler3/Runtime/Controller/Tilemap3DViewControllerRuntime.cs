@@ -1,11 +1,11 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
-using CodeSmile.ProTiler3.Runtime.Events;
+using CodeSmile.ProTiler3.Events;
 using System.Diagnostics.CodeAnalysis;
 using UnityEngine;
 
-namespace CodeSmile.ProTiler3.Runtime.Controller
+namespace CodeSmile.ProTiler3.Controller
 {
 	[ExcludeFromCodeCoverage] // the UI is a detail
 	[DisallowMultipleComponent]

@@ -4,7 +4,7 @@
 using System;
 using UnityEngine;
 
-namespace CodeSmile.ProTiler3.Runtime.Rendering
+namespace CodeSmile.ProTiler3.Rendering
 {
 	public partial class Tilemap3DRenderer
 	{

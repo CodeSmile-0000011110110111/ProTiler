@@ -2,15 +2,15 @@
 // Refer to included LICENSE file for terms and conditions.
 
 using CodeSmile.Attributes;
-using CodeSmile.ProTiler3.Runtime.Assets;
-using CodeSmile.ProTiler3.Runtime.Grid;
+using CodeSmile.ProTiler3.Assets;
+using CodeSmile.ProTiler3.Grid;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using UnityEditor;
 using UnityEngine;
 using TileIndex = System.UInt16;
 
-namespace CodeSmile.ProTiler3.Runtime.Rendering
+namespace CodeSmile.ProTiler3.Rendering
 {
 	[FullCovered]
 	[AddComponentMenu("")]

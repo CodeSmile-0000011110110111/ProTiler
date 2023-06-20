@@ -3,7 +3,7 @@
 
 using UnityEngine;
 
-namespace CodeSmile.ProTiler3.Runtime.Assets
+namespace CodeSmile.ProTiler3.Assets
 {
 	[CreateAssetMenu(fileName = "New 3D Tile Palette",
 		menuName = Names.TileEditor + "/3D Tile Palette",

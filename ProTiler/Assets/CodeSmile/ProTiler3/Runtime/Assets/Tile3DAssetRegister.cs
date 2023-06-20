@@ -6,7 +6,7 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using UnityEngine;
 
-namespace CodeSmile.ProTiler3.Runtime.Assets
+namespace CodeSmile.ProTiler3.Assets
 {
 	[FullCovered]
 	public sealed class Tile3DAssetRegister : ScriptableObject

@@ -3,9 +3,9 @@
 
 using CodeSmile.Attributes;
 using CodeSmile.Extensions;
-using CodeSmile.ProTiler3.Runtime.Grid;
-using CodeSmile.ProTiler3.Runtime.Model;
-using CodeSmile.ProTiler3.Runtime.Rendering;
+using CodeSmile.ProTiler3.Grid;
+using CodeSmile.ProTiler3.Model;
+using CodeSmile.ProTiler3.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -16,7 +16,7 @@ using ChunkCoord = Unity.Mathematics.int2;
 using ChunkSize = Unity.Mathematics.int2;
 using Random = UnityEngine.Random;
 
-namespace CodeSmile.ProTiler3.Runtime.Controller
+namespace CodeSmile.ProTiler3.Controller
 {
 	[ExecuteAlways]
 	[DisallowMultipleComponent]

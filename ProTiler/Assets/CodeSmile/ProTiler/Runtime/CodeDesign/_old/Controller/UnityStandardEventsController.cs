@@ -3,7 +3,7 @@
 
 using UnityEngine;
 
-namespace CodeSmile.ProTiler.Runtime.CodeDesign._old.Controller
+namespace CodeSmile.ProTiler.CodeDesign._old.Controller
 {
 	[ExecuteAlways]
 	public sealed class UnityStandardEventsController : MonoBehaviour

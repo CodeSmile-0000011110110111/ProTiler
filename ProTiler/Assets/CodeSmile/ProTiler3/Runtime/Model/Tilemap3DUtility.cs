@@ -13,7 +13,7 @@ using ChunkSize = Unity.Mathematics.int2;
 using LayerCoord = Unity.Mathematics.int3;
 using Math = Unity.Mathematics.math;
 
-namespace CodeSmile.ProTiler3.Runtime.Model
+namespace CodeSmile.ProTiler3.Model
 {
 	[FullCovered]
 	internal static class Tilemap3DUtility

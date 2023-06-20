@@ -1,10 +1,10 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
-using CodeSmile.ProTiler.Runtime.CodeDesign.Model;
-using CodeSmile.ProTiler.Runtime.CodeDesign.v4.GridMap;
-using CodeSmile.ProTiler.Runtime.CodeDesign.v4.TilemapGame.TileData;
-using CodeSmile.ProTiler.Runtime.CodeDesign.v4.VoxelGame.VoxelData;
+using CodeSmile.ProTiler.CodeDesign.Model;
+using CodeSmile.ProTiler.CodeDesign.v4.GridMap;
+using CodeSmile.ProTiler.CodeDesign.v4.TilemapGame.TileData;
+using CodeSmile.ProTiler.CodeDesign.v4.VoxelGame.VoxelData;
 using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
@@ -15,7 +15,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Object = System.Object;
 
-namespace CodeSmile.ProTiler.Runtime.CodeDesign
+namespace CodeSmile.ProTiler.CodeDesign
 {
 	namespace v4
 	{
