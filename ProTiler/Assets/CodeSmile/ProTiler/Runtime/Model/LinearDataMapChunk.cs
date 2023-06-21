@@ -9,7 +9,7 @@ using Unity.Mathematics;
 using ChunkCoord = Unity.Mathematics.int3;
 using ChunkSize = Unity.Mathematics.int3;
 
-namespace CodeSmile.ProTiler.CodeDesign.Model
+namespace CodeSmile.ProTiler.Model
 {
 	/// <summary>
 	///     Stores grid data in a linear list. Data is any unmanaged type.

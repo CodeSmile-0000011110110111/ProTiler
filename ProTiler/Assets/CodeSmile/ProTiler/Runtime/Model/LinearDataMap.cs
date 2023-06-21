@@ -8,7 +8,7 @@ using ChunkKey = System.Int64;
 using ChunkSize = Unity.Mathematics.int3;
 using WorldCoord = Unity.Mathematics.int3;
 
-namespace CodeSmile.ProTiler.CodeDesign.Model
+namespace CodeSmile.ProTiler.Model
 {
 	public class LinearDataMap<TData> : DataMapBase, IDisposable where TData : unmanaged
 	{

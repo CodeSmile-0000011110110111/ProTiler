@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using Unity.Serialization.Binary;
 using UnityEngine;
 
-namespace CodeSmile.ProTiler.CodeDesign.Model
+namespace CodeSmile.ProTiler.Model
 {
 	[ExecuteAlways]
 	public abstract class GridBehaviourBase<T> : MonoBehaviour //, ISerializationCallbackReceiver

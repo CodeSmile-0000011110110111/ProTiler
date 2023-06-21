@@ -1,7 +1,7 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
-using CodeSmile.ProTiler.CodeDesign.Serialization;
+using CodeSmile.ProTiler.Serialization;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -10,7 +10,7 @@ using System.Reflection;
 using Unity.Mathematics;
 using Unity.Serialization.Binary;
 
-namespace CodeSmile.ProTiler.CodeDesign.Model
+namespace CodeSmile.ProTiler.Model
 {
 	public abstract class GridBase
 	{

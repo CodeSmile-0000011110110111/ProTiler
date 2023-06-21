@@ -1,20 +1,13 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
-using CodeSmile.ProTiler.CodeDesign.Model;
+using CodeSmile.ProTiler.Model;
 using CodeSmile.Serialization;
 using System;
 using Unity.Serialization.Binary;
-using ChunkCoord = Unity.Mathematics.int2;
 using ChunkSize = Unity.Mathematics.int3;
-using CellSize = Unity.Mathematics.float3;
-using CellGap = Unity.Mathematics.float3;
-using LocalCoord = Unity.Mathematics.int3;
-using LocalPos = Unity.Mathematics.float3;
-using WorldCoord = Unity.Mathematics.int3;
-using WorldPos = Unity.Mathematics.float3;
 
-namespace CodeSmile.ProTiler.CodeDesign.Serialization
+namespace CodeSmile.ProTiler.Serialization
 {
 	public class LinearDataMapBinaryAdapter<TData> : VersionedBinaryAdapterBase, IBinaryAdapter<LinearDataMap<TData>>
 	where TData : unmanaged

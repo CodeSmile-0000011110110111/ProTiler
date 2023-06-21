@@ -1,4 +1,4 @@
-﻿using CodeSmile.ProTiler.CodeDesign.Model;
+﻿using CodeSmile.ProTiler.Model;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;

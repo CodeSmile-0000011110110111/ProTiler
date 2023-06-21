@@ -6,7 +6,7 @@ using Unity.Collections;
 using Unity.Collections.LowLevel.Unsafe;
 using ChunkSize = Unity.Mathematics.int3;
 
-namespace CodeSmile.ProTiler.CodeDesign.Model
+namespace CodeSmile.ProTiler.Model
 {
 	public class SparseDataMap<TData> : DataMapBase where TData : unmanaged
 	{

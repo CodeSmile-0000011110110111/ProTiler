@@ -5,19 +5,13 @@ using CodeSmile.Serialization;
 using System;
 using System.Runtime.CompilerServices;
 using Unity.Collections.LowLevel.Unsafe;
-using Unity.Mathematics;
 using ChunkCoord = Unity.Mathematics.int2;
 using ChunkKey = System.Int64;
 using ChunkSize = Unity.Mathematics.int3;
-using CellSize = Unity.Mathematics.float3;
-using CellGap = Unity.Mathematics.float3;
-using LocalCoord = Unity.Mathematics.int3;
-using LocalPos = Unity.Mathematics.float3;
 using WorldCoord = Unity.Mathematics.int3;
-using WorldPos = Unity.Mathematics.float3;
 using Math = Unity.Mathematics.math;
 
-namespace CodeSmile.ProTiler.CodeDesign.Model
+namespace CodeSmile.ProTiler.Model
 {
 	public abstract class DataMapBase
 	{
