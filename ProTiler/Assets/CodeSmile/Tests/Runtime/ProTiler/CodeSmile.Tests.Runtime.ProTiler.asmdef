@@ -5,15 +5,12 @@
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
         "CodeSmile",
-        "CodeSmile.ProTiler3",
-        "CodeSmile.ProTiler3.Editor",
-        "CodeSmile.Tests.Tools",
-        "CodeSmile.ProTiler.CodeDesign",
+        "CodeSmile.ProTiler",
         "CodeSmile.Serialization",
+        "CodeSmile.Tests.Tools",
         "Unity.Collections",
         "Unity.Mathematics",
-        "Unity.Serialization",
-        "CodeSmile.ProTiler"
+        "Unity.Serialization"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

@@ -12,8 +12,7 @@
         "Unity.Collections",
         "Unity.Mathematics",
         "Unity.PerformanceTesting",
-        "Unity.Serialization",
-        "CodeSmile.Tests.Editor.ProTiler.ExplorationTests"
+        "Unity.Serialization"
     ],
     "includePlatforms": [
         "Editor"

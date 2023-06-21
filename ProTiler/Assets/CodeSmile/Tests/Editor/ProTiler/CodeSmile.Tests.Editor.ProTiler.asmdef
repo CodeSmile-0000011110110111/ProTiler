@@ -7,13 +7,12 @@
         "CodeSmile",
         "CodeSmile.Editor",
         "CodeSmile.ProTiler",
-        "CodeSmile.ProTiler.CodeDesign",
         "CodeSmile.Serialization",
+        "CodeSmile.Tests.Runtime.ProTiler",
         "CodeSmile.Tests.Tools",
         "Unity.Collections",
         "Unity.Mathematics",
-        "Unity.Serialization",
-        "CodeSmile.Tests.Runtime.ProTiler"
+        "Unity.Serialization"
     ],
     "includePlatforms": [
         "Editor"
