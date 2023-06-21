@@ -12,7 +12,8 @@
         "CodeSmile.Serialization",
         "Unity.Collections",
         "Unity.Mathematics",
-        "Unity.Serialization"
+        "Unity.Serialization",
+        "CodeSmile.ProTiler"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
