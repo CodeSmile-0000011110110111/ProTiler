@@ -55,25 +55,5 @@ namespace CodeSmile.ProTiler.Model
 			worldCoord.x < 0 ? -(Math.abs(worldCoord.x + 1) / m_ChunkSize.x + 1) : worldCoord.x / m_ChunkSize.x,
 			worldCoord.z < 0 ? -(Math.abs(worldCoord.z + 1) / m_ChunkSize.z + 1) : worldCoord.z / m_ChunkSize.z);
 
-		internal unsafe void SerializeBaseFirst(UnsafeAppendBuffer* writer)
-		{
-			writer->Add(m_ChunkSize);
-			Serialize(writer);
-		}
-
-		internal unsafe void DeserializeBaseFirst(UnsafeAppendBuffer.Reader* reader, Byte serializedVersion,
-			Byte adapterVersion)
-		{
-			if (serializedVersion != adapterVersion)
-				throw new SerializationVersionException($"serialized version {serializedVersion} unhandled " +
-				                                        $"in current version {adapterVersion}");
-
-			m_ChunkSize = reader->ReadNext<ChunkSize>();
-			Deserialize(reader, serializedVersion, adapterVersion);
-		}
-
-		public abstract unsafe void Serialize(UnsafeAppendBuffer* writer);
-		public abstract unsafe void Deserialize(UnsafeAppendBuffer.Reader* reader, Byte serializedDataVersion,
-			Byte currentDataVersion);
 	}
 }

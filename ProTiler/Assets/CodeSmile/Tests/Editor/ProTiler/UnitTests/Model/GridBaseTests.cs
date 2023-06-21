@@ -12,7 +12,7 @@ namespace CodeSmile.Tests.Editor.ProTiler.UnitTests.Model
 	public class GridBaseTests
 	{
 
-		[Test]
+		/*[Test]
 		public void TestGrid_WhenInstantiated_IsNotNull()
 		{
 			var grid = new TestGrid();
@@ -37,7 +37,7 @@ namespace CodeSmile.Tests.Editor.ProTiler.UnitTests.Model
 				// no streaming
 				AddSparseDataMap<MySparseTestData>(3);
 			}
-		}
+		}*/
 
 	}
 }

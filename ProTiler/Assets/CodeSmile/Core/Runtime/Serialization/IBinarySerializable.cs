@@ -9,6 +9,6 @@ namespace CodeSmile.Serialization
 	public interface IBinarySerializable
 	{
 		unsafe void Serialize(UnsafeAppendBuffer* writer);
-		unsafe void Deserialize(UnsafeAppendBuffer.Reader* reader, Byte dataVersion);
+		unsafe void Deserialize(UnsafeAppendBuffer.Reader* reader, Byte serializedDataVersion);
 	}
 }

@@ -25,9 +25,11 @@ namespace CodeSmile.Tests.Runtime.ProTiler.UnitTests.Serialization
 	public class LinearDataMapChunkSerializationTests
 	{
 		private const Byte SerializationTestVersion = 7;
+		internal const Byte SerializationTestDataVersion = 9;
 		private static readonly List<IBinaryAdapter> LinearDataMapChunkAdapter = new()
 		{
-			new LinearDataMapChunkBinaryAdapter<SerializationTestData>(SerializationTestVersion, Allocator.Domain),
+			new LinearDataMapChunkBinaryAdapter<SerializationTestData>(
+				SerializationTestVersion, SerializationTestDataVersion, Allocator.Domain),
 		};
 
 		[TestCase(1, 1, 1)] [TestCase(2, 2, 2)] [TestCase(4, 2, 7)]
@@ -42,11 +44,13 @@ namespace CodeSmile.Tests.Runtime.ProTiler.UnitTests.Serialization
 				unsafe
 				{
 					var versionLength = sizeof(Byte);
+					var dataVersionLength = sizeof(Byte);
 					var chunkSizeLength = sizeof(ChunkSize);
 					var listLength = sizeof(Int32);
 					var chunkGridLength = chunkSize.x * chunkSize.y * chunkSize.z;
 					var dataLength = sizeof(ChunkSize) + sizeof(UInt16);
-					var expectedLength = versionLength + chunkSizeLength + listLength + chunkGridLength * dataLength;
+					var expectedLength = versionLength + dataVersionLength + chunkSizeLength + listLength +
+					                     chunkGridLength * dataLength;
 					Assert.That(bytes.Length, Is.EqualTo(expectedLength));
 				}
 			}

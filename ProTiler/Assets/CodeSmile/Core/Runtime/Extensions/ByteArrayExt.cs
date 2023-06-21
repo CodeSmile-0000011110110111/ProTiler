@@ -43,15 +43,6 @@ namespace CodeSmile.Extensions
 			}
 		}
 
-		public static string CalculateMd5Hash(this Byte[] buffer)
-		{
-			using (System.Security.Cryptography.MD5 md5 = System.Security.Cryptography.MD5.Create())
-			{
-				byte[] hash = md5.ComputeHash(buffer);
-				return string.Join("", Enumerable.Range(0, hash.Length).Select(i => hash[i].ToString("X2")));
-			}
-		}
-
 		public static String AsString(this Byte[] bytes)
 		{
 			var sb = new StringBuilder();

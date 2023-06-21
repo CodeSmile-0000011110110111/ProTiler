@@ -24,10 +24,5 @@ namespace CodeSmile.ProTiler.Model
 			// try get chunk from stream
 			// may decide to dispose least recently used chunks
 			new NotImplementedException();
-
-		public override unsafe void Serialize(UnsafeAppendBuffer* writer) => throw new NotImplementedException();
-
-		public override unsafe void Deserialize(UnsafeAppendBuffer.Reader* reader, Byte serializedDataVersion,
-			Byte currentDataVersion) => throw new NotImplementedException();
 	}
 }

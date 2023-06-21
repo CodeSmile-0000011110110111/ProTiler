@@ -3,12 +3,10 @@
 
 using CodeSmile.Extensions;
 using CodeSmile.ProTiler.Model;
-using CodeSmile.ProTiler.Serialization;
 using CodeSmile.Serialization;
 using NUnit.Framework;
 using System;
-using System.Collections.Generic;
-using Unity.Serialization.Binary;
+using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
 using ChunkCoord = Unity.Mathematics.int2;
 using ChunkSize = Unity.Mathematics.int3;
@@ -23,19 +21,13 @@ namespace CodeSmile.Tests.Runtime.ProTiler.UnitTests.Serialization
 {
 	public class LinearDataMapSerializationTests
 	{
-		[Test]
-		public void LinearDataMap_WhenEmptyAndSerialized_CanDeserialize()
+		[Test] public void LinearDataMap_WhenEmptyAndSerialized_CanDeserialize()
 		{
 			var chunkSize = new ChunkSize(3, 4, 7);
 			var map = new LinearDataMap<LinearTestData>(chunkSize);
 
-			var adapterVersion = (Byte)2;
 			var dataVersion = (Byte)5;
-			var adapters = new List<IBinaryAdapter>
-			{
-				new LinearDataMapBinaryAdapter<LinearTestData>(adapterVersion, dataVersion),
-				//new NativeParallelHashMapBinaryAdapter<ChunkKey, LinearDataMapChunk<TData>>()
-			};
+			var adapters = LinearDataMap<LinearTestData>.GetBinaryAdapters(dataVersion);
 			var bytes = Serialize.ToBinary(map, adapters);
 			Debug.Log($"{bytes.Length} Bytes: {bytes.AsString()}");
 
@@ -46,9 +38,14 @@ namespace CodeSmile.Tests.Runtime.ProTiler.UnitTests.Serialization
 			Assert.That(deserializedMap.Chunks.Count(), Is.EqualTo(map.Chunks.Count()));
 		}
 
-		public struct LinearTestData
+		public struct LinearTestData : IBinarySerializable
 		{
 			public Byte TestValue;
+
+			public unsafe void Serialize(UnsafeAppendBuffer* writer) => throw new NotImplementedException();
+
+			public unsafe void Deserialize(UnsafeAppendBuffer.Reader* reader, Byte serializedDataVersion) =>
+				throw new NotImplementedException();
 		}
 	}
 }

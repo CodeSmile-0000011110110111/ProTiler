@@ -9,7 +9,7 @@ using Unity.Serialization.Binary;
 namespace CodeSmile.ProTiler.Serialization
 {
 	public class SparseDataMapBinaryAdapter<TData> : VersionedBinaryAdapterBase, IBinaryAdapter<LinearDataMap<TData>>
-		where TData : unmanaged
+		where TData : unmanaged, IBinarySerializable
 	{
 		public Byte DataVersion { get; }
 

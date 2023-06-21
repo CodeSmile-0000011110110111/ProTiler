@@ -5,6 +5,7 @@ using CodeSmile.Serialization;
 using System;
 using Unity.Collections.LowLevel.Unsafe;
 using Unity.Mathematics;
+using Unity.Serialization.Binary;
 
 namespace CodeSmile.Tests.Runtime.ProTiler.UnitTests.Serialization
 {
@@ -13,22 +14,24 @@ namespace CodeSmile.Tests.Runtime.ProTiler.UnitTests.Serialization
 		public int3 Coord;
 		public UInt16 Index;
 
+		public IBinaryAdapter GetBinaryAdapter(Byte adapterVersion) => throw new NotImplementedException();
+
 		public unsafe void Serialize(UnsafeAppendBuffer* writer)
 		{
 			writer->Add(Coord);
 			writer->Add(Index);
 		}
 
-		public unsafe void Deserialize(UnsafeAppendBuffer.Reader* reader, Byte dataVersion)
+		public unsafe void Deserialize(UnsafeAppendBuffer.Reader* reader, Byte serializedDataVersion)
 		{
-			switch (dataVersion)
+			switch (serializedDataVersion)
 			{
-				case 0:
+				case LinearDataMapChunkSerializationTests.SerializationTestDataVersion:
 					Coord = reader->ReadNext<int3>();
 					Index = reader->ReadNext<UInt16>();
 					break;
 				default:
-					throw new SerializationVersionException($"unhandled version {dataVersion}");
+					throw new SerializationVersionException($"unhandled version {serializedDataVersion}");
 			}
 		}
 

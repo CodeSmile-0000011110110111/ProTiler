@@ -1,11 +1,15 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
+using CodeSmile.ProTiler.Serialization;
+using CodeSmile.Serialization;
 using System;
+using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Unity.Collections;
 using Unity.Collections.LowLevel.Unsafe;
 using Unity.Mathematics;
+using Unity.Serialization.Binary;
 using ChunkCoord = Unity.Mathematics.int3;
 using ChunkSize = Unity.Mathematics.int3;
 
@@ -23,10 +27,19 @@ namespace CodeSmile.ProTiler.Model
 	///     or 2 layers.
 	/// </summary>
 	/// <typeparam name="TData"></typeparam>
-	public struct LinearDataMapChunk<TData> : IEquatable<LinearDataMapChunk<TData>>, IDisposable where TData : unmanaged
+	public struct LinearDataMapChunk<TData> : IEquatable<LinearDataMapChunk<TData>>, IDisposable
+		where TData : unmanaged, IBinarySerializable
 	{
+		private const Byte ChunkAdapterVersion = 0;
+
 		private ChunkSize m_Size;
 		private UnsafeList<TData> m_Data;
+
+		public static List<IBinaryAdapter> GetBinaryAdapters(Byte dataAdapterVersion) => new()
+		{
+			new LinearDataMapChunkBinaryAdapter<TData>(ChunkAdapterVersion, dataAdapterVersion,
+				Allocator.Domain),
+		};
 
 		/// <summary>
 		///     Get/set TData by index. Setting data may resize the list.
@@ -166,10 +179,12 @@ namespace CodeSmile.ProTiler.Model
 		public override Boolean Equals(Object obj) => obj is LinearDataMapChunk<TData> other && Equals(other);
 		public override Int32 GetHashCode() => HashCode.Combine(m_Size, m_Data);
 
-		public unsafe Boolean Equals(LinearDataMapChunk<TData> other) =>
-			m_Data.Ptr == other.m_Data.Ptr && m_Data.Length == other.m_Data.Length && m_Size.Equals(other.m_Size);
+		public unsafe Boolean Equals(LinearDataMapChunk<TData> other) => m_Data.Ptr == other.m_Data.Ptr &&
+		                                                                 m_Data.Length == other.m_Data.Length &&
+		                                                                 m_Size.Equals(other.m_Size);
 
-		public unsafe override String ToString() =>
-			$"{nameof(LinearDataMapChunk<TData>)}({m_Size}, {m_Data.Length} length, {(IntPtr)m_Data.Ptr} ptr, {m_Data.Allocator.ToAllocator} allocator)";
+		public override unsafe String ToString() =>
+			$"{nameof(LinearDataMapChunk<TData>)}({m_Size}, {m_Data.Length} length, {(IntPtr)m_Data.Ptr} ptr, " +
+			$"{m_Data.Allocator.ToAllocator} allocator)";
 	}
 }

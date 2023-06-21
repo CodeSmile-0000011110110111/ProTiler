@@ -2,8 +2,10 @@
 // Refer to included LICENSE file for terms and conditions.
 
 using CodeSmile.ProTiler.Model;
+using CodeSmile.Serialization;
 using NUnit.Framework;
 using System;
+using Unity.Collections.LowLevel.Unsafe;
 using ChunkSize = Unity.Mathematics.int3;
 using CellSize = Unity.Mathematics.float3;
 using CellGap = Unity.Mathematics.float3;
@@ -157,7 +159,7 @@ namespace CodeSmile.Tests.Editor.ProTiler.UnitTests.Model
 				Assert.Throws<IndexOutOfRangeException>(() => { chunk.GetData(index); });
 		}
 
-		public struct TestData : IEquatable<TestData>
+		public struct TestData : IEquatable<TestData>, IBinarySerializable
 		{
 			public Byte value;
 
@@ -166,6 +168,18 @@ namespace CodeSmile.Tests.Editor.ProTiler.UnitTests.Model
 			public override Int32 GetHashCode() => value.GetHashCode();
 			public static Boolean operator ==(TestData left, TestData right) => left.Equals(right);
 			public static Boolean operator !=(TestData left, TestData right) => !left.Equals(right);
+			public unsafe void Serialize(UnsafeAppendBuffer* writer)
+			{
+				writer->Add(value);
+			}
+
+			public unsafe void Deserialize(UnsafeAppendBuffer.Reader* reader, Byte serializedDataVersion)
+			{
+				if (serializedDataVersion != 0)
+					throw new SerializationVersionException($"unhandled data version {serializedDataVersion}");
+
+				value = reader->ReadNext<byte>();
+			}
 		}
 	}
 }

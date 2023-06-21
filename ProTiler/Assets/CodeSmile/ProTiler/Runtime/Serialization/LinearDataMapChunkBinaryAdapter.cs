@@ -14,34 +14,47 @@ namespace CodeSmile.ProTiler.Serialization
 {
 	public class LinearDataMapChunkBinaryAdapter<TData> : VersionedBinaryAdapterBase,
 		IBinaryAdapter<LinearDataMapChunk<TData>>
-		where TData : unmanaged
+		where TData : unmanaged, IBinarySerializable
 	{
+		private readonly Byte m_DataVersion;
 		private readonly Allocator m_Allocator;
 
 		private static unsafe void WriteChunkData(
 			in BinarySerializationContext<LinearDataMapChunk<TData>> context, in UnsafeList<TData>.ReadOnly dataList)
 		{
+			var writer = context.Writer;
 			var dataLength = dataList.Length;
-			context.Writer->Add(dataLength);
+			writer->Add(dataLength);
 
 			foreach (var data in dataList)
-				context.SerializeValue(data);
+				data.Serialize(writer);
 		}
 
 		private static unsafe UnsafeList<TData> ReadChunkData(
-			in BinaryDeserializationContext<LinearDataMapChunk<TData>> context, Allocator allocator)
+			in BinaryDeserializationContext<LinearDataMapChunk<TData>> context, Byte serializedDataVersion,
+			Allocator allocator)
 		{
-			var dataLength = context.Reader->ReadNext<Int32>();
+			var reader = context.Reader;
+			var dataLength = reader->ReadNext<Int32>();
 
 			var list = UnsafeListExt.NewWithLength<TData>(dataLength, allocator);
 			for (var i = 0; i < dataLength; i++)
-				list[i] = context.DeserializeValue<TData>();
+			{
+				var data = new TData();
+				// TODO: speed up method call, avoid interface boxing
+				data.Deserialize(reader, serializedDataVersion);
+				list[i] = data;
+			}
 
 			return list;
 		}
 
-		public LinearDataMapChunkBinaryAdapter(Byte adapterVersion, Allocator allocator)
-			: base(adapterVersion) => m_Allocator = allocator;
+		public LinearDataMapChunkBinaryAdapter(Byte adapterVersion, Byte dataVersion, Allocator allocator)
+			: base(adapterVersion)
+		{
+			m_DataVersion = dataVersion;
+			m_Allocator = allocator;
+		}
 
 		public unsafe void Serialize(in BinarySerializationContext<LinearDataMapChunk<TData>> context,
 			LinearDataMapChunk<TData> chunk)
@@ -49,6 +62,7 @@ namespace CodeSmile.ProTiler.Serialization
 			var writer = context.Writer;
 
 			WriteAdapterVersion(writer);
+			writer->Add(m_DataVersion);
 			writer->Add(chunk.Size);
 			WriteChunkData(context, chunk.Data);
 		}
@@ -58,16 +72,17 @@ namespace CodeSmile.ProTiler.Serialization
 		{
 			var reader = context.Reader;
 
-			var serializedVersion = ReadAdapterVersion(reader);
-			if (serializedVersion == AdapterVersion)
+			var serializedAdapterVersion = ReadAdapterVersion(reader);
+			if (serializedAdapterVersion == AdapterVersion)
 			{
+				var serializedDataVersion = reader->ReadNext<Byte>();
 				var chunkSize = reader->ReadNext<ChunkSize>();
-				var data = ReadChunkData(context, m_Allocator);
+				var data = ReadChunkData(context, serializedDataVersion, m_Allocator);
 
 				return new LinearDataMapChunk<TData>(chunkSize, data);
 			}
 
-			throw new SerializationVersionException(GetVersionExceptionMessage(serializedVersion));
+			throw new SerializationVersionException(GetVersionExceptionMessage(serializedAdapterVersion));
 		}
 	}
 }

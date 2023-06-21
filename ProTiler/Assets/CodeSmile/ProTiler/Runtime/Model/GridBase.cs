@@ -2,6 +2,7 @@
 // Refer to included LICENSE file for terms and conditions.
 
 using CodeSmile.ProTiler.Serialization;
+using CodeSmile.Serialization;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -26,13 +27,15 @@ namespace CodeSmile.ProTiler.Model
 
 		public GridBase(Byte gridVersion) => AddGridMapSerializationAdapter(gridVersion);
 
-		public void AddLinearDataMap<TData>(Byte dataVersion, IDataMapStream stream = null) where TData : unmanaged
+		public void AddLinearDataMap<TData>(Byte dataVersion, IDataMapStream stream = null)
+			where TData : unmanaged, IBinarySerializable
 		{
 			m_LinearMaps.Add(new LinearDataMap<TData>(m_ChunkSize /*, stream*/));
-			m_SerializationAdapters.Add(new LinearDataMapBinaryAdapter<TData>(0, dataVersion));
+			m_SerializationAdapters.Add(new LinearDataMapBinaryAdapter<TData>(0));
 		}
 
-		public void AddSparseDataMap<TData>(Byte dataVersion, IDataMapStream stream = null) where TData : unmanaged
+		public void AddSparseDataMap<TData>(Byte dataVersion, IDataMapStream stream = null)
+			where TData : unmanaged, IBinarySerializable
 		{
 			m_SparseMaps.Add(new SparseDataMap<TData>(m_ChunkSize /*, stream*/));
 			m_SerializationAdapters.Add(new SparseDataMapBinaryAdapter<TData>(0, dataVersion));
