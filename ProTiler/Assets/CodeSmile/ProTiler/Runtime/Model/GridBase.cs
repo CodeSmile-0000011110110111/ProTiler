@@ -20,7 +20,7 @@ namespace CodeSmile.ProTiler.Model
 
 		protected readonly List<IBinaryAdapter> m_SerializationAdapters = new();
 		private int3 m_ChunkSize = new(2, 0, 2);
-		public IReadOnlyList<IBinaryAdapter> SerializationAdapters => m_SerializationAdapters;
+		//public IReadOnlyList<IBinaryAdapter> SerializationAdapters => m_SerializationAdapters;
 
 		private GridBase()
 			: this(0) {}

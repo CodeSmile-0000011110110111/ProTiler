@@ -32,7 +32,7 @@ namespace CodeSmile.Tests.Editor.ProTiler.UnitTests.Model
 		[Test] public void TryGetChunk_WhenCoordDoesNotExist_ReturnsFalse()
 		{
 			using (var map = new LinearDataMap<SerializationTestData>())
-				Assert.False(map.TryGetChunk(new WorldCoord(0, 0, 0), out var chunk));
+				Assert.False(map.TryGetChunk(new ChunkCoord(0, 0), out var chunk));
 		}
 
 		[Test] public void AddChunk_WhenAddedToCoord_GetSameChunkFromCoord()
@@ -41,7 +41,7 @@ namespace CodeSmile.Tests.Editor.ProTiler.UnitTests.Model
 			{
 				using (var chunk = new LinearDataMapChunk<SerializationTestData>())
 				{
-					var coord = new WorldCoord(-7, 4, 13);
+					var coord = new ChunkCoord(-7, 13);
 
 					map.AddChunk(coord, chunk);
 					var gotChunk = map.TryGetChunk(coord, out var outChunk);

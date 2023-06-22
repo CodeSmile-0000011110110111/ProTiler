@@ -8,9 +8,15 @@ using System;
 using System.Collections.Generic;
 using Unity.Collections;
 using Unity.Serialization.Binary;
+using ChunkCoord = Unity.Mathematics.int2;
 using ChunkKey = System.Int64;
 using ChunkSize = Unity.Mathematics.int3;
+using CellSize = Unity.Mathematics.float3;
+using CellGap = Unity.Mathematics.float3;
+using LocalCoord = Unity.Mathematics.int3;
+using LocalPos = Unity.Mathematics.float3;
 using WorldCoord = Unity.Mathematics.int3;
+using WorldPos = Unity.Mathematics.float3;
 
 namespace CodeSmile.ProTiler.Model
 {
@@ -39,14 +45,17 @@ namespace CodeSmile.ProTiler.Model
 
 		public void Dispose() => m_Chunks.Dispose();
 
-		internal void AddChunk(WorldCoord worldCoord, LinearDataMapChunk<TData> chunk) =>
-			AddChunk(ToChunkKey(worldCoord), chunk);
+		internal void AddChunk(ChunkCoord chunkCoord, LinearDataMapChunk<TData> chunk) =>
+			AddChunk(ToChunkKey(chunkCoord), chunk);
 
-		//public void AddChunk(ChunkCoord chunkCoord, LinearDataMapChunk<TData> chunk) => AddChunk(ToChunkKey(chunkCoord), chunk);
 		internal void AddChunk(ChunkKey key, LinearDataMapChunk<TData> chunk) => m_Chunks.Add(key, chunk);
 
-		internal Boolean TryGetChunk(WorldCoord worldCoord, out LinearDataMapChunk<TData> chunk) =>
-			TryGetChunk(ToChunkKey(worldCoord), out chunk);
+		internal LinearDataMapChunk<TData> GetChunk(ChunkCoord chunkCoord) => GetChunk(ToChunkKey(chunkCoord));
+
+		internal LinearDataMapChunk<TData> GetChunk(ChunkKey key) => m_Chunks[key];
+
+		internal Boolean TryGetChunk(ChunkCoord chunkCoord, out LinearDataMapChunk<TData> chunk) =>
+			TryGetChunk(ToChunkKey(chunkCoord), out chunk);
 
 		internal Boolean TryGetChunk(ChunkKey key, out LinearDataMapChunk<TData> chunk)
 		{

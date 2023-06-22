@@ -41,7 +41,7 @@ namespace CodeSmile.ProTiler.Serialization
 			for (var i = 0; i < dataLength; i++)
 			{
 				var data = new TData();
-				// TODO: speed up method call, avoid interface boxing
+				// TODO: avoid boxing! Task: https://www.pivotaltracker.com/story/show/185427726
 				data.Deserialize(reader, serializedDataVersion);
 				list[i] = data;
 			}

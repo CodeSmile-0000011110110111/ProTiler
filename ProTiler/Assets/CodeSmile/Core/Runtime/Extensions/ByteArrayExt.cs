@@ -45,10 +45,13 @@ namespace CodeSmile.Extensions
 
 		public static String AsString(this Byte[] bytes)
 		{
+			return BitConverter.ToString(bytes);
+			//return System.Convert.ToHexString(bytes);
+			/*BitConverter.ToString(bytes)
 			var sb = new StringBuilder();
 			foreach (var b in bytes)
 				sb.Append(b);
-			return sb.ToString();
+			return sb.ToString();*/
 		}
 	}
 }

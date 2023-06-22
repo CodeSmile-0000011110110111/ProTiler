@@ -5,7 +5,6 @@ using CodeSmile.Extensions;
 using CodeSmile.ProTiler.Model;
 using CodeSmile.ProTiler.Serialization;
 using CodeSmile.Serialization;
-using CodeSmile.Serialization.BinaryAdapters;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
@@ -24,19 +23,18 @@ namespace CodeSmile.Tests.Runtime.ProTiler.UnitTests.Serialization
 {
 	public class LinearDataMapChunkSerializationTests
 	{
-		private const Byte SerializationTestVersion = 7;
-		internal const Byte SerializationTestDataVersion = 9;
+		private const Byte TestAdapterVersion = 7;
 		private static readonly List<IBinaryAdapter> LinearDataMapChunkAdapter = new()
 		{
 			new LinearDataMapChunkBinaryAdapter<SerializationTestData>(
-				SerializationTestVersion, SerializationTestDataVersion, Allocator.Domain),
+				TestAdapterVersion, SerializationTestData.DataVersion, Allocator.Domain),
 		};
 
 		[TestCase(1, 1, 1)] [TestCase(2, 2, 2)] [TestCase(4, 2, 7)]
 		public void ChunkWithData_WhenSerialized_HasExpectedLength(Int32 x, Int32 y, Int32 z)
 		{
 			var chunkSize = new ChunkSize(x, y, z);
-			using (var chunk = ChunkDataHelper.CreateChunkFilledWithData(chunkSize))
+			using (var chunk = DataCreation.CreateChunkFilledWithData(chunkSize))
 			{
 				var bytes = Serialize.ToBinary(chunk, LinearDataMapChunkAdapter);
 				Debug.Log($"{bytes.Length} Bytes: {bytes.AsString()}");
@@ -60,7 +58,7 @@ namespace CodeSmile.Tests.Runtime.ProTiler.UnitTests.Serialization
 		public void ChunkWithData_WhenSerialized_CanDeserialize(Int32 x, Int32 y, Int32 z)
 		{
 			var chunkSize = new ChunkSize(x, y, z);
-			using (var chunk = ChunkDataHelper.CreateChunkFilledWithData(chunkSize))
+			using (var chunk = DataCreation.CreateChunkFilledWithData(chunkSize))
 			{
 				var bytes = Serialize.ToBinary(chunk, LinearDataMapChunkAdapter);
 				Debug.Log($"{bytes.Length} Bytes: {bytes.AsString()}");
@@ -69,33 +67,76 @@ namespace CodeSmile.Tests.Runtime.ProTiler.UnitTests.Serialization
 
 				Assert.That(deserializedChunk.Size, Is.EqualTo(chunk.Size));
 				Assert.That(deserializedChunk.Data.Length, Is.EqualTo(chunk.Data.Length));
-				var deserializedData = deserializedChunk.GetWritableData();
-				var chunkData = chunk.GetWritableData();
-				for (var i = 0; i < deserializedData.Length; i++)
-					Assert.That(deserializedData[i], Is.EqualTo(chunkData[i]));
+				using (var deserializedData = deserializedChunk.GetWritableData())
+				{
+					var chunkData = chunk.GetWritableData();
+					for (var i = 0; i < deserializedData.Length; i++)
+						Assert.That(deserializedData[i], Is.EqualTo(chunkData[i]));
+				}
 			}
 		}
 
-		[TestCase(1, 1, 1)] [TestCase(2, 2, 2)] [TestCase(3, 4, 5)] [TestCase(4, 2, 7)]
-		public void ChunkWithData_WhenSerializedWithInterfaceDataAdapter_CanDeserialize(Int32 x, Int32 y, Int32 z)
+		[TestCase(1)] [TestCase(-1)]
+		public void Deserialize_WithUnsupportedVersion_ThrowsSerializationVersionException(Int32 versionOffset)
 		{
-			var chunkSize = new ChunkSize(x, y, z);
-			using (var chunk = ChunkDataHelper.CreateChunkFilledWithData(chunkSize))
+			var chunkSize = new ChunkSize(2, 1, 2);
+			using (var chunk = DataCreation.CreateChunkFilledWithData(chunkSize))
 			{
-				var adapters = new List<IBinaryAdapter>(LinearDataMapChunkAdapter);
-				adapters.Add(new BinarySerializableInterfaceAdapter<SerializationTestData>(0));
-
-				var bytes = Serialize.ToBinary(chunk, adapters);
+				var bytes = Serialize.ToBinary(chunk, LinearDataMapChunkAdapter);
+				bytes[0] += (Byte)versionOffset; // bump version
 				Debug.Log($"{bytes.Length} Bytes: {bytes.AsString()}");
-				var deserializedChunk = Serialize.FromBinary<LinearDataMapChunk<SerializationTestData>>(
-					bytes, LinearDataMapChunkAdapter);
 
-				Assert.That(deserializedChunk.Size, Is.EqualTo(chunk.Size));
-				Assert.That(deserializedChunk.Data.Length, Is.EqualTo(chunk.Data.Length));
-				var deserializedData = deserializedChunk.GetWritableData();
-				var chunkData = chunk.GetWritableData();
-				for (var i = 0; i < deserializedData.Length; i++)
-					Assert.That(deserializedData[i], Is.EqualTo(chunkData[i]));
+				Assert.Throws<SerializationVersionException>(() =>
+				{
+					Serialize.FromBinary<LinearDataMapChunk<SerializationTestData>>(bytes, LinearDataMapChunkAdapter);
+				});
+			}
+		}
+
+		[Test] public void Deserialize_WhenLoadingPreviousVersion_DataCanBeDeserialized()
+		{
+			var data0 = new DataVersionOld
+			{
+				RemainsUnchanged0 = 0xff,
+				WillChangeTypeInVersion1 = 8,
+				RemainsUnchanged1 = 0xff,
+				WillBeRemovedInVersion1 = 9,
+				RemainsUnchanged2 = 0xff,
+			};
+
+			using (var chunk = new LinearDataMapChunk<DataVersionOld>(new ChunkSize(1, 1, 1)))
+			{
+				chunk.SetData(LocalCoord.zero, data0);
+
+				var adapterVersion0 = new List<IBinaryAdapter>
+				{
+					new LinearDataMapChunkBinaryAdapter<DataVersionOld>(TestAdapterVersion, 0, Allocator.Domain),
+				};
+				var bytes = Serialize.ToBinary(chunk, adapterVersion0);
+				Debug.Log($"{bytes.Length} Bytes: {bytes.AsString()}");
+
+				var adapterVersion1 = new List<IBinaryAdapter>
+				{
+					new LinearDataMapChunkBinaryAdapter<DataVersionCurrent>(TestAdapterVersion, 1, Allocator.Domain),
+				};
+				using (var deserializedChunk =
+				       Serialize.FromBinary<LinearDataMapChunk<DataVersionCurrent>>(bytes, adapterVersion1))
+				{
+					var data1 = deserializedChunk.GetWritableData()[0];
+
+					Assert.That(data1.WillChangeTypeInVersion1, Is.EqualTo((Int64)data0.WillChangeTypeInVersion1));
+					Assert.That(data1.NewFieldWithNonDefaultValue, Is.EqualTo(DataVersionCurrent.NewFieldInitialValue));
+					Assert.That(data1.RemainsUnchanged0, Is.EqualTo(data0.RemainsUnchanged0));
+					Assert.That(data1.RemainsUnchanged1, Is.EqualTo(data0.RemainsUnchanged1));
+					Assert.That(data1.RemainsUnchanged2, Is.EqualTo(data0.RemainsUnchanged2));
+
+					// see if we can serialize v1 correctly
+					var bytes2 = Serialize.ToBinary(deserializedChunk, adapterVersion1);
+					Debug.Log($"{bytes2.Length} Bytes: {bytes2.AsString()}");
+					using (var deserializedChunkAgain =
+					       Serialize.FromBinary<LinearDataMapChunk<DataVersionCurrent>>(bytes, adapterVersion1))
+						Assert.That(deserializedChunkAgain.GetWritableData()[0], Is.EqualTo(data1));
+				}
 			}
 		}
 	}
