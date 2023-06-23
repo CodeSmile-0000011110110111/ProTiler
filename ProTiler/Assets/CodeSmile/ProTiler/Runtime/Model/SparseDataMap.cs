@@ -24,5 +24,12 @@ namespace CodeSmile.ProTiler.Model
 			// try get chunk from stream
 			// may decide to dispose least recently used chunks
 			new NotImplementedException();
+
+		public override void Dispose()
+		{
+			foreach (var pair in m_Chunks)
+				pair.Value.Dispose();
+			m_Chunks.Dispose();
+		}
 	}
 }

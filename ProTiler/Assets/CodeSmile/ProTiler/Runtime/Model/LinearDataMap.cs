@@ -20,15 +20,13 @@ using WorldPos = Unity.Mathematics.float3;
 
 namespace CodeSmile.ProTiler.Model
 {
-	public class LinearDataMap<TData> : DataMapBase, IDisposable
+	public class LinearDataMap<TData> : DataMapBase
 		where TData : unmanaged, IBinarySerializable
 	{
 		private const Int32 MapAdapterVersion = 0;
 
-		// TODO: hashmap of modified (unsaved) chunks?
-		// possibly: hashmap of chunk access timestamps
-
 		private NativeParallelHashMap<ChunkKey, LinearDataMapChunk<TData>> m_Chunks;
+		private List<IBinaryAdapter> m_BinaryAdapters;
 
 		public NativeParallelHashMap<Int64, LinearDataMapChunk<TData>>.ReadOnly Chunks => m_Chunks.AsReadOnly();
 		public NativeParallelHashMap<Int64, LinearDataMapChunk<TData>> GetWritableChunks() => m_Chunks;
@@ -37,13 +35,20 @@ namespace CodeSmile.ProTiler.Model
 			: this(s_MinimumChunkSize) {}
 
 		public LinearDataMap(ChunkSize chunkSize /*, IDataMapStream stream = null*/)
-			: base(chunkSize /*, stream*/) => m_Chunks = new NativeParallelHashMap<ChunkKey, LinearDataMapChunk<TData>>
-			(0, Allocator.Domain);
+			: base(chunkSize /*, stream*/)
+		{
+			m_Chunks = new NativeParallelHashMap<ChunkKey, LinearDataMapChunk<TData>>(0, Allocator.Domain);
+		}
 
 		internal LinearDataMap(ChunkSize chunkSize, NativeParallelHashMap<ChunkKey, LinearDataMapChunk<TData>> chunks)
 			: base(chunkSize) => m_Chunks = chunks;
 
-		public void Dispose() => m_Chunks.Dispose();
+		public override void Dispose()
+		{
+			foreach (var pair in m_Chunks)
+				pair.Value.Dispose();
+			m_Chunks.Dispose();
+		}
 
 		internal void AddChunk(ChunkCoord chunkCoord, LinearDataMapChunk<TData> chunk) =>
 			AddChunk(ToChunkKey(chunkCoord), chunk);

@@ -1,10 +1,8 @@
 ﻿// Copyright (C) 2021-2023 Steffen Itterheim
 // Refer to included LICENSE file for terms and conditions.
 
-using CodeSmile.Serialization;
 using System;
 using System.Runtime.CompilerServices;
-using Unity.Collections.LowLevel.Unsafe;
 using ChunkCoord = Unity.Mathematics.int2;
 using ChunkKey = System.Int64;
 using ChunkSize = Unity.Mathematics.int3;
@@ -13,12 +11,12 @@ using Math = Unity.Mathematics.math;
 
 namespace CodeSmile.ProTiler.Model
 {
-	public abstract class DataMapBase
+	public abstract class DataMapBase : IDisposable
 	{
 		/// <summary>
 		///     Chunks must be at least 2x2 in X/Z to avoid hashed chunk coords from clashing.
 		/// </summary>
-		protected static readonly ChunkSize s_MinimumChunkSize = new(2, 0, 2);
+		public static readonly ChunkSize s_MinimumChunkSize = new(2, 0, 2);
 
 		protected ChunkSize m_ChunkSize;
 		//protected IDataMapStream m_Stream;
@@ -55,5 +53,6 @@ namespace CodeSmile.ProTiler.Model
 			worldCoord.x < 0 ? -(Math.abs(worldCoord.x + 1) / m_ChunkSize.x + 1) : worldCoord.x / m_ChunkSize.x,
 			worldCoord.z < 0 ? -(Math.abs(worldCoord.z + 1) / m_ChunkSize.z + 1) : worldCoord.z / m_ChunkSize.z);
 
+		public abstract void Dispose();
 	}
 }

@@ -10,7 +10,7 @@ namespace CodeSmile.ProTiler.Model
 {
 	[ExecuteAlways]
 	public abstract class GridBehaviourBase<T> : MonoBehaviour //, ISerializationCallbackReceiver
-		where T : GridBase, new()
+		where T : GridMapBase, new()
 	{
 		[SerializeReference] private T m_GridMap = new();
 		//[SerializeReference] protected GridMapBinarySerialization m_GridMapBinarySerialization = new();
@@ -36,10 +36,10 @@ namespace CodeSmile.ProTiler.Model
 			return adapters.AsReadOnly();
 		}
 
-		public void Serialize<T>(T gridMap, IReadOnlyList<IBinaryAdapter> adapters) where T : GridBase =>
+		public void Serialize<T>(T gridMap, IReadOnlyList<IBinaryAdapter> adapters) where T : GridMapBase =>
 			m_SerializedGridMap = CodeSmile.Serialization.Serialize.ToBinary(gridMap, adapters);
 
-		public T Deserialize<T>(IReadOnlyList<IBinaryAdapter> adapters) where T : GridBase
+		public T Deserialize<T>(IReadOnlyList<IBinaryAdapter> adapters) where T : GridMapBase
 		{
 			if (m_SerializedGridMap == null || m_SerializedGridMap.Length == 0)
 				return null;

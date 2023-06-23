@@ -59,6 +59,8 @@ namespace CodeSmile.Tests.Editor.ProTiler.UnitTests.Model
 		{
 			public TestDataMap(ChunkSize chunkSize)
 				: base(chunkSize) {}
+
+			public override void Dispose() => throw new NotImplementedException();
 		}
 	}
 }

@@ -3,17 +3,17 @@
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using UnityEditor;
 
 namespace CodeSmile
 {
 	/// <summary>
 	///     Keeps a history of specific Undo.GetCurrentGroup identifiers so that you can register for
-	///     OnRegisteredUndoRedoEvent such that you only get callbacks when one of the Undo operations
-	///     you are interested in raises the event.
+	///     OnRegisteredUndoRedoEvent such that you only get callbacks for the Undo operations (groups)
+	///     that you subscribed to.
 	///     The main intention is to use this class to filter out unwanted undo/redo operations because
 	///     Undo doesn't give you a target object before Unity 2022, and even with 2022 it is cumbersome.
+	///     NOTE: Event though this is a runtime script, it only works within the Editor (for ease of access).
 	/// </summary>
 	public sealed class UndoGroupRegistry
 	{
