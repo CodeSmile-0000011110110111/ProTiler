@@ -3,12 +3,13 @@
 
 using CodeSmile.ProTiler.Serialization;
 using CodeSmile.Serialization;
+using CodeSmile.Serialization.BinaryAdapters;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Reflection;
-using Unity.Android.Gradle.Manifest;
+using Unity.Collections;
 using Unity.Serialization.Binary;
 using ChunkCoord = Unity.Mathematics.int2;
 using ChunkSize = Unity.Mathematics.int3;
@@ -115,10 +116,13 @@ namespace CodeSmile.ProTiler.Model
 
 		public static List<IBinaryAdapter> GetBinaryAdapters(Byte dataAdapterVersion)
 		{
+			throw new NotImplementedException();
+			/*
 			var adapters = LinearDataMapChunk<TData>.GetBinaryAdapters(dataAdapterVersion);
 			adapters.Add(new NativeParallelHashMapBinaryAdapter<ChunkKey, LinearDataMapChunk<TData>>(Allocator.Domain));
 			adapters.Add(new LinearDataMapBinaryAdapter<TData>(MapAdapterVersion));
 			return adapters;
+		*/
 		}
 
 		private void DisposeDataMaps(List<DataMapBase> dataMaps)

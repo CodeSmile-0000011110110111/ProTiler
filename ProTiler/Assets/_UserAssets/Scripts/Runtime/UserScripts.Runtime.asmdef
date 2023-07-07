@@ -1,0 +1,20 @@
+{
+    "name": "UserScripts.Runtime",
+    "rootNamespace": "",
+    "references": [
+        "GUID:0de177a875028db4d97efebe9a09aa5a",
+        "GUID:d74c946c0dddbe741ba530125b4cb9f2",
+        "GUID:928bb8dff08d4c4a9801d95e0e916f72",
+        "GUID:e0cd26848372d4e5c891c569017e11f1",
+        "GUID:d8b63aba1907145bea998dd612889d6b"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": true,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
