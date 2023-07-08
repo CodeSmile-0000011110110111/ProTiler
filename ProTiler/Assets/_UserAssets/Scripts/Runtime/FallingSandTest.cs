@@ -8,6 +8,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Collections.LowLevel.Unsafe;
+using UnityEditor;
 using UnityEngine;
 using ChunkCoord = Unity.Mathematics.int2;
 using ChunkSize = Unity.Mathematics.int3;
@@ -24,10 +25,28 @@ public enum CellType
 	Sand,
 }
 
+public enum Neighbour
+{
+	None = 0,
+	PositiveX,
+	PositiveZ,
+	NegativeX,
+	NegativeZ,
+
+	Count = 4,
+}
+
 public struct Cell : IBinarySerializable
 {
 	public CellType Type;
 	public Int32 CubeIndex;
+	public WorldPos CubePosition;
+
+	public void SetPosition(WorldCoord coord)
+	{
+		CubePosition = coord;
+		CubePosition.y += .5f;
+	}
 
 	public unsafe void Serialize(UnsafeAppendBuffer* writer) => throw new NotImplementedException();
 
@@ -41,6 +60,9 @@ public class FallingSandTest : MonoBehaviour
 	private static readonly Cell EmptyCell = new() { Type = CellType.Air, CubeIndex = -1 };
 
 	[SerializeField] private Single m_SimulationUpdateRate = 0.1f;
+	[SerializeField] private Boolean m_DrawWireframeCubes;
+	[SerializeField] private Boolean m_ContinueInsteadOfBreakBug;
+	[SerializeField] private Boolean m_RandomNeighbourPicking;
 	[SerializeField] private Boolean m_Reset;
 
 	private readonly List<Transform> m_Cubes = new();
@@ -51,6 +73,12 @@ public class FallingSandTest : MonoBehaviour
 
 	private void OnValidate() => StartCoroutine(CheckReset());
 
+	private void OnEnable()
+	{
+		AssemblyReloadEvents.beforeAssemblyReload += CreateWorld;
+		AssemblyReloadEvents.afterAssemblyReload += CreateWorld;
+	}
+
 	private IEnumerator CheckReset()
 	{
 		yield return null;
@@ -59,40 +87,41 @@ public class FallingSandTest : MonoBehaviour
 		{
 			m_Reset = false;
 
-			transform.DestroyAllChildren();
-			m_Cubes.Clear();
-			CreateChunk();
+			CreateWorld();
 		}
 	}
 
-	private void CreateChunk()
+	private void CreateWorld()
 	{
+		transform.DestroyAllChildren();
+		m_Cubes.Clear();
 		m_Chunk.Dispose();
 		m_Chunk = new LinearDataMapChunk<Cell>(m_ChunkSize);
 	}
 
-	private void Awake()
+	private void Start()
 	{
-		CreateChunk();
-		AdvanceTimer();
+		CreateWorld();
+		AdvanceSimulationTime();
 	}
 
-	private void AdvanceTimer() => m_NextUpdateTime = Time.time + m_SimulationUpdateRate;
+	private void AdvanceSimulationTime() => m_NextUpdateTime = Time.time + m_SimulationUpdateRate;
 
 	private void Update()
 	{
 		if (Time.time >= m_NextUpdateTime)
 		{
-			AdvanceTimer();
-			MoveCubes();
-			DestroyCubes();
+			AdvanceSimulationTime();
 
-			if (Time.frameCount % 3 == 0)
-				CreateCube();
+			CreateSandCell();
+
+			SimulateCells();
+			UpdateCubes();
+			//DestroyCubes();
 		}
 	}
 
-	private void MoveCubes()
+	private void SimulateCells()
 	{
 		var layerCellCount = m_Chunk.Size.x * m_Chunk.Size.z;
 		var cells = m_Chunk.GetWritableData();
@@ -108,22 +137,63 @@ public class FallingSandTest : MonoBehaviour
 				var cellBelow = cells[oneLayerDownIndex];
 				if (cellBelow.Type == CellType.Air)
 				{
+					cell.CubePosition.y -= 1f;
 					cells[oneLayerDownIndex] = cell;
 					cells[index] = EmptyCell;
+					continue;
+				}
 
-					if (cell.CubeIndex >= 0 && cell.CubeIndex < m_Cubes.Count)
+				var randomOffset = (m_RandomNeighbourPicking ? UnityEngine.Random.Range(0, 4) : 0);
+				for (var k = 0; k < 4; k++)
+				{
+					var n = (k + randomOffset) % 4;
+
+					var neighbourIndex = n switch
 					{
-						var cube = m_Cubes[cell.CubeIndex];
-						if (cube != null)
-						{
-							var height = index / layerCellCount;
-							var indexOnLayer = index - height * layerCellCount;
-							var cubeCoord = new ChunkSize(indexOnLayer % m_Chunk.Size.x, height,
-								indexOnLayer / m_Chunk.Size.z);
+						0 => oneLayerDownIndex - m_ChunkSize.x,
+						1 => oneLayerDownIndex + m_ChunkSize.x,
+						2 => oneLayerDownIndex - 1,
+						3 => oneLayerDownIndex + 1,
+						_ => -1,
+					};
 
-							cube.position = new Vector3(cubeCoord.x, cubeCoord.y + 0.5f, cubeCoord.z);
+					if (neighbourIndex >= 0)
+					{
+						var neighbourCell = cells[neighbourIndex];
+						if (neighbourCell.Type == CellType.Air)
+						{
+							cell.CubePosition.x += n == 0 ? -1 : n == 1 ? 1 : 0;
+							if (cell.CubePosition.y >= 1f)
+								cell.CubePosition.y -= 1f;
+							cell.CubePosition.z += n == 2 ? -1 : n == 3 ? 1 : 0;
+
+							cells[neighbourIndex] = cell;
+							cells[index] = EmptyCell;
+
+							if (m_ContinueInsteadOfBreakBug)
+								continue;
+
+							break;
 						}
 					}
+				}
+			}
+		}
+	}
+
+	private void UpdateCubes()
+	{
+		var cells = m_Chunk.GetWritableData();
+		for (var index = 0; index < cells.Length; index++)
+		{
+			var cell = cells[index];
+			if (cell.Type != CellType.Air)
+			{
+				if (cell.CubeIndex >= 0 && cell.CubeIndex < m_Cubes.Count)
+				{
+					var cube = m_Cubes[cell.CubeIndex];
+					if (cube != null)
+						cube.position = cell.CubePosition;
 				}
 			}
 		}
@@ -146,17 +216,16 @@ public class FallingSandTest : MonoBehaviour
 					{
 						m_Cubes[cell.CubeIndex].gameObject.DestroyInAnyMode();
 						m_Cubes[cell.CubeIndex] = null;
+						cells[index] = EmptyCell;
 					}
 				}
-
-				cells[index] = EmptyCell;
 			}
 		}
 	}
 
-	private void CreateCube()
+	private void CreateSandCell()
 	{
-		var startPos = new WorldCoord(0, 19, 0);
+		var startPos = new WorldCoord(9, 19, 9);
 		var startPosCell = m_Chunk[startPos];
 		if (startPosCell.Type != CellType.Air)
 			return;
@@ -164,7 +233,6 @@ public class FallingSandTest : MonoBehaviour
 		var cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
 		var cubeTransform = cube.transform;
 		cubeTransform.parent = transform;
-		cubeTransform.position = new Vector3(0f, 19.5f, 0f);
 
 		var cubeIndex = m_Cubes.IndexOf(null);
 		if (cubeIndex < 0)
@@ -175,6 +243,22 @@ public class FallingSandTest : MonoBehaviour
 		else
 			m_Cubes[cubeIndex] = cubeTransform;
 
-		m_Chunk.SetData(startPos, new Cell { Type = CellType.Sand, CubeIndex = cubeIndex });
+		var cell = new Cell { Type = CellType.Sand, CubeIndex = cubeIndex };
+		cell.SetPosition(startPos);
+		m_Chunk.SetData(startPos, cell);
+	}
+
+	private void OnDrawGizmosSelected()
+	{
+		if (m_DrawWireframeCubes)
+		{
+			var cells = m_Chunk.GetWritableData();
+			for (var index = 0; index < cells.Length; index++)
+			{
+				var cell = cells[index];
+				if (cell.Type != CellType.Air)
+					Handles.DrawWireCube(cell.CubePosition, Vector3.one);
+			}
+		}
 	}
 }

@@ -98,7 +98,7 @@ namespace CodeSmile.ProTiler.Model
 
 			m_Size = math.max(ChunkSize.zero, size);
 			m_Data = data;
-			ExpandListSizeToHeightLayer(m_Size.y);
+			ResizeListToIncludeHeightLayer(m_Size.y);
 		}
 
 		/// <summary>
@@ -154,7 +154,7 @@ namespace CodeSmile.ProTiler.Model
 			if (chunkIndex >= m_Data.Length)
 			{
 				var accessedHeightLayer = ToHeightLayer(chunkIndex);
-				ExpandListSizeToHeightLayer(accessedHeightLayer);
+				ResizeListToIncludeHeightLayer(accessedHeightLayer);
 			}
 
 			return chunkIndex;
@@ -166,13 +166,13 @@ namespace CodeSmile.ProTiler.Model
 			return (Int32)math.round((chunkIndex + layerSize) / layerSize);
 		}
 
-		private void ExpandListSizeToHeightLayer(Int32 layerIndex)
+		private void ResizeListToIncludeHeightLayer(Int32 layerIndex)
 		{
 			layerIndex = math.max(0, layerIndex);
 			var layerSize = m_Size.x * m_Size.z;
 			var requestedListSize = layerSize * layerIndex;
 
-			m_Data.Resize(requestedListSize);
+			m_Data.Resize(requestedListSize, NativeArrayOptions.ClearMemory);
 			m_Size.y = layerIndex;
 		}
 
