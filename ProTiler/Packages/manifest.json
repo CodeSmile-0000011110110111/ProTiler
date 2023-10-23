@@ -1,11 +1,11 @@
 {
   "dependencies": {
     "com.unity.collections": "1.2.4",
-    "com.unity.ide.rider": "3.0.24",
+    "com.unity.ide.rider": "3.0.25",
     "com.unity.serialization": "3.1.1",
     "com.unity.sharp-zip-lib": "1.3.4-preview",
-    "com.unity.splines": "2.3.0",
-    "com.unity.test-framework": "1.3.7",
+    "com.unity.splines": "2.4.0",
+    "com.unity.test-framework": "1.3.9",
     "com.unity.test-framework.performance": "3.0.0-pre.2",
     "com.unity.toolchain.win-x86_64-linux-x86_64": "2.0.5",
     "com.unity.ugui": "1.0.0",
